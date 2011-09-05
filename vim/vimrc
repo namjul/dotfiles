@@ -23,8 +23,7 @@
 " }
 
 " Vim UI {
-	syntax on " syntax highlighting
-	set background=dark
+	syntax enable " syntax highlighting
 	set mouse=a
 	set number "Show lines numbers
 
@@ -32,9 +31,14 @@
   :set guioptions-=T  "remove toolbar
   :set guioptions-=r  "remove right-hand scroll bar
 	
+  if has('gui_running')
+    set background=light
+  else
+    set background=dark
+  endif
+
 	set t_Co=256 "Terminal Colors
-	colors xoria256 " Load a colorschem
-  "color solarized  
+  colorscheme solarized
 
 	set ruler "Display current cursor position in lower right corner.
 	set showcmd "Show command in bottom right portion of the screen
