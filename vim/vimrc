@@ -63,18 +63,22 @@
 
 	set wildmenu " More useful command-line completion
 	set wildmode=list:longest,full "Auto-completion menu
+
+  set nowrap "dont wrap lines
 "}
 
 " Formatting {
 	" Be smart, and awesome, about indentation
 	set autoindent " Indent at the same level as previous line
+  set copyindent
 	set smartindent
 	set smarttab
 	set expandtab " Tabs are spaces
 
 	set tabstop=2 " Tabs are 2 spaces
-	set backspace=2 " Backspace back 2 spaces
+	set backspace=indent,eol,start " Backspace back 2 spaces
 	set shiftwidth=2 " Even if there are tabs, preview as 2 spaces
+  set shiftround    " use multiple of shiftwidth when indenting with '<' and '>'"
 " }
 
 " Key Mapping {
