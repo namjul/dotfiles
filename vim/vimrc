@@ -17,9 +17,18 @@
 	set shortmess=filmnrxoOtT      " abbrev. of messages (avoids 'hit enter')
 	set history=1000 " Keep (a lot) more history
 
-	" No needs for backups, I have Git for that
+	"No needs for backups, I have Git for that
 	set noswapfile 
 	set nobackup
+
+	"pusts vim in the so-called paste mode by toggling with F12
+	nnoremap <F2> :set invpaste paste?<CR>
+	set pastetoggle=<F2>
+	set showmode
+
+  "switch window by ctrl+direction"
+	map <C-J> <C-W>j<C-W>_
+  map <C-K> <C-W>k<C-W>_
 " }
 
 " Vim UI {
@@ -111,6 +120,7 @@
   " NerdTree {
     let NERDTreeChDirMode = 1
     let NERDTreeWinSize=20
+    let NERDTreeShowHidden=1
 
     :noremap ,n :NERDTreeToggle<CR>
   " }
