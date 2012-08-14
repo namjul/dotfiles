@@ -1,130 +1,60 @@
-" Setup Bundle Support {
-	call pathogen#infect()
-"}
 
-" Basics {
-	set nocompatible "disables compatibility with vi
-	let mapleader="," "Mapleader
-"}
+set nocompatible                " choose no compatibility with legacy vi
+syntax enable
+set encoding=utf-8
+set showcmd                     " display incomplete commands
+filetype plugin indent on       " load file type plugins + indentation
+call pathogen#infect()
 
-" General {
-  filetype off
- 	filetype plugin indent on " Automatically change file types.
-  autocmd BufNewFile,BufRead *.erb set filetype=html
-	au BufRead,BufNewFile *.less setfiletype css
+set background=dark
+color molokai
 
-	"set autochdir " Automatically always switch to the current files directory.
-	set shortmess=filmnrxoOtT      " abbrev. of messages (avoids 'hit enter')
-	set history=1000 " Keep (a lot) more history
+set number "Show lines numbers
 
-	"No needs for backups, I have Git for that
-	set noswapfile 
-	set nobackup
+set ruler "Display current cursor position in lower right corner.
+set showcmd "Show command in bottom right portion of the screen
+set laststatus=2 "Always show the status line
+set showmatch " Show matching of: () [] {}
+set mousehide "Hide mouse when typing
 
-	"pusts vim in the so-called paste mode by toggling with F12
-	nnoremap <F2> :set invpaste paste?<CR>
-	set pastetoggle=<F2>
-	set showmode
+set autoread " Auto read when file is changed
+set hidden " Hide buffers, rather than close them
 
-  "switch window by ctrl+direction"
-	map <C-J> <C-W>j<C-W>_
-  map <C-K> <C-W>k<C-W>_
-" }
+set autowrite "Write the old file out when switching between files.
 
-" Vim UI {
-	syntax enable " syntax highlighting
-	set mouse=a
-	set number "Show lines numbers
+set wildmenu " More useful command-line completion
+set wildmode=list:longest,full "Auto-completion menu
 
-  :set guioptions-=m  "remove menu bar
-  :set guioptions-=T  "remove toolbar
-  :set guioptions-=r  "remove right-hand scroll bar
-	
-  if has('gui_running')
-    set background=light
-  else
-    set background=dark
-  endif
 
-	set t_Co=256 "Terminal Colors
-  colorscheme solarized
+"" Formatting
+set autoindent " Indent at the same level as previous line
+set copyindent
+set smartindent
+set smarttab
 
-	set ruler "Display current cursor position in lower right corner.
-	set showcmd "Show command in bottom right portion of the screen
+"" Whitespace
+set nowrap                      " don't wrap lines
+set tabstop=2 shiftwidth=2      " a tab is two spaces (or set this to 4)
+set expandtab                   " use spaces, not tabs (optional)
+set backspace=indent,eol,start  " backspace through everything in insert mode
 
-	set laststatus=2 "Always show the status line
+"" Searching
+set hlsearch                    " highlight matches
+set incsearch                   " incremental searching
+set ignorecase                  " searches are case insensitive...
+set smartcase                   " ... unless they contain at least one capital letter
 
-	set showmatch " Show matching of: () [] {}
+let mapleader="," 
 
-	set mousehide "Hide mouse when typing
+"" No needs for backups, I have Git for that
+set noswapfile 
+set nobackup
 
-	" Searching {
-		set ignorecase " Case insensitive search
-		set smartcase " Case sensitive when uppercase is present
-		set incsearch " Search as you type
-		set hlsearch " Highlight search matches
-	" }
-	
-	set autoread " Auto read when file is changed
-	set hidden " Hide buffers, rather than close them
 
-	set autowrite "Write the old file out when switching between files.
+"" NerdTree
+let NERDTreeChDirMode = 1
+let NERDTreeWinSize=20
+let NERDTreeShowHidden=1
 
-	set wildmenu " More useful command-line completion
-	set wildmode=list:longest,full "Auto-completion menu
+:noremap ,n :NERDTreeToggle<CR>
 
-  set nowrap "dont wrap lines
-"}
-
-" Formatting {
-	" Be smart, and awesome, about indentation
-	set autoindent " Indent at the same level as previous line
-  set copyindent
-	set smartindent
-	set smarttab
-	set expandtab " Tabs are spaces
-
-	set tabstop=2 " Tabs are 2 spaces
-	set backspace=indent,eol,start " Backspace back 2 spaces
-	set shiftwidth=2 " Even if there are tabs, preview as 2 spaces
-  set shiftround    " use multiple of shiftwidth when indenting with '<' and '>'"
-" }
-
-" Key Mapping {
-	map <S-C-J> <C-W>j<C-W>_
-	map <S-C-K> <C-W>k<C-W>_
-	map <S-C-L> <C-W>l<C-W>_
-	map <S-C-H> <C-W>h<C-W>_
-	map <S-C-K> <C-W>k<C-W>_
-	map <C-J> <C-W>j
-	map <C-K> <C-W>k
-	map <C-L> <C-W>l
-	map <C-H> <C-W>h
-	map <C-K> <C-W>k
-	map <S-H> gT map <S-L> gt
-
-	" Use jk as escape
-	inoremap jk <esc>
-
-	" Shift key fixes
-	cmap W w
-	cmap WQ wq
-	cmap wQ wq
-	cmap Q q
-
-	" Key mappings
-	:noremap ,d :bd<CR>
-" }
-
-" Plugins {
-  " NerdTree {
-    let NERDTreeChDirMode = 1
-    let NERDTreeWinSize=20
-    let NERDTreeShowHidden=1
-
-    :noremap ,n :NERDTreeToggle<CR>
-  " }
-  " Delimitmate {
-    au FileType * let b:delimitMate_autoclose = 1
-  " }
-" }
