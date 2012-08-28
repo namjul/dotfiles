@@ -1,0 +1,21 @@
+[submodule "vim/bundle/colorschemes"]
+	path = vim/bundle/colorschemes
+	url = git://github.com/flazz/vim-colorschemes.git
+[submodule "vim/bundle/nerdtree"]
+	path = vim/bundle/nerdtree
+	url = git://github.com/scrooloose/nerdtree.git
+[submodule "vim/bundle/solarized"]
+	path = vim/bundle/solarized
+	url = git://github.com/altercation/vim-colors-solarized.git
+[submodule "vim/bundle/javascript"]
+	path = vim/bundle/javascript
+	url = git://github.com/pangloss/vim-javascript.git
+[submodule "vim/bundle/delimitmate"]
+	path = vim/bundle/delimitmate
+	url = git://github.com/Raimondi/delimitMate.git
+[submodule "vim/bundle/stylus"]
+	path = vim/bundle/stylus
+	url = git://github.com/wavded/vim-stylus.git
+[submodule "vim/bundle/snipmate"]
+	path = vim/bundle/snipmate
+	url = git://github.com/msanders/snipmate.vim.git

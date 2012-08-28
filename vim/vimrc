@@ -6,16 +6,22 @@ set showcmd                     " display incomplete commands
 filetype plugin indent on       " load file type plugins + indentation
 call pathogen#infect()
 
-set background=dark
-color molokai
+if has('gui_running')
+  set background=light
+else
+  set background=dark
+endif
+colorscheme solarized
+
+set t_Co=256 "Terminal Colors
 
 set number "Show lines numbers
-
 set ruler "Display current cursor position in lower right corner.
 set showcmd "Show command in bottom right portion of the screen
 set laststatus=2 "Always show the status line
 set showmatch " Show matching of: () [] {}
 set mousehide "Hide mouse when typing
+set mouse=a "Enable Mouse clicking
 
 set autoread " Auto read when file is changed
 set hidden " Hide buffers, rather than close them
@@ -49,6 +55,13 @@ let mapleader=","
 "" No needs for backups, I have Git for that
 set noswapfile 
 set nobackup
+
+" easier navigation between split windows
+nnoremap <c-j> <c-w>j
+nnoremap <c-k> <c-w>k
+nnoremap <c-h> <c-w>h
+nnoremap <c-l> <c-w>l
+
 
 
 "" NerdTree
