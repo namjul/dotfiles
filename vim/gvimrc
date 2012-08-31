@@ -1,4 +1,4 @@
-set guifont=Menlo\ Regular:h14
+set guifont=Monaco:h14
 set linespace=2
 set antialias
 
@@ -8,6 +8,7 @@ set visualbell
 set guioptions-=T " No toolbar
 set guioptions-=r " No scrollbars
 set guioptions-=m " remove menubar 
+set go-=L " Removes left hand scroll bar
 
 if has("gui_macvim")
   " Fullscreen takes up entire screen
