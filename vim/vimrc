@@ -11,7 +11,7 @@ if has('gui_running')
 else
   set background=dark
 endif
-colorscheme solarized
+colorscheme Tomorrow-Night 
 
 set t_Co=256 "Terminal Colors
 
@@ -78,7 +78,12 @@ let NERDTreeShowHidden=1
 :noremap ,n :NERDTreeToggle<cr>
 
 "" jsBeautify 
-let g:jsbeautify = {'indent_size': 1, 'indent_char': '\t'}
+let g:jsbeautify = {'indent_size': 2, 'indent_char': ' '}
 map <c-f> :call JsBeautify()<cr>       
 
+"" paste mode
+set pastetoggle=<F2>
+
+"" zencoding new key map
+let g:user_zen_expandabbr_key = '<c-e>'
 
