@@ -11,7 +11,7 @@ if has('gui_running')
 else
   set background=dark
 endif
-colorscheme Tomorrow-Night 
+colorscheme Tomorrow 
 
 set t_Co=256 "Terminal Colors
 
@@ -36,7 +36,6 @@ set wildmode=list:longest,full "Auto-completion menu
 set autoindent " Indent at the same level as previous line
 set copyindent
 set smartindent
-set smarttab
 
 "" Whitespace
 set nowrap                      " don't wrap lines
@@ -77,13 +76,18 @@ let NERDTreeWinSize=20
 let NERDTreeShowHidden=1
 :noremap ,n :NERDTreeToggle<cr>
 
-"" jsBeautify 
-let g:jsbeautify = {'indent_size': 2, 'indent_char': ' '}
-map <c-f> :call JsBeautify()<cr>       
-
 "" paste mode
 set pastetoggle=<F2>
 
 "" zencoding new key map
 let g:user_zen_expandabbr_key = '<c-e>'
+
+"" ctrlp settings
+set runtimepath^=~/.vim/bundle/ctrlp.vim
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlP'
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip
+
+"" turn on spell checking
+map <F8>  :setlocal spell spelllang=de <return>
 
