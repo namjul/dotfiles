@@ -33,3 +33,7 @@ installcask vlc
 installcask virtualbox
 installcask sequel-pro
 installcasl transmit
+
+# install some node dependencies
+npm install jshint -g
+npm install -g git://github.com/ramitos/jsctags.git

@@ -29,6 +29,8 @@ brew install rename
 brew install tree
 brew install node
 brew install z
+brew install macvim --override-system-vim
+brew install cmake
 
 # Remove outdated versions from the cellar
 brew cleanup

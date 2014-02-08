@@ -1,5 +1,44 @@
-" Make Vim more useful
-set nocompatible
+set nocompatible " Make Vim more useful
+filetype off " required!
+
+" Use Vundle as plugin manager
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+
+Bundle 'gmarik/vundle'
+Bundle 'scrooloose/nerdtree'
+Bundle 'kien/ctrlp.vim'
+Bundle 'tpope/vim-surround'
+Bundle 'scrooloose/nerdcommenter'
+Bundle 'scrooloose/syntastic'
+Bundle 'bling/vim-airline'
+Bundle 'tpope/vim-fugitive'
+Bundle 'majutsushi/tagbar'
+Bundle 'valloric/youcompleteme'
+Bundle 'vim-scripts/camelcasemotion'
+Bundle 'marijnh/tern_for_vim'
+Bundle 'Raimondi/delimitMate'
+Bundle 'mattn/emmet-vim'
+Bundle 'myusuf3/numbers.vim'
+Bundle 'spf13/PIV'
+Bundle 'editorconfig/editorconfig-vim'
+
+Bundle 'ap/vim-css-color'
+Bundle 'hail2u/vim-css3-syntax'
+Bundle 'groenewege/vim-less'
+Bundle 'wavded/vim-stylus'
+Bundle 'pangloss/vim-javascript'
+Bundle 'digitaltoad/vim-jade'
+
+Bundle 'MarcWeber/vim-addon-mw-utils'
+Bundle 'tomtom/tlib_vim'
+Bundle 'garbas/vim-snipmate'
+Bundle 'honza/vim-snippets'
+
+filetype plugin indent on " load file type plugins + indentation
+
+" make css autocomplete working
+autocmd FileType less,stylus,scss setlocal omnifunc=csscomplete#CompleteCSS
 
 " Set syntax highlighting options.
 set t_Co=256
@@ -7,12 +46,9 @@ syntax enable
 set background=dark
 colorscheme solarized
 
-
 " Change mapleader
 let mapleader="," 
 
-filetype plugin indent on " load file type plugins + indentation
-call pathogen#infect()
 
 " Some wild settings
 set encoding=utf-8 nobomb " BOM often causes trouble
@@ -63,10 +99,6 @@ map <Leader>a ggVG
 "" toggle wrap
 nmap <silent> <leader>ww :set invwrap<CR>:set wrap?<CR>
 
-"" No needs for backups, I have Git for that
-"set noswapfile 
-"set nobackup
-
 " Local dirs
 set backupdir=~/.vim/backups
 set directory=~/.vim/swaps
@@ -88,17 +120,20 @@ let NERDTreeShowHidden=1
 set pastetoggle=<leader>p
 map <leader>p :set invpaste paste?<CR>
 
-"" zencoding new key map
+" zencoding new key map
 "let g:user_zen_expandabbr_key = '<c-e>'
 
-"" ctrlp settings
+" ctrlp settings
 set runtimepath^=~/.vim/bundle/ctrlp.vim
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip
 
-"" turn on spell checking
+" turn on spell checking
 map <F8>  :setlocal spell spelllang=de <return>
+
+" ctag mapping
+nmap <F9> :TagbarToggle<CR>
 
 " Remap :W to :w
 command W w
@@ -109,3 +144,26 @@ map <PageDown> <C-D>
 imap <PageUp> <C-O><C-U>
 imap <PageDown> <C-O><C-D>
 
+" airline statusbar settings
+let g:airline_powerline_fonts = 1
+let g:airline_left_sep = '▙'
+let g:airline_right_sep = '▟'
+let g:airline#extensions#tabline#enabled = 1
+
+" CamelcaseMotion
+map <silent> w <Plug>CamelCaseMotion_w
+map <silent> b <Plug>CamelCaseMotion_b
+map <silent> e <Plug>CamelCaseMotion_e
+sunmap w
+sunmap b
+sunmap e
+
+" closetag
+let g:closetag_html_style=1 
+
+" snippets mapping
+imap <C-J> <Plug>snipMateNextOrTrigger
+smap <C-J> <Plug>snipMateNextOrTrigger
+
+"YouCompleteME
+let g:ycm_autoclose_preview_window_after_completion = 1
