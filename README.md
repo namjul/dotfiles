@@ -21,13 +21,13 @@ brew install git
 
 1. Clone dotfiles repo - git clone https://github.com/namjul/dotfiles.git
 2. Setup dotfiles - source .sync.sh
-3. Create .extra file with git configs
+3. Create .extra file with git credentials
 ```
 # Git credentials
-GIT_AUTHOR_NAME="Samuel Hobl"
+GIT_AUTHOR_NAME="nam"
 GIT_COMMITTER_NAME="$GIT_AUTHOR_NAME"
 git config --global user.name "$GIT_AUTHOR_NAME"
-GIT_AUTHOR_EMAIL="mathias@mailinator.com"
+GIT_AUTHOR_EMAIL="nam@mailinator.com"
 GIT_COMMITTER_EMAIL="$GIT_AUTHOR_EMAIL"
 git config --global user.email "$GIT_AUTHOR_EMAIL"
 ```
@@ -45,9 +45,13 @@ git config --global user.email "$GIT_AUTHOR_EMAIL"
 ### 6. Configure Vim Plugins
 1. Install DejaVuSansMono for powerline font - https://github.com/Lokaltog/powerline-fonts/tree/master/DejaVuSansMono 
 2. Vunble plugin install - :BundleInstall
-3. cd ~/.vim/bundle/YouCompleteMe
+3. ```
+cd ~/.vim/bundle/YouCompleteMe
   ./install.sh
-4. cd ~/.vim/bundle/tern_for_vim && npm install
+```
+4. ``` 
+cd ~/.vim/bundle/tern_for_vim && npm install
+```
 5. set iTerm2 Kontrast to 1/3
 
 ### 7. Generate SSH keys for github
