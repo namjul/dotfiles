@@ -34,3 +34,7 @@ brew install cmake
 
 # Remove outdated versions from the cellar
 brew cleanup
+
+# install some node dependencies
+npm install jshint -g
+npm install -g git://github.com/ramitos/jsctags.git

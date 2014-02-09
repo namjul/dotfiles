@@ -1,23 +1,80 @@
-### Installation
+## Setup
 
-    git clone git@github.com:namjul/dotfiles.git ~/.dotfiles
+### 1. Run software update
+Make sure everything is up to date.
+### 2. Install Xcode and/or "Command Line Tools"
 
-1. Install command line tools - https://developer.apple.com/downloads/index.action
-2. Install homebrew - ruby -e "$(curl -fsSL https://raw.github.com/mxcl/homebrew/go)"
-3. Install git - brew install git
-4. Clone dotfiles repo - git clone https://github.com/namjul/dotfiles.git dotfiles
-5. Setup dotfiles - source sync.sh
-6. run .osx
-7. Install inconsolata for powerline font - https://github.com/Lokaltog/powerline-fonts/blob/master/Inconsolata/Inconsolata%20for%20Powerline.otf
-8. Install solarized for iterm2 - Install solarized for iterm2 http://ethanschoonover.com/solarized
-9. Setup PCKeyboardHack
-10. Restart
-11. Update OS X stuff
+"Command Line Tools" can be downloaded separate from Xcode at
+https://developer.apple.com/downloads/ - 
 
-missing:
-- BundleInstall for vim
-- install jsctags
-- cd ~/.vim/bundle/YouCompleteMe
+More info on [how to download Command Line Tools inside XCode can be found on StackOverflow](http://stackoverflow.com/questions/9329243/xcode-4-4-and-later-install-command-line-tools)
+
+### 3. Install homebrew and Git
+```sh
+# install homebrew
+ruby -e "$(curl -fsSL https://raw.github.com/mxcl/homebrew/go)"
+# install git
+brew install git
+```
+
+### 4. Setup dotfiles
+
+1. Clone dotfiles repo - git clone https://github.com/namjul/dotfiles.git
+2. Setup dotfiles - source .sync.sh
+3. Create .extra file with git configs
+```
+# Git credentials
+GIT_AUTHOR_NAME="Samuel Hobl"
+GIT_COMMITTER_NAME="$GIT_AUTHOR_NAME"
+git config --global user.name "$GIT_AUTHOR_NAME"
+GIT_AUTHOR_EMAIL="mathias@mailinator.com"
+GIT_COMMITTER_EMAIL="$GIT_AUTHOR_EMAIL"
+git config --global user.email "$GIT_AUTHOR_EMAIL"
+```
+
+### 5. Setup osx and install softwares
+```sh
+# setup osx settings
+~/.osx
+# install brew formulas
+~/.brew
+# install cask softwares
+~/.cask
+```
+
+### 6. Configure Vim Plugins
+1. Install DejaVuSansMono for powerline font - https://github.com/Lokaltog/powerline-fonts/tree/master/DejaVuSansMono 
+2. Vunble plugin install - :BundleInstall
+3. cd ~/.vim/bundle/YouCompleteMe
   ./install.sh
-- cd ~/.vim/bundle/tern_for_vim && npm install
-- virutalbox IE images
+4. cd ~/.vim/bundle/tern_for_vim && npm install
+5. set iTerm2 Kontrast to 1/3
+
+### 7. Generate SSH keys for github
+
+[generate SSH keys for github](https://help.github.com/articles/generating-ssh-keys)
+
+### 8. Download IE test VMs for VirtualBox
+
+http://www.modern.ie/en-us/virtualization-tools
+
+```sh
+# IE8 XP
+curl -O "https://az412801.vo.msecnd.net/vhd/IEKitV1_Final/VirtualBox/OSX/IE8_XP/IE8.XP.For.MacVirtualBox.ova"
+
+# IE9 Win7
+curl -O "https://az412801.vo.msecnd.net/vhd/IEKitV1_Final/VirtualBox/OSX/IE9_Win7/IE9.Win7.For.MacVirtualBox.part{1.sfx,2.rar,3.rar,4.rar,5.rar}"
+
+# IE10 Win8
+curl -O "https://az412801.vo.msecnd.net/vhd/IEKitV1_Final/VirtualBox/OSX/IE10_Win8/IE10.Win8.For.MacVirtualBox.part{1.sfx,2.rar,3.rar}"
+```
+
+### 10. End
+1. Restart
+2. Update OS X stuff
+
+#### Credits
+
+https://github.com/mathiasbynens/dotfiles
+https://github.com/paulirish/dotfiles
+https://gist.github.com/millermedeiros/6615994

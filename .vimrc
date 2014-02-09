@@ -14,7 +14,7 @@ Bundle 'scrooloose/syntastic'
 Bundle 'bling/vim-airline'
 Bundle 'tpope/vim-fugitive'
 Bundle 'majutsushi/tagbar'
-Bundle 'valloric/youcompleteme'
+Bundle 'Valloric/YouCompleteMe'
 Bundle 'vim-scripts/camelcasemotion'
 Bundle 'marijnh/tern_for_vim'
 Bundle 'Raimondi/delimitMate'
@@ -120,9 +120,6 @@ let NERDTreeShowHidden=1
 set pastetoggle=<leader>p
 map <leader>p :set invpaste paste?<CR>
 
-" zencoding new key map
-"let g:user_zen_expandabbr_key = '<c-e>'
-
 " ctrlp settings
 set runtimepath^=~/.vim/bundle/ctrlp.vim
 let g:ctrlp_map = '<c-p>'
@@ -138,6 +135,10 @@ nmap <F9> :TagbarToggle<CR>
 " Remap :W to :w
 command W w
 
+" Remap Esc to jk and kj
+:imap jk <Esc>
+:imap kj <Esc>
+
 " Fix page up and down
 map <PageUp> <C-U>
 map <PageDown> <C-D>
@@ -145,10 +146,12 @@ imap <PageUp> <C-O><C-U>
 imap <PageDown> <C-O><C-D>
 
 " airline statusbar settings
-let g:airline_powerline_fonts = 1
-let g:airline_left_sep = '▙'
-let g:airline_right_sep = '▟'
-let g:airline#extensions#tabline#enabled = 1
+if has("gui_running")
+  let g:airline#extensions#tabline#enabled = 1
+  let g:airline_powerline_fonts = 1
+  let g:airline_left_sep = '▙'
+  let g:airline_right_sep = '▟'
+endif
 
 " CamelcaseMotion
 map <silent> w <Plug>CamelCaseMotion_w
@@ -162,8 +165,14 @@ sunmap e
 let g:closetag_html_style=1 
 
 " snippets mapping
-imap <C-J> <Plug>snipMateNextOrTrigger
+imap <C-J> <esc>a<Plug>snipMateNextOrTrigger
 smap <C-J> <Plug>snipMateNextOrTrigger
 
 "YouCompleteME
 let g:ycm_autoclose_preview_window_after_completion = 1
+let g:ycm_add_preview_to_completeopt=0
+let g:ycm_confirm_extra_conf=0
+set completeopt-=preview
+
+" toogle background
+map <Leader>bg :let &background = ( &background == "dark"? "light" : "dark" )<CR>
