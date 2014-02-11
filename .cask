@@ -29,4 +29,7 @@ installcask spectacle
 installcask vlc
 installcask virtualbox
 installcask sequel-pro
-installcasl transmit
+installcask transmit
+
+installcask alfred
+brew cask alfred link

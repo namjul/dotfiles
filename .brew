@@ -31,6 +31,8 @@ brew install node
 brew install z
 brew install macvim --override-system-vim
 brew install cmake
+brew install mysql
+brew install ctags
 
 # Remove outdated versions from the cellar
 brew cleanup

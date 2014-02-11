@@ -73,6 +73,7 @@ set nostartofline " Don’t reset cursor to start of line when moving around.
 set shortmess=atI " Don’t show the intro message when starting Vim
 set visualbell " Use visual bell instead of audible bell
 set foldcolumn=3 " Column to show folds
+set nofoldenable " disable folding"
 
 "" Formatting
 set autoindent " Indent at the same level as previous line
