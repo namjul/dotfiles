@@ -22,6 +22,7 @@ Bundle 'mattn/emmet-vim'
 Bundle 'myusuf3/numbers.vim'
 Bundle 'spf13/PIV'
 Bundle 'editorconfig/editorconfig-vim'
+Bundle 'HTML-AutoCloseTag'
 
 Bundle 'ap/vim-css-color'
 Bundle 'hail2u/vim-css3-syntax'
