@@ -31,6 +31,7 @@ installcask virtualbox
 installcask sequel-pro
 installcask transmit
 installcask mou
+installcask keyremap4macbook
 
 installcask alfred
 brew cask alfred link

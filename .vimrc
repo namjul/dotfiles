@@ -79,6 +79,7 @@ set nofoldenable " disable folding"
 "" Formatting
 set autoindent " Indent at the same level as previous line
 set smartindent
+set cindent 
 
 "" Whitespace
 set nowrap " don't wrap lines
@@ -138,8 +139,8 @@ nmap <F9> :TagbarToggle<CR>
 command W w
 
 " Remap Esc to jk and kj
-:imap jk <Esc>
-:imap kj <Esc>
+":imap jk <Esc>
+":imap kj <Esc>
 
 " Fix page up and down
 map <PageUp> <C-U>
@@ -166,6 +167,9 @@ sunmap e
 " closetag
 let g:closetag_html_style=1 
 
+" emmet
+let g:user_emmet_leader_key='<C-Z>'
+
 " snippets mapping
 imap <C-J> <esc>a<Plug>snipMateNextOrTrigger
 smap <C-J> <Plug>snipMateNextOrTrigger
@@ -178,3 +182,7 @@ set completeopt-=preview
 
 " toogle background
 map <Leader>bg :let &background = ( &background == "dark"? "light" : "dark" )<CR>
+
+" Maximize window and return to previous split structure
+nmap t% :tabedit %<CR>
+nmap td :tabclose<CR>
