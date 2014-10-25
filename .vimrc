@@ -115,6 +115,10 @@ nnoremap <c-k> <c-w>k
 nnoremap <c-h> <c-w>h
 nnoremap <c-l> <c-w>l
 
+" Disable beep and flash with an autocmd
+set noerrorbells visualbell t_vb=
+autocmd GUIEnter * set visualbell t_vb=
+
 "" NerdTree
 let NERDTreeChDirMode = 1
 let NERDTreeWinSize=20
@@ -151,12 +155,10 @@ imap <PageUp> <C-O><C-U>
 imap <PageDown> <C-O><C-D>
 
 " airline statusbar settings
-if has("gui_running")
-  let g:airline#extensions#tabline#enabled = 1
-  let g:airline_powerline_fonts = 1
-  let g:airline_left_sep = '▙'
-  let g:airline_right_sep = '▟'
-endif
+let g:airline#extensions#tabline#enabled = 1
+let g:airline_powerline_fonts = 1
+let g:airline_left_sep = '▙'
+let g:airline_right_sep = '▟'
 
 " CamelcaseMotion
 map <silent> w <Plug>CamelCaseMotion_w
