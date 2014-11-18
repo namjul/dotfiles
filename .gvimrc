@@ -1,6 +1,9 @@
 colorscheme solarized
 set background=light
-set guifont=DejaVu_Sans_Mono_for_Powerline:h14
+set guifont=Monaco\ for\ Powerline\ 11
 set linespace=6
 set antialias
-set guioptions=ctm
+set guioptions-=m  "menu bar
+set guioptions-=T  "toolbar
+set guioptions-=r  "scrollbar
+set guioptions-=L  "scrollbar
