@@ -1,21 +1,31 @@
-
-#Statusbar loop
-while true; do
-	xsetroot -name "$( date + "%F %R" )"
-	sleep 1m # Update time every minute
-done &
-
-# Autostart section
-#pcmanfm &
-
 # ma caps lock to escape
 setxkbmap -option ctrl:nocaps
 xcape -e 'Control_L=Escape'
 
-# load Xresources
-[[ -f ~/.Xresources ]] && xrdb -merge ~/.Xresources
+# load .Xresources
+xrdb -merge $HOME/.Xresources
+
+# add in fonts
+xset +fp /usr/share/fonts/local  
+
+#start dropbox daemon
+#dropboxd &
+
+# enable restart X
+setxkbmap -option terminate:ctrl_alt_bksp
 
 # set keyboard speed
 xset r rate 200 30
 
-exec startdwm
+# ---- window manager ----
+# launch dwm
+while true; do
+		$HOME/scripts/dwm-statusbar
+    	sleep 2
+done &
+
+while true; do
+	# dwm >/dev/null
+	# to log stderrors to a file
+	dwm 2> ~/dwm.log
+done
