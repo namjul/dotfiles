@@ -14,6 +14,9 @@ xset +fp /usr/share/fonts/local
 # enable restart X
 setxkbmap -option terminate:ctrl_alt_bksp
 
+# set background-color
+xsetroot -solid "#222222"
+
 # set keyboard speed
 xset r rate 200 30
 
