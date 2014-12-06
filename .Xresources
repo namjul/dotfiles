@@ -84,3 +84,7 @@ xterm*dynamicColors:      true
 xterm*utf8:               2
 xterm*selectToClipboard:  true
 
+dzen2.font: -*-tamsynmod-medium-r-*-*-17-*-*-*-*-*-*-*
+dzen2.foreground: #4d79ff
+dzen2.background: #222222
+
