@@ -37,3 +37,13 @@ done
 
 # If possible, add tab completion for many more commands
 [ -f /etc/bash_completion ] && source /etc/bash_completion
+
+# autostart startx
+if [ "$(tty)" = "/dev/tty1" ]; then
+  startx
+  logout
+fi
+
+# start nvm
+source ~/.nvm/nvm.sh
+

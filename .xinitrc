@@ -20,6 +20,12 @@ xsetroot -solid "#222222"
 # set keyboard speed
 xset r rate 200 30
 
+#start pulseaudio
+#pulseaudio -D
+
+#disable touchpad on keyboad usage
+syndaemon -t -k -i 2 &
+
 # ---- window manager ----
 # launch dwm
 while true; do
