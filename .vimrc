@@ -129,6 +129,10 @@ let NERDTreeShowHidden=1
 set pastetoggle=<leader>p
 map <leader>p :set invpaste paste?<CR>
 
+"copy/paste mapping
+vnoremap <C-c> "+y
+inoremap <C-v> <C-o>"+p
+
 " ctrlp settings
 set runtimepath^=~/.vim/bundle/ctrlp.vim
 let g:ctrlp_map = '<c-p>'
