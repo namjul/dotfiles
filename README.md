@@ -43,8 +43,8 @@ git config --global user.email "$GIT_AUTHOR_EMAIL"
 ```
 
 ### 6. Configure Vim Plugins
-1. Install DejaVuSansMono for powerline font - https://github.com/Lokaltog/powerline-fonts/tree/master/DejaVuSansMono 
-2. Vunble plugin install - :BundleInstall
+1. Install powerline font - https://github.com/Lokaltog/powerline-fonts
+2. Vunble plugin install - :PluginInstall
 3. Set iTerm2 Kontrast to 1/3
 4. Setup YouCompleteMe & Tern
 ```sh
