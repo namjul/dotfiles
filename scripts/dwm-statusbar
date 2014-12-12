@@ -10,7 +10,7 @@ sp3="$(echo -ne "${color0}|")"
 
 
 print_datetime() {
-  datetime="$(date "+%a %d %b %I:%M")"
+  datetime="$(date "+%a %d %b %H:%M")"
   echo -e "${color6}É${sp}${color0}${datetime}"
 }
 
