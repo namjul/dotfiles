@@ -23,6 +23,8 @@ Plugin 'myusuf3/numbers.vim'
 Plugin 'spf13/PIV'
 Plugin 'editorconfig/editorconfig-vim'
 Plugin 'HTML-AutoCloseTag'
+Plugin 'suan/vim-instant-markdown'
+
 
 Plugin 'ap/vim-css-color'
 Plugin 'hail2u/vim-css3-syntax'
@@ -30,6 +32,7 @@ Plugin 'groenewege/vim-less'
 Plugin 'wavded/vim-stylus'
 Plugin 'pangloss/vim-javascript'
 Plugin 'digitaltoad/vim-jade'
+Plugin 'tpope/vim-markdown'
 
 Plugin 'MarcWeber/vim-addon-mw-utils'
 Plugin 'tomtom/tlib_vim'
