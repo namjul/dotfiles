@@ -23,3 +23,6 @@ export GREP_OPTIONS="--color=auto"
 
 # Link Homebrew casks in `/Applications` rather than `~/Applications`
 export HOMEBREW_CASK_OPTS="--appdir=/Applications"
+
+# Link w3mimgdisplay for ranger
+export W3MIMGDISPLAY_PATH="/usr/local/Cellar/ranger/1.6.1/bin/ranger"
