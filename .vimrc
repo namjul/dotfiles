@@ -164,8 +164,8 @@ imap <PageDown> <C-O><C-D>
 " airline statusbar settings
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
-let g:airline_left_sep = '▙'
-let g:airline_right_sep = '▟'
+"let g:airline_left_sep = '▙'
+"let g:airline_right_sep = '▟'
 
 " CamelcaseMotion
 map <silent> w <Plug>CamelCaseMotion_w
