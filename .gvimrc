@@ -5,7 +5,7 @@ set background=light
 let os = substitute(system('uname'), '\n', '', '')
 if os == 'Darwin' || os == 'Mac'
   " MacVim-specific settings go here
-  set guifont=DejaVu_Sans_Mono_for_Powerline:h14
+  set guifont=Source_Code_Pro_for_Powerline:h17
 elseif os == 'Linux'        
   " GVim-specific settings go here
   set guifont=Monaco\ for\ Powerline\ 11
