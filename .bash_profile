@@ -45,5 +45,5 @@ if [ "$(tty)" = "/dev/tty1" ]; then
 fi
 
 # start nvm
-source ~/.nvm/nvm.sh
+#source ~/.nvm/nvm.sh
 
