@@ -181,6 +181,10 @@ let g:closetag_html_style=1
 " emmet
 let g:user_emmet_leader_key='<C-Z>'
 
+" instant markdown
+let g:instant_markdown_slow = 1
+let g:instant_markdown_autostart = 0
+
 " snippets mapping
 imap <C-J> <esc>a<Plug>snipMateNextOrTrigger
 smap <C-J> <Plug>snipMateNextOrTrigger
