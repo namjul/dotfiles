@@ -33,6 +33,7 @@ Plugin 'wavded/vim-stylus'
 Plugin 'pangloss/vim-javascript'
 Plugin 'digitaltoad/vim-jade'
 Plugin 'tpope/vim-markdown'
+Plugin 'mxw/vim-jsx'
 
 Plugin 'MarcWeber/vim-addon-mw-utils'
 Plugin 'tomtom/tlib_vim'
