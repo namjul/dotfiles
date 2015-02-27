@@ -52,6 +52,7 @@ set t_Co=256
 syntax enable
 set background=dark
 colorscheme solarized
+let g:syntastic_javascript_checkers = ['jsxhint']
 
 " Change mapleader
 let mapleader="," 
