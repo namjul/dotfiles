@@ -6,12 +6,10 @@ function installcask() {
 	brew cask install "${@}" 2> /dev/null
 }
 
-
 installcask dropbox
 installcask skype
 
 installcask google-chrome
-installcask google-chrome-canary
 installcask firefox
 
 installcask imagealpha
@@ -20,18 +18,19 @@ installcask miro-video-converter
 installcask the-unarchiver
 
 installcask iterm2
-installcask macvim
 installcask qlcolorcode
+installcask qlmarkdown
+installcask qlstephen
+installcask quicklook-json
 installcask dash 
+installcask shiori
+installcask flux
 
-installcask reggy
 installcask spectacle
 installcask vlc
 installcask virtualbox
-installcask sequel-pro
 installcask transmit
-installcask mou
 installcask keyremap4macbook
+installcask flash
 
-installcask alfred
 brew cask alfred link
