@@ -35,9 +35,11 @@ git config --global user.email "$GIT_AUTHOR_EMAIL"
 ### 5. Setup osx and install softwares
 ```sh
 # setup osx settings
-~/.osx
+https://gist.github.com/MatthewMueller/e22d9840f9ea2fee4716
+
 # install brew formulas
 ~/.brew
+
 # install cask softwares
 ~/.cask
 ```
