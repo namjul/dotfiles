@@ -201,3 +201,14 @@ map <Leader>bg :let &background = ( &background == "dark"? "light" : "dark" )<CR
 " Maximize window and return to previous split structure
 nmap t% :tabedit %<CR>
 nmap td :tabclose<CR>
+
+" syntastic
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+let g:syntastic_javascript_checkers = ['eslint']
