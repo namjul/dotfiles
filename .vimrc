@@ -142,6 +142,7 @@ set runtimepath^=~/.vim/bundle/ctrlp.vim
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip
+let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
 
 " turn on spell checking
 map <F8>  :setlocal spell spelllang=de <return>
