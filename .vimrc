@@ -217,3 +217,6 @@ let g:syntastic_javascript_checkers = ['eslint']
 
 " enable JSX syntax highlighting for .js files
 let g:jsx_ext_required = 0
+
+" enable tidy5 for html5 checker
+let g:syntastic_html_tidy_exec = 'tidy5'
