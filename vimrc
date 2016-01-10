@@ -95,6 +95,11 @@ syntax enable
 set background=dark
 colorscheme solarized
 
+" Local dirs
+set backupdir=~/.vim/backups//
+set directory=~/.vim/swaps//
+set undodir=~/.vim/undo//
+
 " open vimrc
 nnoremap <leader>v :e  ~/.vimrc<CR>
 nnoremap <leader>V :tabnew  ~/.vimrc<CR>
