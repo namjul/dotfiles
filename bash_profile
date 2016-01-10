@@ -147,9 +147,8 @@ parse_git_branch () {
 export PS1="\[${ORANGE}\]\W\[$WHITE\]\$([[ -n \$(git branch 2> /dev/null) ]] && echo \" on \")\[$PURPLE\]\$(parse_git_branch) \[$RESET\] "
 
 ##############################################################################
-# 04. BASH                                                                   #
+# 05. BASH                                                                   #
 ##############################################################################
-
 
 # Case-insensitive globbing (used in pathname expansion)
 shopt -s nocaseglob
@@ -167,4 +166,8 @@ for option in autocd globstar; do
 	shopt -s "$option" 2> /dev/null
 done
 
+##############################################################################
+# 06. EXTRA                                                                  #
+##############################################################################
 
+[ -f ~/.extra ] && source ~/.extra
