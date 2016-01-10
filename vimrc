@@ -21,15 +21,25 @@ Plugin 'bling/vim-airline'
 Plugin 'tpope/vim-fugitive'
 Plugin 'editorconfig/editorconfig-vim'
 Plugin 'scrooloose/syntastic'
+Plugin 'scrooloose/nerdcommenter'
+Plugin 'Raimondi/delimitMate'
+Plugin 'myusuf3/numbers.vim'
+Plugin 'bkad/CamelCaseMotion'
 
 " autocomplete
-"Plugin 'Valloric/YouCompleteMe'
+Plugin 'Valloric/YouCompleteMe'
 
 " togglable panels
 Plugin 'scrooloose/nerdtree'
 
 " language plugins
 Plugin 'pangloss/vim-javascript'
+
+" snippets
+Plugin 'MarcWeber/vim-addon-mw-utils'
+Plugin 'tomtom/tlib_vim'
+Plugin 'garbas/vim-snipmate'
+Plugin 'honza/vim-snippets'
 
 call vundle#end()
 filetype plugin indent on
@@ -43,7 +53,7 @@ filetype plugin indent on
 
 " Some wild settings
 set encoding=utf-8
-set relativenumber "Show relative lines numbers
+set number "Show relative lines numbers
 set ruler "Display current cursor position in lower right corner.
 set showmatch " Show matching of: () [] {}
 set mousehide "Hide mouse when typing
@@ -77,10 +87,14 @@ set incsearch " incremental searching
 set ignorecase " searches are case insensitive...
 
 " Clear search highlights
-noremap <silent><Leader>/ :noh<CR>
+noremap <silent><Leader>/ :nohls<CR>
 
 " Select all
 map <Leader>a ggVG
+
+"copy/paste mapping
+vnoremap <C-c> "+y
+inoremap <C-v> <C-o>"+p
 
 " set <leader>
 let mapleader=","
@@ -112,6 +126,16 @@ nnoremap <c-j> <c-w>j
 nnoremap <c-k> <c-w>k
 nnoremap <c-h> <c-w>h
 nnoremap <c-l> <c-w>l
+
+" camelCaseMotion settings
+map <silent> w <Plug>CamelCaseMotion_w
+map <silent> b <Plug>CamelCaseMotion_b
+map <silent> e <Plug>CamelCaseMotion_e
+map <silent> ge <Plug>CamelCaseMotion_ge
+sunmap w
+sunmap b
+sunmap e
+sunmap ge
 
 " ctrlp settings
 let g:ctrlp_map = '<c-p>'
