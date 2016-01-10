@@ -12,17 +12,17 @@ sudo pip3 install neovim
 git clone https://github.com/VundleVim/Vundle.Vim ~/.vim/bundle/Vundle.vim
 nvim +PluginInstall
 
-# install YCM
-cd ~/.vim/bundle/YouCompleteMe
-./install.py --tern-completer
-cd
-
 # WARN: from here on its manual
 echo "Please continue manually (see vim_install_ubuntu.sh)"
 exit
 
 # install nvm
 curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.30.1/install.sh | bash
+
+# install YCM
+cd ~/.vim/bundle/YouCompleteMe
+./install.py --tern-completer
+cd
 
 # vimrc for neovim
 mkdir -p ${XDG_CONFIG_HOME:=$HOME/.config}
