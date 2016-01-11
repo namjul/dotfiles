@@ -24,9 +24,6 @@ export LESS_TERMCAP_md="$ORANGE"
 # Don’t clear the screen after quitting a manual page
 export MANPAGER="less -X"
 
-# Always enable colored `grep` output
-export GREP_OPTIONS="--color=auto"
-
 ##############################################################################
 # 02. ALIASES                                                                #
 ##############################################################################
@@ -171,3 +168,7 @@ done
 ##############################################################################
 
 [ -f ~/.extra ] && source ~/.extra
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="/home/nam/.sdkman"
+[[ -s "/home/nam/.sdkman/bin/sdkman-init.sh" ]] && source "/home/nam/.sdkman/bin/sdkman-init.sh"
