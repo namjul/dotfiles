@@ -86,6 +86,9 @@ set hlsearch " highlight matches
 set incsearch " incremental searching
 set ignorecase " searches are case insensitive...
 
+" set <leader>
+let mapleader=","
+
 " Clear search highlights
 noremap <silent><Leader>/ :nohls<CR>
 
@@ -95,9 +98,6 @@ map <Leader>a ggVG
 "copy/paste mapping
 vnoremap <C-c> "+y
 inoremap <C-v> <C-o>"+p
-
-" set <leader>
-let mapleader=","
 
 " mousesupport if not using neovim
 if !has('nvim')
