@@ -34,6 +34,8 @@ Plugin 'scrooloose/nerdtree'
 
 " language plugins
 Plugin 'pangloss/vim-javascript'
+Plugin 'elzr/vim-json'
+Plugin 'mxw/vim-jsx'
 
 " snippets
 Plugin 'MarcWeber/vim-addon-mw-utils'
@@ -145,6 +147,9 @@ let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
 " NerdTree settings
 let NERDTreeShowHidden=1
 noremap <leader>n :NERDTreeToggle<CR>
+
+" jsx for .js files
+let g:jsx_ext_required = 0
 
 " airline statusbar settings
 if !exists("g:airline_symbols")
