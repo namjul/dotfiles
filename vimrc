@@ -124,9 +124,18 @@ nnoremap <leader>V :tabnew  ~/.vimrc<CR>
 " toogle background
 map <Leader>bg :let &background = ( &background == "dark"? "light" : "dark" )<CR>
 
-" Maximize window and return to previous split structure
-nmap t% :tabedit %<CR>
-nmap td :tabclose<CR>
+" To open a new empty buffer (http://joshldavis.com/2014/04/05/vim-tab-madness-buffers-vs-tabs/)
+" This replaces :tabnew which I used to bind to this mapping
+nmap <leader>T :enew<cr>
+" Move to the next buffer
+nmap <leader>l :bnext<CR>
+" Move to the previous buffer
+nmap <leader>h :bprevious<CR>
+" Close the current buffer and move to the previous one
+" This replicates the idea of closing a tab
+nmap <leader>bq :bp <BAR> bd #<CR>
+" Show all open buffers and their status
+nmap <leader>bl :ls<CR>
 
 " easier navigation between split windows
 nnoremap <c-j> <c-w>j
@@ -161,7 +170,8 @@ if !exists("g:airline_symbols")
   let g:airline_symbols = {}
 endif
 let g:airline_powerline_fonts = 1
-let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#enabled = 1 " Enable the list of buffers
+let g:airline#extensions#tabline#fnamemod = ':t' " Show just the filename
 
 " neomake settings
 autocmd! BufWritePost * Neomake
