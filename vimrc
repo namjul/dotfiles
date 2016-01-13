@@ -20,11 +20,12 @@ Plugin 'tpope/vim-surround'
 Plugin 'bling/vim-airline'
 Plugin 'tpope/vim-fugitive'
 Plugin 'editorconfig/editorconfig-vim'
-Plugin 'scrooloose/syntastic'
+" Plugin 'scrooloose/syntastic'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'Raimondi/delimitMate'
 Plugin 'myusuf3/numbers.vim'
 Plugin 'bkad/CamelCaseMotion'
+Plugin 'benekastah/neomake'
 
 " autocomplete
 Plugin 'Valloric/YouCompleteMe'
@@ -156,3 +157,7 @@ if !exists("g:airline_symbols")
   let g:airline_symbols = {}
 endif
 let g:airline_powerline_fonts = 1
+
+" neomake settings
+autocmd! BufWritePost * Neomake
+let g:neomake_open_list = 2
