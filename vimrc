@@ -124,6 +124,10 @@ nnoremap <leader>V :tabnew  ~/.vimrc<CR>
 " toogle background
 map <Leader>bg :let &background = ( &background == "dark"? "light" : "dark" )<CR>
 
+" Maximize window and return to previous split structure
+nmap t% :tabedit %<CR>
+nmap td :tabclose<CR>
+
 " To open a new empty buffer (http://joshldavis.com/2014/04/05/vim-tab-madness-buffers-vs-tabs/)
 " This replaces :tabnew which I used to bind to this mapping
 nmap <leader>T :enew<cr>
