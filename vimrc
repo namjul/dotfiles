@@ -124,6 +124,10 @@ nnoremap <leader>V :tabnew  ~/.vimrc<CR>
 " toogle background
 map <Leader>bg :let &background = ( &background == "dark"? "light" : "dark" )<CR>
 
+" Maximize window and return to previous split structure
+nmap t% :tabedit %<CR>
+nmap td :tabclose<CR>
+
 " easier navigation between split windows
 nnoremap <c-j> <c-w>j
 nnoremap <c-k> <c-w>k
@@ -157,6 +161,7 @@ if !exists("g:airline_symbols")
   let g:airline_symbols = {}
 endif
 let g:airline_powerline_fonts = 1
+let g:airline#extensions#tabline#enabled = 1
 
 " neomake settings
 autocmd! BufWritePost * Neomake
