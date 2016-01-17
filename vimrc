@@ -73,6 +73,8 @@ set visualbell " Use visual bell instead of audible bell
 set autoread " Auto read when file is changed
 "set autowrite "Write the old file out when switching between files.
 
+set clipboard+=unnamedplus
+
 " Formatting
 set autoindent " Indent at the same level as previous line
 set smartindent
@@ -97,10 +99,6 @@ noremap <silent><Leader>/ :nohls<CR>
 
 " Select all
 map <Leader>a ggVG
-
-"copy/paste mapping
-vnoremap <C-c> "+y
-inoremap <C-v> <C-o>"+p
 
 " mousesupport if not using neovim
 if !has('nvim')
