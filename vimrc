@@ -37,6 +37,7 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'pangloss/vim-javascript'
 Plugin 'elzr/vim-json'
 Plugin 'mxw/vim-jsx'
+Plugin 'mattn/emmet-vim'
 
 " snippets
 Plugin 'MarcWeber/vim-addon-mw-utils'
@@ -187,3 +188,6 @@ let g:airline#extensions#tabline#fnamemod = ':t' " Show just the filename
 " neomake settings
 autocmd! BufWritePost * Neomake
 " let g:neomake_open_list = 2
+
+" emmit settings
+let g:user_emmet_leader_key='<C-Z>'
