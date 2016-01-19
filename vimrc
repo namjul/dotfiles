@@ -177,4 +177,4 @@ let g:airline#extensions#tabline#fnamemod = ':t' " Show just the filename
 
 " neomake settings
 autocmd! BufWritePost * Neomake
-let g:neomake_open_list = 2
+" let g:neomake_open_list = 2
