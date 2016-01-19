@@ -169,6 +169,6 @@ done
 
 [ -f ~/.extra ] && source ~/.extra
 
-#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-export SDKMAN_DIR="/home/nam/.sdkman"
-[[ -s "/home/nam/.sdkman/bin/sdkman-init.sh" ]] && source "/home/nam/.sdkman/bin/sdkman-init.sh"
+if [[ -a ~/.localrc ]]; then
+    source ~/.localrc
+fi
