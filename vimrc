@@ -26,6 +26,7 @@ Plugin 'jiangmiao/auto-pairs'
 Plugin 'myusuf3/numbers.vim'
 Plugin 'bkad/CamelCaseMotion'
 Plugin 'benekastah/neomake'
+Plugin 'tpope/vim-repeat'
 
 " autocomplete
 Plugin 'Valloric/YouCompleteMe'
