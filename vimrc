@@ -84,7 +84,7 @@ set nowrap " don't wrap lines
 set tabstop=2 " Make tabs as wide as two spaces
 set shiftwidth=2 " The # of spaces for indenting.
 set expandtab " use spaces, not tabs (optional)
-"set backspace=indent,eol,start " backspace through everything in insert mode
+set backspace=indent,eol,start " backspace through everything in insert mode
 
 " Searching
 set hlsearch " highlight matches
@@ -144,6 +144,12 @@ nnoremap <c-j> <c-w>j
 nnoremap <c-k> <c-w>k
 nnoremap <c-h> <c-w>h
 nnoremap <c-l> <c-w>l
+
+"""""""""""""""""""""
+"
+" PLUGINS
+"
+"""""""""""""""""""""
 
 " camelCaseMotion settings
 map <silent> w <Plug>CamelCaseMotion_w
