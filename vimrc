@@ -122,6 +122,9 @@ nnoremap <leader>V :tabnew  ~/.vimrc<CR>
 " toogle background
 map <Leader>bg :let &background = ( &background == "dark"? "light" : "dark" )<CR>
 
+" Allow saving of files as sudo when I forgot to start vim using sudo.
+cmap w!! w !sudo tee > /dev/null %
+
 " Maximize window and return to previous split structure
 nmap t% :tabedit %<CR>
 nmap td :tabclose<CR>
