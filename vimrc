@@ -33,6 +33,7 @@ Plugin 'Valloric/YouCompleteMe'
 
 " togglable panels
 Plugin 'scrooloose/nerdtree'
+Plugin 'Xuyuanp/nerdtree-git-plugin'
 
 " language plugins
 Plugin 'pangloss/vim-javascript'
