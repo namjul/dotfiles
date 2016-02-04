@@ -29,7 +29,6 @@ Plugin 'benekastah/neomake'
 Plugin 'tpope/vim-repeat'
 
 " git
-Plugin 'airblade/vim-gitgutter'
 Plugin 'tpope/vim-fugitive'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
 
