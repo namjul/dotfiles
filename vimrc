@@ -18,7 +18,7 @@ Plugin 'ctrlpvim/ctrlp.vim'
 " main plugins
 Plugin 'tpope/vim-surround'
 Plugin 'bling/vim-airline'
-Plugin 'tpope/vim-fugitive'
+Plugin 'vim-airline/vim-airline-themes'
 Plugin 'editorconfig/editorconfig-vim'
 " Plugin 'scrooloose/syntastic'
 Plugin 'scrooloose/nerdcommenter'
@@ -28,12 +28,16 @@ Plugin 'bkad/CamelCaseMotion'
 Plugin 'benekastah/neomake'
 Plugin 'tpope/vim-repeat'
 
+" git
+Plugin 'airblade/vim-gitgutter'
+Plugin 'tpope/vim-fugitive'
+Plugin 'Xuyuanp/nerdtree-git-plugin'
+
 " autocomplete
 Plugin 'Valloric/YouCompleteMe'
 
 " togglable panels
 Plugin 'scrooloose/nerdtree'
-Plugin 'Xuyuanp/nerdtree-git-plugin'
 
 " language plugins
 Plugin 'pangloss/vim-javascript'
