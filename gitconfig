@@ -4,14 +4,15 @@
 	p = push
 	s = status -s
 	df = diff --color --color-words --abbrev
-	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --
+	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+
+[apply]
+  # Detect whitespace errors when applying a patch
+  whitespace = fix
 
 [core]
 	# Use custom `.gitignore` and `.gitattributes`
 	excludesfile = ~/.gitignore
-
-	# Treat spaces before tabs, lines that are indented with 8 or more spaces, and all kinds of trailing whitespace as an error
-	whitespace = space-before-tab,indent-with-non-tab,trailing-space
 
 [color]
 	# Use colors in Git commands that are capable of colored output when
@@ -44,3 +45,9 @@
 	pushInsteadOf = "git://gist.github.com/"
 [url "git://gist.github.com/"]
 	insteadOf = "gist:"
+[push]
+	default = simple
+[merge]
+	tool = vimdiff
+[mergetool]
+	path = nvim
