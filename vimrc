@@ -34,6 +34,7 @@ Plugin 'Xuyuanp/nerdtree-git-plugin'
 
 " autocomplete
 Plugin 'Valloric/YouCompleteMe'
+Plugin 'ternjs/tern_for_vim'
 
 " togglable panels
 Plugin 'scrooloose/nerdtree'
@@ -173,7 +174,7 @@ sunmap ge
 " ctrlp settings
 let g:ctrlp_map = '<c-p>'
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip
-let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
+let g:ctrlp_custom_ignore = 'node_modules\|bower_components\|DS_Store\|git'
 
 " NerdTree settings
 let NERDTreeShowHidden=1
@@ -196,3 +197,6 @@ autocmd! BufWritePost * Neomake
 
 " emmit settings
 let g:user_emmet_leader_key='<C-Z>'
+
+" tern disable preview window
+set completeopt-=preview
