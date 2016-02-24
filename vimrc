@@ -27,6 +27,7 @@ Plugin 'myusuf3/numbers.vim'
 Plugin 'bkad/CamelCaseMotion'
 Plugin 'benekastah/neomake'
 Plugin 'tpope/vim-repeat'
+Plugin 'schickling/vim-bufonly'
 
 " git
 Plugin 'tpope/vim-fugitive'
@@ -48,7 +49,7 @@ Plugin 'mattn/emmet-vim'
 " snippets
 Plugin 'MarcWeber/vim-addon-mw-utils'
 Plugin 'tomtom/tlib_vim'
-Plugin 'garbas/vim-snipmate'
+Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
 
 call vundle#end()
@@ -200,3 +201,9 @@ let g:user_emmet_leader_key='<C-Z>'
 
 " tern disable preview window
 set completeopt-=preview
+
+" ultisnips
+let g:UltiSnipsUsePythonVersion = 2
+let g:UltiSnipsExpandTrigger='<c-j>'
+let g:UltiSnipsJumpForwardTrigger='<c-j>'
+let g:UltiSnipsJumpBackwardTrigger='<c-k>'
