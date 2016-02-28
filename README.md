@@ -3,10 +3,34 @@
 
 ### Ubuntu
 
-1. Set caps lock to ctrl
-http://askubuntu.com/questions/363346/how-to-permanently-switch-caps-lock-and-esc
-ctrl:nocaps
-2. ./vim_install_ubuntu.sh
+1. ./vim_install_ubuntu.sh
+
+2. install namjul/dwm
+
+3. initialization script 
+
+.xinit/.xprofile
+
+```
+# map caps lock to escape
+setxkbmap -option ctrl:nocaps
+xcape -e 'Control_L=Escape'
+
+# set background-color
+xsetroot -solid "#222222"
+
+# set keyboard speed
+xset r rate 200 30
+
+# dwm statusbar
+while true; do
+		$HOME/dotfiles/scripts/dwm-statusbar
+    	sleep 2
+done &
+```
+
+#### sources
+- Set caps lock to ctrl http://askubuntu.com/questions/363346/how-to-permanently-switch-caps-lock-and-escctrl:nocaps
 
 ### OSX
 
