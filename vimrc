@@ -45,6 +45,7 @@ Plugin 'pangloss/vim-javascript'
 Plugin 'elzr/vim-json'
 Plugin 'mxw/vim-jsx'
 Plugin 'mattn/emmet-vim'
+Plugin 'tpope/vim-markdown'
 
 " snippets
 Plugin 'MarcWeber/vim-addon-mw-utils'
@@ -207,3 +208,5 @@ let g:UltiSnipsUsePythonVersion = 2
 let g:UltiSnipsExpandTrigger='<c-j>'
 let g:UltiSnipsJumpForwardTrigger='<c-j>'
 let g:UltiSnipsJumpBackwardTrigger='<c-k>'
+
+let g:markdown_fenced_languages = ['html', 'javascript', 'json', 'bash=sh']
