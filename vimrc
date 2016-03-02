@@ -175,8 +175,11 @@ sunmap ge
 
 " ctrlp settings
 let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlP .'
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip
 let g:ctrlp_custom_ignore = 'node_modules\|bower_components\|DS_Store\|git'
+let g:ctrlp_by_filename = 0 "search by filename as default
+let g:ctrlp_regexp = 1 "regex search as default
 
 " NerdTree settings
 let NERDTreeShowHidden=1
