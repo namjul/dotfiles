@@ -8,6 +8,14 @@ sudo apt-get install python-dev python-pip python3-dev python3-pip
 sudo pip2 install neovim
 sudo pip3 install neovim
 
+# make symlink
+./makesymlinks.sh
+
+# link file to nvim
+mkdir -p ${XDG_CONFIG_HOME:=$HOME/.config}
+ln -s ~/.vim $XDG_CONFIG_HOME/nvim
+ln -s ~/.vimrc $XDG_CONFIG_HOME/nvim/init.vim
+
 # install vundle
 git clone https://github.com/VundleVim/Vundle.Vim ~/.vim/bundle/Vundle.vim
 nvim +PluginInstall
