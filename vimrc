@@ -12,6 +12,7 @@ call plug#begin('~/.vim/plugged')
 
 " core plugins
 Plug 'tpope/vim-sensible'
+Plug 'Shougo/unite.vim'
 
 " main plugins
 Plug 'tpope/vim-surround'
@@ -138,6 +139,9 @@ nnoremap <c-l> <c-w>l
 " PLUGINS
 "
 """""""""""""""""""""
+
+" unite settings
+nnoremap <leader>f :<C-u>Unite file file_rec buffer<CR>
 
 " camelCaseMotion settings
 map <silent> w <Plug>CamelCaseMotion_w
