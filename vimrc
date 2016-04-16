@@ -16,6 +16,7 @@ Plug 'Shougo/unite.vim'
 Plug 'Shougo/deoplete.nvim'
 
 " main plugins
+Plug 'mklabs/split-term.vim'
 Plug 'tpope/vim-surround'
 Plug 'bling/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -40,11 +41,12 @@ Plug 'carlitux/deoplete-ternjs'
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 
 " language plugins
-Plug 'pangloss/vim-javascript'
+Plug 'othree/yajs.vim'
 Plug 'elzr/vim-json'
 Plug 'mxw/vim-jsx'
 Plug 'mattn/emmet-vim'
 Plug 'tpope/vim-markdown'
+Plug 'moll/vim-node'
 
 " snippets
 Plug 'MarcWeber/vim-addon-mw-utils'
