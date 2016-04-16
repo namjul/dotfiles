@@ -13,6 +13,7 @@ call plug#begin('~/.vim/plugged')
 " core plugins
 Plug 'tpope/vim-sensible'
 Plug 'Shougo/unite.vim'
+Plug 'Shougo/deoplete.nvim'
 
 " main plugins
 Plug 'tpope/vim-surround'
@@ -33,6 +34,7 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
 
 " autocomplete
 Plug 'ternjs/tern_for_vim'
+Plug 'carlitux/deoplete-ternjs'
 
 " togglable panels
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
@@ -143,6 +145,9 @@ nnoremap <c-l> <c-w>l
 " unite settings
 nnoremap <leader>f :<C-u>Unite file file_rec buffer<CR>
 
+" Use deoplete.
+let g:deoplete#enable_at_startup = 1
+
 " camelCaseMotion settings
 map <silent> w <Plug>CamelCaseMotion_w
 map <silent> b <Plug>CamelCaseMotion_b
@@ -152,14 +157,6 @@ sunmap w
 sunmap b
 sunmap e
 sunmap ge
-
-" ctrlp settings
-let g:ctrlp_map = '<c-p>'
-let g:ctrlp_cmd = 'CtrlP .'
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip
-let g:ctrlp_custom_ignore = 'node_modules\|bower_components\|DS_Store\|git'
-let g:ctrlp_by_filename = 0 "search by filename as default
-let g:ctrlp_regexp = 1 "regex search as default
 
 " NerdTree settings
 let NERDTreeShowHidden=1
@@ -182,9 +179,6 @@ autocmd! BufWritePost * Neomake
 
 " emmit settings
 let g:user_emmet_leader_key='<C-Z>'
-
-" tern disable preview window
-set completeopt-=preview
 
 " ultisnips
 let g:UltiSnipsUsePythonVersion = 2
