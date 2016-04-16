@@ -34,7 +34,7 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'ternjs/tern_for_vim'
 
 " togglable panels
-Plug 'scrooloose/nerdtree'
+Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 
 " language plugins
 Plug 'pangloss/vim-javascript'
@@ -58,41 +58,24 @@ call plug#end()
 """""""""""""""""""""
 
 " Some wild settings
-set encoding=utf-8
 set number "Show relative lines numbers
-set ruler "Display current cursor position in lower right corner.
 set showmatch " Show matching of: () [] {}
 set mousehide "Hide mouse when typing
 set mouse=a "Enable Mouse clicking
 set showmode " Show the current mode
 set hidden " Hide buffers, rather than close them
 set cursorline " Highlight current line
-set wildmenu " More useful command-line completion
 set gdefault " Add the g flag to search/replace by default
 set nostartofline " Don’t reset cursor to start of line when moving around.
 set shortmess=atI " Don’t show the intro message when starting Vim
 set visualbell " Use visual bell instead of audible bell
-"set noerrorbells " Disable error bells
-set autoread " Auto read when file is changed
-"set autowrite "Write the old file out when switching between files.
-
 set clipboard+=unnamedplus
-
-" Formatting
-set autoindent " Indent at the same level as previous line
-set smartindent
 
 " Whitespace
 set nowrap " don't wrap lines
 set tabstop=2 " Make tabs as wide as two spaces
 set shiftwidth=2 " The # of spaces for indenting.
 set expandtab " use spaces, not tabs (optional)
-set backspace=indent,eol,start " backspace through everything in insert mode
-
-" Searching
-set hlsearch " highlight matches
-set incsearch " incremental searching
-set ignorecase " searches are case insensitive...
 
 " set <leader>
 let mapleader=","
@@ -108,8 +91,7 @@ if !has('nvim')
 	set ttymouse=xterm2
 endif
 
-" Set syntax highlighting options.
-syntax enable
+" Set colorscheme.
 set background=dark
 colorscheme solarized
 
