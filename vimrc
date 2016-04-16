@@ -7,55 +7,49 @@
 
 " start vundler
 set nocompatible
-filetype off
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+
+call plug#begin('~/.vim/plugged')
 
 " core plugins
-Plugin 'VundleVim/Vundle.vim'
-Plugin 'ctrlpvim/ctrlp.vim'
+Plug 'tpope/vim-sensible'
 
 " main plugins
-Plugin 'tpope/vim-surround'
-Plugin 'bling/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
-Plugin 'editorconfig/editorconfig-vim'
-" Plugin 'scrooloose/syntastic'
-Plugin 'scrooloose/nerdcommenter'
-Plugin 'jiangmiao/auto-pairs'
-Plugin 'myusuf3/numbers.vim'
-Plugin 'bkad/CamelCaseMotion'
-Plugin 'benekastah/neomake'
-Plugin 'tpope/vim-repeat'
-Plugin 'schickling/vim-bufonly'
+Plug 'tpope/vim-surround'
+Plug 'bling/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'editorconfig/editorconfig-vim'
+Plug 'scrooloose/nerdcommenter'
+Plug 'jiangmiao/auto-pairs'
+Plug 'myusuf3/numbers.vim'
+Plug 'bkad/CamelCaseMotion'
+Plug 'benekastah/neomake'
+Plug 'tpope/vim-repeat'
+Plug 'schickling/vim-bufonly'
 
 " git
-Plugin 'tpope/vim-fugitive'
-Plugin 'Xuyuanp/nerdtree-git-plugin'
+Plug 'tpope/vim-fugitive'
+Plug 'Xuyuanp/nerdtree-git-plugin'
 
 " autocomplete
-Plugin 'Valloric/YouCompleteMe'
-Plugin 'ternjs/tern_for_vim'
+Plug 'ternjs/tern_for_vim'
 
 " togglable panels
-Plugin 'scrooloose/nerdtree'
+Plug 'scrooloose/nerdtree'
 
 " language plugins
-Plugin 'pangloss/vim-javascript'
-Plugin 'elzr/vim-json'
-Plugin 'mxw/vim-jsx'
-Plugin 'mattn/emmet-vim'
-Plugin 'tpope/vim-markdown'
+Plug 'pangloss/vim-javascript'
+Plug 'elzr/vim-json'
+Plug 'mxw/vim-jsx'
+Plug 'mattn/emmet-vim'
+Plug 'tpope/vim-markdown'
 
 " snippets
-Plugin 'MarcWeber/vim-addon-mw-utils'
-Plugin 'tomtom/tlib_vim'
-Plugin 'SirVer/ultisnips'
-Plugin 'honza/vim-snippets'
+Plug 'MarcWeber/vim-addon-mw-utils'
+Plug 'tomtom/tlib_vim'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
 
-call vundle#end()
-filetype plugin indent on
-
+call plug#end()
 
 """""""""""""""""""""
 "
