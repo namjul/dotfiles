@@ -18,8 +18,6 @@ Plug 'Shougo/deoplete.nvim'
 " main plugins
 Plug 'mklabs/split-term.vim'
 Plug 'tpope/vim-surround'
-Plug 'bling/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'scrooloose/nerdcommenter'
 Plug 'jiangmiao/auto-pairs'
@@ -28,6 +26,8 @@ Plug 'bkad/CamelCaseMotion'
 Plug 'benekastah/neomake'
 Plug 'tpope/vim-repeat'
 Plug 'schickling/vim-bufonly'
+Plug 'itchyny/lightline.vim'
+Plug 'critiqjo/vim-bufferline'
 
 " git
 Plug 'tpope/vim-fugitive'
@@ -41,12 +41,13 @@ Plug 'carlitux/deoplete-ternjs'
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 
 " language plugins
-Plug 'othree/yajs.vim'
+Plug 'pangloss/vim-javascript'
 Plug 'elzr/vim-json'
 Plug 'mxw/vim-jsx'
 Plug 'mattn/emmet-vim'
 Plug 'tpope/vim-markdown'
 Plug 'moll/vim-node'
+Plug 'digitaltoad/vim-pug'
 
 " snippets
 Plug 'MarcWeber/vim-addon-mw-utils'
@@ -75,6 +76,7 @@ set nostartofline " Don’t reset cursor to start of line when moving around.
 set shortmess=atI " Don’t show the intro message when starting Vim
 set visualbell " Use visual bell instead of audible bell
 set clipboard+=unnamedplus
+set ignorecase
 
 " Whitespace
 set nowrap " don't wrap lines
@@ -138,11 +140,103 @@ nnoremap <c-k> <c-w>k
 nnoremap <c-h> <c-w>h
 nnoremap <c-l> <c-w>l
 
+" support ejs 
+au BufNewFile,BufRead *.ejs set filetype=html
+
+" auto reload of vimrc
+noremap <leader>r :source $MYVIMRC<CR>
+
 """""""""""""""""""""
 "
 " PLUGINS
 "
 """""""""""""""""""""
+
+" bufferline
+let g:bufferline_active_buffer_left = ''
+let g:bufferline_active_buffer_right = ''
+let g:bufferline_show_bufnr = 0
+let g:bufferline_fname_mod = ':t'
+let g:bufferline_pathshorten = 1
+
+" lightline
+set noshowmode
+set showtabline=2
+let g:lightline = {
+      \ 'mode_map': {
+      \   'n': 'N',
+      \   'i': 'I',
+      \   'v': 'V'
+      \ },
+      \ 'tabline': {
+      \   'left': [ ['tabs'], ['bufferline'] ],
+      \   'right': []
+      \ },
+      \ 'tab': {
+	    \   'active': [ 'tabnum' ],
+	    \   'inactive': [ 'tabnum' ]
+      \ },
+      \ 'component_expand': {
+      \   'bufferline': 'LightlineBufferline',
+      \ },
+      \ 'component_type': {
+      \   'bufferline': 'tabsel',
+      \ },
+      \ 'colorscheme': 'solarized_dark',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'fugitive', 'readonly' ], [ 'filename' ] ]
+      \ },
+      \ 'component_function': {
+      \   'fugitive': 'LightLineFugitive',
+      \   'readonly': 'LightLineReadonly',
+      \   'filename': 'LightLineFilename',
+      \   'modified': 'LightLineModified',
+      \ },
+      \ 'separator': { 'left': '', 'right': '' },
+      \ 'subseparator': { 'left': '', 'right': '' }
+      \ }
+
+function! LightLineModified()
+  if &filetype == "help"
+    return ""
+  elseif &modified
+    return "+"
+  elseif &modifiable
+    return ""
+  else
+    return ""
+  endif
+endfunction
+
+function! LightLineReadonly()
+  if &filetype == "help"
+    return ""
+  elseif &readonly
+    return "RO"
+  else
+    return ""
+  endif
+endfunction
+
+function! LightLineFilename()
+  return ('' != LightLineReadonly() ? LightLineReadonly() . ' ' : '') .
+       \ ('' != expand('%:t') ? expand('%:t') : '[No Name]') .
+       \ ('' != LightLineModified() ? ' ' . LightLineModified() : '')
+endfunction
+
+function! LightLineFugitive()
+  if exists("*fugitive#head")
+    let _ = fugitive#head()
+    return strlen(_) ? '┣ '._ : ''
+  endif
+  return ''
+endfunction
+
+function! LightlineBufferline()
+  call bufferline#refresh_status()
+  return [ g:bufferline_status_info.before, g:bufferline_status_info.current, g:bufferline_status_info.after]
+endfunction
 
 " unite settings
 nnoremap <leader>f :<C-u>Unite file file_rec buffer<CR>
@@ -166,14 +260,6 @@ noremap <leader>n :NERDTreeToggle<CR>
 
 " jsx for .js files
 let g:jsx_ext_required = 0
-
-" airline statusbar settings
-if !exists("g:airline_symbols")
-  let g:airline_symbols = {}
-endif
-let g:airline_powerline_fonts = 1
-let g:airline#extensions#tabline#enabled = 1 " Enable the list of buffers
-let g:airline#extensions#tabline#fnamemod = ':t' " Show just the filename
 
 " neomake settings
 autocmd! BufWritePost * Neomake
