@@ -55,6 +55,9 @@ Plug 'tomtom/tlib_vim'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 
+" theme
+Plug 'chriskempson/base16-vim'
+
 call plug#end()
 
 """""""""""""""""""""
@@ -99,8 +102,9 @@ if !has('nvim')
 endif
 
 " Set colorscheme.
+let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 set background=dark
-colorscheme solarized
+colorscheme base16-tomorrow
 
 " Local dirs
 set backupdir=~/.vim/backups//
@@ -182,7 +186,7 @@ let g:lightline = {
       \ 'component_type': {
       \   'bufferline': 'tabsel',
       \ },
-      \ 'colorscheme': 'solarized_dark',
+      \ 'colorscheme': 'Tomorrow_Night',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'fugitive', 'readonly' ], [ 'filename' ] ]
