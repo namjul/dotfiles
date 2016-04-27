@@ -34,20 +34,22 @@ Plug 'tpope/vim-fugitive'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 
 " autocomplete
-Plug 'ternjs/tern_for_vim'
+Plug 'ternjs/tern_for_vim', { 'do': 'npm install', 'for': 'javascript' }
 Plug 'carlitux/deoplete-ternjs'
 
 " togglable panels
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 
 " language plugins
-Plug 'pangloss/vim-javascript'
+Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
+Plug 'mxw/vim-jsx', { 'for': 'javascript' }
 Plug 'elzr/vim-json'
-Plug 'mxw/vim-jsx'
+Plug 'elzr/vim-json'
 Plug 'mattn/emmet-vim'
 Plug 'tpope/vim-markdown'
 Plug 'moll/vim-node'
 Plug 'digitaltoad/vim-pug'
+Plug 'flowtype/vim-flow', { 'for': 'javascript' }
 
 " snippets
 Plug 'MarcWeber/vim-addon-mw-utils'
@@ -78,6 +80,7 @@ set gdefault " Add the g flag to search/replace by default
 set nostartofline " Don’t reset cursor to start of line when moving around.
 set shortmess=atI " Don’t show the intro message when starting Vim
 set visualbell " Use visual bell instead of audible bell
+set backupcopy=yes "optimize webpack watch option
 set clipboard+=unnamedplus
 set ignorecase
 
@@ -248,6 +251,10 @@ nnoremap <leader>f :<C-u>Unite file file_rec buffer<CR>
 " Use deoplete.
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#file#enable_buffer_path = 1
+" use tab to forward cycle
+inoremap <silent><expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
+" use tab to backward cycle
+inoremap <silent><expr><s-tab> pumvisible() ? "\<c-p>" : "\<s-tab>"
 
 " camelCaseMotion settings
 map <silent> w <Plug>CamelCaseMotion_w
@@ -269,6 +276,10 @@ let g:jsx_ext_required = 0
 " neomake settings
 autocmd! BufWritePost * Neomake
 " let g:neomake_open_list = 2
+" let g:neomake_verbose = 3
+
+" vim-flow
+let g:flow#autoclose = 1
 
 " emmit settings
 let g:user_emmet_leader_key='<C-Z>'
@@ -280,3 +291,6 @@ let g:UltiSnipsJumpForwardTrigger='<c-j>'
 let g:UltiSnipsJumpBackwardTrigger='<c-k>'
 
 let g:markdown_fenced_languages = ['html', 'javascript', 'json', 'bash=sh']
+
+" nerdcommenter
+let g:NERDSpaceDelims = 1
