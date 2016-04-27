@@ -153,6 +153,9 @@ au BufNewFile,BufRead *.ejs set filetype=html
 " auto reload of vimrc
 noremap <leader>r :source $MYVIMRC<CR>
 
+" quick save
+noremap <leader>s :update<CR>
+
 """""""""""""""""""""
 "
 " PLUGINS
@@ -246,7 +249,7 @@ function! LightlineBufferline()
 endfunction
 
 " unite settings
-nnoremap <leader>f :<C-u>Unite file file_rec buffer<CR>
+nnoremap <C-p> :<C-u>Unite file file_rec buffer<CR>
 
 " Use deoplete.
 let g:deoplete#enable_at_startup = 1
