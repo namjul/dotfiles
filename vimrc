@@ -105,9 +105,9 @@ if !has('nvim')
 endif
 
 " Set colorscheme.
-let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+set termguicolors
 set background=dark
-colorscheme base16-tomorrow
+colorscheme base16-solarized
 
 " Local dirs
 set backupdir=~/.vim/backups//
@@ -192,7 +192,7 @@ let g:lightline = {
       \ 'component_type': {
       \   'bufferline': 'tabsel',
       \ },
-      \ 'colorscheme': 'Tomorrow_Night',
+      \ 'colorscheme': 'solarized_dark',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'fugitive', 'readonly' ], [ 'filename' ] ]
