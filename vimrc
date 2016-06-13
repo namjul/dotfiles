@@ -90,6 +90,9 @@ set tabstop=2 " Make tabs as wide as two spaces
 set shiftwidth=2 " The # of spaces for indenting.
 set expandtab " use spaces, not tabs (optional)
 
+" esc mapping
+:inoremap jk <esc>
+
 " set <leader>
 let mapleader=","
 
