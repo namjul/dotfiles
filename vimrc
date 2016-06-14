@@ -12,7 +12,7 @@ call plug#begin('~/.vim/plugged')
 
 " core plugins
 Plug 'tpope/vim-sensible'
-Plug 'Shougo/unite.vim'
+Plug 'ctrlpvim/ctrlp.vim'
 Plug 'Shougo/deoplete.nvim'
 
 " main plugins
@@ -251,8 +251,13 @@ function! LightlineBufferline()
   return [ g:bufferline_status_info.before, g:bufferline_status_info.current, g:bufferline_status_info.after]
 endfunction
 
-" unite settings
-nnoremap <C-p> :<C-u>Unite file file_rec buffer<CR>
+" ctrlp settings
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlP .'
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip
+let g:ctrlp_custom_ignore = 'node_modules\|bower_components\|DS_Store\|git'
+let g:ctrlp_by_filename = 0 "search by filename as default
+let g:ctrlp_regexp = 1 "regex search as default
 
 " Use deoplete.
 let g:deoplete#enable_at_startup = 1
