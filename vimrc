@@ -8,7 +8,7 @@
 " start vundler
 set nocompatible
 
-call plug#begin('~/.vim/plugged')
+call plug#begin('~/.vim/bundle')
 
 " core plugins
 Plug 'tpope/vim-sensible'
@@ -110,7 +110,7 @@ endif
 " Set colorscheme.
 set termguicolors
 set background=dark
-colorscheme base16-solarized
+colorscheme base16-solarized-dark
 
 " Local dirs
 set backupdir=~/.vim/backups//

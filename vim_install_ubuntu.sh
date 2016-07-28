@@ -24,18 +24,7 @@ nvim +PluginInstall
 echo "Please continue manually (see vim_install_ubuntu.sh)"
 exit
 
-# install nvm
-curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.30.1/install.sh | bash
-
-# install YCM
-cd ~/.vim/bundle/YouCompleteMe
-./install.py --tern-completer
-cd
-
-# vimrc for neovim
-mkdir -p ${XDG_CONFIG_HOME:=$HOME/.config}
-ln -s ~/.vim $XDG_CONFIG_HOME/nvim
-ln -s ~/.vimrc $XDG_CONFIG_HOME/nvim/init.vim
+# install https://github.com/creationix/nvm
 
 # install xcape
 git clone https://github.com/alols/xcape.git 
