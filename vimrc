@@ -44,7 +44,6 @@ Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 Plug 'mxw/vim-jsx', { 'for': 'javascript' }
 Plug 'elzr/vim-json'
-Plug 'elzr/vim-json'
 Plug 'mattn/emmet-vim'
 Plug 'tpope/vim-markdown'
 Plug 'moll/vim-node'
@@ -158,6 +157,10 @@ noremap <leader>r :source $MYVIMRC<CR>
 
 " quick save
 noremap <leader>s :update<CR>
+
+" format JSON
+" map <leader>j !python -m json.tool<CR>
+command J :%!python -mjson.tool
 
 """""""""""""""""""""
 "
