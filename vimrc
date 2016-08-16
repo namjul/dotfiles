@@ -41,14 +41,9 @@ Plug 'carlitux/deoplete-ternjs'
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 
 " language plugins
-Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
-Plug 'mxw/vim-jsx', { 'for': 'javascript' }
-Plug 'elzr/vim-json'
+Plug 'sheerun/vim-polyglot'
 Plug 'mattn/emmet-vim'
-Plug 'tpope/vim-markdown'
 Plug 'moll/vim-node'
-Plug 'digitaltoad/vim-pug'
-Plug 'flowtype/vim-flow', { 'for': 'javascript' }
 
 " snippets
 Plug 'MarcWeber/vim-addon-mw-utils'
@@ -168,6 +163,21 @@ command J :%!python -mjson.tool
 "
 """""""""""""""""""""
 
+" vim-javascript
+let g:javascript_plugin_jsdoc = 1
+let g:javascript_plugin_flow = 1
+let g:javascript_conceal_function       = "ƒ"
+let g:javascript_conceal_null           = "ø"
+let g:javascript_conceal_this           = "@"
+let g:javascript_conceal_return         = "⇚"
+let g:javascript_conceal_undefined      = "¿"
+let g:javascript_conceal_NaN            = "ℕ"
+let g:javascript_conceal_prototype      = "¶"
+let g:javascript_conceal_static         = "•"
+let g:javascript_conceal_super          = "Ω"
+let g:javascript_conceal_arrow_function = "⇒"
+set conceallevel=2
+
 " bufferline
 let g:bufferline_active_buffer_left = ''
 let g:bufferline_active_buffer_right = ''
@@ -198,7 +208,7 @@ let g:lightline = {
       \ 'component_type': {
       \   'bufferline': 'tabsel',
       \ },
-      \ 'colorscheme': 'solarized_dark',
+      \ 'colorscheme': 'solarized',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'fugitive', 'readonly' ], [ 'filename' ] ]
