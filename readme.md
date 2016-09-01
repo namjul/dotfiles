@@ -5,29 +5,7 @@
 
 1. ./vim_install_ubuntu.sh
 
-2. install namjul/dwm
-
-3. initialization script 
-
-.xinit/.xprofile
-
-```
-# map caps lock to escape
-setxkbmap -option ctrl:nocaps
-xcape -e 'Control_L=Escape'
-
-# set background-color
-xsetroot -solid "#222222"
-
-# set keyboard speed
-xset r rate 200 30
-
-# dwm statusbar
-while true; do
-		$HOME/dotfiles/scripts/dwm-statusbar
-    	sleep 2
-done &
-```
+2. install https://github.com/namjul/dwm
 
 #### sources
 - Set caps lock to ctrl http://askubuntu.com/questions/363346/how-to-permanently-switch-caps-lock-and-escctrl:nocaps
@@ -51,18 +29,6 @@ done &
 
 4. Setup dotfiles
 
-  1. Clone dotfiles repo - git clone https://github.com/namjul/dotfiles.git
-  2. Setup dotfiles - source .sync.sh
-  3. Create .extra file with git credentials
-  ```
-# Git credentials
-  GIT_AUTHOR_NAME="nam"
-  GIT_COMMITTER_NAME="$GIT_AUTHOR_NAME"
-  git config --global user.name "$GIT_AUTHOR_NAME"
-  GIT_AUTHOR_EMAIL="nam@mailinator.com"
-  GIT_COMMITTER_EMAIL="$GIT_AUTHOR_EMAIL"
-  git config --global user.email "$GIT_AUTHOR_EMAIL"
-  ```
 
 5. Setup osx and install softwares
   ```sh
@@ -77,16 +43,6 @@ done &
   ```
 
 6. Configure Vim Plugins
-  1. Install powerline font - https://github.com/Lokaltog/powerline-fonts
-  2. Vunble plugin install - :PluginInstall
-  3. Set iTerm2 Kontrast to 1/3
-  4. Setup YouCompleteMe & Tern
-  ```sh
-  cd ~/.vim/bundle/YouCompleteMe
-  ./install.sh
-
-  cd ~/.vim/bundle/tern_for_vim && npm install
-  ```
 
 7. Generate SSH keys for github
 [generate SSH keys for github](https://help.github.com/articles/generating-ssh-keys)
@@ -104,13 +60,3 @@ curl -O "https://az412801.vo.msecnd.net/vhd/IEKitV1_Final/VirtualBox/OSX/IE9_Win
 # IE10 Win8
 curl -O "https://az412801.vo.msecnd.net/vhd/IEKitV1_Final/VirtualBox/OSX/IE10_Win8/IE10.Win8.For.MacVirtualBox.part{1.sfx,2.rar,3.rar}"
 ```
-
-10. End
-1. Restart
-2. Update OS X stuff
-
-Credits
-
-https://github.com/mathiasbynens/dotfiles
-https://github.com/paulirish/dotfiles
-https://gist.github.com/millermedeiros/6615994
