@@ -7,9 +7,6 @@
 
 2. install https://github.com/namjul/dwm
 
-#### sources
-- Set caps lock to ctrl http://askubuntu.com/questions/363346/how-to-permanently-switch-caps-lock-and-escctrl:nocaps
-
 ### OSX
 
 1. Run software update
@@ -27,9 +24,6 @@
   brew install git
   ```
 
-4. Setup dotfiles
-
-
 5. Setup osx and install softwares
   ```sh
   # setup osx settings
@@ -42,10 +36,15 @@
   ~/.cask
   ```
 
-6. Configure Vim Plugins
 
-7. Generate SSH keys for github
-[generate SSH keys for github](https://help.github.com/articles/generating-ssh-keys)
+### Caps lock
+- Set caps lock to ctrl http://askubuntu.com/questions/363346/how-to-permanently-switch-caps-lock-and-escctrl:nocaps
+
+### Font
+
+https://github.com/nathco/Office-Code-Pro
+
+### IE
 
 8. Download IE test VMs for VirtualBox
 http://www.modern.ie/en-us/virtualization-tools
