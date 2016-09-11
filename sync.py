@@ -2,18 +2,39 @@
 
 """
 Dotfiles syncronization.
-Makes symlinks for all files: ~/dotfiles/tilde/bashrc.bash => ~/.bashrc.
-Based on https://gist.github.com/490016
+Makes symlinks for all files: ./tilde/bashrc.bash will by available as ~/.bashrc.
+Based: https://gist.github.com/490016
+Source: https://github.com/denysdovhan/dotfiles/blob/master/sync.py
 """
 
 import os
+import sys
 import glob
 import shutil
 
+# Get first, second an third arguments
+arg1 = sys.argv[1] if 1 < len(sys.argv) else None
+arg2 = sys.argv[2] if 2 < len(sys.argv) else None
+arg3 = sys.argv[3] if 3 < len(sys.argv) else None
+
 DOTFILES_DIR  = os.path.dirname(os.path.abspath(__file__))
-SOURCE_DIR    = os.path.join(DOTFILES_DIR, 'tilde')
+SOURCE_DIR    = os.path.join(DOTFILES_DIR, arg1 or 'tilde')
+DEST_DIR      = arg2 or os.path.expanduser('~')
+
+# Excluded files
 EXCLUDE = []
-NO_DOT_PREFIX = []
+
+# Files without dots
+NO_DOT_PREFIX = [
+    'autoload',
+    'backups',
+    'bundle',
+    'spell',
+    'swaps',
+    'undo'
+]
+
+# Files which should be left with extentions
 PRESERVE_EXTENSION = []
 
 
@@ -38,7 +59,7 @@ def main():
 			dotfile = '.' + dotfile
 		if filename not in PRESERVE_EXTENSION:
 			dotfile = os.path.splitext(dotfile)[0]
-		dotfile = os.path.join(os.path.expanduser('~'), dotfile)
+		dotfile = os.path.join(DEST_DIR, dotfile)
 		source = os.path.join(SOURCE_DIR, filename).replace('~', '.')
 
 		# Check that we aren't overwriting anything
@@ -53,6 +74,8 @@ def main():
 
 			force_remove(dotfile)
 
+                print source
+                print dotfile
 		os.symlink(source, dotfile)
 		print "%s => %s" % (dotfile, source)
 
