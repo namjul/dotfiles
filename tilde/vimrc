@@ -52,7 +52,7 @@ Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 
 " theme
-Plug 'chriskempson/base16-vim'
+Plug 'morhetz/gruvbox'
 
 call plug#end()
 
@@ -104,7 +104,7 @@ endif
 " Set colorscheme.
 set termguicolors
 set background=dark
-colorscheme base16-solarized-dark
+colorscheme gruvbox
 
 " Local dirs
 set backupdir=~/.vim/backups//
@@ -208,7 +208,7 @@ let g:lightline = {
       \ 'component_type': {
       \   'bufferline': 'tabsel',
       \ },
-      \ 'colorscheme': 'solarized',
+      \ 'colorscheme': 'gruvbox',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'fugitive', 'readonly' ], [ 'filename' ] ]
