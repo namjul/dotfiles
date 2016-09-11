@@ -28,6 +28,7 @@ Plug 'tpope/vim-repeat'
 Plug 'schickling/vim-bufonly'
 Plug 'itchyny/lightline.vim'
 Plug 'mhinz/vim-startify'
+Plug 'justinmk/vim-sneak'
 
 " git
 Plug 'tpope/vim-fugitive'
