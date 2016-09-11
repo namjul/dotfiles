@@ -31,6 +31,7 @@ Plug 'itchyny/lightline.vim'
 " git
 Plug 'tpope/vim-fugitive'
 Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'airblade/vim-gitgutter'
 
 " autocomplete
 Plug 'ternjs/tern_for_vim', { 'do': 'npm install', 'for': 'javascript' }
