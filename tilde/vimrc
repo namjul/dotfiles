@@ -27,7 +27,6 @@ Plug 'benekastah/neomake'
 Plug 'tpope/vim-repeat'
 Plug 'schickling/vim-bufonly'
 Plug 'itchyny/lightline.vim'
-Plug 'critiqjo/vim-bufferline'
 
 " git
 Plug 'tpope/vim-fugitive'
@@ -125,19 +124,6 @@ cmap w!! w !sudo tee > /dev/null %
 nmap t% :tabedit %<CR>
 nmap td :tabclose<CR>
 
-" To open a new empty buffer (http://joshldavis.com/2014/04/05/vim-tab-madness-buffers-vs-tabs/)
-" This replaces :tabnew which I used to bind to this mapping
-nmap <leader>T :enew<cr>
-" Move to the next buffer
-nmap <leader>l :bnext<CR>
-" Move to the previous buffer
-nmap <leader>h :bprevious<CR>
-" Close the current buffer and move to the previous one
-" This replicates the idea of closing a tab
-nmap <leader>bq :bp <BAR> bd #<CR>
-" Show all open buffers and their status
-nmap <leader>bl :ls<CR>
-
 " easier navigation between split windows
 nnoremap <c-j> <c-w>j
 nnoremap <c-k> <c-w>k
@@ -178,35 +164,13 @@ let g:javascript_conceal_super          = "Ω"
 let g:javascript_conceal_arrow_function = "⇒"
 set conceallevel=2
 
-" bufferline
-let g:bufferline_active_buffer_left = ''
-let g:bufferline_active_buffer_right = ''
-let g:bufferline_show_bufnr = 0
-let g:bufferline_fname_mod = ':t'
-let g:bufferline_pathshorten = 1
-
 " lightline
 set noshowmode
-set showtabline=2
 let g:lightline = {
       \ 'mode_map': {
       \   'n': 'N',
       \   'i': 'I',
       \   'v': 'V'
-      \ },
-      \ 'tabline': {
-      \   'left': [ ['tabs'], ['bufferline'] ],
-      \   'right': []
-      \ },
-      \ 'tab': {
-	    \   'active': [ 'tabnum' ],
-	    \   'inactive': [ 'tabnum' ]
-      \ },
-      \ 'component_expand': {
-      \   'bufferline': 'LightlineBufferline',
-      \ },
-      \ 'component_type': {
-      \   'bufferline': 'tabsel',
       \ },
       \ 'colorscheme': 'gruvbox',
       \ 'active': {
@@ -257,11 +221,6 @@ function! LightLineFugitive()
     return strlen(_) ? '┣ '._ : ''
   endif
   return ''
-endfunction
-
-function! LightlineBufferline()
-  call bufferline#refresh_status()
-  return [ g:bufferline_status_info.before, g:bufferline_status_info.current, g:bufferline_status_info.after]
 endfunction
 
 " ctrlp settings
