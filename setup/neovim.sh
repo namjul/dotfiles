@@ -18,7 +18,7 @@ elif [ "$(uname -a | grep -i Ubuntu)" ]; then
   sudo pip2 install neovim
   sudo pip3 install neovim
 else
-  error "Error: Could not install Neovim for your OS."
+  echo "Error: Could not install Neovim for your OS."
   exit 1
 fi
 
@@ -26,10 +26,14 @@ fi
 cd "$HOME/Dotfiles"
 
 # Create .vim dir
-mkdir -p "$HOME/.vim"
+mkdir -p "$HOME/.vim/backups"
+mkdir -p "$HOME/.vim/swaps"
+mkdir -p "$HOME/.vim/bundle"
+mkdir -p "$HOME/.vim/undo"
 
-# Make symlinks for confiles inside ../vim
-./sync.py ./vim "$HOME/.vim"
+# Install vim-plug
+curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 # link file to nvim
 mkdir -p ${XDG_CONFIG_HOME:=$HOME/.config}
@@ -38,7 +42,7 @@ ln -s ~/.vimrc $XDG_CONFIG_HOME/nvim/init.vim
 
 # Install plugins
 git clone https://github.com/VundleVim/Vundle.Vim ~/.vim/bundle/Vundle.vim
-nvim +PluginInstall
+nvim +PlugInstall
 
 # Come back to previous dir
 cd -
