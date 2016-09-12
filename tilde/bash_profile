@@ -98,8 +98,12 @@ function mkd() {
 # 04. PROMPT COLORS                                                          #
 ##############################################################################
 
-# inspired by https://github.com/mathiasbynens/dotfiles/
-# inspired by https://github.com/sapegin/dotfiles/blob/dd063f9c30de7d2234e8accdb5272a5cc0a3388b/includes/bash_prompt.bash
+# Clean and minimalistic Bash prompt
+# 
+# copied from https://github.com/sapegin/dotfiles/blob/dd063f9c30de7d2234e8accdb5272a5cc0a3388b/includes/bash_prompt.bash
+#
+# Notes:
+# - $local_username - username you don’t want to see in the prompt - can be defined in ~/.bashlocal : `local_username="admin"`
 
 # Colors
 RED="$(tput setaf 1)"
