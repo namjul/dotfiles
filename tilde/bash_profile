@@ -107,6 +107,13 @@ function mkd() {
 	mkdir -p "$@" && cd "$@"
 }
 
+# Open file from terminal
+# USAGE: open <FILE>
+function open() {
+  echo $1
+  xdg-open $1 </dev/null &>/dev/null &
+}
+
 ##############################################################################
 # 04. PROMPT COLORS                                                          #
 ##############################################################################
