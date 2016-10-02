@@ -35,7 +35,7 @@ NO_DOT_PREFIX = [
 ]
 
 # Files which should be left with extentions
-PRESERVE_EXTENSION = ['tmux.conf']
+PRESERVE_EXTENSION = ['tmux.conf', 'todo.cfg']
 
 
 def force_remove(path):

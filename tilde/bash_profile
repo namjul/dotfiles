@@ -3,8 +3,21 @@
 # 01. EXPORTS                                                                #
 ##############################################################################
 
-# Add `~/bin` to the `$PATH`
-export PATH="$HOME/bin:$PATH"
+# Prepend $PATH without duplicates
+function _prepend_path() {
+ if ! $( echo "$PATH" | tr ":" "\n" | grep -qx "$1" ) ; then
+   PATH="$1:$PATH"
+ fi
+}
+
+# Add custom bin path
+[ -d ~/Dotfiles/bin ] && _prepend_path ~/Dotfiles/bin
+
+if [[ -d "$HOME/Dropbox/todo" && -f "$HOME/.todo.cfg" ]];then
+  export TODOTXT_CFG_FILE="$HOME/.todo.cfg"
+  alias t='todo.sh -d $HOME/.todo.cfg'
+  complete -F _todo t
+fi
 
 # Make vim the default editor
 export EDITOR="nvim"
