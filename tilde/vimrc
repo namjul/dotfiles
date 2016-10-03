@@ -30,6 +30,7 @@ Plug 'schickling/vim-bufonly'
 Plug 'itchyny/lightline.vim'
 Plug 'mhinz/vim-startify'
 Plug 'justinmk/vim-sneak'
+Plug 'kassio/neoterm'
 
 " git
 Plug 'tpope/vim-fugitive'
