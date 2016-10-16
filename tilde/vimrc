@@ -12,25 +12,26 @@ call plug#begin('~/.vim/bundle')
 
 " core plugins
 Plug 'tpope/vim-sensible'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-repeat'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
+Plug 'scrooloose/nerdcommenter'
+Plug 'jiangmiao/auto-pairs'
+Plug 'itchyny/lightline.vim'
+Plug 'editorconfig/editorconfig-vim'
 
 " main plugins
 Plug 'mklabs/split-term.vim'
-Plug 'tpope/vim-surround'
-Plug 'editorconfig/editorconfig-vim'
-Plug 'scrooloose/nerdcommenter'
-Plug 'jiangmiao/auto-pairs'
 Plug 'myusuf3/numbers.vim'
 Plug 'bkad/CamelCaseMotion'
 Plug 'benekastah/neomake'
-Plug 'tpope/vim-repeat'
 Plug 'schickling/vim-bufonly'
-Plug 'itchyny/lightline.vim'
 Plug 'mhinz/vim-startify'
 Plug 'justinmk/vim-sneak'
 Plug 'kassio/neoterm'
+Plug 'nathanaelkane/vim-indent-guides'
 
 " git
 Plug 'tpope/vim-fugitive'
@@ -38,16 +39,20 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'airblade/vim-gitgutter'
 
 " autocomplete
-Plug 'ternjs/tern_for_vim', { 'do': 'npm install', 'for': 'javascript' }
-Plug 'carlitux/deoplete-ternjs'
-
-" togglable panels
-Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
+Plug 'ervandew/supertab'
+if has('nvim')
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins'  }
+  Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern' }
+  Plug 'steelsojka/deoplete-flow'
+else
+  Plug 'Valloric/YouCompleteMe', { 'do': './install.py --tern-completer' }
+endif
 
 " language plugins
 Plug 'sheerun/vim-polyglot'
 Plug 'mattn/emmet-vim'
 Plug 'moll/vim-node'
+Plug 'gavocanov/vim-js-indent'
 
 " snippets
 Plug 'SirVer/ultisnips'
@@ -62,7 +67,7 @@ call plug#end()
 
 """""""""""""""""""""
 "
-" SETTINGS & KEYBINDINGS
+" SETTINGS
 "
 """""""""""""""""""""
 
@@ -88,17 +93,8 @@ set tabstop=2 " Make tabs as wide as two spaces
 set shiftwidth=2 " The # of spaces for indenting.
 set expandtab " use spaces, not tabs (optional)
 
-" esc mapping
-:inoremap jk <esc>
-
 " set <leader>
 let mapleader=","
-
-" Clear search highlights
-noremap <silent><Leader>/ :nohls<CR>
-
-" Select all
-map <Leader>a ggVG
 
 " mousesupport if not using neovim
 if !has('nvim')
@@ -114,6 +110,21 @@ colorscheme gruvbox
 set backupdir=~/.vim/backups//
 set directory=~/.vim/swaps//
 set undodir=~/.vim/undo//
+
+"""""""""""""""""""""
+"
+" KEYBINDINGS
+"
+"""""""""""""""""""""
+
+" esc mapping
+:inoremap jk <esc>
+
+" Clear search highlights
+noremap <silent><Leader>/ :nohls<CR>
+
+" Select all
+map <Leader>a ggVG
 
 " open vimrc
 nnoremap <leader>v :e  ~/.vimrc<CR>
@@ -146,7 +157,7 @@ noremap <leader>s :update<CR>
 
 " format JSON
 " map <leader>j !python -m json.tool<CR>
-command J :%!python -mjson.tool
+" command J :%!python -mjson.tool
 
 """""""""""""""""""""
 "
@@ -231,14 +242,6 @@ function! LightLineFugitive()
   return ''
 endfunction
 
-" Use deoplete.
-let g:deoplete#enable_at_startup = 1
-let g:deoplete#file#enable_buffer_path = 1
-" use tab to forward cycle
-inoremap <silent><expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
-" use tab to backward cycle
-inoremap <silent><expr><s-tab> pumvisible() ? "\<c-p>" : "\<s-tab>"
-
 " camelCaseMotion settings
 map <silent> w <Plug>CamelCaseMotion_w
 map <silent> b <Plug>CamelCaseMotion_b
@@ -253,16 +256,8 @@ sunmap ge
 let NERDTreeShowHidden=1
 noremap <leader>n :NERDTreeToggle<CR>
 
-" jsx for .js files
+" mxw/vim-jsx
 let g:jsx_ext_required = 0
-
-" neomake settings
-autocmd! BufWritePost * Neomake
-" let g:neomake_open_list = 2
-" let g:neomake_verbose = 3
-
-" vim-flow
-let g:flow#autoclose = 1
 
 " emmit settings
 let g:user_emmet_leader_key='<C-Z>'
@@ -277,3 +272,20 @@ let g:markdown_fenced_languages = ['html', 'javascript', 'json', 'bash=sh']
 
 " nerdcommenter
 let g:NERDSpaceDelims = 1
+
+if has('nvim')
+
+  " neomake settings
+  " let g:neomake_open_list = 2
+  " let g:neomake_verbose = 3
+  autocmd! BufWritePost * Neomake
+
+  " Use deoplete.
+  let g:deoplete#enable_at_startup = 1
+  let g:SuperTabDefaultCompletionType = "<c-n>"
+  let g:tern_request_timeout = 1
+  let g:tern_show_signature_in_pum = 0
+  set completeopt-=preview
+
+endif
+
