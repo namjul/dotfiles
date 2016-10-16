@@ -50,10 +50,10 @@ Plug 'mattn/emmet-vim'
 Plug 'moll/vim-node'
 
 " snippets
-Plug 'MarcWeber/vim-addon-mw-utils'
-Plug 'tomtom/tlib_vim'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
+Plug 'epilande/vim-es2015-snippets'
+Plug 'epilande/vim-react-snippets'
 
 " theme
 Plug 'morhetz/gruvbox'
