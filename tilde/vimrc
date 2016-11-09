@@ -281,6 +281,7 @@ if has('nvim')
   autocmd! BufWritePost * Neomake
 
   " Use deoplete.
+  let g:deoplete#file#enable_buffer_path = 1
   let g:deoplete#enable_at_startup = 1
   let g:SuperTabDefaultCompletionType = "<c-n>"
   let g:tern_request_timeout = 1
