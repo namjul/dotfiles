@@ -23,7 +23,6 @@ Plug 'itchyny/lightline.vim'
 Plug 'editorconfig/editorconfig-vim'
 
 " main plugins
-Plug 'mklabs/split-term.vim'
 Plug 'myusuf3/numbers.vim'
 Plug 'bkad/CamelCaseMotion'
 Plug 'benekastah/neomake'
@@ -43,7 +42,7 @@ Plug 'ervandew/supertab'
 if has('nvim')
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins'  }
   Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern' }
-  Plug 'steelsojka/deoplete-flow'
+  " Plug 'steelsojka/deoplete-flow'
 else
   Plug 'Valloric/YouCompleteMe', { 'do': './install.py --tern-completer' }
 endif
@@ -290,3 +289,10 @@ if has('nvim')
 
 endif
 
+" startify
+let g:startify_change_to_dir = 0
+
+" neoterm
+let g:neoterm_split_on_tnew = 1
+let g:neoterm_autoinsert = 1
+let g:neoterm_position = 'vertical'
