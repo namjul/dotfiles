@@ -13,6 +13,8 @@
 [core]
 	# Use custom `.gitignore` and `.gitattributes`
 	excludesfile = ~/.gitignore
+  # Use diff-so-fance
+  pager = "diff-so-fancy | less --tabs=4 -RFX"
 
 [color]
 	# Use colors in Git commands that are capable of colored output when
