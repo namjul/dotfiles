@@ -60,7 +60,8 @@ Plug 'epilande/vim-es2015-snippets'
 Plug 'epilande/vim-react-snippets'
 
 " theme
-Plug 'morhetz/gruvbox'
+" Plug 'morhetz/gruvbox'
+Plug 'chriskempson/base16-vim'
 
 call plug#end()
 
@@ -102,8 +103,8 @@ endif
 
 " Set colorscheme.
 set termguicolors
-set background=dark
-colorscheme gruvbox
+" set background=dark
+colorscheme base16-solarized-dark
 
 " Local dirs
 set backupdir=~/.vim/backups//
@@ -190,7 +191,7 @@ let g:lightline = {
       \   'i': 'I',
       \   'v': 'V'
       \ },
-      \ 'colorscheme': 'gruvbox',
+      \ 'colorscheme': 'solarized',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'fugitive', 'readonly' ], [ 'filename' ] ]
@@ -200,10 +201,25 @@ let g:lightline = {
       \   'readonly': 'LightLineReadonly',
       \   'filename': 'LightLineFilename',
       \   'modified': 'LightLineModified',
+      \   'fileformat': 'LightlineFileformat',
+      \   'filetype': 'LightlineFiletype',
+      \   'fileencoding': 'LightlineFileencoding'
       \ },
       \ 'separator': { 'left': '', 'right': '' },
       \ 'subseparator': { 'left': '', 'right': '' }
       \ }
+
+function! LightlineFileformat()
+  return winwidth(0) > 70 ? &fileformat : ''
+endfunction
+
+function! LightlineFiletype()
+  return winwidth(0) > 70 ? (&filetype !=# '' ? &filetype : 'no ft') : ''
+endfunction
+
+function! LightlineFileencoding()
+  return winwidth(0) > 70 ? (&fenc !=# '' ? &fenc : &enc) : ''
+endfunction
 
 function! LightLineModified()
   if &filetype == "help"
@@ -293,6 +309,6 @@ endif
 let g:startify_change_to_dir = 0
 
 " neoterm
-let g:neoterm_split_on_tnew = 1
+let g:neoterm_split_on_tnew = 0
 let g:neoterm_autoinsert = 1
 let g:neoterm_position = 'vertical'
