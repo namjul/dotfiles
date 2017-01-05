@@ -11,6 +11,8 @@ alias ....="cd ../../.."
 alias .....="cd ../../../.."
 alias ~="cd ~" # `cd` is probably faster to type though
 alias -- -="cd -"
+alias cdd="cd \"\${DOTFILES}\""
+alias cdv="cd \"\${VIM_DOTFILES}\""
 
 # Shortcuts
 alias d="cd ~/Dropbox"
