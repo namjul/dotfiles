@@ -1,0 +1,15 @@
+{
+  "libs": [
+    "browser",
+    "jquery"
+  ],
+  "loadEagerly": [],
+  "plugins": {
+    "commonjs": {},
+    "complete_strings": {},
+    "doc_comment": {
+      "strong": true
+    },
+    "node": {}
+  }
+}

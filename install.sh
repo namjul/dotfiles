@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Set directory
-export DOTFILES=${1:-"$HOME/Dotfiles"}
+export DOTFILES=${1:-"$HOME/dotfiles"}
 
 # Ask for password
 sudo -v
@@ -17,7 +17,7 @@ if ! hash git 2>/dev/null ; then
     # Install Git with apt-get
     sudo apt-get install git xclip
   else
-    error "Error: Git and Zsh are required."
+    error "Error: Git is required."
     exit
   fi
 fi
@@ -28,7 +28,7 @@ echo "Installing dotfiles..."
 if [ ! -d $DOTFILES ]; then
   git clone git@github.com:namjul/dotfiles.git $DOTFILES
   if [ -d $DOTFILES ]; then
-    cd $DOTFILES && ./sync.py && cd -
+    cd $DOTFILES && ./sync.sh && cd -
   else
     error "Error: Dotfiles weren't installed into $DOTFILES."
     exit
