@@ -9,81 +9,128 @@
 " ╚═╝ ╚═══╝   ╚═╝ ╚═╝     ╚═╝ ╚═╝  ╚═╝  ╚═════╝
 "
 
-"""""""""""""""""""""
-"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""
 " PLUGINS
-"
-"""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 function! s:LoadPlugins()
-	" core plugins
+
 	Plug 'tpope/vim-sensible'
-	Plug 'tpope/vim-surround'
-	Plug 'tpope/vim-repeat'
+	Plug 'itchyny/lightline.vim'
+	Plug 'editorconfig/editorconfig-vim'
+	Plug 'mhinz/vim-startify'
+
+  " =================================================
+  " Plug: Completion
+  " =================================================
+
+	Plug 'ervandew/supertab'
+  if (has('nvim') && has('python3'))
+	  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins'  }
+    Plug 'SirVer/ultisnips'
+    Plug 'honza/vim-snippets'
+	endif
+
+  " =================================================
+  " Plug: File system
+  " =================================================
+
+  Plug 'duggiefresh/vim-easydir'
+
+  " =================================================
+  " Plug: Commands
+  " =================================================
+
 	Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 	Plug 'junegunn/fzf.vim'
 	Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
-	Plug 'scrooloose/nerdcommenter'
-	Plug 'jiangmiao/auto-pairs'
-	Plug 'itchyny/lightline.vim'
-	Plug 'editorconfig/editorconfig-vim'
+  Plug 'osyo-manga/vim-over'
+  Plug 'nathanaelkane/vim-indent-guides'
+	Plug 'schickling/vim-bufonly'
+	Plug 'tpope/vim-fugitive'
 
-	" main plugins
+  " =================================================
+  " Plug: Input, syntax, spacing
+  " =================================================
+
 	Plug 'myusuf3/numbers.vim'
 	Plug 'bkad/CamelCaseMotion'
-	Plug 'benekastah/neomake'
-	Plug 'schickling/vim-bufonly'
-	Plug 'mhinz/vim-startify'
+	Plug 'neomake/neomake'
 	Plug 'justinmk/vim-sneak'
-	Plug 'kassio/neoterm'
-	Plug 'nathanaelkane/vim-indent-guides'
+	Plug 'jiangmiao/auto-pairs'
+  Plug 'Valloric/MatchTagAlways'
+  " Plug 'gregsexton/MatchTag'
 
-	" git
-	Plug 'tpope/vim-fugitive'
+  " =================================================
+  " Plug: Editing keys
+  " =================================================
+
+	Plug 'tpope/vim-surround'
+	Plug 'scrooloose/nerdcommenter'
+  Plug 'tpope/vim-repeat'
+        \| Plug 'svermeulen/vim-easyclip'
+
+  " =================================================
+  " Plug: Colorscheme
+  " =================================================
+  
+  " Plug 'morhetz/gruvbox'
+	" Plug 'chriskempson/base16-vim'
+  Plug 'lifepillar/vim-solarized8'
+
+  " =================================================
+  " Plug: Language
+  " =================================================
+
+  " =================================================
+  " Language: Git
+  " =================================================
+
 	Plug 'Xuyuanp/nerdtree-git-plugin'
 	Plug 'airblade/vim-gitgutter'
 
-	" autocomplete
-	Plug 'ervandew/supertab'
-	if has('nvim')
-	  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins'  }
-    Plug 'ternjs/tern_for_vim', { 'do': 'npm install --global tern' }
-	  Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern' }
-    Plug 'steelsojka/deoplete-flow'
-	else
-	  Plug 'Valloric/YouCompleteMe', { 'do': './install.py --tern-completer' }
-	endif
+  " =================================================
+  " Language: JavaScript and derivatives, JSON
+  " =================================================
+  
+  Plug 'pangloss/vim-javascript'
+        \| Plug 'mxw/vim-jsx'
+	Plug 'moll/vim-node'
+  Plug 'elzr/vim-json'
+  Plug 'epilande/vim-es2015-snippets'
+  Plug 'epilande/vim-react-snippets'
 
-	" language plugins
-	Plug 'sheerun/vim-javascript'
+  if has('nvim')
+    Plug 'steelsojka/deoplete-flow'
+  endif
+
+  " ----------------------------------------
+  " Completion
+  " ----------------------------------------
+
+  " Code analysis completion
+    if executable('npm')
+      Plug 'ternjs/tern_for_vim', { 'do': 'npm install --global tern' }
+
+      if has('nvim')
+        Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install --global tern' }
+      endif
+
+    else
+      " Syntax completion when tern is not available -- same stuff as tern
+      Plug '1995eaton/vim-better-javascript-completion'
+    endif
+
+  " =================================================
+  " Language: Stylesheets
+  " =================================================
+
   Plug 'JulesWang/css.vim'
         \| Plug 'hail2u/vim-css3-syntax'
         \| Plug 'cakebaker/scss-syntax.vim', { 'for': ['scss'] }
   Plug 'ap/vim-css-color'
   Plug 'othree/csscomplete.vim'
-	Plug 'moll/vim-node'
-  " Plug 'gregsexton/MatchTag'
-  Plug 'Valloric/MatchTagAlways'
 
-  " File system
-  Plug 'duggiefresh/vim-easydir'
-
-	" snippets
-  Plug 'SirVer/ultisnips'
-	Plug 'honza/vim-snippets'
-	Plug 'epilande/vim-es2015-snippets'
-	Plug 'epilande/vim-react-snippets'
-
-	" theme
-  Plug 'morhetz/gruvbox'
-	" Plug 'chriskempson/base16-vim'
-  Plug 'lifepillar/vim-solarized8'
-
-  " misc
-  Plug 'nathanaelkane/vim-indent-guides'
-  Plug 'osyo-manga/vim-over'
-  Plug 'tpope/vim-repeat'
-        \| Plug 'svermeulen/vim-easyclip'
 endfunction
 
 let s:use_plugins = 1
@@ -109,13 +156,10 @@ if s:use_plugins
   call plug#end()
 endif
 
-"""""""""""""""""""""
-"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""
 " SETTINGS
-"
-"""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" Some wild settings
 set number "Show relative lines numbers
 set showmatch " Show matching of: () [] {}
 set mousehide "Hide mouse when typing
@@ -123,7 +167,6 @@ set mouse=a "Enable Mouse clicking
 set showmode " Show the current mode
 set hidden " Hide buffers, rather than close them
 set cursorline " Highlight current line
-set gdefault " Add the g flag to search/replace by default
 set nostartofline " Don’t reset cursor to start of line when moving around.
 set shortmess=atI " Don’t show the intro message when starting Vim
 set visualbell " Use visual bell instead of audible bell
@@ -140,11 +183,6 @@ set expandtab " use spaces, not tabs (optional)
 " set <leader>
 let mapleader=","
 
-" mousesupport if not using neovim
-if !has('nvim')
-	set ttymouse=xterm2
-endif
-
 " Set colorscheme.
 " set background=dark
 colorscheme solarized8_dark
@@ -154,11 +192,9 @@ execute 'set backupdir=' . g:helper#vim_dir . '/.tmp/backup//'
 execute 'set directory=' . g:helper#vim_dir . '/.tmp/swap//'
 execute 'set undodir=' . g:helper#vim_dir . '/.tmp/undo//'
 
-"""""""""""""""""""""
-"
-" KEYBINDINGS
-"
-"""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""
+" MAPPINGS
+"""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " esc mapping
 :inoremap jk <esc>
