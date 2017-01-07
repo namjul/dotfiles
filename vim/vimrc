@@ -48,6 +48,7 @@ function! s:LoadPlugins()
   Plug 'nathanaelkane/vim-indent-guides'
 	Plug 'schickling/vim-bufonly'
 	Plug 'tpope/vim-fugitive'
+  Plug 'kassio/neoterm'
 
   " =================================================
   " Plug: Input, syntax, spacing
