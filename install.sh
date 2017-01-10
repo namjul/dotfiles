@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Set directory
-export DOTFILES=${1:-"$HOME/dotfiles"}
+export DOTFILES=${1:-"$HOME/.dotfiles"}
 
 # Ask for password
 sudo -v
