@@ -49,6 +49,7 @@ function! s:LoadPlugins()
 	Plug 'schickling/vim-bufonly'
 	Plug 'tpope/vim-fugitive'
   Plug 'kassio/neoterm'
+  Plug 'sbdchd/neoformat'
 
   " =================================================
   " Plug: Input, syntax, spacing
@@ -69,14 +70,14 @@ function! s:LoadPlugins()
 	Plug 'tpope/vim-surround'
 	Plug 'scrooloose/nerdcommenter'
   Plug 'tpope/vim-repeat'
-        \| Plug 'svermeulen/vim-easyclip'
+        " \| Plug 'svermeulen/vim-easyclip'
 
   " =================================================
   " Plug: Colorscheme
   " =================================================
   
   " Plug 'morhetz/gruvbox'
-	" Plug 'chriskempson/base16-vim'
+  " Plug 'chriskempson/base16-vim'
   Plug 'lifepillar/vim-solarized8'
 
   " =================================================
