@@ -29,9 +29,15 @@ for option in autocd globstar; do
 	shopt -s "$option" 2> /dev/null
 done
 
-# Add tab completion for many Bash commands
-if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
-    . /etc/bash_completion
+# completion
+if [ -f /etc/bash_completion ]; then
+  . /etc/bash_completion
+fi
+
+# Enable tab completion for `g` by marking it as an alias for `git`
+if [ -f ~/.git-completion.bash ]; then
+  . ~/.git-completion.bash
+  __git_complete g _git # http://stackoverflow.com/a/10707579
 fi
 
 source "${BASH_DOTFILES}/prompt.bash"
