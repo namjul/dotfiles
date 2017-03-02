@@ -7,7 +7,7 @@ if [ "$(uname)" == "Darwin" ]; then
   brew install neovim/neovim/neovim
 elif [ "$(uname -a | grep -i Ubuntu)" ]; then
   sudo apt-get install software-properties-common
-  sudo add-apt-repository ppa:neovim-ppa/unstable
+  sudo add-apt-repository ppa:neovim-ppa/stable
   sudo apt-get update
   sudo apt-get install neovim
   

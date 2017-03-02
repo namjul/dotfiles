@@ -1,4 +1,10 @@
 
+if executable('tern')
+  " Use tern_for_vim.
+  let g:tern#command = ["tern"]
+  let g:tern#arguments = ["--persistent"]
+endif
+
 if !helper#IsPlugged('deoplete.nvim') | finish | endif
 
 let g:deoplete#file#enable_buffer_path = 1

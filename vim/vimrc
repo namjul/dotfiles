@@ -70,7 +70,7 @@ function! s:LoadPlugins()
 	Plug 'tpope/vim-surround'
 	Plug 'scrooloose/nerdcommenter'
   Plug 'tpope/vim-repeat'
-        " \| Plug 'svermeulen/vim-easyclip'
+        \| Plug 'svermeulen/vim-easyclip'
 
   " =================================================
   " Plug: Colorscheme
