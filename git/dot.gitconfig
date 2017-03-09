@@ -5,6 +5,7 @@
 	s = status -s
 	df = diff --color --color-words --abbrev
 	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+	aliases = !git config --get-regexp 'alias.*' | colrm 1 6 | sed 's/[ ]/ = /' | sort
 
 [apply]
   # Detect whitespace errors when applying a patch
