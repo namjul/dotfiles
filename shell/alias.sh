@@ -18,7 +18,6 @@ alias cdv="cd \"\${VIM_DOTFILES}\""
 alias d="cd ~/Dropbox"
 alias dl="cd ~/Downloads"
 alias dt="cd ~/Desktop"
-alias g="git"
 alias h="history"
 alias j="jobs"
 
@@ -27,6 +26,18 @@ alias mv='mv -i'
 alias cp='cp -i -p'
 alias ls='ls -abp --color=auto'
 alias grep='grep --color=auto'
+
+# git
+alias g="git"
+alias g-="git checkout -"
+alias gb="git branch --verbose"
+alias gi="git ink"
+alias gg="git grep --line-number --break --heading"
+alias gl="git l --max-count 50"
+alias gll="git ll --max-count 50"
+alias gp="git push"
+alias gpo="git push origin"
+alias gs="git status"
 
 # Color LS
 # Detect which `ls` flavor is in use
