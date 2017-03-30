@@ -13,6 +13,7 @@
 	cb      = checkout -b
 	ct      = checkout --track
 	master  = checkout master
+	develop = checkout develop
 
 	d       = diff
 	df      = diff --color --color-words --abbrev
