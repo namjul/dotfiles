@@ -13,6 +13,7 @@ export EXTRA_DIR="$HOME/.extra"
 
 # (n)vim
 ln -sfv "$DOTFILES_DIR/vim" ~/.vim
+ln -sfv "$DOTFILES_DIR/vim/vimrc" ~/.vimrc
 ln -sfv "$DOTFILES_DIR/vim" ~/.config/nvim
 
 ln -sfv "$DOTFILES_DIR/git/dot.gitconfig" ~/.gitconfig
