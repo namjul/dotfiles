@@ -61,6 +61,7 @@ function! s:LoadPlugins()
 	Plug 'justinmk/vim-sneak'
 	Plug 'jiangmiao/auto-pairs'
   Plug 'Valloric/MatchTagAlways'
+  Plug 'simeji/winresizer'
   " Plug 'gregsexton/MatchTag'
 
   " =================================================
