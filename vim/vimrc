@@ -57,7 +57,7 @@ function! s:LoadPlugins()
 
 	Plug 'myusuf3/numbers.vim'
 	Plug 'bkad/CamelCaseMotion'
-	Plug 'neomake/neomake'
+  Plug 'w0rp/ale'
 	Plug 'justinmk/vim-sneak'
 	Plug 'jiangmiao/auto-pairs'
   Plug 'Valloric/MatchTagAlways'
