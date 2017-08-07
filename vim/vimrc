@@ -43,7 +43,7 @@ function! s:LoadPlugins()
 
 	Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 	Plug 'junegunn/fzf.vim'
-	Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
+	Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] }
   Plug 'osyo-manga/vim-over'
   Plug 'nathanaelkane/vim-indent-guides'
 	Plug 'schickling/vim-bufonly'
