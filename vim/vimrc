@@ -26,7 +26,7 @@ function! s:LoadPlugins()
 
 	Plug 'ervandew/supertab'
   if (has('nvim') && has('python3'))
-	  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins'  }
+    Plug 'roxma/nvim-completion-manager'
     Plug 'SirVer/ultisnips'
     Plug 'honza/vim-snippets'
 	endif
@@ -47,9 +47,9 @@ function! s:LoadPlugins()
   Plug 'osyo-manga/vim-over'
   Plug 'nathanaelkane/vim-indent-guides'
 	Plug 'schickling/vim-bufonly'
-	Plug 'tpope/vim-fugitive'
   Plug 'kassio/neoterm'
   Plug 'sbdchd/neoformat'
+  Plug 'tpope/vim-unimpaired'
 
   " =================================================
   " Plug: Input, syntax, spacing
@@ -91,6 +91,8 @@ function! s:LoadPlugins()
 
 	Plug 'Xuyuanp/nerdtree-git-plugin'
 	Plug 'airblade/vim-gitgutter'
+	Plug 'tpope/vim-fugitive'
+  Plug 'tpope/vim-rhubarb'
 
   " =================================================
   " Language: JavaScript and derivatives, JSON
@@ -104,7 +106,7 @@ function! s:LoadPlugins()
   Plug 'epilande/vim-react-snippets'
 
   if has('nvim')
-    Plug 'steelsojka/deoplete-flow'
+    Plug 'roxma/ncm-flow'
   endif
 
   " ----------------------------------------
@@ -116,7 +118,7 @@ function! s:LoadPlugins()
       Plug 'ternjs/tern_for_vim', { 'do': 'npm install --global tern' }
 
       if has('nvim')
-        Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install --global tern' }
+        Plug 'roxma/nvim-cm-tern',  {'do': 'npm install'}
       endif
 
     else
