@@ -46,7 +46,6 @@ function! s:LoadPlugins()
 	Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] }
   Plug 'osyo-manga/vim-over'
   Plug 'nathanaelkane/vim-indent-guides'
-	Plug 'schickling/vim-bufonly'
   Plug 'kassio/neoterm'
   Plug 'sbdchd/neoformat'
   Plug 'tpope/vim-unimpaired'
@@ -63,7 +62,6 @@ function! s:LoadPlugins()
 	Plug 'jiangmiao/auto-pairs'
   Plug 'Valloric/MatchTagAlways'
   Plug 'simeji/winresizer'
-  " Plug 'gregsexton/MatchTag'
 
   " =================================================
   " Plug: Editing keys
