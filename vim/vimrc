@@ -103,6 +103,9 @@ function! s:LoadPlugins()
   Plug 'elzr/vim-json'
   Plug 'epilande/vim-es2015-snippets'
   Plug 'epilande/vim-react-snippets'
+  Plug 'prettier/vim-prettier', {
+    \ 'do': 'npm install',
+    \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql'] }
 
   if has('nvim')
     Plug 'roxma/ncm-flow'
