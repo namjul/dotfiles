@@ -62,6 +62,8 @@ function! s:LoadPlugins()
 	Plug 'jiangmiao/auto-pairs'
   Plug 'Valloric/MatchTagAlways'
   Plug 'simeji/winresizer'
+  Plug 'christoomey/vim-tmux-navigator'
+  Plug 'benmills/vimux'
 
   " =================================================
   " Plug: Editing keys
@@ -223,11 +225,8 @@ cmap w!! w !sudo tee > /dev/null %
 nmap t% :tabedit %<CR>
 nmap td :tabclose<CR>
 
-" easier navigation between split windows
-nnoremap <c-j> <c-w>j
-nnoremap <c-k> <c-w>k
-nnoremap <c-h> <c-w>h
-nnoremap <c-l> <c-w>l
+" vv to generate new vertical split
+nnoremap <silent> vv <C-w>v
 
 " support ejs 
 au BufNewFile,BufRead *.ejs set filetype=html
