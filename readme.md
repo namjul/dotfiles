@@ -10,3 +10,5 @@
 
 https://github.com/nathco/Office-Code-Pro
 
+## Todos
+- [ ] vim filename should include folder
