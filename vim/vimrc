@@ -227,6 +227,7 @@ nmap td :tabclose<CR>
 
 " vv to generate new vertical split
 nnoremap <silent> vv <C-w>v
+nnoremap <silent> vh <C-w>s
 
 " support ejs 
 au BufNewFile,BufRead *.ejs set filetype=html

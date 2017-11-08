@@ -76,3 +76,9 @@ alias reload="exec $SHELL -l"
 
 # todo.text-cli
 alias t='todo -d $HOME/.todo.cfg'
+
+# This actually happens a lot
+alias :q='exit'
+
+# Pretty print the path
+alias path='echo $PATH | tr -s ":" "\n"'
