@@ -11,7 +11,7 @@ let g:lightline = {
       \ 'colorscheme': 'solarized',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'fugitive', 'readonly' ], [ 'filename' ] ]
+      \             [ 'fugitive', 'readonly' ], [ 'relativepath' ] ],
       \   'right': [ [ 'lineinfo' ],
       \              [ 'percent' ],
       \              [] ]
@@ -19,7 +19,6 @@ let g:lightline = {
       \ 'component_function': {
       \   'fugitive': 'LightLineFugitive',
       \   'readonly': 'LightLineReadonly',
-      \   'filename': 'LightLineFilename',
       \   'modified': 'LightLineModified',
       \   'fileformat': 'LightlineFileformat',
       \   'filetype': 'LightlineFiletype',
@@ -61,12 +60,6 @@ function! LightLineReadonly()
   else
     return ""
   endif
-endfunction
-
-function! LightLineFilename()
-  return ('' != LightLineReadonly() ? LightLineReadonly() . ' ' : '') .
-       \ ('' != expand('%:t') ? expand('%:t') : '[No Name]') .
-       \ ('' != LightLineModified() ? ' ' . LightLineModified() : '')
 endfunction
 
 function! LightLineFugitive()
