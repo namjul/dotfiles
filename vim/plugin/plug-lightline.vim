@@ -12,6 +12,9 @@ let g:lightline = {
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'fugitive', 'readonly' ], [ 'filename' ] ]
+      \   'right': [ [ 'lineinfo' ],
+      \              [ 'percent' ],
+      \              [] ]
       \ },
       \ 'component_function': {
       \   'fugitive': 'LightLineFugitive',
