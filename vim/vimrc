@@ -94,6 +94,7 @@ function! s:LoadPlugins()
 	Plug 'airblade/vim-gitgutter'
 	Plug 'tpope/vim-fugitive'
   Plug 'tpope/vim-rhubarb'
+  Plug 'rhysd/committia.vim'
 
   " =================================================
   " Language: JavaScript and derivatives, JSON
