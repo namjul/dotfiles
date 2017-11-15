@@ -240,6 +240,8 @@ noremap <leader>s :update<CR>
 nnoremap  <leader>evi   :<C-U>edit $VIM_DOTFILES/init.vim<CR>
 nnoremap  <leader>evr   :<C-U>edit $VIM_DOTFILES/vimrc<CR>
 
+nnoremap <silent> <Leader>ag :Ag <C-R><C-W><CR>
+
 " format JSON
 " map <leader>j !python -m json.tool<CR>
 " command J :%!python -mjson.tool
