@@ -19,6 +19,7 @@ function! s:LoadPlugins()
 	Plug 'itchyny/lightline.vim'
 	Plug 'editorconfig/editorconfig-vim'
 	Plug 'mhinz/vim-startify'
+  Plug 'blueyed/vim-diminactive'
 
   " =================================================
   " Plug: Completion
@@ -225,10 +226,6 @@ cmap w!! w !sudo tee > /dev/null %
 " Maximize window and return to previous split structure
 nmap t% :tabedit %<CR>
 nmap td :tabclose<CR>
-
-" vv to generate new vertical split
-nnoremap <silent> sv <C-w>v
-nnoremap <silent> sh <C-w>s
 
 " support ejs 
 au BufNewFile,BufRead *.ejs set filetype=html
