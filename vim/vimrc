@@ -81,7 +81,7 @@ function! s:LoadPlugins()
   
   " Plug 'morhetz/gruvbox'
   " Plug 'chriskempson/base16-vim'
-  Plug 'lifepillar/vim-solarized8'
+  Plug 'icymind/NeoSolarized'
 
   " =================================================
   " Plug: Language
@@ -196,8 +196,8 @@ set expandtab " use spaces, not tabs (optional)
 let mapleader=","
 
 " Set colorscheme.
-" set background=dark
-colorscheme solarized8_dark
+set background=dark
+colorscheme NeoSolarized
 
 " Local dirs
 execute 'set backupdir=' . g:helper#vim_dir . '/.tmp/backup//'
