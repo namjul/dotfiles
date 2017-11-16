@@ -1,11 +1,7 @@
 " init.vim
 " Neovim init (in place of vimrc)
 
-if $TERM =~ '^\(rxvt\|screen\)\(\|-.*\)'
-  set notermguicolors
-elseif $TERM =~ '^\(xterm\|tmux\)\(\|-.*\)'
-  set termguicolors
-endif
+set termguicolors
 
 let g:nvim_dir = fnamemodify(resolve(expand('$MYVIMRC')), ':p:h')
 
