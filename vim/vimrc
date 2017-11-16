@@ -51,6 +51,7 @@ function! s:LoadPlugins()
   Plug 'sbdchd/neoformat'
   Plug 'tpope/vim-unimpaired'
   Plug 'AndrewRadev/splitjoin.vim'
+  Plug 'tyewang/vimux-jest-test'
 
   " =================================================
   " Plug: Input, syntax, spacing
