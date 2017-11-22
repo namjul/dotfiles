@@ -52,6 +52,7 @@ function! s:LoadPlugins()
   Plug 'tpope/vim-unimpaired'
   Plug 'AndrewRadev/splitjoin.vim'
   Plug 'tyewang/vimux-jest-test'
+  Plug 'metakirby5/codi.vim'
 
   " =================================================
   " Plug: Input, syntax, spacing
