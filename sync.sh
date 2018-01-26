@@ -31,7 +31,7 @@ ln -sfv "$DOTFILES_DIR/bash/dot.bash_profile" ~/.bash_profile
 
 # symlink xmonad % xmobar
 ln -sfv "$DOTFILES_DIR/xmonad/dot.xmonad.hs" ~/.xmonad/xmonad.hs
-ln -sfv "$DOTFILES_DIR/xmonad/dot.xmobarrc" ~/.xmobarrc
+ln -sfv "$DOTFILES_DIR/xmonad/dot.xmobar.conf" ~/.xmobarrc
 
 # Package managers & packages
 
