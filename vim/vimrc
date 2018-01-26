@@ -89,6 +89,17 @@ function! s:LoadPlugins()
   " Plug: Language
   " =================================================
 
+  Plug 'autozimu/LanguageClient-neovim', {
+        \ 'branch': 'next',
+        \ 'do': 'bash install.sh',
+        \ }
+
+  " =================================================
+  " Language: ReasonML
+  " =================================================
+  
+  Plug 'reasonml-editor/vim-reason-plus'
+
   " =================================================
   " Language: Git
   " =================================================
