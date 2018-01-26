@@ -19,7 +19,7 @@ xset fp rehash
 
 # start statusbar
 trayer --edge top --align right --SetDockType true --SetPartialStrut true \
- --expand true --width 10 --transparent true --tint black --height 17 &
+ --expand true --width 0 --transparent true --tint black --height 17 &
 
 # start dropbox
 dropbox start
