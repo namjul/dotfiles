@@ -18,8 +18,8 @@ xset +fp /home/nam/.fonts
 xset fp rehash
 
 # start statusbar
-# trayer --edge top --align right --SetDockType true --SetPartialStrut true \
- # --expand true --width 10 --transparent true --tint black --height 17 &
+trayer --edge top --align right --SetDockType true --SetPartialStrut true \
+ --expand true --width 10 --transparent true --tint black --height 17 &
 
 # start dropbox
 dropbox start
