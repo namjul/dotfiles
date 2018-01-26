@@ -29,6 +29,10 @@ ln -sfv "$DOTFILES_DIR/ternjs/dot.tern-project" ~/.tern-project
 ln -sfv "$DOTFILES_DIR/bash/dot.bashrc" ~/.bashrc
 ln -sfv "$DOTFILES_DIR/bash/dot.bash_profile" ~/.bash_profile
 
+# symlink xmonad % xmobar
+ln -sfv "$DOTFILES_DIR/xmonad/dot.xmonad.hs" ~/.xmonad/xmonad.hs
+ln -sfv "$DOTFILES_DIR/xmonad/dot.xmobarrc" ~/.xmobarrc
+
 # Package managers & packages
 
 # . "$DOTFILES_DIR/install/brew.sh"
