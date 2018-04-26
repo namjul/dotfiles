@@ -15,8 +15,8 @@ elif [ "$(uname -a | grep -i Ubuntu)" ]; then
   sudo apt-get install python-dev python-pip python3-dev python3-pip
 
   # install neovim python packages
-  sudo pip2 install neovim
-  sudo pip3 install neovim
+  sudo pip2 install --upgrade neovim
+  sudo pip3 install --upgrade neovim
 else
   echo "Error: Could not install Neovim for your OS."
   exit 1
