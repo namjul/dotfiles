@@ -1,3 +1,7 @@
+#!/bin/bash
+
+# Readline library configuration options
+# https://ss64.com/bash/syntax-inputrc.html
 
 # Make Tab autocomplete regardless of filename case
 set completion-ignore-case on
