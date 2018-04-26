@@ -21,6 +21,7 @@ ln -sfv "$DOTFILES_DIR/git/got.gitignore" ~/.gitignore_global
 ln -sfv "$DOTFILES_DIR/shell/dot.inputrc" ~/.inputrc
 ln -sfv "$DOTFILES_DIR/todo/dot.todo.cfg" ~/.todo.cfg
 ln -sfv "$DOTFILES_DIR/tmux/tmux.conf" ~/.tmux.conf
+ln -sfv "$DOTFILES_DIR/xresources/dot.Xresources" ~/.Xresources
 
 # default tern-project
 ln -sfv "$DOTFILES_DIR/ternjs/dot.tern-project" ~/.tern-project
