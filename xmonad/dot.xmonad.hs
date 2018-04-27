@@ -1,4 +1,5 @@
 import XMonad
+import XMonad.Config as DefConfig
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
 import XMonad.Util.Run(spawnPipe)
@@ -14,8 +15,8 @@ myAdditionalKeys =
         ]
 
 myConfig p = def 
-        { manageHook = manageDocks <+> manageHook defaultConfig
-        , layoutHook = avoidStruts $ layoutHook defaultConfig
+        { manageHook = manageDocks <+> manageHook DefConfig.def
+        , layoutHook = avoidStruts $ layoutHook DefConfig.def
         , terminal = "gnome-terminal"
         , logHook = dynamicLogWithPP xmobarPP
                         { ppOutput = hPutStrLn p
