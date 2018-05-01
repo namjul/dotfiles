@@ -1,6 +1,6 @@
 ## Installation
 
-`wget -O - https://raw.githubusercontent.com/namjul/dotfiles/master/install.sh | sh`
+`wget -O - https://raw.githubusercontent.com/namjul/dotfiles/master/install.sh | bash`
 
 
 ## Caps lock
