@@ -16,23 +16,25 @@ ln -sfv "$DOTFILES_DIR/vim" ~/.vim
 ln -sfv "$DOTFILES_DIR/vim/vimrc" ~/.vimrc
 ln -sfv "$DOTFILES_DIR/vim" ~/.config/nvim
 
+# git
 ln -sfv "$DOTFILES_DIR/git/dot.gitconfig" ~/.gitconfig
 ln -sfv "$DOTFILES_DIR/git/got.gitignore" ~/.gitignore_global
-ln -sfv "$DOTFILES_DIR/shell/dot.inputrc" ~/.inputrc
-ln -sfv "$DOTFILES_DIR/todo/dot.todo.cfg" ~/.todo.cfg
-ln -sfv "$DOTFILES_DIR/tmux/tmux.conf" ~/.tmux.conf
-ln -sfv "$DOTFILES_DIR/xresources/dot.Xresources" ~/.Xresources
-
-# default tern-project
-ln -sfv "$DOTFILES_DIR/ternjs/dot.tern-project" ~/.tern-project
 
 # symlink shells
 ln -sfv "$DOTFILES_DIR/bash/dot.bashrc" ~/.bashrc
 ln -sfv "$DOTFILES_DIR/bash/dot.bash_profile" ~/.bash_profile
+ln -sfv "$DOTFILES_DIR/shell/dot.inputrc" ~/.inputrc
 
 # symlink xmonad % xmobar
 ln -sfv "$DOTFILES_DIR/xmonad/dot.xmonad.hs" ~/.xmonad/xmonad.hs
 ln -sfv "$DOTFILES_DIR/xmonad/dot.xmobar.conf" ~/.xmobarrc
+
+# others
+ln -sfv "$DOTFILES_DIR/todo/dot.todo.cfg" ~/.todo.cfg
+ln -sfv "$DOTFILES_DIR/tmux/tmux.conf" ~/.tmux.conf
+ln -sfv "$DOTFILES_DIR/xresources/dot.Xresources" ~/.Xresources
+ln -sfv "$DOTFILES_DIR/ternjs/dot.tern-project" ~/.tern-project
+ln -sfv "$DOTFILES_DIR/alacritty/dot.alacritty.yml" ~/.alacritty.yml
 
 # Package managers & packages
 
