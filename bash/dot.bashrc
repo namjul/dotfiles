@@ -40,7 +40,10 @@ if [ -f ~/.git-completion.bash ]; then
   __git_complete g _git # http://stackoverflow.com/a/10707579
 fi
 
-source "${BASH_DOTFILES}/prompt.bash"
+# https://askubuntu.com/questions/591937/no-value-for-term-and-no-t-specified
+if [[ $- == *i* ]]; then 
+  source "${BASH_DOTFILES}/prompt.bash"
+fi
 
 if [[ -a ~/.localrc ]]; then
     source ~/.localrc
