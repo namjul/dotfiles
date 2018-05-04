@@ -1,0 +1,75 @@
+#!/bin/bash
+
+kernel_name=`uname`
+brew=$([ kernel_name == 'Dargin' ] && echo 'Homebrew' || echo 'Linuxbrew')
+
+# Check for brew and install if needed
+
+which brew
+if [[ $? != 0 ]] ; then
+  echo "Installing $brew ..."
+  if [ $kernel_name == 'Darwin' ]; then
+    # Install Homebrew
+    yes | ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  elif [ $kernel_name == 'Linux' ]; then
+    # Install Linuxrew
+    yes | sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)"
+  else
+    error "Error: Git is required."
+    exit
+  fi
+else
+  echo "$brew already installed ..."
+fi
+
+# Make sure we’re using the latest Homebrew
+brew update
+
+# Upgrade any already-installed formulae
+brew upgrade
+
+# Install GNU core utilities (those that come with OS X are outdated)
+brew install coreutils
+echo "Don’t forget to add $(brew --prefix coreutils)/libexec/gnubin to \$PATH."
+
+# Install GNU `find`, `locate`, `updatedb`, and `xargs`, g-prefixed
+brew install findutils
+
+# Install Bash 4
+brew install bash
+
+# Install wget with IRI support
+brew install wget --enable-iri
+
+# neovim
+brew install python2
+brew install python3
+brew install neovim
+pip2 install neovim
+pip3 install neovim
+
+# fzf
+brew install fzf
+yes | $(brew --prefix)/opt/fzf/install
+
+# Ag - fzf is configured to use this
+brew install the_silver_searcher
+
+# tmux
+brew install tmux
+
+# git
+brew install cdiff
+brew install git
+brew install scmpuff
+brew install diff-so-fancy
+
+# Install everything else
+brew install ack
+brew install tree
+brew install z
+brew install python
+brew install xclip
+
+# Remove outdated versions from the cellar
+brew cleanup

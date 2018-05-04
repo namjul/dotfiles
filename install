@@ -1,0 +1,7 @@
+#!/bin/bash
+
+source ./scripts/brew
+source ./scripts/symlinks
+source ./scripts/node
+
+echo "Installation complete!"
