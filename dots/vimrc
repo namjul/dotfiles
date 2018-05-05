@@ -9,180 +9,164 @@
 " ╚═╝ ╚═══╝   ╚═╝ ╚═╝     ╚═╝ ╚═╝  ╚═╝  ╚═════╝
 "
 
+let g:plugin_path = '~/.config/nvim/plugged'
+
+call plug#begin(g:plugin_path)
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 " PLUGINS
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
-function! s:LoadPlugins()
+Plug 'tpope/vim-sensible'
+Plug 'itchyny/lightline.vim'
+Plug 'editorconfig/editorconfig-vim'
+Plug 'mhinz/vim-startify'
+Plug 'blueyed/vim-diminactive'
 
-	Plug 'tpope/vim-sensible'
-	Plug 'itchyny/lightline.vim'
-	Plug 'editorconfig/editorconfig-vim'
-	Plug 'mhinz/vim-startify'
-  Plug 'blueyed/vim-diminactive'
+" =================================================
+" Plug: Completion
+" =================================================
 
-  " =================================================
-  " Plug: Completion
-  " =================================================
-
-	Plug 'ervandew/supertab'
-  if (has('nvim') && has('python3'))
-    Plug 'roxma/nvim-completion-manager'
-    Plug 'SirVer/ultisnips'
-    Plug 'honza/vim-snippets'
-	endif
-
-  " =================================================
-  " Plug: File system
-  " =================================================
-
-  Plug 'duggiefresh/vim-easydir'
-
-  " =================================================
-  " Plug: Commands
-  " =================================================
-
-	Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-	Plug 'junegunn/fzf.vim'
-	Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] }
-  Plug 'osyo-manga/vim-over'
-  Plug 'nathanaelkane/vim-indent-guides'
-  Plug 'kassio/neoterm'
-  Plug 'sbdchd/neoformat'
-  Plug 'tpope/vim-unimpaired'
-  Plug 'AndrewRadev/splitjoin.vim'
-  Plug 'tyewang/vimux-jest-test'
-  Plug 'metakirby5/codi.vim'
-
-  " =================================================
-  " Plug: Input, syntax, spacing
-  " =================================================
-
-	Plug 'myusuf3/numbers.vim'
-	Plug 'chaoren/vim-wordmotion'
-  Plug 'w0rp/ale'
-	Plug 'justinmk/vim-sneak'
-	Plug 'jiangmiao/auto-pairs'
-  Plug 'Valloric/MatchTagAlways'
-  Plug 'simeji/winresizer'
-  Plug 'christoomey/vim-tmux-navigator'
-  Plug 'benmills/vimux'
-
-  " =================================================
-  " Plug: Editing keys
-  " =================================================
-
-	Plug 'tpope/vim-surround'
-	Plug 'scrooloose/nerdcommenter'
-  Plug 'tpope/vim-repeat'
-        \| Plug 'svermeulen/vim-easyclip'
-
-  " =================================================
-  " Plug: Colorscheme
-  " =================================================
-  
-  " Plug 'morhetz/gruvbox'
-  " Plug 'chriskempson/base16-vim'
-  Plug 'icymind/NeoSolarized'
-
-  " =================================================
-  " Plug: Language
-  " =================================================
-
-  Plug 'autozimu/LanguageClient-neovim', {
-        \ 'branch': 'next',
-        \ 'do': 'bash install.sh',
-        \ }
-
-  " =================================================
-  " Language: ReasonML
-  " =================================================
-  
-  Plug 'reasonml-editor/vim-reason-plus'
-
-  " =================================================
-  " Language: Git
-  " =================================================
-
-	Plug 'Xuyuanp/nerdtree-git-plugin'
-	Plug 'airblade/vim-gitgutter'
-	Plug 'tpope/vim-fugitive'
-  Plug 'tpope/vim-rhubarb'
-  Plug 'rhysd/committia.vim'
-
-  " =================================================
-  " Language: JavaScript and derivatives, JSON
-  " =================================================
-  
-  Plug 'pangloss/vim-javascript'
-        \| Plug 'mxw/vim-jsx'
-	Plug 'moll/vim-node'
-  Plug 'elzr/vim-json'
-  Plug 'epilande/vim-es2015-snippets'
-  Plug 'epilande/vim-react-snippets'
-  Plug 'prettier/vim-prettier', {
-    \ 'do': 'npm install',
-    \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql'] }
-
-  if has('nvim')
-    Plug 'roxma/ncm-flow'
-  endif
-
-  " ----------------------------------------
-  " Completion
-  " ----------------------------------------
-
-  " Code analysis completion
-    if executable('npm')
-      Plug 'ternjs/tern_for_vim', { 'do': 'npm install --global tern' }
-
-      if has('nvim')
-        Plug 'roxma/nvim-cm-tern',  {'do': 'npm install'}
-      endif
-
-    else
-      " Syntax completion when tern is not available -- same stuff as tern
-      Plug '1995eaton/vim-better-javascript-completion'
-    endif
-
-  " =================================================
-  " Language: Stylesheets
-  " =================================================
-
-  Plug 'JulesWang/css.vim'
-        \| Plug 'hail2u/vim-css3-syntax'
-        \| Plug 'cakebaker/scss-syntax.vim', { 'for': ['scss'] }
-  Plug 'ap/vim-css-color'
-  Plug 'othree/csscomplete.vim'
-
-endfunction
-
-let s:use_plugins = 1
-let s:plug_dir = '/vendor/'
-let s:plug_dir .= has('nvim') ? 'nvim' : 'vim'
-let s:plug_absdir = g:helper#vim_dir . s:plug_dir
-
-let g:plug_window = 'tabnew'
-
-if s:use_plugins
-  " Load vim-plug and its plugins?
-  if empty(glob(expand(g:helper#vim_dir . '/autoload/plug.vim')))
-    execute '!curl -fLo '
-          \ . g:helper#vim_dir . '/autoload/plug.vim --create-dirs '
-          \ . 'https://raw.githubusercontent.com/'
-          \ . 'junegunn/vim-plug/master/plug.vim'
-    autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-  endif
-
-  call plug#begin(s:plug_absdir)
-    call s:LoadPlugins()
-    if !isdirectory(expand(s:plug_absdir)) | PlugInstall
-    endif
-  call plug#end()
+Plug 'ervandew/supertab'
+if (has('nvim') && has('python3'))
+  Plug 'roxma/nvim-completion-manager'
+  Plug 'SirVer/ultisnips'
+  Plug 'honza/vim-snippets'
 endif
 
+" =================================================
+" Plug: File system
+" =================================================
+
+Plug 'duggiefresh/vim-easydir'
+
+" =================================================
+" Plug: Commands
+" =================================================
+
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] }
+Plug 'osyo-manga/vim-over'
+Plug 'nathanaelkane/vim-indent-guides'
+Plug 'kassio/neoterm'
+Plug 'sbdchd/neoformat'
+Plug 'tpope/vim-unimpaired'
+Plug 'AndrewRadev/splitjoin.vim'
+Plug 'tyewang/vimux-jest-test'
+Plug 'metakirby5/codi.vim'
+
+" =================================================
+" Plug: Input, syntax, spacing
+" =================================================
+
+Plug 'myusuf3/numbers.vim'
+Plug 'chaoren/vim-wordmotion'
+Plug 'w0rp/ale'
+Plug 'justinmk/vim-sneak'
+Plug 'jiangmiao/auto-pairs'
+Plug 'Valloric/MatchTagAlways'
+Plug 'simeji/winresizer'
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'benmills/vimux'
+
+" =================================================
+" Plug: Editing keys
+" =================================================
+
+Plug 'tpope/vim-surround'
+Plug 'scrooloose/nerdcommenter'
+Plug 'tpope/vim-repeat'
+      \| Plug 'svermeulen/vim-easyclip'
+
+" =================================================
+" Plug: Colorscheme
+" =================================================
+
+Plug 'morhetz/gruvbox'
+Plug 'chriskempson/base16-vim'
+Plug 'icymind/NeoSolarized'
+
+" =================================================
+" Plug: Language
+" =================================================
+
+Plug 'autozimu/LanguageClient-neovim', {
+      \ 'branch': 'next',
+      \ 'do': 'bash install.sh',
+      \ }
+
+" =================================================
+" Language: ReasonML
+" =================================================
+
+Plug 'reasonml-editor/vim-reason-plus'
+
+" =================================================
+" Language: Git
+" =================================================
+
+Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'airblade/vim-gitgutter'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-rhubarb'
+Plug 'rhysd/committia.vim'
+
+" =================================================
+" Language: JavaScript and derivatives, JSON
+" =================================================
+
+Plug 'pangloss/vim-javascript'
+      \| Plug 'mxw/vim-jsx'
+Plug 'moll/vim-node'
+Plug 'elzr/vim-json'
+Plug 'epilande/vim-es2015-snippets'
+Plug 'epilande/vim-react-snippets'
+Plug 'prettier/vim-prettier', {
+      \ 'do': 'npm install',
+      \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql'] }
+
+if has('nvim')
+  Plug 'roxma/ncm-flow'
+endif
+
+" ----------------------------------------
+" Completion
+" ----------------------------------------
+
+" Code analysis completion
+if executable('npm')
+  Plug 'ternjs/tern_for_vim', { 'do': 'npm install --global tern' }
+
+  if has('nvim')
+    Plug 'roxma/nvim-cm-tern',  {'do': 'npm install'}
+  endif
+
+else
+  " Syntax completion when tern is not available -- same stuff as tern
+  Plug '1995eaton/vim-better-javascript-completion'
+endif
+
+" =================================================
+" Language: Stylesheets
+" =================================================
+
+Plug 'JulesWang/css.vim'
+      \| Plug 'hail2u/vim-css3-syntax'
+      \| Plug 'cakebaker/scss-syntax.vim', { 'for': ['scss'] }
+Plug 'ap/vim-css-color'
+Plug 'othree/csscomplete.vim'
+
+call plug#end()
+
+" Shortcut for checking if a plugin is loaded
+function! s:has_plugin(plugin)
+  let lookup = 'g:plugs["' . a:plugin . '"]'
+  return exists(lookup)
+endfunction
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""
-" SETTINGS
+" GENERAL SETTINGS
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
 set number "Show relative lines numbers
@@ -209,17 +193,29 @@ set expandtab " use spaces, not tabs (optional)
 " set <leader>
 let mapleader=","
 
+" Enable term 24 bit colour
+set termguicolors
+
 " Set colorscheme.
 set background=dark
 colorscheme NeoSolarized
 
-" Local dirs
-execute 'set backupdir=' . g:helper#vim_dir . '/.tmp/backup//'
-execute 'set directory=' . g:helper#vim_dir . '/.tmp/swap//'
-execute 'set undodir=' . g:helper#vim_dir . '/.tmp/undo//'
+" Add the g flag to search/replace by default
+set gdefault
+
+" Centralize backups, swapfiles and undo history
+set backupdir=~/.config/nvim/backups
+" set directory=.,$TEMP " Stop the swp file warning
+
+if has("persistent_undo")
+  set undodir=~/.config/nvim/undo
+  set undofile
+  set undolevels=1000
+  set undoreload=10000
+endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""
-" MAPPINGS
+" KEY MAPPINGS
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " esc mapping
@@ -259,3 +255,220 @@ nnoremap <silent> <Leader>ag :Ag <C-R><C-W><CR>
 " format JSON
 " map <leader>j !python -m json.tool<CR>
 " command J :%!python -mjson.tool
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""
+" PLUGIN SETTINGS
+"""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+if s:has_plugin('ale')
+  let g:ale_echo_msg_error_str = 'E'
+  let g:ale_echo_msg_warning_str = 'W'
+  let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+  let g:ale_lint_on_text_changed = 'never'
+endif
+
+if s:has_plugin('CamelCaseMotion')
+  " camelCaseMotion settings
+  map <silent> w <Plug>CamelCaseMotion_w
+  map <silent> b <Plug>CamelCaseMotion_b
+  map <silent> e <Plug>CamelCaseMotion_e
+  map <silent> ge <Plug>CamelCaseMotion_ge
+  sunmap w
+  sunmap b
+  sunmap e
+  sunmap ge
+endif
+
+if s:has_plugin('fzf.vim')
+  nnoremap <c-p> :FZF<cr>
+endif
+
+if s:has_plugin('LanguageClient-neovim')
+  " Required for operations modifying multiple buffers like rename.
+  set hidden
+
+  let g:LanguageClient_serverCommands = {
+      \ 'reason': ['ocaml-language-server', '--stdio'],
+      \ 'ocaml': ['ocaml-language-server', '--stdio'],
+      \ }
+
+  " Automatically start language servers.
+  let g:LanguageClient_autoStart = 1
+
+  nnoremap <silent> gd :call LanguageClient_textDocument_definition()<cr>
+  nnoremap <silent> gf :call LanguageClient_textDocument_formatting()<cr>
+  nnoremap <silent> <cr> :call LanguageClient_textDocument_hover()<cr>
+endif
+
+if s:has_plugin('lightline.vim')
+  set noshowmode
+  let g:lightline = {
+        \ 'mode_map': {
+        \   'n': 'N',
+        \   'i': 'I',
+        \   'v': 'V'
+        \ },
+        \ 'colorscheme': 'solarized',
+        \ 'active': {
+        \   'left': [ [ 'mode', 'paste' ],
+        \             [ 'fugitive', 'readonly' ], [ 'relativepath' ] ],
+        \   'right': [ [ 'lineinfo' ],
+        \              [ 'percent' ],
+        \              [] ]
+        \ },
+        \ 'component_function': {
+        \   'fugitive': 'LightLineFugitive',
+        \   'readonly': 'LightLineReadonly',
+        \   'modified': 'LightLineModified',
+        \   'fileformat': 'LightlineFileformat',
+        \   'filetype': 'LightlineFiletype',
+        \   'fileencoding': 'LightlineFileencoding'
+        \ },
+        \ 'separator': { 'left': '', 'right': '' },
+        \ 'subseparator': { 'left': '', 'right': '' }
+        \ }
+
+  function! LightlineFileformat()
+    return winwidth(0) > 70 ? &fileformat : ''
+  endfunction
+
+  function! LightlineFiletype()
+    return winwidth(0) > 70 ? (&filetype !=# '' ? &filetype : 'no ft') : ''
+  endfunction
+
+  function! LightlineFileencoding()
+    return winwidth(0) > 70 ? (&fenc !=# '' ? &fenc : &enc) : ''
+  endfunction
+
+  function! LightLineModified()
+    if &filetype == "help"
+      return ""
+    elseif &modified
+      return "+"
+    elseif &modifiable
+      return ""
+    else
+      return ""
+    endif
+  endfunction
+
+  function! LightLineReadonly()
+    if &filetype == "help"
+      return ""
+    elseif &readonly
+      return "RO"
+    else
+      return ""
+    endif
+  endfunction
+
+  function! LightLineFugitive()
+    if exists("*fugitive#head")
+      let _ = fugitive#head()
+      return strlen(_) ? '┣ '._ : ''
+    endif
+    return ''
+  endfunction
+endif
+
+if s:has_plugin('neoformat')
+  let g:neoformat_javascript_prettier = {
+        \ 'exe': 'prettier',
+        \ 'args': ['--stdin', '--single-quote'],
+        \ 'stdin': 1
+        \ }
+
+  let g:neoformat_enabled_javascript = ['prettier']
+endif
+
+if s:has_plugin('neomake')
+  " let g:neomake_open_list = 2
+  " let g:neomake_verbose = 3
+  let g:neomake_javascript_enabled_makers = ['eslint', 'flow']
+  let g:neomake_jsx_enabled_makers = ['eslint', 'flow']
+  autocmd! BufWritePost * Neomake
+endif
+
+if s:has_plugin('neoterm')
+  let g:neoterm_autoinsert = 1
+endif
+
+if s:has_plugin('nerdcommenter')
+  let g:NERDSpaceDelims = 1
+endif
+
+if s:has_plugin('nerdtree')
+  let NERDTreeShowHidden=1
+  let NERDTreeQuitOnOpen=1
+  noremap <leader>n :NERDTreeToggle<CR>
+  noremap <leader>f :NERDTreeFind<CR>
+endif
+
+if s:has_plugin('vim-startify')
+  let g:startify_change_to_dir = 0
+endif
+
+if s:has_plugin('supertab')
+  let g:SuperTabDefaultCompletionType = "<c-n>"
+endif
+
+if s:has_plugin('ultisnips')
+  let g:UltiSnipsUsePythonVersion = 2
+  let g:UltiSnipsExpandTrigger='<c-j>'
+  let g:UltiSnipsJumpForwardTrigger='<c-j>'
+  let g:UltiSnipsJumpBackwardTrigger='<c-k>'
+endif
+
+if s:has_plugin('vim-fugitive')
+  set diffopt+=vertical
+endif
+
+if s:has_plugin('vim-indent-guides')
+  let g:indent_guides_color_change_percent = 3
+  let g:indent_guides_guide_size = 1
+  let g:indent_guides_start_level = 2
+endif
+
+if s:has_plugin('vim-javascript')
+  let g:javascript_plugin_jsdoc = 1
+  let g:javascript_plugin_flow = 1
+  " let g:javascript_conceal_function       = "ƒ"
+  " let g:javascript_conceal_null           = "ø"
+  " let g:javascript_conceal_this           = "@"
+  " let g:javascript_conceal_return         = "⇚"
+  " let g:javascript_conceal_undefined      = "¿"
+  " let g:javascript_conceal_NaN            = "ℕ"
+  " let g:javascript_conceal_prototype      = "¶"
+  " let g:javascript_conceal_static         = "•"
+  " let g:javascript_conceal_super          = "Ω"
+  " let g:javascript_conceal_arrow_function = "⇒"
+  set conceallevel=2
+endif
+
+if s:has_plugin('vim-jsx')
+  let g:jsx_ext_required = 0
+endif
+
+if s:has_plugin('vim-unimpaired')
+  nmap ( [
+  nmap ) ]
+  omap ( [
+  omap ) ]
+  xmap ( [
+  xmap ) ]
+endif
+
+if s:has_plugin('vimux')
+  " Prompt for a command to run
+  map <Leader>vp :VimuxPromptCommand<CR>
+  " Run last command executed by VimuxRunCommand
+  map <Leader>vl :VimuxRunLastCommand<CR>
+  " Inspect runner pane
+  map <Leader>vi :VimuxInspectRunner<CR>
+  " Zoom the tmux runner pane
+  map <Leader>vz :VimuxZoomRunner<CR>
+endif
+
+if s:has_plugin('winresizer')
+  let g:winresizer_start_key = '<C-T>'
+endif
