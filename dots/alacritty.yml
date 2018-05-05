@@ -31,7 +31,7 @@ window:
 
   # Window decorations
   # Setting this to false will result in window without borders and title bar.
-  decorations: true
+  decorations: false
 
 # Display tabs using this many cells (changes require restart)
 tabspaces: 8
@@ -337,7 +337,8 @@ key_bindings:
   - { key: F8,                      chars: "\x1b[19~"                    }
   - { key: F9,                      chars: "\x1b[20~"                    }
   - { key: F10,                     chars: "\x1b[21~"                    }
-  - { key: F11,                     chars: "\x1b[23~"                    }
+  # - { key: F11,                     chars: "\x1b[23~"                    }
+  - { key: F11,      command:       { program: "wmctrl", args: ["-r", ":ACTIVE:", "-b", "toggle,fullscreen" ]} }
   - { key: F12,                     chars: "\x1b[24~"                    }
   - { key: F1,       mods: Shift,   chars: "\x1b[1;2P"                   }
   - { key: F2,       mods: Shift,   chars: "\x1b[1;2Q"                   }
