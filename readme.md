@@ -14,6 +14,7 @@ Run install script
 - Install alacritty
 - Set caps lock to ctrl http://askubuntu.com/questions/363346/how-to-permanently-switch-caps-lock-and-escctrl:nocaps
 - Run `xcape -e 'Control_L=Escape'` at startup
+- Run `xset r rate 200 30` at startup
 - Setup font https://github.com/nathco/Office-Code-Pro
 
 ## Todos
