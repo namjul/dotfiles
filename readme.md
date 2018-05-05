@@ -11,15 +11,10 @@ Run install script
 ```
 
 ## Manual setps 
-- alacritty
-- xcape
+- Install alacritty
 - Set caps lock to ctrl http://askubuntu.com/questions/363346/how-to-permanently-switch-caps-lock-and-escctrl:nocaps
+- Run `xcape -e 'Control_L=Escape'` at startup
 - Setup font https://github.com/nathco/Office-Code-Pro
-
-### Xmonad setup
-- install xmonad and xmobar
-- setup `.xprofile` and add `./bin/wm` to $PATH
-- setup `xmonad.desktop` in `usr/share/xsessions` and point exec to `xmonad_start`
 
 ## Todos
 - [ ] vim filename should include folder
