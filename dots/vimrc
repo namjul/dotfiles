@@ -242,15 +242,15 @@ nmap td :tabclose<CR>
 au BufNewFile,BufRead *.ejs set filetype=html
 
 " auto reload of vimrc
-noremap <leader>r :source $MYVIMRC<CR>
+noremap <leader>r :source ~/.vimrc<CR>
 
 " quick save
 noremap <leader>s :update<CR>
 
-" Not using $MYVIMRC since it varies based on (n)vim
-nnoremap  <leader>evi   :<C-U>edit $VIM_DOTFILES/init.vim<CR>
-nnoremap  <leader>evr   :<C-U>edit $VIM_DOTFILES/vimrc<CR>
+" edit vimrc
+nnoremap  <leader>evr :<C-U>edit ~/.vimrc<CR>
 
+" Ag for word other cursor
 nnoremap <silent> <Leader>ag :Ag <C-R><C-W><CR>
 
 " format JSON
@@ -443,7 +443,7 @@ if s:has_plugin('vim-javascript')
   " let g:javascript_conceal_static         = "•"
   " let g:javascript_conceal_super          = "Ω"
   " let g:javascript_conceal_arrow_function = "⇒"
-  set conceallevel=2
+  " set conceallevel=2
 endif
 
 if s:has_plugin('vim-jsx')
