@@ -19,12 +19,13 @@ symlink_dotfile Xresources
 symlink_dotfile gitconfig
 symlink_dotfile gitignore_global
 symlink_dotfile inputrc
-symlink_dotfile xmobar.conf
-symlink_dotfile xmonad.hs
+symlink_dotfile xmobarrc
 symlink_dotfile bash_profile
 symlink_dotfile bashrc
 symlink_dotfile tmux.conf
 symlink_dotfile vimrc
+
+ln -sfv $(grealpath xmonad.hs) "$HOME/.xmonad/xmonad.hs"
 
 # Directories
 
