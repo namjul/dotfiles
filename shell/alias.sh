@@ -36,7 +36,7 @@ alias gl="git l --max-count 50"
 alias gll="git ll --max-count 50"
 alias gp="git push"
 alias gpo="git push origin"
-alias gs="git status"
+alias gs="scmpuff_status"
 
 # Color LS
 # Detect which `ls` flavor is in use
