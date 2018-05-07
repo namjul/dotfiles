@@ -18,9 +18,7 @@ export LESS_TERMCAP_md="$ORANGE"
 export MANPAGER="less -X"
 
 export DOTFILES="${HOME}/.dotfiles"
-export BASH_DOTFILES="${DOTFILES}/bash"
 export SHELL_DOTFILES="${DOTFILES}/shell"
-export VIM_DOTFILES="${DOTFILES}/vim"
 
 # node version manager
 export NVM_DIR="$HOME/.nvm"
