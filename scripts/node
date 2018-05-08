@@ -22,6 +22,7 @@ npm i -g --quiet tern
 npm i -g --quiet ntl
 npm i -g --quiet trymodule
 npm i -g --quiet pageres-cli
+npm i -g --quiet lerna
 
 echo "Installing yarn ..."
 
