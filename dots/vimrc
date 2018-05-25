@@ -119,6 +119,7 @@ Plug 'rhysd/committia.vim'
 
 Plug 'pangloss/vim-javascript'
       \| Plug 'mxw/vim-jsx'
+Plug 'leafgarland/typescript-vim'
 Plug 'moll/vim-node'
 Plug 'elzr/vim-json'
 Plug 'epilande/vim-es2015-snippets'
@@ -385,8 +386,8 @@ endif
 if s:has_plugin('neomake')
   " let g:neomake_open_list = 2
   " let g:neomake_verbose = 3
-  let g:neomake_javascript_enabled_makers = ['eslint', 'flow']
-  let g:neomake_jsx_enabled_makers = ['eslint', 'flow']
+  let g:neomake_javascript_enabled_makers = ['eslint', 'flow', 'tslint']
+  let g:neomake_jsx_enabled_makers = ['eslint', 'flow', 'tslint']
   autocmd! BufWritePost * Neomake
 endif
 
