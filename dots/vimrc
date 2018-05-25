@@ -61,7 +61,6 @@ Plug 'metakirby5/codi.vim'
 " =================================================
 
 Plug 'myusuf3/numbers.vim'
-Plug 'chaoren/vim-wordmotion'
 Plug 'w0rp/ale'
 Plug 'justinmk/vim-sneak'
 Plug 'jiangmiao/auto-pairs'
@@ -476,5 +475,5 @@ if s:has_plugin('winresizer')
 endif
 
 if s:has_plugin('nord-vim')
-  let g:nord_comment_brightness = 10
+  let g:nord_comment_brightness = 15
 endif
