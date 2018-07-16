@@ -25,3 +25,6 @@ export NVM_DIR="$HOME/.nvm"
 
 # todo.text-cli
 export TODOTXT_CFG_FILE="$HOME/.todo.cfg"
+
+# fzf
+export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
