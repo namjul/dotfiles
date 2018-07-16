@@ -266,7 +266,9 @@ if s:has_plugin('ale')
   let g:ale_echo_msg_warning_str = 'W'
   let g:ale_echo_msg_format = '[%linter%] %s [%severity%] %code%'
   let g:ale_lint_on_text_changed = 'never'
-  let g:ale_linters = {'typescript': ['prettier', 'tslint', 'tsserver', 'typecheck']}
+  let g:ale_linters = {'typescript': ['tslint', 'tsserver', 'typecheck']}
+  let g:ale_fixers = {'javascript': ['prettier']}
+  let g:ale_javascript_prettier_use_local_config = 1
 endif
 
 if s:has_plugin('CamelCaseMotion')
