@@ -468,5 +468,5 @@ if s:has_plugin('winresizer')
 endif
 
 if s:has_plugin('nord-vim')
-  let g:nord_comment_brightness = 15
+  let g:nord_comment_brightness = 20
 endif
