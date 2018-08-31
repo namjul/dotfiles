@@ -74,6 +74,7 @@ brew install wmctrl
 brew install httpie
 brew install ctags
 brew install fd
+brew install bat
 
 # Remove outdated versions from the cellar
 brew cleanup

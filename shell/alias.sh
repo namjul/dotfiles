@@ -81,3 +81,6 @@ alias :q='exit'
 
 # Pretty print the path
 alias path='echo $PATH | tr -s ":" "\n"'
+
+# Drop-in replacement for cat
+alias cat='bat'
