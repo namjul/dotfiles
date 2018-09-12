@@ -144,5 +144,3 @@ if [[ $- == *i* ]]; then
   command -v git >/dev/null 2>&1 && PROMPT_COMMAND=prompt_command
 
 fi
-
-export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
