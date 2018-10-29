@@ -3,7 +3,6 @@
 source ./scripts/brew
 source ./scripts/symlinks
 source ./scripts/node
-source ./scripts/xcape
 source ./scripts/misc
 
 echo "Installation complete!"
