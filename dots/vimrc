@@ -85,7 +85,8 @@ Plug 'tpope/vim-repeat'
 " Plug 'morhetz/gruvbox'
 " Plug 'chriskempson/base16-vim'
 " Plug 'icymind/NeoSolarized'
-Plug 'arcticicestudio/nord-vim'
+" Plug 'arcticicestudio/nord-vim'
+Plug 'mhartington/oceanic-next'
 
 " =================================================
 " Plug: Language
@@ -199,7 +200,7 @@ set termguicolors
 
 " Set colorscheme.
 set background=dark
-colorscheme nord
+colorscheme OceanicNext
 
 " Add the g flag to search/replace by default
 set gdefault
@@ -312,7 +313,7 @@ if s:has_plugin('lightline.vim')
         \   'i': 'I',
         \   'v': 'V'
         \ },
-        \ 'colorscheme': 'nord',
+        \ 'colorscheme': 'oceanicnext',
         \ 'active': {
         \   'left': [ [ 'mode', 'paste' ],
         \             [ 'fugitive', 'readonly' ], [ 'relativepath' ] ],
@@ -470,4 +471,9 @@ endif
 
 if s:has_plugin('nord-vim')
   let g:nord_comment_brightness = 20
+endif
+
+if s:has_plugin('oceanic-next')
+  let g:oceanic_next_terminal_bold = 1
+  let g:oceanic_next_terminal_italic = 1
 endif

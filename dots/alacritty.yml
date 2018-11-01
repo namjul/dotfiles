@@ -61,21 +61,21 @@ draw_bold_text_with_bright_colors: true
 font:
   # The normal (roman) font face to use.
   normal:
-    family: monospace # should be "Menlo" or something on macOS.
+    family: Fira Code # should be "Menlo" or something on macOS.
     # Style can be specified to pick a specific face.
-    # style: Regular
+    style: Regular
 
   # The bold font face
   bold:
-    family: monospace # should be "Menlo" or something on macOS.
+    family: Fira Code # should be "Menlo" or something on macOS.
     # Style can be specified to pick a specific face.
-    # style: Bold
+    style: Bold
 
   # The italic font face
   italic:
-    family: monospace # should be "Menlo" or something on macOS.
+    family: Fira Code # should be "Menlo" or something on macOS.
     # Style can be specified to pick a specific face.
-    # style: Italic
+    style: Italic
 
   # Point size of the font
   size: 16
@@ -105,34 +105,39 @@ render_timer: false
 # and cursor.background colors, otherwise invert the colors of the cursor.
 custom_cursor_colors: false
 
-# Colors (Nord)
+# Colors (Oceanic Next)
 colors:
-   # Default colors
-   primary:
-     background: '0x2E3440'
-     foreground: '0xD8DEE9'
+  # Default colors
+  primary:
+    background: '0x1b2b34'
+    foreground: '0xD8DEE9'
 
-   # Normal colors
-   normal:
-     black:   '0x3B4252'
-     red:     '0xBF616A'
-     green:   '0xA3BE8C'
-     yellow:  '0xEBCB8B'
-     blue:    '0x81A1C1'
-     magenta: '0xB48EAD'
-     cyan:    '0x88C0D0'
-     white:   '0xE5E9F0'
+  # Colors the cursor will use if `custom_cursor_colors` is true
+  cursor:
+    text: '0xec5f67'
+    cursor: '0xec5f67'
 
-   # Bright colors
-   bright:
-     black:   '0x4C566A'
-     red:     '0xBF616A'
-     green:   '0xA3BE8C'
-     yellow:  '0xEBCB8B'
-     blue:    '0x81A1C1'
-     magenta: '0xB48EAD'
-     cyan:    '0x8FBCBB'
-     white:   '0xECEFF4'
+  # Normal colors
+  normal:
+    black:   '0x343d46'
+    red:     '0xEC5f67'
+    green:   '0x99C794'
+    yellow:  '0xFAC863'
+    blue:    '0x6699cc'
+    magenta: '0xc594c5'
+    cyan:    '0x5fb3b3'
+    white:   '0xd8dee9'
+
+  # Bright colors
+  bright:
+    black:   '0x343d46'
+    red:     '0xEC5f67'
+    green:   '0x99C794'
+    yellow:  '0xFAC863'
+    blue:    '0x6699cc'
+    magenta: '0xc594c5'
+    cyan:    '0x5fb3b3'
+    white:   '0xd8dee9'
 
 # Visual Bell
 #
