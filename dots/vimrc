@@ -53,7 +53,6 @@ Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] }
 Plug 'osyo-manga/vim-over'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'kassio/neoterm'
-Plug 'sbdchd/neoformat'
 Plug 'tpope/vim-unimpaired'
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'tyewang/vimux-jest-test'
@@ -128,13 +127,6 @@ Plug 'moll/vim-node'
 Plug 'elzr/vim-json'
 Plug 'epilande/vim-es2015-snippets'
 Plug 'epilande/vim-react-snippets'
-Plug 'prettier/vim-prettier', {
-      \ 'do': 'npm install',
-      \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql'] }
-
-if has('nvim')
-  Plug 'roxma/ncm-flow'
-endif
 
 " =================================================
 " Language: Stylesheets
@@ -254,7 +246,7 @@ if s:has_plugin('ale')
   let g:ale_echo_msg_warning_str = 'W'
   let g:ale_echo_msg_format = '[%linter%] %s [%severity%] %code%'
   let g:ale_lint_on_text_changed = 'never'
-  let g:ale_linters = {'typescript': ['tslint', 'tsserver', 'typecheck']}
+  let g:ale_linters = {'typescript': ['tslint', 'tsserver', 'typecheck'], 'javascript': ['eslint', 'flow']}
   let g:ale_fixers = {'javascript': ['prettier'], 'typescript': ['prettier']}
   let g:ale_javascript_prettier_use_local_config = 1
 endif
@@ -362,16 +354,6 @@ if s:has_plugin('lightline.vim')
     endif
     return ''
   endfunction
-endif
-
-if s:has_plugin('neoformat')
-  let g:neoformat_javascript_prettier = {
-        \ 'exe': 'prettier',
-        \ 'args': ['--stdin', '--single-quote'],
-        \ 'stdin': 1
-        \ }
-
-  let g:neoformat_enabled_javascript = ['prettier']
 endif
 
 if s:has_plugin('neoterm')
