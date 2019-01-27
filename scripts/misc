@@ -1,4 +1,0 @@
-#!/bin/bash
-
-# Install Rust and Cargo (used for Alacritty)
-curl -sSf https://static.rust-lang.org/rustup.sh | sh

@@ -22,7 +22,7 @@ shopt -s dotglob # expand filenames starting with dots too
 eval "$(scmpuff init -s --aliases=false)"
 
 # Plugins
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+[ -f ~/.asdf/asdf.sh ] && source ~/.asdf/asdf.sh
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
 # Enable some Bash 4 features when possible:
@@ -33,9 +33,8 @@ for option in autocd globstar; do
 done
 
 # completion
-if [ -f /etc/bash_completion ]; then
-  . /etc/bash_completion
-fi
+[ -f /etc/bash_completion ] && source /etc/bash_completion
+[ -f ~/.asdf/completions/asdf.bash ] && source ~/.asdf/completions/asdf.bash
 
 # Enable tab completion for `g` by marking it as an alias for `git`
 if [ -f ~/.git-completion.bash ]; then

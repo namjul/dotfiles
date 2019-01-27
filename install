@@ -2,7 +2,6 @@
 
 source ./scripts/brew
 source ./scripts/symlinks
-source ./scripts/node
-source ./scripts/misc
+source ./scripts/asdf
 
 echo "Installation complete!"

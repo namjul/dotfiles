@@ -20,9 +20,6 @@ export MANPAGER="less -X"
 export DOTFILES="${HOME}/.dotfiles"
 export SHELL_DOTFILES="${DOTFILES}/shell"
 
-# node version manager
-export NVM_DIR="$HOME/.nvm"
-
 # todo.text-cli
 export TODOTXT_CFG_FILE="$HOME/.todo.cfg"
 
