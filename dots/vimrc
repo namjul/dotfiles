@@ -249,6 +249,8 @@ if s:has_plugin('ale')
   let g:ale_linters = {'typescript': ['tslint', 'tsserver', 'typecheck'], 'javascript': ['eslint', 'flow']}
   let g:ale_fixers = {'javascript': ['prettier'], 'typescript': ['prettier']}
   let g:ale_javascript_prettier_use_local_config = 1
+
+  nmap <silent><Leader>p <Plug>(ale_fix)
 endif
 
 if s:has_plugin('CamelCaseMotion')
