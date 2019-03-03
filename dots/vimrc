@@ -389,6 +389,14 @@ endif
 
 if s:has_plugin('vim-fugitive')
   set diffopt+=vertical
+  nmap <leader>gb :Gblame<cr>
+  nmap <leader>gs :Gstatus<cr>
+  nmap <leader>gc :Gcommit -v<cr>
+  nmap <leader>ga :Git add -p<cr>
+  nmap <leader>gm :Gcommit --amend<cr>
+  nmap <leader>gp :Gpush<cr>
+  nmap <leader>gd :Gdiff<cr>
+  nmap <leader>gw :Gwrite<cr>
 endif
 
 if s:has_plugin('vim-indent-guides')
