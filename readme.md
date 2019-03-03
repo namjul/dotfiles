@@ -20,5 +20,7 @@ Run install script
 
 ## Todos
 - [ ] vim filename should include folder
-- [ ] Ag command on selected/highlighted word
+- [x] Ag command on selected/highlighted word
+- [ ] improve search highlighting
+- [ ] fix NERDTree open-menu delay
 
