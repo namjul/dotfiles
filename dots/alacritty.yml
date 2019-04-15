@@ -30,8 +30,11 @@ window:
     y: 10
 
   # Window decorations
-  # Setting this to false will result in window without borders and title bar.
-  decorations: true 
+  #
+  # Values for `decorations`:
+  #     - full: Borders and title bar
+  #     - none: Neither borders nor title bar
+  decorations: full 
 
 # Display tabs using this many cells (changes require restart)
 tabspaces: 8
@@ -203,7 +206,7 @@ mouse:
   # scrolling for applications like `man`.
   #
   # To disable this completely, set `faux_scrollback_lines` to 0.
-  faux_scrollback_lines: 1
+  faux_scrolling_lines: 1
 
 selection:
   semantic_escape_chars: ",│`|:\"' ()[]{}<>"
