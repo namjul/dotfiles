@@ -9,3 +9,5 @@ trymodule
 pageres-cli
 lerna
 npm-check-updates
+taskbook
+git-file-history
