@@ -24,6 +24,12 @@
 	ca      = commit --amend
   cm      = commit -m
 
+  p       = push
+  pf      = push -f
+
+  amend = !git add --all && git commit --amend --no-edit
+  sync = !git fetch --all && git rebase origin/master
+
   rehard  = reset --hard
   resoft  = reset --soft
 
