@@ -91,6 +91,7 @@ Plug 'alvan/vim-closetag'
 " Plug 'icymind/NeoSolarized'
 " Plug 'arcticicestudio/nord-vim'
 Plug 'mhartington/oceanic-next'
+Plug 'sonph/onehalf', { 'rtp': 'vim/' }
 
 " =================================================
 " Plug: Language
@@ -179,8 +180,8 @@ let mapleader=","
 set termguicolors
 
 " Set colorscheme.
-set background=dark
-colorscheme OceanicNext
+" set background=dark
+colorscheme onehalfdark
 
 " Add the g flag to search/replace by default
 set gdefault
@@ -296,7 +297,7 @@ if s:has_plugin('lightline.vim')
         \   'i': 'I',
         \   'v': 'V'
         \ },
-        \ 'colorscheme': 'oceanicnext',
+        \ 'colorscheme': 'onehalfdark',
         \ 'active': {
         \   'left': [ [ 'mode', 'paste' ],
         \             [ 'fugitive', 'readonly' ], [ 'relativepath' ] ],
