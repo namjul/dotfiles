@@ -51,7 +51,7 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] }
 " Plug 'osyo-manga/vim-over'
-Plug 'nathanaelkane/vim-indent-guides'
+Plug 'Yggdroot/indentLine'
 " Plug 'kassio/neoterm'
 " Plug 'tpope/vim-unimpaired'
 " Plug 'AndrewRadev/splitjoin.vim'
