@@ -84,3 +84,6 @@ alias path='echo $PATH | tr -s ":" "\n"'
 
 # Drop-in replacement for cat
 alias cat='bat'
+
+# tmux setup
+alias tms='~/.dotfiles/scripts/tmux-setup.sh'
