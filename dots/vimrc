@@ -123,7 +123,7 @@ Plug 'rhysd/committia.vim'
 " =================================================
 
 Plug 'pangloss/vim-javascript'
-      \| Plug 'mxw/vim-jsx'
+Plug 'MaxMEllon/vim-jsx-pretty'
 Plug 'leafgarland/typescript-vim'
 Plug 'moll/vim-node'
 Plug 'elzr/vim-json'
