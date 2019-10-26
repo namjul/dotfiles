@@ -25,7 +25,13 @@
   cm      = commit -m
 
   p       = push
-  pf      = push -f
+  pf      = push --force-with-lease
+  pl      = pull
+  plr     = pull --rebase
+
+  r       = rebase
+  rc      = rebase --continue
+  ra      = rebase --abort
 
   amend = !git add --all && git commit --amend --no-edit
   sync = !git fetch --all && git rebase origin/master

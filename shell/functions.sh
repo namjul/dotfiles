@@ -19,3 +19,8 @@ function open() {
 prepend-path() {
   [ -d $1 ] && PATH="$1:$PATH"
 }
+
+# git interactive rebase to n
+grn() { 
+  git rebase -i HEAD~"$1"; 
+}
