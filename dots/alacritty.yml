@@ -106,7 +106,7 @@ render_timer: false
 
 # Use custom cursor colors. If true, display the cursor in the cursor.foreground
 # and cursor.background colors, otherwise invert the colors of the cursor.
-custom_cursor_colors: false
+# custom_cursor_colors: false
 
 schemes:
   oceanic_next: &oceanic_next
@@ -240,7 +240,7 @@ selection:
 
 dynamic_title: true
 
-hide_cursor_when_typing: false
+hide.cursor.when.typing: false
 
 # Style of the cursor
 #
@@ -248,7 +248,7 @@ hide_cursor_when_typing: false
 # - Block
 # - Underline
 # - Beam
-cursor_style: Block
+cursor.style: Block
 
 # Live config reload (changes require restart)
 live_config_reload: true
