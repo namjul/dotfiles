@@ -87,3 +87,6 @@ alias cat='bat'
 
 # tmux setup
 alias tms='~/.dotfiles/scripts/tmux-setup.sh'
+
+# replicate pbcopy from macos
+alias pbcopy="xclip -sel clip"
