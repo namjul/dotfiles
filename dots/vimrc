@@ -20,7 +20,7 @@ call plug#begin(g:plugin_path)
 Plug 'tpope/vim-sensible'
 Plug 'itchyny/lightline.vim'
 Plug 'editorconfig/editorconfig-vim'
-Plug 'mhinz/vim-startify'
+" Plug 'mhinz/vim-startify'
 " Plug 'blueyed/vim-diminactive'
 
 " =================================================
@@ -377,9 +377,9 @@ if s:has_plugin('nerdtree')
   noremap <leader>f :NERDTreeFind<CR>
 endif
 
-if s:has_plugin('vim-startify')
-  let g:startify_change_to_dir = 0
-endif
+" if s:has_plugin('vim-startify')
+  " let g:startify_change_to_dir = 0
+" endif
 
 if s:has_plugin('supertab')
   let g:SuperTabDefaultCompletionType = "<c-n>"
