@@ -58,6 +58,8 @@ Plug 'Yggdroot/indentLine'
 Plug 'tyewang/vimux-jest-test'
 " Plug 'metakirby5/codi.vim'
 " Plug 'terryma/vim-expand-region'
+Plug 'mattn/gist-vim'
+      \| Plug 'mattn/webapi-vim'
 
 " =================================================
 " Plug: Input, syntax, spacing
