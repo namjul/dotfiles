@@ -22,7 +22,7 @@ if [ "$?" -eq 1 ] ; then
   tmux send-keys "clear" Enter
 
   tmux select-window -t "$SESSION_NAME:1"
-  tmux send-keys "nvim -c \"Gist -l\"" Enter
+  tmux send-keys "nvim" Enter
 fi
 
 # detach from a tmux session if in one
