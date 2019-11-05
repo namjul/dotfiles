@@ -124,11 +124,8 @@ Plug 'rhysd/committia.vim'
 " Language: JavaScript and derivatives, JSON
 " =================================================
 
-Plug 'pangloss/vim-javascript'
-Plug 'MaxMEllon/vim-jsx-pretty'
-Plug 'leafgarland/typescript-vim'
+Plug 'sheerun/vim-polyglot'
 Plug 'moll/vim-node'
-Plug 'elzr/vim-json'
 Plug 'epilande/vim-es2015-snippets'
 Plug 'epilande/vim-react-snippets'
 
@@ -429,10 +426,6 @@ if s:has_plugin('vim-javascript')
   " let g:javascript_conceal_super          = "Ω"
   " let g:javascript_conceal_arrow_function = "⇒"
   " set conceallevel=2
-endif
-
-if s:has_plugin('vim-jsx')
-  let g:jsx_ext_required = 0
 endif
 
 if s:has_plugin('vim-unimpaired')
