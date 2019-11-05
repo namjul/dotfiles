@@ -462,8 +462,9 @@ if s:has_plugin('oceanic-next')
 endif
 
 if s:has_plugin('vim-closetag')
+  autocmd BufNewFile,BufRead *.jsx set filetype=javascript
   let g:closetag_emptyTags_caseSensitive = 1
-  let g:closetag_filetypes = 'html,xhtml,phtml,javascript.jsx'
+  let g:closetag_filetypes = 'html,xhtml,phtml,javascript'
 endif
 
 if s:has_plugin('ncm2')
