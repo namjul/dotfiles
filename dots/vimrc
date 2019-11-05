@@ -253,7 +253,7 @@ if s:has_plugin('ale')
   let g:ale_echo_msg_format = '[%linter%] %s [%severity%] %code%'
   let g:ale_lint_on_text_changed = 'never'
   let g:ale_linters = {'typescript': ['tslint', 'tsserver', 'typecheck'], 'javascript': ['eslint', 'flow']}
-  let g:ale_fixers = {'javascript': ['prettier'], 'typescript': ['prettier'], 'html': ['prettier'], 'json': ['prettier']}
+  let g:ale_fixers = {'javascript': ['prettier'], 'typescript': ['prettier'], 'html': ['prettier'], 'json': ['prettier'], 'mdx': ['prettier']}
   let g:ale_javascript_prettier_use_local_config = 1
 
   nmap <silent><Leader>p <Plug>(ale_fix)
