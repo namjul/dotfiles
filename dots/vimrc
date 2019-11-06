@@ -60,6 +60,7 @@ Plug 'tyewang/vimux-jest-test'
 " Plug 'terryma/vim-expand-region'
 Plug 'mattn/gist-vim'
       \| Plug 'mattn/webapi-vim'
+Plug 'svermeulen/vim-cutlass'
 
 " =================================================
 " Plug: Input, syntax, spacing
@@ -472,4 +473,12 @@ if s:has_plugin('ncm2')
   autocmd BufEnter * call ncm2#enable_for_buffer()
   " IMPORTANTE: :help Ncm2PopupOpen for more information
   set completeopt=noinsert,menuone,noselect
+endif
+
+if s:has_plugin('vim-cutlass')
+  nnoremap x d
+  xnoremap x d
+
+  nnoremap xx dd
+  nnoremap X D
 endif
