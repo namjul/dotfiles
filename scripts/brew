@@ -75,6 +75,7 @@ brew install httpie
 brew install ctags
 brew install fd
 brew install bat
+brew install starship
 
 # Remove outdated versions from the cellar
 brew cleanup
