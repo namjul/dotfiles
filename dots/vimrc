@@ -173,6 +173,9 @@ set tabstop=2 " Make tabs as wide as two spaces
 set shiftwidth=2 " The # of spaces for indenting.
 set expandtab " use spaces, not tabs (optional)
 
+set conceallevel=2
+set concealcursor=nc
+
 " set <leader>
 let mapleader=","
 
@@ -481,4 +484,8 @@ if s:has_plugin('vim-cutlass')
 
   nnoremap xx dd
   nnoremap X D
+endif
+
+if s:has_plugin('indentLine')
+  let g:indentLine_setConceal = 0
 endif
