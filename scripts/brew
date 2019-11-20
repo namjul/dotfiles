@@ -72,7 +72,7 @@ brew install python
 brew install xclip
 brew install wmctrl
 brew install httpie
-brew install ctags
+brew install --HEAD universal-ctags/universal-ctags/universal-ctags
 brew install fd
 brew install bat
 brew install starship
