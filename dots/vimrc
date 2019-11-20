@@ -409,14 +409,7 @@ if s:has_plugin('vim-fugitive')
   nmap <leader>gw :Gwrite<cr>
 endif
 
-if s:has_plugin('vim-indent-guides')
-  let g:indent_guides_enable_on_vim_startup = 1
-  let g:indent_guides_color_change_percent = 3
-  let g:indent_guides_guide_size = 1
-  let g:indent_guides_start_level = 2
-endif
-
-if s:has_plugin('vim-javascript')
+if s:has_plugin('vim-polyglot')
   let g:javascript_plugin_jsdoc = 1
   let g:javascript_plugin_flow = 1
   " let g:javascript_conceal_function       = "ƒ"
