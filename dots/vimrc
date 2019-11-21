@@ -312,7 +312,7 @@ if s:has_plugin('lightline.vim')
         \             [ 'fugitive', 'readonly' ], [ 'relativepath' ] ],
         \   'right': [ [ 'lineinfo' ],
         \              [ 'percent' ],
-        \              [] ]
+        \              [ 'tags' ] ]
         \ },
         \ 'component_function': {
         \   'fugitive': 'LightLineFugitive',
@@ -321,6 +321,9 @@ if s:has_plugin('lightline.vim')
         \   'fileformat': 'LightlineFileformat',
         \   'filetype': 'LightlineFiletype',
         \   'fileencoding': 'LightlineFileencoding'
+        \ },
+        \ 'component_expand': {
+        \   'tags': 'LightlineTags'
         \ },
         \ 'separator': { 'left': '', 'right': '' },
         \ 'subseparator': { 'left': '', 'right': '' }
@@ -366,6 +369,10 @@ if s:has_plugin('lightline.vim')
       return strlen(_) ? '┣ '._ : ''
     endif
     return ''
+  endfunction
+
+  function LightlineTags()
+      return '%{gutentags#statusline("[", "]")}'
   endfunction
 endif
 
