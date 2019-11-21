@@ -483,3 +483,7 @@ endif
 if s:has_plugin('indentLine')
   let g:indentLine_setConceal = 0
 endif
+
+if s:has_plugin('vim-gutentags')
+  let g:gutentags_ctags_tagfile = '.git/tags'
+endif
