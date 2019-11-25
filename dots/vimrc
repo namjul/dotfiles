@@ -175,7 +175,6 @@ set shiftwidth=2 " The # of spaces for indenting.
 set expandtab " use spaces, not tabs (optional)
 
 set conceallevel=2
-set concealcursor=nc
 
 " set <leader>
 let mapleader=","
