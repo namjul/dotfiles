@@ -85,6 +85,8 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'tpope/vim-repeat'
       " \| Plug 'svermeulen/vim-easyclip'
 Plug 'alvan/vim-closetag'
+Plug 'svermeulen/vim-yoink'
+Plug 'svermeulen/vim-subversive'
 
 " =================================================
 " Plug: Colorscheme
@@ -276,7 +278,7 @@ if s:has_plugin('CamelCaseMotion')
 endif
 
 if s:has_plugin('fzf.vim')
-  nnoremap <c-p> :FZF<cr>
+  nnoremap <c-p> :Files<cr>
 endif
 
 if s:has_plugin('LanguageClient-neovim')
@@ -492,4 +494,18 @@ endif
 
 if s:has_plugin('vim-gutentags')
   let g:gutentags_ctags_tagfile = '.git/tags'
+endif
+
+if s:has_plugin('vim-subversive')
+  nmap s <plug>(SubversiveSubstitute)
+  nmap ss <plug>(SubversiveSubstituteLine)
+  nmap S <plug>(SubversiveSubstituteToEndOfLine)
+endif
+
+if s:has_plugin('vim-yoink')
+  nmap <c-n> <plug>(YoinkPostPasteSwapBack)
+  nmap <expr>  <c-p> yoink#isSwapping() ? '<plug>(YoinkPostPasteSwapForward)' : ':Files<cr>'
+
+  nmap p <plug>(YoinkPaste_p)
+  nmap P <plug>(YoinkPaste_P)
 endif
