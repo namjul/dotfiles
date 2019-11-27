@@ -503,6 +503,7 @@ if s:has_plugin('vim-subversive')
 endif
 
 if s:has_plugin('vim-yoink')
+  let g:yoinkIncludeDeleteOperations = 1
   nmap <c-n> <plug>(YoinkPostPasteSwapBack)
   nmap <expr>  <c-p> yoink#isSwapping() ? '<plug>(YoinkPostPasteSwapForward)' : ':Files<cr>'
 
