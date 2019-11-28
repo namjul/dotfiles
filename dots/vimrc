@@ -50,7 +50,8 @@ endif
 
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] }
+" Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] }
+Plug 'cocopon/vaffle.vim'
 " Plug 'osyo-manga/vim-over'
 Plug 'Yggdroot/indentLine'
 " Plug 'kassio/neoterm'
@@ -118,7 +119,7 @@ Plug 'reasonml-editor/vim-reason-plus'
 " Language: Git
 " =================================================
 
-Plug 'Xuyuanp/nerdtree-git-plugin'
+" Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
@@ -390,6 +391,21 @@ if s:has_plugin('nerdtree')
   let NERDTreeQuitOnOpen=1
   noremap <leader>n :NERDTreeToggle<CR>
   noremap <leader>f :NERDTreeFind<CR>
+endif
+
+if s:has_plugin('vaffle.vim')
+  noremap <leader>n :Vaffle<CR>
+  set cmdheight=2
+
+  function! s:customize_vaffle_mappings() abort
+    nmap <buffer> S <Plug>(vaffle-open-selected-split)
+    nmap <buffer> V <Plug>(vaffle-open-selected-vsplit)
+  endfunction
+
+  augroup vimrc_vaffle
+    autocmd!
+    autocmd FileType vaffle call s:customize_vaffle_mappings()
+  augroup END
 endif
 
 " if s:has_plugin('vim-startify')
