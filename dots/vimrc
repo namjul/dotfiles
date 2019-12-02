@@ -30,10 +30,7 @@ Plug 'ludovicchabant/vim-gutentags'
 
 Plug 'ervandew/supertab'
 if (has('nvim') && has('python3'))
-  Plug 'ncm2/ncm2'
-  Plug 'roxma/nvim-yarp'
-  Plug 'ncm2/ncm2-bufword'
-  Plug 'ncm2/ncm2-ultisnips'
+  Plug 'neoclide/coc.nvim', {'branch': 'release'}
   Plug 'SirVer/ultisnips'
   Plug 'honza/vim-snippets'
 endif
@@ -489,13 +486,6 @@ if s:has_plugin('vim-closetag')
   let g:closetag_filetypes = 'html,xhtml,phtml,javascript'
 endif
 
-if s:has_plugin('ncm2')
-  " enable ncm2 for all buffers
-  autocmd BufEnter * call ncm2#enable_for_buffer()
-  " IMPORTANTE: :help Ncm2PopupOpen for more information
-  set completeopt=noinsert,menuone,noselect
-endif
-
 if s:has_plugin('vim-cutlass')
   nnoremap x d
   xnoremap x d
@@ -525,4 +515,9 @@ if s:has_plugin('vim-yoink')
 
   nmap p <plug>(YoinkPaste_p)
   nmap P <plug>(YoinkPaste_P)
+endif
+
+if s:has_plugin('coc.nvim')
+  " coc extensions
+  let g:coc_global_extensions = ['coc-tsserver']
 endif
