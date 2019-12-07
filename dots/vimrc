@@ -520,4 +520,5 @@ endif
 if s:has_plugin('coc.nvim')
   " coc extensions
   let g:coc_global_extensions = ['coc-tsserver']
+  let g:coc_global_extensions = ['coc-eslint']
 endif
