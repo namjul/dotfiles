@@ -20,7 +20,6 @@ call plug#begin(g:plugin_path)
 Plug 'tpope/vim-sensible'
 Plug 'itchyny/lightline.vim'
 Plug 'editorconfig/editorconfig-vim'
-Plug 'ludovicchabant/vim-gutentags'
 " Plug 'mhinz/vim-startify'
 " Plug 'blueyed/vim-diminactive'
 
@@ -371,7 +370,7 @@ if s:has_plugin('lightline.vim')
   endfunction
 
   function LightlineTags()
-      return '%{gutentags#statusline("[", "]")}'
+      " return '%{gutentags#statusline("[", "]")}'
   endfunction
 endif
 
