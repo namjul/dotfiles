@@ -9,7 +9,7 @@ symlink() {
 }
 
 symlink_xdg() {
-  ln -sfv $(realpath $1) "$HOME/.config/$1"
+  ln -sfv $(realpath $1) "$HOME/.config"
 }
 
 echo "Creating symlinks ..."
@@ -31,6 +31,7 @@ symlink_dotfile tmux.conf
 symlink_dotfile vimrc
 symlink_dotfile default-npm-packages
 symlink_xdg starship.toml
+symlink_xdg fish
 
 ln -sfv $(grealpath xmonad.hs) "$HOME/.xmonad/xmonad.hs"
 
