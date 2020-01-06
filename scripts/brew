@@ -61,7 +61,6 @@ brew install tmux
 # git
 brew install cdiff
 brew install git
-brew install scmpuff
 brew install diff-so-fancy
 
 # Install everything else

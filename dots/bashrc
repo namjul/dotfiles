@@ -18,9 +18,6 @@ shopt -s histappend # Append to the Bash history file, rather than overwriting i
 shopt -s cdspell # Autocorrect typos in path names when using `cd`
 shopt -s dotglob # expand filenames starting with dots too
 
-# https://github.com/mroth/scmpuff
-eval "$(scmpuff init -s --aliases=false)"
-
 # Plugins
 [ -f ~/.asdf/asdf.sh ] && source ~/.asdf/asdf.sh
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash

@@ -2,6 +2,7 @@
 
 	a       = add
 	aa      = add .
+  ai = !git add $(git ls-files --modified --others --exclude-standard | fzf -m)
 
 	b       = branch
 	be      = branch --edit-description

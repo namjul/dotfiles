@@ -28,7 +28,7 @@ alias grep='grep --color=auto'
 
 # git
 alias g="git"
-alias gs="scmpuff_status"
+alias gs="git s"
 
 # Color LS
 # Detect which `ls` flavor is in use
