@@ -2,7 +2,7 @@
 
 	a       = add
 	aa      = add .
-  ai = !git add $(git ls-files --modified --others --exclude-standard | fzf -m)
+  ai = !git add $(git ls-files --modified --others --exclude-standard | fzf --print0 -m --preview 'git diff {}' --preview-window=top:10:wrap)
 
 	b       = branch
 	be      = branch --edit-description
@@ -100,3 +100,5 @@
 [user]
 	email = nam@hobl.at
 	name = Samuel Hobl
+[github]
+	user = namjul
