@@ -149,7 +149,7 @@ function! s:has_plugin(plugin)
 endfunction
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""
-" GENERAL SETTINGS
+" GENERAL CONFIGURATIONS
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
 set number "Show relative lines numbers
@@ -174,9 +174,6 @@ set shiftwidth=2 " The # of spaces for indenting.
 set expandtab " use spaces, not tabs (optional)
 
 set conceallevel=2
-
-" set <leader>
-let mapleader=","
 
 " Enable term 24 bit colour
 set termguicolors
@@ -204,15 +201,25 @@ if @% == "" || filereadable(@%) == 0
   autocmd VimEnter * :Gist -l
 endif
 
+" support ejs 
+au BufNewFile,BufRead *.ejs set filetype=html
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""
-" KEY MAPPINGS
+" CUSTOM FUNCTIONS
 """""""""""""""""""""""""""""""""""""""""""""""""""""
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""
+" CUSTOM MAPPINGS
+"""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" set <leader>
+let mapleader=","
 
 " esc mapping
 :inoremap jk <esc>
 
 " Clear search highlights
-noremap <silent><Leader>/ :nohls<CR>
+noremap <silent><Leader><space> :nohls<CR>
 
 " Select all
 map <Leader>a ggVG
@@ -223,24 +230,22 @@ map <Leader>bg :let &background = ( &background == "dark"? "light" : "dark" )<CR
 " Allow saving of files as sudo when I forgot to start vim using sudo.
 cmap w!! w !sudo tee > /dev/null %
 
-" Maximize window and return to previous split structure
-nmap t% :tabedit %<CR>
-nmap td :tabclose<CR>
-
-" support ejs 
-au BufNewFile,BufRead *.ejs set filetype=html
+" Close tab
+nmap <Leader>q :bd<CR>
 
 " auto reload of vimrc
 noremap <leader>r :source ~/.vimrc<CR>
 
 " quick save
-noremap <leader>s :update<CR>
+noremap <Leader>s :update<CR>
+noremap <Leader>w :w<CR>
 
 " edit vimrc
 nnoremap  <leader>evr :<C-U>edit ~/.vimrc<CR>
 
 " Ag for word other cursor
-nnoremap <silent> <Leader>ag :Ag <C-R><C-W><CR>
+nmap <silent><Leader>* :Ag <C-R><C-W><CR>
+nnoremap <silent><Leader>/ :Ag <CR>
 
 " format JSON
 " map <leader>j !python -m json.tool<CR>
