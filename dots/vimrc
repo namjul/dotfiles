@@ -78,6 +78,7 @@ Plug 'benmills/vimux'
 " =================================================
 
 Plug 'tpope/vim-surround'
+Plug 'scrooloose/nerdcommenter'
 Plug 'tpope/vim-repeat'
       " \| Plug 'svermeulen/vim-easyclip'
 Plug 'alvan/vim-closetag'
