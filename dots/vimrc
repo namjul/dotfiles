@@ -66,6 +66,7 @@ Plug 'svermeulen/vim-cutlass'
 
 Plug 'myusuf3/numbers.vim'
 Plug 'w0rp/ale'
+Plug 'desmap/ale-sensible'
 " Plug 'justinmk/vim-sneak'
 Plug 'jiangmiao/auto-pairs'
 Plug 'Valloric/MatchTagAlways'
