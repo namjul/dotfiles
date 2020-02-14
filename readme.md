@@ -19,10 +19,10 @@ Run install script
 - Setup font https://github.com/tonsky/FiraCode
 
 ## Todos
-- [ ] vim filename should include folder
-- [x] Ag command on selected/highlighted word
-- [ ] improve search highlighting
-- [ ] fix NERDTree open-menu delay
+- [ ] build own statusline
+  - [ ] vim filename should include folder
+- [ ] add LSP supporz
+- [ ] implement colorscheme switcher
 
 # Vim
 
