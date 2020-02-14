@@ -23,6 +23,7 @@ Run install script
   - [ ] vim filename should include folder
 - [ ] add LSP supporz
 - [ ] implement colorscheme switcher
+- [ ] add floating windows for fzf
 
 # Vim
 
