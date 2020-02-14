@@ -3,7 +3,6 @@
 	a       = add
 	aa      = add .
   ai      = !git add $(git ls-files --modified --others --exclude-standard | fzf --print0 -m --preview 'git diff {}' --preview-window=top:10:wrap)
-  p       = add -p 
   patch   = add -p 
 
 	b       = branch
