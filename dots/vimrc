@@ -46,7 +46,6 @@ endif
 
 Plug '/home/linuxbrew/.linuxbrew/opt/fzf/'
 Plug 'junegunn/fzf.vim'
-" Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] }
 Plug 'cocopon/vaffle.vim'
 " Plug 'osyo-manga/vim-over'
 Plug 'Yggdroot/indentLine'
@@ -79,7 +78,6 @@ Plug 'benmills/vimux'
 " =================================================
 
 Plug 'tpope/vim-surround'
-Plug 'scrooloose/nerdcommenter'
 Plug 'tpope/vim-repeat'
       " \| Plug 'svermeulen/vim-easyclip'
 Plug 'alvan/vim-closetag'
@@ -386,13 +384,6 @@ endif
 
 if s:has_plugin('nerdcommenter')
   let g:NERDSpaceDelims = 1
-endif
-
-if s:has_plugin('nerdtree')
-  let NERDTreeShowHidden=1
-  let NERDTreeQuitOnOpen=1
-  noremap <leader>n :NERDTreeToggle<CR>
-  noremap <leader>f :NERDTreeFind<CR>
 endif
 
 if s:has_plugin('vaffle.vim')
