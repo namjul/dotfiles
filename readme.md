@@ -19,16 +19,16 @@ Run install script
 - Setup font https://github.com/tonsky/FiraCode
 
 ## Todos
+- [ ] add LSP support
+  - https://github.com/autozimu/LanguageClient-neovim
+  - https://github.com/Shougo/deoplete.nvim
+  - https://github.com/dense-analysis/ale / https://github.com/desmap/ale-sensible / https://github.com/neoclide/coc.nvim/issues/348#issuecomment-454790599
 - [ ] build own statusline
   - vim filename should include folder
   - https://shapeshed.com/vim-statuslines/
   - https://hackernoon.com/the-last-statusline-for-vim-a613048959b2
   - https://www.youtube.com/watch?v=Bsg-43PitrM
   - https://www.youtube.com/watch?v=hdgovJPDXV8
-- [ ] add LSP supporz
-  - https://github.com/autozimu/LanguageClient-neovim
-  - https://github.com/Shougo/deoplete.nvim
-  - https://github.com/dense-analysis/ale / https://github.com/desmap/ale-sensible / https://github.com/neoclide/coc.nvim/issues/348#issuecomment-454790599
 - [ ] implement colorscheme switcher
   - https://github.com/wincent/wincent/blob/268bca998c940f2434b657d7499f13359045e062/roles/dotfiles/files/.vim/after/plugin/color.vim#L11
   - https://github.com/wincent/wincent/blob/2e4447ddfea1d967196eaf118bcc08fbd848dabd/roles/dotfiles/files/.zsh/colors#L43
@@ -38,20 +38,22 @@ Run install script
 - [ ] add floating windows for fzf
   - https://github.com/yuki-ycino/fzf-preview.vim
   - https://github.com/Blacksuan19/init.nvim/blob/master/init.vim#L327
-- [ ] tmux/vim file change reloading
-- [ ] enhance mappings (normal, command, visual, leader)
-- [ ] window splits "vinegar"
-https://www.youtube.com/watch?v=OgQW07saWb0
-- [ ] jump-list
+- [x] tmux/vim file change reloading
+- [w] enhance mappings (normal, command, visual, leader)
+- [x] window splits "vinegar"
+  https://www.youtube.com/watch?v=OgQW07saWb0
+- [x] jump-list 
   - https://medium.com/breathe-publication/understanding-vims-jump-list-7e1bfc72cdf0
-- [ ] alias vim->nvim
-- [ ] vim-leader and tmux to space
-- [ ] improve tmux settings
+- [x] improve tmux settings
   - https://www.youtube.com/watch?v=N0RL_J0LT9A
-  - [ ] improve tmux copy-mode selection to clipboard
+  - [x] improve tmux copy-mode selection to clipboard
     - https://www.youtube.com/watch?v=ogeVqNOStQs&t=191s
     - https://superuser.com/questions/395158/tmux-copy-mode-select-text-block
-- [ ] improve search highlight (different for active and matches)
+- [x] improve search highlight (different for active and matches)
+- [x] adjust fzf open active item command to from x/v to s/v
+- [ ] move tmux statusbar to the bottom
+- [ ] fix "clipboard: error: Error: target STRING not available"
+  - https://github.com/svermeulen/vim-yoink/issues/16
 
 
 # Vim
@@ -88,4 +90,7 @@ https://www.youtube.com/watch?v=OgQW07saWb0
 | `,vi`  | Inspect runner pane                                                           | :VimuxInspectRunner<CR> |
 | `,vz`  | " Zoom the tmux runner pane                                                 | :VimuxZoomRunner<CR> |
 | `w!!` | write in sudo mode | None |
-| `<C-L>` | clear search highlight | :nohlsearch |
+| `<C-L>` | clear search highlight | :nohlsearch |:spv
+| `H` | jump high | Default |
+| `M` | jump middle | Default |
+| `L` | jump low | Default |
