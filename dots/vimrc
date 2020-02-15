@@ -212,14 +212,60 @@ au BufNewFile,BufRead *.ejs set filetype=html
 " CUSTOM MAPPINGS
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" set <leader>
-let mapleader=","
+" NORMAL
+""""""""
+
+" Avoid unintentional switches to Ex mode.
+nnoremap Q <nop>
+
+" Multi-mode mappings (Normal, Visual, Operating-pending modes).
+noremap Y y$
+
+" Clear search highlights
+nnoremap <esc> :noh<return><esc>
+
+" Move between windows.
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+
+" VISUAL
+""""""""
+
+" Move between windows.
+xnoremap <C-h> <C-w>h
+xnoremap <C-j> <C-w>j
+xnoremap <C-k> <C-w>k
+xnoremap <C-l> <C-w>l
+
+" COMMAND
+"""""""""
+
+cnoremap <C-a> <Home>
+cnoremap <C-e> <End>
+
+" INSERT
+""""""""
 
 " esc mapping
 :inoremap jk <esc>
 
-" Clear search highlights
-noremap <silent><Leader><space> :nohls<CR>
+" LEADER
+""""""""
+
+" set <leader>
+let mapleader="\<Space>"
+
+" <Leader><Leader> -- Open last buffer.
+nnoremap <Leader><Leader> <C-^>
+
+" close all windows but the active one
+nnoremap <Leader>o :only<CR>
+
+" <Leader>p -- Show the path of the current file (mnemonic: path; useful when
+" you have a lot of splits and the status line gets truncated).
+nnoremap <Leader>p :echo expand('%')<CR>
 
 " Select all
 map <Leader>a ggVG
@@ -227,18 +273,13 @@ map <Leader>a ggVG
 " toogle background
 map <Leader>bg :let &background = ( &background == "dark"? "light" : "dark" )<CR>
 
-" Allow saving of files as sudo when I forgot to start vim using sudo.
-cmap w!! w !sudo tee > /dev/null %
-
-" Close tab
-nmap <Leader>q :bd<CR>
-
 " auto reload of vimrc
 noremap <leader>r :source ~/.vimrc<CR>
 
 " quick save
-noremap <Leader>s :update<CR>
-noremap <Leader>w :w<CR>
+nnoremap <Leader>w :write<CR>
+nnoremap <Leader>x :exit<CR>
+nnoremap <Leader>q :quit<CR>
 
 " edit vimrc
 nnoremap  <leader>evr :<C-U>edit ~/.vimrc<CR>
@@ -246,10 +287,6 @@ nnoremap  <leader>evr :<C-U>edit ~/.vimrc<CR>
 " Ag for word other cursor
 nmap <silent><Leader>* :Ag <C-R><C-W><CR>
 nnoremap <silent><Leader>/ :Ag <CR>
-
-" format JSON
-" map <leader>j !python -m json.tool<CR>
-" command J :%!python -mjson.tool
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 " PLUGIN SETTINGS
