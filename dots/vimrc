@@ -20,6 +20,7 @@ call plug#begin(g:plugin_path)
 Plug 'tpope/vim-sensible'
 Plug 'itchyny/lightline.vim'
 Plug 'editorconfig/editorconfig-vim'
+Plug 'tmux-plugins/vim-tmux-focus-events'
 " Plug 'mhinz/vim-startify'
 " Plug 'blueyed/vim-diminactive'
 
