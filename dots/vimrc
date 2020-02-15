@@ -421,12 +421,13 @@ if s:has_plugin('nerdcommenter')
 endif
 
 if s:has_plugin('vaffle.vim')
-  noremap <leader>n :Vaffle<CR>
+  noremap - :Vaffle<CR>
   set cmdheight=2
 
   function! s:customize_vaffle_mappings() abort
     nmap <buffer> S <Plug>(vaffle-open-selected-split)
     nmap <buffer> V <Plug>(vaffle-open-selected-vsplit)
+    nmap <buffer> - <Plug>(vaffle-open-parent)
   endfunction
 
   augroup vimrc_vaffle
