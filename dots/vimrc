@@ -266,9 +266,6 @@ nnoremap <Leader>p :echo expand('%')<CR>
 " Select all
 map <Leader>a ggVG
 
-" toogle background
-map <Leader>bg :let &background = ( &background == "dark"? "light" : "dark" )<CR>
-
 " auto reload of vimrc
 noremap <leader>r :source ~/.vimrc<CR>
 
@@ -283,6 +280,9 @@ nnoremap  <leader>evr :<C-U>edit ~/.vimrc<CR>
 " Ag for word other cursor
 nmap <silent><Leader>* :Ag <C-R><C-W><CR>
 nnoremap <silent><Leader>/ :Ag <CR>
+
+nnoremap <silent><Leader>t :Files<CR>
+nnoremap <silent><Leader>b :Buffer<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 " PLUGIN SETTINGS
@@ -313,7 +313,6 @@ if s:has_plugin('CamelCaseMotion')
 endif
 
 if s:has_plugin('fzf.vim')
-  nnoremap <c-p> :Files<cr>
   let g:fzf_action = {
         \ 'ctrl-t': 'tab split',
         \ 'ctrl-s': 'split',
@@ -546,8 +545,9 @@ endif
 
 if s:has_plugin('vim-yoink')
   let g:yoinkIncludeDeleteOperations = 1
+
   nmap <c-n> <plug>(YoinkPostPasteSwapBack)
-  nmap <expr>  <c-p> yoink#isSwapping() ? '<plug>(YoinkPostPasteSwapForward)' : ':Files<cr>'
+  nmap <c-p> <plug>(YoinkPostPasteSwapForward)
 
   nmap p <plug>(YoinkPaste_p)
   nmap P <plug>(YoinkPaste_P)
