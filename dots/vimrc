@@ -75,6 +75,7 @@ Plug 'tpope/vim-repeat'
 Plug 'alvan/vim-closetag'
 Plug 'svermeulen/vim-yoink'
 Plug 'svermeulen/vim-subversive'
+Plug 'wincent/scalpel'
 
 " =================================================
 " Plug: Colorscheme
@@ -267,9 +268,6 @@ noremap <leader>r :source ~/.vimrc<CR>
 nnoremap <Leader>w :write<CR>
 nnoremap <Leader>x :exit<CR>
 nnoremap <Leader>q :quit<CR>
-
-" edit vimrc
-nnoremap  <leader>evr :<C-U>edit ~/.vimrc<CR>
 
 " Ag for word other cursor
 nmap <silent><Leader>* :Ag <C-R><C-W><CR>
