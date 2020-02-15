@@ -4,88 +4,37 @@
 # 02. ALIASES                                                                #
 ##############################################################################
 
-# Easier navigation: .., ..., ...., ....., ~ and -
 alias ..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."
 alias .....="cd ../../../.."
-alias ~="cd ~" # `cd` is probably faster to type though
 alias -- -="cd -"
 alias cdd="cd \"\${DOTFILES}\""
-
-# Shortcuts
 alias d="cd ~/Dropbox"
 alias dl="cd ~/Downloads"
 alias dt="cd ~/Desktop"
 alias h="history"
 alias j="jobs"
-
 alias l='less'
 alias mv='mv -i'
 alias cp='cp -i -p'
-alias ls='ls -abp --color=auto'
 alias grep='grep --color=auto'
-
-# git
 alias g="git"
 alias gs="git s"
-
-# Color LS
-# Detect which `ls` flavor is in use
-if ls --color > /dev/null 2>&1; then # GNU `ls`
-	colorflag="--color"
-else # OS X `ls`
-	colorflag="-G"
-fi
-alias ls="command ls ${colorflag}"
-alias l="ls -lF ${colorflag}" # all files, in long format
-alias la="ls -laF ${colorflag}" # all files inc dotfiles, in long format
-alias lsd='ls -lF ${colorflag} | grep "^d"' # only directories
-
-
-# tmux/vim
+alias ls='ls --color=auto'
+alias l="ls -lF" # all files, in long format
+alias la="ls -laF" # all files inc dotfiles, in long format
+alias lsd='ls -lF | grep "^d"' # only directories
+alias week='date +%V' # Get week number
+alias reload="exec $SHELL -l" # Reload the shell (i.e. invoke as a login shell)
+alias path='echo $PATH | tr -s ":" "\n"' # Pretty print the path
+alias cat='bat' # Drop-in replacement for cat
+alias tms='~/.dotfiles/scripts/tmux-setup.sh' # tmux setup
+alias pbcopy='xclip -selection clipboard' # replicate pbcopy from macos
+alias pbpaste='xclip -selection clipboard -o'
 alias t=tmux
 alias v=vim
+
 if command -v nvim &> /dev/null; then
   alias vim=nvim # Use `\vim` or `command vim` to get the real vim.
 fi
-
-# Enable aliases to be sudo’ed
-alias sudo='sudo '
-
-# Gzip-enabled `curl`
-alias gurl='curl --compressed'
-
-# Get week number
-alias week='date +%V'
-
-# Stopwatch
-alias timer='echo "Timer started. Stop with Ctrl-D." && date && time cat && date'
-
-# Colored up cat!
-# You must install Pygments first - "sudo easy_install Pygments"
-alias c='pygmentize -O style=monokai -f console256 -g'
-
-# Recursively delete `.DS_Store` files
-alias cleanup="find . -type f -name '*.DS_Store' -ls -delete"
-
-# Reload the shell (i.e. invoke as a login shell)
-alias reload="exec $SHELL -l"
-
-# todo.text-cli
-alias t='todo -d $HOME/.todo.cfg'
-
-# This actually happens a lot
-alias :q='exit'
-
-# Pretty print the path
-alias path='echo $PATH | tr -s ":" "\n"'
-
-# Drop-in replacement for cat
-alias cat='bat'
-
-# tmux setup
-alias tms='~/.dotfiles/scripts/tmux-setup.sh'
-
-# replicate pbcopy from macos
-alias pbcopy="xclip -sel clip"
