@@ -20,10 +20,39 @@ Run install script
 
 ## Todos
 - [ ] build own statusline
-  - [ ] vim filename should include folder
+  - vim filename should include folder
+  - https://shapeshed.com/vim-statuslines/
+  - https://hackernoon.com/the-last-statusline-for-vim-a613048959b2
+  - https://www.youtube.com/watch?v=Bsg-43PitrM
+  - https://www.youtube.com/watch?v=hdgovJPDXV8
 - [ ] add LSP supporz
+  - https://github.com/autozimu/LanguageClient-neovim
+  - https://github.com/Shougo/deoplete.nvim
+  - https://github.com/dense-analysis/ale / https://github.com/desmap/ale-sensible / https://github.com/neoclide/coc.nvim/issues/348#issuecomment-454790599
 - [ ] implement colorscheme switcher
+  - https://github.com/wincent/wincent/blob/268bca998c940f2434b657d7499f13359045e062/roles/dotfiles/files/.vim/after/plugin/color.vim#L11
+  - https://github.com/wincent/wincent/blob/2e4447ddfea1d967196eaf118bcc08fbd848dabd/roles/dotfiles/files/.zsh/colors#L43
+  - https://github.com/aaron-williamson/base16-alacritty/tree/master/colors
+  - https://github.com/chriskempson/base16-vim/tree/master/colors
+  - https://github.com/alacritty/alacritty/issues/472#issuecomment-531120265
 - [ ] add floating windows for fzf
+  - https://github.com/yuki-ycino/fzf-preview.vim
+  - https://github.com/Blacksuan19/init.nvim/blob/master/init.vim#L327
+- [ ] tmux/vim file change reloading
+- [ ] enhance mappings (normal, command, visual, leader)
+- [ ] window splits "vinegar"
+https://www.youtube.com/watch?v=OgQW07saWb0
+- [ ] jump-list
+  - https://medium.com/breathe-publication/understanding-vims-jump-list-7e1bfc72cdf0
+- [ ] alias vim->nvim
+- [ ] vim-leader and tmux to space
+- [ ] improve tmux settings
+  - https://www.youtube.com/watch?v=N0RL_J0LT9A
+  - [ ] improve tmux copy-mode selection to clipboard
+    - https://www.youtube.com/watch?v=ogeVqNOStQs&t=191s
+    - https://superuser.com/questions/395158/tmux-copy-mode-select-text-block
+- [ ] improve search highlight (different for active and matches)
+
 
 # Vim
 
