@@ -314,6 +314,11 @@ endif
 
 if s:has_plugin('fzf.vim')
   nnoremap <c-p> :Files<cr>
+  let g:fzf_action = {
+        \ 'ctrl-t': 'tab split',
+        \ 'ctrl-s': 'split',
+        \ 'ctrl-v': 'vsplit',
+        \}
 endif
 
 if s:has_plugin('LanguageClient-neovim')
