@@ -43,6 +43,13 @@ alias la="ls -laF ${colorflag}" # all files inc dotfiles, in long format
 alias lsd='ls -lF ${colorflag} | grep "^d"' # only directories
 
 
+# tmux/vim
+alias t=tmux
+alias v=vim
+if command -v nvim &> /dev/null; then
+  alias vim=nvim # Use `\vim` or `command vim` to get the real vim.
+fi
+
 # Enable aliases to be sudo’ed
 alias sudo='sudo '
 
