@@ -77,6 +77,7 @@ Plug 'alvan/vim-closetag'
 Plug 'svermeulen/vim-yoink'
 Plug 'svermeulen/vim-subversive'
 Plug 'wincent/scalpel'
+Plug 'junegunn/goyo.vim'
 
 " =================================================
 " Plug: Colorscheme
@@ -285,6 +286,8 @@ nnoremap <silent><Leader>/ :Ag <CR>
 
 nnoremap <silent><Leader>t :Files<CR>
 nnoremap <silent><Leader>b :Buffer<CR>
+
+nnoremap <Leader>z :Goyo<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 " PLUGIN SETTINGS
