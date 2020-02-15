@@ -196,11 +196,6 @@ if has("persistent_undo")
   set undoreload=10000
 endif
 
-" startup command only on empty and non-existing files
-if @% == "" || filereadable(@%) == 0
-  autocmd VimEnter * :Gist -l
-endif
-
 " support ejs 
 au BufNewFile,BufRead *.ejs set filetype=html
 
