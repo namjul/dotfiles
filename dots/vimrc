@@ -63,6 +63,7 @@ Plug 'Valloric/MatchTagAlways'
 Plug 'simeji/winresizer'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'benmills/vimux'
+Plug 'wincent/loupe'
 
 " =================================================
 " Plug: Editing keys
@@ -207,9 +208,6 @@ nnoremap Q <nop>
 
 " Multi-mode mappings (Normal, Visual, Operating-pending modes).
 noremap Y y$
-
-" Clear search highlights
-nnoremap <esc> :noh<return><esc>
 
 " Move between windows.
 nnoremap <C-h> <C-w>h
