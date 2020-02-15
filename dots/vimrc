@@ -21,8 +21,6 @@ Plug 'tpope/vim-sensible'
 Plug 'itchyny/lightline.vim'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'tmux-plugins/vim-tmux-focus-events'
-" Plug 'mhinz/vim-startify'
-" Plug 'blueyed/vim-diminactive'
 
 " =================================================
 " Plug: Completion
@@ -39,23 +37,16 @@ endif
 " Plug: File system
 " =================================================
 
-" Plug 'duggiefresh/vim-easydir'
-
 " =================================================
 " Plug: Commands
 " =================================================
 
 Plug '/home/linuxbrew/.linuxbrew/opt/fzf/'
 Plug 'junegunn/fzf.vim'
-Plug 'cocopon/vaffle.vim'
-" Plug 'osyo-manga/vim-over'
+" Plug 'cocopon/vaffle.vim'
 Plug 'Yggdroot/indentLine'
-" Plug 'kassio/neoterm'
 " Plug 'tpope/vim-unimpaired'
-" Plug 'AndrewRadev/splitjoin.vim'
 Plug 'tyewang/vimux-jest-test'
-" Plug 'metakirby5/codi.vim'
-" Plug 'terryma/vim-expand-region'
 Plug 'mattn/gist-vim'
       \| Plug 'mattn/webapi-vim'
 Plug 'svermeulen/vim-cutlass'
@@ -67,7 +58,6 @@ Plug 'svermeulen/vim-cutlass'
 Plug 'myusuf3/numbers.vim'
 Plug 'w0rp/ale'
 Plug 'desmap/ale-sensible'
-" Plug 'justinmk/vim-sneak'
 Plug 'jiangmiao/auto-pairs'
 Plug 'Valloric/MatchTagAlways'
 Plug 'simeji/winresizer'
