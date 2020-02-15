@@ -22,9 +22,8 @@ alias grep='grep --color=auto'
 alias g="git"
 alias gs="git s"
 alias ls='ls --color=auto'
-alias l="ls -lF" # all files, in long format
-alias la="ls -laF" # all files inc dotfiles, in long format
-alias lsd='ls -lF | grep "^d"' # only directories
+alias l="ls -F" # all files, in long format
+alias ll="ls -laF" # all files inc dotfiles, in long format
 alias week='date +%V' # Get week number
 alias reload="exec $SHELL -l" # Reload the shell (i.e. invoke as a login shell)
 alias path='echo $PATH | tr -s ":" "\n"' # Pretty print the path
