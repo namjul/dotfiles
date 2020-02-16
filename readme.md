@@ -40,8 +40,9 @@ Run install script
   - https://github.com/Blacksuan19/init.nvim/blob/master/init.vim#L327
 - [x] tmux/vim file change reloading
 - [w] enhance mappings (normal, command, visual, leader)
-- [x] window splits "vinegar"
+- [ ] window splits "vinegar"
   https://www.youtube.com/watch?v=OgQW07saWb0
+  - replace vaffle 
 - [x] jump-list 
   - https://medium.com/breathe-publication/understanding-vims-jump-list-7e1bfc72cdf0
 - [x] improve tmux settings
@@ -49,7 +50,8 @@ Run install script
   - [x] improve tmux copy-mode selection to clipboard
     - https://www.youtube.com/watch?v=ogeVqNOStQs&t=191s
     - https://superuser.com/questions/395158/tmux-copy-mode-select-text-block
-- [x] improve search highlight (different for active and matches)
+- [ ] improve search highlight (different for active and matches)
+  - https://github.com/wincent/loupe/issues/4
 - [x] adjust fzf open active item command to from x/v to s/v
 - [ ] move tmux statusbar to the bottom
 - [ ] fix "clipboard: error: Error: target STRING not available"
