@@ -21,26 +21,7 @@ Plug 'tpope/vim-sensible'
 Plug 'itchyny/lightline.vim'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'tmux-plugins/vim-tmux-focus-events'
-
-" =================================================
-" Plug: Completion
-" =================================================
-
 Plug 'ervandew/supertab'
-if (has('nvim') && has('python3'))
-  Plug 'neoclide/coc.nvim', {'branch': 'release'}
-  Plug 'SirVer/ultisnips'
-  Plug 'honza/vim-snippets'
-endif
-
-" =================================================
-" Plug: File system
-" =================================================
-
-" =================================================
-" Plug: Commands
-" =================================================
-
 Plug '/home/linuxbrew/.linuxbrew/opt/fzf/'
 Plug 'junegunn/fzf.vim'
 Plug 'wincent/ferret'
@@ -51,11 +32,6 @@ Plug 'mattn/gist-vim'
       \| Plug 'mattn/webapi-vim'
 Plug 'svermeulen/vim-cutlass'
 Plug 'preservim/nerdtree'
-
-" =================================================
-" Plug: Input, syntax, spacing
-" =================================================
-
 Plug 'jeffkreeftmeijer/vim-numbertoggle'
 Plug 'w0rp/ale'
 Plug 'desmap/ale-sensible'
@@ -64,11 +40,6 @@ Plug 'Valloric/MatchTagAlways'
 Plug 'simeji/winresizer'
 Plug 'benmills/vimux'
 Plug 'wincent/loupe'
-
-" =================================================
-" Plug: Editing keys
-" =================================================
-
 Plug 'tpope/vim-surround'
 Plug 'scrooloose/nerdcommenter'
 Plug 'tpope/vim-repeat'
@@ -78,60 +49,35 @@ Plug 'svermeulen/vim-yoink'
 Plug 'svermeulen/vim-subversive'
 Plug 'wincent/scalpel'
 Plug 'junegunn/goyo.vim'
-
-" =================================================
-" Plug: Colorscheme
-" =================================================
-
 Plug 'gruvbox-community/gruvbox'
 " Plug 'chriskempson/base16-vim'
 " Plug 'icymind/NeoSolarized'
 " Plug 'arcticicestudio/nord-vim'
 Plug 'mhartington/oceanic-next'
 Plug 'sonph/onehalf', { 'rtp': 'vim/' }
-
-" =================================================
-" Plug: Language
-" =================================================
-
 Plug 'autozimu/LanguageClient-neovim', {
       \ 'branch': 'next',
       \ 'do': 'bash install.sh',
       \ }
-
-" =================================================
-" Language: ReasonML
-" =================================================
-
 Plug 'reasonml-editor/vim-reason-plus'
-
-" =================================================
-" Language: Git
-" =================================================
-
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
 Plug 'rhysd/committia.vim'
-
-" =================================================
-" Language: JavaScript and derivatives, JSON
-" =================================================
-
 Plug 'sheerun/vim-polyglot'
 Plug 'moll/vim-node'
 Plug 'epilande/vim-es2015-snippets'
 Plug 'epilande/vim-react-snippets'
-
-" =================================================
-" Language: Stylesheets
-" =================================================
-
 Plug 'JulesWang/css.vim'
       \| Plug 'hail2u/vim-css3-syntax'
       \| Plug 'cakebaker/scss-syntax.vim', { 'for': ['scss'] }
 Plug 'ap/vim-css-color'
 Plug 'othree/csscomplete.vim'
+if (has('nvim') && has('python3'))
+  Plug 'neoclide/coc.nvim', {'branch': 'release'}
+  Plug 'SirVer/ultisnips'
+  Plug 'honza/vim-snippets'
+endif
 
 call plug#end()
 
