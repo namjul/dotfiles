@@ -222,7 +222,7 @@ nnoremap <Leader>o :only<CR>
 nnoremap <Leader>p :echo expand('%')<CR>
 
 " Select all
-map <Leader>a ggVG
+nnoremap <Leader>a ggVG
 
 " auto reload of vimrc
 noremap <leader>r :source ~/.vimrc<CR>
@@ -232,14 +232,15 @@ nnoremap <Leader>w :write<CR>
 nnoremap <Leader>x :exit<CR>
 nnoremap <Leader>q :quit<CR>
 
-" Ag for word other cursor
-nmap <silent><Leader>* :Ag <C-R><C-W><CR>
+" fzf mappings
+nnoremap <silent><Leader>* :Ag <C-R><C-W><CR>
 nnoremap <silent><Leader>/ :Ag <CR>
-
 nnoremap <silent><Leader>t :Files<CR>
 nnoremap <silent><Leader>b :Buffer<CR>
 
 nnoremap <Leader>z :Goyo<CR>
+
+nnoremap <silent><Leader>f <Plug>(ale_fix)
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 " PLUGIN SETTINGS
@@ -253,20 +254,6 @@ if s:has_plugin('ale')
   let g:ale_linters = {'typescript': ['tslint', 'tsserver', 'typecheck'], 'javascript': ['eslint', 'flow']}
   let g:ale_fixers = {'javascript': ['prettier'], 'typescript': ['prettier'], 'html': ['prettier'], 'json': ['prettier'], 'mdx': ['prettier']}
   let g:ale_javascript_prettier_use_local_config = 1
-
-  nmap <silent><Leader>f <Plug>(ale_fix)
-endif
-
-if s:has_plugin('CamelCaseMotion')
-  " camelCaseMotion settings
-  map <silent> w <Plug>CamelCaseMotion_w
-  map <silent> b <Plug>CamelCaseMotion_b
-  map <silent> e <Plug>CamelCaseMotion_e
-  map <silent> ge <Plug>CamelCaseMotion_ge
-  sunmap w
-  sunmap b
-  sunmap e
-  sunmap ge
 endif
 
 if s:has_plugin('fzf.vim')
@@ -461,7 +448,6 @@ endif
 if s:has_plugin('vim-cutlass')
   nnoremap x d
   xnoremap x d
-
   nnoremap xx dd
   nnoremap X D
 endif
