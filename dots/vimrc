@@ -55,10 +55,6 @@ Plug 'gruvbox-community/gruvbox'
 " Plug 'arcticicestudio/nord-vim'
 Plug 'mhartington/oceanic-next'
 Plug 'sonph/onehalf', { 'rtp': 'vim/' }
-Plug 'autozimu/LanguageClient-neovim', {
-      \ 'branch': 'next',
-      \ 'do': 'bash install.sh',
-      \ }
 Plug 'reasonml-editor/vim-reason-plus'
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
@@ -73,8 +69,11 @@ Plug 'JulesWang/css.vim'
       \| Plug 'cakebaker/scss-syntax.vim', { 'for': ['scss'] }
 Plug 'ap/vim-css-color'
 Plug 'othree/csscomplete.vim'
+Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': 'bash install.sh',
+    \ }
 if (has('nvim') && has('python3'))
-  Plug 'neoclide/coc.nvim', {'branch': 'release'}
   Plug 'SirVer/ultisnips'
   Plug 'honza/vim-snippets'
 endif
@@ -96,7 +95,6 @@ set showmatch " Show matching of: () [] {}
 set mousehide "Hide mouse when typing
 set mouse=a "Enable Mouse clicking
 set showmode " Show the current mode
-set hidden " Hide buffers, rather than close them
 set cursorline " Highlight current line
 set nostartofline " Don’t reset cursor to start of line when moving around.
 set shortmess=atI " Don’t show the intro message when starting Vim
@@ -240,8 +238,6 @@ nnoremap <silent><Leader>b :Buffer<CR>
 
 nnoremap <Leader>z :Goyo<CR>
 
-nnoremap <silent><Leader>f <Plug>(ale_fix)
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 " PLUGIN SETTINGS
 """""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -251,9 +247,20 @@ if s:has_plugin('ale')
   let g:ale_echo_msg_warning_str = 'W'
   let g:ale_echo_msg_format = '[%linter%] %s [%severity%] %code%'
   let g:ale_lint_on_text_changed = 'never'
-  let g:ale_linters = {'typescript': ['tslint', 'tsserver', 'typecheck'], 'javascript': ['eslint', 'flow']}
-  let g:ale_fixers = {'javascript': ['prettier'], 'typescript': ['prettier'], 'html': ['prettier'], 'json': ['prettier'], 'mdx': ['prettier']}
+  let g:ale_linters = {
+        \ 'typescript': ['tslint', 'tsserver', 'typecheck'],
+        \ 'javascript': ['eslint', 'flow']
+        \}
+  let g:ale_fixers = {
+        \ 'javascript': ['prettier'],
+        \ 'typescript': ['prettier'],
+        \ 'html': ['prettier'],
+        \ 'json': ['prettier'],
+        \ 'mdx': ['prettier']
+        \ }
   let g:ale_javascript_prettier_use_local_config = 1
+
+  nnoremap <silent><Leader>f :ALEFix<CR>
 endif
 
 if s:has_plugin('fzf.vim')
@@ -268,18 +275,21 @@ if s:has_plugin('LanguageClient-neovim')
   " Required for operations modifying multiple buffers like rename.
   set hidden
 
+  let g:LanguageClient_useFloatingHover=1
+  let g:LanguageClient_hoverPreview='Always'
+
   let g:LanguageClient_serverCommands = {
-      \ 'reason': ['ocaml-language-server', '--stdio'],
-      \ 'ocaml': ['ocaml-language-server', '--stdio'],
-      \ 'javascript': ['javascript-typescript-stdio'],
-      \ }
+        \ 'javascript': ['typescript-language-server', '--stdio'],
+        \ 'typescript': ['typescript-language-server', '--stdio'],
+        \ 'javascriptreact': ['typescript-language-server', '--stdio'],
+        \ 'typescriptreact': ['typescript-language-server', '--stdio'],
+        \ }
 
-  " Automatically start language servers.
-  let g:LanguageClient_autoStart = 1
+  nnoremap <F5> :call LanguageClient_contextMenu()<CR>
+  nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
+  nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+  nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
 
-  nnoremap <silent> gd :call LanguageClient_textDocument_definition()<cr>
-  nnoremap <silent> gf :call LanguageClient_textDocument_formatting()<cr>
-  nnoremap <silent> <cr> :call LanguageClient_textDocument_hover()<cr>
 endif
 
 if s:has_plugin('lightline.vim')
@@ -474,12 +484,6 @@ if s:has_plugin('vim-yoink')
 
   nmap p <plug>(YoinkPaste_p)
   nmap P <plug>(YoinkPaste_P)
-endif
-
-if s:has_plugin('coc.nvim')
-  " coc extensions
-  let g:coc_global_extensions = ['coc-tsserver']
-  let g:coc_global_extensions = ['coc-eslint']
 endif
 
 if s:has_plugin('gruvbox')
