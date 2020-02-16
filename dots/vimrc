@@ -137,9 +137,6 @@ endif
 " FILETYPE-SPECIFIC CONFIGURATIONS
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" support ejs 
-au BufNewFile,BufRead *.ejs set filetype=html
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 " CUSTOM FUNCTIONS
 """""""""""""""""""""""""""""""""""""""""""""""""""""
