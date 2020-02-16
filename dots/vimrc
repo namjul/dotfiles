@@ -43,6 +43,7 @@ endif
 
 Plug '/home/linuxbrew/.linuxbrew/opt/fzf/'
 Plug 'junegunn/fzf.vim'
+Plug 'wincent/ferret'
 Plug 'cocopon/vaffle.vim'
 Plug 'Yggdroot/indentLine'
 " Plug 'tpope/vim-unimpaired'
