@@ -220,7 +220,7 @@ nnoremap <Leader>o :only<CR>
 nnoremap <Leader>p :echo expand('%')<CR>
 
 " Select all
-nnoremap <Leader>a ggVG
+" nnoremap <Leader>a ggVG
 
 " auto reload of vimrc
 noremap <leader>r :source ~/.vimrc<CR>
