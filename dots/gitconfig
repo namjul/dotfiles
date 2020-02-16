@@ -5,6 +5,7 @@
   ai      = add -i
   fza     = !git ls-files -m -o --exclude-standard | fzf --print0 -m --preview 'git diff {}' --preview-window=top:10:wrap | xargs -0 -t git add
   patch   = add -p 
+  amend   = !git commit --amend --no-edit
 
 	b       = branch
 	be      = branch --edit-description
@@ -21,6 +22,7 @@
 	d       = diff
 	df      = diff --color --color-words --abbrev
 	dc      = diff --cached
+  staged  = dc
   dino    = diff --name-only
 
 	ci      = commit
@@ -36,9 +38,9 @@
   rc      = rebase --continue
   ra      = rebase --abort
 
-  amend = !git add --all && git commit --amend --no-edit
-  sync = !git fetch --all && git rebase origin/master
-  syncd = !git fetch --all && git rebase origin/develop
+  sync    = !git fetch --all && git rebase origin/master
+  syncd   = !git fetch --all && git rebase origin/develop
+  fresh   = !git fetch --all --prune
 
   rehard  = reset --hard
   resoft  = reset --soft
