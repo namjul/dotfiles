@@ -44,13 +44,13 @@ endif
 Plug '/home/linuxbrew/.linuxbrew/opt/fzf/'
 Plug 'junegunn/fzf.vim'
 Plug 'wincent/ferret'
-Plug 'cocopon/vaffle.vim'
 Plug 'Yggdroot/indentLine'
 " Plug 'tpope/vim-unimpaired'
 Plug 'tyewang/vimux-jest-test'
 Plug 'mattn/gist-vim'
       \| Plug 'mattn/webapi-vim'
 Plug 'svermeulen/vim-cutlass'
+Plug 'preservim/nerdtree'
 
 " =================================================
 " Plug: Input, syntax, spacing
@@ -110,7 +110,6 @@ Plug 'reasonml-editor/vim-reason-plus'
 " Language: Git
 " =================================================
 
-" Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
@@ -236,6 +235,9 @@ nnoremap <silent> <S-Up> :lprevious<CR>
 nnoremap <silent> <S-Down> :lnext<CR>
 nnoremap <silent> <S-Left> :lpfile<CR>
 nnoremap <silent> <S-Right> :lnfile<CR>
+
+" Like vim-vinegar.
+nnoremap <silent> - :silent edit <C-R>=empty(expand('%')) ? '.' : expand('%:p:h')<CR><CR>
 
 " VISUAL
 """"""""
@@ -434,26 +436,6 @@ if s:has_plugin('nerdcommenter')
   let g:NERDSpaceDelims = 1
 endif
 
-if s:has_plugin('vaffle.vim')
-  noremap - :Vaffle<CR>
-  set cmdheight=2
-
-  function! s:customize_vaffle_mappings() abort
-    nmap <buffer> S <Plug>(vaffle-open-selected-split)
-    nmap <buffer> V <Plug>(vaffle-open-selected-vsplit)
-    nmap <buffer> - <Plug>(vaffle-open-parent)
-  endfunction
-
-  augroup vimrc_vaffle
-    autocmd!
-    autocmd FileType vaffle call s:customize_vaffle_mappings()
-  augroup END
-endif
-
-" if s:has_plugin('vim-startify')
-  " let g:startify_change_to_dir = 0
-" endif
-
 if s:has_plugin('supertab')
   let g:SuperTabDefaultCompletionType = "<c-n>"
 endif
@@ -573,4 +555,15 @@ if s:has_plugin('gruvbox')
   let g:gruvbox_contrast_dark = 'soft'
   let g:gruvbox_contrast_light = 'soft'
   colorscheme gruvbox
+endif
+
+if s:has_plugin('nerdtree')
+  " Disable display of '?' text and 'Bookmarks' label.
+  let g:NERDTreeMinimalUI=1
+
+  " Single-click to toggle directory nodes, double-click to open non-directory
+  " nodes.
+  let g:NERDTreeMouseMode=2
+
+  let g:NERDTreeMapUpdir = '-'
 endif
