@@ -141,6 +141,22 @@ endif
 " CUSTOM FUNCTIONS
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
+function! LanguageClientMaps()
+  if has_key(g:LanguageClient_serverCommands, &filetype)
+    nnoremap <buffer> <silent> K :call LanguageClient#textDocument_hover()<cr>
+    nnoremap <buffer> <silent> gd :call LanguageClient#textDocument_definition()<CR>
+
+    nnoremap <leader>lc :call LanguageClient#textDocument_completion()<CR>
+    nnoremap <leader>ld :call LanguageClient#textDocument_definition()<CR>
+    nnoremap <leader>lf :call LanguageClient#textDocument_formatting()<CR>
+    nnoremap <leader>lm :call LanguageClient_contextMenu()<CR>
+    nnoremap <leader>lr :call LanguageClient#textDocument_rename()<CR>
+    nnoremap <leader>ls :call LanguageClient_textDocument_documentSymbol()<CR>
+    nnoremap <leader>lt :call LanguageClient#textDocument_typeDefinition()<CR>
+    nnoremap <leader>lx :call LanguageClient#textDocument_references()<CR>
+  endif
+endfunction
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 " CUSTOM MAPPINGS
 """""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -276,17 +292,17 @@ if s:has_plugin('LanguageClient-neovim')
   let g:LanguageClient_hoverPreview='Always'
 
   let g:LanguageClient_serverCommands = {
-        \ 'javascript': ['typescript-language-server', '--stdio'],
-        \ 'typescript': ['typescript-language-server', '--stdio'],
-        \ 'javascriptreact': ['typescript-language-server', '--stdio'],
-        \ 'typescriptreact': ['typescript-language-server', '--stdio'],
+        \ 'javascript': ['tcp://127.0.0.1:2089'],
+        \ 'javascriptreact': ['tcp://127.0.0.1:2089'],
+        \ 'typescript': ['tcp://127.0.0.1:2089'],
+        \ 'typescriptreact': ['tcp://127.0.0.1:2089'],
         \ }
 
-  nnoremap <F5> :call LanguageClient_contextMenu()<CR>
-  nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
-  nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
-  nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
+  let g:LanguageClient_rootMarkers = {
+        \ 'javascript': ['jsconfig.json'],
+        \ }
 
+  autocmd FileType * call LanguageClientMaps()
 endif
 
 if s:has_plugin('lightline.vim')
