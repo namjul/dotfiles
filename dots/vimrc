@@ -290,6 +290,12 @@ if s:has_plugin('LanguageClient-neovim')
 
   let g:LanguageClient_useFloatingHover=1
   let g:LanguageClient_hoverPreview='Always'
+  let g:LanguageClient_diagnosticsDisplay={
+        \   1: {'signTexthl': 'LineNr', 'virtualTexthl': 'ModeMsg'},
+        \   2: {'signTexthl': 'LineNr', 'virtualTexthl': 'ModeMsg'},
+        \   3: {'signTexthl': 'LineNr', 'virtualTexthl': 'ModeMsg'},
+        \   4: {'signTexthl': 'LineNr', 'virtualTexthl': 'ModeMsg'},
+        \ }
 
   let g:LanguageClient_serverCommands = {
         \ 'javascript': ['tcp://127.0.0.1:2089'],
