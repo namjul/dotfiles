@@ -1,2 +1,8 @@
+[character]
+symbol = "➜"
+error_symbol = "✗"
+use_symbol_for_status = true
+
 [package]
 symbol = ""
+disabled = true
