@@ -31,7 +31,7 @@ alias cat='bat' # Drop-in replacement for cat
 alias tms='~/.dotfiles/scripts/tmux-setup.sh' # tmux setup
 alias pbcopy='xclip -selection clipboard' # replicate pbcopy from macos
 alias pbpaste='xclip -selection clipboard -o'
-alias e=exit
+alias x=exit
 alias t=tmux
 alias v=vim
 
