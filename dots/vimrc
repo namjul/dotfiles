@@ -60,19 +60,14 @@ Plug 'tpope/vim-rhubarb'
 Plug 'rhysd/committia.vim'
 Plug 'sheerun/vim-polyglot'
 Plug 'moll/vim-node'
-Plug 'epilande/vim-es2015-snippets'
-Plug 'epilande/vim-react-snippets'
 Plug 'JulesWang/css.vim'
       \| Plug 'hail2u/vim-css3-syntax'
       \| Plug 'cakebaker/scss-syntax.vim', { 'for': ['scss'] }
 Plug 'ap/vim-css-color'
 Plug 'othree/csscomplete.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-
-if (has('nvim') && has('python3'))
-  Plug 'SirVer/ultisnips'
-  Plug 'honza/vim-snippets'
-endif
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
 
 call plug#end()
 
