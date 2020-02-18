@@ -28,6 +28,7 @@
   cm      = commit -m
 	ca      = commit --amend
   amend   = !git commit --amend --no-edit
+  reword  = commit --amend --only -v --
 
   p       = push
   pf      = push --force-with-lease
