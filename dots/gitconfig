@@ -3,7 +3,7 @@
 	a       = add
 	aa      = add .
   ai      = add -i
-  fza     = !git ls-files -m -o --exclude-standard | fzf --print0 -m --preview 'git diff {}' --preview-window=top:10:wrap | xargs -0 -t git add
+  fza     = !git ls-files -m -o --exclude-standard | fzf --print0 -m --preview 'git diff {}' --height=100% --preview-window=top:50%:wrap | xargs -0 -t git add
   patch   = add -p 
 
 	b       = branch
