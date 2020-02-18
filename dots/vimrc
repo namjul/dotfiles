@@ -132,6 +132,36 @@ endif
 " CUSTOM FUNCTIONS
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
+function! CocCurrentFunction()
+  return get(b:, 'coc_current_function', '')
+endfunction
+
+function! LightlineFileencoding()
+  return winwidth(0) > 70 ? (&fenc !=# '' ? &fenc : &enc) : ''
+endfunction
+
+function! LightLineModified()
+  if &filetype == "help"
+    return ""
+  elseif &modified
+    return "+"
+  elseif &modifiable
+    return ""
+  else
+    return ""
+  endif
+endfunction
+
+function! LightLineReadonly()
+  if &filetype == "help"
+    return ""
+  elseif &readonly
+    return "RO"
+  else
+    return ""
+  endif
+endfunction
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 " CUSTOM MAPPINGS
 """""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -270,18 +300,17 @@ if s:has_plugin('lightline.vim')
         \ 'colorscheme': 'gruvbox',
         \ 'active': {
         \   'left': [ [ 'mode', 'paste' ],
-        \             [ 'fugitive', 'readonly' ], [ 'relativepath' ] ],
+        \             [ 'readonly', 'relativepath', 'modified' ] ],
         \   'right': [ [ 'lineinfo' ],
-        \              [ 'percent' ],
-        \              [ 'tags' ] ]
+        \              [ 'percent' ], [ 'status', 'cocstatus', 'currentfunction' ] ]
         \ },
         \ 'component_function': {
         \   'fugitive': 'LightLineFugitive',
         \   'readonly': 'LightLineReadonly',
         \   'modified': 'LightLineModified',
-        \   'fileformat': 'LightlineFileformat',
-        \   'filetype': 'LightlineFiletype',
-        \   'fileencoding': 'LightlineFileencoding'
+        \   'fileencoding': 'LightlineFileencoding',
+        \   'cocstatus': 'coc#status',
+        \   'currentfunction': 'CocCurrentFunction'
         \ },
         \ 'component_expand': {
         \   'tags': 'LightlineTags'
@@ -289,52 +318,6 @@ if s:has_plugin('lightline.vim')
         \ 'separator': { 'left': '', 'right': '' },
         \ 'subseparator': { 'left': '', 'right': '' }
         \ }
-
-  function! LightlineFileformat()
-    return winwidth(0) > 70 ? &fileformat : ''
-  endfunction
-
-  function! LightlineFiletype()
-    return winwidth(0) > 70 ? (&filetype !=# '' ? &filetype : 'no ft') : ''
-  endfunction
-
-  function! LightlineFileencoding()
-    return winwidth(0) > 70 ? (&fenc !=# '' ? &fenc : &enc) : ''
-  endfunction
-
-  function! LightLineModified()
-    if &filetype == "help"
-      return ""
-    elseif &modified
-      return "+"
-    elseif &modifiable
-      return ""
-    else
-      return ""
-    endif
-  endfunction
-
-  function! LightLineReadonly()
-    if &filetype == "help"
-      return ""
-    elseif &readonly
-      return "RO"
-    else
-      return ""
-    endif
-  endfunction
-
-  function! LightLineFugitive()
-    if exists("*fugitive#head")
-      let _ = fugitive#head()
-      return strlen(_) ? '┣ '._ : ''
-    endif
-    return ''
-  endfunction
-
-  function LightlineTags()
-      " return '%{gutentags#statusline("[", "]")}'
-  endfunction
 endif
 
 if s:has_plugin('neoterm')
