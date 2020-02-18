@@ -24,6 +24,7 @@
 	dc      = diff --cached
   staged  = dc
   dino    = diff --name-only
+  dt      = !git diff --no-color | xclip -selection clipboard
 
 	ci      = commit
 	ca      = commit --amend
