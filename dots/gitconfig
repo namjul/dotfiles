@@ -5,7 +5,6 @@
   ai      = add -i
   fza     = !git ls-files -m -o --exclude-standard | fzf --print0 -m --preview 'git diff {}' --preview-window=top:10:wrap | xargs -0 -t git add
   patch   = add -p 
-  amend   = !git commit --amend --no-edit
 
 	b       = branch
 	be      = branch --edit-description
@@ -20,15 +19,15 @@
 	develop = checkout develop
 
 	d       = diff
-	df      = diff --color --color-words --abbrev
 	dc      = diff --cached
   staged  = dc
   dino    = diff --name-only
   dt      = !git diff --no-color | xclip -selection clipboard
 
 	ci      = commit
-	ca      = commit --amend
   cm      = commit -m
+	ca      = commit --amend
+  amend   = !git commit --amend --no-edit
 
   p       = push
   pf      = push --force-with-lease
