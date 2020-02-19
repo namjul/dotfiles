@@ -24,7 +24,7 @@
   dino    = diff --name-only
   dt      = !git diff --no-color | xclip -selection clipboard
 
-	ci      = commit
+	c       = commit
   cm      = commit -m
 	ca      = commit --amend 
   amend   = commit --amend --no-edit
