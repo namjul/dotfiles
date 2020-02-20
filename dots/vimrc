@@ -106,10 +106,6 @@ set conceallevel=2
 " Enable term 24 bit colour
 set termguicolors
 
-" Set colorscheme.
-" set background=dark
-colorscheme onehalfdark
-
 " Add the g flag to search/replace by default
 set gdefault
 
@@ -435,6 +431,8 @@ endif
 if s:has_plugin('gruvbox')
   let g:gruvbox_contrast_dark = 'soft'
   let g:gruvbox_contrast_light = 'soft'
+  let g:gruvbox_italic = 1
+  set background=dark
   colorscheme gruvbox
 endif
 

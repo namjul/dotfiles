@@ -65,19 +65,19 @@ font:
   # The normal (roman) font face to use.
   normal:
     # family: Fira Code # should be "Menlo" or something on macOS.
-    family: monaco
+    family: monego
     # Style can be specified to pick a specific face.
     style: Regular
 
   # The bold font face
   bold:
-    family: Fira Code # should be "Menlo" or something on macOS.
+    family: monego # should be "Menlo" or something on macOS.
     # Style can be specified to pick a specific face.
     style: Bold
 
   # The italic font face
   italic:
-    family: Fira Code # should be "Menlo" or something on macOS.
+    family: monego # should be "Menlo" or something on macOS.
     # Style can be specified to pick a specific face.
     style: Italic
 
