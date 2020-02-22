@@ -51,8 +51,9 @@ Plug 'gruvbox-community/gruvbox'
 " Plug 'chriskempson/base16-vim'
 " Plug 'icymind/NeoSolarized'
 " Plug 'arcticicestudio/nord-vim'
-Plug 'mhartington/oceanic-next'
-Plug 'sonph/onehalf', { 'rtp': 'vim/' }
+" Plug 'mhartington/oceanic-next'
+" Plug 'srcery-colors/srcery-vim'
+" Plug 'sonph/onehalf', { 'rtp': 'vim/' }
 Plug 'reasonml-editor/vim-reason-plus'
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
@@ -119,6 +120,9 @@ if has("persistent_undo")
   set undolevels=1000
   set undoreload=10000
 endif
+
+" default dark
+set background=dark
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 " FILETYPE-SPECIFIC CONFIGURATIONS
@@ -382,15 +386,6 @@ if s:has_plugin('winresizer')
   let g:winresizer_start_key = '<C-T>'
 endif
 
-if s:has_plugin('nord-vim')
-  let g:nord_comment_brightness = 20
-endif
-
-if s:has_plugin('oceanic-next')
-  let g:oceanic_next_terminal_bold = 1
-  let g:oceanic_next_terminal_italic = 1
-endif
-
 if s:has_plugin('vim-closetag')
   autocmd BufNewFile,BufRead *.jsx set filetype=javascript
   let g:closetag_emptyTags_caseSensitive = 1
@@ -426,14 +421,6 @@ if s:has_plugin('vim-yoink')
 
   nmap p <plug>(YoinkPaste_p)
   nmap P <plug>(YoinkPaste_P)
-endif
-
-if s:has_plugin('gruvbox')
-  let g:gruvbox_contrast_dark = 'soft'
-  let g:gruvbox_contrast_light = 'soft'
-  let g:gruvbox_italic = 1
-  set background=dark
-  colorscheme gruvbox
 endif
 
 if s:has_plugin('nerdtree')
@@ -494,4 +481,35 @@ if s:has_plugin('coc.nvim')
 
   " Symbol renaming.
   nmap <leader>rn <Plug>(coc-rename)
+endif
+
+" COLORSCHEMES
+""""""""
+
+if s:has_plugin('nord-vim')
+  colorscheme nord
+  let g:nord_comment_brightness = 20
+endif
+
+if s:has_plugin('oceanic-next')
+  colorscheme OceanicNext
+  let g:oceanic_next_terminal_bold = 1
+  let g:oceanic_next_terminal_italic = 1
+endif
+
+if s:has_plugin('gruvbox')
+  let g:gruvbox_contrast_dark = 'soft'
+  let g:gruvbox_contrast_light = 'soft'
+  let g:gruvbox_italic = 1
+  colorscheme gruvbox
+endif
+
+if s:has_plugin('srcery-vim')
+  colorscheme srcery
+  let g:srcery_italic = 1
+endif
+
+if s:has_plugin('onehalf')
+  colorscheme onehalfdark
+  highlight Comment cterm=italic gui=italic
 endif
