@@ -49,11 +49,12 @@ Plug 'wincent/scalpel'
 Plug 'junegunn/goyo.vim'
 Plug 'gruvbox-community/gruvbox'
 " Plug 'chriskempson/base16-vim'
-" Plug 'icymind/NeoSolarized'
-" Plug 'arcticicestudio/nord-vim'
-" Plug 'mhartington/oceanic-next'
-" Plug 'srcery-colors/srcery-vim'
-" Plug 'sonph/onehalf', { 'rtp': 'vim/' }
+Plug 'icymind/NeoSolarized'
+Plug 'arcticicestudio/nord-vim'
+Plug 'mhartington/oceanic-next'
+Plug 'srcery-colors/srcery-vim'
+Plug 'sonph/onehalf', { 'rtp': 'vim/' }
+Plug 'drewtempelmeyer/palenight.vim'
 Plug 'reasonml-editor/vim-reason-plus'
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
@@ -128,6 +129,8 @@ set background=dark
 " FILETYPE-SPECIFIC CONFIGURATIONS
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
+autocmd BufNewFile,BufRead *.jsx set filetype=javascript
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 " CUSTOM FUNCTIONS
 """""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -161,6 +164,39 @@ function! LightLineReadonly()
     return ""
   endif
 endfunction
+
+function! LightlineReload()
+  call lightline#init()
+  call lightline#colorscheme()
+  call lightline#update()
+endfunction
+
+function! s:onColorSchemeChange(scheme)
+  let l:colour_scheme_map = {'NeoSolarized': 'solarized'}
+
+  " Try a scheme provided already
+  execute 'runtime autoload/lightline/colorscheme/'.a:scheme.'.vim'
+  if exists('g:lightline#colorscheme#{a:scheme}#palette')
+    let g:lightline.colorscheme = a:scheme
+  else  " Try falling back to a known colour scheme
+    let l:colors_name = get(l:colour_scheme_map, a:scheme, '')
+    if empty(l:colors_name)
+      return
+    else
+      let g:lightline.colorscheme = l:colors_name
+    endif
+  endif
+  call LightlineReload()
+endfunction
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""
+" AUTOCOMMANDS
+"""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+augroup lightline-events
+    autocmd!
+    autocmd ColorScheme * call s:onColorSchemeChange(expand("<amatch>"))
+augroup END
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 " CUSTOM MAPPINGS
@@ -318,6 +354,9 @@ if s:has_plugin('lightline.vim')
         \ 'separator': { 'left': '', 'right': '' },
         \ 'subseparator': { 'left': '', 'right': '' }
         \ }
+
+  command! LightlineReload call LightlineReload()
+
 endif
 
 if s:has_plugin('neoterm')
@@ -387,7 +426,6 @@ if s:has_plugin('winresizer')
 endif
 
 if s:has_plugin('vim-closetag')
-  autocmd BufNewFile,BufRead *.jsx set filetype=javascript
   let g:closetag_emptyTags_caseSensitive = 1
   let g:closetag_filetypes = 'html,xhtml,phtml,javascript'
 endif
@@ -488,20 +526,12 @@ endif
 
 if s:has_plugin('nord-vim')
   colorscheme nord
-  let g:nord_comment_brightness = 20
 endif
 
 if s:has_plugin('oceanic-next')
   colorscheme OceanicNext
   let g:oceanic_next_terminal_bold = 1
   let g:oceanic_next_terminal_italic = 1
-endif
-
-if s:has_plugin('gruvbox')
-  let g:gruvbox_contrast_dark = 'soft'
-  let g:gruvbox_contrast_light = 'soft'
-  let g:gruvbox_italic = 1
-  colorscheme gruvbox
 endif
 
 if s:has_plugin('srcery-vim')
@@ -512,4 +542,11 @@ endif
 if s:has_plugin('onehalf')
   colorscheme onehalfdark
   highlight Comment cterm=italic gui=italic
+endif
+
+if s:has_plugin('gruvbox')
+  let g:gruvbox_contrast_dark = 'soft'
+  let g:gruvbox_contrast_light = 'soft'
+  let g:gruvbox_italic = 1
+  colorscheme gruvbox
 endif
