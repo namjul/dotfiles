@@ -1,6 +1,5 @@
 # Installation
 
-## Manual steps 
 - Install [alacritty](https://github.com/jwilm/alacritty) and set as default terminal `sudo update-alternatives --config x-terminal-emulator`
 - Install [xcape](https://github.com/alols/xcape) 
 - Install font
@@ -19,7 +18,7 @@ Run install script
 
 
 ## Todos
-- [] color for man pages
+- [ ] color for man pages
 - [x] italic text
 - [x] add LSP support
   - https://github.com/autozimu/LanguageClient-neovim
