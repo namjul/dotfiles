@@ -9,22 +9,28 @@ Run install script
 ```
 ./install
 ```
-
 ## Manual steps 
 - Install [alacritty](https://github.com/jwilm/alacritty)
 - Install [xcape](https://github.com/alols/xcape) 
 - Set caps lock to ctrl http://askubuntu.com/questions/363346/how-to-permanently-switch-caps-lock-and-escctrl:nocaps
 - Run `setxkbmap -option ctrl:nocaps` && `xcape -e 'Control_L=Escape'` at startup
 - Run `xset r rate 200 30` at startup
-- Setup font https://github.com/tonsky/FiraCode
+
+# Fonts
+
+- https://github.com/tonsky/FiraCode
+- https://github.com/cseelus/monego
 
 ## Todos
-- [ ] add LSP support
+- [] color for man pages
+- [x] italic text
+- [x] add LSP support
   - https://github.com/autozimu/LanguageClient-neovim
   - https://github.com/Shougo/deoplete.nvim
   - https://github.com/dense-analysis/ale / https://github.com/desmap/ale-sensible / https://github.com/neoclide/coc.nvim/issues/348#issuecomment-454790599
 - [ ] build own statusline
   - vim filename should include folder
+  - https://irrellia.github.io/blogs/vim-statusline/
   - https://shapeshed.com/vim-statuslines/
   - https://hackernoon.com/the-last-statusline-for-vim-a613048959b2
   - https://www.youtube.com/watch?v=Bsg-43PitrM
