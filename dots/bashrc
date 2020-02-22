@@ -44,6 +44,13 @@ if [[ -a ~/.localrc ]]; then
     source ~/.localrc
 fi
 
+# setting caps to ctrl/escape
+setxkbmap -option ctrl:nocaps
+xcape -e 'Control_L=Escape'
+
+# adjust keyboard rate
+xset r rate 200 30
+
 ##############################################################################
 # 04. PROMPT COLORS                                                          #
 ##############################################################################
