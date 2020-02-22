@@ -1,4 +1,11 @@
-## Installation
+# Installation
+
+## Manual steps 
+- Install [alacritty](https://github.com/jwilm/alacritty) and set as default terminal `sudo update-alternatives --config x-terminal-emulator`
+- Install [xcape](https://github.com/alols/xcape) 
+- Install font
+  - https://github.com/tonsky/FiraCode
+  - https://github.com/cseelus/monego
 
 Clone dotfiles to home directory
 ```
@@ -9,17 +16,7 @@ Run install script
 ```
 ./install
 ```
-## Manual steps 
-- Install [alacritty](https://github.com/jwilm/alacritty)
-- Install [xcape](https://github.com/alols/xcape) 
-- Set caps lock to ctrl http://askubuntu.com/questions/363346/how-to-permanently-switch-caps-lock-and-escctrl:nocaps
-- Run `setxkbmap -option ctrl:nocaps` && `xcape -e 'Control_L=Escape'` at startup
-- Run `xset r rate 200 30` at startup
 
-# Fonts
-
-- https://github.com/tonsky/FiraCode
-- https://github.com/cseelus/monego
 
 ## Todos
 - [] color for man pages

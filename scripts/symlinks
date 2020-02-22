@@ -20,6 +20,7 @@ symlink_dotfile alacritty.yml
 symlink_dotfile tern-project
 symlink_dotfile todo.cfg
 symlink_dotfile Xresources
+symlink_dotfile xsessionrc
 symlink_dotfile gitconfig
 symlink_dotfile gitignore_global
 symlink_dotfile git-completion.bash
