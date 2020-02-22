@@ -187,6 +187,7 @@ function! s:onColorSchemeChange(scheme)
     endif
   endif
   call LightlineReload()
+  call system('sed -i "s/colors: \*.*$/colors: \*' . g:lightline.colorscheme . '/" ~/.dotfiles/dots/alacritty.yml')
 endfunction
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""
