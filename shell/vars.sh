@@ -11,11 +11,8 @@ export HISTCONTROL=ignoredups
 export LANG="en_US"
 export LC_ALL="en_US.UTF-8"
 
-# Highlight section titles in manual pages
-export LESS_TERMCAP_md="$ORANGE"
-
 # Don’t clear the screen after quitting a manual page
-export MANPAGER="less -X"
+export MANPAGER="nvim -c 'set ft=man' -"
 
 export DOTFILES="${HOME}/.dotfiles"
 export SHELL_DOTFILES="${DOTFILES}/shell"
