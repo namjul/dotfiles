@@ -2,6 +2,8 @@
 
 # Create directories
 mkdir -p "$HOME/.config/nvim/"
+mkdir -p "$HOME/.config/backups/"
+
 ln -sfv "$HOME/.vimrc" "$HOME/.config/nvim/init.vim"
 
 # Neovim
