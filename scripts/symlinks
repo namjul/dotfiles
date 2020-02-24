@@ -31,6 +31,7 @@ symlink_dotfile bashrc
 symlink_dotfile tmux.conf
 symlink_dotfile vimrc
 symlink_dotfile default-npm-packages
+symlink_dotfile asdfrc
 symlink_xdg starship.toml
 symlink_xdg fish
 symlink_xdg coc-settings.json
