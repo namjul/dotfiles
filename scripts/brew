@@ -64,7 +64,6 @@ brew install git
 brew install diff-so-fancy
 
 # Install everything else
-brew install ack
 brew install tree
 brew install z
 brew install python
