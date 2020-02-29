@@ -58,6 +58,7 @@ Run install script
 - [ ] move tmux statusbar to the bottom
 - [ ] fix "clipboard: error: Error: target STRING not available"
   - https://github.com/svermeulen/vim-yoink/issues/16
+- [ ] get https://monolisa.dev
 
 
 # Vim
