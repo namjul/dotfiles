@@ -22,8 +22,27 @@ prepend-path() {
 
 # git interactive rebase to n
 grn() { 
-  git rebase -i HEAD~"$1"; 
+  git rebase -i HEAD~"$1";
 }
+
+# Take a screenshot of an area of the screen, upload it to dropbox and put the
+# url into the clipboard
+screenToDropbox () {
+  FILENAME=~/Dropbox/pics/Screenshot_`date +%Y-%m-%d-%H:%M`.png
+  # use gnome tool for taking area screenshot
+  gnome-screenshot -a -f $FILENAME
+  if test -f "$FILENAME"; then
+    # create a shareable link with dropbox
+    LINK="$(dropbox sharelink $FILENAME)"
+    # replace `www` with `dl` so that dropbox does not render its custom preview app.
+    DIRECT_LINK=${LINK/www/dl}
+    # add link to clipboard
+    echo $DIRECT_LINK | xclip -selection clipboard
+    # use ubuntu's `notify-send` to send notification
+    notify-send "Copied $DIRECT_LINK to clipboard"
+  fi
+}
+
 
 # tm - create new tmux session, or switch to existing one. Works from within tmux too.
 # `tm` will allow you to select your tmux session via fzf.
