@@ -25,6 +25,11 @@ grn() {
   git rebase -i HEAD~"$1";
 }
 
+# shorthand for npm run
+run () {
+  npm run $@
+}
+
 # Take a screenshot of an area of the screen, upload it to dropbox and put the
 # url into the clipboard
 screenToDropbox () {
