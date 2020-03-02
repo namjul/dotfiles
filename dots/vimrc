@@ -295,6 +295,36 @@ nnoremap <Leader>z :Goyo<CR>
 " PLUGIN SETTINGS
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
+" COLORSCHEMES
+""""""""
+
+if s:has_plugin('nord-vim')
+  colorscheme nord
+endif
+
+if s:has_plugin('oceanic-next')
+  colorscheme OceanicNext
+  let g:oceanic_next_terminal_bold = 1
+  let g:oceanic_next_terminal_italic = 1
+endif
+
+if s:has_plugin('srcery-vim')
+  colorscheme srcery
+  let g:srcery_italic = 1
+endif
+
+if s:has_plugin('onehalf')
+  colorscheme onehalfdark
+  highlight Comment cterm=italic gui=italic
+endif
+
+if s:has_plugin('gruvbox')
+  let g:gruvbox_contrast_dark = 'soft'
+  let g:gruvbox_contrast_light = 'soft'
+  let g:gruvbox_italic = 1
+  colorscheme gruvbox
+endif
+
 if s:has_plugin('ale')
   let g:ale_echo_msg_error_str = 'E'
   let g:ale_echo_msg_warning_str = 'W'
@@ -520,32 +550,4 @@ if s:has_plugin('coc.nvim')
   nmap <leader>rn <Plug>(coc-rename)
 endif
 
-" COLORSCHEMES
-""""""""
-
-if s:has_plugin('nord-vim')
-  colorscheme nord
-endif
-
-if s:has_plugin('oceanic-next')
-  colorscheme OceanicNext
-  let g:oceanic_next_terminal_bold = 1
-  let g:oceanic_next_terminal_italic = 1
-endif
-
-if s:has_plugin('srcery-vim')
-  colorscheme srcery
-  let g:srcery_italic = 1
-endif
-
-if s:has_plugin('onehalf')
-  colorscheme onehalfdark
-  highlight Comment cterm=italic gui=italic
-endif
-
-if s:has_plugin('gruvbox')
-  let g:gruvbox_contrast_dark = 'soft'
-  let g:gruvbox_contrast_light = 'soft'
-  let g:gruvbox_italic = 1
-  colorscheme gruvbox
 endif
