@@ -370,7 +370,7 @@ if s:has_plugin('lightline.vim')
         \   'left': [ [ 'mode', 'paste' ],
         \             [ 'readonly', 'relativepath', 'modified' ] ],
         \   'right': [ [ 'lineinfo' ],
-        \              [ 'percent' ], [ 'status', 'cocstatus', 'currentfunction' ] ]
+        \              [ 'percent' ], [ 'cocstatus', 'filetype' ] ]
         \ },
         \ 'component_function': {
         \   'fugitive': 'LightLineFugitive',
