@@ -25,6 +25,7 @@ Plug 'tmux-plugins/vim-tmux-focus-events'
 Plug '/home/linuxbrew/.linuxbrew/opt/fzf/'
 Plug 'junegunn/fzf.vim'
 Plug 'Yggdroot/indentLine'
+Plug 'alok/notational-fzf-vim'
 " Plug 'tpope/vim-unimpaired'
 Plug 'tyewang/vimux-jest-test'
 Plug 'mattn/gist-vim'
@@ -289,7 +290,9 @@ nnoremap <Leader>/ :Rg<space>
 nnoremap <silent><Leader>t :Files<CR>
 nnoremap <silent><Leader>b :Buffer<CR>
 
-nnoremap <Leader>z :Goyo<CR>
+nnoremap <silent><Leader>z :Goyo<CR>
+nnoremap <silent><Leader>no :NV<CR>
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 " PLUGIN SETTINGS
@@ -550,4 +553,6 @@ if s:has_plugin('coc.nvim')
   nmap <leader>rn <Plug>(coc-rename)
 endif
 
+if s:has_plugin('notational-fzf-vim')
+  let g:nv_search_paths = ['~/Dropbox/wiki', '~/Dropbox/dev']
 endif
