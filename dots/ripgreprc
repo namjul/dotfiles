@@ -1,0 +1,9 @@
+
+# https://github.com/BurntSushi/ripgrep/blob/master/FAQ.md#how-do-i-make-the-output-look-like-the-silver-searchers-output
+--colors=line:fg:yellow
+--colors=line:style:bold
+--colors=path:fg:green
+--colors=path:style:bold
+--colors=match:fg:black
+--colors=match:bg:yellow
+--colors=match:style:nobold

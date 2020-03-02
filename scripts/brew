@@ -52,8 +52,8 @@ pip3 install neovim
 brew install fzf
 yes | $(brew --prefix)/opt/fzf/install
 
-# Ag - fzf is configured to use this
-brew install the_silver_searcher
+# Ripgrep - fzf/vim is configured to use this
+brew install ripgrep
 
 # tmux
 brew install tmux

@@ -284,8 +284,8 @@ nnoremap <Leader>x :exit<CR>
 nnoremap <Leader>q :quit<CR>
 
 " fzf mappings
-nnoremap <silent><Leader>* :Ag <C-R><C-W><CR>
-nnoremap <Leader>/ :Ag<space>
+nnoremap <silent><Leader>* :Rg <C-R><C-W><CR>
+nnoremap <Leader>/ :Rg<space>
 nnoremap <silent><Leader>t :Files<CR>
 nnoremap <silent><Leader>b :Buffer<CR>
 
