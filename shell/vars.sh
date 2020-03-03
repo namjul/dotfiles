@@ -12,7 +12,7 @@ export LANG="en_US"
 export LC_ALL="en_US.UTF-8"
 
 # Don’t clear the screen after quitting a manual page
-export MANPAGER="nvim -c 'set ft=man' -"
+export MANPAGER="less -X"
 
 export DOTFILES="${HOME}/.dotfiles"
 export SHELL_DOTFILES="${DOTFILES}/shell"
