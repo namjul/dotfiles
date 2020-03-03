@@ -126,12 +126,6 @@ endif
 set background=dark
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""
-" FILETYPE-SPECIFIC CONFIGURATIONS
-"""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-autocmd BufNewFile,BufRead *.jsx set filetype=javascript
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""
 " CUSTOM FUNCTIONS
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
