@@ -285,7 +285,7 @@ nnoremap <silent><Leader>t :Files<CR>
 nnoremap <silent><Leader>b :Buffer<CR>
 
 nnoremap <silent><Leader>z :Goyo<CR>
-nnoremap <silent><Leader>no :NV<CR>
+nnoremap <silent><Leader>m :NV<CR>
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""
