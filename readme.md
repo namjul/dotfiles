@@ -59,6 +59,7 @@ Run install script
 - [ ] fix "clipboard: error: Error: target STRING not available"
   - https://github.com/svermeulen/vim-yoink/issues/16
 - [ ] get https://monolisa.dev
+- [ ] learn about https://en.wikipedia.org/wiki/GNU_Readline
 
 
 # Vim
