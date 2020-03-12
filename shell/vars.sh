@@ -21,7 +21,7 @@ export SHELL_DOTFILES="${DOTFILES}/shell"
 export TODOTXT_CFG_FILE="$HOME/.todo.cfg"
 
 # fzf
-export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --no-ignore-vcs -g "!{node_modules,.git}"'
+export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --no-ignore-vcs -g "!{.git}"'
 export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --inline-info --border'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
