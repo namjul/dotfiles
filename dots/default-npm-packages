@@ -8,6 +8,7 @@ ntl
 trymodule
 pageres-cli
 lerna
+yarn
 npm-check-updates
 taskbook
 git-file-history
