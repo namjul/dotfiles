@@ -60,6 +60,7 @@ Run install script
   - https://github.com/svermeulen/vim-yoink/issues/16
 - [ ] get https://monolisa.dev
 - [ ] learn about https://en.wikipedia.org/wiki/GNU_Readline
+- [ ] disable typescript checks in flow files
 
 
 # Vim
