@@ -18,12 +18,21 @@ Run install script
 
 
 ## Todos
-- [ ] color for man pages
 - [x] italic text
 - [x] add LSP support
   - https://github.com/autozimu/LanguageClient-neovim
   - https://github.com/Shougo/deoplete.nvim
   - https://github.com/dense-analysis/ale / https://github.com/desmap/ale-sensible / https://github.com/neoclide/coc.nvim/issues/348#issuecomment-454790599
+- [x] tmux/vim file change reloading
+- [w] enhance mappings (normal, command, visual, leader)
+- [x] jump-list 
+  - https://medium.com/breathe-publication/understanding-vims-jump-list-7e1bfc72cdf0
+- [x] improve tmux settings
+  - https://www.youtube.com/watch?v=N0RL_J0LT9A
+  - [x] improve tmux copy-mode selection to clipboard
+    - https://www.youtube.com/watch?v=ogeVqNOStQs&t=191s
+    - https://superuser.com/questions/395158/tmux-copy-mode-select-text-block
+- [ ] color for man pages
 - [ ] build own statusline
   - vim filename should include folder
   - https://irrellia.github.io/blogs/vim-statusline/
@@ -40,27 +49,18 @@ Run install script
 - [ ] add floating windows for fzf
   - https://github.com/yuki-ycino/fzf-preview.vim
   - https://github.com/Blacksuan19/init.nvim/blob/master/init.vim#L327
-- [x] tmux/vim file change reloading
-- [w] enhance mappings (normal, command, visual, leader)
 - [ ] window splits "vinegar"
   https://www.youtube.com/watch?v=OgQW07saWb0
   - replace vaffle 
-- [x] jump-list 
-  - https://medium.com/breathe-publication/understanding-vims-jump-list-7e1bfc72cdf0
-- [x] improve tmux settings
-  - https://www.youtube.com/watch?v=N0RL_J0LT9A
-  - [x] improve tmux copy-mode selection to clipboard
-    - https://www.youtube.com/watch?v=ogeVqNOStQs&t=191s
-    - https://superuser.com/questions/395158/tmux-copy-mode-select-text-block
 - [ ] improve search highlight (different for active and matches)
   - https://github.com/wincent/loupe/issues/4
-- [x] adjust fzf open active item command to from x/v to s/v
-- [ ] move tmux statusbar to the bottom
 - [ ] fix "clipboard: error: Error: target STRING not available"
   - https://github.com/svermeulen/vim-yoink/issues/16
 - [ ] get https://monolisa.dev
 - [ ] learn about https://en.wikipedia.org/wiki/GNU_Readline
 - [ ] disable typescript checks in flow files
+- [ ] make :Rg search through node_modules
+- [ ] allow regex in :Rg search
 
 
 # Vim
