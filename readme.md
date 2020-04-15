@@ -60,7 +60,6 @@ Run install script
 - [ ] learn about https://en.wikipedia.org/wiki/GNU_Readline
 - [ ] disable typescript checks in flow files
 - [ ] make :Rg search through node_modules
-- [ ] allow regex in :Rg search
 
 
 # Vim
