@@ -443,7 +443,7 @@ endif
 
 if s:has_plugin('vim-closetag')
   let g:closetag_emptyTags_caseSensitive = 1
-  let g:closetag_filetypes = 'html,xhtml,phtml,javascript'
+  let g:closetag_filetypes = 'html,xhtml,phtml,javascript,typescriptreact'
 endif
 
 if s:has_plugin('vim-cutlass')
