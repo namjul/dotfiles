@@ -274,7 +274,7 @@ nnoremap <Leader>p :echo expand('%')<CR>
 " nnoremap <Leader>a ggVG
 
 " auto reload of vimrc
-noremap <leader>r :source ~/.vimrc<CR>
+noremap <Leader>r :source ~/.vimrc<CR>
 
 " quick save
 nnoremap <Leader>w :write<CR>
@@ -287,9 +287,15 @@ nnoremap <Leader>/ :Rg<space>
 nnoremap <silent><Leader>t :Files<CR>
 nnoremap <silent><Leader>b :Buffer<CR>
 
+" Open new splits in a semantic way
+nnoremap <Leader><C-h> :lefta vs new<CR>
+nnoremap <Leader><C-j> :below sp new<CR>
+nnoremap <Leader><C-k> :above sp new<CR>
+nnoremap <Leader><C-l> :rightb vsp new<CR>
+
+" miscellaneous
 nnoremap <silent><Leader>z :Goyo<CR>
 nnoremap <silent><Leader>m :NV<CR>
-
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 " PLUGIN SETTINGS
