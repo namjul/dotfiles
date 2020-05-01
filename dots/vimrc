@@ -446,6 +446,7 @@ if s:has_plugin('vim-fugitive')
   nmap <leader>gp :Gpush<cr>
   nmap <leader>gd :Gdiff<cr>
   nmap <leader>gw :Gwrite<cr>
+  nmap <leader>gbr :Gbrowse<cr>
 endif
 
 if s:has_plugin('vim-polyglot')
