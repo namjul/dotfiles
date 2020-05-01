@@ -92,14 +92,6 @@ Plug 'rhysd/committia.vim'
 Plug 'sheerun/vim-polyglot'
 " improves dx in node.js env
 Plug 'moll/vim-node'
-" css syntax highlighting
-Plug 'JulesWang/css.vim'
-      \| Plug 'hail2u/vim-css3-syntax'
-      \| Plug 'cakebaker/scss-syntax.vim', { 'for': ['scss'] }
-" adds color preview
-Plug 'ap/vim-css-color'
-" update css build-in css complete
-Plug 'othree/csscomplete.vim'
 " intellisense engine
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " snippets engine
