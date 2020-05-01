@@ -92,8 +92,6 @@ Plug 'rhysd/committia.vim'
 Plug 'sheerun/vim-polyglot'
 " improves dx in node.js env
 Plug 'moll/vim-node'
-" intellisense engine
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " snippets engine
 Plug 'SirVer/ultisnips'
 " general snippets collection
@@ -102,6 +100,12 @@ Plug 'honza/vim-snippets'
 Plug 'mattn/gist-vim'
 " needed for `gist-vim`
 Plug 'mattn/webapi-vim'
+" normalizes async vim/neovim
+Plug 'prabirshrestha/async.vim'
+" language server protocal
+Plug 'prabirshrestha/vim-lsp'
+" lsp helpers
+Plug 'mattn/vim-lsp-settings'
 
 call plug#end()
 
@@ -128,6 +132,7 @@ set backupcopy=yes "optimize webpack watch option
 set clipboard+=unnamedplus
 set ignorecase
 set smartcase
+set hidden
 
 " Whitespace
 set nowrap " don't wrap lines
@@ -160,10 +165,6 @@ set background=dark
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 " CUSTOM FUNCTIONS
 """""""""""""""""""""""""""""""""""""""""""""""""""""
-
-function! CocCurrentFunction()
-  return get(b:, 'coc_current_function', '')
-endfunction
 
 function! LightlineFileencoding()
   return winwidth(0) > 70 ? (&fenc !=# '' ? &fenc : &enc) : ''
@@ -331,9 +332,6 @@ nnoremap <Leader><C-l> :rightb vsp new<CR>
 " PLUGIN SETTINGS
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" COLORSCHEMES
-""""""""
-
 if s:has_plugin('nord-vim')
   colorscheme nord
 endif
@@ -403,15 +401,13 @@ if s:has_plugin('lightline.vim')
         \   'left': [ [ 'mode', 'paste' ],
         \             [ 'readonly', 'relativepath', 'modified' ] ],
         \   'right': [ [ 'lineinfo' ],
-        \              [ 'percent' ], [ 'cocstatus', 'filetype' ] ]
+        \              [ 'percent' ], ['filetype'] ]
         \ },
         \ 'component_function': {
         \   'fugitive': 'LightLineFugitive',
         \   'readonly': 'LightLineReadonly',
         \   'modified': 'LightLineModified',
-        \   'fileencoding': 'LightlineFileencoding',
-        \   'cocstatus': 'coc#status',
-        \   'currentfunction': 'CocCurrentFunction'
+        \   'fileencoding': 'LightlineFileencoding'
         \ },
         \ 'component_expand': {
         \   'tags': 'LightlineTags'
@@ -528,60 +524,68 @@ if s:has_plugin('nerdtree')
   let g:NERDTreeMapUpdir = '-'
 endif
 
-if s:has_plugin('coc.nvim')
+if s:has_plugin('vim-lsp')
 
-  let g:coc_config_home = expand('$HOME/.config')
+  " JavaScript and Typescript LSP
+  " Prerequisites:
+  " $ npm install -g typescript typescript-language-server
+  if executable('typescript-language-server')
+    au User lsp_setup call lsp#register_server({
+          \ 'name': 'javascript/typescript support using typescript-language-server',
+          \ 'cmd': { server_info->[&shell, &shellcmdflag, 'typescript-language-server --stdio']},
+          \ 'root_uri': { server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_directory(lsp#utils#get_buffer_path(), '.git/..'))},
+          \ 'whitelist': ['javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'typescript.tsx']
+          \ })
+  else
+    echom "ERROR: JavaScript language server not found"
+  endif
 
-  hi link CocErrorVirtualText  ModeMsg
+  function! s:on_lsp_buffer_enabled() abort
+    setlocal omnifunc=lsp#complete
+    setlocal signcolumn=yes
+    echom "loaded"
 
-  let g:coc_global_extensions = [
-        \'coc-tsserver',
-        \'coc-flow',
-        \'coc-eslint',
-        \'coc-snippets',
-        \'coc-highlight',
-        \'coc-prettier',
-        \]
+    highlight link LspErrorText GruvboxRedBold
+    highlight link LspWarningText GruvboxYellowBold
+    highlight link LspInformationText GruvboxBlue
+    highlight link LspHintText GruvboxYellow
+    
+    highlight link LspErrorHighlight Error
+    highlight link LspWarningHighlight Todo
+    highlight link LspInformationHighlight Normal
+    highlight link LspHintHighlight Normal
 
-  " TextEdit might fail if hidden is not set.
-  set hidden
+    " Use `[g` and `]g` to navigate diagnostics
+    nnoremap <buffer> [g :LspNextDiagnostic<CR>
+    nnoremap <buffer> ]g :LspPreviousDiagnostic<CR>
+  
+    " GoTo code navigation.
+    nnoremap <buffer> gd :LspDefinition<CR>
+    nnoremap <buffer> gy :LspTypeDefinition<CR>
+    nnoremap <buffer> gi :LspImplementation<CR>
+    nnoremap <buffer> gr :LspReferences<CR>
+    nnoremap <buffer> gf :LspDocumentFormat<CR>
 
-  " Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
-  " delays and poor user experience.
-  set updatetime=300
+    " Symbol renaming.
+    nnoremap <leader>rn :LspRename<CR>
 
-  " Use `[g` and `]g` to navigate diagnostics
-  nmap <silent> [g <Plug>(coc-diagnostic-prev)
-  nmap <silent> ]g <Plug>(coc-diagnostic-next)
+    function! s:show_documentation()
+      if (index(['vim','help'], &filetype) >= 0)
+        execute 'h '.expand('<cword>')
+      else
+        call lsp#ui#vim#hover#get_hover_under_cursor()
+      endif
+    endfunction
 
-  " GoTo code navigation.
-  nmap <silent> gd <Plug>(coc-definition)
-  nmap <silent> gy <Plug>(coc-type-definition)
-  nmap <silent> gi <Plug>(coc-implementation)
-  nmap <silent> gr <Plug>(coc-references)
-
-  " Highlight the symbol and its references when holding the cursor.
-  autocmd CursorHold * silent call CocActionAsync('highlight')
-
-  function! s:show_documentation()
-    if (index(['vim','help'], &filetype) >= 0)
-      execute 'h '.expand('<cword>')
-    else
-      call CocAction('doHover')
-    endif
+    " Use K to show documentation in preview window.
+    nnoremap <buffer> K :call <SID>show_documentation()<CR>
   endfunction
 
-  " Use K to show documentation in preview window.
-  nnoremap <silent> K :call <SID>show_documentation()<CR>
-
-  " Symbol renaming.
-  nmap <leader>rn <Plug>(coc-rename)
-
-  " Add `:Format` command to format current buffer.
-  command! -nargs=0 Prettier :CocCommand prettier.formatFile
-  " vmap <leader>f  <Plug>(coc-format-selected)
-  " nmap <leader>f  <Plug>(coc-format-selected)
-
+  augroup lsp_install
+    au!
+    " call s:on_lsp_buffer_enabled only for languages that has the server registered.
+    autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+  augroup END
 endif
 
 if s:has_plugin('notational-fzf-vim')
