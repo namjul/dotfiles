@@ -588,3 +588,12 @@ endif
 if s:has_plugin('notational-fzf-vim')
   let g:nv_search_paths = ['~/Dropbox/wiki', '~/Dropbox/dev']
 endif
+
+if s:has_plugin('vim-gitgutter')
+  let g:gitgutter_map_keys = 0
+  nmap ]c <Plug>(GitGutterNextHunk)
+  nmap [c <Plug>(GitGutterPrevHunk)
+  nmap <leader>hs <Plug>(GitGutterStageHunk)
+  nmap <leader>hu <Plug>(GitGutterUndoHunk)
+  nmap <leader>hp <Plug>(GitGutterPreviewHunk)
+endif
