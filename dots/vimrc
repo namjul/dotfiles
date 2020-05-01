@@ -316,7 +316,7 @@ nnoremap <Leader>q :quit<CR>
 " fzf mappings
 nnoremap <silent><Leader>* :Rg <C-R><C-W><CR>
 nnoremap <Leader>/ :Rg<space>
-nnoremap <silent><Leader>t :Files<CR>
+nnoremap <silent><Leader>f :Files<CR>
 nnoremap <silent><Leader>b :Buffer<CR>
 
 " Open new splits in a semantic way
@@ -576,8 +576,8 @@ if s:has_plugin('coc.nvim')
 
   " Add `:Format` command to format current buffer.
   command! -nargs=0 Prettier :CocCommand prettier.formatFile
-  vmap <leader>f  <Plug>(coc-format-selected)
-  nmap <leader>f  <Plug>(coc-format-selected)
+  " vmap <leader>f  <Plug>(coc-format-selected)
+  " nmap <leader>f  <Plug>(coc-format-selected)
 
 endif
 
