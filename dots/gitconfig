@@ -49,7 +49,7 @@
 	st      = status
   s       = status --short --branch
 
-	lg      = log --color --graph --all --pretty=format:'%C(auto)%h%Creset %s%C(auto)%d%Creset %C(magenta bold)(%cr)%Creset %C(cyan)<%aN>%Creset' --abbrev-commit
+	lg      = log --color --graph --pretty=format:'%C(auto)%h%Creset %s%C(auto)%d%Creset %C(magenta bold)(%cr)%Creset %C(cyan)<%aN>%Creset' --abbrev-commit
 
   g       = grep --line-number --break --heading
   
