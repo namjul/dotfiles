@@ -17,36 +17,63 @@ call plug#begin(g:plugin_path)
 " PLUGINS
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
-
+" sensible defaults
 Plug 'tpope/vim-sensible'
+" enables the repeat command to work with external plugins
+Plug 'tpope/vim-repeat'
+" git integration
+Plug 'tpope/vim-fugitive'
+" open files on github
+Plug 'tpope/vim-rhubarb'
+" adds operators for surrounding characters
+Plug 'tpope/vim-surround'
+" set of complementary pair commands
+" Plug 'tpope/vim-unimpaired'
+" seperate `cut` form `delete`
+Plug 'svermeulen/vim-cutlass'
+" adds a subsitute operator
+Plug 'svermeulen/vim-subversive'
+" adds easy access to history of yanks
+Plug 'svermeulen/vim-yoink'
+" enhancements to vim's search commands
+Plug 'wincent/loupe'
+" helper for search and replace
+Plug 'wincent/scalpel'
+" better statusbar
 Plug 'itchyny/lightline.vim'
+" support editor config files (https://editorconfig.org/)
 Plug 'editorconfig/editorconfig-vim'
+" makes `FocusGained` and `FocusLost` work in terminal vim
+" `autoread` options then works as expected
 Plug 'tmux-plugins/vim-tmux-focus-events'
+" fuzzy search
 Plug '/home/linuxbrew/.linuxbrew/opt/fzf/'
 Plug 'junegunn/fzf.vim'
-Plug 'Yggdroot/indentLine'
-Plug 'alok/notational-fzf-vim'
-" Plug 'tpope/vim-unimpaired'
-Plug 'tyewang/vimux-jest-test'
-Plug 'mattn/gist-vim'
-      \| Plug 'mattn/webapi-vim'
-Plug 'svermeulen/vim-cutlass'
-Plug 'preservim/nerdtree'
-Plug 'jeffkreeftmeijer/vim-numbertoggle'
-Plug 'jiangmiao/auto-pairs'
-Plug 'Valloric/MatchTagAlways'
-Plug 'simeji/winresizer'
-Plug 'benmills/vimux'
-Plug 'wincent/loupe'
-Plug 'tpope/vim-surround'
-Plug 'scrooloose/nerdcommenter'
-Plug 'tpope/vim-repeat'
-      " \| Plug 'svermeulen/vim-easyclip'
-Plug 'alvan/vim-closetag'
-Plug 'svermeulen/vim-yoink'
-Plug 'svermeulen/vim-subversive'
-Plug 'wincent/scalpel'
+" zen mode for writing
 Plug 'junegunn/goyo.vim'
+" makes space indented code visible
+Plug 'Yggdroot/indentLine'
+" combines the fzf with the concept from notational
+Plug 'alok/notational-fzf-vim'
+" allows to send commands from vim to tmux
+Plug 'benmills/vimux'
+" simplifies running jest test from vim
+Plug 'tyewang/vimux-jest-test'
+" file explorer
+Plug 'preservim/nerdtree'
+" improves the display of line numbers
+Plug 'jeffkreeftmeijer/vim-numbertoggle'
+" auto closes pairs
+Plug 'jiangmiao/auto-pairs'
+" highlights xml tags enclosing the cursor
+Plug 'Valloric/MatchTagAlways'
+" helper for resizing windows
+Plug 'simeji/winresizer'
+" adds commands for managing comments
+Plug 'scrooloose/nerdcommenter'
+" auto closes the xml tag
+Plug 'alvan/vim-closetag'
+" colorscheme
 Plug 'gruvbox-community/gruvbox'
 " Plug 'chriskempson/base16-vim'
 " Plug 'icymind/NeoSolarized'
@@ -55,21 +82,34 @@ Plug 'gruvbox-community/gruvbox'
 " Plug 'srcery-colors/srcery-vim'
 " Plug 'sonph/onehalf', { 'rtp': 'vim/' }
 " Plug 'drewtempelmeyer/palenight.vim'
+" adds lsp support for reasonml
 Plug 'reasonml-editor/vim-reason-plus'
+" add info to sidebar about git
 Plug 'airblade/vim-gitgutter'
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-rhubarb'
+" improves vim 'commit' buffer
 Plug 'rhysd/committia.vim'
+" general language support
 Plug 'sheerun/vim-polyglot'
+" improves dx in node.js env
 Plug 'moll/vim-node'
+" css syntax highlighting
 Plug 'JulesWang/css.vim'
       \| Plug 'hail2u/vim-css3-syntax'
       \| Plug 'cakebaker/scss-syntax.vim', { 'for': ['scss'] }
+" adds color preview
 Plug 'ap/vim-css-color'
+" update css build-in css complete
 Plug 'othree/csscomplete.vim'
+" intellisense engine
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" snippets engine
 Plug 'SirVer/ultisnips'
+" general snippets collection
 Plug 'honza/vim-snippets'
+" interact with github gist from vim
+Plug 'mattn/gist-vim'
+" needed for `gist-vim`
+Plug 'mattn/webapi-vim'
 
 call plug#end()
 
