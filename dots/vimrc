@@ -588,6 +588,7 @@ endif
 
 if s:has_plugin('vim-gitgutter')
   let g:gitgutter_map_keys = 0
+  let g:gitgutter_preview_win_floating = 0
   nmap ]c <Plug>(GitGutterNextHunk)
   nmap [c <Plug>(GitGutterPrevHunk)
   nmap <leader>hs <Plug>(GitGutterStageHunk)
