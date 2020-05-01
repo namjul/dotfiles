@@ -104,6 +104,12 @@ Plug 'mattn/webapi-vim'
 Plug 'prabirshrestha/async.vim'
 " language server protocal
 Plug 'prabirshrestha/vim-lsp'
+" autocomplete solution
+Plug 'prabirshrestha/asyncomplete.vim'
+" lsp source for asyncomplete
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
+" buffer content source for asynccomplete
+Plug 'prabirshrestha/asyncomplete-buffer.vim'
 " lsp helpers
 Plug 'mattn/vim-lsp-settings'
 " linter and fixer
@@ -542,9 +548,7 @@ endif
 if s:has_plugin('vim-lsp')
   let g:lsp_diagnostics_enabled = 0
 
-  " JavaScript and Typescript LSP
-  " Prerequisites:
-  " $ npm install -g typescript typescript-language-server
+  " Use asyncomplete-lsp
   if executable('typescript-language-server')
     au User lsp_setup call lsp#register_server({
           \ 'name': 'javascript/typescript support using typescript-language-server',
@@ -555,6 +559,17 @@ if s:has_plugin('vim-lsp')
   else
     echom "ERROR: JavaScript language server not found"
   endif
+
+  " Use asyncomplete-buffer
+  call asyncomplete#register_source(asyncomplete#sources#buffer#get_source_options({
+        \ 'name': 'buffer',
+        \ 'whitelist': ['*'],
+        \ 'blacklist': ['go'],
+        \ 'completor': function('asyncomplete#sources#buffer#completor'),
+        \ 'config': {
+        \    'max_buffer_size': 5000000,
+        \  },
+        \ }))
 
   function! s:on_lsp_buffer_enabled() abort
     setlocal omnifunc=lsp#complete
@@ -611,4 +626,11 @@ endif
 
 if s:has_plugin('goyo.vim')
   nnoremap <silent><Leader>z :Goyo<CR>
+endif
+
+if s:has_plugin('asyncomplete.vim')
+  " let g:asyncomplete_auto_popup = 0
+  inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+  inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+  inoremap <expr> <cr>    pumvisible() ? "\<C-y>" : "\<cr>"
 endif
