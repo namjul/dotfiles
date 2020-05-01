@@ -319,7 +319,9 @@ nnoremap <Leader>q :quit<CR>
 nnoremap <silent><Leader>* :Rg <C-R><C-W><CR>
 nnoremap <Leader>/ :Rg<space>
 nnoremap <silent><Leader>f :Files<CR>
-nnoremap <silent><Leader>b :Buffer<CR>
+nnoremap <silent><Leader>b :Buffers<CR>
+nnoremap <silent><Leader>h :History<CR>
+nnoremap <silent><Leader>c :Commands<CR>
 
 " Open new splits in a semantic way
 nnoremap <Leader><C-h> :lefta vs new<CR>
