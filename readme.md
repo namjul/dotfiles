@@ -16,7 +16,6 @@ Run install script
 ./install
 ```
 
-
 ## Todos
 - [x] italic text
 - [x] add LSP support
@@ -60,9 +59,11 @@ Run install script
 - [ ] learn about https://en.wikipedia.org/wiki/GNU_Readline
 - [ ] disable typescript checks in flow files
 - [ ] make :Rg search through node_modules
+- [ ] closetag in mdx files
+- [ ] closetag in typescript files
+- [ ] open nerdtree with cursor at last active buffer
 
 
-# Vim
 
 ## Keyboard shortcuts
 
@@ -100,3 +101,10 @@ Run install script
 | `H` | jump high | Default |
 | `M` | jump middle | Default |
 | `L` | jump low | Default |
+
+# Inspiration
+
+## Vim
+
+- https://gist.github.com/jackkinsella/aa7374a6832cca8a09eadc3434a33c24
+- https://github.com/wincent/wincent/tree/master/roles/dotfiles/files/.vim
