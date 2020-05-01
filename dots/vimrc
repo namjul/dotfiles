@@ -297,6 +297,8 @@ nnoremap <Leader><Leader> <C-^>
 
 " close all windows but the active one
 nnoremap <Leader>o :only<CR>
+" close all tabs but the active one
+nnoremap <Leader>ot :tabonly<CR>
 
 " <Leader>p -- Show the path of the current file (mnemonic: path; useful when
 " you have a lot of splits and the status line gets truncated).
