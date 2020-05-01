@@ -106,6 +106,8 @@ Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/vim-lsp'
 " lsp helpers
 Plug 'mattn/vim-lsp-settings'
+" linter and fixer
+Plug 'dense-analysis/ale'
 
 call plug#end()
 
@@ -360,6 +362,7 @@ if s:has_plugin('gruvbox')
 endif
 
 if s:has_plugin('ale')
+  let g:ale_virtualtext_cursor = 1
   let g:ale_echo_msg_error_str = 'E'
   let g:ale_echo_msg_warning_str = 'W'
   let g:ale_echo_msg_format = '[%linter%] %s [%severity%] %code%'
@@ -377,7 +380,19 @@ if s:has_plugin('ale')
         \ }
   let g:ale_javascript_prettier_use_local_config = 1
 
-  nnoremap <silent><Leader>f :ALEFix<CR>
+  let g:ale_fix_on_save = 1
+
+  highlight link ALEVirtualTextError GruvboxRed
+  highlight link ALEVirtualTextWarning GruvboxYellow
+  highlight link ALEVirtualTextInfo GruvboxBlue
+
+  highlight link ALEError Error
+  highlight link ALEWarning Todo
+  highlight link ALEInfo Normal
+
+  highlight link ALEErrorSign Error
+  highlight link ALEWarningSign Todo
+  highlight link ALEInfoSign Normal
 endif
 
 if s:has_plugin('fzf.vim')
@@ -525,6 +540,7 @@ if s:has_plugin('nerdtree')
 endif
 
 if s:has_plugin('vim-lsp')
+  let g:lsp_diagnostics_enabled = 0
 
   " JavaScript and Typescript LSP
   " Prerequisites:
@@ -544,16 +560,6 @@ if s:has_plugin('vim-lsp')
     setlocal omnifunc=lsp#complete
     setlocal signcolumn=yes
     echom "loaded"
-
-    highlight link LspErrorText GruvboxRedBold
-    highlight link LspWarningText GruvboxYellowBold
-    highlight link LspInformationText GruvboxBlue
-    highlight link LspHintText GruvboxYellow
-    
-    highlight link LspErrorHighlight Error
-    highlight link LspWarningHighlight Todo
-    highlight link LspInformationHighlight Normal
-    highlight link LspHintHighlight Normal
 
     " Use `[g` and `]g` to navigate diagnostics
     nnoremap <buffer> [g :LspNextDiagnostic<CR>
