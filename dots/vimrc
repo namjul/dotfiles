@@ -396,6 +396,10 @@ if s:has_plugin('ale')
   highlight link ALEErrorSign Error
   highlight link ALEWarningSign Todo
   highlight link ALEInfoSign Normal
+
+  " Use `[g` and `]g` to navigate diagnostics
+  nnoremap <buffer> [g :ALEPrevious<CR>
+  nnoremap <buffer> ]g :ALENext<CR>
 endif
 
 if s:has_plugin('fzf.vim')
@@ -571,11 +575,6 @@ if s:has_plugin('vim-lsp')
   function! s:on_lsp_buffer_enabled() abort
     setlocal omnifunc=lsp#complete
     setlocal signcolumn=yes
-    echom "loaded"
-
-    " Use `[g` and `]g` to navigate diagnostics
-    nnoremap <buffer> [g :LspNextDiagnostic<CR>
-    nnoremap <buffer> ]g :LspPreviousDiagnostic<CR>
   
     " GoTo code navigation.
     nnoremap <buffer> gd :LspDefinition<CR>
