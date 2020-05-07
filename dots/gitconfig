@@ -18,9 +18,9 @@
 	master  = checkout master
 	develop = checkout develop
 
-	d       = diff
-	dc      = diff --cached
-  staged  = dc
+	d       = diff -w
+	dc      = diff --cached -w
+  staged  = dc -w
   dino    = diff --name-only
   dt      = !git diff --no-color | xclip -selection clipboard
 
