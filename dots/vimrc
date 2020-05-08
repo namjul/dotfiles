@@ -29,6 +29,8 @@ Plug 'tpope/vim-rhubarb'
 Plug 'tpope/vim-surround'
 " set of complementary pair commands
 " Plug 'tpope/vim-unimpaired'
+" Temporarily commenting
+Plug 'tpope/vim-commentary'
 " seperate `cut` form `delete`
 Plug 'svermeulen/vim-cutlass'
 " adds a subsitute operator
@@ -69,8 +71,6 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'Valloric/MatchTagAlways'
 " helper for resizing windows
 Plug 'simeji/winresizer'
-" adds commands for managing comments
-Plug 'scrooloose/nerdcommenter'
 " auto closes the xml tag
 Plug 'alvan/vim-closetag'
 " colorscheme
