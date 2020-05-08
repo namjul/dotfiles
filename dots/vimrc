@@ -447,10 +447,6 @@ if s:has_plugin('neoterm')
   let g:neoterm_autoinsert = 1
 endif
 
-if s:has_plugin('nerdcommenter')
-  let g:NERDSpaceDelims = 1
-endif
-
 if s:has_plugin('ultisnips')
   let g:UltiSnipsExpandTrigger='<c-j>'
   let g:UltiSnipsJumpForwardTrigger='<c-j>'
