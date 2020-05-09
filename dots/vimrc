@@ -545,7 +545,8 @@ if s:has_plugin('nerdtree')
   " nodes.
   let g:NERDTreeMouseMode=2
 
-  let g:NERDTreeMapUpdir = '-'
+  let g:NERDTreeMapUpdir='-'
+  let NERDTreeShowHidden=1
 endif
 
 if s:has_plugin('vim-lsp')
