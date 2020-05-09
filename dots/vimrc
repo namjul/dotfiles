@@ -233,6 +233,11 @@ augroup lightline-events
     autocmd ColorScheme * call s:onColorSchemeChange(expand("<amatch>"))
 augroup END
 
+augroup filetypedetect
+  au! BufRead,BufNewFile tsconfig.json set filetype=json5
+  au! BufRead,BufNewFile .eslintrc.json set filetype=json5
+augroup END
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 " CUSTOM MAPPINGS
 """""""""""""""""""""""""""""""""""""""""""""""""""""
