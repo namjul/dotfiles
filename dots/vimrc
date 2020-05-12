@@ -63,6 +63,8 @@ Plug 'benmills/vimux'
 Plug 'tyewang/vimux-jest-test'
 " file explorer
 Plug 'preservim/nerdtree'
+" show git status in NERDTree
+Plug 'Xuyuanp/nerdtree-git-plugin'
 " improves the display of line numbers
 Plug 'jeffkreeftmeijer/vim-numbertoggle'
 " auto closes pairs
