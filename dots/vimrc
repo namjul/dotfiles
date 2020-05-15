@@ -76,7 +76,7 @@ Plug 'simeji/winresizer'
 " auto closes the xml tag
 Plug 'alvan/vim-closetag'
 " colorscheme
-Plug 'gruvbox-community/gruvbox'
+Plug 'morhetz/gruvbox'
 " Plug 'chriskempson/base16-vim'
 " Plug 'icymind/NeoSolarized'
 " Plug 'arcticicestudio/nord-vim'
@@ -84,6 +84,8 @@ Plug 'gruvbox-community/gruvbox'
 " Plug 'srcery-colors/srcery-vim'
 " Plug 'sonph/onehalf', { 'rtp': 'vim/' }
 " Plug 'drewtempelmeyer/palenight.vim'
+" Plug 'ayu-theme/ayu-vim'
+" Plug 'rakr/vim-one'
 " adds lsp support for reasonml
 Plug 'reasonml-editor/vim-reason-plus'
 " add info to sidebar about git
@@ -364,10 +366,23 @@ if s:has_plugin('onehalf')
   highlight Comment cterm=italic gui=italic
 endif
 
+if s:has_plugin('ayu-vim')
+  " let ayucolor="light"  " for light version of theme
+  let ayucolor="mirage" " for mirage version of theme
+  " let ayucolor="dark"   " for dark version of theme
+  colorscheme ayu
+endif
+
+if s:has_plugin('vim-one')
+  colorscheme one
+  set background=dark
+endif
+
 if s:has_plugin('gruvbox')
   let g:gruvbox_contrast_dark = 'soft'
   let g:gruvbox_contrast_light = 'soft'
   let g:gruvbox_italic = 1
+  set background=dark
   colorscheme gruvbox
 endif
 
