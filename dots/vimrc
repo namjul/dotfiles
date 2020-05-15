@@ -28,7 +28,7 @@ Plug 'tpope/vim-rhubarb'
 " adds operators for surrounding characters
 Plug 'tpope/vim-surround'
 " set of complementary pair commands
-" Plug 'tpope/vim-unimpaired'
+Plug 'tpope/vim-unimpaired'
 " Temporarily commenting
 Plug 'tpope/vim-commentary'
 " seperate `cut` form `delete`
@@ -503,15 +503,6 @@ if s:has_plugin('vim-polyglot')
   let g:javascript_plugin_jsdoc = 1
   let g:javascript_plugin_flow = 1
   let g:vim_markdown_fenced_languages = ['jsx=javascript', 'js=javascript'] 
-endif
-
-if s:has_plugin('vim-unimpaired')
-  nmap ( [
-  nmap ) ]
-  omap ( [
-  omap ) ]
-  xmap ( [
-  xmap ) ]
 endif
 
 if s:has_plugin('vimux')
