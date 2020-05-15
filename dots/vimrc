@@ -86,8 +86,6 @@ Plug 'morhetz/gruvbox'
 " Plug 'drewtempelmeyer/palenight.vim'
 " Plug 'ayu-theme/ayu-vim'
 " Plug 'rakr/vim-one'
-" adds lsp support for reasonml
-Plug 'reasonml-editor/vim-reason-plus'
 " add info to sidebar about git
 Plug 'airblade/vim-gitgutter'
 " improves vim 'commit' buffer
@@ -104,20 +102,10 @@ Plug 'honza/vim-snippets'
 Plug 'mattn/gist-vim'
 " needed for `gist-vim`
 Plug 'mattn/webapi-vim'
-" normalizes async vim/neovim
-Plug 'prabirshrestha/async.vim'
-" language server protocal
-Plug 'prabirshrestha/vim-lsp'
-" autocomplete solution
-Plug 'prabirshrestha/asyncomplete.vim'
-" lsp source for asyncomplete
-Plug 'prabirshrestha/asyncomplete-lsp.vim'
-" buffer content source for asynccomplete
-Plug 'prabirshrestha/asyncomplete-buffer.vim'
-" lsp helpers
-Plug 'mattn/vim-lsp-settings'
-" linter and fixer
+" linter, fixer and lsp
 Plug 'dense-analysis/ale'
+" autocomplete
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
 call plug#end()
 
@@ -392,9 +380,13 @@ if s:has_plugin('ale')
   let g:ale_echo_msg_warning_str = 'W'
   let g:ale_echo_msg_format = '[%linter%] %s [%severity%] %code%'
   let g:ale_lint_on_text_changed = 'never'
+  let g:ale_linter_aliases = {
+        \ 'javascriptreact': ['javascript', 'jsx'],
+        \ 'typescriptreact': ['typescript', 'tsx'],
+        \}
   let g:ale_linters = {
-        \ 'typescript': ['tslint', 'tsserver', 'typecheck'],
-        \ 'javascript': ['eslint', 'flow']
+        \ 'typescript': ['eslint', 'tsserver', 'typecheck'],
+        \ 'javascript': ['eslint', 'flow'],
         \}
   let g:ale_fixers = {
         \ 'javascript': ['prettier'],
@@ -422,6 +414,27 @@ if s:has_plugin('ale')
   " Use `[g` and `]g` to navigate diagnostics
   nnoremap <buffer> [g :ALEPrevious<CR>
   nnoremap <buffer> ]g :ALENext<CR>
+
+  nnoremap <buffer> gd :ALEGoToDefinition<CR>
+
+  " Symbol renaming.
+  nnoremap <leader>rn :ALERename<CR>
+
+  function! s:show_documentation()
+    if (index(['vim','help'], &filetype) >= 0)
+      execute 'h '.expand('<cword>')
+    else
+      :ALEHover
+    endif
+  endfunction
+
+  " Use K to show documentation in preview window.
+  nnoremap <buffer> K :call <SID>show_documentation()<CR>
+
+endif
+
+if s:has_plugin('deoplete.vim')
+  let g:deoplete#enable_at_startup = 1
 endif
 
 if s:has_plugin('fzf.vim')
@@ -566,65 +579,6 @@ if s:has_plugin('nerdtree')
   let NERDTreeShowHidden=1
 endif
 
-if s:has_plugin('vim-lsp')
-  let g:lsp_diagnostics_enabled = 0
-
-  " Use asyncomplete-lsp
-  if executable('typescript-language-server')
-    au User lsp_setup call lsp#register_server({
-          \ 'name': 'javascript/typescript support using typescript-language-server',
-          \ 'cmd': { server_info->[&shell, &shellcmdflag, 'typescript-language-server --stdio']},
-          \ 'root_uri': { server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_directory(lsp#utils#get_buffer_path(), '.git/..'))},
-          \ 'whitelist': ['javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'typescript.tsx']
-          \ })
-  else
-    echom "ERROR: JavaScript language server not found"
-  endif
-
-  " Use asyncomplete-buffer
-  call asyncomplete#register_source(asyncomplete#sources#buffer#get_source_options({
-        \ 'name': 'buffer',
-        \ 'whitelist': ['*'],
-        \ 'blacklist': ['go'],
-        \ 'completor': function('asyncomplete#sources#buffer#completor'),
-        \ 'config': {
-        \    'max_buffer_size': 5000000,
-        \  },
-        \ }))
-
-  function! s:on_lsp_buffer_enabled() abort
-    setlocal omnifunc=lsp#complete
-    setlocal signcolumn=yes
-  
-    " GoTo code navigation.
-    nnoremap <buffer> gd :LspDefinition<CR>
-    nnoremap <buffer> gy :LspTypeDefinition<CR>
-    nnoremap <buffer> gi :LspImplementation<CR>
-    nnoremap <buffer> gr :LspReferences<CR>
-    nnoremap <buffer> gf :LspDocumentFormat<CR>
-
-    " Symbol renaming.
-    nnoremap <leader>rn :LspRename<CR>
-
-    function! s:show_documentation()
-      if (index(['vim','help'], &filetype) >= 0)
-        execute 'h '.expand('<cword>')
-      else
-        call lsp#ui#vim#hover#get_hover_under_cursor()
-      endif
-    endfunction
-
-    " Use K to show documentation in preview window.
-    nnoremap <buffer> K :call <SID>show_documentation()<CR>
-  endfunction
-
-  augroup lsp_install
-    au!
-    " call s:on_lsp_buffer_enabled only for languages that has the server registered.
-    autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
-  augroup END
-endif
-
 if s:has_plugin('notational-fzf-vim')
   nnoremap <silent><Leader>m :NV<CR>
   let g:nv_search_paths = ['~/Dropbox/wiki', '~/Dropbox/dev']
@@ -642,11 +596,4 @@ endif
 
 if s:has_plugin('goyo.vim')
   nnoremap <silent><Leader>z :Goyo<CR>
-endif
-
-if s:has_plugin('asyncomplete.vim')
-  " let g:asyncomplete_auto_popup = 0
-  inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
-  inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-  inoremap <expr> <cr>    pumvisible() ? "\<C-y>" : "\<cr>"
 endif
