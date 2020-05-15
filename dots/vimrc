@@ -411,14 +411,12 @@ if s:has_plugin('ale')
   highlight link ALEWarningSign Todo
   highlight link ALEInfoSign Normal
 
-  " Use `[g` and `]g` to navigate diagnostics
-  nnoremap <buffer> [g :ALEPrevious<CR>
-  nnoremap <buffer> ]g :ALENext<CR>
+  nmap <silent> [g <Plug>(ale_previous_wrap)
+  nmap <silent> ]g <Plug>(ale_next_wrap)
 
-  nnoremap <buffer> gd :ALEGoToDefinition<CR>
+  nmap <silent> gd <Plug>(ale_go_to_definition)
 
-  " Symbol renaming.
-  nnoremap <leader>rn :ALERename<CR>
+  nmap <silent><leader>rn <Plug>(ale_rename)
 
   function! s:show_documentation()
     if (index(['vim','help'], &filetype) >= 0)
@@ -429,7 +427,7 @@ if s:has_plugin('ale')
   endfunction
 
   " Use K to show documentation in preview window.
-  nnoremap <buffer> K :call <SID>show_documentation()<CR>
+  nmap <silent> K :call <SID>show_documentation()<CR>
 
 endif
 
