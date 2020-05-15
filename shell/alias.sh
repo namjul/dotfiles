@@ -20,7 +20,7 @@ alias mv='mv -i'
 alias cp='cp -i -p'
 alias grep='grep --color=auto'
 alias g="git"
-alias gs="git s"
+alias gs="git status"
 alias ls='ls --color=auto'
 alias l="ls -F" # all files, in long format
 alias ll="ls -laF" # all files inc dotfiles, in long format
