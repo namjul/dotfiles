@@ -62,6 +62,7 @@ Run install script
 - [ ] closetag in mdx files
 - [ ] closetag in typescript files
 - [ ] open nerdtree with cursor at last active buffer
+- [x] repair jump commands Ctrl-O / Ctrl-I
 
 
 
