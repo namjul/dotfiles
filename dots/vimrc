@@ -168,30 +168,10 @@ set background=dark
 " CUSTOM FUNCTIONS
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
-function! LightlineFileencoding()
-  return winwidth(0) > 70 ? (&fenc !=# '' ? &fenc : &enc) : ''
-endfunction
-
-function! LightLineModified()
-  if &filetype == "help"
-    return ""
-  elseif &modified
-    return "+"
-  elseif &modifiable
-    return ""
-  else
-    return ""
-  endif
-endfunction
-
-function! LightLineReadonly()
-  if &filetype == "help"
-    return ""
-  elseif &readonly
-    return "RO"
-  else
-    return ""
-  endif
+function! LightlineFilename()
+  let filename = expand('%:f') !=# '' ? expand('%:f') : '[No Name]'
+  let modified = &modified ? ' +' : ''
+  return filename . modified
 endfunction
 
 function! LightlineReload()
@@ -457,18 +437,13 @@ if s:has_plugin('lightline.vim')
         \ 'colorscheme': 'gruvbox',
         \ 'active': {
         \   'left': [ [ 'mode', 'paste' ],
-        \             [ 'readonly', 'relativepath', 'modified' ] ],
+        \             [ 'gitbranch', 'readonly', 'filename' ] ],
         \   'right': [ [ 'lineinfo' ],
         \              [ 'percent' ], ['filetype'] ]
         \ },
         \ 'component_function': {
-        \   'fugitive': 'LightLineFugitive',
-        \   'readonly': 'LightLineReadonly',
-        \   'modified': 'LightLineModified',
-        \   'fileencoding': 'LightlineFileencoding'
-        \ },
-        \ 'component_expand': {
-        \   'tags': 'LightlineTags'
+        \   'gitbranch': 'FugitiveHead',
+        \   'filename': 'LightlineFilename',
         \ },
         \ 'separator': { 'left': '', 'right': '' },
         \ 'subseparator': { 'left': '', 'right': '' }
