@@ -431,7 +431,7 @@ if s:has_plugin('ale')
 
 endif
 
-if s:has_plugin('deoplete.vim')
+if s:has_plugin('deoplete.nvim')
   let g:deoplete#enable_at_startup = 1
 endif
 
