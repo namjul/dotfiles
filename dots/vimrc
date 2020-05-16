@@ -106,6 +106,8 @@ Plug 'mattn/webapi-vim'
 Plug 'dense-analysis/ale'
 " autocomplete
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+" color name highlighter
+Plug 'ap/vim-css-color'
 
 call plug#end()
 
