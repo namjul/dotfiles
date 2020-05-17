@@ -62,9 +62,8 @@ Plug 'benmills/vimux'
 " simplifies running jest test from vim
 Plug 'tyewang/vimux-jest-test'
 " file explorer
-Plug 'preservim/nerdtree'
-" show git status in NERDTree
-Plug 'Xuyuanp/nerdtree-git-plugin'
+" Plug 'preservim/nerdtree'
+Plug 'justinmk/vim-dirvish'
 " improves the display of line numbers
 Plug 'jeffkreeftmeijer/vim-numbertoggle'
 " auto closes pairs
@@ -212,6 +211,16 @@ augroup filetypedetect
   au! BufRead,BufNewFile .eslintrc.json set filetype=json5
 augroup END
 
+augroup NamDirvish
+  autocmd!
+  " Overwrite default mapping for the benefit of my muscle memory.
+  " ('o' would normally open in a split window, but we want it to open in the
+  " current one.)
+  autocmd FileType dirvish silent! nnoremap <nowait><buffer><silent> o :<C-U>.call dirvish#open('edit', 0)<CR>
+  " close buffers using `gq` (dirvish)
+  autocmd FileType dirvish nmap <buffer> q gq
+augroup END
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 " CUSTOM MAPPINGS
 """""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -246,9 +255,6 @@ nnoremap <silent> <S-Up> :lprevious<CR>
 nnoremap <silent> <S-Down> :lnext<CR>
 nnoremap <silent> <S-Left> :lpfile<CR>
 nnoremap <silent> <S-Right> :lnfile<CR>
-
-" Like vim-vinegar.
-nnoremap <silent> - :silent edit <C-R>=empty(expand('%')) ? '.' : expand('%:p:h')<CR><CR>
 
 " VISUAL
 """"""""
@@ -531,18 +537,6 @@ if s:has_plugin('vim-yoink')
 
   nmap p <plug>(YoinkPaste_p)
   nmap P <plug>(YoinkPaste_P)
-endif
-
-if s:has_plugin('nerdtree')
-  " Disable display of '?' text and 'Bookmarks' label.
-  let g:NERDTreeMinimalUI=1
-
-  " Single-click to toggle directory nodes, double-click to open non-directory
-  " nodes.
-  let g:NERDTreeMouseMode=2
-
-  let g:NERDTreeMapUpdir='-'
-  let NERDTreeShowHidden=1
 endif
 
 if s:has_plugin('notational-fzf-vim')
