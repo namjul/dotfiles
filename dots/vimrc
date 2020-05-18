@@ -374,7 +374,7 @@ if s:has_plugin('ale')
         \}
   let g:ale_linters = {
         \ 'typescript': ['eslint', 'tsserver', 'typecheck'],
-        \ 'javascript': ['eslint', 'flow'],
+        \ 'javascript': ['eslint', 'tsserver', 'flow'],
         \}
   let g:ale_fixers = {
         \ 'javascript': ['prettier'],
