@@ -219,6 +219,7 @@ augroup NamDirvish
   autocmd FileType dirvish silent! nnoremap <nowait><buffer><silent> o :<C-U>.call dirvish#open('edit', 0)<CR>
   " close buffers using `gq` (dirvish)
   autocmd FileType dirvish nmap <buffer> q gq
+  autocmd FileType dirvish nmap <buffer>cd :cd %:p:h<CR>:pwd<CR>
 augroup END
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""
