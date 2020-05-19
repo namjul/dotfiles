@@ -76,6 +76,7 @@ brew install bat
 brew install starship
 brew install exa
 brew install fish
+brew install github/gh/gh
 
 # Remove outdated versions from the cellar
 brew cleanup
