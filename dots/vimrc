@@ -445,10 +445,10 @@ if s:has_plugin('lightline.vim')
         \ },
         \ 'colorscheme': 'gruvbox',
         \ 'active': {
-        \   'left': [ [ 'mode', 'paste' ],
-        \             [ 'gitbranch', 'readonly', 'filename' ] ],
-        \   'right': [ [ 'lineinfo' ],
-        \              [ 'percent' ], ['filetype'] ]
+        \   'left': [ [ 'mode',  'paste' ],
+        \             [ 'gitbranch', 'readonly' ], ['filename'] ],
+        \   'right': [ [  'percent', 'lineinfo' ],
+        \              [ 'fileencoding' ], ['filetype'] ]
         \ },
         \ 'component_function': {
         \   'gitbranch': 'FugitiveHead',
