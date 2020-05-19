@@ -318,6 +318,9 @@ nnoremap <Leader><C-j> :below sp new<CR>
 nnoremap <Leader><C-k> :above sp new<CR>
 nnoremap <Leader><C-l> :rightb vsp new<CR>
 
+" Execute current file
+nnoremap <Leader>2 :w<CR>:! ./%<CR>
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 " PLUGIN SETTINGS
 """""""""""""""""""""""""""""""""""""""""""""""""""""
