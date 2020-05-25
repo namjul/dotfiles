@@ -107,6 +107,8 @@ Plug 'dense-analysis/ale'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 " color name highlighter
 Plug 'ap/vim-css-color'
+" highlights yanked text
+Plug 'machakann/vim-highlightedyank'
 
 call plug#end()
 
@@ -560,4 +562,8 @@ endif
 
 if s:has_plugin('goyo.vim')
   nnoremap <silent><Leader>z :Goyo<CR>
+endif
+
+if s:has_plugin('vim-highlightedyank')
+  let g:highlightedyank_highlight_duration = 200
 endif
