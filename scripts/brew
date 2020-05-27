@@ -77,6 +77,7 @@ brew install starship
 brew install exa
 brew install fish
 brew install github/gh/gh
+brew install lf # list-files, ranger replacement
 
 # Remove outdated versions from the cellar
 brew cleanup
