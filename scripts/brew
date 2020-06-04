@@ -78,6 +78,7 @@ brew install exa
 brew install fish
 brew install github/gh/gh
 brew install lf # list-files, ranger replacement
+brew install asciinema
 
 # Remove outdated versions from the cellar
 brew cleanup
