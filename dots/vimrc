@@ -55,6 +55,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'junegunn/goyo.vim'
 " makes space indented code visible
 Plug 'Yggdroot/indentLine'
+Plug 'lukas-reineke/indent-blankline.nvim'
 " combines the fzf with the concept from notational
 Plug 'alok/notational-fzf-vim'
 " allows to send commands from vim to tmux
