@@ -64,6 +64,7 @@ Run install script
 - [ ] open nerdtree with cursor at last active buffer
 - [x] repair jump commands Ctrl-O / Ctrl-I
 - [ ] give zsh with http://getantibody.github.io/ a try
+- [ ] adjust dotfiles update process (https://github.com/caarlos0/dotfiles/blob/master/bin/dot_update)
 
 
 
