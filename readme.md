@@ -63,6 +63,7 @@ Run install script
 - [ ] closetag in typescript files
 - [ ] open nerdtree with cursor at last active buffer
 - [x] repair jump commands Ctrl-O / Ctrl-I
+- [ ] give zsh with http://getantibody.github.io/ a try
 
 
 
