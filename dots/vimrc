@@ -384,6 +384,8 @@ if s:has_plugin('ale')
         \ 'javascript': ['eslint', 'tsserver', 'flow'],
         \}
   let g:ale_fixers = {
+        \ 'javascriptreact': ['prettier'],
+        \ 'typescriptreact': ['prettier'],
         \ 'javascript': ['prettier'],
         \ 'typescript': ['prettier'],
         \ 'html': ['prettier'],
