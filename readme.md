@@ -17,6 +17,7 @@ Run install script
 ```
 
 ## Todos
+- [ ] setup tiling windows manager again (https://www.youtube.com/watch?v=xnREqY-oyzM)
 - [x] italic text
 - [x] add LSP support
   - https://github.com/autozimu/LanguageClient-neovim
@@ -45,7 +46,7 @@ Run install script
   - https://github.com/aaron-williamson/base16-alacritty/tree/master/colors
   - https://github.com/chriskempson/base16-vim/tree/master/colors
   - https://github.com/alacritty/alacritty/issues/472#issuecomment-531120265
-- [ ] add floating windows for fzf
+- [x] add floating windows for fzf
   - https://github.com/yuki-ycino/fzf-preview.vim
   - https://github.com/Blacksuan19/init.nvim/blob/master/init.vim#L327
 - [ ] window splits "vinegar"
@@ -57,10 +58,10 @@ Run install script
   - https://github.com/svermeulen/vim-yoink/issues/16
 - [ ] get https://monolisa.dev
 - [ ] learn about https://en.wikipedia.org/wiki/GNU_Readline
-- [ ] disable typescript checks in flow files
+- [x] disable typescript checks in flow files
 - [ ] make :Rg search through node_modules
 - [ ] closetag in mdx files
-- [ ] closetag in typescript files
+- [x] closetag in typescript files
 - [ ] open nerdtree with cursor at last active buffer
 - [x] repair jump commands Ctrl-O / Ctrl-I
 - [ ] give zsh with http://getantibody.github.io/ a try
