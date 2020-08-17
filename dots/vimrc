@@ -23,6 +23,8 @@ Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-repeat'
 " git integration
 Plug 'tpope/vim-fugitive'
+" git branch viewer
+Plug 'rbong/vim-flog'
 " open files on github
 Plug 'tpope/vim-rhubarb'
 " adds operators for surrounding characters
