@@ -493,6 +493,10 @@ if s:has_plugin('vim-fugitive')
   nmap <leader>gbr :Gbrowse<cr>
 endif
 
+if s:has_plugin('vim-flog')
+  nmap <leader>gf :Flog<cr>
+endif
+
 if s:has_plugin('vim-polyglot')
   let g:javascript_plugin_jsdoc = 1
   let g:javascript_plugin_flow = 1
