@@ -109,3 +109,5 @@
 	name = Samuel Hobl
 [github]
 	user = namjul
+[pull]
+	rebase = false
