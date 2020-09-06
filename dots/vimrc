@@ -75,6 +75,7 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'Valloric/MatchTagAlways'
 " helper for resizing windows
 Plug 'simeji/winresizer'
+Plug 'camspiers/lens.vim'
 " auto closes the xml tag
 Plug 'alvan/vim-closetag'
 " colorscheme
