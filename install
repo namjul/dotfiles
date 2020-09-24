@@ -3,5 +3,6 @@
 source ./scripts/brew
 source ./scripts/symlinks
 source ./scripts/asdf
+source ./scripts/vim
 
 echo "Installation complete!"

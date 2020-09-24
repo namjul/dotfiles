@@ -25,12 +25,11 @@ fi
 # Make sure we’re using the latest Homebrew
 brew update
 
-# Upgrade any already-installed formulae
+# Upgrade any already-installed formular
 brew upgrade
 
 # Install GNU core utilities (those that come with OS X are outdated)
 brew install coreutils
-echo "Don’t forget to add $(brew --prefix coreutils)/libexec/gnubin to \$PATH."
 
 # Install GNU `find`, `locate`, `updatedb`, and `xargs`, g-prefixed
 brew install findutils
@@ -38,11 +37,10 @@ brew install findutils
 # Install Bash 4
 brew install bash
 
-# Install wget with IRI support
-brew install wget --enable-iri
+# Install wget
+brew install wget
 
 # neovim
-brew install python2
 brew install python3
 brew install neovim
 pip2 install neovim
@@ -52,9 +50,6 @@ pip3 install neovim
 brew install fzf
 yes | $(brew --prefix)/opt/fzf/install
 
-# Ripgrep - fzf/vim is configured to use this
-brew install ripgrep
-
 # tmux
 brew install tmux
 
@@ -63,21 +58,33 @@ brew install cdiff
 brew install git
 brew install diff-so-fancy
 
-# Install everything else
-brew install tree
-brew install z
-brew install python
-brew install xclip
-brew install wmctrl
-brew install httpie
-brew install --HEAD universal-ctags/universal-ctags/universal-ctags
+# rust
 brew install fd
 brew install bat
 brew install starship
 brew install exa
+brew install ripgrep # Ripgrep - fzf/vim is configured to use this
+brew install procs
+brew install sd
+brew install dust
+brew install tokei
+brew install tealdeer
+brew install bandwhich
+brew install grex
+brew install zoxide
+brew install nushell
+brew install lf # list-files, ranger replacement
+brew tap clementtsang/bottom
+brew install bottom
+
+# Install everything else
+brew install tree
+brew install python
+brew install xclip
+brew install wmctrl
+brew install httpie
 brew install fish
 brew install github/gh/gh
-brew install lf # list-files, ranger replacement
 brew install asciinema
 
 # Remove outdated versions from the cellar
