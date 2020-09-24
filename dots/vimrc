@@ -282,7 +282,7 @@ cnoremap <C-e> <End>
 """"""""
 
 " esc mapping
-:inoremap jk <esc>
+imap <C-L> <Esc>
 
 " LEADER
 """"""""
