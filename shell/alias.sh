@@ -26,6 +26,7 @@ alias reload="exec $SHELL -l" # Reload the shell (i.e. invoke as a login shell)
 alias path='echo $PATH | tr -s ":" "\n"' # Pretty print the path
 alias cat='bat' # Drop-in replacement for cat
 alias tms='~/.dotfiles/scripts/tmux-setup.sh' # tmux setup
+alias tmp=' cd $(mktemp -d)'
 alias pbcopy='xclip -selection clipboard' # replicate pbcopy from macos
 alias pbpaste='xclip -selection clipboard -o'
 alias x=exit
