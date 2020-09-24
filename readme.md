@@ -1,10 +1,18 @@
-# Installation
 
-- Install [alacritty](https://github.com/jwilm/alacritty) and set as default terminal `sudo update-alternatives --config x-terminal-emulator`
-- Install [xcape](https://github.com/alols/xcape) 
-- Install font
-  - https://github.com/tonsky/FiraCode
-  - https://github.com/cseelus/monego
+# dotfiles ⛰
+
+## Parts
+
+- list of [software i use](script/brew)
+- globally installed [npm packages](dots/default-npm-packages)
+- [vim config](dots/vimrc)
+- [tmux config](dots/tmux.conf)
+- [alacritty](dots/alacritty.yml)
+- [aliases](shell/alias.sh), [functions](shell/functions.sh) and [bash configuration](dots/bashrc)
+- [starship](https://starship.rs/) [config](dots/starship.toml)
+- [install script](install)
+
+## Installation
 
 Clone dotfiles to home directory
 ```
@@ -15,6 +23,11 @@ Run install script
 ```
 ./install
 ```
+
+## Fonts
+- https://github.com/tonsky/FiraCode
+- https://github.com/cseelus/monego
+
 
 ## Todos
 - [ ] setup tiling windows manager again (https://www.youtube.com/watch?v=xnREqY-oyzM)
