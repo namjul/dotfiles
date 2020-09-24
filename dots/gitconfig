@@ -1,32 +1,32 @@
 [alias]
 
-	a       = add
-	aa      = add .
+  a       = add
+  aa      = add .
   ai      = add -i
   fza     = !git ls-files -m -o --exclude-standard | fzf --print0 -m --preview 'git diff {}' --height=100% --preview-window=top:50%:wrap | xargs -0 -t git add
   patch   = add -p 
 
-	b       = branch
-	be      = branch --edit-description
-	bv      = branch --verbose
-	done    = branch --verbose --merged
-	um      = branch --verbose --no-merged
+  b       = branch
+  be      = branch --edit-description
+  bv      = branch --verbose
+  done    = branch --verbose --merged
+  um      = branch --verbose --no-merged
 
-	co      = checkout
-	cb      = checkout -b
-	ct      = checkout --track
-	master  = checkout master
-	develop = checkout develop
+  co      = checkout
+  cb      = checkout -b
+  ct      = checkout --track
+  master  = checkout master
+  develop = checkout develop
 
-	d       = diff -w
-	dc      = diff --cached -w
+  d       = diff -w
+  dc      = diff --cached -w
   staged  = dc -w
   dino    = diff --name-only
   dt      = !git diff --no-color | xclip -selection clipboard
 
-	c       = commit
+  c       = commit
   cm      = commit -m
-	ca      = commit --amend 
+  ca      = commit --amend 
   amend   = commit --amend --no-edit
   reword  = commit --amend --only -v --
 
@@ -46,68 +46,68 @@
   rehard  = reset --hard
   resoft  = reset --soft
 
-	st      = status
+  st      = status
   s       = status --short --branch
 
-	lg      = log --color --graph --pretty=format:'%C(auto)%h%Creset %s%C(auto)%d%Creset %C(magenta bold)(%cr)%Creset %C(cyan)<%aN>%Creset' --abbrev-commit
+  lg      = log --color --graph --pretty=format:'%C(auto)%h%Creset %s%C(auto)%d%Creset %C(magenta bold)(%cr)%Creset %C(cyan)<%aN>%Creset' --abbrev-commit
 
   g       = grep --line-number --break --heading
   
   setpromail = config user.email 'samuel.hobl@adverity.com'
 
-	aliases = !git config --get-regexp 'alias.*' | colrm 1 6 | sed 's/[ ]/ = /' | sort
+  aliases = !git config --get-regexp 'alias.*' | colrm 1 6 | sed 's/[ ]/ = /' | sort
 
 [apply]
   # Detect whitespace errors when applying a patch
   whitespace = fix
 
 [core]
-	# Use custom `.gitignore` and `.gitattributes`
-	excludesfile = ~/.gitignore
+  # Use custom `.gitignore` and `.gitattributes`
+  excludesfile = ~/.gitignore
   # Use diff-so-fance
   pager = "diff-so-fancy | less --tabs=4 -RFX"
 
 [color]
-	# Use colors in Git commands that are capable of colored output when
-	# outputting to the terminal. (This is the default setting in Git ≥ 1.8.4.)
-	ui = always
+  # Use colors in Git commands that are capable of colored output when
+  # outputting to the terminal. (This is the default setting in Git ≥ 1.8.4.)
+  ui = always
 [color "branch"]
-	current = yellow reverse
-	local = yellow
-	remote = green
+  current = yellow reverse
+  local = yellow
+  remote = green
 [color "diff"]
-	meta = yellow bold
-	frag = magenta bold
-	old = red bold
-	new = green bold
+  meta = yellow bold
+  frag = magenta bold
+  old = red bold
+  new = green bold
 [color "status"]
-	added = yellow
-	changed = green
-	untracked = cyan
+  added = yellow
+  changed = green
+  untracked = cyan
 
 # URL shorthands
 [url "git@github.com:"]
-	insteadOf = "gh:"
-	pushInsteadOf = "github:"
-	pushInsteadOf = "git://github.com/"
+  insteadOf = "gh:"
+  pushInsteadOf = "github:"
+  pushInsteadOf = "git://github.com/"
 [url "git://github.com/"]
-	insteadOf = "github:"
+  insteadOf = "github:"
 [url "git@gist.github.com:"]
-	insteadOf = "gst:"
-	pushInsteadOf = "gist:"
-	pushInsteadOf = "git://gist.github.com/"
+  insteadOf = "gst:"
+  pushInsteadOf = "gist:"
+  pushInsteadOf = "git://gist.github.com/"
 [url "git://gist.github.com/"]
-	insteadOf = "gist:"
+  insteadOf = "gist:"
 [push]
-	default = current
+  default = current
 [merge]
-	tool = vimdiff
+  tool = vimdiff
 [mergetool]
-	path = nvim
+  path = nvim
 [user]
-	email = nam@hobl.at
-	name = Samuel Hobl
+  email = nam@hobl.at
+  name = Samuel Hobl
 [github]
-	user = namjul
+  user = namjul
 [pull]
-	rebase = false
+  rebase = false
