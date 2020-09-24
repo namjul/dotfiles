@@ -9,6 +9,7 @@
 - [tmux config](dots/tmux.conf)
 - [alacritty](dots/alacritty.yml)
 - [aliases](shell/alias.sh), [functions](shell/functions.sh) and [bash configuration](dots/bashrc)
+- [gitconfig](dots/gitconfig)
 - [starship](https://starship.rs/) [config](dots/starship.toml)
 - [install script](install)
 
