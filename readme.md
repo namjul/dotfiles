@@ -3,7 +3,7 @@
 
 ## Parts
 
-- list of [software i use](script/brew)
+- list of [software i use](scripts/brew)
 - globally installed [npm packages](dots/default-npm-packages)
 - [vim config](dots/vimrc)
 - [tmux config](dots/tmux.conf)
