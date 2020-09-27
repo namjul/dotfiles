@@ -26,8 +26,9 @@ Run install script
 ```
 
 ## Fonts
+- https://github.com/cseelus/monego *
 - https://github.com/tonsky/FiraCode
-- https://github.com/cseelus/monego
+- https://monolisa.dev/
 
 ## Keyboard shortcuts
 
@@ -93,7 +94,6 @@ Run install script
   - https://github.com/wincent/loupe/issues/4
 - [ ] fix "clipboard: error: Error: target STRING not available"
   - https://github.com/svermeulen/vim-yoink/issues/16
-- [ ] get https://monolisa.dev
 - [ ] learn about https://en.wikipedia.org/wiki/GNU_Readline
 - [x] disable typescript checks in flow files
 - [ ] make :Rg search through node_modules
@@ -103,8 +103,11 @@ Run install script
 - [x] repair jump commands Ctrl-O / Ctrl-I
 - [ ] give zsh with http://getantibody.github.io/ a try
 - [ ] adjust dotfiles update process (https://github.com/caarlos0/dotfiles/blob/master/bin/dot_update)
-
-
+- [ ] research https://0x46.net/thoughts/2019/02/01/dotfile-madness/
+- [ ] build a dotfiles script in bash https://github.com/necolas/dotfiles/blob/master/bin/dotfiles
+- [ ] switch to fish
+- [ ] create backup script https://github.com/necolas/dotfiles/blob/master/bin/backup
+- [ ] create git bindings https://junegunn.kr/2016/07/fzf-git/
 
 # Inspiration
 
