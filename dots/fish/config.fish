@@ -1,8 +1,24 @@
+#
+#  ██████╗ ██████╗ ███╗   ██╗███████╗██╗ ██████╗    ███████╗██╗███████╗██╗  ██╗
+# ██╔════╝██╔═══██╗████╗  ██║██╔════╝██║██╔════╝    ██╔════╝██║██╔════╝██║  ██║
+# ██║     ██║   ██║██╔██╗ ██║█████╗  ██║██║  ███╗   █████╗  ██║███████╗███████║
+# ██║     ██║   ██║██║╚██╗██║██╔══╝  ██║██║   ██║   ██╔══╝  ██║╚════██║██╔══██║
+# ╚██████╗╚██████╔╝██║ ╚████║██║     ██║╚██████╔╝██╗██║     ██║███████║██║  ██║
+#  ╚═════╝ ╚═════╝ ╚═╝  ╚═══╝╚═╝     ╚═╝ ╚═════╝ ╚═╝╚═╝     ╚═╝╚══════╝╚═╝  ╚═╝
+#
 
-function setenv
-  set -gx $argv
+set fish_greeting # remove fish's greeting
+
+# load 
+set parts env functions path alias
+for part in $parts
+  set file $HOME/.dotfiles/shell/$part.fish
+  if test -e $file
+    source $file
+  end
 end
 
+# Theme
 set yellow "#fabd2f"
 set orange "#fe8019"
 set red "#fb4934"

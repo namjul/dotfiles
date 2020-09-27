@@ -11,53 +11,10 @@
 # symlinked to ~/.bashrc
 #
 
-source "${HOME}/.dotfiles/shell/vars.sh"
+# add homebrew to PATH
+eval $($(brew --prefix)/bin/brew shellenv) # TODO add evaluation to speedup startup
 
-# Source the dotfiles (order matters)
-source "${SHELL_DOTFILES}/functions.sh"
-source "${SHELL_DOTFILES}/path.sh"
-source "${SHELL_DOTFILES}/alias.sh"
-
-# Options
-shopt -s nocaseglob # Case-insensitive globbing (used in pathname expansion)
-shopt -s histappend # Append to the Bash history file, rather than overwriting it
-shopt -s cdspell # Autocorrect typos in path names when using `cd`
-shopt -s dotglob # expand filenames starting with dots too
-
-# Plugins
-[ -f ~/.asdf/asdf.sh ] && source ~/.asdf/asdf.sh
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
-
-# Enable some Bash 4 features when possible:
-# * `autocd`, e.g. `**/qux` will enter `./foo/bar/baz/qux`
-# * Recursive globbing, e.g. `echo **/*.txt`
-for option in autocd globstar; do
-	shopt -s "$option" 2> /dev/null
-done
-
-# completion
-[ -f /etc/bash_completion ] && source /etc/bash_completion
-[ -f ~/.asdf/completions/asdf.bash ] && source ~/.asdf/completions/asdf.bash
-
-# Enable tab completion for `g` by marking it as an alias for `git`
-if [ -f ~/.git-completion.bash ]; then
-  . ~/.git-completion.bash
-  __git_complete g _git # http://stackoverflow.com/a/10707579
+if [[ $(ps --no-header --pid=$PPID --format=cmd) != "fish" ]]
+then
+	exec fish
 fi
-
-
-if [[ -a ~/.localrc ]]; then
-    source ~/.localrc
-fi
-
-# setting caps to ctrl/escape
-setxkbmap -option ctrl:nocaps
-
-# adjust keyboard rate
-xset r rate 200 30
-
-##############################################################################
-# 04. PROMPT COLORS                                                          #
-##############################################################################
-
-eval "$(starship init bash)"
