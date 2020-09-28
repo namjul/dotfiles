@@ -8,7 +8,7 @@
 - [vim config](dots/vimrc)
 - [tmux config](dots/tmux.conf)
 - [alacritty](dots/alacritty.yml)
-- [aliases](shell/alias.sh), [functions](shell/functions.sh) and [bash configuration](dots/bashrc)
+- [aliases](shell/alias.fish), [functions](shell/functions.fish) and [fish configuration](dots/fish/config.fish)
 - [gitconfig](dots/gitconfig)
 - [starship](https://starship.rs/) [config](dots/starship.toml)
 - [install script](install)
