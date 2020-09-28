@@ -20,7 +20,8 @@ end
 
 # Theme
 theme_gruvbox 'dark' 'soft'
-
 set -g fish_color_command "#ebdbb2" # the color for commands
 
 starship init fish | source
+
+source (brew --prefix asdf)/asdf.fish
