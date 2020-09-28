@@ -4,43 +4,44 @@
 # 02. ALIASES                                                                #
 ##############################################################################
 
-alias ..="cd .."
-alias ...="cd ../.."
-alias ....="cd ../../.."
-alias .....="cd ../../../.."
-alias cdd="cd $HOME/.dotfiles"
-alias d="cd ~/Dropbox"
-alias dl="cd ~/Downloads"
-alias dt="cd ~/Desktop"
-alias h="history"
-alias j="jobs"
-alias l='less'
-alias mv='mv -i'
-alias cp='cp -i -p'
-alias grep='grep --color=auto'
-alias g="git"
-alias gs="git status"
-alias week='date +%V' # Get week number
-alias path='echo $PATH | tr -s " " "\n"' # Pretty print the path
-alias cat='bat' # Drop-in replacement for cat
-alias tms='$HOME/.dotfiles/scripts/tmux-setup.sh' # tmux setup
-alias tmp=' cd (mktemp -d)'
-alias pbcopy='xclip -selection clipboard' # replicate pbcopy from macos
-alias pbpaste='xclip -selection clipboard -o'
-alias x=exit
-alias t=tmux
-alias v=vim
+abbr --add -- - 'cd -'
+abbr .. 'cd ..'
+abbr ... 'cd ../..'
+abbr .... 'cd ../../..'
+abbr ..... 'cd ../../../..'
+abbr cdd 'cd $HOME/.dotfiles'
+abbr d 'cd ~/Dropbox'
+abbr dl 'cd ~/Downloads'
+abbr dt 'cd ~/Desktop'
+abbr h 'history'
+abbr j 'jobs'
+abbr l 'less'
+abbr mv 'mv -i'
+abbr cp 'cp -i -p'
+abbr grep 'grep --color=auto'
+abbr g 'git'
+abbr gs 'git status'
+abbr week 'date +%V' # Get week number
+abbr path 'echo $PATH | tr -s " " "\n"' # Pretty print the path
+abbr cat 'bat' # Drop-in replacement for cat
+abbr tms "$HOME/.dotfiles/scripts/tmux-setup.sh" # tmux setup
+abbr tmp ' cd (mktemp -d)'
+abbr pbcopy 'xclip -selection clipboard' # replicate pbcopy from macos
+abbr pbpaste 'xclip -selection clipboard -o'
+abbr x exit
+abbr t tmux
+abbr v vim
 
 # ls
-set TREE_IGNORE "cache|log|logs|node_modules|vendor"
-alias ls=' exa --group-directories-first'
-alias la=' ls -a'
-alias ll=' ls --git -l'
-alias lt=' ls --tree -D -L 2 -I $TREE_IGNORE'
-alias ltt=' ls --tree -D -L 3 -I $TREE_IGNORE'
-alias lttt=' ls --tree -D -L 4 -I $TREE_IGNORE'
-alias ltttt=' ls --tree -D -L 5 -I $TREE_IGNORE'
+set TREE_IGNORE 'cache|log|logs|node_modules|vendor'
+abbr ls ' exa --group-directories-first'
+abbr la ' ls -a'
+abbr ll ' ls --git -l'
+abbr lt ' ls --tree -D -L 2 -I $TREE_IGNORE'
+abbr ltt ' ls --tree -D -L 3 -I $TREE_IGNORE'
+abbr lttt ' ls --tree -D -L 4 -I $TREE_IGNORE'
+abbr ltttt ' ls --tree -D -L 5 -I $TREE_IGNORE'
 
 if command -v nvim &> /dev/null
-  alias vim=nvim # Use `\vim` or `command vim` to get the real vim.
+  abbr vim nvim # Use `\vim` or `command vim` to get the real vim.
 end
