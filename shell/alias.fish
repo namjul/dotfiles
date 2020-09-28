@@ -30,7 +30,6 @@ abbr pbcopy 'xclip -selection clipboard' # replicate pbcopy from macos
 abbr pbpaste 'xclip -selection clipboard -o'
 abbr x exit
 abbr t tmux
-abbr v vim
 
 # ls
 set TREE_IGNORE 'cache|log|logs|node_modules|vendor'
@@ -42,6 +41,8 @@ abbr ltt ' ls --tree -D -L 3 -I $TREE_IGNORE'
 abbr lttt ' ls --tree -D -L 4 -I $TREE_IGNORE'
 abbr ltttt ' ls --tree -D -L 5 -I $TREE_IGNORE'
 
+# vim
 if command -v nvim &> /dev/null
+  abbr v nvim
   abbr vim nvim # Use `\vim` or `command vim` to get the real vim.
 end
