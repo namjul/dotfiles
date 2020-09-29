@@ -9,9 +9,9 @@ abbr cdd 'cd $HOME/.dotfiles'
 abbr d 'cd ~/Dropbox'
 
 # quick edits to dot files
-abbr vr 'vim ~/.vimrc'
-abbr vd 'vim ~/.dotfiles/dots'
-abbr vf 'vim ~/.config/fish/config.fish'
+abbr vr 'nvim ~/.vimrc'
+abbr vd 'nvim ~/.dotfiles/dots'
+abbr vf 'nvim ~/.config/fish/config.fish'
 
 abbr .. 'cd ..'
 abbr ... 'cd ../..'
