@@ -105,9 +105,15 @@ Run install script
 - [ ] adjust dotfiles update process (https://github.com/caarlos0/dotfiles/blob/master/bin/dot_update)
 - [ ] research https://0x46.net/thoughts/2019/02/01/dotfile-madness/
 - [ ] build a dotfiles script in bash https://github.com/necolas/dotfiles/blob/master/bin/dotfiles
-- [ ] switch to fish
+- [x] switch to fish
 - [ ] create backup script https://github.com/necolas/dotfiles/blob/master/bin/backup
 - [ ] create git bindings https://junegunn.kr/2016/07/fzf-git/
+- [ ] expand aliases https://github.com/sh78/dotfiles/blob/d42cf1b86473e42ae123dffe38750eeaa31add99/.config/omf/aliases.load#L1
+- [x] `npm run` autocomplete
+- [x] optimize brew/asdf sourcing to speedup startup
+- [ ] go through https://www.youtube.com/watch?v=JFr28K65-5E to find some vim config improvents
+- [ ] try out https://github.com/dylanaraps/fff
+- [ ] fix open command
 
 # Inspiration
 
