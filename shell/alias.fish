@@ -4,18 +4,25 @@
 # 02. ALIASES                                                                #
 ##############################################################################
 
-abbr --add -- - 'cd -'
+# quick switches to folders
+abbr cdd 'cd $HOME/.dotfiles'
+abbr d 'cd ~/Dropbox'
+
+# quick edits to dot files
+abbr vr 'vim ~/.vimrc'
+abbr vd 'vim ~/.dotfiles/dots'
+abbr vf 'vim ~/.config/fish/config.fish'
+
 abbr .. 'cd ..'
 abbr ... 'cd ../..'
 abbr .... 'cd ../../..'
 abbr ..... 'cd ../../../..'
-abbr cdd 'cd $HOME/.dotfiles'
-abbr d 'cd ~/Dropbox'
-abbr dl 'cd ~/Downloads'
-abbr dt 'cd ~/Desktop'
+abbr --add -- - 'cd -'
+
 abbr h 'history'
 abbr j 'jobs'
 abbr l 'less'
+
 abbr mv 'mv -i'
 abbr cp 'cp -i -p'
 abbr grep 'grep --color=auto'
