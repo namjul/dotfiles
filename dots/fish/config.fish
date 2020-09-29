@@ -7,21 +7,39 @@
 #  ╚═════╝ ╚═════╝ ╚═╝  ╚═══╝╚═╝     ╚═╝ ╚═════╝ ╚═╝╚═╝     ╚═╝╚══════╝╚═╝  ╚═╝
 #
 
-set fish_greeting # remove fish's greeting
 
-# load 
-set parts env functions path alias
-for part in $parts
-  set file $HOME/.dotfiles/shell/$part.fish
-  if test -e $file
-    source $file
-  end
+if status is-login
+  # Initialize Homebrew
+  test -e ~/.linuxbrew && eval (~/.linuxbrew/bin/brew shellenv)
+  test -e /home/linuxbrew/.linuxbrew/bin/brew && eval (/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+
+  # Initialize asdf
+  source (brew --prefix asdf)/asdf.fish
+
+  # Local settings
+  test -e $HOME/.localrc && source $HOME/.localrc
 end
 
-# Theme
-theme_gruvbox 'dark' 'soft'
-set -g fish_color_command "#ebdbb2" # the color for commands
+if status is-interactive
+  set fish_greeting # remove fish's greeting
 
-starship init fish | source
+  # load 
+  set parts env functions path alias
+  for part in $parts
+    set file $HOME/.dotfiles/shell/$part.fish
+    if test -e $file
+      source $file
+    end
+  end
 
-source (brew --prefix asdf)/asdf.fish
+
+  if test -e ~/.localrc
+    source ~/.localrc
+  end
+
+  # Theme
+  theme_gruvbox 'dark' 'soft'
+  set -g fish_color_command "#ebdbb2" # the color for commands
+
+  starship init fish | source
+end

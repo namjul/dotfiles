@@ -10,11 +10,3 @@
 # sourced on login shells via .bash_profile
 # symlinked to ~/.bashrc
 #
-
-# add homebrew to PATH
-eval $($(brew --prefix)/bin/brew shellenv) # TODO add evaluation to speedup startup
-
-if [[ $(ps --no-header --pid=$PPID --format=cmd) != "fish" ]]
-then
-	exec fish
-fi
