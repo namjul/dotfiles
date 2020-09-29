@@ -41,5 +41,11 @@ if status is-interactive
   theme_gruvbox 'dark' 'soft'
   set -g fish_color_command "#ebdbb2" # the color for commands
 
+
+  # Tmux
+  if command -v tmux > /dev/null 2>&1
+    test -z $TMUX && tmux;
+  end
+
   starship init fish | source
 end
