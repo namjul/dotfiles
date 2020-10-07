@@ -25,6 +25,17 @@ Run install script
 ./install
 ```
 
+## Setup PATH
+
+### Homebrew
+
+Homebrew needs to be setup for scripts to work.
+This can be done by adding the following to `~/.profile`:
+
+```sh
+eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+```
+
 ## Fonts
 - https://github.com/cseelus/monego *
 - https://github.com/tonsky/FiraCode

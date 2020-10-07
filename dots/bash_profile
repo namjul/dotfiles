@@ -5,4 +5,8 @@
 # @see http://www.joshstaiger.org/archives/2005/07/bash_profile_vs.html
 #
 
-[ -f "${HOME}/.bashrc" ] && source "${HOME}/.bashrc"
+# In an graphical mode `.profile` is run (e.g. lightDM)
+[[ -f "${HOME}/.profile" ]] && source "${HOME}/.profile"
+
+ # if source as interactive-shell
+[[ -f "${HOME}/.bashrc" ]] && source "${HOME}/.bashrc"
