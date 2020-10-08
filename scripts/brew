@@ -87,6 +87,7 @@ brew install fish
 brew install github/gh/gh
 brew install asciinema
 brew install translate-shell
+brew install asdf
 
 # Remove outdated versions from the cellar
 brew cleanup
