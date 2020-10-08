@@ -1,7 +1,7 @@
 [character]
-symbol = "➜"
-error_symbol = "✗"
-use_symbol_for_status = true
+success_symbol = "[➜](bold #b8bb26)"
+error_symbol = "[✗](bold #fb4934)"
+vicmd_symbol = "[🅥](bold #fabd2f)"
 
 [package]
 symbol = ""
