@@ -125,8 +125,19 @@ eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
 - [ ] go through https://www.youtube.com/watch?v=JFr28K65-5E to find some vim config improvents
 - [ ] try out https://github.com/dylanaraps/fff
 - [ ] fix open command
+- [ ] setup neomut
+- [ ] give https://taskwarrior.org/ a try
+- [ ] give `dyng/ctrlsf.vim` a try
+- [ ] finish up fish configuration
+  - [ ] make use of git functions
+  - [ ] finish up fish completions
+  - [ ] vim mode
+  - [ ] add ctrl-o key-binding to open with $EDITOR
+- [ ] exiting neovim takes long time
 
 # Inspiration
+
+- https://github.com/necolas/dotfiles
 
 ## Vim
 
