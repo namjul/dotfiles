@@ -28,6 +28,10 @@ if status is-interactive
     end
   end
 
+  if not set --query fzf_fish_custom_keybindings
+    set --universal fzf_fish_custom_keybindings
+  end
+
   # Theme
   theme_gruvbox 'dark' 'soft'
   set -g fish_color_command "#ebdbb2" # the color for commands
