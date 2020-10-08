@@ -1,7 +1,7 @@
 [character]
 success_symbol = "[➜](bold #b8bb26)"
-error_symbol = "[✗](bold #fb4934)"
-vicmd_symbol = "[🆅](bold #fabd2f)"
+error_symbol = "[➜](bold #fb4934)"
+vicmd_symbol = "[🆅](bold #a89984)"
 
 [package]
 symbol = ""
