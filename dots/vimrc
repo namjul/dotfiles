@@ -283,6 +283,12 @@ cnoremap <C-e> <End>
 imap jk <Esc>
 imap <C-K> <Esc>
 
+" TERMINAL
+""""""""
+
+" exit mapping
+tnoremap <expr> <Esc> (&filetype == "fzf") ? "<Esc>" : "<c-\><c-n>"
+
 " LEADER
 """"""""
 
