@@ -280,7 +280,8 @@ cnoremap <C-e> <End>
 """"""""
 
 " esc mapping
-imap <C-L> <Esc>
+imap jk <Esc>
+imap <C-K> <Esc>
 
 " LEADER
 """"""""
