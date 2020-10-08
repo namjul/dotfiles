@@ -47,13 +47,8 @@ function tm
   if test -n "$TMUX"
     set change "switch-client"
   end
-
-  if test (count $argv) -gt 0
-    tmux $change -t "$argc" 2>/dev/null || tmux new-session -d -s $argv && tmux $change -t "$argv" return
-  end
-
-  set -l session (tmux list-sessions -F "#{session_name}" 2>/dev/null | fzf --exit-0)
-  set -q session[1] && tmux $change -t "$session" || echo "No sessions found."
+	
+  tmux list-sessions -F "#{session_name}" | fzf | read -l result; and tmux $change -t "$result"
 end
 
 function installNpmDefaults
@@ -64,7 +59,7 @@ end
 # -------------
 
 function is_in_git_repo
-  git rev-parse HEAD > /dev/null 2>&1
+	git rev-parse --git-dir > /dev/null 2>&1
 end
 
 function fzf-down
