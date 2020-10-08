@@ -52,6 +52,7 @@ abbr ltttt 'ls --tree -D -L 5 -I $TREE_IGNORE'
 
 # vim
 if command -v nvim &> /dev/null
-  abbr v nvim
-  abbr vim nvim # Use `\vim` or `command vim` to get the real vim.
+  alias vim nvim # Use `\vim` or `command vim` to get the real vim.
+  alias v vim
 end
+
