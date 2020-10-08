@@ -37,6 +37,8 @@ abbr pbcopy 'xclip -selection clipboard' # replicate pbcopy from macos
 abbr pbpaste 'xclip -selection clipboard -o'
 abbr x exit
 abbr t tmux
+abbr en 'trans :en'
+abbr de 'trans :de'
 
 # ls
 set TREE_IGNORE 'cache|log|logs|node_modules|vendor'
