@@ -8,24 +8,12 @@
 - [vim config](dots/vimrc)
 - [tmux config](dots/tmux.conf)
 - [alacritty](dots/alacritty.yml)
-- [aliases](shell/alias.fish), [functions](shell/functions.fish) and [fish configuration](dots/fish/config.fish)
 - [gitconfig](dots/gitconfig)
+- [fish configuration](dots/fish/config.fish)
+- [aliases](shell/alias.fish), [functions](dots/fish/functions) 
 - [starship](https://starship.rs/) [config](dots/starship.toml)
-- [install script](install)
 
-## Installation
-
-Clone dotfiles to home directory
-```
-git clone https://github.com/namjul/dotfiles
-```
-
-Run install script
-```
-./install
-```
-
-## Setup PATH
+## Dependencies
 
 ### Homebrew
 
@@ -34,6 +22,30 @@ This can be done by adding the following to `~/.profile`:
 
 ```sh
 eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+```
+
+## Installation
+
+Clone dotfiles to home directory
+```
+git clone https://github.com/namjul/dotfiles
+```
+
+The install script will do the following:
+1. install brew packages
+2. setup symlinks
+3. setup vim configuration files and downloads `vim-plug` if it does not exist
+4. installs `asdf` plugins 
+```
+./install
+```
+
+## Postinstallation
+
+To make `asdf` work add the following to `~/.profile`:
+
+```sh
+source $(brew --prefix asdf)/asdf.sh
 ```
 
 ## Fonts
@@ -110,7 +122,6 @@ eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
 - [ ] make :Rg search through node_modules
 - [ ] closetag in mdx files
 - [x] closetag in typescript files
-- [ ] open nerdtree with cursor at last active buffer
 - [x] repair jump commands Ctrl-O / Ctrl-I
 - [ ] give zsh with http://getantibody.github.io/ a try
 - [ ] adjust dotfiles update process (https://github.com/caarlos0/dotfiles/blob/master/bin/dot_update)
@@ -134,6 +145,8 @@ eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
   - [ ] vim mode
   - [ ] add ctrl-o key-binding to open with $EDITOR
 - [ ] exiting neovim takes long time
+- [ ] learn how to make a plugin https://www.youtube.com/watch?v=apyV4v7x33o
+- [ ] settle on a file explorer(ranger, lf, fff)
 
 # Inspiration
 
