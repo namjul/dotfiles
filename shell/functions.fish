@@ -20,18 +20,8 @@ function open
   xdg-open $1 </dev/null &>/dev/null &
 end
 
-# git interactive rebase to n
-function grn
-  git rebase -i HEAD~"$1";
-end
-
-# shorthand for npm run
-function run
-  npm run $argv
-end
-
 # Fuzzy find & vim
-function vf
+function fdo
   if test (count $argv) -gt 0
     command $EDITOR $argv
   else

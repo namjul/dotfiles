@@ -39,6 +39,8 @@ abbr x exit
 abbr t tmux
 abbr en 'trans :en'
 abbr de 'trans :de'
+abbr grn 'git rebase -i HEAD~ ' # git interactive rebase to n
+abbr run 'npm run' # shorthand for npm run
 
 # ls
 set TREE_IGNORE 'cache|log|logs|node_modules|vendor'
