@@ -63,3 +63,43 @@
 - [ ] add command to translate word under cursor using `trans`
 - [ ] make spellchecking work
 - [ ] try https://github.com/volta-cli/volta
+
+
+## notetaking lua plugin
+
+### features
+
+- Peek? and Go to Definition for `[[wiki-links]]`
+- Create New Note On Missing Go To Definition
+- Autocompletion for Wiki Links (uniqueFilenames, relativePaths)
+- Backlink Explorer
+- Syntax Highlighting for Tags and Wiki Links
+- Peek References to Wiki Links
+- Peek References to Tags
+- Find All References to Wiki Links
+- Find All References to Tag
+- Search Workspace for Notes with Tag
+- New Note Command
+- daily notes [https://foambubble.github.io/foam/daily-notes]
+- Ultisnips shortcut for wiki-links `h`
+
+### lua
+- https://github.com/nanotee/nvim-lua-guide
+- Make a Simple Vim/Neovim Plugin from Scratch: cyclist.vim https://www.youtube.com/watch?v=apyV4v7x33o&t=162s
+
+### research
+- https://github.com/Alok/notational-fzf-vim
+- How to Use Roam to Outline a New Article in Under 20 Minutes
+  https://www.youtube.com/watch?v=RvWic15iXjk
+- foam
+  https://foambubble.github.io/foam/recipes
+- Obsidian App
+  https://obsidian.md/
+- Personal notetaking in Vim
+  https://vimways.org/2019/personal-notetaking-in-vim/
+- Graph of markdown links
+  https://github.com/tchayen/markdown-links
+- wiki links support in vim markdown plugin
+  https://github.com/plasticboy/vim-markdown/pull/478
+- Markdown Notes
+  https://github.com/kortina/vscode-markdown-notes
