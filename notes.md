@@ -57,4 +57,9 @@
   - [ ] add ctrl-o key-binding to open with $EDITOR
 - [ ] exiting neovim takes long time
 - [ ] learn how to make a plugin https://www.youtube.com/watch?v=apyV4v7x33o
-- [ ] settle on a file explorer(ranger, lf, fff)
+- [ ] settle on a file explorer(ranger, lf, fff, vifm)
+- [ ] consider https://github.com/tpope/vim-abolish
+- [ ] watch https://www.youtube.com/watch?v=N9UZNhcNRCQ&list=PLDJwwFOUm0KquQvDZGVfPsPLrnlbbXtXB
+- [ ] add command to translate word under cursor using `trans`
+- [ ] make spellchecking work
+- [ ] try https://github.com/volta-cli/volta
