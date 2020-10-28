@@ -100,6 +100,7 @@ Install a font of your choice
 # Inspiration
 
 - https://github.com/necolas/dotfiles
+- https://github.com/sarrost/dotfiles
 
 ## Vim
 
