@@ -540,7 +540,7 @@ if s:has_plugin('nvim-lspconfig')
   call sign_define("LspDiagnosticsInformationSign", {"text" : "ℹ", "texthl" : "LspDiagnosticsInformation"})
   call sign_define("LspDiagnosticsHintSign", {"text" : "➤", "texthl" : "LspDiagnosticsHint"})
 
-  lua require('nvim_lsp').tsserver.setup({})
+  lua require('nvim_lsp').tsserver.setup({on_attach=require'diagnostic'. on_attach})
 endif
 
 if s:has_plugin('completion-nvim')
