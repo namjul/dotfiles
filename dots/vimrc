@@ -63,7 +63,6 @@ Plug 'benmills/vimux'
 " simplifies running jest test from vim
 Plug 'tyewang/vimux-jest-test'
 " file explorer
-" Plug 'preservim/nerdtree'
 Plug 'justinmk/vim-dirvish'
 " improves the display of line numbers
 Plug 'jeffkreeftmeijer/vim-numbertoggle'
