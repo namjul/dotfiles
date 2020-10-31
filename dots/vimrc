@@ -445,7 +445,9 @@ endif
 if s:has_plugin('vim-polyglot')
   let g:javascript_plugin_jsdoc = 1
   let g:javascript_plugin_flow = 1
-  let g:vim_markdown_fenced_languages = ['jsx=javascript', 'js=javascript'] 
+  let g:vim_markdown_fenced_languages = ['jsx=javascriptreact', 'js=javascript', 'tsx=typescriptreact', 'ts=typescriptreact']
+  let g:vim_markdown_new_list_item_indent = 2
+  let g:vim_markdown_no_extensions_in_markdown = 1
 endif
 
 if s:has_plugin('vimux')
