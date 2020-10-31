@@ -271,6 +271,7 @@ cnoremap <C-e> <End>
 " esc mapping
 imap jk <Esc>
 imap <C-K> <Esc>
+inoremap <C-c> <esc>
 
 " TERMINAL
 """"""""
