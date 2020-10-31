@@ -12,7 +12,6 @@ yarn
 npm-check-updates
 taskbook
 git-file-history
-javascript-typescript-langserver 
 typescript-language-server
 prettier
 spech
