@@ -63,6 +63,9 @@
 - [ ] add command to translate word under cursor using `trans`
 - [ ] make spellchecking work
 - [ ] try https://github.com/volta-cli/volta
+- [ ] correct git message syntax highlighting https://shime.sh/git-commit-message-syntax-highlighting-in-vim
+- [ ] improve visual-mode colors and diagnostic colors https://www.youtube.com/watch?v=GrnBXhsr0ng
+- [ ] add [`SpaceFN`](https://geekhack.org/index.php?topic=51069.0) layout to keyboard
 
 
 ## notetaking lua plugin
@@ -89,7 +92,7 @@
 
 ### research
 - https://github.com/Alok/notational-fzf-vim
-- How to Use Roam to Outline a New Article in Under 20 Minutes
+- How to Use Roam to Outline a New Article in Under 20 Minutes 
   https://www.youtube.com/watch?v=RvWic15iXjk
 - foam
   https://foambubble.github.io/foam/recipes
