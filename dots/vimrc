@@ -102,12 +102,10 @@ Plug 'honza/vim-snippets'
 Plug 'mattn/gist-vim'
 " needed for `gist-vim`
 Plug 'mattn/webapi-vim'
-" neovim lsp config helper
-Plug 'neovim/nvim-lspconfig'
-" neovim completion
-Plug 'nvim-lua/completion-nvim'
-" neovim diagnostics helpers
-Plug 'nvim-lua/diagnostic-nvim'
+" linter, fixer and lsp
+Plug 'dense-analysis/ale'
+" autocomplete
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 " color name highlighter
 Plug 'ap/vim-css-color'
 " highlights yanked text
@@ -367,6 +365,64 @@ if s:has_plugin('gruvbox')
   colorscheme gruvbox
 endif
 
+if s:has_plugin('ale')
+  let g:ale_virtualtext_cursor = 1
+  let g:ale_virtualtext_prefix = '❐ '
+  let g:ale_echo_msg_format = '[%linter%] [%severity%] %code: %%s'
+  let g:ale_lint_on_text_changed = 'never'
+  let g:ale_linter_aliases = {
+        \ 'javascriptreact': ['javascript', 'jsx'],
+        \ 'typescriptreact': ['typescript', 'tsx'],
+        \}
+  let g:ale_linters = {
+        \ 'typescript': ['eslint', 'tsserver', 'typecheck'],
+        \ 'javascript': ['eslint', 'tsserver', 'flow'],
+        \}
+  let g:ale_fixers = {
+        \ 'javascriptreact': ['prettier'],
+        \ 'typescriptreact': ['prettier'],
+        \ 'javascript': ['prettier'],
+        \ 'typescript': ['prettier'],
+        \ 'html': ['prettier'],
+        \ 'json': ['prettier'],
+        \ 'mdx': ['prettier']
+        \ }
+  let g:ale_javascript_prettier_use_local_config = 1
+
+  let g:ale_sign_error="✖"
+  let g:ale_sign_warning="⚠"
+  let g:ale_sign_info="ℹ"
+
+  let g:ale_fix_on_save = 1
+
+  highlight link ALEVirtualTextError GruvboxRed
+  highlight link ALEVirtualTextWarning GruvboxYellow
+  highlight link ALEVirtualTextInfo GruvboxBlue
+
+  nmap <silent> [g <Plug>(ale_previous_wrap)
+  nmap <silent> ]g <Plug>(ale_next_wrap)
+  nmap <silent> gD <Plug>(ale_go_to_type_definition)
+  nmap <silent> gd <Plug>(ale_go_to_definition)
+  nmap <silent> gr <Plug>(ale_find_references) :ALEFindReferences -relative<Return>
+  nmap <silent><leader>rn <Plug>(ale_rename)
+
+  function! s:show_documentation()
+    if (index(['vim','help'], &filetype) >= 0)
+      execute 'h '.expand('<cword>')
+    else
+      :ALEHover
+    endif
+  endfunction
+
+  " Use K to show documentation in preview window.
+  nmap <silent> K :call <SID>show_documentation()<CR>
+
+endif
+
+if s:has_plugin('deoplete.nvim')
+  let g:deoplete#enable_at_startup = 1
+endif
+
 if s:has_plugin('fzf.vim')
   let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 1 } }
   let g:fzf_action = {
@@ -510,55 +566,4 @@ endif
 
 if s:has_plugin('vim-highlightedyank')
   let g:highlightedyank_highlight_duration = 200
-endif
-
-if s:has_plugin('nvim-lspconfig')
-  nnoremap <silent> gD    <cmd>lua vim.lsp.buf.implementation()<CR>
-  nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
-  nnoremap <silent> gd    <cmd>lua vim.lsp.buf.definition()<CR>
-  nnoremap <silent> <c-]> <cmd>lua vim.lsp.buf.declaration()<CR>
-  nnoremap <silent><leader>rn <cmd>lua vim.lsp.buf.rename()<CR>
-
-  function! s:show_documentation()
-    if (index(['vim','help'], &filetype) >= 0)
-      execute 'h '.expand('<cword>')
-    else
-      :lua vim.lsp.buf.hover()
-    endif
-  endfunction
-
-  " Use K to show documentation in preview window.
-  nnoremap <silent> K :call <SID>show_documentation()<CR>
-
-  highlight link LspDiagnosticsHint GruvboxBlue
-  highlight link LspDiagnosticsError GruvboxRed
-  highlight link LspDiagnosticsWarning GruvboxYellow
-  highlight link LspDiagnosticsInformation GruvboxAqua
-
-  call sign_define("LspDiagnosticsErrorSign", {"text" : "✖", "texthl" : "LspDiagnosticsError"})
-  call sign_define("LspDiagnosticsWarningSign", {"text" : "⚠", "texthl" : "LspDiagnosticsWarning"})
-  call sign_define("LspDiagnosticsInformationSign", {"text" : "ℹ", "texthl" : "LspDiagnosticsInformation"})
-  call sign_define("LspDiagnosticsHintSign", {"text" : "➤", "texthl" : "LspDiagnosticsHint"})
-
-  lua require('nvim_lsp').tsserver.setup({on_attach=require'diagnostic'. on_attach})
-endif
-
-if s:has_plugin('completion-nvim')
-  let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
-  let g:completion_enable_snippet = 'UltiSnips'
-  set completeopt=menuone,noinsert,noselect
-
-  " Use completion-nvim in every buffer
-  autocmd BufEnter * lua require('completion').on_attach()
-endif
-
-if s:has_plugin('diagnostic-nvim')
-  let g:diagnostic_enable_virtual_text = 1
-  let g:diagnostic_virtual_text_prefix = '❐ '
-
-  " set updatetime=1000
-  " autocmd CursorHold * lua vim.lsp.util.show_line_diagnostics()
-
-  nnoremap <silent> [g <cmd>PrevDiagnostic<CR>
-  nnoremap <silent> ]g <cmd>NextDiagnostic<CR>
 endif
