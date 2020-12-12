@@ -66,6 +66,13 @@
 - [ ] correct git message syntax highlighting https://shime.sh/git-commit-message-syntax-highlighting-in-vim
 - [ ] improve visual-mode colors and diagnostic colors https://www.youtube.com/watch?v=GrnBXhsr0ng
 - [ ] add [`SpaceFN`](https://geekhack.org/index.php?topic=51069.0) layout to keyboard
+- [ ] checkout
+  - https://thoughtbot.com/blog/faster-grepping-in-vim
+  - https://github.com/mizlan/dots-nightly/blob/lua-port/lua/plugins.lua
+  - https://alexpearce.me/2016/02/managing-dotfiles-with-stow/
+    - https://github.com/momofor/dotfiles | https://www.youtube.com/watch?v=_GldsqYpYz0
+  - https://github.com/s1n7ax/dotnvim | https://www.youtube.com/watch?v=n4yHEqBZ8Mk
+  - https://github.com/npxbr/gruvbox.nvim
 
 
 ## notetaking lua plugin
@@ -106,3 +113,7 @@
   https://github.com/plasticboy/vim-markdown/pull/478
 - Markdown Notes
   https://github.com/kortina/vscode-markdown-notes
+- Markdown pandoc notes
+  https://jamesbvaughan.com/markdown-pandoc-notes/
+- Pervane - Plain text file based note taking and knowledge base building tool, markdown editor, simple browser IDE
+  https://github.com/hakanu/pervane
