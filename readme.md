@@ -59,6 +59,7 @@ Install a font of your choice
 - https://github.com/cseelus/monego *
 - https://github.com/tonsky/FiraCode
 - https://monolisa.dev/
+- https://coding-fonts.css-tricks.com/fonts/anonymous-pro/
 
 ## Vim Keyboard shortcuts
 
