@@ -136,6 +136,7 @@ set backupcopy=yes "optimize webpack watch option
 set clipboard+=unnamedplus
 set ignorecase
 set smartcase
+set wildignorecase
 set hidden
 
 " Whitespace
