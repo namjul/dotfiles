@@ -1,8 +1,22 @@
 #!/bin/bash
 
-source ./scripts/brew
-source ./scripts/symlinks
-source ./scripts/asdf
-source ./scripts/vim
+symlink() {
+  ln -sfv $(realpath $1) "$HOME/$1"
+}
+
+if ! command -v stow &> /dev/null
+then
+    echo "stow could not be found"
+    exit
+fi
+
+# source ./scripts/brew
+
+echo "Creating symlinks ..."
+stow -v dots
+symlink bin
+
+# source ./scripts/asdf
+# source ./scripts/vim
 
 echo "Installation complete!"

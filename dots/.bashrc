@@ -23,3 +23,5 @@ then
 		exec fish
 	fi
 fi
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash

@@ -19,3 +19,5 @@ function fish_user_key_bindings
   bind --mode insert \cg\cf '__fzf_search_git_status'
 
 end
+
+fzf_key_bindings
