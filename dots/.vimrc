@@ -112,6 +112,8 @@ Plug 'ap/vim-css-color'
 Plug 'machakann/vim-highlightedyank'
 " enhance bullet points management
 Plug 'dkarter/bullets.vim'
+" highlight trailing whitespace
+Plug 'csexton/trailertrash.vim'
 
 call plug#end()
 
