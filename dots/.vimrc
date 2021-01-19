@@ -110,6 +110,8 @@ Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'ap/vim-css-color'
 " highlights yanked text
 Plug 'machakann/vim-highlightedyank'
+" enhance bullet points management
+Plug 'dkarter/bullets.vim'
 
 call plug#end()
 
@@ -541,8 +543,9 @@ if s:has_plugin('vim-polyglot')
   let g:javascript_plugin_jsdoc = 1
   let g:javascript_plugin_flow = 1
   let g:vim_markdown_fenced_languages = ['jsx=javascriptreact', 'js=javascript', 'tsx=typescriptreact', 'ts=typescriptreact']
-  let g:vim_markdown_new_list_item_indent = 2
   let g:vim_markdown_no_extensions_in_markdown = 1
+  let g:vim_markdown_auto_insert_bullets = 0
+  let g:vim_markdown_new_list_item_indent = 0
 endif
 
 if s:has_plugin('vimux')
