@@ -201,18 +201,56 @@ function! s:onColorSchemeChange(scheme)
   call LightlineReload()
 endfunction
 
+function! PlainText()
+  if has('conceal')
+    setlocal concealcursor=nc
+  endif
+
+  setlocal nolist
+  setlocal linebreak
+  setlocal textwidth=0
+  setlocal wrap
+  setlocal wrapmargin=0
+
+  nnoremap <buffer> j gj
+  nnoremap <buffer> k gk
+  nnoremap <buffer> 0 g0
+  nnoremap <buffer> ^ g^
+  nnoremap <buffer> $ g$
+  vnoremap <buffer> j gj
+  vnoremap <buffer> k gk
+  vnoremap <buffer> 0 g0
+  vnoremap <buffer> ^ g^
+  vnoremap <buffer> $ g$
+
+  " Create undo 'snapshots' when being in inline editing.
+  "
+  " From:
+  " - https://github.com/wincent/wincent/blob/44b112f26ec6435a9b78e64225eb0f9082999c1e/aspects/vim/files/.vim/autoload/wincent/functions.vim#L32
+  " - https://twitter.com/vimgifs/status/913390282242232320
+  "
+  inoremap <buffer> ! !<C-g>u
+  inoremap <buffer> , ,<C-g>u
+  inoremap <buffer> . .<C-g>u
+  inoremap <buffer> : :<C-g>u
+  inoremap <buffer> ; ;<C-g>u
+  inoremap <buffer> ? ?<C-g>u
+
+endfunction
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 " AUTOCOMMANDS
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
 augroup lightline-events
-    autocmd!
-    autocmd ColorScheme * call s:onColorSchemeChange(expand("<amatch>"))
+  autocmd!
+  autocmd ColorScheme * call s:onColorSchemeChange(expand("<amatch>"))
 augroup END
 
 augroup filetypedetect
-  au! BufRead,BufNewFile tsconfig.json set filetype=json5
-  au! BufRead,BufNewFile .eslintrc.json set filetype=json5
+  autocmd BufRead,BufNewFile tsconfig.json set filetype=json5
+  autocmd BufRead,BufNewFile .eslintrc.json set filetype=json5
+  autocmd FileType markdown call PlainText()
 augroup END
 
 augroup NamDirvish
