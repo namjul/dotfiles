@@ -603,7 +603,7 @@ endif
 
 if s:has_plugin('notational-fzf-vim')
   nnoremap <silent><Leader>m :NV<CR>
-  let g:nv_search_paths = ['~/Dropbox/wiki', '~/Dropbox/dev']
+  let g:nv_search_paths = ['~/Dropbox/wiki', '~/Dropbox/journal', '~/Dropbox/notes']
 endif
 
 if s:has_plugin('vim-gitgutter')
