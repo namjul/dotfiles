@@ -16,8 +16,7 @@ end
 # Open file from terminal
 # USAGE: open <FILE>
 function open
-  echo $1
-  xdg-open $1 </dev/null &>/dev/null &
+  xdg-open $argv[1]
 end
 
 # Fuzzy find & vim
