@@ -104,10 +104,5 @@
   tool = vimdiff
 [mergetool]
   path = nvim
-[user]
-  email = nam@hobl.at
-  name = Samuel Hobl
-[github]
-  user = namjul
 [pull]
   rebase = false
