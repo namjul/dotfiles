@@ -5,8 +5,14 @@
 # @see http://www.joshstaiger.org/archives/2005/07/bash_profile_vs.html
 #
 
-# In an graphical mode `.profile` is run (e.g. lightDM)
+# Because ~/.profile isn't invoked if this files exists,
+# we must source ~/.profile to get its settings:
 [[ -f "${HOME}/.profile" ]] && source "${HOME}/.profile"
 
- # if source as interactive-shell
-[[ -f "${HOME}/.bashrc" ]] && source "${HOME}/.bashrc"
+# The following sources ~/.bashrc in the interactive login case,
+# because .bashrc isn't sourced for interactive login shells:
+case "$-" in
+  *i*)
+    [[ -f "${HOME}/.bashrc" ]] && source "${HOME}/.bashrc"
+    ;;
+esac
