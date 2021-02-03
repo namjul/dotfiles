@@ -1,0 +1,8 @@
+Object.assign(global, require('lodash/fp'))
+
+global.table = (json) => {
+  let Table = require('cli-table3')
+  let table = new Table({head: Object.keys(json[0])});
+  table.push(...json.map(Object.values))
+  return table.toString()
+}
