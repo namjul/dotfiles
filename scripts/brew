@@ -8,16 +8,7 @@ brew=$([ kernel_name == 'Dargin' ] && echo 'Homebrew' || echo 'Linuxbrew')
 which brew
 if [[ $? != 0 ]] ; then
   echo "Installing $brew ..."
-  if [ $kernel_name == 'Darwin' ]; then
-    # Install Homebrew
-    yes | ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-  elif [ $kernel_name == 'Linux' ]; then
-    # Install Linuxrew
-    yes | sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)"
-  else
-    error "Error: Git is required."
-    exit
-  fi
+  yes | bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 else
   echo "$brew already installed ..."
 fi
@@ -85,6 +76,14 @@ brew install github/gh/gh
 brew install asciinema
 brew install translate-shell
 brew install asdf
+brew install glow
+brew install exercism
+brew install todo-txt
+brew install tig
+brew install sops
+brew install fx # https://github.com/antonmedv/fx/
+brew install jq # https://stedolan.github.io/
+brew install q #http://harelba.github.io/q/
 
 # Remove outdated versions from the cellar
 brew cleanup
