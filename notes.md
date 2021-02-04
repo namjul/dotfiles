@@ -1,13 +1,22 @@
 
 ## Todos
-- [ ] setup tiling windows manager again (https://www.youtube.com/watch?v=xnREqY-oyzM)
-- [x] jump-list 
+- [X] use https://github.com/csexton/trailertrash.vim
+- [X] setup `ToggleWrap` function
+- [x] `npm run` autocomplete
+- [x] optimize brew/asdf sourcing to speedup startup
+- [x] switch to fish
+- [x] closetag in typescript files
+- [x] repair jump commands Ctrl-O / Ctrl-I
+- [x] disable typescript checks in flow files
+- [x] jump-list
   - https://medium.com/breathe-publication/understanding-vims-jump-list-7e1bfc72cdf0
 - [x] improve tmux settings
+- [x] fix open command
   - https://www.youtube.com/watch?v=N0RL_J0LT9A
   - [x] improve tmux copy-mode selection to clipboard
     - https://www.youtube.com/watch?v=ogeVqNOStQs&t=191s
     - https://superuser.com/questions/395158/tmux-copy-mode-select-text-block
+- [ ] setup tiling windows manager again (https://www.youtube.com/watch?v=xnREqY-oyzM)
 - [ ] color for man pages
 - [ ] build own statusline
   - vim filename should include folder
@@ -27,26 +36,18 @@
 - [ ] fix "clipboard: error: Error: target STRING not available"
   - https://github.com/svermeulen/vim-yoink/issues/16
 - [ ] learn about https://en.wikipedia.org/wiki/GNU_Readline
-- [x] disable typescript checks in flow files
 - [ ] make :Rg search through node_modules
 - [ ] closetag in mdx files
-- [x] closetag in typescript files
-- [x] repair jump commands Ctrl-O / Ctrl-I
 - [ ] give zsh with http://getantibody.github.io/ a try
 - [ ] research https://0x46.net/thoughts/2019/02/01/dotfile-madness/
 - [ ] make dotfiles script
   - build a dotfiles script in bash https://github.com/necolas/dotfiles/blob/master/bin/dotfiles
   - adjust dotfiles update process (https://github.com/caarlos0/dotfiles/blob/master/bin/dot_update)
   - https://github.com/eli-schwartz/dotfiles.sh/blob/master/dotfiles
-- [x] switch to fish
 - [ ] create backup script https://github.com/necolas/dotfiles/blob/master/bin/backup
 - [ ] create git bindings https://junegunn.kr/2016/07/fzf-git/
 - [ ] expand aliases https://github.com/sh78/dotfiles/blob/d42cf1b86473e42ae123dffe38750eeaa31add99/.config/omf/aliases.load#L1
-- [x] `npm run` autocomplete
-- [x] optimize brew/asdf sourcing to speedup startup
 - [ ] go through https://www.youtube.com/watch?v=JFr28K65-5E to find some vim config improvents
-- [ ] try out https://github.com/dylanaraps/fff
-- [ ] fix open command
 - [ ] setup neomut
 - [ ] give https://taskwarrior.org/ a try
 - [ ] give `dyng/ctrlsf.vim` a try
@@ -56,8 +57,10 @@
   - [ ] vim mode
   - [ ] add ctrl-o key-binding to open with $EDITOR
 - [ ] exiting neovim takes long time
+  - has to do  with `sheerun/vim-polyglot`
 - [ ] learn how to make a plugin https://www.youtube.com/watch?v=apyV4v7x33o
 - [ ] settle on a file explorer(ranger, lf, fff, vifm)
+  - [ ] try out https://github.com/dylanaraps/fff
 - [ ] consider https://github.com/tpope/vim-abolish
 - [ ] watch https://www.youtube.com/watch?v=N9UZNhcNRCQ&list=PLDJwwFOUm0KquQvDZGVfPsPLrnlbbXtXB
 - [ ] add command to translate word under cursor using `trans`
@@ -73,6 +76,21 @@
     - https://github.com/momofor/dotfiles | https://www.youtube.com/watch?v=_GldsqYpYz0
   - https://github.com/s1n7ax/dotnvim | https://www.youtube.com/watch?v=n4yHEqBZ8Mk
   - https://github.com/npxbr/gruvbox.nvim
+  - Vim
+    * plugins from wincent https://github.com/wincent/wincent/tree/master/aspects/vim/files/.vim/pack/bundle/opt
+    * https://gist.github.com/jackkinsella/aa7374a6832cca8a09eadc3434a33c24
+    * https://github.com/wincent/wincent/tree/master/roles/dotfiles/files/.vim
+    * https://github.com/codota/tabnine-vim
+- [ ] integrate cheat sheet workflow
+  - https://github.com/chubin/cheat.sh
+  - https://github.com/dbeniamine/cheat.sh-vim
+  -  https://www.youtube.com/watch?v=DNiGoVohCmw&t=209s
+- use vim plugin Tabable for aligning markdown tables
+- shortcut to dropbox link
+- [ ] move vim-sensible into `vimrc`
+- [ ] remove `sheerun/vim-polyglot`
+- [ ] try https://github.com/Kethku/neovide
+- [ ] learn about the differences of `find` and `locate`
 
 
 ## notetaking lua plugin
@@ -92,6 +110,7 @@
 - New Note Command
 - daily notes [https://foambubble.github.io/foam/daily-notes]
 - Ultisnips shortcut for wiki-links `h`
+- Command to append txt to inbox
 
 ### lua
 - https://github.com/nanotee/nvim-lua-guide
@@ -99,7 +118,7 @@
 
 ### research
 - https://github.com/Alok/notational-fzf-vim
-- How to Use Roam to Outline a New Article in Under 20 Minutes 
+- How to Use Roam to Outline a New Article in Under 20 Minutes
   https://www.youtube.com/watch?v=RvWic15iXjk
 - foam
   https://foambubble.github.io/foam/recipes
