@@ -3,6 +3,7 @@
 # Create directories
 mkdir -p "$HOME/.config/nvim/"
 mkdir -p "$HOME/.config/backups/"
+# mkdir -p "${XDG_CONFIG_HOME:-$HOME/.config}"/nvim/{undo,swap,backup}
 
 ln -sfv "$HOME/.vimrc" "$HOME/.config/nvim/init.vim"
 

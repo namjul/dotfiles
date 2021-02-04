@@ -1,6 +1,6 @@
 
 # Make vim the default editor
-export VISUAL="vim"
+export VISUAL="nvim"
 export EDITOR="$VISUAL"
 
 # Prefer US English and use UTF-8
