@@ -20,6 +20,45 @@ local var = utils.var
 local hasPlugin = utils.hasPlugin
 
 ----------------------------------------
+-- Options
+----------------------------------------
+
+-- Global
+opt.g({
+  mouse = 'a', -- Enable Mouse clicking
+  shortmess = 'I', -- Don’t show the intro message when starting Vim
+  visualbell = true, --  Use visual bell instead of audible bell
+  backupcopy = 'yes', -- optimize webpack watch option and also crontab editing
+  clipboard = 'unnamedplus',
+  ignorecase = true,
+  smartcase = true,
+  wildignorecase = true,
+  hidden = true,
+  termguicolors = true, -- Enable term 24 bit colour
+  gdefault = true, -- Add the g flag to search/replace by default
+  background = 'dark',
+
+  backup = false,
+  swapfile = false
+
+})
+
+-- Window
+opt.w({
+  number = true, -- Show relative lines numbers
+  cursorline = true, -- Highlight current line
+  wrap = false, -- don't wrap lines
+  conceallevel = 2, -- hide concealed text
+})
+
+-- Buffer
+opt.b({
+  tabstop = 2, -- Make tabs as wide as two spaces
+  shiftwidth = 2, -- The # of spaces for indenting.
+  expandtab = true, -- use spaces, not tabs (optional)
+})
+
+----------------------------------------
 -- Plugins
 ----------------------------------------
 
@@ -81,45 +120,6 @@ paq('machakann/vim-highlightedyank') -- highlights yanked text
 paq('dkarter/bullets.vim') -- enhance bullet points management
 paq('csexton/trailertrash.vim') -- highlight trailing whitespace
 paq('kassio/neoterm') -- simple terminal access
-
-----------------------------------------
--- Options
-----------------------------------------
-
--- Global
-opt.g({
-  mouse = 'a', -- Enable Mouse clicking
-  shortmess = 'I', -- Don’t show the intro message when starting Vim
-  visualbell = true, --  Use visual bell instead of audible bell
-  backupcopy = 'yes', -- optimize webpack watch option and also crontab editing
-  clipboard = 'unnamedplus',
-  ignorecase = true,
-  smartcase = true,
-  wildignorecase = true,
-  hidden = true,
-  termguicolors = true, -- Enable term 24 bit colour
-  gdefault = true, -- Add the g flag to search/replace by default
-  background = 'dark',
-
-  backup = false,
-  swapfile = false
-
-})
-
--- Window
-opt.w({
-  number = true, -- Show relative lines numbers
-  cursorline = true, -- Highlight current line
-  wrap = false, -- don't wrap lines
-  conceallevel = 2, -- hide concealed text
-})
-
--- Buffer
-opt.b({
-  tabstop = 2, -- Make tabs as wide as two spaces
-  shiftwidth = 2, -- The # of spaces for indenting.
-  expandtab = true, -- use spaces, not tabs (optional)
-})
 
 ----------------------------------------
 -- Custom Mappings
