@@ -12,87 +12,12 @@
 local cmd = vim.cmd -- to execute Vim commands e.g. cmd('pwd')
 local fn = vim.fn -- to call Vim functions e.g. fn.bufnr()
 local inspect = vim.inspect -- pretty-print Lua objects (useful for inspecting tables)
-
-----------------------------------------
--- Helpers
-----------------------------------------
-
-local function addValues(valueType, values)
-	local vimValue = vim[valueType]
-
-	if type(values) == 'string' then
-		return vimValue[values]
-  elseif type(values) == 'table' then
-    for key, value in pairs(values) do
-      vimValue[key] = value
-    end
-  else
-		error('values should be a type of "table" or "string"')
-		return
-	end
-end
-
-local opt = {
-  g = function(options) return addValues('o', options) end,
-  b = function(options) return addValues('bo', options) end,
-  w = function(options) return addValues('wo', options) end,
-}
-
-local var = {
-  g = function(variables) return addValues('g', variables) end,
-  w = function(variables) return addValues('w', variables) end,
-  b = function(variables) return addValues('b', variables) end,
-  t = function(variables) return addValues('t', variables) end,
-  v = function(variables) return addValues('v', variables) end,
-}
-
--- default to non-recursive map
-local function defaultOptions(options)
-  return vim.tbl_extend('force', { noremap = true }, options or {})
-end
-
-local map = {
-  g = function(mode, lhs, rhs, options)
-    vim.api.nvim_set_keymap(mode, lhs, rhs, defaultOptions(options))
-  end,
-  b = function(mode, lhs, rhs, options, buffer)
-    buffer = buffer or 0
-    vim.api.nvim_buf_set_keymap(buffer, mode, lhs, rhs, defaultOptions(options))
-  end,
-}
-
--- The function is called `t` for `termcodes`.
-local function t(str)
-    -- Adjust boolean arguments as needed
-    return vim.api.nvim_replace_termcodes(str, true, true, true)
-end
-
--- creates the var `paqs` for packages inspection used in `hasPlugin`
-local paq_intern
-local paqs = {}
-local function paq(args)
-  if type(args) == 'string' then args = {args} end
-  local _, pluginName = unpack(fn.split(args[1], '/'))
-  paqs[pluginName] = true
-  paq_intern = paq_intern or require('paq-nvim').paq
-  paq_intern(args)
-end
-
--- check if package is active
-local function hasPlugin(plugin)
-  plugin = plugin or ''
-  local lookup = fn.stdpath('data') .. '/site/pack/paqs/start/' .. plugin
-  return paqs[plugin] and fn.isdirectory(lookup) ~= 0
-end
-
-local function createAugroup(autocmds, name)
-    cmd('augroup ' .. name)
-    cmd('autocmd!')
-    for _, autocmd in ipairs(autocmds) do
-        cmd('autocmd ' .. table.concat(autocmd, ' '))
-    end
-    cmd('augroup END')
-end
+local utils = require('namjul.utils')
+local paq = utils.paq
+local opt = utils.opt
+local map = utils.map
+local var = utils.var
+local hasPlugin = utils.hasPlugin
 
 ----------------------------------------
 -- Plugins
@@ -100,7 +25,7 @@ end
 
 cmd('packadd paq-nvim') -- load the package manager
 
-paq({'savq/paq-nvim', opt=true}) -- Let Paq manage itself
+paq({'savq/paq-nvim', opt = true}) -- Let Paq manage itself
 paq('tpope/vim-sensible') -- sensible defaults
 paq('tpope/vim-repeat') -- enables the repeat command to work with external plugins
 paq('tpope/vim-fugitive') -- git integration
@@ -116,7 +41,7 @@ paq('wincent/loupe') -- enhancements to vim's search commands
 paq('wincent/scalpel') -- helper for search and replace
 paq('editorconfig/editorconfig-vim') -- support editor config files (https://editorconfig.org/)
 paq('tmux-plugins/vim-tmux-focus-events') -- makes `FocusGained` and `FocusLost` work in terminal vim, `autoread` options then works as expected
-paq({'junegunn/fzf', hook=vim.fn['fzf#install'] }) -- fuzzy search
+paq({'junegunn/fzf', hook = vim.fn['fzf#install'] }) -- fuzzy search
 paq('junegunn/fzf.vim') -- adds commands to fzf
 paq('junegunn/goyo.vim') -- zen mode for writing
 paq('Yggdroot/indentLine') -- makes space indented code visible
@@ -345,13 +270,13 @@ end
 -- AUTO COMMANDS
 ----------------------------------------
 
-createAugroup({
+utils.createAugroup({
   { 'BufRead,BufNewFile', 'tsconfig.json', 'set', 'filetype=json5' },
   { 'BufRead,BufNewFile', 'eslintrc.json', 'set', 'filetype=json5' },
   { 'FileType', 'markdown', 'lua plainText()' }
 }, 'myfiletypedetect')
 
-createAugroup({
+utils.createAugroup({
   { 'FileType', 'dirvish', 'silent! nnoremap <nowait><buffer><silent> o :<C-U>.call dirvish#open("edit", 0)<CR>' }, -- Overwrite default mapping for the benefit of my muscle memory. ('o' would normally open in a split window, but we want it to open in the current one.)
   { 'FileType', 'dirvish', 'nmap <buffer> q gq' }, -- close buffers using `gq`
   { 'FileType', 'dirvish', 'nmap <buffer>cd :cd %:p:h<CR>:pwd<CR>' } -- change directory wih `cd`
