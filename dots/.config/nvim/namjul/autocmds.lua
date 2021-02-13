@@ -1,6 +1,8 @@
 local util = require('namjul.utils')
 local statusline = require('namjul.statusline')
 
+
+local focusedFlag = 'namjulFocused'
 local autocmds = {}
 
 local winhighlightBlurred = table.concat({
@@ -61,15 +63,27 @@ local setCursorline = function(active)
 end
 
 local function focusWindow()
-  statusline.focus()
-  util.opt.w({ winhighlight = '' })
-  util.opt.w({ conceallevel = 0 })
+  if util.var.b(focusedFlag) ~= true then
+    statusline.focus()
+    util.opt.w({
+      winhighlight = '',
+      conceallevel = 0,
+      list = true,
+    })
+    util.var.b({ [focusedFlag] = true })
+  end
 end
 
 local function blurWindow()
-  statusline.blur()
-  util.opt.w({ winhighlight = winhighlightBlurred })
-  util.opt.w({ conceallevel = 1 })
+  if util.var.b(focusedFlag) ~= false then
+    statusline.blur()
+    util.opt.w({
+      winhighlight = winhighlightBlurred,
+      conceallevel = 1,
+      list = false,
+    })
+    util.var.b({ [focusedFlag] = false })
+  end
 end
 
 function autocmds.bufEnter()
