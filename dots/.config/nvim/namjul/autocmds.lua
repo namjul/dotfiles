@@ -47,6 +47,10 @@ function autocmds.plainText()
   map.b('i', '?', '?<C-g>u')
 end
 
+local setCursorline = function(active)
+  util.opt.w({ cursorline = active })
+end
+
 local function focusWindow()
   statusline.focus()
 end
@@ -80,23 +84,26 @@ function autocmds.focusLost()
 end
 
 function autocmds.insertEnter()
-  -- print('insertEnter not specified')
+  setCursorline(false)
 end
 
 function autocmds.insertLeave()
-  -- print('insertLeave not specified')
+  setCursorline(true)
 end
 
 function autocmds.vimEnter()
   focusWindow()
+  setCursorline(true)
 end
 
 function autocmds.winEnter()
   focusWindow()
+  setCursorline(true)
 end
 
 function autocmds.winLeave()
   blurWindow()
+  setCursorline(false)
 end
 
 return autocmds
