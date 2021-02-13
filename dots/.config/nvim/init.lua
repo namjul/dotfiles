@@ -48,7 +48,6 @@ opt.w({
   number = true, -- Show relative lines numbers
   cursorline = true, -- Highlight current line
   wrap = false, -- don't wrap lines
-  conceallevel = 2, -- hide concealed text
 })
 
 -- Buffer

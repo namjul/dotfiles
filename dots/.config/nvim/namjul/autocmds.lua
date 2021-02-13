@@ -63,11 +63,13 @@ end
 local function focusWindow()
   statusline.focus()
   util.opt.w({ winhighlight = '' })
+  util.opt.w({ conceallevel = 0 })
 end
 
 local function blurWindow()
   statusline.blur()
   util.opt.w({ winhighlight = winhighlightBlurred })
+  util.opt.w({ conceallevel = 1 })
 end
 
 function autocmds.bufEnter()
