@@ -3,6 +3,15 @@ local statusline = require('namjul.statusline')
 
 local autocmds = {}
 
+local winhighlightBlurred = table.concat({
+  'CursorLineNr:LineNr',
+  'EndOfBuffer:ColorColumn',
+  'IncSearch:ColorColumn',
+  'Normal:ColorColumn',
+  'NormalNC:ColorColumn',
+  'SignColumn:ColorColumn'
+}, ',')
+
 function autocmds.plainText()
   local opt = util.opt
   local map = util.map
@@ -53,10 +62,12 @@ end
 
 local function focusWindow()
   statusline.focus()
+  util.opt.w({ winhighlight = '' })
 end
 
 local function blurWindow()
   statusline.blur()
+  util.opt.w({ winhighlight = winhighlightBlurred })
 end
 
 function autocmds.bufEnter()
