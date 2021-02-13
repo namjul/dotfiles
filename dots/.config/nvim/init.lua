@@ -12,12 +12,12 @@
 local cmd = vim.cmd -- to execute Vim commands e.g. cmd('pwd')
 local fn = vim.fn -- to call Vim functions e.g. fn.bufnr()
 local inspect = vim.inspect -- pretty-print Lua objects (useful for inspecting tables)
-local utils = require('namjul.utils')
-local paq = utils.paq
-local opt = utils.opt
-local map = utils.map
-local var = utils.var
-local hasPlugin = utils.hasPlugin
+local util = require('namjul.utils')
+local paq = util.paq
+local opt = util.opt
+local map = util.map
+local var = util.var
+local hasPlugin = util.hasPlugin
 
 ----------------------------------------
 -- Options
@@ -64,6 +64,7 @@ opt.b({
 
 cmd('packadd paq-nvim') -- load the package manager
 
+paq('wincent/pinnacle') -- Highlight group manipulation utils
 paq({'savq/paq-nvim', opt = true}) -- Let Paq manage itself
 paq('tpope/vim-sensible') -- sensible defaults
 paq('tpope/vim-repeat') -- enables the repeat command to work with external plugins
@@ -221,66 +222,39 @@ map.g('n', '<Leader><C-l>', ':rightb vsp new<CR>')
 map.g('n', '<Leader>2', ':w<CR>:! ./%<CR>') -- execute current file
 
 ----------------------------------------
--- CUSTOM FUNCTIONS
-----------------------------------------
-
-function _G.plainText()
-  if fn.has('conceal') == 1 then
-    opt.b({ concealcursor=nc })
-  end
-
-  opt.w({
-    list = false,
-    linebreak = true,
-    wrap = true,
-  })
-
-  opt.b({
-    textwidth = 0,
-    wrapmargin = 0,
-    wrapmargin = 0,
-  })
-
-  map.b('n', 'j', 'gj')
-  map.b('n', 'k', 'gk')
-  map.b('n', '0', 'g0')
-  map.b('n', '^', 'g^')
-  map.b('n', '$', 'g$')
-  map.b('n', 'j', 'gj')
-  map.b('n', 'k', 'gk')
-  map.b('n', '0', 'g0')
-  map.b('n', '^', 'g^')
-  map.b('n', '$', 'g$')
-
-  -- Create undo 'snapshots' when being in inline editing.
-  --
-  -- From:
-  -- - https://github.com/wincent/wincent/blob/44b112f26ec6435a9b78e64225eb0f9082999c1e/aspects/vim/files/.vim/autoload/wincent/functions.vim#L32
-  -- - https://twitter.com/vimgifs/status/913390282242232320
-  --
-  map.b('i', '!', '!<C-g>u')
-  map.b('i', ',', ',<C-g>u')
-  map.b('i', '.', '.<C-g>u')
-  map.b('i', ':', ':<C-g>u')
-  map.b('i', ';', ';<C-g>u')
-  map.b('i', '?', '?<C-g>u')
-end
-
-----------------------------------------
 -- AUTO COMMANDS
 ----------------------------------------
 
-utils.createAugroup({
+util.createAugroup({
   { 'BufRead,BufNewFile', 'tsconfig.json', 'set', 'filetype=json5' },
   { 'BufRead,BufNewFile', 'eslintrc.json', 'set', 'filetype=json5' },
-  { 'FileType', 'markdown', 'lua plainText()' }
-}, 'myfiletypedetect')
+  { 'FileType', 'markdown', 'lua', 'require"namjul.autocmds".plainText()' }
+}, 'namjulfiletypedetect')
 
-utils.createAugroup({
+util.createAugroup({
   { 'FileType', 'dirvish', 'silent! nnoremap <nowait><buffer><silent> o :<C-U>.call dirvish#open("edit", 0)<CR>' }, -- Overwrite default mapping for the benefit of my muscle memory. ('o' would normally open in a split window, but we want it to open in the current one.)
   { 'FileType', 'dirvish', 'nmap <buffer> q gq' }, -- close buffers using `gq`
   { 'FileType', 'dirvish', 'nmap <buffer>cd :cd %:p:h<CR>:pwd<CR>' } -- change directory wih `cd`
-}, 'mydirvish')
+}, 'namjuldirvish')
+
+util.createAugroup({
+  { 'Colorscheme', '*', 'lua require"namjul.statusline".updateHighlight()' }, -- trigger highlight update see https://vi.stackexchange.com/questions/3355/why-do-custom-highlights-in-my-vimrc-get-cleared-or-reset-to-default
+  { 'BufWinEnter,BufWritePost,FileWritePost,TextChanged,TextChangedI,WinEnter', '*', 'lua', 'require"namjul.statusline".checkModified()' }
+}, 'namjulstatusline')
+
+util.createAugroup({
+  { 'BufEnter', '*', 'lua', 'require"namjul.autocmds".bufEnter()' },
+  { 'BufLeave', '*', 'lua', 'require"namjul.autocmds".bufLeave()' },
+  { 'BufWinEnter', '*', 'lua', 'require"namjul.autocmds".bufWinEnter()' },
+  { 'BufWritePost', '*', 'lua', 'require"namjul.autocmds".bufWritePost()' },
+  { 'FocusGained', '*', 'lua', 'require"namjul.autocmds".focusGained()' },
+  { 'FocusLost', '*', 'lua', 'require"namjul.autocmds".focusLost()' },
+  { 'InsertEnter', '*', 'lua', 'require"namjul.autocmds".insertEnter()' },
+  { 'InsertLeave', '*', 'lua', 'require"namjul.autocmds".insertLeave()' },
+  { 'VimEnter', '*', 'lua', 'require"namjul.autocmds".vimEnter()' },
+  { 'WinEnter', '*', 'lua', 'require"namjul.autocmds".winEnter()' },
+  { 'WinLeave', '*', 'lua', 'require"namjul.autocmds".winLeave()' },
+}, 'namjulautocmds')
 
 ----------------------------------------
 -- Plugin Settings
@@ -330,8 +304,8 @@ if hasPlugin('gruvbox') then
     gruvbox_contrast_light = 'soft',
     gruvbox_italic = 1
   })
-  cmd('colorscheme gruvbox')
   opt.g({ background = 'dark' })
+  cmd('colorscheme gruvbox')
 end
 
 if hasPlugin('ale') then
@@ -387,7 +361,7 @@ if hasPlugin('ale') then
 end
 
 if hasPlugin('deoplete.nvim') then
-  var.g({ ['deoplete#enable_at_startup'] = 1 })
+  fn['deoplete#enable']()
 end
 
 if hasPlugin('fzf.vim') then
@@ -504,3 +478,10 @@ end
 if hasPlugin('vim-highlightedyank') then
   var.g({ highlightedyank_highlight_duration = 200 })
 end
+
+----------------------------------------
+-- Custom Plugins
+----------------------------------------
+
+require('namjul.statusline').set()
+

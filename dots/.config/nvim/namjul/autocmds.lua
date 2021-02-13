@@ -1,0 +1,102 @@
+local util = require('namjul.utils')
+local statusline = require('namjul.statusline')
+
+local autocmds = {}
+
+function autocmds.plainText()
+  local opt = util.opt
+  local map = util.map
+  if vim.fn.has('conceal') == 1 then
+    opt.b({ concealcursor=nc })
+  end
+
+  opt.w({
+    list = false,
+    linebreak = true,
+    wrap = true,
+  })
+
+  opt.b({
+    textwidth = 0,
+    wrapmargin = 0,
+    wrapmargin = 0,
+  })
+
+  map.b('n', 'j', 'gj')
+  map.b('n', 'k', 'gk')
+  map.b('n', '0', 'g0')
+  map.b('n', '^', 'g^')
+  map.b('n', '$', 'g$')
+  map.b('n', 'j', 'gj')
+  map.b('n', 'k', 'gk')
+  map.b('n', '0', 'g0')
+  map.b('n', '^', 'g^')
+  map.b('n', '$', 'g$')
+
+  -- Create undo 'snapshots' when being in inline editing.
+  --
+  -- From:
+  -- - https://github.com/wincent/wincent/blob/44b112f26ec6435a9b78e64225eb0f9082999c1e/aspects/vim/files/.vim/autoload/wincent/functions.vim#L32
+  -- - https://twitter.com/vimgifs/status/913390282242232320
+  --
+  map.b('i', '!', '!<C-g>u')
+  map.b('i', ',', ',<C-g>u')
+  map.b('i', '.', '.<C-g>u')
+  map.b('i', ':', ':<C-g>u')
+  map.b('i', ';', ';<C-g>u')
+  map.b('i', '?', '?<C-g>u')
+end
+
+local function focusWindow()
+  statusline.focus()
+end
+
+local function blurWindow()
+  statusline.blur()
+end
+
+function autocmds.bufEnter()
+  focusWindow()
+end
+
+function autocmds.bufLeave()
+  -- print('bufLeave not specified')
+end
+
+function autocmds.bufWinEnter()
+  -- print('bufWinEnter not specified')
+end
+
+function autocmds.bufWritePost()
+  -- print('bufWritePost not specified')
+end
+
+function autocmds.focusGained()
+  focusWindow()
+end
+
+function autocmds.focusLost()
+  blurWindow()
+end
+
+function autocmds.insertEnter()
+  -- print('insertEnter not specified')
+end
+
+function autocmds.insertLeave()
+  -- print('insertLeave not specified')
+end
+
+function autocmds.vimEnter()
+  focusWindow()
+end
+
+function autocmds.winEnter()
+  focusWindow()
+end
+
+function autocmds.winLeave()
+  blurWindow()
+end
+
+return autocmds
