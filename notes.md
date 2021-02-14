@@ -18,13 +18,8 @@
     - https://superuser.com/questions/395158/tmux-copy-mode-select-text-block
 - [ ] setup tiling windows manager again (https://www.youtube.com/watch?v=xnREqY-oyzM)
 - [ ] color for man pages
-- [ ] build own statusline
-  - vim filename should include folder
-  - https://irrellia.github.io/blogs/vim-statusline/
-  - https://shapeshed.com/vim-statuslines/
-  - https://hackernoon.com/the-last-statusline-for-vim-a613048959b2
-  - https://www.youtube.com/watch?v=Bsg-43PitrM
-  - https://www.youtube.com/watch?v=hdgovJPDXV8
+- [X] build own statusline
+  - [ ] vim filename should include folder
 - [ ] implement colorscheme switcher
   - https://github.com/wincent/wincent/blob/268bca998c940f2434b657d7499f13359045e062/roles/dotfiles/files/.vim/after/plugin/color.vim#L11
   - https://github.com/wincent/wincent/blob/2e4447ddfea1d967196eaf118bcc08fbd848dabd/roles/dotfiles/files/.zsh/colors#L43
