@@ -63,26 +63,26 @@ local setCursorline = function(active)
 end
 
 local function focusWindow()
-  if util.var.b(focusedFlag) ~= true then
-    statusline.focus()
+  if util.var.g(focusedFlag) ~= true then
     util.opt.w({
       winhighlight = '',
       conceallevel = 0,
       list = true,
     })
-    util.var.b({ [focusedFlag] = true })
+    util.var.g({ [focusedFlag] = true })
+    statusline.focus()
   end
 end
 
 local function blurWindow()
-  if util.var.b(focusedFlag) ~= false then
-    statusline.blur()
+  if util.var.g(focusedFlag) ~= false then
     util.opt.w({
       winhighlight = winhighlightBlurred,
       conceallevel = 1,
       list = false,
     })
-    util.var.b({ [focusedFlag] = false })
+    util.var.g({ [focusedFlag] = false })
+    statusline.blur()
   end
 end
 
