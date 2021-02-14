@@ -208,13 +208,13 @@ function statusline.update(stl, action)
   util.opt.w({
     statusline = type(stl) == 'table' and table.concat(stl) or stl,
   })
-  util.opt.g({
-    showmode = false,
-  })
 end
 
 function statusline.set()
-  statusline.update(defaultStl)
+  util.opt.g({
+    statusline = table.concat(defaultStl),
+    showmode = false,
+  })
 end
 
 return statusline
