@@ -86,6 +86,8 @@
 - [ ] remove `sheerun/vim-polyglot`
 - [ ] try https://github.com/Kethku/neovide
 - [ ] learn about the differences of `find` and `locate`
+- [ ] make use of folding https://vim.fandom.com/wiki/Make_views_automatic
+  - https://github.com/wincent/wincent/blob/master/aspects/vim/files/.vim/lua/wincent/autocmds.lua#L125
 
 
 ## notetaking lua plugin

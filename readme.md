@@ -60,6 +60,7 @@ Install a font of your choice
 - https://github.com/tonsky/FiraCode
 - https://monolisa.dev/
 - https://coding-fonts.css-tricks.com/fonts/anonymous-pro/
+- https://github.com/ryanoasis/nerd-fonts
 - Ascii Art "ANSI Shadow" https://patorjk.com/software/taag/#p=display&f=ANSI%20Shadow&t=bashrc
 
 ## Vim Keyboard shortcuts
@@ -103,4 +104,4 @@ Install a font of your choice
 
 - https://github.com/necolas/dotfiles
 - https://github.com/sarrost/dotfiles
-
+- https://github.com/simonsmith/dotfiles
