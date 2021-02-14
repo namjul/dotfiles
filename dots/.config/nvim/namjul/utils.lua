@@ -49,7 +49,7 @@ utils.map = {
 }
 
 -- The function is called `t` for `termcodes`.
-local function t(str)
+function utils.t(str)
     -- Adjust boolean arguments as needed
     return vim.api.nvim_replace_termcodes(str, true, true, true)
 end

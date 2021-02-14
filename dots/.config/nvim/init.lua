@@ -181,7 +181,7 @@ map.g('i', '<C-c>', '<Esc>')
 --------------------
 
 function _G.terminalEsc()
-    return vim.bo.filetype == 'fzf' and t('<Esc>') or t('<C-\\><C-n>')
+    return vim.bo.filetype == 'fzf' and util.t('<Esc>') or util.t('<C-\\><C-n>')
 end
 map.g('t', '<Esc>', 'v:lua.terminalEsc()', { expr = true })
 
@@ -481,5 +481,5 @@ end
 -- Custom Plugins
 ----------------------------------------
 
-require('namjul.statusline').set()
+-- require('namjul.statusline').set()
 
