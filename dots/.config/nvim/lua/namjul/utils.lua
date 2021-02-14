@@ -4,19 +4,23 @@ local inspect = vim.inspect -- pretty-print Lua objects (useful for inspecting t
 
 local utils = {}
 
-function utils.addValues(valueType, values)
-	local vimValue = vim[valueType]
+function utils.addValues(valueType, values, kind)
+  kind = kind or 'options'
+  local vimValue = vim[valueType]
 
-	if type(values) == 'string' then
-		return vimValue[values]
+  if type(values) == 'string' then
+    return vimValue[values]
   elseif type(values) == 'table' then
     for key, value in pairs(values) do
       vimValue[key] = value
+      if kind == 'options' and valueType ~= 'o' then -- util https://github.com/neovim/neovim/pull/13479 is done simulate VimScript option setting
+        vim['o'][key] = value
+      end
     end
   else
-		error('values should be a type of "table" or "string"')
-		return
-	end
+    error('values should be a type of "table" or "string"')
+    return
+  end
 end
 
 utils.opt = {
@@ -26,11 +30,11 @@ utils.opt = {
 }
 
 utils.var = {
-  g = function(variables) return utils.addValues('g', variables) end,
-  w = function(variables) return utils.addValues('w', variables) end,
-  b = function(variables) return utils.addValues('b', variables) end,
-  t = function(variables) return utils.addValues('t', variables) end,
-  v = function(variables) return utils.addValues('v', variables) end,
+  g = function(variables) return utils.addValues('g', variables, 'variables') end,
+  w = function(variables) return utils.addValues('w', variables, 'variables') end,
+  b = function(variables) return utils.addValues('b', variables, 'variables') end,
+  t = function(variables) return utils.addValues('t', variables, 'variables') end,
+  v = function(variables) return utils.addValues('v', variables, 'variables') end,
 }
 
 -- default to non-recursive map

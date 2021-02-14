@@ -43,8 +43,7 @@ opt.g({
   gdefault = true, -- Add the g flag to search/replace by default
   background = 'dark',
   pastetoggle = '<F2>',
-  -- tabline=%!luaeval("require\'namjul.tabline\'.line()"),
-  tabline = '%!v:lua.mytabline()'
+  tabline = '%!v:lua.mytabline()',
 })
 
 -- Window
@@ -59,7 +58,7 @@ opt.w({
 opt.b({
   tabstop = 2, -- Make tabs as wide as two spaces
   shiftwidth = 2, -- The # of spaces for indenting.
-  expandtab = true, -- use spaces, not tabs (optional)
+  expandtab = true, -- use spaces, not tabs
 })
 
 ----------------------------------------
