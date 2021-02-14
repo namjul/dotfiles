@@ -58,17 +58,27 @@ function autocmds.plainText()
   map.b('i', '?', '?<C-g>u')
 end
 
-local setCursorline = function(active)
+local function setCursorline(active)
   util.opt.w({ cursorline = active })
+end
+
+local function supportsBlurFocus(callback)
+  local filetype = util.opt.b('filetype')
+  local listed = util.opt.b('buflisted')
+  if autocmds.filetypeBlacklist[filetype] ~= true and listed then
+    callback(filetype)
+  end
 end
 
 local function focusWindow()
   if util.var.g(focusedFlag) ~= true then
-    util.opt.w({
-      winhighlight = '',
-      conceallevel = 0,
-      list = true,
-    })
+    util.opt.w({ winhighlight = '' })
+    supportsBlurFocus(function()
+      util.opt.w({
+        conceallevel = 0,
+        list = true,
+      })
+    end)
     util.var.g({ [focusedFlag] = true })
     statusline.focus()
   end
@@ -76,11 +86,13 @@ end
 
 local function blurWindow()
   if util.var.g(focusedFlag) ~= false then
-    util.opt.w({
-      winhighlight = winhighlightBlurred,
-      conceallevel = 1,
-      list = false,
-    })
+    util.opt.w({ winhighlight = winhighlightBlurred })
+    supportsBlurFocus(function()
+      util.opt.w({
+        conceallevel = 1,
+        list = false,
+      })
+    end)
     util.var.g({ [focusedFlag] = false })
     statusline.blur()
   end
@@ -132,5 +144,9 @@ function autocmds.winLeave()
   blurWindow()
   setCursorline(false)
 end
+
+autocmds.filetypeBlacklist = {
+  ['dirvish'] = true,
+}
 
 return autocmds
