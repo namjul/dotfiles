@@ -19,6 +19,11 @@ local map = util.map
 local var = util.var
 local hasPlugin = util.hasPlugin
 
+-- tabline = '%!v:lua.require(\'namjul.tabline\').line()' results in an error reported here https://github.com/neovim/neovim/issues/13862
+function _G.mytabline()
+  return require('namjul.tabline').line()
+end
+
 ----------------------------------------
 -- Options
 ----------------------------------------
@@ -37,7 +42,9 @@ opt.g({
   termguicolors = true, -- Enable term 24 bit colour
   gdefault = true, -- Add the g flag to search/replace by default
   background = 'dark',
-  pastetoggle = '<F2>'
+  pastetoggle = '<F2>',
+  -- tabline=%!luaeval("require\'namjul.tabline\'.line()"),
+  tabline = '%!v:lua.mytabline()'
 })
 
 -- Window
