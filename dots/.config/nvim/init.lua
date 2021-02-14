@@ -359,7 +359,7 @@ if hasPlugin('ale') then
 end
 
 if hasPlugin('deoplete.nvim') then
-  fn['deoplete#enable']()
+  vim.g['deoplete#enable_at_startup'] = 1
 end
 
 if hasPlugin('fzf.vim') then
@@ -481,5 +481,5 @@ end
 -- Custom Plugins
 ----------------------------------------
 
--- require('namjul.statusline').set()
+require('namjul.statusline').set()
 
