@@ -37,10 +37,7 @@ opt.g({
   termguicolors = true, -- Enable term 24 bit colour
   gdefault = true, -- Add the g flag to search/replace by default
   background = 'dark',
-
-  backup = false,
-  swapfile = false
-
+  pastetoggle = '<F2>'
 })
 
 -- Window
@@ -254,6 +251,7 @@ util.createAugroup({
   { 'VimEnter', '*', 'lua', 'require"namjul.autocmds".vimEnter()' },
   { 'WinEnter', '*', 'lua', 'require"namjul.autocmds".winEnter()' },
   { 'WinLeave', '*', 'lua', 'require"namjul.autocmds".winLeave()' },
+  { 'InsertLeave', '*', 'set nopaste' }, --Disable paste mode on leaving insert mode.
 }, 'namjulautocmds')
 
 ----------------------------------------

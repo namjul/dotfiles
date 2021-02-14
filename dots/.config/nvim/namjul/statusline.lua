@@ -22,6 +22,7 @@ local defaultStl = {
   '%(', -- Start item group.
   '[', -- Left bracket (literal).
   '%R', -- Read-only flag
+  '%{&paste?",PASTE":""}', -- show paste mode
   '%{luaeval("require\'namjul.statusline\'.filetype()")}',
   '%{luaeval("require\'namjul.statusline\'.fileencoding()")}', -- File-encoding if not UTF-8.
   ']', -- Right bracket (literal).
