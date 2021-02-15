@@ -83,7 +83,8 @@ brew install tig
 brew install sops
 brew install fx # https://github.com/antonmedv/fx/
 brew install jq # https://stedolan.github.io/
-brew install q #http://harelba.github.io/q/
+brew install q # http://harelba.github.io/q/
+brew install loc # https://github.com/cgag/loc
 
 # Remove outdated versions from the cellar
 brew cleanup
