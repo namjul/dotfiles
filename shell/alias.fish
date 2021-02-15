@@ -5,14 +5,15 @@
 ##############################################################################
 
 # quick switches to folders
-abbr cdd 'cd $HOME/.dotfiles'
-abbr d 'cd ~/Dropbox'
+abbr dd 'cd $HOME/.dotfiles'
+abbr db 'cd ~/Dropbox'
 
-# quick edits to dot files
-abbr vr 'nvim ~/.vimrc'
-abbr vd 'nvim ~/.dotfiles/dots'
-abbr vf 'nvim ~/.config/fish/config.fish'
+# quick edits
+alias ev 'nvim ~/.dotfiles/dots/.config/nvim/init.lua'
+alias ed 'nvim ~/.dotfiles/dots/'
+alias ef 'nvim ~/.dotfiles/dots/.config/fish/config.fish'
 
+abbr d cd
 abbr .. 'cd ..'
 abbr ... 'cd ../..'
 abbr .... 'cd ../../..'
@@ -55,6 +56,6 @@ abbr ltttt 'ls --tree -D -L 5 -I $TREE_IGNORE'
 # vim
 if command -v nvim &> /dev/null
   alias vim nvim # Use `\vim` or `command vim` to get the real vim.
-  alias v vim
+  alias e vim
 end
 
