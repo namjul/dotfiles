@@ -3,6 +3,7 @@
 - [ ] exiting neovim takes long time
 - [ ] enhance startuptime
 - [ ] simplify fzf code
+  - my alfred solution
 - [ ] refactor vimrc
 - [ ] make spellchecking work
 - [ ] add command to translate word under cursor using `trans`
@@ -45,10 +46,14 @@
   - build a dotfiles script in bash https://github.com/necolas/dotfiles/blob/master/bin/dotfiles
   - adjust dotfiles update process (https://github.com/caarlos0/dotfiles/blob/master/bin/dot_update)
   - https://github.com/eli-schwartz/dotfiles.sh/blob/master/dotfiles
+- [ ] add text snippets for fast writing https://medium.com/@nikitavoloboev/write-once-never-write-again-c2fa1f6c4e8
+- [ ] consider moving from homebrew to nix
 - [ ] create backup script https://github.com/necolas/dotfiles/blob/master/bin/backup
 - [ ] setup neomut
 - [ ] correct git message syntax highlighting https://shime.sh/git-commit-message-syntax-highlighting-in-vim
 - [ ] add [`SpaceFN`](https://geekhack.org/index.php?topic=51069.0) layout to keyboard
+- [ ] automaticall build readme content from source files using tree-sitter
+- [ ] create shortscuts to directories using `fzf`
 - [X] use https://github.com/csexton/trailertrash.vim
 - [X] setup `ToggleWrap` function
 - [x] `npm run` autocomplete
@@ -72,9 +77,12 @@
   - learn about https://en.wikipedia.org/wiki/GNU_Readline
   - learn about the differences of `find` and `locate`
 - checkout
+  * cli tools https://github.com/nikitavoloboev/my-mac-os#command-line-apps
   - give zsh with http://getantibody.github.io/ a try
   - give https://taskwarrior.org/ a try
   - give `dyng/ctrlsf.vim` a try
+  - dotfiles
+    * https://github.com/nikitavoloboev/dotfiles
   - consider https://github.com/tpope/vim-abolish
   - watch https://www.youtube.com/watch?v=N9UZNhcNRCQ&list=PLDJwwFOUm0KquQvDZGVfPsPLrnlbbXtXB
   - try https://github.com/volta-cli/volta
