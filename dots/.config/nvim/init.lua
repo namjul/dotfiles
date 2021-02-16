@@ -356,6 +356,7 @@ if hasPlugin('ale') then
   map.g('n', 'gD', '<Plug>(ale_go_to_type_definition)', { silent = true, noremap = false })
   map.g('n', 'gd', '<Plug>(ale_go_to_definition)', { silent = true, noremap = false })
   map.g('n', 'gr', '<Plug>(ale_find_references) :ALEFindReferences -relative<Return>', { silent = true, noremap = false })
+  map.g('n', 'gp', '<Plug>(ale_detail)', { silent = true, noremap = false })
   map.g('n', '<Leader>rn', '<Plug>(ale_rename)', { silent = true, noremap = false })
 
   function _G.showDocumentation()
