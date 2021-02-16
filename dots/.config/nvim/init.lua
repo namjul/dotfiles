@@ -76,7 +76,7 @@ paq('rbong/vim-flog') -- git branch viewer
 paq('tpope/vim-rhubarb') -- open files on github
 paq('tpope/vim-surround') -- adds operators for surrounding characters
 paq('tpope/vim-unimpaired') -- set of complementary pair commands
-paq('tpope/vim-commentary') -- Temporarily commenting
+paq('tomtom/tcomment_vim') -- Temporarily commenting
 paq('svermeulen/vim-cutlass') -- seperate `cut` form `delete`
 paq('svermeulen/vim-subversive') -- adds a subsitute operator
 paq('svermeulen/vim-yoink') -- adds easy access to history of yanks
@@ -481,6 +481,18 @@ end
 
 if hasPlugin('vim-highlightedyank') then
   var.g({ highlightedyank_highlight_duration = 200 })
+end
+
+if hasPlugin('tcomment_vim') then
+  var.g({
+    -- Prevent tcomment from making a zillion mappings (we just want the operator).
+    tcomment_mapleader1 = '',
+    tcomment_mapleader2 = '',
+    tcomment_mapleader_comment_anyway = '',
+
+    tcomment_mapleader_uncomment_anyway = 'gu', -- The default (g<) is a bit awkward to type.
+    ['tcomment#filetype#guess_typescriptreact'] = 1, -- make embedded jsx work
+  })
 end
 
 ----------------------------------------
