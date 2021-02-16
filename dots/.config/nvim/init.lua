@@ -365,7 +365,7 @@ if hasPlugin('ale') then
 end
 
 if hasPlugin('deoplete.nvim') then
-  vim.g['deoplete#enable_at_startup'] = 1
+  var.g({ ['deoplete#enable_at_startup'] = 1 })
 end
 
 if hasPlugin('fzf.vim') then
