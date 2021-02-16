@@ -31,7 +31,12 @@ end
 -- Global
 opt.g({
   mouse = 'a', -- Enable Mouse clicking
-  shortmess = 'I', -- Don’t show the intro message when starting Vim
+  shortmess = table.concat({
+    't', -- truncate file message if too long to prevent 'Press Enter' message
+    'A', -- ignore annoying swapfile messages
+    'I', -- Don’t show the intro message when starting Vim
+    'O', -- file-read message overwrites previous
+  }, ''),
   visualbell = true, --  Use visual bell instead of audible bell
   backupcopy = 'yes', -- optimize webpack watch option and also crontab editing
   clipboard = 'unnamedplus',
