@@ -1,10 +1,8 @@
 
 ## Todos
-- [ ] exiting neovim takes long time
-- [ ] enhance startuptime
 - [ ] simplify fzf code
   - my alfred solution
-- [ ] refactor vimrc
+- [ ] refactor vimrc https://stackoverflow.com/questions/16082991/vim-switching-between-files-rapidly-using-vanilla-vim-no-plugins
 - [ ] make spellchecking work
 - [ ] add command to translate word under cursor using `trans`
 - [ ] move vim-sensible into `vimrc`
@@ -54,6 +52,16 @@
 - [ ] add [`SpaceFN`](https://geekhack.org/index.php?topic=51069.0) layout to keyboard
 - [ ] automaticall build readme content from source files using tree-sitter
 - [ ] create shortscuts to directories using `fzf`
+- [ ] create own snippets library (only what i need)
+  - [ ] markdown snippets
+  - [ ] frontmatter
+  - [ ] javascript
+  - [ ] typescipt
+  - [ ] lua
+- fixes
+  - [ ] **opening directories with neovim**
+  - [ ] exiting neovim takes long time
+  - [ ] enhance startuptime
 - [X] use https://github.com/csexton/trailertrash.vim
 - [X] setup `ToggleWrap` function
 - [x] `npm run` autocomplete
@@ -144,3 +152,5 @@
   https://jamesbvaughan.com/markdown-pandoc-notes/
 - Pervane - Plain text file based note taking and knowledge base building tool, markdown editor, simple browser IDE
   https://github.com/hakanu/pervane
+- dendron
+  https://dendron.so/
