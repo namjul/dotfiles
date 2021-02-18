@@ -50,8 +50,8 @@ paq('tmux-plugins/vim-tmux-focus-events') -- makes `FocusGained` and `FocusLost`
 paq({'junegunn/fzf', hook = vim.fn['fzf#install'] }) -- fuzzy search
 paq('junegunn/fzf.vim') -- adds commands to fzf
 paq('junegunn/goyo.vim') -- zen mode for writing
-paq('Yggdroot/indentLine') -- makes space indented code visible
-paq('lukas-reineke/indent-blankline.nvim') --
+-- paq('Yggdroot/indentLine') -- makes space indented code visible
+-- paq({ 'lukas-reineke/indent-blankline.nvim', branch = 'lua' }) --
 paq('alok/notational-fzf-vim') -- combines the fzf with the concept from notational
 paq('benmills/vimux') -- allows to send commands from vim to tmux
 paq('tyewang/vimux-jest-test') -- simplifies running jest test from vim
@@ -442,10 +442,6 @@ if hasPlugin('vim-cutlass') then
   map.g('n', 'X', 'D')
 end
 
-if hasPlugin('indentLine') then
-  var.g({ indentLine_setConceal = 0 })
-end
-
 if hasPlugin('vim-gutentags') then
   var.g({ gutentags_ctags_tagfile = '.git/tags' })
 end
@@ -504,4 +500,3 @@ end
 ----------------------------------------
 
 require('namjul.statusline').set()
-
