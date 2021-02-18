@@ -156,7 +156,6 @@ map.g('n', 'j', '(v:count > 5 ? "m\\\'" . v:count : "") . "j"', { expr = true })
 -- repurpose cursor keys (accessible near homerow via "SpaceFN" layout) for one
 -- of my most oft-use key sequences.
 map.g('n', '<Up>', ':cprevious<CR>', { silent = true })
-map.g('n', '<Up>', ':cprevious<CR>', { silent = true })
 map.g('n', '<Down>' , ':cnext<CR>', { silent = true })
 map.g('n', '<Left>' , ':cpfile<CR>', { silent = true })
 map.g('n', '<Right>' , ':cnfile<CR>', { silent = true })
