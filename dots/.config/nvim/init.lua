@@ -121,6 +121,7 @@ opt.w({
   cursorline = true, -- Highlight current line
   wrap = false, -- don't wrap lines
   list = true, -- show whitespaces
+  listchars = 'tab:>\\ ,trail:-,extends:>,precedes:<,nbsp:+'
 })
 
 -- Buffer
