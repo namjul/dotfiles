@@ -222,7 +222,7 @@ schemes:
       cyan:    '0x8ec07c'
       white:   '0xebdbb2'
 
-colors: *gruvbox
+colors: *gruvbox_light
 
 # Visual Bell
 #
