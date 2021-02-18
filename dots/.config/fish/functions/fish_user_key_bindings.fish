@@ -2,7 +2,6 @@ function fish_user_key_bindings
   # vi mode
   fish_vi_key_bindings
   bind -M insert -m default jk force-repaint
-  bind -M insert -m default \ck force-repaint
 
   # fzf
   bind \cf '__fzf_search_current_dir'

@@ -186,8 +186,6 @@ map.g('c', '<C-e>', '<End>')
 
 -- esc mapping
 map.g('i', 'jk', '<Esc>', { noremap = false })
-map.g('i', '<C-K>', '<Esc>', { noremap = false })
-map.g('i', '<C-c>', '<Esc>')
 
 -- TERMINAL
 --------------------
