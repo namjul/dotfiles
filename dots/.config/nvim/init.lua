@@ -25,48 +25,6 @@ function _G.mytabline()
 end
 
 ----------------------------------------
--- Options
-----------------------------------------
-
--- Global
-opt.g({
-  mouse = 'a', -- Enable Mouse clicking
-  shortmess = table.concat({
-    't', -- truncate file message if too long to prevent 'Press Enter' message
-    'A', -- ignore annoying swapfile messages
-    'I', -- Don’t show the intro message when starting Vim
-    'O', -- file-read message overwrites previous
-  }, ''),
-  visualbell = true, --  Use visual bell instead of audible bell
-  backupcopy = 'yes', -- optimize webpack watch option and also crontab editing
-  clipboard = 'unnamedplus',
-  ignorecase = true,
-  smartcase = true,
-  wildignorecase = true,
-  hidden = true,
-  termguicolors = true, -- Enable term 24 bit colour
-  gdefault = true, -- Add the g flag to search/replace by default
-  background = 'dark',
-  pastetoggle = '<F2>',
-  tabline = '%!v:lua.mytabline()',
-})
-
--- Window
-opt.w({
-  number = true, -- Show relative lines numbers
-  cursorline = true, -- Highlight current line
-  wrap = false, -- don't wrap lines
-  list = true, -- show whitespaces
-})
-
--- Buffer
-opt.b({
-  tabstop = 2, -- Make tabs as wide as two spaces
-  shiftwidth = 2, -- The # of spaces for indenting.
-  expandtab = true, -- use spaces, not tabs
-})
-
-----------------------------------------
 -- Plugins
 ----------------------------------------
 
@@ -129,6 +87,48 @@ paq('machakann/vim-highlightedyank') -- highlights yanked text
 paq('dkarter/bullets.vim') -- enhance bullet points management
 paq('csexton/trailertrash.vim') -- highlight trailing whitespace
 paq('kassio/neoterm') -- simple terminal access
+
+----------------------------------------
+-- Options
+----------------------------------------
+
+-- Global
+opt.g({
+  mouse = 'a', -- Enable Mouse clicking
+  shortmess = table.concat({
+    't', -- truncate file message if too long to prevent 'Press Enter' message
+    'A', -- ignore annoying swapfile messages
+    'I', -- Don’t show the intro message when starting Vim
+    'O', -- file-read message overwrites previous
+  }, ''),
+  visualbell = true, --  Use visual bell instead of audible bell
+  backupcopy = 'yes', -- optimize webpack watch option and also crontab editing
+  clipboard = 'unnamedplus',
+  ignorecase = true,
+  smartcase = true,
+  wildignorecase = true,
+  hidden = true,
+  termguicolors = true, -- Enable term 24 bit colour
+  gdefault = true, -- Add the g flag to search/replace by default
+  background = 'dark',
+  pastetoggle = '<F2>',
+  tabline = '%!v:lua.mytabline()',
+})
+
+-- Window
+opt.w({
+  number = true, -- Show relative lines numbers
+  cursorline = true, -- Highlight current line
+  wrap = false, -- don't wrap lines
+  list = true, -- show whitespaces
+})
+
+-- Buffer
+opt.b({
+  tabstop = 2, -- Make tabs as wide as two spaces
+  shiftwidth = 2, -- The # of spaces for indenting.
+  expandtab = true, -- use spaces, not tabs
+})
 
 ----------------------------------------
 -- Custom Mappings
