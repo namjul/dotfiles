@@ -46,6 +46,7 @@ local mode_map = {
 	['S'] = 'S·line',
 	[''] = 'S·block',
 	['i'] = 'I',
+	['ic'] = 'I·complete',
 	['R'] = 'replace',
 	['Rv'] = 'V·replace',
 	['c'] = 'command',
