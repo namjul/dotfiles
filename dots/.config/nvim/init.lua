@@ -19,9 +19,32 @@ local map = util.map
 local var = util.var
 local hasPlugin = util.hasPlugin
 
+----------------------------------------
+-- Global functions
+----------------------------------------
+
 -- tabline = '%!v:lua.require(\'namjul.tabline\').line()' results in an error reported here https://github.com/neovim/neovim/issues/13862
 function _G.mytabline()
   return require('namjul.tabline').line()
+end
+
+-- markdown table alignment in lua
+-- https://gist.github.com/tpope/287147
+function _G.alignMdTable()
+  local p = '^%s*|%s.*%s|%s*$'
+  local lineNumber = fn.line('.')
+  local pline = fn.getline(lineNumber - 1)
+  local cline = fn.getline('.')
+  local nline = fn.getline(lineNumber + 1)
+  local ccolumn = fn.col('.')
+
+  if fn.exists(':Tabularize') and cline:match('^%s*|') and (pline:match(p) or nline:match(p)) then
+    local column = #cline:sub(1, ccolumn):gsub('[^|]', '')
+    local position = #fn.matchstr(cline:sub(1, ccolumn), ".*|\\s*\\zs.*")
+    cmd('Tabularize/|/l1') -- `l` means left aligned and `1` means one space of cell padding
+    cmd('normal! 0')
+    fn.search(('[^|]*|'):rep(column) .. ('\\s\\{-\\}'):rep(position), 'ce', lineNumber)
+  end
 end
 
 ----------------------------------------
@@ -87,6 +110,7 @@ paq('machakann/vim-highlightedyank') -- highlights yanked text
 paq('dkarter/bullets.vim') -- enhance bullet points management
 paq('csexton/trailertrash.vim') -- highlight trailing whitespace
 paq('kassio/neoterm') -- simple terminal access
+paq('godlygeek/tabular') -- auto alignment
 
 ----------------------------------------
 -- Options
@@ -183,8 +207,8 @@ map.g('c', '<C-e>', '<End>')
 -- INSERT
 --------------------
 
--- esc mapping
-map.g('i', 'jk', '<Esc>', { noremap = false })
+map.g('i', 'jk', '<Esc>', { noremap = false }) -- esc mapping
+map.g('i', '<Bar>', '<Bar><Esc>:call v:lua.alignMdTable() <CR>a', { silent = true }) -- align markdown table
 
 -- TERMINAL
 --------------------
