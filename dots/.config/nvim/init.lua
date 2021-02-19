@@ -31,16 +31,16 @@ end
 -- markdown table alignment in lua
 -- https://gist.github.com/tpope/287147
 function _G.alignMdTable()
-  local p = '^%s*|%s.*%s|%s*$'
+  local pattern = '^%s*|%s.*%s|%s*$'
   local lineNumber = fn.line('.')
-  local pline = fn.getline(lineNumber - 1)
-  local cline = fn.getline('.')
-  local nline = fn.getline(lineNumber + 1)
-  local ccolumn = fn.col('.')
+  local currentColumn = fn.col('.')
+  local previousLine = fn.getline(lineNumber - 1)
+  local currentLine = fn.getline('.')
+  local nextLine = fn.getline(lineNumber + 1)
 
-  if fn.exists(':Tabularize') and cline:match('^%s*|') and (pline:match(p) or nline:match(p)) then
-    local column = #cline:sub(1, ccolumn):gsub('[^|]', '')
-    local position = #fn.matchstr(cline:sub(1, ccolumn), ".*|\\s*\\zs.*")
+  if fn.exists(':Tabularize') and currentLine:match('^%s*|') and (previousLine:match(pattern) or nextLine:match(pattern)) then
+    local column = #currentLine:sub(1, currentColumn):gsub('[^|]', '')
+    local position = #fn.matchstr(currentLine:sub(1, currentColumn), ".*|\\s*\\zs.*")
     cmd('Tabularize/|/l1') -- `l` means left aligned and `1` means one space of cell padding
     cmd('normal! 0')
     fn.search(('[^|]*|'):rep(column) .. ('\\s\\{-\\}'):rep(position), 'ce', lineNumber)
