@@ -70,8 +70,11 @@ paq('wincent/loupe') -- enhancements to vim's search commands
 paq('wincent/scalpel') -- helper for search and replace
 paq('editorconfig/editorconfig-vim') -- support editor config files (https://editorconfig.org/)
 paq('tmux-plugins/vim-tmux-focus-events') -- makes `FocusGained` and `FocusLost` work in terminal vim, `autoread` options then works as expected
-paq({'junegunn/fzf', hook = vim.fn['fzf#install'] }) -- fuzzy search
-paq('junegunn/fzf.vim') -- adds commands to fzf
+-- paq({'junegunn/fzf', hook = vim.fn['fzf#install'] }) -- fuzzy search
+-- paq('junegunn/fzf.vim') -- adds commands to fzf
+paq('nvim-lua/popup.nvim')
+paq('nvim-lua/plenary.nvim')
+paq('nvim-telescope/telescope.nvim')
 paq('junegunn/goyo.vim') -- zen mode for writing
 -- paq('Yggdroot/indentLine') -- makes space indented code visible
 -- paq({ 'lukas-reineke/indent-blankline.nvim', branch = 'lua' }) --
@@ -213,10 +216,7 @@ map.g('i', '<Bar>', '<Bar><Esc>:call v:lua.alignMdTable() <CR>a', { silent = tru
 -- TERMINAL
 --------------------
 
-function _G.terminalEsc()
-    return vim.bo.filetype == 'fzf' and util.t('<Esc>') or util.t('<C-\\><C-n>')
-end
-map.g('t', '<Esc>', 'v:lua.terminalEsc()', { expr = true })
+map.g('t', '<Esc>', '<C-\\><C-n>', { expr = true })
 
 -- LEADER
 --------------------
@@ -235,13 +235,13 @@ map.g('n', '<Leader>w', ':write<CR>') -- quick save
 map.g('n', '<Leader>x', ':exit<CR>') -- like ":wq", but write only when changes have been
 map.g('n', '<Leader>q', ':quit<CR>') -- quites the current window and vim if its the last
 
--- fzf mappings
-map.g('n', '<Leader>*', ':Rg <C-R><C-W><CR>', { silent = true }) -- search for word under cursor
-map.g('n', '<Leader>/', ':Rg<space>') -- search for word
-map.g('n', '<Leader>f', ':Files<CR>', { silent = true }) -- search for file
-map.g('n', '<Leader>b', ':Buffers<CR>', { silent = true }) -- search buffers
-map.g('n', '<Leader>z', ':History<CR>', { silent = true }) -- search history - TODO clashes with GitGutter
-map.g('n', '<Leader>c', ':Commands<CR>', { silent = true }) -- search commands
+-- telescrope mappings
+-- map.g('n', '<Leader>*', ':Rg <C-R><C-W><CR>', { silent = true }) -- search for word under cursor
+map.g('n', '<Leader>/', '<cmd>:Telescope live_grep<CR>', { silent = false }) -- search for word
+map.g('n', '<Leader>f', ':lua require(\'telescope.builtin\').find_files({hidden = true})<CR>', { silent = true }) -- search for word under cursor
+map.g('n', '<Leader>b', '<cmd>:Telescope buffers<cr>', { silent = false }) -- search buffers
+map.g('n', '<Leader>h', '<cmd>:Telescope help_tags<cr>', { silent = false }) -- search buffers
+map.g('n', '<Leader>c', '<cmd>:Telescope commands<cr>', { silent = false }) -- search commands
 
 -- open new splits in a semantic way
 map.g('n', '<Leader><C-h>', ':lefta vs new<CR>')
@@ -396,15 +396,24 @@ if hasPlugin('deoplete.nvim') then
   var.g({ ['deoplete#enable_at_startup'] = 1 })
 end
 
-if hasPlugin('fzf.vim') then
-  var.g({
-    fzf_layout = { window = { width = 0.9, height = 1 } },
-    fzf_action = {
-      ['ctrl-t'] = 'tab split',
-      ['ctrl-s'] = 'split',
-      ['ctrl-v'] = 'vsplit',
+if hasPlugin('telescope.nvim') then
+  local actions = require('telescope.actions')
+  require('telescope').setup{
+    defaults = {
+      file_sorter = require('telescope.sorters').get_fzy_sorter,
+      prompt_prefix = ' >',
+      color_devicons = true,
+
+      file_previewer   = require('telescope.previewers').vim_buffer_cat.new,
+      grep_previewer   = require('telescope.previewers').vim_buffer_vimgrep.new,
+      qflist_previewer = require('telescope.previewers').vim_buffer_qflist.new,
+      mappings = {
+        i = {
+          ["<esc>"] = actions.close
+        },
+      },
     }
-  })
+  }
 end
 
 if hasPlugin('neoterm') then
