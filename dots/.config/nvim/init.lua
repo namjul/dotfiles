@@ -437,9 +437,8 @@ end
 if hasPlugin('vim-polyglot') then
   var.g({ javascript_plugin_jsdoc = 1 })
   var.g({ javascript_plugin_flow = 1 })
-  var.g({ vim_markdown_fenced_languages = { 'jsx=javascriptreact', 'js=javascript', 'tsx=typescriptreact', 'ts=typescriptreact' } })
+  var.g({ vim_markdown_fenced_languages = { 'jsx=javascriptreact', 'js=javascript', 'tsx=typescriptreact', 'ts=typescriptreact', 'yarn=sh', 'git=sh' } })
   var.g({ vim_markdown_no_extensions_in_markdown = 1 })
-  var.g({ vim_markdown_auto_insert_bullets = 0 })
   var.g({ vim_markdown_new_list_item_indent = 0 })
 end
 
