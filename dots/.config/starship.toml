@@ -6,3 +6,6 @@ vicmd_symbol = "[🆅](bold #a89984)"
 [package]
 symbol = ""
 disabled = true
+
+[nodejs]
+disabled = true

@@ -5,13 +5,19 @@
 
 - list of [software i use](scripts/brew)
 - globally installed [npm packages](dots/default-npm-packages)
-- [vim config](dots/vimrc)
+- [neovim](dots/.config/nvim/init.lua)
 - [tmux config](dots/tmux.conf)
 - [alacritty](dots/alacritty.yml)
 - [gitconfig](dots/gitconfig)
-- [fish configuration](dots/fish/config.fish)
-- [aliases](shell/alias.fish), [functions](dots/fish/functions)
-- [starship](https://starship.rs/) [config](dots/starship.toml)
+- [fish configuration](dots/.config/fish/config.fish)
+- [aliases](shell/alias.fish), [functions](shell/functions.fish)
+- [starship](dots/starship)
+- [espanso](dots/.config/espanso/default.yml)
+- [zathura](dots/.config/zathura/zathurarc)
+- [ripgrep](dots/.ripgreprc)
+- [ripgrep](dots/.ripgreprc)
+
+![Screenshot](screenshot.png)
 
 ## Dependencies
 
