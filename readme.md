@@ -15,7 +15,6 @@
 - [espanso](dots/.config/espanso/default.yml)
 - [zathura](dots/.config/zathura/zathurarc)
 - [ripgrep](dots/.ripgreprc)
-- [ripgrep](dots/.ripgreprc)
 
 ## Dependencies
 
