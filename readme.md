@@ -1,5 +1,7 @@
 
-# dotfiles ⛰
+# dotfiles [⛰ ](screenshot.png)
+
+- [Screenshot](screenshot.png)
 
 ## Parts
 
@@ -16,8 +18,6 @@
 - [zathura](dots/.config/zathura/zathurarc)
 - [ripgrep](dots/.ripgreprc)
 - [ripgrep](dots/.ripgreprc)
-
-![Screenshot](screenshot.png)
 
 ## Dependencies
 
