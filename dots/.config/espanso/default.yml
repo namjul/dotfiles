@@ -1,0 +1,38 @@
+# espanso configuration file
+
+# This is the default configuration file, change it as you like it
+# You can refer to the official documentation:
+# https://espanso.org/docs/
+
+# Matches are the substitution rules, when you type the "trigger" string
+# it gets replaced by the "replace" string.
+matches:
+  - trigger: ":e"
+    replace: "samuel.hobl@gmail.com"
+
+  - trigger: "mfg"
+    replace: "Mit freundlichen Grüßen"
+
+  - triggers: ["teh", "thee"]
+    replace: "the"
+    word: true
+
+  - trigger: "dont"
+    replace: "don't"
+    word: true
+
+  - trigger: "cant"
+    replace: "can't"
+    word: true
+
+  - trigger: "consc"
+    replace: "consciousness"
+    word: true
+
+  - trigger: ":("
+    replace: "[$|$]({{clipboard}})"
+    vars:
+      - name: "clipboard"
+        type: "clipboard"
+
+toggle_key: OFF
