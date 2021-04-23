@@ -47,15 +47,15 @@ brew install git
 brew install diff-so-fancy
 
 # rust
-brew install fd
-brew install bat
+brew install fd # finder
+brew install bat # previewer
 brew install starship
 brew install exa
 brew install ripgrep # Ripgrep - fzf/vim is configured to use this
 brew install procs
 brew install sd
 brew install dust
-brew install tokei
+brew install tokei # Count your code, quickly.
 brew install tealdeer
 brew install bandwhich
 brew install grex
