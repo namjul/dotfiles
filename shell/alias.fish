@@ -7,11 +7,14 @@
 # quick switches to folders
 abbr dd 'cd $HOME/.dotfiles'
 abbr db 'cd ~/Dropbox'
+abbr dw 'cd ~/Dropbox/personal-wiki'
+abbr dc 'cd ~/code'
 
 # quick edits
 alias ev 'nvim ~/.dotfiles/dots/.config/nvim/init.lua'
 alias ed 'nvim ~/.dotfiles/dots/'
 alias ef 'nvim ~/.dotfiles/dots/.config/fish/config.fish'
+alias et 'nvim ~/Dropbox/todo'
 
 abbr d cd
 abbr .. 'cd ..'
@@ -37,7 +40,7 @@ abbr tmp ' cd (mktemp -d)'
 abbr pbcopy 'xclip -selection clipboard' # replicate pbcopy from macos
 abbr pbpaste 'xclip -selection clipboard -o'
 abbr x exit
-abbr t tmux
+abbr t todo
 abbr en 'trans :en'
 abbr de 'trans :de'
 abbr grn 'git rebase -i HEAD~ ' # git interactive rebase to n
