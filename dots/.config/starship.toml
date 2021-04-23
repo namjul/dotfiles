@@ -1,3 +1,5 @@
+# https://starship.rs/
+
 [character]
 success_symbol = "[➜](bold #b8bb26)"
 error_symbol = "[➜](bold #fb4934)"

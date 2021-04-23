@@ -1,3 +1,5 @@
+# https://pwmt.org/projects/zathura/
+
 # zoom and scroll step size
 set zoom-step 20
 set scroll-step 80
