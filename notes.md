@@ -1,7 +1,5 @@
 
 ## Todos
-- [ ] simplify fzf code
-  - my alfred solution
 - [ ] refactor vimrc https://stackoverflow.com/questions/16082991/vim-switching-between-files-rapidly-using-vanilla-vim-no-plugins
 - [ ] make spellchecking work
 - [ ] add command to translate word under cursor using `trans`
@@ -32,6 +30,7 @@
 - [ ] settle on a file explorer(ranger, lf, fff, vifm)
   - [ ] try out https://github.com/dylanaraps/fff
 - [ ] setup tiling windows manager again (https://www.youtube.com/watch?v=xnREqY-oyzM)
+- [ ] hide mouse cursor
 - [ ] color for man pages
   - [ ] vim filename should include folder
 - [ ] implement colorscheme switcher
@@ -51,17 +50,36 @@
 - [ ] correct git message syntax highlighting https://shime.sh/git-commit-message-syntax-highlighting-in-vim
 - [ ] add [`SpaceFN`](https://geekhack.org/index.php?topic=51069.0) layout to keyboard
 - [ ] automaticall build readme content from source files using tree-sitter
-- [ ] create shortscuts to directories using `fzf`
+- [ ] replace fzf with [telescope](https://www.youtube.com/watch?v=2tO2sT7xX2k)
+  - [ ] replacement on resize vim window
+- [ ] switch from ale to lsp
+  -  https://github.com/mfussenegger/nvim-lint/
+- [ ] fzf
+  - [ ] https://github.com/stsewd/fzf-checkout.vim
+  - [ ] simplify fzf code
+    - my alfred solution
+  - [ ] create shortscuts to directories using `fzf`
+  - [ ] vim command open all files from filtered fzf output
 - [ ] create own snippets library (only what i need)
   - [ ] markdown snippets
   - [ ] frontmatter
   - [ ] javascript
   - [ ] typescipt
   - [ ] lua
+- [ ] close preview window on auto-complete https://stackoverflow.com/questions/3105307/how-do-you-automatically-remove-the-preview-window-after-autocompletion-in-vim
+- [ ] consider replacing `asdf` `nodejs` with [fnm](https://github.com/Schniz/fnm)
+  - Inspiration: https://github.com/starship/starship/issues/2220
+- updates
+  * update fisher https://github.com/jorgebucaran/fisher/issues/652
 - fixes
   - [ ] **opening directories with neovim**
   - [ ] exiting neovim takes long time
   - [ ] enhance startuptime
+  - [ ] crontab.md should have `markdown` ft
+  - [ ] improve fish vim mode delay https://github.com/fish-shell/fish-shell/issues/5894
+  - [ ] save undo sessions
+  - [ ] make deople autocomplete work on jsx prop types
+  - [ ] typescript autocomplete not showing relevant options or too much
 - [X] use https://github.com/csexton/trailertrash.vim
 - [X] setup `ToggleWrap` function
 - [x] `npm run` autocomplete
@@ -106,6 +124,8 @@
     * https://gist.github.com/jackkinsella/aa7374a6832cca8a09eadc3434a33c24
     * https://github.com/wincent/wincent/tree/master/roles/dotfiles/files/.vim
     * https://github.com/codota/tabnine-vim
+  - [Vim task management with syncint to TaskWarrior](https://github.com/samgriesemer/vim-roam-task)
+  - [Setup global shortscuts with espanso](https://espanso.org/)
 - shortcut to dropbox link
 
 
@@ -114,6 +134,7 @@
 ### features
 
 - Peek? and Go to Definition for `[[wiki-links]]`
+  * https://github.com/samgriesemer/vim-roam-md
 - Create New Note On Missing Go To Definition
 - Autocompletion for Wiki Links (uniqueFilenames, relativePaths)
 - Backlink Explorer
