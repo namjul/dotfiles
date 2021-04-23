@@ -1,8 +1,6 @@
 
 # dotfiles [⛰ ](screenshot.png)
 
-- [Screenshot](screenshot.png)
-
 ## Parts
 
 - list of [software i use](scripts/brew)
