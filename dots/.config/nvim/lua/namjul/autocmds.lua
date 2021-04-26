@@ -1,6 +1,6 @@
 local util = require('namjul.utils')
 local statusline = require('namjul.statusline')
-
+local cmd = vim.cmd
 
 local focusedFlag = 'namjulFocused'
 local autocmds = {}
@@ -143,6 +143,10 @@ end
 function autocmds.winLeave()
   blurWindow()
   setCursorline(false)
+end
+
+function autocmds.skeleton(path)
+  cmd('0r '..path)
 end
 
 autocmds.filetypeBlacklist = {

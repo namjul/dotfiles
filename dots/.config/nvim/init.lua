@@ -251,6 +251,14 @@ map.g('n', '<Leader><C-l>', ':rightb vsp new<CR>')
 
 map.g('n', '<Leader>2', ':w<CR>:! ./%<CR>') -- execute current file
 
+-- opens my daily note/journal page
+function _G.openDailyJN(type)
+  local path = type == 'journal' and type..'/'..os.date("%d.%m.%Y") or 'personal-wiki/wiki/daily-notes'
+  return ':e ~/Dropbox/'..path..'.md'..util.t('<CR>')
+end
+map.g('n', '<Leader>d', 'v:lua.openDailyJN("note")', { expr = true })
+map.g('n', '<Leader>j', 'v:lua.openDailyJN("journal")', { expr = true })
+
 ----------------------------------------
 -- AUTO COMMANDS
 ----------------------------------------
@@ -286,6 +294,11 @@ util.createAugroup({
   { 'WinLeave', '*', 'lua', 'require"namjul.autocmds".winLeave()' },
   { 'InsertLeave', '*', 'set nopaste' }, --Disable paste mode on leaving insert mode.
 }, 'namjulautocmds')
+
+util.createAugroup({
+    { 'BufNewFile', '*.sh', 'lua', 'require"namjul.autocmds".skeleton("~/.config/nvim/templates/skeleton.sh")' },
+    { 'BufNewFile', '27.04.2021.md', 'lua', 'require"namjul.autocmds".skeleton("~/.config/nvim/templates/journal-morning-skeleton.md")' }
+  }, 'namjulskeletons')
 
 ----------------------------------------
 -- Plugin Settings
