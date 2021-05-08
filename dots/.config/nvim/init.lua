@@ -497,8 +497,8 @@ if hasPlugin('vim-yoink') then
 end
 
 if hasPlugin('notational-fzf-vim') then
-  map.g('n', '<Leader>m', ':NV<CR>', { silent = true })
-  var.g({ nv_search_paths = { '~/Dropbox/personal-wiki/wiki', '~/Dropbox/journal', '~/Dropbox/notes' } })
+  map.g('n', '<C-l>', ':NV<CR>', { silent = true })
+  var.g({ nv_search_paths = { '~/Dropbox/personal-wiki/wiki', '~/Dropbox/journal', '~/Dropbox/notes', '~/Dropbox/drafts' } })
 end
 
 if hasPlugin('vim-gitgutter') then
