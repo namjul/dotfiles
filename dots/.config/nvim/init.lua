@@ -253,8 +253,12 @@ map.g('n', '<Leader>2', ':w<CR>:! ./%<CR>') -- execute current file
 
 -- opens my daily note/journal page
 function _G.openDailyJN(type)
-  local path = type == 'journal' and type..'/'..os.date("%d.%m.%Y") or 'personal-wiki/wiki/daily-notes'
-  return ':e ~/Dropbox/'..path..'.md'..util.t('<CR>')
+  local path = os.getenv('HOME')..'/Dropbox/'..(type == 'journal' and type..'/'..os.date("%d.%m.%Y") or 'personal-wiki/wiki/daily-notes')..'.md'
+  local command = ':e '..path
+  if not util.fileExists(path) and type == 'journal' then
+    command = command..' | 0r ~/.config/nvim/templates/journal-skeleton.md'
+  end
+  return command..util.t('<CR>')
 end
 map.g('n', '<Leader>d', 'v:lua.openDailyJN("note")', { expr = true })
 map.g('n', '<Leader>j', 'v:lua.openDailyJN("journal")', { expr = true })
