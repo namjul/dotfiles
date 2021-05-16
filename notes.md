@@ -135,6 +135,7 @@
   - https://github.com/thaerkh/vim-workspace
 - shortcut to dropbox link
 - add personal-wiki quotes to startifies `g:startify_custom_header_quotes`
+- setup [tmux resurrect](https://tmuxcheatsheet.com/tmux-plugins-tools/?full_name=tmux-plugins%2Ftmux-resurrect)
 
 ## To watch
 - [ ] [intro into tmux - sessions, windows, panes, and commands, and how to use tmux](https://www.youtube.com/watch?v=NZO8KjNbwJk)
