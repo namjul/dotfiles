@@ -1,3 +1,8 @@
+# Workflow
+- opening files
+  * `:GBrowser` to open file on github repo
+  * `gx` open url in default browser
+  * `-` open file explorer
 
 ## Todos
 - [ ] refactor vimrc https://stackoverflow.com/questions/16082991/vim-switching-between-files-rapidly-using-vanilla-vim-no-plugins
@@ -124,10 +129,16 @@
     * https://gist.github.com/jackkinsella/aa7374a6832cca8a09eadc3434a33c24
     * https://github.com/wincent/wincent/tree/master/roles/dotfiles/files/.vim
     * https://github.com/codota/tabnine-vim
+    * https://github.com/tpope/vim-projectionist for alternating files
   - [Vim task management with syncint to TaskWarrior](https://github.com/samgriesemer/vim-roam-task)
   - [Setup global shortscuts with espanso](https://espanso.org/)
+  - https://github.com/thaerkh/vim-workspace
 - shortcut to dropbox link
+- add personal-wiki quotes to startifies `g:startify_custom_header_quotes`
 
+## To watch
+- [ ] [intro into tmux - sessions, windows, panes, and commands, and how to use tmux](https://www.youtube.com/watch?v=NZO8KjNbwJk)
+- [ ] [Vim Tips You Probably Never Heard of](https://www.youtube.com/watch?v=bQfFvExpZDU)
 
 ## notetaking lua plugin
 
@@ -148,6 +159,7 @@
 - daily notes [https://foambubble.github.io/foam/daily-notes]
 - Ultisnips shortcut for wiki-links `h`
 - Command to append txt to inbox
+- paste image to markdown https://github.com/ferrine/md-img-paste.vim
 
 ### lua
 - https://github.com/nanotee/nvim-lua-guide
