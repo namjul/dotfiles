@@ -85,6 +85,8 @@ brew install fx # https://github.com/antonmedv/fx/
 brew install jq # https://stedolan.github.io/
 brew install q # http://harelba.github.io/q/
 brew install loc # https://github.com/cgag/loc
+brew install croc # https://github.com/schollz/croc -- Easily and securely send things from one computer to another
+brew install massren # https://github.com/laurent22/massren -- easily rename multiple files using your text editor
 
 # Remove outdated versions from the cellar
 brew cleanup
