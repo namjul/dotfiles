@@ -1,7 +1,7 @@
 # https://espanso.org
 
 matches:
-  - trigger: ":e"
+  - trigger: "e.."
     replace: "samuel.hobl@gmail.com"
 
   - trigger: "mfg"
@@ -23,7 +23,7 @@ matches:
     replace: "consciousness"
     word: true
 
-  - trigger: ":("
+  - trigger: ").."
     replace: "[$|$]({{clipboard}})"
     vars:
       - name: "clipboard"
