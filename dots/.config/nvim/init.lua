@@ -137,8 +137,6 @@ opt.g({
   background = 'dark',
   pastetoggle = '<F2>',
   tabline = '%!v:lua.mytabline()',
-  splitbelow = true,
-  splitright = true
 })
 
 -- Window
