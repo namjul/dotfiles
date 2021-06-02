@@ -268,8 +268,7 @@ map.g('n', '<Leader>j', 'v:lua.openDailyJN("journal")', { expr = true })
 ----------------------------------------
 
 util.createAugroup({
-  { 'BufRead,BufNewFile', 'tsconfig.json', 'set', 'filetype=json5' },
-  { 'BufRead,BufNewFile', 'eslintrc.json', 'set', 'filetype=json5' },
+  { 'BufRead,BufNewFile', '*.json', 'set', 'filetype=jsonc' },
   { 'FileType', 'markdown', 'lua', 'require"namjul.autocmds".plainText()' }
 }, 'namjulfiletypedetect')
 
