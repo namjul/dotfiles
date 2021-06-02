@@ -4,18 +4,16 @@ function fish_user_key_bindings
   bind -M insert -m default jk force-repaint
 
   # fzf
-  bind \cf '__fzf_search_current_dir'
-  bind \cr '__fzf_search_history'
-  bind \cv '__fzf_search_shell_variables'
-  bind --mode insert \cf '__fzf_search_current_dir'
-  bind --mode insert \cr '__fzf_search_history'
-  bind --mode insert \cv '__fzf_search_shell_variables'
+  bind \cf 'fzf-file-widget'
+  bind \cr 'fzf-history-widget'
+  bind \ec 'fzf-cd-widget'
+  bind --mode insert \cf 'fzf-file-widget'
+  bind --mode insert \cr 'fzf-history-widget'
+  bind --mode insert \ec 'fzf-cd-widget'
 
-  ## git
-  bind \cg\cl '__fzf_search_git_log'
-  bind \cg\cf '__fzf_search_git_status'
-  bind --mode insert \cg\cl '__fzf_search_git_log'
-  bind --mode insert \cg\cf '__fzf_search_git_status'
+  # lf file manager
+  bind \co 'set old_tty (stty -g); stty sane; lfcd; stty $old_tty; commandline -f repaint'
+  bind --mode insert \co 'set old_tty (stty -g); stty sane; lfcd; stty $old_tty; commandline -f repaint'
 
 end
 
