@@ -7,7 +7,6 @@
 # quick switches to folders
 abbr dd 'cd $HOME/.dotfiles'
 abbr db 'cd ~/Dropbox'
-abbr dw 'cd ~/Dropbox/personal-wiki'
 abbr dc 'cd ~/code'
 
 # quick edits

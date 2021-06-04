@@ -20,6 +20,12 @@ local var = util.var
 local hasPlugin = util.hasPlugin
 
 ----------------------------------------
+-- Constants
+----------------------------------------
+
+local WIKI_FOLDER = 'dendron/wiki'
+
+----------------------------------------
 -- Global functions
 ----------------------------------------
 
@@ -253,7 +259,7 @@ map.g('n', '<Leader>2', ':w<CR>:! ./%<CR>') -- execute current file
 
 -- opens my daily note/journal page
 function _G.openDailyJN(type)
-  local path = os.getenv('HOME')..'/Dropbox/'..(type == 'journal' and type..'/'..os.date("%d.%m.%Y") or 'personal-wiki/wiki/daily-notes')..'.md'
+  local path = os.getenv('HOME')..'/Dropbox/'..(type == 'journal' and type..'/'..os.date("%d.%m.%Y") or WIKI_FOLDER..'/daily-notes')..'.md'
   local command = ':e '..path
   if not util.fileExists(path) and type == 'journal' then
     command = command..' | 0r ~/.config/nvim/templates/journal-skeleton.md'
@@ -501,7 +507,7 @@ end
 
 if hasPlugin('notational-fzf-vim') then
   map.g('n', '<M-l>', ':NV<CR>', { silent = true })
-  var.g({ nv_search_paths = { '~/Dropbox/personal-wiki/wiki', '~/Dropbox/journal', '~/Dropbox/notes', '~/Dropbox/drafts' } })
+  var.g({ nv_search_paths = { '~/Dropbox/'..WIKI_FOLDER, '~/Dropbox/journal', '~/Dropbox/notes', '~/Dropbox/drafts' } })
 end
 
 if hasPlugin('vim-gitgutter') then
