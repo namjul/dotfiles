@@ -170,6 +170,7 @@ map.g('', 'Y', 'y$') -- multi-mode mappings (Normal, Visual, Operating-pending m
 -- NORMAL
 --------------------
 
+map.g('n', '<C-a>', 'ggVG') -- select all
 map.g('n', 'Q', '') -- avoid unintentional switches to Ex mode.
 
 -- move between windows.
@@ -234,7 +235,6 @@ var.b({ mapleader = ' ' })
 map.g('n', '<Leader><Leader>', '<C-^>') -- open last buffer.
 map.g('n', '<Leader>o', ':only<CR>') -- close all windows but the active one
 map.g('n', '<Leader>p', ':echo expand("%")<CR>') -- <Leader>p - Show the path of the current file (mnemonic: path; useful when you have a lot of splits and the status line gets truncated).
-map.g('n', '<Leader>a', 'ggVG') -- select all
 map.g('n', '<Leader>r', ':luafile $MYVIMRC<CR>') -- auto reload of vimrc TODO test in production env.
 
 map.g('n', '<Leader>w', ':write<CR>') -- quick save
@@ -266,8 +266,8 @@ function _G.openDailyJN(type)
   end
   return command..util.t('<CR>')
 end
-map.g('n', '<Leader>d', 'v:lua.openDailyJN("note")', { expr = true })
-map.g('n', '<Leader>j', 'v:lua.openDailyJN("journal")', { expr = true })
+-- map.g('n', '<Leader>d', 'v:lua.openDailyJN("note")', { expr = true })
+-- map.g('n', '<Leader>j', 'v:lua.openDailyJN("journal")', { expr = true })
 
 ----------------------------------------
 -- AUTO COMMANDS
@@ -506,8 +506,15 @@ if hasPlugin('vim-yoink') then
 end
 
 if hasPlugin('notational-fzf-vim') then
-  map.g('n', '<M-l>', ':NV<CR>', { silent = true })
-  var.g({ nv_search_paths = { '~/Dropbox/'..NOTATIONAL_FOLDER..'/wiki',  '~/Dropbox/'..NOTATIONAL_FOLDER..'/dendron-org-private', '~/Dropbox/journal', '~/Dropbox/notes', '~/Dropbox/drafts' } })
+  map.g('n', '<Leader>l', ':NV<CR>', { silent = true })
+  var.g({ nv_search_paths = {
+    '~/Dropbox/'..NOTATIONAL_FOLDER..'/wiki',
+    -- '~/Dropbox/'..NOTATIONAL_FOLDER..'/dendron-org-private',
+    '~/Dropbox/journal',
+    '~/Dropbox/notes',
+    '~/Dropbox/drafts'
+    }
+  })
 end
 
 if hasPlugin('vim-gitgutter') then
