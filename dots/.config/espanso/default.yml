@@ -30,3 +30,9 @@ matches:
         type: "clipboard"
 
 toggle_key: OFF
+show_notifications: false
+# backspace_delay: 0
+# inject_delay: 0
+enable_passive: true
+passive_key: CTRL
+# backend: Clipboard
