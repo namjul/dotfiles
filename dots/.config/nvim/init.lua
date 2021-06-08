@@ -170,7 +170,6 @@ map.g('', 'Y', 'y$') -- multi-mode mappings (Normal, Visual, Operating-pending m
 -- NORMAL
 --------------------
 
-map.g('n', '<C-a>', 'ggVG') -- select all
 map.g('n', 'Q', '') -- avoid unintentional switches to Ex mode.
 
 -- move between windows.
@@ -232,6 +231,7 @@ map.g('t', '<Esc>', 'v:lua.terminalEsc()', { expr = true })
 var.g({ mapleader = ' ' })
 var.b({ mapleader = ' ' })
 
+map.g('n', '<Leader>a', 'ggVG') -- select all
 map.g('n', '<Leader><Leader>', '<C-^>') -- open last buffer.
 map.g('n', '<Leader>o', ':only<CR>') -- close all windows but the active one
 map.g('n', '<Leader>p', ':echo expand("%")<CR>') -- <Leader>p - Show the path of the current file (mnemonic: path; useful when you have a lot of splits and the status line gets truncated).
