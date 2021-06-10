@@ -547,6 +547,10 @@ if hasPlugin('tcomment_vim') then
   })
 end
 
+if hasPlugin('bullets.vim') then
+  var.g({ bullets_checkbox_markers = ' .oOX' })
+end
+
 ----------------------------------------
 -- Custom Plugins
 ----------------------------------------
