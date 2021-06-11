@@ -234,7 +234,7 @@ var.b({ mapleader = ' ' })
 map.g('n', '<Leader>a', 'ggVG') -- select all
 map.g('n', '<Leader><Leader>', '<C-^>') -- open last buffer.
 map.g('n', '<Leader>o', ':only<CR>') -- close all windows but the active one
-map.g('n', '<Leader>p', ':echo expand("%")<CR>') -- <Leader>p - Show the path of the current file (mnemonic: path; useful when you have a lot of splits and the status line gets truncated).
+map.g('n', '<Leader>p', ':echo join([expand("%"), line(".")], ":")<CR>') -- <Leader>p - Show the path of the current file (mnemonic: path; useful when you have a lot of splits and the status line gets truncated).
 map.g('n', '<Leader>r', ':luafile $MYVIMRC<CR>') -- auto reload of vimrc TODO test in production env.
 
 map.g('n', '<Leader>w', ':write<CR>') -- quick save
