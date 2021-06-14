@@ -35,6 +35,11 @@ function installNpmDefaults
     xargs -a ~/.default-npm-packages npm install -g
 end
 
+# Source: https://coderwall.com/p/grmruq/git-status-on-all-repos-in-folder
+function repos --description="Git status on all repos in folder"
+  find . -maxdepth 1 -mindepth 1 -type d -exec sh -c '(echo {} && cd {} && git status -s && echo)' \;
+end
+
 # GIT heart FZF
 # -------------
 
