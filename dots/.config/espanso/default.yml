@@ -23,12 +23,6 @@ matches:
     replace: "consciousness"
     word: true
 
-  - trigger: ").."
-    replace: "[$|$]({{clipboard}})"
-    vars:
-      - name: "clipboard"
-        type: "clipboard"
-
 toggle_key: OFF
 show_notifications: false
 # backspace_delay: 0
