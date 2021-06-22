@@ -276,7 +276,7 @@ end
 util.createAugroup({
   { 'BufRead,BufNewFile', '*.json', 'set', 'filetype=jsonc' },
   { 'FileType', 'markdown', 'lua', 'require"namjul.autocmds".plainText()' },
-  { 'FileType', 'markdown', 'let b:autopairs_enabled=0' }
+  { 'FileType', 'markdown', "let b:AutoPairs={ '(':')', '[[':']]', '{':'}', \"'\":\"'\", '\"':'\"', \"`\":\"`\", '```':'```', '\"\"\"':'\"\"\"', \"'''\":\"'''\" }" }
 }, 'namjulfiletypedetect')
 
 util.createAugroup({
