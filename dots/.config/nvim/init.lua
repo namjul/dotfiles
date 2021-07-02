@@ -143,6 +143,7 @@ opt.g({
   background = 'dark',
   pastetoggle = '<F2>',
   tabline = '%!v:lua.mytabline()',
+  undodir = os.getenv('XDG_DATA_HOME')..'/nvim/undo'
 })
 
 -- Window
@@ -159,6 +160,7 @@ opt.b({
   tabstop = 2, -- Make tabs as wide as two spaces
   shiftwidth = 2, -- The # of spaces for indenting.
   expandtab = true, -- use spaces, not tabs
+  undofile = true, -- Maintain undo history between sessions
 })
 
 ----------------------------------------

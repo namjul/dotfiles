@@ -20,7 +20,7 @@ if status is-interactive
   set fish_greeting # remove fish's greeting
 
   # load
-  set parts env functions path alias
+  set parts functions env path alias
   for part in $parts
     set file $HOME/.dotfiles/shell/$part.fish
     if test -e $file
