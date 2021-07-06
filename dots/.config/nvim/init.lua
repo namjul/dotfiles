@@ -517,7 +517,6 @@ if hasPlugin('notational-fzf-vim') then
   var.g({
       nv_search_paths = {
         '~/Dropbox/'..NOTATIONAL_FOLDER..'/wiki',
-        '~/Dropbox/'..NOTATIONAL_FOLDER..'/dendron-org-private',
         '~/Dropbox/journal',
         '~/Dropbox/notes',
         '~/Dropbox/drafts'
