@@ -69,42 +69,43 @@ Install a font of your choice
 ## Vim Keyboard shortcuts
 
 **Legend**
-`,`== leader key
+`<leader>` == `space`
 `C` == ctrl key
 
 | Mapping | Functionality                                                              | Replaced Mapping |
 | ------- | -------------------------------------------------------------------------- | ---------------- |
-| `,r`   | reload nvim config                                                            | None             |
-| `,s`   | quick save                                                                    | None             |
-| `,w`   | quick write                                                                    | None             |
-| `,f`   | format                                                                        | :ALEFix             |
-| `,n`   | open `vaffle` file explorer                                                     | None             |
-| `,jk`  | escape                                                                        | Esc             |
-| `,/`   | search in project folder                                                       | :Ag<CR> |
-| `,*`  | search word under cursor in project folder                                  | :Ag <C-R><C-W><CR> |
-| `,a`   | Select all                                                                    | ggVG |
-| `,evr` | edit vimrc                                                                    | :<C-U>edit ~/.vimrc<CR> |
-| `,bg`  | toogle background                                                             | None
-| `,gb`  | git blame                                                                     | :Gblame<cr> |
-| `,gs`  | git status                                                                    | :Gstatus<cr> |
-| `,gc`  | git commit                                                                    | :Gcommit -v<cr> |
-| `,ga`  | git add -p                                                                    | :Git add -p<cr> |
-| `,gm`  | git commit --amend                                                            | :Gcommit --amend<cr> |
-| `,gp`  | git push                                                                      | :Gpush<cr> |
-| `,gd`  | git diff                                                                      | :Gdiff<cr> |
-| `,gw`  | git ...                                                                       | :Gwrite<cr> |
-| `,vp`  | Prompt for a command to run                                                   | :VimuxPromptCommand<CR> |
-| `,vl`  | Run last command executed by VimuxRunCommand                                  | :VimuxRunLastCommand<CR> |
-| `,vi`  | Inspect runner pane                                                           | :VimuxInspectRunner<CR> |
-| `,vz`  | " Zoom the tmux runner pane                                                 | :VimuxZoomRunner<CR> |
+| `<leader>r`   | reload nvim config                                                            | None             |
+| `<leader>s`   | quick save                                                                    | None             |
+| `<leader>w`   | quick write                                                                    | None             |
+| `<leader>f`   | format                                                                        | :ALEFix             |
+| `<leader>n`   | open `vaffle` file explorer                                                     | None             |
+| `<leader>jk`  | escape                                                                        | Esc             |
+| `<leader>/`   | search in project folder                                                       | :Ag<CR> |
+| `<leader>*`  | search word under cursor in project folder                                  | :Ag <C-R><C-W><CR> |
+| `<leader>a`   | Select all                                                                    | ggVG |
+| `<leader>evr` | edit vimrc                                                                    | :<C-U>edit ~/.vimrc<CR> |
+| `<leader>bg`  | toogle background                                                             | None
+| `<leader>gb`  | git blame                                                                     | :Gblame<cr> |
+| `<leader>gs`  | git status                                                                    | :Gstatus<cr> |
+| `<leader>gc`  | git commit                                                                    | :Gcommit -v<cr> |
+| `<leader>ga`  | git add -p                                                                    | :Git add -p<cr> |
+| `<leader>gm`  | git commit --amend                                                            | :Gcommit --amend<cr> |
+| `<leader>gp`  | git push                                                                      | :Gpush<cr> |
+| `<leader>gd`  | git diff                                                                      | :Gdiff<cr> |
+| `<leader>gw`  | git ...                                                                       | :Gwrite<cr> |
+| `<leader>vp`  | Prompt for a command to run                                                   | :VimuxPromptCommand<CR> |
+| `<leader>vl`  | Run last command executed by VimuxRunCommand                                  | :VimuxRunLastCommand<CR> |
+| `<leader>vi`  | Inspect runner pane                                                           | :VimuxInspectRunner<CR> |
+| `<leader>vz`  | " Zoom the tmux runner pane                                                 | :VimuxZoomRunner<CR> |
 | `w!!` | write in sudo mode | None |
 | `<C-L>` | clear search highlight | :nohlsearch |:spv
 | `H` | jump high | Default |
 | `M` | jump middle | Default |
 | `L` | jump low | Default |
 
-# Inspiration
+# Others
 
 - https://github.com/necolas/dotfiles
 - https://github.com/sarrost/dotfiles
 - https://github.com/simonsmith/dotfiles
+- https://github.com/nicknisi/dotfiles
