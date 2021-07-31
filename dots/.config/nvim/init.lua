@@ -57,6 +57,10 @@ end
 -- Plugins
 ----------------------------------------
 
+-- start pre-plugin settings
+var.g({ polyglot_disabled = { 'markdown' } })
+-- end
+
 cmd('packadd paq-nvim') -- load the package manager
 
 paq('wincent/pinnacle') -- Highlight group manipulation utils
@@ -117,6 +121,7 @@ paq('dkarter/bullets.vim') -- enhance bullet points management
 paq('csexton/trailertrash.vim') -- highlight trailing whitespace
 paq('kassio/neoterm') -- simple terminal access
 paq('godlygeek/tabular') -- auto alignment
+paq({ 'namjul/vim-markdown', branch = 'wikilinks' })
 
 ----------------------------------------
 -- Options
