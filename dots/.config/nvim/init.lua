@@ -123,6 +123,7 @@ paq('kassio/neoterm') -- simple terminal access
 paq('godlygeek/tabular') -- auto alignment
 paq({ 'namjul/vim-markdown', branch = 'wikilinks' })
 paq('tpope/vim-obsession')
+paq({ 'npxbr/glow.nvim', run = 'GlowInstall', branch = 'main' }) -- markdown preview
 
 ----------------------------------------
 -- Options
