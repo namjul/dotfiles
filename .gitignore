@@ -1,1 +1,9 @@
+# Fish
 fish_variables
+
+# Session
+Session.vim
+Sessionx.vim
+
+# Temporary
+.netrwhist
