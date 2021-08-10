@@ -105,7 +105,8 @@ paq('alvan/vim-closetag') -- auto closes the xml tag
 -- paq('drewtempelmeyer/palenight.vim')
 -- paq('ayu-theme/ayu-vim')
 -- paq('rakr/vim-one')
-paq('airblade/vim-gitgutter') --- add info to sidebar about git
+paq('nvim-lua/plenary.nvim')
+paq('lewis6991/gitsigns.nvim')
 paq('rhysd/committia.vim') -- improves vim 'commit' buffer
 paq('sheerun/vim-polyglot') -- general language support
 paq('moll/vim-node') -- improves dx in node.js env
@@ -610,6 +611,12 @@ if hasPlugin('nvim-treesitter') then
       "css"
     },
   }
+end
+
+if hasPlugin('gitsigns.nvim') then
+  require('gitsigns').setup({
+    current_line_blame = true,
+  })
 end
 
 ----------------------------------------
