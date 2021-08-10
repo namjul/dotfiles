@@ -122,6 +122,7 @@ paq('csexton/trailertrash.vim') -- highlight trailing whitespace
 paq('kassio/neoterm') -- simple terminal access
 paq('godlygeek/tabular') -- auto alignment
 paq({ 'namjul/vim-markdown', branch = 'wikilinks' })
+paq('tpope/vim-obsession')
 
 ----------------------------------------
 -- Options
