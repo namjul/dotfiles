@@ -516,6 +516,22 @@ if hasPlugin('vim-yoink') then
   map.g('n', '<C-p>', '<Plug>(YoinkPostPasteSwapForward)', { noremap = false })
   map.g('n', 'p', '<Plug>(YoinkPaste_p)', { noremap = false })
   map.g('n', 'P', '<Plug>(YoinkPaste_P)', { noremap = false })
+
+  -- https://github.com/svermeulen/vim-yoink/issues/16#issuecomment-632234373
+  var.g({
+    clipboard = {
+      name = 'xsel_override',
+      copy = {
+        ['+'] = 'xsel --input --clipboard',
+        ['*'] = 'xsel --input --primary',
+      },
+      paste = {
+        ['+'] = 'xsel --output --clipboard',
+        ['*'] = 'xsel --output --primary',
+      },
+      cache_enabled = 1,
+    }
+  })
 end
 
 if hasPlugin('notational-fzf-vim') then
