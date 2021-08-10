@@ -95,7 +95,7 @@ paq('Valloric/MatchTagAlways') -- highlights xml tags enclosing the cursor
 paq('simeji/winresizer') -- helper for resizing windows
 paq('camspiers/lens.vim') -- auto resizing of windows
 paq('alvan/vim-closetag') -- auto closes the xml tag
-paq('morhetz/gruvbox') -- colorscheme
+-- paq('morhetz/gruvbox')
 -- paq('chriskempson/base16-vim')
 -- paq('icymind/NeoSolarized')
 -- paq('arcticicestudio/nord-vim')
@@ -124,6 +124,9 @@ paq('godlygeek/tabular') -- auto alignment
 paq({ 'namjul/vim-markdown', branch = 'wikilinks' })
 paq('tpope/vim-obsession')
 paq({ 'npxbr/glow.nvim', run = 'GlowInstall', branch = 'main' }) -- markdown preview
+paq({ 'nvim-treesitter/nvim-treesitter', run = 'TSUpdate' })
+paq('rktjmp/lush.nvim')
+paq('npxbr/gruvbox.nvim')
 
 ----------------------------------------
 -- Options
@@ -361,7 +364,7 @@ if hasPlugin('vim-one') then
   opt.g({ background = 'dark' })
 end
 
-if hasPlugin('gruvbox') then
+if hasPlugin('gruvbox.nvim') then
   var.g({
     gruvbox_contrast_dark = 'soft',
     gruvbox_contrast_light = 'soft',
@@ -580,6 +583,33 @@ end
 
 if hasPlugin('bullets.vim') then
   var.g({ bullets_checkbox_markers = ' .oOX' })
+end
+
+if hasPlugin('nvim-treesitter') then
+  require'nvim-treesitter.configs'.setup {
+    highlight = {
+      enable = true,
+      disable = {},
+    },
+    indent = {
+      enable = true,
+      disable = {},
+    },
+    ensure_installed = {
+      "tsx",
+      "typescript",
+      "toml",
+      "fish",
+      "bash",
+      "php",
+      "json",
+      "yaml",
+      "html",
+      "lua",
+      "scss",
+      "css"
+    },
+  }
 end
 
 ----------------------------------------
