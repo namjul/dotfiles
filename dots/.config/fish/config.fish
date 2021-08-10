@@ -34,7 +34,7 @@ if status is-interactive
 
   # Tmux
   if command -v tmux > /dev/null 2>&1
-     test -z $TMUX && tmux;
+     test -z $TMUX && tmux new-session -A -s main;
   end
 
   starship init fish | source
