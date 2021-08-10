@@ -366,8 +366,8 @@ end
 
 if hasPlugin('gruvbox.nvim') then
   var.g({
-    gruvbox_contrast_dark = 'soft',
-    gruvbox_contrast_light = 'soft',
+    gruvbox_contrast_dark = 'medium',
+    gruvbox_contrast_light = 'medium',
     gruvbox_italic = 1
   })
   opt.g({ background = 'dark' })
