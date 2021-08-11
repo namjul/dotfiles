@@ -122,11 +122,11 @@ paq('dkarter/bullets.vim') -- enhance bullet points management
 paq('csexton/trailertrash.vim') -- highlight trailing whitespace
 paq('kassio/neoterm') -- simple terminal access
 paq('godlygeek/tabular') -- auto alignment
-paq({ 'namjul/vim-markdown', branch = 'wikilinks' })
-paq('tpope/vim-obsession')
-paq({ 'npxbr/glow.nvim', run = 'GlowInstall', branch = 'main' }) -- markdown preview
-paq({ 'nvim-treesitter/nvim-treesitter', run = 'TSUpdate' })
-paq('rktjmp/lush.nvim')
+paq({ 'namjul/vim-markdown', branch = 'wikilinks' }) -- own fork of that adds wikilinks support
+paq('tpope/vim-obsession') -- helper to start vim sessions
+paq({ 'npxbr/glow.nvim', run = ':GlowInstall', branch = 'main' }) -- markdown preview
+paq({ 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' })
+paq('rktjmp/lush.nvim') -- Required for 'npxbr/gruvbox.nvim' - Define Neovim themes as a DSL in lua, with real-time feedback.
 paq('npxbr/gruvbox.nvim')
 
 ----------------------------------------
