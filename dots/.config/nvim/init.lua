@@ -61,73 +61,74 @@ end
 var.g({ polyglot_disabled = { 'markdown' } })
 -- end
 
-cmd('packadd paq-nvim') -- load the package manager
-
-paq('wincent/pinnacle') -- Highlight group manipulation utils
-paq({'savq/paq-nvim', opt = true}) -- Let Paq manage itself
-paq('tpope/vim-sensible') -- sensible defaults
-paq('tpope/vim-repeat') -- enables the repeat command to work with external plugins
-paq('tpope/vim-fugitive') -- git integration
-paq('rbong/vim-flog') -- git branch viewer
-paq('tpope/vim-rhubarb') -- open files on github
-paq('tpope/vim-surround') -- adds operators for surrounding characters
-paq('tpope/vim-unimpaired') -- set of complementary pair commands
-paq('tomtom/tcomment_vim') -- Temporarily commenting
-paq('svermeulen/vim-cutlass') -- seperate `cut` form `delete`
-paq('svermeulen/vim-subversive') -- adds a subsitute operator
-paq('svermeulen/vim-yoink') -- adds easy access to history of yanks
-paq('wincent/loupe') -- enhancements to vim's search commands
-paq('wincent/scalpel') -- helper for search and replace
-paq('editorconfig/editorconfig-vim') -- support editor config files (https://editorconfig.org/)
-paq('tmux-plugins/vim-tmux-focus-events') -- makes `FocusGained` and `FocusLost` work in terminal vim, `autoread` options then works as expected
-paq({'junegunn/fzf', hook = vim.fn['fzf#install'] }) -- fuzzy search
-paq('junegunn/fzf.vim') -- adds commands to fzf
-paq('junegunn/goyo.vim') -- zen mode for writing
--- paq('Yggdroot/indentLine') -- makes space indented code visible
--- paq({ 'lukas-reineke/indent-blankline.nvim', branch = 'lua' }) --
-paq('alok/notational-fzf-vim') -- combines the fzf with the concept from notational
-paq('benmills/vimux') -- allows to send commands from vim to tmux
-paq('tyewang/vimux-jest-test') -- simplifies running jest test from vim
-paq('justinmk/vim-dirvish') -- file explorer
-paq('jeffkreeftmeijer/vim-numbertoggle') -- improves the display of line numbers
-paq('jiangmiao/auto-pairs') -- auto closes pairs
-paq('Valloric/MatchTagAlways') -- highlights xml tags enclosing the cursor
-paq('simeji/winresizer') -- helper for resizing windows
-paq('camspiers/lens.vim') -- auto resizing of windows
-paq('alvan/vim-closetag') -- auto closes the xml tag
--- paq('morhetz/gruvbox')
--- paq('chriskempson/base16-vim')
--- paq('icymind/NeoSolarized')
--- paq('arcticicestudio/nord-vim')
--- paq('mhartington/oceanic-next')
--- paq('srcery-colors/srcery-vim')
--- paq('sonph/onehalf', { 'rtp': 'vim/' })
--- paq('drewtempelmeyer/palenight.vim')
--- paq('ayu-theme/ayu-vim')
--- paq('rakr/vim-one')
-paq('nvim-lua/plenary.nvim')
-paq('lewis6991/gitsigns.nvim')
-paq('rhysd/committia.vim') -- improves vim 'commit' buffer
-paq('sheerun/vim-polyglot') -- general language support
-paq('moll/vim-node') -- improves dx in node.js env
-paq('SirVer/ultisnips') -- snippets engine
-paq('honza/vim-snippets') -- general snippets collection
-paq('mattn/gist-vim') -- interact with github gist from vim
-paq('mattn/webapi-vim') -- needed for `gist-vim`
-paq('dense-analysis/ale') -- linter, fixer and lsp
-paq({ 'Shougo/deoplete.nvim',  hook = function () cmd('UpdateRemotePlugins') end }) -- autocomplete
-paq('ap/vim-css-color') -- color name highlighter
-paq('machakann/vim-highlightedyank') -- highlights yanked text
-paq('dkarter/bullets.vim') -- enhance bullet points management
-paq('csexton/trailertrash.vim') -- highlight trailing whitespace
-paq('kassio/neoterm') -- simple terminal access
-paq('godlygeek/tabular') -- auto alignment
-paq({ 'namjul/vim-markdown', branch = 'wikilinks' }) -- own fork of that adds wikilinks support
-paq('tpope/vim-obsession') -- helper to start vim sessions
-paq({ 'npxbr/glow.nvim', run = ':GlowInstall', branch = 'main' }) -- markdown preview
-paq({ 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' })
-paq('rktjmp/lush.nvim') -- Required for 'npxbr/gruvbox.nvim' - Define Neovim themes as a DSL in lua, with real-time feedback.
-paq('npxbr/gruvbox.nvim')
+require "paq" {
+  'savq/paq-nvim', -- Let Paq manage itself
+  'tpope/vim-sensible', -- sensible defaults
+  'wincent/pinnacle', -- Required for namjul.statusline. Highlight group manipulation utils
+  'tpope/vim-sensible', -- sensible defaults
+  'tpope/vim-repeat', -- enables the repeat command to work with external plugins
+  'tpope/vim-fugitive', -- git integration
+  'rbong/vim-flog', -- git branch viewer
+  'tpope/vim-rhubarb', -- open files on github
+  'tpope/vim-surround', -- adds operators for surrounding characters
+  'tpope/vim-unimpaired', -- set of complementary pair commands
+  'tomtom/tcomment_vim', -- Temporarily commenting
+  'svermeulen/vim-cutlass', -- seperate `cut` form `delete`
+  'svermeulen/vim-subversive', -- adds a subsitute operator
+  'svermeulen/vim-yoink', -- adds easy access to history of yanks
+  'wincent/loupe', -- enhancements to vim's search commands
+  'wincent/scalpel', -- helper for search and replace
+  'editorconfig/editorconfig-vim', -- support editor config files (https://editorconfig.org/)
+  'tmux-plugins/vim-tmux-focus-events', -- makes `FocusGained` and `FocusLost` work in terminal vim, `autoread` options then works as expected
+  {'junegunn/fzf', run = vim.fn['fzf#install'] }, -- fuzzy search
+  'junegunn/fzf.vim', -- adds commands to fzf
+  'junegunn/goyo.vim', -- zen mode for writing
+  -- paq('Yggdroot/indentLine') -- makes space indented code visible
+  -- paq({ 'lukas-reineke/indent-blankline.nvim', branch = 'lua' }) --
+  'alok/notational-fzf-vim', -- combines the fzf with the concept from notational
+  'benmills/vimux', -- allows to send commands from vim to tmux
+  'tyewang/vimux-jest-test', -- simplifies running jest test from vim
+  'justinmk/vim-dirvish', -- file explorer
+  'jeffkreeftmeijer/vim-numbertoggle', -- improves the display of line numbers
+  'jiangmiao/auto-pairs', -- auto closes pairs
+  'Valloric/MatchTagAlways', -- highlights xml tags enclosing the cursor
+  'simeji/winresizer', -- helper for resizing windows
+  'camspiers/lens.vim', -- auto resizing of windows
+  'alvan/vim-closetag', -- auto closes the xml tag
+  -- paq('morhetz/gruvbox')
+  -- paq('chriskempson/base16-vim')
+  -- paq('icymind/NeoSolarized')
+  -- paq('arcticicestudio/nord-vim')
+  -- paq('mhartington/oceanic-next')
+  -- paq('srcery-colors/srcery-vim')
+  -- paq('sonph/onehalf', { 'rtp': 'vim/' })
+  -- paq('drewtempelmeyer/palenight.vim')
+  -- paq('ayu-theme/ayu-vim')
+  -- paq('rakr/vim-one')
+  'nvim-lua/plenary.nvim',
+  'lewis6991/gitsigns.nvim',
+  'rhysd/committia.vim', -- improves vim 'commit' buffer
+  'sheerun/vim-polyglot', -- general language support
+  'moll/vim-node', -- improves dx in node.js env
+  'SirVer/ultisnips', -- snippets engine
+  'honza/vim-snippets', -- general snippets collection
+  'mattn/gist-vim', -- interact with github gist from vim
+  'mattn/webapi-vim', -- needed for `gist-vim`
+  'dense-analysis/ale', -- linter, fixer and lsp
+  { 'Shougo/deoplete.nvim',  run = function () cmd('UpdateRemotePlugins') end }, -- autocomplete
+  'ap/vim-css-color', -- color name highlighter
+  'machakann/vim-highlightedyank', -- highlights yanked text
+  'dkarter/bullets.vim', -- enhance bullet points management
+  'csexton/trailertrash.vim', -- highlight trailing whitespace
+  'kassio/neoterm', -- simple terminal access
+  'godlygeek/tabular', -- auto alignment
+  { 'namjul/vim-markdown', branch = 'wikilinks' }, -- own fork of that adds wikilinks support
+  'tpope/vim-obsession', -- helper to start vim sessions
+  { 'npxbr/glow.nvim', run = function () cmd('GlowInstall') end, branch = 'main' }, -- markdown preview
+  { 'nvim-treesitter/nvim-treesitter', run = function () cmd('TSUpdate') end },
+  'rktjmp/lush.nvim', -- Required for 'npxbr/gruvbox.nvim' - Define Neovim themes as a DSL in lua, with real-time feedback.
+  'npxbr/gruvbox.nvim',
+}
 
 ----------------------------------------
 -- Options
@@ -327,56 +328,47 @@ util.createAugroup({
 -- Plugin Settings
 ----------------------------------------
 
-if hasPlugin('nord-vim') then
-  cmd('colorscheme nord')
-end
+-- PLUGIN:nord-vim
+-- cmd('colorscheme nord')
 
-if hasPlugin('oceanic-next') then
-  cmd('colorscheme OceanicNext')
-  var.g({
-    oceanic_next_terminal_bold = 1,
-    oceanic_next_terminal_italic = 1
-  })
-end
+-- PLUGIN:oceanic-next
+-- cmd('colorscheme OceanicNext')
+-- var.g({
+--   oceanic_next_terminal_bold = 1,
+--   oceanic_next_terminal_italic = 1
+-- })
 
-if hasPlugin('srcery-vim') then
-  cmd('colorscheme srcery')
-  var.g({ srcery_italic = 1 })
-end
+-- PLUGIN:srcery-vim
+-- cmd('colorscheme srcery')
+-- var.g({ srcery_italic = 1 })
 
-if hasPlugin('onehalf') then
-  cmd('colorscheme onehalfdark')
-  cmd('highlight Comment cterm=italic gui=italic')
-end
+-- PLUGIN:onehalf
+-- cmd('colorscheme onehalfdark')
+-- cmd('highlight Comment cterm=italic gui=italic')
 
+-- PLUGIN:ayu-vim
+-- var.g({
+--   -- ayucolor = "light"  -- for light version of theme
+--   ayucolor = "mirage" -- for mirage version of theme
+--   -- ayucolor = "dark" -- for dark version of theme
+-- })
+-- cmd('colorscheme ayu')
 
-if hasPlugin('ayu-vim') then
-  var.g({
-    -- ayucolor = "light"  -- for light version of theme
-    ayucolor = "mirage" -- for mirage version of theme
-    -- ayucolor = "dark" -- for dark version of theme
-  })
-  cmd('colorscheme ayu')
-end
+-- PLUGIN:vim-one
+-- cmd('colorscheme one')
+-- opt.g({ background = 'dark' })
 
-
-if hasPlugin('vim-one') then
-  cmd('colorscheme one')
-  opt.g({ background = 'dark' })
-end
-
-if hasPlugin('gruvbox.nvim') then
-  var.g({
+-- PLUGIN: gruvbox.nvim
+var.g({
     gruvbox_contrast_dark = 'medium',
     gruvbox_contrast_light = 'medium',
     gruvbox_italic = 1
   })
-  opt.g({ background = 'dark' })
-  cmd('colorscheme gruvbox')
-end
+opt.g({ background = 'dark' })
+cmd('colorscheme gruvbox')
 
-if hasPlugin('ale') then
-  var.g({
+-- PLUGIN: ale
+var.g({
     ale_virtualtext_cursor = 1,
     ale_virtualtext_prefix = '❐ ',
     ale_echo_msg_format = '[%linter%] [%severity%] %code: %%s',
@@ -405,35 +397,33 @@ if hasPlugin('ale') then
     ale_fix_on_save = 1,
   })
 
-  cmd('highlight link ALEVirtualTextError GruvboxRed')
-  cmd('highlight link ALEVirtualTextWarning GruvboxYellow')
-  cmd('highlight link ALEVirtualTextInfo GruvboxBlue')
+cmd('highlight link ALEVirtualTextError GruvboxRed')
+cmd('highlight link ALEVirtualTextWarning GruvboxYellow')
+cmd('highlight link ALEVirtualTextInfo GruvboxBlue')
 
-  map.g('n', '[g', '<Plug>(ale_previous_wrap)', { silent = true, noremap = false })
-  map.g('n', ']g', '<Plug>(ale_next_wrap)', { silent = true, noremap = false })
-  map.g('n', 'gD', '<Plug>(ale_go_to_type_definition)', { silent = true, noremap = false })
-  map.g('n', 'gd', '<Plug>(ale_go_to_definition)', { silent = true, noremap = false })
-  map.g('n', 'gr', '<Plug>(ale_find_references) :ALEFindReferences -relative<Return>', { silent = true, noremap = false })
-  map.g('n', 'gp', '<Plug>(ale_detail)', { silent = true, noremap = false })
-  map.g('n', '<Leader>rn', '<Plug>(ale_rename)', { silent = true, noremap = false })
+map.g('n', '[g', '<Plug>(ale_previous_wrap)', { silent = true, noremap = false })
+map.g('n', ']g', '<Plug>(ale_next_wrap)', { silent = true, noremap = false })
+map.g('n', 'gD', '<Plug>(ale_go_to_type_definition)', { silent = true, noremap = false })
+map.g('n', 'gd', '<Plug>(ale_go_to_definition)', { silent = true, noremap = false })
+map.g('n', 'gr', '<Plug>(ale_find_references) :ALEFindReferences -relative<Return>', { silent = true, noremap = false })
+map.g('n', 'gp', '<Plug>(ale_detail)', { silent = true, noremap = false })
+map.g('n', '<Leader>rn', '<Plug>(ale_rename)', { silent = true, noremap = false })
 
-  function _G.showDocumentation()
-    if (({ vim = true, lua = true, help = true })[vim.bo.filetype]) then
-      fn.execute('h '..fn.expand('<cword>'))
-    else
-      cmd(':ALEHover')
-    end
+function _G.showDocumentation()
+  if (({ vim = true, lua = true, help = true })[vim.bo.filetype]) then
+    fn.execute('h '..fn.expand('<cword>'))
+  else
+    cmd(':ALEHover')
   end
-
-  map.g('n', 'K', ':call v:lua.showDocumentation()<CR>', { noremap = true, silent = true }) -- Use K to show documentation in preview window.
 end
 
-if hasPlugin('deoplete.nvim') then
-  var.g({ ['deoplete#enable_at_startup'] = 1 })
-end
+map.g('n', 'K', ':call v:lua.showDocumentation()<CR>', { noremap = true, silent = true }) -- Use K to show documentation in preview window.
 
-if hasPlugin('fzf.vim') then
-  var.g({
+-- PLUGIN: deoplete.nvim
+var.g({ ['deoplete#enable_at_startup'] = 1 })
+
+-- PLUGIN: fzf.vim
+var.g({
     fzf_layout = { window = { width = 0.9, height = 1 } },
     fzf_action = {
       ['ctrl-t'] = 'tab split',
@@ -441,137 +431,108 @@ if hasPlugin('fzf.vim') then
       ['ctrl-v'] = 'vsplit',
     }
   })
-end
 
-if hasPlugin('neoterm') then
-  var.g({ neoterm_autoinsert = 1 })
-end
+-- PLUGIN:neoterm
+var.g({ neoterm_autoinsert = 1 })
 
-if hasPlugin('ultisnips') then
-  var.g({ UltiSnipsExpandTrigger = '<C-j>' })
-  var.g({ UltiSnipsJumpForwardTrigger = '<C-j>' })
-  var.g({ UltiSnipsJumpBackwardTrigger = '<C-k>' })
-end
+-- PLUGIN:ultisnips
+var.g({ UltiSnipsExpandTrigger = '<C-j>' })
+var.g({ UltiSnipsJumpForwardTrigger = '<C-j>' })
+var.g({ UltiSnipsJumpBackwardTrigger = '<C-k>' })
 
-if hasPlugin('vim-fugitive') then
-  opt.g({ diffopt = opt.g('diffopt') .. ',vertical' })
-  map.g('n', '<leader>gb', ':G blame<CR>')
-  map.g('n', '<leader>gs', ':Git<CR>')
-  map.g('n', '<leader>gc', ':Git commit -v<CR>')
-  map.g('n', '<leader>ga', ':Git add -p<CR>')
-  map.g('n', '<leader>gm', ':Git commit --amend<CR>')
-  map.g('n', '<leader>gp', ':Git push<CR>')
-  map.g('n', '<leader>gd', ':Gdiff<CR>')
-  map.g('n', '<leader>gw', ':Gwrite<CR>')
-  map.g('n', '<leader>gbr', ':GBrowse<CR>')
-end
+-- PLUGIN: vim-fugitive
+opt.g({ diffopt = opt.g('diffopt') .. ',vertical' })
+map.g('n', '<leader>gb', ':G blame<CR>')
+map.g('n', '<leader>gs', ':Git<CR>')
+map.g('n', '<leader>gc', ':Git commit -v<CR>')
+map.g('n', '<leader>ga', ':Git add -p<CR>')
+map.g('n', '<leader>gm', ':Git commit --amend<CR>')
+map.g('n', '<leader>gp', ':Git push<CR>')
+map.g('n', '<leader>gd', ':Gdiff<CR>')
+map.g('n', '<leader>gw', ':Gwrite<CR>')
+map.g('n', '<leader>gbr', ':GBrowse<CR>')
 
-if hasPlugin('vim-flog') then
-  map.g('n', '<Leader>gf', ':Flog<CR>')
-end
+-- PLUGIN: vim-flog
+map.g('n', '<Leader>gf', ':Flog<CR>')
 
-if hasPlugin('vim-polyglot') then
-  -- vim-javascript
-  var.g({ javascript_plugin_jsdoc = 1 })
-  var.g({ javascript_plugin_flow = 1 })
+-- PLUGIN: vim-polyglot
+-- vim-javascript
+var.g({ javascript_plugin_jsdoc = 1 })
+var.g({ javascript_plugin_flow = 1 })
 
-  -- vim-markdown
-  var.g({ vim_markdown_fenced_languages = { 'jsx=javascriptreact', 'js=javascript', 'tsx=typescriptreact', 'ts=typescriptreact', 'yarn=sh', 'git=sh' } })
-  var.g({ vim_markdown_no_extensions_in_markdown = 1 })
-  var.g({ vim_markdown_new_list_item_indent = 0 })
-  var.g({ vim_markdown_frontmatter = 1 })
-end
+-- vim-markdown
+var.g({ vim_markdown_fenced_languages = { 'jsx=javascriptreact', 'js=javascript', 'tsx=typescriptreact', 'ts=typescriptreact', 'yarn=sh', 'git=sh' } })
+var.g({ vim_markdown_no_extensions_in_markdown = 1 })
+var.g({ vim_markdown_new_list_item_indent = 0 })
+var.g({ vim_markdown_frontmatter = 1 })
 
-if hasPlugin('vimux') then
-  map.g('n', '<Leader>vp', ':VimuxPromptCommand<CR>') -- Prompt for a command to run
-  map.g('n', '<Leader>vl', ':VimuxRunLastCommand<CR>') -- Run last command executed by VimuxRunCommand
-  map.g('n', '<Leader>vi', ':VimuxInspectRunner<CR>') -- Inspect runner pane
-  map.g('n', '<Leader>vz', ':VimuxZoomRunner<CR>') -- Zoom the tmux runner pane
-end
+-- PLUGIN: vimux
+map.g('n', '<Leader>vp', ':VimuxPromptCommand<CR>') -- Prompt for a command to run
+map.g('n', '<Leader>vl', ':VimuxRunLastCommand<CR>') -- Run last command executed by VimuxRunCommand
+map.g('n', '<Leader>vi', ':VimuxInspectRunner<CR>') -- Inspect runner pane
+map.g('n', '<Leader>vz', ':VimuxZoomRunner<CR>') -- Zoom the tmux runner pane
 
-if hasPlugin('winresizer') then
-  var.g({ winresizer_start_key = '<C-T>' })
-end
+-- PLUGIN:winresizer
+var.g({ winresizer_start_key = '<C-T>' })
 
-if hasPlugin('vim-closetag') then
-  var.g({ closetag_emptyTags_caseSensitive = 1 })
-  var.g({ closetag_filetypes = 'html,xhtml,phtml,javascript,typescriptreact' })
-end
+-- PLUGIN:vim-closetag
+var.g({ closetag_emptyTags_caseSensitive = 1 })
+var.g({ closetag_filetypes = 'html,xhtml,phtml,javascript,typescriptreact' })
 
-if hasPlugin('vim-cutlass') then
-  map.g('n', 'x', 'd')
-  map.g('x', 'x', 'd')
-  map.g('n', 'xx', 'dd')
-  map.g('n', 'X', 'D')
-end
+-- PLUGIN:vim-cutlass
+map.g('n', 'x', 'd')
+map.g('x', 'x', 'd')
+map.g('n', 'xx', 'dd')
+map.g('n', 'X', 'D')
 
-if hasPlugin('vim-gutentags') then
-  var.g({ gutentags_ctags_tagfile = '.git/tags' })
-end
+-- PLUGIN:vim-subversive
+map.g('n', 's', '<plug>(SubversiveSubstitute)', { noremap = false })
+map.g('n', 'ss', '<plug>(SubversiveSubstituteLine)', { noremap = false })
+map.g('n', 'S', '<plug>(SubversiveSubstituteToEndOfLine)', { noremap = false })
 
-if hasPlugin('vim-subversive') then
-  map.g('n', 's', '<plug>(SubversiveSubstitute)', { noremap = false })
-  map.g('n', 'ss', '<plug>(SubversiveSubstituteLine)', { noremap = false })
-  map.g('n', 'S', '<plug>(SubversiveSubstituteToEndOfLine)', { noremap = false })
-end
+-- PLUGIN:yim-yoink
+var.g({ yoinkIncludeDeleteOperations = 1 })
+map.g('n', '<C-n>', '<Plug>(YoinkPostPasteSwapBack)', { noremap = false })
+map.g('n', '<C-p>', '<Plug>(YoinkPostPasteSwapForward)', { noremap = false })
+map.g('n', 'p', '<Plug>(YoinkPaste_p)', { noremap = false })
+map.g('n', 'P', '<Plug>(YoinkPaste_P)', { noremap = false })
 
-if hasPlugin('vim-yoink') then
-  var.g({ yoinkIncludeDeleteOperations = 1 })
-  map.g('n', '<C-n>', '<Plug>(YoinkPostPasteSwapBack)', { noremap = false })
-  map.g('n', '<C-p>', '<Plug>(YoinkPostPasteSwapForward)', { noremap = false })
-  map.g('n', 'p', '<Plug>(YoinkPaste_p)', { noremap = false })
-  map.g('n', 'P', '<Plug>(YoinkPaste_P)', { noremap = false })
+-- https://github.com/svermeulen/vim-yoink/issues/16#issuecomment-632234373
+var.g({
+  clipboard = {
+    name = 'xsel_override',
+    copy = {
+      ['+'] = 'xsel --input --clipboard',
+      ['*'] = 'xsel --input --primary',
+    },
+    paste = {
+      ['+'] = 'xsel --output --clipboard',
+      ['*'] = 'xsel --output --primary',
+    },
+    cache_enabled = 1,
+  }
+})
 
-  -- https://github.com/svermeulen/vim-yoink/issues/16#issuecomment-632234373
-  var.g({
-    clipboard = {
-      name = 'xsel_override',
-      copy = {
-        ['+'] = 'xsel --input --clipboard',
-        ['*'] = 'xsel --input --primary',
-      },
-      paste = {
-        ['+'] = 'xsel --output --clipboard',
-        ['*'] = 'xsel --output --primary',
-      },
-      cache_enabled = 1,
-    }
+-- PLUGIN:notational-fzf-vim
+map.g('n', '<Leader>l', ':NV<CR>', { silent = true })
+var.g({
+    nv_search_paths = {
+      '~/Dropbox/'..NOTATIONAL_FOLDER..'/wiki',
+      '~/Dropbox/journal',
+      '~/Dropbox/notes',
+      '~/Dropbox/drafts'
+    },
+    nv_ignore_pattern = { 'assets', '.git' }
   })
-end
 
-if hasPlugin('notational-fzf-vim') then
-  map.g('n', '<Leader>l', ':NV<CR>', { silent = true })
-  var.g({
-      nv_search_paths = {
-        '~/Dropbox/'..NOTATIONAL_FOLDER..'/wiki',
-        '~/Dropbox/journal',
-        '~/Dropbox/notes',
-        '~/Dropbox/drafts'
-      },
-      nv_ignore_pattern = { 'assets', '.git' }
-  })
-end
+-- PLUGIN:goyo.vim
+map.g('n', '<Leader>z', ':Goyo<CR>', { silent = true })
 
-if hasPlugin('vim-gitgutter') then
-  var.g({ gitgutter_map_keys = 0 })
-  var.g({ gitgutter_preview_win_floating = 0 })
-  map.g('n', ']c', '<Plug>(GitGutterNextHunk)', { noremap = false })
-  map.g('n', '[c', '<Plug>(GitGutterPrevHunk)', { noremap = false })
-  map.g('n', '<leader>hs', '<Plug>(GitGutterStageHunk)', { noremap = false })
-  map.g('n', '<leader>hu', '<Plug>(GitGutterUndoHunk)', { noremap = false })
-  map.g('n', '<leader>hp', '<Plug>(GitGutterPreviewHunk)', { noremap = false })
-end
+-- PLUGIN:vim-highlightedyank
+var.g({ highlightedyank_highlight_duration = 200 })
 
-if hasPlugin('goyo.vim') then
-  map.g('n', '<Leader>z', ':Goyo<CR>', { silent = true })
-end
-
-if hasPlugin('vim-highlightedyank') then
-  var.g({ highlightedyank_highlight_duration = 200 })
-end
-
-if hasPlugin('tcomment_vim') then
-  var.g({
+-- PLUGIN:tcomment_vim
+var.g({
     -- Prevent tcomment from making a zillion mappings (we just want the operator).
     tcomment_mapleader1 = '',
     tcomment_mapleader2 = '',
@@ -580,44 +541,42 @@ if hasPlugin('tcomment_vim') then
     tcomment_mapleader_uncomment_anyway = 'gu', -- The default (g<) is a bit awkward to type.
     ['tcomment#filetype#guess_typescriptreact'] = 1, -- make embedded jsx work
   })
-end
 
-if hasPlugin('bullets.vim') then
-  var.g({ bullets_checkbox_markers = ' .oOX' })
-end
+-- PLUGIN:bullets.vim
+var.g({ bullets_checkbox_markers = ' .oOX' })
 
-if hasPlugin('nvim-treesitter') then
-  require'nvim-treesitter.configs'.setup {
-    highlight = {
-      enable = true,
-      disable = {},
-    },
-    indent = {
-      enable = true,
-      disable = {},
-    },
-    ensure_installed = {
-      "tsx",
-      "typescript",
-      "toml",
-      "fish",
-      "bash",
-      "php",
-      "json",
-      "yaml",
-      "html",
-      "lua",
-      "scss",
-      "css"
-    },
-  }
-end
+-- PLUGIN:nvim-treesitter
+require'nvim-treesitter.configs'.setup {
+  highlight = {
+    enable = true,
+  disable = {}, },
+  indent = {
+    enable = true,
+    disable = {},
+  },
+  ensure_installed = {
+    "tsx",
+    "typescript",
+    "toml",
+    "fish",
+    "bash",
+    "php",
+    "json",
+    "yaml",
+    "html",
+    "lua",
+    "scss",
+    "css"
+  },
+}
 
-if hasPlugin('gitsigns.nvim') then
-  require('gitsigns').setup({
-    current_line_blame = true,
-  })
-end
+-- PLUGIN:gitsigns.nvim
+require('gitsigns').setup({
+  current_line_blame = true,
+})
+
+-- PLUGIN:simeji/winresizer
+var.g({ winresizer_start_key = '<C-T>' })
 
 ----------------------------------------
 -- Custom Plugins
