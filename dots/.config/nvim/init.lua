@@ -292,6 +292,7 @@ end
 
 util.createAugroup({
   { 'BufRead,BufNewFile', '*.json', 'set', 'filetype=jsonc' },
+  { 'BufRead,BufNewFile', 'package.json', 'set', 'filetype=json' },
   { 'FileType', 'markdown', 'lua', 'require"namjul.autocmds".plainText()' },
   { 'FileType', 'markdown', "let b:AutoPairs={ '(':')', '[[':']]', '{':'}', \"'\":\"'\", '\"':'\"', \"`\":\"`\", '```':'```', '\"\"\"':'\"\"\"', \"'''\":\"'''\" }" },
   { 'FileType', 'TelescopePrompt', 'call', "deoplete#custom#buffer_option('auto_complete', v:false)" }
