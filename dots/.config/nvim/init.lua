@@ -238,7 +238,7 @@ map.g('i', '<Bar>', '<Bar><Esc>:call v:lua.alignMdTable() <CR>a', { silent = tru
 --------------------
 
 function _G.terminalEsc()
-    return util.t('<C-\\><C-n>')
+    return vim.bo.filetype == 'fzf' and util.t('<Esc>') or util.t('<C-\\><C-n>')
 end
 map.g('t', '<Esc>', 'v:lua.terminalEsc()', { expr = true })
 
