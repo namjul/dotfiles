@@ -238,7 +238,7 @@ map.g('i', '<Bar>', '<Bar><Esc>:call v:lua.alignMdTable() <CR>a', { silent = tru
 --------------------
 
 function _G.terminalEsc()
-    return vim.bo.filetype == 'fzf' and util.t('<Esc>') or util.t('<C-\\><C-n>')
+    return util.t('<C-\\><C-n>')
 end
 map.g('t', '<Esc>', 'v:lua.terminalEsc()', { expr = true })
 
@@ -425,16 +425,6 @@ map.g('n', 'K', ':call v:lua.showDocumentation()<CR>', { noremap = true, silent 
 
 -- PLUGIN: deoplete.nvim
 var.g({ ['deoplete#enable_at_startup'] = 1 })
-
--- PLUGIN: fzf.vim
-var.g({
-    fzf_layout = { window = { width = 0.9, height = 1 } },
-    fzf_action = {
-      ['ctrl-t'] = 'tab split',
-      ['ctrl-s'] = 'split',
-      ['ctrl-v'] = 'vsplit',
-    }
-  })
 
 -- PLUGIN:neoterm
 var.g({ neoterm_autoinsert = 1 })
