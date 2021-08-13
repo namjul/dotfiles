@@ -1,5 +1,6 @@
+# A good starting point: https://gist.github.com/rab/4067067
+ 
 [alias]
-
   a       = add
   aa      = add .
   ai      = add -i
@@ -68,9 +69,11 @@
   pager = "diff-so-fancy | less --tabs=4 -RFX"
 
 [color]
-  # Use colors in Git commands that are capable of colored output when
-  # outputting to the terminal. (This is the default setting in Git ≥ 1.8.4.)
-  ui = always
+  branch = auto
+  diff = auto
+  status = auto
+  showbranch = auto
+  ui = true
 [color "branch"]
   current = yellow reverse
   local = yellow
