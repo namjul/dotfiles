@@ -80,8 +80,12 @@ require "paq" {
   'wincent/scalpel', -- helper for search and replace
   'editorconfig/editorconfig-vim', -- support editor config files (https://editorconfig.org/)
   'tmux-plugins/vim-tmux-focus-events', -- makes `FocusGained` and `FocusLost` work in terminal vim, `autoread` options then works as expected
-  {'junegunn/fzf', run = vim.fn['fzf#install'] }, -- fuzzy search
-  'junegunn/fzf.vim', -- adds commands to fzf
+
+  'nvim-lua/popup.nvim',
+  'nvim-lua/plenary.nvim',
+  'nvim-telescope/telescope.nvim',
+  { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' },
+
   'junegunn/goyo.vim', -- zen mode for writing
   -- paq('Yggdroot/indentLine') -- makes space indented code visible
   -- paq({ 'lukas-reineke/indent-blankline.nvim', branch = 'lua' }) --
@@ -255,13 +259,12 @@ map.g('n', '<Leader>w', ':write<CR>') -- quick save
 map.g('n', '<Leader>x', ':exit<CR>') -- like ":wq", but write only when changes have been
 map.g('n', '<Leader>q', ':quit<CR>') -- quites the current window and vim if its the last
 
--- fzf mappings
-map.g('n', '<Leader>*', ':Rg <C-R><C-W><CR>', { silent = true }) -- search for word under cursor
-map.g('n', '<Leader>/', ':Rg<space>') -- search for word
-map.g('n', '<Leader>f', ':Files<CR>', { silent = true }) -- search for file
-map.g('n', '<Leader>b', ':Buffers<CR>', { silent = true }) -- search buffers
-map.g('n', '<Leader>z', ':History<CR>', { silent = true }) -- search history - TODO clashes with GitGutter
-map.g('n', '<Leader>c', ':Commands<CR>', { silent = true }) -- search commands
+-- telescrope mappings
+map.g('n', '<Leader>*', '<cmd>:Telescope grep_string<CR>', { silent = true }) -- search for word under cursor
+map.g('n', '<Leader>/', '<cmd>:Telescope live_grep<CR>', { silent = false }) -- search for word
+map.g('n', '<Leader>f', ':lua require(\'telescope.builtin\').find_files({ find_command = { "rg", "--files" } })<CR>', { silent = true }) -- search for word under cursor
+map.g('n', '<Leader>b', '<cmd>:Telescope buffers<cr>', { silent = false }) -- search buffers
+map.g('n', '<Leader>c', '<cmd>:Telescope commands<cr>', { silent = false }) -- search commands
 
 -- open new splits in a semantic way
 map.g('n', '<Leader><C-h>', ':lefta vs new<CR>')
@@ -290,7 +293,8 @@ end
 util.createAugroup({
   { 'BufRead,BufNewFile', '*.json', 'set', 'filetype=jsonc' },
   { 'FileType', 'markdown', 'lua', 'require"namjul.autocmds".plainText()' },
-  { 'FileType', 'markdown', "let b:AutoPairs={ '(':')', '[[':']]', '{':'}', \"'\":\"'\", '\"':'\"', \"`\":\"`\", '```':'```', '\"\"\"':'\"\"\"', \"'''\":\"'''\" }" }
+  { 'FileType', 'markdown', "let b:AutoPairs={ '(':')', '[[':']]', '{':'}', \"'\":\"'\", '\"':'\"', \"`\":\"`\", '```':'```', '\"\"\"':'\"\"\"', \"'''\":\"'''\" }" },
+  { 'FileType', 'TelescopePrompt', 'call', "deoplete#custom#buffer_option('auto_complete', v:false)" }
 }, 'namjulfiletypedetect')
 
 util.createAugroup({
@@ -577,6 +581,20 @@ require('gitsigns').setup({
 
 -- PLUGIN:simeji/winresizer
 var.g({ winresizer_start_key = '<C-T>' })
+
+-- PLUGIN:telescope
+local actions = require('telescope.actions')
+require('telescope').setup({
+  defaults = {
+    prompt_prefix = ' ',
+    mappings = {
+      i = {
+        ["<esc>"] = actions.close
+      },
+    },
+  }
+})
+require('telescope').load_extension('fzf')
 
 ----------------------------------------
 -- Custom Plugins
