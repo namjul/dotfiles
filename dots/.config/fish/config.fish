@@ -39,3 +39,9 @@ if status is-interactive
 
   starship init fish | source
 end
+
+# do not track `tomb` commands
+# Source: https://github.com/fish-shell/fish-shell/issues/2788
+function ignorehistory --on-event fish_prompt
+    history --delete --prefix tomb
+end
