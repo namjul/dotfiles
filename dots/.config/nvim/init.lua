@@ -13,6 +13,7 @@ local cmd = vim.cmd -- to execute Vim commands e.g. cmd('pwd')
 local fn = vim.fn -- to call Vim functions e.g. fn.bufnr()
 local inspect = vim.inspect -- pretty-print Lua objects (useful for inspecting tables)
 local util = require('namjul.utils')
+local vimp = require('vimp')
 local paq = util.paq
 local opt = util.opt
 local map = util.map
@@ -63,6 +64,7 @@ var.g({ polyglot_disabled = { 'markdown' } })
 
 require "paq" {
   'savq/paq-nvim', -- Let Paq manage itself
+  'svermeulen/vimpeccable', -- Neovim plugin that allows you to easily map keys directly to lua code inside your init.lua
   'tpope/vim-sensible', -- sensible defaults
   'wincent/pinnacle', -- Required for namjul.statusline. Highlight group manipulation utils
   'tpope/vim-sensible', -- sensible defaults
@@ -253,7 +255,21 @@ map.g('n', '<Leader>a', 'ggVG') -- select all
 map.g('n', '<Leader><Leader>', '<C-^>') -- open last buffer.
 map.g('n', '<Leader>o', ':only<CR>') -- close all windows but the active one
 map.g('n', '<Leader>p', ':echo join([expand("%"), line(".")], ":")<CR>') -- <Leader>p - Show the path of the current file (mnemonic: path; useful when you have a lot of splits and the status line gets truncated).
-map.g('n', '<Leader>r', ':luafile $MYVIMRC<CR>') -- auto reload of vimrc TODO test in production env.
+
+-- r = reload vimrc
+vimp.nnoremap('<leader>r', function()
+  -- Remove all previously added vimpeccable maps
+  vimp.unmap_all()
+  -- Unload the lua namespace so that the next time require('config.X') is called
+  -- it will reload the file
+  require("namjul.utils").unload_lua_namespace('namjul')
+  -- Make sure all open buffers are saved
+  vim.cmd('silent wa')
+  -- Execute our vimrc lua file again to add back our maps
+  dofile(vim.fn.stdpath('config') .. '/init.lua')
+
+  print("Reloaded vimrc!")
+end)
 
 map.g('n', '<Leader>w', ':write<CR>') -- quick save
 map.g('n', '<Leader>x', ':exit<CR>') -- like ":wq", but write only when changes have been
