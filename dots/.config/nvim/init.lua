@@ -303,6 +303,9 @@ vimp.nnoremap('<leader>p', function()
   print(file)
 end)
 
+vimp.nnoremap('<leader>te', '<cmd>:Trans en<CR>')
+vimp.nnoremap('<leader>tg', '<cmd>:Trans de<CR>')
+
 map.g('n', '<Leader>w', ':write<CR>') -- quick save
 map.g('n', '<Leader>x', ':exit<CR>') -- like ":wq", but write only when changes have been
 map.g('n', '<Leader>q', ':quit<CR>') -- quites the current window and vim if its the last
@@ -622,3 +625,4 @@ require('telescope').load_extension('fzf')
 ----------------------------------------
 
 require('namjul.statusline').set()
+require('namjul.translator')
