@@ -254,7 +254,6 @@ var.b({ mapleader = ' ' })
 map.g('n', '<Leader>a', 'ggVG') -- select all
 map.g('n', '<Leader><Leader>', '<C-^>') -- open last buffer.
 map.g('n', '<Leader>o', ':only<CR>') -- close all windows but the active one
-map.g('n', '<Leader>p', ':echo join([expand("%"), line(".")], ":")<CR>') -- <Leader>p - Show the path of the current file (mnemonic: path; useful when you have a lot of splits and the status line gets truncated).
 
 -- r = reload vimrc
 vimp.nnoremap('<leader>r', function()
@@ -269,6 +268,13 @@ vimp.nnoremap('<leader>r', function()
   dofile(vim.fn.stdpath('config') .. '/init.lua')
 
   print("Reloaded vimrc!")
+end)
+
+-- Show the path of the current file and add it to clipboard (mnemonic: path; useful when you have a lot of splits and the status line gets truncated).
+vimp.nnoremap('<leader>p', function()
+  local file = fn.join({ fn.expand('%'), fn.line('.') })
+  cmd('let @+="'..file..'"')
+  print(file)
 end)
 
 map.g('n', '<Leader>w', ':write<CR>') -- quick save
