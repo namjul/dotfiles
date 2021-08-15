@@ -27,17 +27,12 @@ local hasPlugin = util.hasPlugin
 local NOTATIONAL_FOLDER = 'dendron'
 
 ----------------------------------------
--- Global functions
+-- Functions
 ----------------------------------------
-
--- tabline = '%!v:lua.require(\'namjul.tabline\').line()' results in an error reported here https://github.com/neovim/neovim/issues/13862
-function _G.mytabline()
-  return require('namjul.tabline').line()
-end
 
 -- markdown table alignment in lua
 -- https://gist.github.com/tpope/287147
-function _G.alignMdTable()
+local function alignMdTable()
   local pattern = '^%s*|%s.*%s|%s*$'
   local lineNumber = fn.line('.')
   local currentColumn = fn.col('.')
@@ -53,6 +48,40 @@ function _G.alignMdTable()
     fn.search(('[^|]*|'):rep(column) .. ('\\s\\{-\\}'):rep(position), 'ce', lineNumber)
   end
 end
+
+----------------------------------------
+-- Global functions
+----------------------------------------
+
+-- tabline = '%!v:lua.require(\'namjul.tabline\').line()' results in an error reported here https://github.com/neovim/neovim/issues/13862
+function _G.mytabline()
+  return require('namjul.tabline').line()
+end
+
+_G.alignMdTable = alignMdTable
+
+function _G.terminalEsc()
+    return vim.bo.filetype == 'fzf' and util.t('<Esc>') or util.t('<C-\\><C-n>')
+end
+
+-- opens my daily note/journal page
+function _G.openDailyJN(type)
+  local path = os.getenv('HOME')..'/Dropbox/'..(type == 'journal' and type..'/'..os.date("%d.%m.%Y") or NOTATIONAL_FOLDER..'/wiki/daily-notes')..'.md'
+  local command = ':e '..path
+  if not util.fileExists(path) and type == 'journal' then
+    command = command..' | 0r ~/.config/nvim/templates/journal-skeleton.md'
+  end
+  return command..util.t('<CR>')
+end
+
+function _G.showDocumentation()
+  if (({ vim = true, lua = true, help = true })[vim.bo.filetype]) then
+    fn.execute('h '..fn.expand('<cword>'))
+  else
+    cmd(':ALEHover')
+  end
+end
+
 
 ----------------------------------------
 -- Plugins
@@ -239,9 +268,6 @@ map.g('i', '<Bar>', '<Bar><Esc>:call v:lua.alignMdTable() <CR>a', { silent = tru
 -- TERMINAL
 --------------------
 
-function _G.terminalEsc()
-    return vim.bo.filetype == 'fzf' and util.t('<Esc>') or util.t('<C-\\><C-n>')
-end
 map.g('t', '<Esc>', 'v:lua.terminalEsc()', { expr = true })
 
 -- LEADER
@@ -296,15 +322,6 @@ map.g('n', '<Leader><C-l>', ':rightb vsp new<CR>')
 
 map.g('n', '<Leader>2', ':w<CR>:! ./%<CR>') -- execute current file
 
--- opens my daily note/journal page
-function _G.openDailyJN(type)
-  local path = os.getenv('HOME')..'/Dropbox/'..(type == 'journal' and type..'/'..os.date("%d.%m.%Y") or NOTATIONAL_FOLDER..'/wiki/daily-notes')..'.md'
-  local command = ':e '..path
-  if not util.fileExists(path) and type == 'journal' then
-    command = command..' | 0r ~/.config/nvim/templates/journal-skeleton.md'
-  end
-  return command..util.t('<CR>')
-end
 -- map.g('n', '<Leader>d', 'v:lua.openDailyJN("note")', { expr = true })
 -- map.g('n', '<Leader>j', 'v:lua.openDailyJN("journal")', { expr = true })
 
@@ -434,14 +451,6 @@ map.g('n', 'gd', '<Plug>(ale_go_to_definition)', { silent = true, noremap = fals
 map.g('n', 'gr', '<Plug>(ale_find_references) :ALEFindReferences -relative<Return>', { silent = true, noremap = false })
 map.g('n', 'gp', '<Plug>(ale_detail)', { silent = true, noremap = false })
 map.g('n', '<Leader>rn', '<Plug>(ale_rename)', { silent = true, noremap = false })
-
-function _G.showDocumentation()
-  if (({ vim = true, lua = true, help = true })[vim.bo.filetype]) then
-    fn.execute('h '..fn.expand('<cword>'))
-  else
-    cmd(':ALEHover')
-  end
-end
 
 map.g('n', 'K', ':call v:lua.showDocumentation()<CR>', { noremap = true, silent = true }) -- Use K to show documentation in preview window.
 
