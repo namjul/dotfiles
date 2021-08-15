@@ -391,7 +391,6 @@ var.g({
     gruvbox_contrast_light = 'medium',
     gruvbox_italic = 1
   })
-opt.g({ background = 'dark' })
 cmd('colorscheme gruvbox')
 
 -- PLUGIN: ale
