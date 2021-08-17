@@ -120,6 +120,7 @@ require "paq" {
   'junegunn/goyo.vim', -- zen mode for writing
   -- paq('Yggdroot/indentLine') -- makes space indented code visible
   -- paq({ 'lukas-reineke/indent-blankline.nvim', branch = 'lua' }) --
+  {'junegunn/fzf', run = vim.fn['fzf#install'] }, -- requirement for 'alok/notational-fzf-vim'. fuzzy search
   'alok/notational-fzf-vim', -- combines the fzf with the concept from notational
   'benmills/vimux', -- allows to send commands from vim to tmux
   'tyewang/vimux-jest-test', -- simplifies running jest test from vim
