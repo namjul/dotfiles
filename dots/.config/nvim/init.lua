@@ -619,7 +619,8 @@ require('telescope').setup({
     prompt_prefix = ' ',
     mappings = {
       i = {
-        ["<esc>"] = actions.close
+        ["<esc>"] = actions.close,
+        ["<C-q>"] = actions.send_to_qflist
       },
     },
   }
