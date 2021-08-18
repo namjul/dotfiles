@@ -331,6 +331,8 @@ map.g('n', '<Leader>2', ':w<CR>:! ./%<CR>') -- execute current file
 
 vimp.nnoremap('<leader>df', require('namjul.telescope').searchDotfiles)
 
+map.g('n', '<leader>gb', ':lua require(\'telescope.builtin\').git_branches()<CR>')
+
 -- map.g('n', '<Leader>d', 'v:lua.openDailyJN("note")', { expr = true })
 -- map.g('n', '<Leader>j', 'v:lua.openDailyJN("journal")', { expr = true })
 
@@ -476,7 +478,6 @@ var.g({ UltiSnipsJumpBackwardTrigger = '<C-k>' })
 
 -- PLUGIN: vim-fugitive
 opt.g({ diffopt = opt.g('diffopt') .. ',vertical' })
-map.g('n', '<leader>gb', ':G blame<CR>')
 map.g('n', '<leader>gs', ':Git<CR>')
 map.g('n', '<leader>gc', ':Git commit -v<CR>')
 map.g('n', '<leader>ga', ':Git add -p<CR>')
