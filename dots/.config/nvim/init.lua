@@ -315,7 +315,7 @@ map.g('n', '<Leader>q', ':quit<CR>') -- quites the current window and vim if its
 -- telescrope mappings
 map.g('n', '<Leader>*', '<cmd>:Telescope grep_string<CR>', { silent = true }) -- search for word under cursor
 -- map.g('n', '<Leader>/', '<cmd>:Telescope live_grep<CR>', { silent = false }) -- search for word
--- map.g('n', '<Leader>f', ':lua require(\'telescope.builtin\').find_files({ find_command = { "rg", "--files" } })<CR>', { silent = true }) -- search for word under cursor
+-- map.g('n', '<Leader>f', ':lua require(\'namjul.telescope\').findFiles()<CR>', { silent = true }) -- search for word under cursor
 map.g('n', '<Leader>f', ':lua require(\'telescope\').extensions.fzf_writer.files()<CR>', { silent = true }) -- search for word under cursor
 map.g('n', '<Leader>/', ':lua require(\'telescope\').extensions.fzf_writer.staged_grep()<CR>', { silent = true }) -- search for word under cursor
 map.g('n', '<Leader>b', '<cmd>:Telescope buffers<cr>', { silent = false }) -- search buffers
@@ -328,6 +328,8 @@ map.g('n', '<Leader><C-k>', ':above sp new<CR>')
 map.g('n', '<Leader><C-l>', ':rightb vsp new<CR>')
 
 map.g('n', '<Leader>2', ':w<CR>:! ./%<CR>') -- execute current file
+
+vimp.nnoremap('<leader>df', require('namjul.telescope').searchDotfiles)
 
 -- map.g('n', '<Leader>d', 'v:lua.openDailyJN("note")', { expr = true })
 -- map.g('n', '<Leader>j', 'v:lua.openDailyJN("journal")', { expr = true })
