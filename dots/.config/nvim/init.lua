@@ -267,6 +267,12 @@ map.g('c', '<C-e>', '<End>')
 map.g('i', 'jk', '<Esc>', { noremap = false }) -- esc mapping
 map.g('i', '<Bar>', '<Bar><Esc>:call v:lua.alignMdTable() <CR>a', { silent = true }) -- align markdown table
 
+-- Undo break points
+map.g('i', ',', ',<C-g>u')
+map.g('i', '.', '.<C-g>u')
+map.g('i', '!', '!<C-g>u')
+map.g('i', '?', '?<C-g>u')
+
 -- TERMINAL
 --------------------
 
