@@ -110,7 +110,6 @@ require "paq" {
   'wincent/loupe', -- enhancements to vim's search commands
   'wincent/scalpel', -- helper for search and replace
   'editorconfig/editorconfig-vim', -- support editor config files (https://editorconfig.org/)
-  'tmux-plugins/vim-tmux-focus-events', -- makes `FocusGained` and `FocusLost` work in terminal vim, `autoread` options then works as expected
 
   'nvim-lua/popup.nvim',
   'nvim-lua/plenary.nvim',
