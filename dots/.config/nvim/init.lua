@@ -486,7 +486,7 @@ var.g({ ['deoplete#enable_at_startup'] = 1 })
 var.g({ neoterm_autoinsert = 1 })
 
 -- PLUGIN:ultisnips
-var.g({ UltiSnipsExpandTrigger = '<C-j>' })
+var.g({ UltiSnipsExpandTrigger = '<tab>' })
 var.g({ UltiSnipsJumpForwardTrigger = '<C-j>' })
 var.g({ UltiSnipsJumpBackwardTrigger = '<C-k>' })
 
