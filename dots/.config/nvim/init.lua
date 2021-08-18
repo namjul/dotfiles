@@ -131,7 +131,7 @@ require "paq" {
   'Valloric/MatchTagAlways', -- highlights xml tags enclosing the cursor
   'simeji/winresizer', -- helper for resizing windows
   'camspiers/lens.vim', -- auto resizing of windows
-  'alvan/vim-closetag', -- auto closes the xml tag
+  'windwp/nvim-ts-autotag', -- auto closes xml tags
   -- paq('morhetz/gruvbox')
   -- paq('chriskempson/base16-vim')
   -- paq('icymind/NeoSolarized')
@@ -510,10 +510,6 @@ map.g('n', '<Leader>vz', ':VimuxZoomRunner<CR>') -- Zoom the tmux runner pane
 -- PLUGIN:winresizer
 var.g({ winresizer_start_key = '<C-T>' })
 
--- PLUGIN:vim-closetag
-var.g({ closetag_emptyTags_caseSensitive = 1 })
-var.g({ closetag_filetypes = 'html,xhtml,phtml,javascript,typescriptreact' })
-
 -- PLUGIN:vim-cutlass
 map.g('n', 'x', 'd')
 map.g('x', 'x', 'd')
@@ -581,7 +577,7 @@ var.g({
 var.g({ bullets_checkbox_markers = ' .oOX' })
 
 -- PLUGIN:nvim-treesitter
-require'nvim-treesitter.configs'.setup {
+require'nvim-treesitter.configs'.setup({
   highlight = {
     enable = true,
   disable = {}, },
@@ -603,7 +599,10 @@ require'nvim-treesitter.configs'.setup {
     "scss",
     "css"
   },
-}
+  autotag = {
+    enable = true,
+  }
+})
 
 -- PLUGIN:gitsigns.nvim
 require('gitsigns').setup({
