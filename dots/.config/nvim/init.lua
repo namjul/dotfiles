@@ -215,6 +215,70 @@ opt.b({
 -- Custom Mappings
 ----------------------------------------
 
+-- LEADER
+--------------------
+
+-- set Space as leader
+var.g({ mapleader = ' ' })
+var.b({ mapleader = ' ' })
+
+map.g('n', '<leader>a', 'ggVG') -- select all
+map.g('n', '<leader><leader>', '<C-^>') -- open last buffer.
+map.g('n', '<leader>o', ':only<CR>') -- close all windows but the active one
+
+-- r = reload vimrc
+vimp.nnoremap('<leader>r', function()
+  -- Remove all previously added vimpeccable maps
+  vimp.unmap_all()
+  -- Unload the lua namespace so that the next time require('config.X') is called
+  -- it will reload the file
+  require("namjul.utils").unload_lua_namespace('namjul')
+  -- Make sure all open buffers are saved
+  vim.cmd('silent wa')
+  -- Execute our vimrc lua file again to add back our maps
+  dofile(vim.fn.stdpath('config') .. '/init.lua')
+
+  print("Reloaded vimrc!")
+end)
+
+-- Show the path of the current file and add it to clipboard (mnemonic: path; useful when you have a lot of splits and the status line gets truncated).
+vimp.nnoremap('<leader>p', function()
+  local file = fn.join({ fn.expand('%'), fn.line('.') })
+  cmd('let @+="'..file..'"')
+  print(file)
+end)
+
+vimp.nnoremap('<leader>te', '<cmd>:Trans en<CR>')
+vimp.nnoremap('<leader>tg', '<cmd>:Trans de<CR>')
+
+map.g('n', '<leader>w', ':write<CR>') -- quick save
+map.g('n', '<leader>x', ':exit<CR>') -- like ":wq", but write only when changes have been
+map.g('n', '<leader>q', ':quit<CR>') -- quites the current window and vim if its the last
+
+-- telescrope mappings
+map.g('n', '<leader>*', '<cmd>:Telescope grep_string<CR>', { silent = true }) -- search for word under cursor
+-- map.g('n', '<leader>/', '<cmd>:Telescope live_grep<CR>', { silent = false }) -- search for word
+-- map.g('n', '<leader>f', ':lua require(\'namjul.telescope\').findFiles()<CR>', { silent = true }) -- search for word under cursor
+map.g('n', '<leader>f', ':lua require(\'telescope\').extensions.fzf_writer.files()<CR>', { silent = true }) -- search for word under cursor
+map.g('n', '<leader>/', ':lua require(\'telescope\').extensions.fzf_writer.staged_grep()<CR>', { silent = true }) -- search for word under cursor
+map.g('n', '<leader>b', '<cmd>:Telescope buffers<cr>', { silent = false }) -- search buffers
+map.g('n', '<leader>c', '<cmd>:Telescope commands<cr>', { silent = false }) -- search commands
+
+-- open new splits in a semantic way
+map.g('n', '<leader><C-h>', ':lefta vs new<CR>')
+map.g('n', '<leader><C-j>', ':below sp new<CR>')
+map.g('n', '<leader><C-k>', ':above sp new<CR>')
+map.g('n', '<leader><C-l>', ':rightb vsp new<CR>')
+
+map.g('n', '<leader>2', ':w<CR>:! ./%<CR>') -- execute current file
+
+vimp.nnoremap('<leader>df', require('namjul.telescope').searchDotfiles)
+
+map.g('n', '<leader>gb', ':lua require(\'telescope.builtin\').git_branches()<CR>')
+
+-- map.g('n', '<leader>d', 'v:lua.openDailyJN("note")', { expr = true })
+-- map.g('n', '<leader>j', 'v:lua.openDailyJN("journal")', { expr = true })
+
 map.g('', 'Y', 'y$') -- multi-mode mappings (Normal, Visual, Operating-pending modes).
 
 -- moving text
@@ -284,70 +348,6 @@ map.g('i', '?', '?<C-g>u')
 --------------------
 
 map.g('t', '<Esc>', 'v:lua.terminalEsc()', { expr = true })
-
--- LEADER
---------------------
-
--- set Space as leader
-var.g({ mapleader = ' ' })
-var.b({ mapleader = ' ' })
-
-map.g('n', '<Leader>a', 'ggVG') -- select all
-map.g('n', '<Leader><Leader>', '<C-^>') -- open last buffer.
-map.g('n', '<Leader>o', ':only<CR>') -- close all windows but the active one
-
--- r = reload vimrc
-vimp.nnoremap('<leader>r', function()
-  -- Remove all previously added vimpeccable maps
-  vimp.unmap_all()
-  -- Unload the lua namespace so that the next time require('config.X') is called
-  -- it will reload the file
-  require("namjul.utils").unload_lua_namespace('namjul')
-  -- Make sure all open buffers are saved
-  vim.cmd('silent wa')
-  -- Execute our vimrc lua file again to add back our maps
-  dofile(vim.fn.stdpath('config') .. '/init.lua')
-
-  print("Reloaded vimrc!")
-end)
-
--- Show the path of the current file and add it to clipboard (mnemonic: path; useful when you have a lot of splits and the status line gets truncated).
-vimp.nnoremap('<leader>p', function()
-  local file = fn.join({ fn.expand('%'), fn.line('.') })
-  cmd('let @+="'..file..'"')
-  print(file)
-end)
-
-vimp.nnoremap('<leader>te', '<cmd>:Trans en<CR>')
-vimp.nnoremap('<leader>tg', '<cmd>:Trans de<CR>')
-
-map.g('n', '<Leader>w', ':write<CR>') -- quick save
-map.g('n', '<Leader>x', ':exit<CR>') -- like ":wq", but write only when changes have been
-map.g('n', '<Leader>q', ':quit<CR>') -- quites the current window and vim if its the last
-
--- telescrope mappings
-map.g('n', '<Leader>*', '<cmd>:Telescope grep_string<CR>', { silent = true }) -- search for word under cursor
--- map.g('n', '<Leader>/', '<cmd>:Telescope live_grep<CR>', { silent = false }) -- search for word
--- map.g('n', '<Leader>f', ':lua require(\'namjul.telescope\').findFiles()<CR>', { silent = true }) -- search for word under cursor
-map.g('n', '<Leader>f', ':lua require(\'telescope\').extensions.fzf_writer.files()<CR>', { silent = true }) -- search for word under cursor
-map.g('n', '<Leader>/', ':lua require(\'telescope\').extensions.fzf_writer.staged_grep()<CR>', { silent = true }) -- search for word under cursor
-map.g('n', '<Leader>b', '<cmd>:Telescope buffers<cr>', { silent = false }) -- search buffers
-map.g('n', '<Leader>c', '<cmd>:Telescope commands<cr>', { silent = false }) -- search commands
-
--- open new splits in a semantic way
-map.g('n', '<Leader><C-h>', ':lefta vs new<CR>')
-map.g('n', '<Leader><C-j>', ':below sp new<CR>')
-map.g('n', '<Leader><C-k>', ':above sp new<CR>')
-map.g('n', '<Leader><C-l>', ':rightb vsp new<CR>')
-
-map.g('n', '<Leader>2', ':w<CR>:! ./%<CR>') -- execute current file
-
-vimp.nnoremap('<leader>df', require('namjul.telescope').searchDotfiles)
-
-map.g('n', '<leader>gb', ':lua require(\'telescope.builtin\').git_branches()<CR>')
-
--- map.g('n', '<Leader>d', 'v:lua.openDailyJN("note")', { expr = true })
--- map.g('n', '<Leader>j', 'v:lua.openDailyJN("journal")', { expr = true })
 
 ----------------------------------------
 -- AUTO COMMANDS
@@ -474,7 +474,7 @@ map.g('n', 'gD', '<Plug>(ale_go_to_type_definition)', { silent = true, noremap =
 map.g('n', 'gd', '<Plug>(ale_go_to_definition)', { silent = true, noremap = false })
 map.g('n', 'gr', '<Plug>(ale_find_references) :ALEFindReferences -relative<Return>', { silent = true, noremap = false })
 map.g('n', 'gp', '<Plug>(ale_detail)', { silent = true, noremap = false })
-map.g('n', '<Leader>rn', '<Plug>(ale_rename)', { silent = true, noremap = false })
+map.g('n', '<leader>rn', '<Plug>(ale_rename)', { silent = true, noremap = false })
 
 map.g('n', 'K', ':call v:lua.showDocumentation()<CR>', { noremap = true, silent = true }) -- Use K to show documentation in preview window.
 
@@ -501,7 +501,7 @@ map.g('n', '<leader>gw', ':Gwrite<CR>')
 map.g('n', '<leader>gbr', ':GBrowse<CR>')
 
 -- PLUGIN: vim-flog
-map.g('n', '<Leader>gf', ':Flog<CR>')
+map.g('n', '<leader>gf', ':Flog<CR>')
 
 -- PLUGIN: vim-polyglot
 -- vim-javascript
@@ -515,10 +515,10 @@ var.g({ vim_markdown_new_list_item_indent = 0 })
 var.g({ vim_markdown_frontmatter = 1 })
 
 -- PLUGIN: vimux
-map.g('n', '<Leader>vp', ':VimuxPromptCommand<CR>') -- Prompt for a command to run
-map.g('n', '<Leader>vl', ':VimuxRunLastCommand<CR>') -- Run last command executed by VimuxRunCommand
-map.g('n', '<Leader>vi', ':VimuxInspectRunner<CR>') -- Inspect runner pane
-map.g('n', '<Leader>vz', ':VimuxZoomRunner<CR>') -- Zoom the tmux runner pane
+map.g('n', '<leader>vp', ':VimuxPromptCommand<CR>') -- Prompt for a command to run
+map.g('n', '<leader>vl', ':VimuxRunLastCommand<CR>') -- Run last command executed by VimuxRunCommand
+map.g('n', '<leader>vi', ':VimuxInspectRunner<CR>') -- Inspect runner pane
+map.g('n', '<leader>vz', ':VimuxZoomRunner<CR>') -- Zoom the tmux runner pane
 
 -- PLUGIN:winresizer
 var.g({ winresizer_start_key = '<C-T>' })
@@ -558,7 +558,7 @@ var.g({
 })
 
 -- PLUGIN:notational-fzf-vim
-map.g('n', '<Leader>l', ':NV<CR>', { silent = true })
+map.g('n', '<leader>l', ':NV<CR>', { silent = true })
 var.g({
     nv_search_paths = {
       '~/Dropbox/'..NOTATIONAL_FOLDER..'/wiki',
@@ -570,7 +570,7 @@ var.g({
   })
 
 -- PLUGIN:goyo.vim
-map.g('n', '<Leader>z', ':Goyo<CR>', { silent = true })
+map.g('n', '<leader>z', ':Goyo<CR>', { silent = true })
 
 -- PLUGIN:vim-highlightedyank
 var.g({ highlightedyank_highlight_duration = 200 })
