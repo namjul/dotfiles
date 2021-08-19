@@ -32,5 +32,4 @@ function tabline.label(n)
   return fn.pathshorten(fn.fnamemodify(fn.bufname(buflist[winnr]), ':~:.'))
 end
 
-
 return tabline

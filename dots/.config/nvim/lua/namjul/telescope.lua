@@ -1,13 +1,14 @@
-
 local M = {}
 
 function M.findFiles(args)
   local opts = {
-    find_command = { "rg", "--files" },
+    find_command = { 'rg', '--files' },
     prompt_title = '< VimRC >',
   }
 
-  for k,v in pairs(args) do opts[k] = v end
+  for k, v in pairs(args) do
+    opts[k] = v
+  end
 
   -- require('telescope').extensions.fzf_writer.files({
   require('telescope.builtin').find_files(opts)

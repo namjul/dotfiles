@@ -24,17 +24,33 @@ function utils.addValues(valueType, values, kind)
 end
 
 utils.opt = {
-  g = function(options) return utils.addValues('o', options) end,
-  b = function(options) return utils.addValues('bo', options) end,
-  w = function(options) return utils.addValues('wo', options) end,
+  g = function(options)
+    return utils.addValues('o', options)
+  end,
+  b = function(options)
+    return utils.addValues('bo', options)
+  end,
+  w = function(options)
+    return utils.addValues('wo', options)
+  end,
 }
 
 utils.var = {
-  g = function(variables) return utils.addValues('g', variables, 'variables') end,
-  w = function(variables) return utils.addValues('w', variables, 'variables') end,
-  b = function(variables) return utils.addValues('b', variables, 'variables') end,
-  t = function(variables) return utils.addValues('t', variables, 'variables') end,
-  v = function(variables) return utils.addValues('v', variables, 'variables') end,
+  g = function(variables)
+    return utils.addValues('g', variables, 'variables')
+  end,
+  w = function(variables)
+    return utils.addValues('w', variables, 'variables')
+  end,
+  b = function(variables)
+    return utils.addValues('b', variables, 'variables')
+  end,
+  t = function(variables)
+    return utils.addValues('t', variables, 'variables')
+  end,
+  v = function(variables)
+    return utils.addValues('v', variables, 'variables')
+  end,
 }
 
 -- default to non-recursive map
@@ -54,15 +70,17 @@ utils.map = {
 
 -- The function is called `t` for `termcodes`.
 function utils.t(str)
-    -- Adjust boolean arguments as needed
-    return vim.api.nvim_replace_termcodes(str, true, true, true)
+  -- Adjust boolean arguments as needed
+  return vim.api.nvim_replace_termcodes(str, true, true, true)
 end
 
 -- creates the var `paqs` for packages inspection used in `hasPlugin`
 local paq_intern
 local paqs = {}
 function utils.paq(args)
-  if type(args) == 'string' then args = {args} end
+  if type(args) == 'string' then
+    args = { args }
+  end
   local _, pluginName = unpack(fn.split(args[1], '/'))
   paqs[pluginName] = true
   paq_intern = paq_intern or require('paq-nvim').paq
@@ -77,18 +95,22 @@ function utils.hasPlugin(plugin)
 end
 
 function utils.createAugroup(autocmds, name)
-    cmd('augroup ' .. name)
-    cmd('autocmd!')
-    for _, autocmd in ipairs(autocmds) do
-        cmd('autocmd ' .. table.concat(autocmd, ' '))
-    end
-    cmd('augroup END')
+  cmd('augroup ' .. name)
+  cmd('autocmd!')
+  for _, autocmd in ipairs(autocmds) do
+    cmd('autocmd ' .. table.concat(autocmd, ' '))
+  end
+  cmd('augroup END')
 end
 
-
 function utils.fileExists(name)
-   local f=io.open(name,"r")
-   if f~=nil then io.close(f) return true else return false end
+  local f = io.open(name, 'r')
+  if f ~= nil then
+    io.close(f)
+    return true
+  else
+    return false
+  end
 end
 
 function utils.unload_lua_namespace(prefix)

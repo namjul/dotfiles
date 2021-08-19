@@ -40,9 +40,13 @@ local function alignMdTable()
   local currentLine = fn.getline('.')
   local nextLine = fn.getline(lineNumber + 1)
 
-  if fn.exists(':Tabularize') and currentLine:match('^%s*|') and (previousLine:match(pattern) or nextLine:match(pattern)) then
+  if
+    fn.exists(':Tabularize')
+    and currentLine:match('^%s*|')
+    and (previousLine:match(pattern) or nextLine:match(pattern))
+  then
     local column = #currentLine:sub(1, currentColumn):gsub('[^|]', '')
-    local position = #fn.matchstr(currentLine:sub(1, currentColumn), ".*|\\s*\\zs.*")
+    local position = #fn.matchstr(currentLine:sub(1, currentColumn), '.*|\\s*\\zs.*')
     cmd('Tabularize/|/l1') -- `l` means left aligned and `1` means one space of cell padding
     cmd('normal! 0')
     fn.search(('[^|]*|'):rep(column) .. ('\\s\\{-\\}'):rep(position), 'ce', lineNumber)
@@ -61,27 +65,29 @@ end
 _G.alignMdTable = alignMdTable
 
 function _G.terminalEsc()
-    return vim.bo.filetype == 'fzf' and util.t('<Esc>') or util.t('<C-\\><C-n>')
+  return vim.bo.filetype == 'fzf' and util.t('<Esc>') or util.t('<C-\\><C-n>')
 end
 
 -- opens my daily note/journal page
 function _G.openDailyJN(type)
-  local path = os.getenv('HOME')..'/Dropbox/'..(type == 'journal' and type..'/'..os.date("%d.%m.%Y") or NOTATIONAL_FOLDER..'/wiki/daily-notes')..'.md'
-  local command = ':e '..path
+  local path = os.getenv('HOME')
+    .. '/Dropbox/'
+    .. (type == 'journal' and type .. '/' .. os.date('%d.%m.%Y') or NOTATIONAL_FOLDER .. '/wiki/daily-notes')
+    .. '.md'
+  local command = ':e ' .. path
   if not util.fileExists(path) and type == 'journal' then
-    command = command..' | 0r ~/.config/nvim/templates/journal-skeleton.md'
+    command = command .. ' | 0r ~/.config/nvim/templates/journal-skeleton.md'
   end
-  return command..util.t('<CR>')
+  return command .. util.t('<CR>')
 end
 
 function _G.showDocumentation()
-  if (({ vim = true, lua = true, help = true })[vim.bo.filetype]) then
-    fn.execute('h '..fn.expand('<cword>'))
+  if ({ vim = true, lua = true, help = true })[vim.bo.filetype] then
+    fn.execute('h ' .. fn.expand('<cword>'))
   else
     cmd(':ALEHover')
   end
 end
-
 
 ----------------------------------------
 -- Plugins
@@ -91,7 +97,7 @@ end
 var.g({ polyglot_disabled = { 'markdown' } })
 -- end
 
-require "paq" {
+require('paq')({
   'savq/paq-nvim', -- Let Paq manage itself
   'svermeulen/vimpeccable', -- Neovim plugin that allows you to easily map keys directly to lua code inside your init.lua
   'tpope/vim-sensible', -- sensible defaults
@@ -120,7 +126,7 @@ require "paq" {
   'junegunn/goyo.vim', -- zen mode for writing
   -- paq('Yggdroot/indentLine') -- makes space indented code visible
   -- paq({ 'lukas-reineke/indent-blankline.nvim', branch = 'lua' }) --
-  {'junegunn/fzf', run = vim.fn['fzf#install'] }, -- requirement for 'alok/notational-fzf-vim'. fuzzy search
+  { 'junegunn/fzf', run = vim.fn['fzf#install'] }, -- requirement for 'alok/notational-fzf-vim'. fuzzy search
   'alok/notational-fzf-vim', -- combines the fzf with the concept from notational
   'benmills/vimux', -- allows to send commands from vim to tmux
   'tyewang/vimux-jest-test', -- simplifies running jest test from vim
@@ -151,7 +157,12 @@ require "paq" {
   'mattn/gist-vim', -- interact with github gist from vim
   'mattn/webapi-vim', -- needed for `gist-vim`
   'dense-analysis/ale', -- linter, fixer and lsp
-  { 'Shougo/deoplete.nvim',  run = function () cmd('UpdateRemotePlugins') end }, -- autocomplete
+  {
+    'Shougo/deoplete.nvim',
+    run = function()
+      cmd('UpdateRemotePlugins')
+    end,
+  }, -- autocomplete
   'ap/vim-css-color', -- color name highlighter
   'machakann/vim-highlightedyank', -- highlights yanked text
   'dkarter/bullets.vim', -- enhance bullet points management
@@ -160,11 +171,22 @@ require "paq" {
   'godlygeek/tabular', -- auto alignment
   { 'namjul/vim-markdown', branch = 'wikilinks' }, -- own fork of that adds wikilinks support
   'tpope/vim-obsession', -- helper to start vim sessions
-  { 'npxbr/glow.nvim', run = function () cmd('GlowInstall') end, branch = 'main' }, -- markdown preview
-  { 'nvim-treesitter/nvim-treesitter', run = function () cmd('TSUpdate') end },
+  {
+    'npxbr/glow.nvim',
+    run = function()
+      cmd('GlowInstall')
+    end,
+    branch = 'main',
+  }, -- markdown preview
+  {
+    'nvim-treesitter/nvim-treesitter',
+    run = function()
+      cmd('TSUpdate')
+    end,
+  },
   'rktjmp/lush.nvim', -- Required for 'npxbr/gruvbox.nvim' - Define Neovim themes as a DSL in lua, with real-time feedback.
   'npxbr/gruvbox.nvim',
-}
+})
 
 ----------------------------------------
 -- Options
@@ -191,7 +213,7 @@ opt.g({
   background = 'dark',
   pastetoggle = '<F2>',
   tabline = '%!v:lua.mytabline()',
-  undodir = os.getenv('XDG_DATA_HOME')..'/nvim/undo'
+  undodir = os.getenv('XDG_DATA_HOME') .. '/nvim/undo',
 })
 
 -- Window
@@ -200,7 +222,7 @@ opt.w({
   cursorline = true, -- Highlight current line
   wrap = false, -- don't wrap lines
   list = true, -- show whitespaces
-  listchars = 'tab:>\\ ,trail:-,extends:>,precedes:<,nbsp:+'
+  listchars = 'tab:>\\ ,trail:-,extends:>,precedes:<,nbsp:+',
 })
 
 -- Buffer
@@ -232,19 +254,19 @@ vimp.nnoremap('<leader>r', function()
   vimp.unmap_all()
   -- Unload the lua namespace so that the next time require('config.X') is called
   -- it will reload the file
-  require("namjul.utils").unload_lua_namespace('namjul')
+  require('namjul.utils').unload_lua_namespace('namjul')
   -- Make sure all open buffers are saved
   vim.cmd('silent wa')
   -- Execute our vimrc lua file again to add back our maps
   dofile(vim.fn.stdpath('config') .. '/init.lua')
 
-  print("Reloaded vimrc!")
+  print('Reloaded vimrc!')
 end)
 
 -- Show the path of the current file and add it to clipboard (mnemonic: path; useful when you have a lot of splits and the status line gets truncated).
 vimp.nnoremap('<leader>p', function()
   local file = fn.join({ fn.expand('%'), fn.line('.') })
-  cmd('let @+="'..file..'"')
+  cmd('let @+="' .. file .. '"')
   print(file)
 end)
 
@@ -259,8 +281,8 @@ map.g('n', '<leader>q', ':quit<CR>') -- quites the current window and vim if its
 map.g('n', '<leader>*', '<cmd>:Telescope grep_string<CR>', { silent = true }) -- search for word under cursor
 -- map.g('n', '<leader>/', '<cmd>:Telescope live_grep<CR>', { silent = false }) -- search for word
 -- map.g('n', '<leader>f', ':lua require(\'namjul.telescope\').findFiles()<CR>', { silent = true }) -- search for word under cursor
-map.g('n', '<leader>f', ':lua require(\'telescope\').extensions.fzf_writer.files()<CR>', { silent = true }) -- search for word under cursor
-map.g('n', '<leader>/', ':lua require(\'telescope\').extensions.fzf_writer.staged_grep()<CR>', { silent = true }) -- search for word under cursor
+map.g('n', '<leader>f', ":lua require('telescope').extensions.fzf_writer.files()<CR>", { silent = true }) -- search for word under cursor
+map.g('n', '<leader>/', ":lua require('telescope').extensions.fzf_writer.staged_grep()<CR>", { silent = true }) -- search for word under cursor
 map.g('n', '<leader>b', '<cmd>:Telescope buffers<cr>', { silent = false }) -- search buffers
 map.g('n', '<leader>c', '<cmd>:Telescope commands<cr>', { silent = false }) -- search commands
 
@@ -274,7 +296,7 @@ map.g('n', '<leader>2', ':w<CR>:! ./%<CR>') -- execute current file
 
 vimp.nnoremap('<leader>df', require('namjul.telescope').searchDotfiles)
 
-map.g('n', '<leader>gb', ':lua require(\'telescope.builtin\').git_branches()<CR>')
+map.g('n', '<leader>gb', ":lua require('telescope.builtin').git_branches()<CR>")
 
 -- map.g('n', '<leader>d', 'v:lua.openDailyJN("note")', { expr = true })
 -- map.g('n', '<leader>j', 'v:lua.openDailyJN("journal")', { expr = true })
@@ -282,8 +304,8 @@ map.g('n', '<leader>gb', ':lua require(\'telescope.builtin\').git_branches()<CR>
 map.g('', 'Y', 'y$') -- multi-mode mappings (Normal, Visual, Operating-pending modes).
 
 -- moving text
-map.g('v', 'J', ':m \'>+1<CR>gv=gv')
-map.g('v', 'K', ':m \'<-2<CR>gv=gv')
+map.g('v', 'J', ":m '>+1<CR>gv=gv")
+map.g('v', 'K', ":m '<-2<CR>gv=gv")
 map.g('i', '<C-j>', '<esc>:m .+1<CR>==')
 map.g('i', '<C-k>', '<esc>:m .-2<CR>==')
 map.g('n', '<leader>k', ':m .-2<CR>==')
@@ -304,18 +326,17 @@ map.g('n', '<C-l>', '<C-w>l')
 map.g('n', 'k', '(v:count > 5 ? "m\\\'" . v:count : "") . "k"', { expr = true })
 map.g('n', 'j', '(v:count > 5 ? "m\\\'" . v:count : "") . "j"', { expr = true })
 
-
 -- repurpose cursor keys (accessible near homerow via "SpaceFN" layout) for one
 -- of my most oft-use key sequences.
 map.g('n', '<Up>', ':cprevious<CR>', { silent = true })
-map.g('n', '<Down>' , ':cnext<CR>', { silent = true })
-map.g('n', '<Left>' , ':cpfile<CR>', { silent = true })
-map.g('n', '<Right>' , ':cnfile<CR>', { silent = true })
+map.g('n', '<Down>', ':cnext<CR>', { silent = true })
+map.g('n', '<Left>', ':cpfile<CR>', { silent = true })
+map.g('n', '<Right>', ':cnfile<CR>', { silent = true })
 
-map.g('n', '<S-Up>' , ':lprevious<CR>', { silent = true })
-map.g('n', '<S-Down>' , ':lnext<CR>', { silent = true })
-map.g('n', '<S-Left>' , ':lpfile<CR>', { silent = true })
-map.g('n', '<S-Right>' , ':lnfile<CR>', { silent = true })
+map.g('n', '<S-Up>', ':lprevious<CR>', { silent = true })
+map.g('n', '<S-Down>', ':lnext<CR>', { silent = true })
+map.g('n', '<S-Left>', ':lpfile<CR>', { silent = true })
+map.g('n', '<S-Right>', ':lnfile<CR>', { silent = true })
 
 -- VISUAL
 --------------------
@@ -357,19 +378,28 @@ util.createAugroup({
   { 'BufRead,BufNewFile', '*.json', 'set', 'filetype=jsonc' },
   { 'BufRead,BufNewFile', 'package.json', 'set', 'filetype=json' },
   { 'FileType', 'markdown', 'lua', 'require"namjul.autocmds".plainText()' },
-  { 'FileType', 'markdown', "let b:AutoPairs={ '(':')', '[[':']]', '{':'}', \"'\":\"'\", '\"':'\"', \"`\":\"`\", '```':'```', '\"\"\"':'\"\"\"', \"'''\":\"'''\" }" },
-  { 'FileType', 'TelescopePrompt', 'call', "deoplete#custom#buffer_option('auto_complete', v:false)" }
+  {
+    'FileType',
+    'markdown',
+    "let b:AutoPairs={ '(':')', '[[':']]', '{':'}', \"'\":\"'\", '\"':'\"', \"`\":\"`\", '```':'```', '\"\"\"':'\"\"\"', \"'''\":\"'''\" }",
+  },
+  { 'FileType', 'TelescopePrompt', 'call', "deoplete#custom#buffer_option('auto_complete', v:false)" },
 }, 'namjulfiletypedetect')
 
 util.createAugroup({
   { 'FileType', 'dirvish', 'silent! nnoremap <nowait><buffer><silent> o :<C-U>.call dirvish#open("edit", 0)<CR>' }, -- Overwrite default mapping for the benefit of my muscle memory. ('o' would normally open in a split window, but we want it to open in the current one.)
   { 'FileType', 'dirvish', 'nmap <buffer> q gq' }, -- close buffers using `gq`
-  { 'FileType', 'dirvish', 'nmap <buffer>cd :cd %:p:h<CR>:pwd<CR>' } -- change directory wih `cd`
+  { 'FileType', 'dirvish', 'nmap <buffer>cd :cd %:p:h<CR>:pwd<CR>' }, -- change directory wih `cd`
 }, 'namjuldirvish')
 
 util.createAugroup({
   { 'Colorscheme', '*', 'lua require"namjul.statusline".updateHighlight()' }, -- trigger highlight update see https://vi.stackexchange.com/questions/3355/why-do-custom-highlights-in-my-vimrc-get-cleared-or-reset-to-default
-  { 'BufWinEnter,BufWritePost,FileWritePost,TextChanged,TextChangedI,WinEnter', '*', 'lua', 'require"namjul.statusline".checkModified()' }
+  {
+    'BufWinEnter,BufWritePost,FileWritePost,TextChanged,TextChangedI,WinEnter',
+    '*',
+    'lua',
+    'require"namjul.statusline".checkModified()',
+  },
 }, 'namjulstatusline')
 
 util.createAugroup({
@@ -388,9 +418,14 @@ util.createAugroup({
 }, 'namjulautocmds')
 
 util.createAugroup({
-    { 'BufNewFile', '*.sh', 'lua', 'require"namjul.autocmds".skeleton("~/.config/nvim/templates/skeleton.sh")' },
-    { 'BufNewFile', '27.04.2021.md', 'lua', 'require"namjul.autocmds".skeleton("~/.config/nvim/templates/journal-morning-skeleton.md")' }
-  }, 'namjulskeletons')
+  { 'BufNewFile', '*.sh', 'lua', 'require"namjul.autocmds".skeleton("~/.config/nvim/templates/skeleton.sh")' },
+  {
+    'BufNewFile',
+    '27.04.2021.md',
+    'lua',
+    'require"namjul.autocmds".skeleton("~/.config/nvim/templates/journal-morning-skeleton.md")',
+  },
+}, 'namjulskeletons')
 
 ----------------------------------------
 -- Plugin Settings
@@ -428,41 +463,43 @@ util.createAugroup({
 
 -- PLUGIN: gruvbox.nvim
 var.g({
-    gruvbox_contrast_dark = 'medium',
-    gruvbox_contrast_light = 'medium',
-    gruvbox_italic = 1
-  })
+  gruvbox_contrast_dark = 'medium',
+  gruvbox_contrast_light = 'medium',
+  gruvbox_italic = 1,
+})
 cmd('colorscheme gruvbox')
 
 -- PLUGIN: ale
 var.g({
-    ale_virtualtext_cursor = 1,
-    ale_virtualtext_prefix = '❐ ',
-    ale_echo_msg_format = '[%linter%] [%severity%] %code: %%s',
-    ale_lint_on_text_changed = 'never',
-    ale_linter_aliases = {
-      javascriptreact = { 'javascript', 'jsx' },
-      typescriptreact = { 'typescript', 'tsx' },
-    },
-    ale_linters = {
-      typescript = { 'eslint', 'tsserver', 'typecheck' },
-      javascript = { 'eslint', 'tsserver', 'flow' },
-    },
-    ale_fixers = {
-      javascriptreact = { 'prettier' },
-      typescriptreact = { 'prettier' },
-      javascript = { 'prettier' },
-      typescript = { 'prettier' },
-      html = { 'prettier' },
-      json = { 'prettier' },
-      mdx = { 'prettier' }
-    },
-    ale_javascript_prettier_use_local_config = 1,
-    ale_sign_error="✖",
-    ale_sign_warning="⚠",
-    ale_sign_info="ℹ",
-    ale_fix_on_save = 1,
-  })
+  ale_virtualtext_cursor = 1,
+  ale_virtualtext_prefix = '❐ ',
+  ale_echo_msg_format = '[%linter%] [%severity%] %code: %%s',
+  ale_lint_on_text_changed = 'never',
+  ale_linter_aliases = {
+    javascriptreact = { 'javascript', 'jsx' },
+    typescriptreact = { 'typescript', 'tsx' },
+  },
+  ale_linters = {
+    typescript = { 'eslint', 'tsserver', 'typecheck' },
+    javascript = { 'eslint', 'tsserver', 'flow' },
+  },
+  ale_fixers = {
+    javascriptreact = { 'prettier' },
+    typescriptreact = { 'prettier' },
+    javascript = { 'prettier' },
+    typescript = { 'prettier' },
+    html = { 'prettier' },
+    json = { 'prettier' },
+    mdx = { 'prettier' },
+    lua = { 'stylua' },
+  },
+  ale_lua_stylua_options = '--search-parent-directories',
+  ale_javascript_prettier_use_local_config = 1,
+  ale_sign_error = '✖',
+  ale_sign_warning = '⚠',
+  ale_sign_info = 'ℹ',
+  ale_fix_on_save = 1,
+})
 
 cmd('highlight link ALEVirtualTextError GruvboxRed')
 cmd('highlight link ALEVirtualTextWarning GruvboxYellow')
@@ -509,7 +546,16 @@ var.g({ javascript_plugin_jsdoc = 1 })
 var.g({ javascript_plugin_flow = 1 })
 
 -- vim-markdown
-var.g({ vim_markdown_fenced_languages = { 'jsx=javascriptreact', 'js=javascript', 'tsx=typescriptreact', 'ts=typescriptreact', 'yarn=sh', 'git=sh' } })
+var.g({
+  vim_markdown_fenced_languages = {
+    'jsx=javascriptreact',
+    'js=javascript',
+    'tsx=typescriptreact',
+    'ts=typescriptreact',
+    'yarn=sh',
+    'git=sh',
+  },
+})
 var.g({ vim_markdown_no_extensions_in_markdown = 1 })
 var.g({ vim_markdown_new_list_item_indent = 0 })
 var.g({ vim_markdown_frontmatter = 1 })
@@ -554,20 +600,20 @@ var.g({
       ['*'] = 'xsel --output --primary',
     },
     cache_enabled = 1,
-  }
+  },
 })
 
 -- PLUGIN:notational-fzf-vim
 map.g('n', '<leader>l', ':NV<CR>', { silent = true })
 var.g({
-    nv_search_paths = {
-      '~/Dropbox/'..NOTATIONAL_FOLDER..'/wiki',
-      '~/Dropbox/journal',
-      '~/Dropbox/notes',
-      '~/Dropbox/drafts'
-    },
-    nv_ignore_pattern = { 'assets', '.git' }
-  })
+  nv_search_paths = {
+    '~/Dropbox/' .. NOTATIONAL_FOLDER .. '/wiki',
+    '~/Dropbox/journal',
+    '~/Dropbox/notes',
+    '~/Dropbox/drafts',
+  },
+  nv_ignore_pattern = { 'assets', '.git' },
+})
 
 -- PLUGIN:goyo.vim
 map.g('n', '<leader>z', ':Goyo<CR>', { silent = true })
@@ -577,44 +623,45 @@ var.g({ highlightedyank_highlight_duration = 200 })
 
 -- PLUGIN:tcomment_vim
 var.g({
-    -- Prevent tcomment from making a zillion mappings (we just want the operator).
-    tcomment_mapleader1 = '',
-    tcomment_mapleader2 = '',
-    tcomment_mapleader_comment_anyway = '',
+  -- Prevent tcomment from making a zillion mappings (we just want the operator).
+  tcomment_mapleader1 = '',
+  tcomment_mapleader2 = '',
+  tcomment_mapleader_comment_anyway = '',
 
-    tcomment_mapleader_uncomment_anyway = 'gu', -- The default (g<) is a bit awkward to type.
-    ['tcomment#filetype#guess_typescriptreact'] = 1, -- make embedded jsx work
-  })
+  tcomment_mapleader_uncomment_anyway = 'gu', -- The default (g<) is a bit awkward to type.
+  ['tcomment#filetype#guess_typescriptreact'] = 1, -- make embedded jsx work
+})
 
 -- PLUGIN:bullets.vim
 var.g({ bullets_checkbox_markers = ' .oOX' })
 
 -- PLUGIN:nvim-treesitter
-require'nvim-treesitter.configs'.setup({
+require('nvim-treesitter.configs').setup({
   highlight = {
     enable = true,
-  disable = {}, },
+    disable = {},
+  },
   indent = {
     enable = true,
     disable = {},
   },
   ensure_installed = {
-    "tsx",
-    "typescript",
-    "toml",
-    "fish",
-    "bash",
-    "php",
-    "json",
-    "yaml",
-    "html",
-    "lua",
-    "scss",
-    "css"
+    'tsx',
+    'typescript',
+    'toml',
+    'fish',
+    'bash',
+    'php',
+    'json',
+    'yaml',
+    'html',
+    'lua',
+    'scss',
+    'css',
   },
   autotag = {
     enable = true,
-  }
+  },
 })
 
 -- PLUGIN:gitsigns.nvim
@@ -632,11 +679,11 @@ require('telescope').setup({
     prompt_prefix = ' ',
     mappings = {
       i = {
-        ["<esc>"] = actions.close,
-        ["<C-q>"] = actions.send_to_qflist
+        ['<esc>'] = actions.close,
+        ['<C-q>'] = actions.send_to_qflist,
       },
     },
-  }
+  },
 })
 require('telescope').load_extension('fzf')
 

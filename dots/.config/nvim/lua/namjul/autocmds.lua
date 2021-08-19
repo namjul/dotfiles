@@ -11,14 +11,14 @@ local winhighlightBlurred = table.concat({
   'IncSearch:ColorColumn',
   'Normal:ColorColumn',
   'NormalNC:ColorColumn',
-  'SignColumn:ColorColumn'
+  'SignColumn:ColorColumn',
 }, ',')
 
 function autocmds.plainText()
   local opt = util.opt
   local map = util.map
   if vim.fn.has('conceal') == 1 then
-    opt.b({ concealcursor=nc })
+    opt.b({ concealcursor = nc })
   end
 
   opt.w({
@@ -146,7 +146,7 @@ function autocmds.winLeave()
 end
 
 function autocmds.skeleton(path)
-  cmd('0r '..path)
+  cmd('0r ' .. path)
 end
 
 autocmds.filetypeBlacklist = {

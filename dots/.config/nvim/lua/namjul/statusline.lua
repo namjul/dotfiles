@@ -1,4 +1,4 @@
-local pinnacle = require'wincent.pinnacle'
+local pinnacle = require('wincent.pinnacle')
 local util = require('namjul.utils')
 local cmd = vim.cmd
 
@@ -35,38 +35,38 @@ local defaultStl = {
   '%*', -- Reset highlight group.
 }
 
-
 local mode_map = {
   ['n'] = 'N',
-	['no'] = 'n·operator pending',
-	['v'] = 'V',
-	['V'] = 'V·line',
-	[''] = 'V·block',
-	['s'] = 'select',
-	['S'] = 'S·line',
-	[''] = 'S·block',
-	['i'] = 'I',
-	['ic'] = 'I·complete',
-	['R'] = 'replace',
-	['Rv'] = 'V·replace',
-	['c'] = 'command',
-	['cv'] = 'vim ex',
-	['ce'] = 'ex',
-	['r'] = 'prompt',
-	['rm'] = 'more',
-	['r?'] = 'confirm',
-	['!'] = 'shell',
-	['t'] = 'terminal'
+  ['no'] = 'n·operator pending',
+  ['v'] = 'V',
+  ['V'] = 'V·line',
+  [''] = 'V·block',
+  ['s'] = 'select',
+  ['S'] = 'S·line',
+  [''] = 'S·block',
+  ['i'] = 'I',
+  ['ic'] = 'I·complete',
+  ['R'] = 'replace',
+  ['Rv'] = 'V·replace',
+  ['c'] = 'command',
+  ['cv'] = 'vim ex',
+  ['ce'] = 'ex',
+  ['r'] = 'prompt',
+  ['rm'] = 'more',
+  ['r?'] = 'confirm',
+  ['!'] = 'shell',
+  ['t'] = 'terminal',
 }
 
 function statusline.mode()
-	local m = vim.api.nvim_get_mode().mode
-	if mode_map[m] == nil then return m end
-	return mode_map[m]
+  local m = vim.api.nvim_get_mode().mode
+  if mode_map[m] == nil then
+    return m
+  end
+  return mode_map[m]
 end
 
 function statusline.updateHighlight()
-
   -- colors
   local bg0 = pinnacle.extract_fg('GruvboxBg0')
   local bg1 = pinnacle.extract_fg('GruvboxBg1')
@@ -80,7 +80,6 @@ function statusline.updateHighlight()
   local aqua = pinnacle.extract_fg('GruvboxAqua')
   local orange = pinnacle.extract_fg('GruvboxOrange')
   local green = pinnacle.extract_fg('GruvboxGreen')
-
 
   local modeColor = pinnacle.extract_fg(statusHighlight)
 
@@ -104,7 +103,7 @@ function statusline.updateHighlight()
   cmd('highlight User4 ' .. pinnacle.highlight({
     bg = modeColor,
     fg = bg0,
-    cterm = 'bold'
+    cterm = 'bold',
   }))
 
   -- rhs
@@ -112,7 +111,6 @@ function statusline.updateHighlight()
     bg = fg4,
     fg = bg0,
   }))
-
 
   cmd('highlight! link StatusLine User1')
   cmd('highlight clear StatusLineNC')

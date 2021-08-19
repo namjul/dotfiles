@@ -12,16 +12,15 @@ vim.cmd('hi def link TranslatorSubHeader   Identifier')
 vim.cmd('command! -nargs=* Trans lua require"namjul.translator".translate(<f-args>)')
 
 local function open_window()
-
   buf = vim.api.nvim_create_buf(false, true) -- create new emtpy buffer
 
   vim.api.nvim_buf_set_option(buf, 'bufhidden', 'wipe') -- delete when hidden
 
   -- get dimensions
-  local width = api.nvim_get_option("columns")
-  local height = api.nvim_get_option("lines")
+  local width = api.nvim_get_option('columns')
+  local height = api.nvim_get_option('lines')
 
- -- calculate our floating window size
+  -- calculate our floating window size
   local win_height = math.ceil(height * 0.8 - 4)
   local win_width = math.ceil(width * 0.5)
 
@@ -37,7 +36,7 @@ local function open_window()
     col = col,
     row = row,
     anchor = 'NW',
-    style = 'minimal'
+    style = 'minimal',
   }
 
   win = vim.api.nvim_open_win(buf, true, opts)
@@ -49,11 +48,11 @@ end
 
 local function update_view()
   if #word > 0 then
-    local result = vim.fn.systemlist('trans --no-ansi :'..language..' '..word)
+    local result = vim.fn.systemlist('trans --no-ansi :' .. language .. ' ' .. word)
 
     -- with small indentation results will look better
-    for k,v in pairs(result) do
-      result[k] = '  '..result[k]
+    for k, v in pairs(result) do
+      result[k] = '  ' .. result[k]
     end
 
     vim.api.nvim_buf_set_lines(buf, 0, -1, false, result)
@@ -66,14 +65,13 @@ local function update_view()
 end
 
 local function set_mappings()
-
   local mappings = {
     q = close_window,
     ['<Esc>'] = close_window,
-    ['<CR>'] = close_window
+    ['<CR>'] = close_window,
   }
 
-  for k,v in pairs(mappings) do
+  for k, v in pairs(mappings) do
     vimp.add_buffer_maps(buf, function()
       vimp.nnoremap(k, v)
     end)
@@ -82,7 +80,7 @@ end
 
 local function translate(_language, _word)
   language = _language
-  word = _word or vim.fn.expand("<cword>")
+  word = _word or vim.fn.expand('<cword>')
 
   open_window()
   set_mappings()
@@ -92,4 +90,3 @@ end
 return {
   translate = translate,
 }
-
