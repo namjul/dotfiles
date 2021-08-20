@@ -2,10 +2,13 @@
 
 # Take a screenshot of an area of the screen, upload it to dropbox and put the
 # url into the clipboard
+# https://gist.github.com/kloneets/51f3c5fed2c6c573e3fd9c8377033900
 
-FILENAME=~/Dropbox/pics/Screenshot_`date +%Y-%m-%d-%H:%M`.png
+FILENAME=~/Dropbox/pics/tmp/Screenshot_`date +%Y-%m-%d-%H:%M`.png
+
 # use gnome tool for taking area screenshot
 gnome-screenshot -a -f $FILENAME
+
 if test -f "$FILENAME"; then
   # create a shareable link with dropbox
   LINK="$(dropbox sharelink $FILENAME)"
