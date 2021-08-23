@@ -44,7 +44,6 @@ brew install tmux
 # git
 brew install git
 brew instal git-delta # https://github.com/dandavison/delta -- A viewer for git and diff output
-brew install diff-so-fancy
 
 # rust
 brew install fd # finder

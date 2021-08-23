@@ -1,5 +1,5 @@
 # A good starting point: https://gist.github.com/rab/4067067
- 
+
 [alias]
   a       = add
   aa      = add .
@@ -65,8 +65,7 @@
 [core]
   # Use custom `.gitignore` and `.gitattributes`
   excludesfile = ~/.gitignore
-  # Use diff-so-fance
-  pager = "diff-so-fancy | less --tabs=4 -RFX"
+  pager = "delta --diff-so-fancy"
 
 [color]
   branch = auto
