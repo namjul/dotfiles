@@ -42,50 +42,50 @@ yes | $(brew --prefix)/opt/fzf/install
 brew install tmux
 
 # git
-brew install cdiff
 brew install git
+brew instal git-delta # https://github.com/dandavison/delta -- A viewer for git and diff output
 brew install diff-so-fancy
 
 # rust
 brew install fd # finder
 brew install bat # previewer
-brew install starship
-brew install exa
+brew install starship # https://github.com/starship/starship -- cometmilky_way The minimal, blazing-fast, and infinitely customizable prompt for any shell!
+brew install exa # https://github.com/ogham/exa -- A modern replacement for ‘ls’.
 brew install ripgrep # Ripgrep - fzf/vim is configured to use this
-brew install procs
-brew install sd
-brew install dust
+brew install procs # A modern replacement for ps written in Rust -- https://github.com/dalance/procs
+brew install sd # https://github.com/chmln/sd -- Intuitive find & replace CLI (sed alternative)
+brew install dust # https://github.com/bootandy/dust -- A more intuitive version of du in rust
 brew install tokei # Count your code, quickly.
-brew install tealdeer
-brew install bandwhich
-brew install grex
-brew install zoxide
-brew install nushell
-brew install lf # list-files, ranger replacement
+brew install tealdeer # https://github.com/dbrgn/tealdeer -- A very fast implementation of tldr in Rust.
+brew install bandwhich # https://github.com/imsnif/bandwhich -- Terminal bandwidth utilization tool
+brew install grex # https://github.com/pemistahl/grex -- A command-line tool and library for generating regular expressions from user-provided test cases
+brew install zoxide # https://github.com/ajeetdsouza/zoxide -- A smarter cd command. Supports all major shells.
+brew install nushell # https://github.com/nushell/nushell -- A new type of shell
+brew install lf # https://github.com/gokcehan/lf -- list-files, ranger replacement
 brew tap clementtsang/bottom
-brew install bottom
+brew install bottom # https://github.com/ClementTsang/bottom -- Yet another cross-platform graphical process/system monitor.
 
 # Install everything else
 brew install tree
 brew install python
 brew install xclip
 brew install wmctrl
-brew install httpie
+brew install httpie # https://github.com/httpie/httpie -- Modern, user-friendly command-line HTTP client for the API era
 brew install fish
 brew install github/gh/gh
-brew install asciinema
+brew install asciinema # https://github.com/asciinema/asciinema -- Terminal session recorder video_camera
 brew install translate-shell
 brew install asdf
 brew install glow
 brew install exercism
 brew install stylua
 brew install todo-txt
-brew install tig
-brew install sops
-brew install fx # https://github.com/antonmedv/fx/
-brew install jq # https://stedolan.github.io/
-brew install q # http://harelba.github.io/q/
-brew install loc # https://github.com/cgag/loc
+brew install tig # https://github.com/jonas/tig -- Text-mode interface for git
+brew install sops # https://github.com/mozilla/sops -- Simple and flexible tool for managing secrets
+brew install fx # https://github.com/antonmedv/fx/ Command-line tool and terminal JSON viewer fire
+brew install jq # https://github.com/stedolan/jq -- https://github.com/stedolan/jq
+brew install q # http://harelba.github.io/q/ -- q - Run SQL directly on CSV or TSV files
+brew install loc # https://github.com/cgag/loc -- Count lines of code quickly.
 brew install croc # https://github.com/schollz/croc -- Easily and securely send things from one computer to another
 brew install massren # https://github.com/laurent22/massren -- easily rename multiple files using your text editor
 brew install xsv # https://github.com/BurntSushi/xsv -- A fast CSV command line toolkit written in Rust.
