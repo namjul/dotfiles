@@ -1,6 +1,7 @@
 local M = {}
 
 function M.findFiles(args)
+  args = args or {}
   local opts = {
     find_command = { 'rg', '--files' },
     prompt_title = '< VimRC >',

@@ -117,11 +117,10 @@ require('paq')({
   'wincent/scalpel', -- helper for search and replace
   'editorconfig/editorconfig-vim', -- support editor config files (https://editorconfig.org/)
 
-  'nvim-lua/popup.nvim',
   'nvim-lua/plenary.nvim',
   'nvim-telescope/telescope.nvim',
   { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' },
-  'nvim-telescope/telescope-fzf-writer.nvim',
+  -- 'nvim-telescope/telescope-fzf-writer.nvim',
 
   'junegunn/goyo.vim', -- zen mode for writing
   -- paq('Yggdroot/indentLine') -- makes space indented code visible
@@ -279,10 +278,10 @@ map.g('n', '<leader>q', ':quit<CR>') -- quites the current window and vim if its
 
 -- telescrope mappings
 map.g('n', '<leader>*', '<cmd>:Telescope grep_string<CR>', { silent = true }) -- search for word under cursor
--- map.g('n', '<leader>/', '<cmd>:Telescope live_grep<CR>', { silent = false }) -- search for word
--- map.g('n', '<leader>f', ':lua require(\'namjul.telescope\').findFiles()<CR>', { silent = true }) -- search for word under cursor
-map.g('n', '<leader>f', ":lua require('telescope').extensions.fzf_writer.files()<CR>", { silent = true }) -- search for word under cursor
-map.g('n', '<leader>/', ":lua require('telescope').extensions.fzf_writer.staged_grep()<CR>", { silent = true }) -- search for word under cursor
+map.g('n', '<leader>/', '<cmd>:Telescope live_grep<CR>', { silent = false }) -- search for word
+map.g('n', '<leader>f', ":lua require('namjul.telescope').findFiles()<CR>", { silent = true }) -- search for word under cursor
+-- map.g('n', '<leader>f', ":lua require('telescope').extensions.fzf_writer.files()<CR>", { silent = true }) -- search for word under cursor
+-- map.g('n', '<leader>/', ":lua require('telescope').extensions.fzf_writer.staged_grep()<CR>", { silent = true }) -- search for word under cursor
 map.g('n', '<leader>b', '<cmd>:Telescope buffers<cr>', { silent = false }) -- search buffers
 map.g('n', '<leader>c', '<cmd>:Telescope commands<cr>', { silent = false }) -- search commands
 
