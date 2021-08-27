@@ -232,6 +232,9 @@ opt.b({
   undofile = true, -- Maintain undo history between sessions
 })
 
+-- Colorscheme
+cmd('colorscheme gruvbox')
+
 ----------------------------------------
 -- Custom Mappings
 ----------------------------------------
@@ -430,9 +433,6 @@ util.createAugroup({
 -- Plugin Settings
 ----------------------------------------
 
--- PLUGIN:nord-vim
--- cmd('colorscheme nord')
-
 -- PLUGIN:oceanic-next
 -- cmd('colorscheme OceanicNext')
 -- var.g({
@@ -466,7 +466,6 @@ var.g({
   gruvbox_contrast_light = 'medium',
   gruvbox_italic = 1,
 })
-cmd('colorscheme gruvbox')
 
 -- PLUGIN: ale
 var.g({
