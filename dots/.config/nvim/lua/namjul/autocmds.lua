@@ -89,7 +89,7 @@ local function blurWindow()
     util.opt.w({ winhighlight = winhighlightBlurred })
     supportsBlurFocus(function()
       util.opt.w({
-        conceallevel = 1,
+        conceallevel = 0, -- disabled now since currently wikilinks in markdown files get completely hidden
         list = false,
       })
     end)
