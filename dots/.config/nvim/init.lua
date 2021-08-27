@@ -185,6 +185,7 @@ require('paq')({
   },
   'rktjmp/lush.nvim', -- Required for 'npxbr/gruvbox.nvim' - Define Neovim themes as a DSL in lua, with real-time feedback.
   'npxbr/gruvbox.nvim',
+  'rafcamlet/nvim-luapad',
 })
 
 ----------------------------------------
