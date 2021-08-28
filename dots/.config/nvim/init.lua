@@ -281,13 +281,38 @@ map.g('n', '<leader>x', ':exit<CR>') -- like ":wq", but write only when changes 
 map.g('n', '<leader>q', ':quit<CR>') -- quites the current window and vim if its the last
 
 -- telescrope mappings
-map.g('n', '<leader>*', '<cmd>:Telescope grep_string<CR>', { silent = true }) -- search for word under cursor
-map.g('n', '<leader>/', '<cmd>:Telescope live_grep<CR>', { silent = false }) -- search for word
-map.g('n', '<leader>f', ":lua require('namjul.telescope').findFiles()<CR>", { silent = true }) -- search for word under cursor
+map.g(
+  'n',
+  '<leader>*',
+  ":lua require('telescope.builtin').grep_string(require('telescope.themes').get_ivy({}))<CR>",
+  { silent = true }
+) -- search for word under cursor
+map.g(
+  'n',
+  '<leader>/',
+  ":lua require('telescope.builtin').live_grep(require('telescope.themes').get_ivy({}))<CR>",
+  { silent = false }
+) -- search for word
+map.g(
+  'n',
+  '<leader>f',
+  ":lua require('namjul.telescope').findFiles(require('telescope.themes').get_ivy({}))<CR>",
+  { silent = true }
+) -- search for word under cursor
 -- map.g('n', '<leader>f', ":lua require('telescope').extensions.fzf_writer.files()<CR>", { silent = true }) -- search for word under cursor
 -- map.g('n', '<leader>/', ":lua require('telescope').extensions.fzf_writer.staged_grep()<CR>", { silent = true }) -- search for word under cursor
-map.g('n', '<leader>b', '<cmd>:Telescope buffers<cr>', { silent = false }) -- search buffers
-map.g('n', '<leader>c', '<cmd>:Telescope commands<cr>', { silent = false }) -- search commands
+map.g(
+  'n',
+  '<leader>b',
+  ":lua require('telescope.builtin').buffers(require('telescope.themes').get_ivy({}))<CR>",
+  { silent = false }
+) -- search buffers
+map.g(
+  'n',
+  '<leader>c',
+  ":lua require('telescope.builtin').commands(require('telescope.themes').get_ivy({}))<CR>",
+  { silent = false }
+) -- search commands
 
 -- open new splits in a semantic way
 map.g('n', '<leader><C-h>', ':lefta vs new<CR>')
