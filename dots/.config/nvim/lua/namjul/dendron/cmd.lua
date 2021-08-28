@@ -1,18 +1,19 @@
+local dendron = require('namjul/dendron')
 local Job = require('plenary/job')
 
 local M = {}
 
-local PORT = 3005
-
-function M.engine(opts)
+function M.dendron(opts)
+  table.insert(opts.args, '--enginePort')
+  table.insert(opts.args, dendron.config.dendron_port)
   Job
     :new({
       command = 'dendron',
-      args = { 'launchEngineServer', '--init', '--port', PORT },
+      args = opts.args,
       cwd = opts.dendron_dir,
       on_exit = function(j, return_val)
-        print(return_val, 'on_exit')
-        print(vim.inspect(j:result()))
+        -- print(return_val, 'on_exit')
+        -- print(vim.inspect(j:result()))
       end,
       on_stdout = function(j, return_val)
         print(return_val, 'on_stdout')
@@ -24,43 +25,6 @@ function M.engine(opts)
       end,
     })
     :start()
-end
-
-function M.dendron(opts)
-  Job
-    :new({
-      command = 'lsof',
-      args = { '-i:' .. PORT },
-      on_exit = function(j, return_val)
-        M.engine(opts)
-        if return_val == 1 then
-          print('call engine')
-        end
-      end,
-    })
-    :start()
-
-  -- table.insert(opts.args, '--enginePort')
-  -- table.insert(opts.args, PORT)
-  -- Job
-  --   :new({
-  --     command = 'dendron',
-  --     args = opts.args,
-  --     cwd = opts.dendron_dir,
-  --     on_exit = function(j, return_val)
-  --       -- print(return_val, 'on_exit')
-  --       -- print(vim.inspect(j:result()))
-  --     end,
-  --     on_stdout = function(j, return_val)
-  --       print(return_val, 'on_stdout')
-  --       -- print(vim.inspect(j:result()))
-  --     end,
-  --     on_stderr = function(j, return_val)
-  --       print(return_val, 'on_stderr')
-  --       -- print(vim.inspect(j:result()))
-  --     end,
-  --   })
-  --   :start()
 end
 
 function M.lookup(arg_opts, dendron_dir, json_fn)
