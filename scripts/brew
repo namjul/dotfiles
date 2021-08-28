@@ -78,6 +78,7 @@ brew install asdf
 brew install glow
 brew install exercism
 brew install stylua
+brew install luarocks
 brew install todo-txt
 brew install tig # https://github.com/jonas/tig -- Text-mode interface for git
 brew install sops # https://github.com/mozilla/sops -- Simple and flexible tool for managing secrets
