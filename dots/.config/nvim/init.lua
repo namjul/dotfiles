@@ -14,7 +14,6 @@ local fn = vim.fn -- to call Vim functions e.g. fn.bufnr()
 local inspect = vim.inspect -- pretty-print Lua objects (useful for inspecting tables)
 local util = require('namjul.utils')
 local vimp = require('vimp')
-local paq = util.paq
 local opt = util.opt
 local map = util.map
 local var = util.var
@@ -97,96 +96,7 @@ end
 var.g({ polyglot_disabled = { 'markdown' } })
 -- end
 
-require('paq')({
-  'savq/paq-nvim', -- Let Paq manage itself
-  'svermeulen/vimpeccable', -- Neovim plugin that allows you to easily map keys directly to lua code inside your init.lua
-  'tpope/vim-sensible', -- sensible defaults
-  'wincent/pinnacle', -- Required for namjul.statusline. Highlight group manipulation utils
-  'tpope/vim-sensible', -- sensible defaults
-  'tpope/vim-repeat', -- enables the repeat command to work with external plugins
-  'tpope/vim-fugitive', -- git integration
-  'rbong/vim-flog', -- git branch viewer
-  'tpope/vim-rhubarb', -- open files on github
-  'tpope/vim-surround', -- adds operators for surrounding characters
-  'tpope/vim-unimpaired', -- set of complementary pair commands
-  'tomtom/tcomment_vim', -- Temporarily commenting
-  'svermeulen/vim-cutlass', -- seperate `cut` form `delete`
-  'svermeulen/vim-subversive', -- adds a subsitute operator
-  'svermeulen/vim-yoink', -- adds easy access to history of yanks
-  'wincent/loupe', -- enhancements to vim's search commands
-  'wincent/scalpel', -- helper for search and replace
-  'editorconfig/editorconfig-vim', -- support editor config files (https://editorconfig.org/)
-
-  'nvim-lua/plenary.nvim',
-  'nvim-telescope/telescope.nvim',
-  { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' },
-  -- 'nvim-telescope/telescope-fzf-writer.nvim',
-
-  'junegunn/goyo.vim', -- zen mode for writing
-  -- paq('Yggdroot/indentLine') -- makes space indented code visible
-  -- paq({ 'lukas-reineke/indent-blankline.nvim', branch = 'lua' }) --
-  { 'junegunn/fzf', run = vim.fn['fzf#install'] }, -- requirement for 'alok/notational-fzf-vim'. fuzzy search
-  'alok/notational-fzf-vim', -- combines the fzf with the concept from notational
-  'benmills/vimux', -- allows to send commands from vim to tmux
-  'tyewang/vimux-jest-test', -- simplifies running jest test from vim
-  'justinmk/vim-dirvish', -- file explorer
-  'jeffkreeftmeijer/vim-numbertoggle', -- improves the display of line numbers
-  'jiangmiao/auto-pairs', -- auto closes pairs
-  'Valloric/MatchTagAlways', -- highlights xml tags enclosing the cursor
-  'simeji/winresizer', -- helper for resizing windows
-  'camspiers/lens.vim', -- auto resizing of windows
-  'windwp/nvim-ts-autotag', -- auto closes xml tags
-  -- paq('morhetz/gruvbox')
-  -- paq('chriskempson/base16-vim')
-  -- paq('icymind/NeoSolarized')
-  -- paq('arcticicestudio/nord-vim')
-  -- paq('mhartington/oceanic-next')
-  -- paq('srcery-colors/srcery-vim')
-  -- paq('sonph/onehalf', { 'rtp': 'vim/' })
-  -- paq('drewtempelmeyer/palenight.vim')
-  -- paq('ayu-theme/ayu-vim')
-  -- paq('rakr/vim-one')
-  'nvim-lua/plenary.nvim',
-  'lewis6991/gitsigns.nvim',
-  'rhysd/committia.vim', -- improves vim 'commit' buffer
-  'sheerun/vim-polyglot', -- general language support
-  'moll/vim-node', -- improves dx in node.js env
-  'SirVer/ultisnips', -- snippets engine
-  'honza/vim-snippets', -- general snippets collection
-  'mattn/gist-vim', -- interact with github gist from vim
-  'mattn/webapi-vim', -- needed for `gist-vim`
-  'dense-analysis/ale', -- linter, fixer and lsp
-  {
-    'Shougo/deoplete.nvim',
-    run = function()
-      cmd('UpdateRemotePlugins')
-    end,
-  }, -- autocomplete
-  'ap/vim-css-color', -- color name highlighter
-  'machakann/vim-highlightedyank', -- highlights yanked text
-  'dkarter/bullets.vim', -- enhance bullet points management
-  'csexton/trailertrash.vim', -- highlight trailing whitespace
-  'kassio/neoterm', -- simple terminal access
-  'godlygeek/tabular', -- auto alignment
-  { 'namjul/vim-markdown', branch = 'wikilinks' }, -- own fork of that adds wikilinks support
-  'tpope/vim-obsession', -- helper to start vim sessions
-  {
-    'npxbr/glow.nvim',
-    run = function()
-      cmd('GlowInstall')
-    end,
-    branch = 'main',
-  }, -- markdown preview
-  {
-    'nvim-treesitter/nvim-treesitter',
-    run = function()
-      cmd('TSUpdate')
-    end,
-  },
-  'rktjmp/lush.nvim', -- Required for 'npxbr/gruvbox.nvim' - Define Neovim themes as a DSL in lua, with real-time feedback.
-  'npxbr/gruvbox.nvim',
-  'rafcamlet/nvim-luapad',
-})
+require('plugins')
 
 ----------------------------------------
 -- Options

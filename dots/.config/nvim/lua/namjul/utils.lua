@@ -74,26 +74,6 @@ function utils.t(str)
   return vim.api.nvim_replace_termcodes(str, true, true, true)
 end
 
--- creates the var `paqs` for packages inspection used in `hasPlugin`
-local paq_intern
-local paqs = {}
-function utils.paq(args)
-  if type(args) == 'string' then
-    args = { args }
-  end
-  local _, pluginName = unpack(fn.split(args[1], '/'))
-  paqs[pluginName] = true
-  paq_intern = paq_intern or require('paq-nvim').paq
-  paq_intern(args)
-end
-
--- check if package is active
-function utils.hasPlugin(plugin)
-  plugin = plugin or ''
-  local lookup = fn.stdpath('data') .. '/site/pack/paqs/start/' .. plugin
-  return paqs[plugin] and fn.isdirectory(lookup) ~= 0
-end
-
 function utils.createAugroup(autocmds, name)
   cmd('augroup ' .. name)
   cmd('autocmd!')
