@@ -22,7 +22,7 @@ if status is-interactive
   # load
   set parts functions env path alias
   for part in $parts
-    set file $HOME/.dotfiles/shell/$part.fish
+    set file $HOME/.config/fish/$part.fish
     if test -e $file
       source $file
     end

@@ -10,7 +10,7 @@
 - [alacritty](dots/alacritty.yml)
 - [gitconfig](dots/gitconfig)
 - [fish configuration](dots/.config/fish/config.fish)
-- [aliases](shell/alias.fish), [functions](shell/functions.fish)
+- [aliases](dots/.config/fish/alias.fish), [functions](dots/.config/fish/functions.fish)
 - [starship](dots/starship)
 - [espanso](dots/.config/espanso/default.yml)
 - [zathura](dots/.config/zathura/zathurarc)
