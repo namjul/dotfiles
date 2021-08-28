@@ -621,6 +621,9 @@ require('telescope').setup({
 })
 require('telescope').load_extension('fzf')
 
+-- PLUGIN:nvim-colorizer.lua #sdfsdfs
+require('colorizer').setup()
+
 ----------------------------------------
 -- Custom Plugins
 ----------------------------------------

@@ -60,7 +60,7 @@ return require('packer').startup(function(use)
     'Shougo/deoplete.nvim',
     run = ':UpdateRemotePlugins',
   }) -- autocomplete
-  use('ap/vim-css-color') -- color name highlighter
+  use('norcalli/nvim-colorizer.lua') -- The fastest Neovim colorizer.
   use('machakann/vim-highlightedyank') -- highlights yanked text
   use('dkarter/bullets.vim') -- enhance bullet points management
   use('csexton/trailertrash.vim') -- highlight trailing whitespace
