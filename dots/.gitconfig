@@ -110,3 +110,6 @@
   rebase = false
 [init]
   defaultBranch = main
+[user]
+	name = Samuel Hobl
+	email = nam@hobl.at
