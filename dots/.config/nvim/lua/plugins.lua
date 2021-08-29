@@ -1,9 +1,11 @@
+local util = require('namjul.utils')
+local var = util.var
+
 return require('packer').startup(function(use)
   use('wbthomason/packer.nvim') -- Packer can manage itself
+  use('tpope/vim-sensible') -- sensible defaults
   use('svermeulen/vimpeccable') -- Neovim plugin that allows you to easily map keys directly to lua code inside your init.lua
-  use('tpope/vim-sensible') -- sensible defaults
   use('wincent/pinnacle') -- Required for namjul.statusline. Highlight group manipulation utils
-  use('tpope/vim-sensible') -- sensible defaults
   use('tpope/vim-repeat') -- enables the repeat command to work with external plugins
   use('tpope/vim-fugitive') -- git integration
   use('rbong/vim-flog') -- git branch viewer
@@ -21,22 +23,35 @@ return require('packer').startup(function(use)
   use('nvim-lua/plenary.nvim')
   use('nvim-telescope/telescope.nvim')
   use({ 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' })
-  -- 'nvim-telescope/telescope-fzf-writer.nvim',
-
-  use('junegunn/goyo.vim') -- zen mode for writing
+  use('nvim-telescope/telescope-fzf-writer.nvim')
   -- use('Yggdroot/indentLine') -- makes space indented code visible
   -- use({ 'lukas-reineke/indent-blankline.nvim', branch = 'lua' }) --
-  use({ 'junegunn/fzf', run = vim.fn['fzf#install'] }) -- requirement for 'alok/notational-fzf-vim'. fuzzy search
-  use('alok/notational-fzf-vim') -- combines the fzf with the concept from notational
+  use({
+    'alok/notational-fzf-vim',
+    requires = { { 'junegunn/fzf' } },
+    setup = function()
+      vim.g.nv_search_paths = {
+        '~/Dropbox/dendron/wiki',
+        '~/Dropbox/journal',
+        '~/Dropbox/notes',
+        '~/Dropbox/drafts',
+      }
+      vim.g.nv_ignore_pattern = { 'assets', '.git' }
+    end,
+  }) -- combines the fzf with the concept from notational
   use('benmills/vimux') -- allows to send commands from vim to tmux
   use('tyewang/vimux-jest-test') -- simplifies running jest test from vim
   use('justinmk/vim-dirvish') -- file explorer
   use('jeffkreeftmeijer/vim-numbertoggle') -- improves the display of line numbers
   use('jiangmiao/auto-pairs') -- auto closes pairs
   use('Valloric/MatchTagAlways') -- highlights xml tags enclosing the cursor
-  use('simeji/winresizer') -- helper for resizing windows
+  use({
+    'simeji/winresizer',
+    setup = function()
+      vim.g.winresizer_start_key = '<C-T>'
+    end,
+  }) -- helper for resizing windows
   use('camspiers/lens.vim') -- auto resizing of windows
-  use('windwp/nvim-ts-autotag') -- auto closes xml tags
   -- use('morhetz/gruvbox')
   -- use('chriskempson/base16-vim')
   -- use('icymind/NeoSolarized')
@@ -69,15 +84,26 @@ return require('packer').startup(function(use)
   use({ 'namjul/vim-markdown', branch = 'wikilinks' }) -- own fork of that adds wikilinks support
   use('tpope/vim-obsession') -- helper to start vim sessions
   use({
-    'npxbr/glow.nvim',
-    run = ':GlowInstall',
-    branch = 'main',
+    'ellisonleao/glow.nvim',
   }) -- markdown preview
   use({
     'nvim-treesitter/nvim-treesitter',
     run = ':TSUpdate',
   })
-  use('rktjmp/lush.nvim') -- Required for 'npxbr/gruvbox.nvim' - Define Neovim themes as a DSL in lua, with real-time feedback.
-  use('npxbr/gruvbox.nvim')
+  use({
+    'windwp/nvim-ts-autotag',
+    requires = 'nvim-treesitter',
+    after = 'nvim-treesitter',
+    config = function()
+      require('nvim-ts-autotag').setup()
+    end,
+  }) -- auto closes xml tags
+  use({
+    'npxbr/gruvbox.nvim',
+    requires = 'rktjmp/lush.nvim', -- Define Neovim themes as a DSL in lua, with real-time feedback.
+    config = function()
+      vim.cmd('colorscheme gruvbox')
+    end,
+  })
   use('rafcamlet/nvim-luapad')
 end)

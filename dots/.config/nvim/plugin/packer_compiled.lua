@@ -118,6 +118,7 @@ _G.packer_plugins = {
     path = "/home/nam/.local/share/nvim/site/pack/packer/start/goyo.vim"
   },
   ["gruvbox.nvim"] = {
+    config = { "\27LJ\2\n7\0\0\3\0\3\0\0056\0\0\0009\0\1\0'\2\2\0B\0\2\1K\0\1\0\24colorscheme gruvbox\bcmd\bvim\0" },
     loaded = true,
     path = "/home/nam/.local/share/nvim/site/pack/packer/start/gruvbox.nvim"
   },
@@ -139,7 +140,12 @@ _G.packer_plugins = {
   },
   ["notational-fzf-vim"] = {
     loaded = true,
-    path = "/home/nam/.local/share/nvim/site/pack/packer/start/notational-fzf-vim"
+    needs_bufread = false,
+    path = "/home/nam/.local/share/nvim/site/pack/packer/opt/notational-fzf-vim"
+  },
+  ["nvim-colorizer.lua"] = {
+    loaded = true,
+    path = "/home/nam/.local/share/nvim/site/pack/packer/start/nvim-colorizer.lua"
   },
   ["nvim-luapad"] = {
     loaded = true,
@@ -150,8 +156,10 @@ _G.packer_plugins = {
     path = "/home/nam/.local/share/nvim/site/pack/packer/start/nvim-treesitter"
   },
   ["nvim-ts-autotag"] = {
+    config = { "\27LJ\2\n=\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\20nvim-ts-autotag\frequire\0" },
     loaded = true,
-    path = "/home/nam/.local/share/nvim/site/pack/packer/start/nvim-ts-autotag"
+    needs_bufread = false,
+    path = "/home/nam/.local/share/nvim/site/pack/packer/opt/nvim-ts-autotag"
   },
   ["packer.nvim"] = {
     loaded = true,
@@ -181,6 +189,10 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/nam/.local/share/nvim/site/pack/packer/start/telescope-fzf-native.nvim"
   },
+  ["telescope-fzf-writer.nvim"] = {
+    loaded = true,
+    path = "/home/nam/.local/share/nvim/site/pack/packer/start/telescope-fzf-writer.nvim"
+  },
   ["telescope.nvim"] = {
     loaded = true,
     path = "/home/nam/.local/share/nvim/site/pack/packer/start/telescope.nvim"
@@ -192,10 +204,6 @@ _G.packer_plugins = {
   ultisnips = {
     loaded = true,
     path = "/home/nam/.local/share/nvim/site/pack/packer/start/ultisnips"
-  },
-  ["vim-css-color"] = {
-    loaded = true,
-    path = "/home/nam/.local/share/nvim/site/pack/packer/start/vim-css-color"
   },
   ["vim-cutlass"] = {
     loaded = true,
@@ -287,11 +295,30 @@ _G.packer_plugins = {
   },
   winresizer = {
     loaded = true,
-    path = "/home/nam/.local/share/nvim/site/pack/packer/start/winresizer"
+    needs_bufread = false,
+    path = "/home/nam/.local/share/nvim/site/pack/packer/opt/winresizer"
   }
 }
 
 time([[Defining packer_plugins]], false)
+-- Setup for: winresizer
+time([[Setup for winresizer]], true)
+try_loadstring("\27LJ\2\n<\0\0\2\0\4\0\0056\0\0\0009\0\1\0'\1\3\0=\1\2\0K\0\1\0\n<C-T>\25winresizer_start_key\6g\bvim\0", "setup", "winresizer")
+time([[Setup for winresizer]], false)
+time([[packadd for winresizer]], true)
+vim.cmd [[packadd winresizer]]
+time([[packadd for winresizer]], false)
+-- Setup for: notational-fzf-vim
+time([[Setup for notational-fzf-vim]], true)
+try_loadstring("\27LJ\2\n±\1\0\0\2\0\6\0\t6\0\0\0009\0\1\0005\1\3\0=\1\2\0006\0\0\0009\0\1\0005\1\5\0=\1\4\0K\0\1\0\1\3\0\0\vassets\t.git\22nv_ignore_pattern\1\5\0\0\27~/Dropbox/dendron/wiki\22~/Dropbox/journal\20~/Dropbox/notes\21~/Dropbox/drafts\20nv_search_paths\6g\bvim\0", "setup", "notational-fzf-vim")
+time([[Setup for notational-fzf-vim]], false)
+time([[packadd for notational-fzf-vim]], true)
+vim.cmd [[packadd notational-fzf-vim]]
+time([[packadd for notational-fzf-vim]], false)
+-- Config for: gruvbox.nvim
+time([[Config for gruvbox.nvim]], true)
+try_loadstring("\27LJ\2\n7\0\0\3\0\3\0\0056\0\0\0009\0\1\0'\2\2\0B\0\2\1K\0\1\0\24colorscheme gruvbox\bcmd\bvim\0", "config", "gruvbox.nvim")
+time([[Config for gruvbox.nvim]], false)
 if should_profile then save_profiles() end
 
 end)

@@ -13,17 +13,9 @@ local cmd = vim.cmd -- to execute Vim commands e.g. cmd('pwd')
 local fn = vim.fn -- to call Vim functions e.g. fn.bufnr()
 local inspect = vim.inspect -- pretty-print Lua objects (useful for inspecting tables)
 local util = require('namjul.utils')
-local vimp = require('vimp')
 local opt = util.opt
 local map = util.map
 local var = util.var
-local hasPlugin = util.hasPlugin
-
-----------------------------------------
--- Constants
-----------------------------------------
-
-local NOTATIONAL_FOLDER = 'dendron'
 
 ----------------------------------------
 -- Functions
@@ -143,12 +135,11 @@ opt.b({
   undofile = true, -- Maintain undo history between sessions
 })
 
--- Colorscheme
-cmd('colorscheme gruvbox')
-
 ----------------------------------------
 -- Custom Mappings
 ----------------------------------------
+
+local vimp = require('vimp')
 
 -- LEADER
 --------------------
@@ -240,6 +231,11 @@ map.g('n', '<leader>gb', ":lua require('telescope.builtin').git_branches()<CR>")
 -- map.g('n', '<leader>j', 'v:lua.openDailyJN("journal")', { expr = true })
 
 map.g('', 'Y', 'y$') -- multi-mode mappings (Normal, Visual, Operating-pending modes).
+
+-- PLUGIN:notational-fzf-vim
+map.g('n', '<leader>l', ':NV<CR>', { silent = true })
+-- PLUGIN:goyo.vim
+map.g('n', '<leader>z', ':Goyo<CR>', { silent = true })
 
 -- moving text
 map.g('v', 'J', ":m '>+1<CR>gv=gv")
@@ -364,6 +360,8 @@ util.createAugroup({
     'require"namjul.autocmds".skeleton("~/.config/nvim/templates/journal-morning-skeleton.md")',
   },
 }, 'namjulskeletons')
+
+vim.cmd([[autocmd BufWritePost plugins.lua source <afile> | PackerCompile]])
 
 ----------------------------------------
 -- Plugin Settings
@@ -500,9 +498,6 @@ map.g('n', '<leader>vl', ':VimuxRunLastCommand<CR>') -- Run last command execute
 map.g('n', '<leader>vi', ':VimuxInspectRunner<CR>') -- Inspect runner pane
 map.g('n', '<leader>vz', ':VimuxZoomRunner<CR>') -- Zoom the tmux runner pane
 
--- PLUGIN:winresizer
-var.g({ winresizer_start_key = '<C-T>' })
-
 -- PLUGIN:vim-cutlass
 map.g('n', 'x', 'd')
 map.g('x', 'x', 'd')
@@ -536,21 +531,6 @@ var.g({
     cache_enabled = 1,
   },
 })
-
--- PLUGIN:notational-fzf-vim
-map.g('n', '<leader>l', ':NV<CR>', { silent = true })
-var.g({
-  nv_search_paths = {
-    '~/Dropbox/' .. NOTATIONAL_FOLDER .. '/wiki',
-    '~/Dropbox/journal',
-    '~/Dropbox/notes',
-    '~/Dropbox/drafts',
-  },
-  nv_ignore_pattern = { 'assets', '.git' },
-})
-
--- PLUGIN:goyo.vim
-map.g('n', '<leader>z', ':Goyo<CR>', { silent = true })
 
 -- PLUGIN:vim-highlightedyank
 var.g({ highlightedyank_highlight_duration = 200 })
@@ -602,9 +582,6 @@ require('nvim-treesitter.configs').setup({
 require('gitsigns').setup({
   current_line_blame = true,
 })
-
--- PLUGIN:simeji/winresizer
-var.g({ winresizer_start_key = '<C-T>' })
 
 -- PLUGIN:telescope
 local actions = require('telescope.actions')
