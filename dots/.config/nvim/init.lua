@@ -487,10 +487,11 @@ var.g({
     'yarn=sh',
     'git=sh',
   },
+  vim_markdown_no_extensions_in_markdown = 1,
+  vim_markdown_new_list_item_indent = 0,
+  vim_markdown_frontmatter = 1,
+  vim_markdown_folding_disabled = 1,
 })
-var.g({ vim_markdown_no_extensions_in_markdown = 1 })
-var.g({ vim_markdown_new_list_item_indent = 0 })
-var.g({ vim_markdown_frontmatter = 1 })
 
 -- PLUGIN: vimux
 map.g('n', '<leader>vp', ':VimuxPromptCommand<CR>') -- Prompt for a command to run
