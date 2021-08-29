@@ -235,7 +235,7 @@ map.g('', 'Y', 'y$') -- multi-mode mappings (Normal, Visual, Operating-pending m
 -- PLUGIN:notational-fzf-vim
 map.g('n', '<leader>l', ':NV<CR>', { silent = true })
 -- PLUGIN:goyo.vim
-map.g('n', '<leader>z', ':Goyo<CR>', { silent = true })
+map.g('n', '<leader>z', ':ZenMode<CR>', { silent = true })
 
 -- moving text
 map.g('v', 'J', ":m '>+1<CR>gv=gv")
