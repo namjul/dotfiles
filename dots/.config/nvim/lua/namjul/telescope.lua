@@ -11,8 +11,7 @@ function M.findFiles(args)
     opts[k] = v
   end
 
-  -- require('telescope').extensions.fzf_writer.files({
-  require('telescope.builtin').find_files(opts)
+  require('telescope.builtin').find_files(require('telescope.themes').get_ivy(opts))
 end
 
 function M.searchDotfiles()

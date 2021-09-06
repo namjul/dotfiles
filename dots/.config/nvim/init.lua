@@ -194,14 +194,19 @@ map.g(
   ":lua require('telescope.builtin').live_grep(require('telescope.themes').get_ivy({}))<CR>",
   { silent = false }
 ) -- search for word
-map.g(
-  'n',
-  '<leader>f',
-  ":lua require('namjul.telescope').findFiles(require('telescope.themes').get_ivy({}))<CR>",
-  { silent = true }
-) -- search for word under cursor
--- map.g('n', '<leader>f', ":lua require('telescope').extensions.fzf_writer.files()<CR>", { silent = true }) -- search for word under cursor
--- map.g('n', '<leader>/', ":lua require('telescope').extensions.fzf_writer.staged_grep()<CR>", { silent = true }) -- search for word under cursor
+map.g('n', '<leader>f', ":lua require('namjul.telescope').findFiles()<CR>", { silent = true }) -- search for word under cursor
+-- map.g(
+--   'n',
+--   '<leader>f',
+--   ":lua require('telescope').extensions.fzf_writer.files(require('telescope.themes').get_ivy({}))<CR>",
+--   { silent = true }
+-- ) -- search for word under cursor
+-- map.g(
+--   'n',
+--   '<leader>/',
+--   ":lua require('telescope').extensions.fzf_writer.staged_grep(require('telescope.themes').get_ivy({}))<CR>",
+--   { silent = true }
+-- ) -- search for word under cursor
 map.g(
   'n',
   '<leader>b',
