@@ -89,6 +89,7 @@ brew install loc # https://github.com/cgag/loc -- Count lines of code quickly.
 brew install croc # https://github.com/schollz/croc -- Easily and securely send things from one computer to another
 brew install massren # https://github.com/laurent22/massren -- easily rename multiple files using your text editor
 brew install xsv # https://github.com/BurntSushi/xsv -- A fast CSV command line toolkit written in Rust.
+brew install yatharth/misc/wolframalpha-cli # https://github.com/yatharth/wolframalpha-cli -- query wolframalpha from cli `wa`
 
 
 # Remove outdated versions from the cellar
