@@ -242,6 +242,9 @@ map.g('n', '<leader>l', ':NV<CR>', { silent = true })
 -- PLUGIN:goyo.vim
 map.g('n', '<leader>z', ':ZenMode<CR>', { silent = true })
 
+-- PLUGIN:vim-maximizer
+map.g('n', '<leader>m', ':MaximizerToggle<CR>', { silent = true })
+
 -- moving text
 map.g('v', 'J', ":m '>+1<CR>gv=gv")
 map.g('v', 'K', ":m '<-2<CR>gv=gv")
