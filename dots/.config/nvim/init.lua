@@ -422,6 +422,8 @@ var.g({
   ale_linters = {
     typescript = { 'eslint', 'tsserver', 'typecheck' },
     javascript = { 'eslint', 'tsserver', 'flow' },
+    json = {},
+    jsonc = {},
   },
   ale_fixers = {
     javascriptreact = { 'prettier' },
