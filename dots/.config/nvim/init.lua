@@ -584,9 +584,6 @@ require('nvim-treesitter.configs').setup({
     'scss',
     'css',
   },
-  autotag = {
-    enable = true,
-  },
 })
 
 -- PLUGIN:gitsigns.nvim
