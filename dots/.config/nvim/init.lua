@@ -402,6 +402,11 @@ vim.cmd([[autocmd BufWritePost plugins.lua source <afile> | PackerCompile]])
 -- cmd('colorscheme one')
 -- opt.g({ background = 'dark' })
 
+-- PLUGIN: netrw
+var.g({
+  loaded_netrwPlugin = 1,
+})
+
 -- PLUGIN: gruvbox.nvim
 var.g({
   gruvbox_contrast_dark = 'medium',
