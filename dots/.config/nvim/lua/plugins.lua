@@ -118,4 +118,5 @@ return require('packer').startup(function(use)
     end,
   })
   use('szw/vim-maximizer')
+  use('airblade/vim-rooter')
 end)
