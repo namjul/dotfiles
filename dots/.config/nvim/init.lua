@@ -192,7 +192,7 @@ map.g(
   'n',
   '<leader>/',
   ":lua require('telescope.builtin').live_grep(require('telescope.themes').get_ivy({}))<CR>",
-  { silent = false }
+  { silent = true }
 ) -- search for word
 map.g('n', '<leader>f', ":lua require('namjul.telescope').findFiles()<CR>", { silent = true }) -- search for word under cursor
 -- map.g(
@@ -211,13 +211,13 @@ map.g(
   'n',
   '<leader>b',
   ":lua require('telescope.builtin').buffers(require('telescope.themes').get_ivy({}))<CR>",
-  { silent = false }
+  { silent = true }
 ) -- search buffers
 map.g(
   'n',
   '<leader>c',
   ":lua require('telescope.builtin').commands(require('telescope.themes').get_ivy({}))<CR>",
-  { silent = false }
+  { silent = true }
 ) -- search commands
 
 -- open new splits in a semantic way
