@@ -99,7 +99,7 @@ return require('packer').startup(function(use)
     end,
   }) -- auto closes xml tags
   use({
-    'npxbr/gruvbox.nvim',
+    'ellisonleao/gruvbox.nvim',
     requires = 'rktjmp/lush.nvim', -- Define Neovim themes as a DSL in lua, with real-time feedback.
     config = function()
       vim.cmd('colorscheme gruvbox')
