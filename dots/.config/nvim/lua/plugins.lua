@@ -24,8 +24,7 @@ return require('packer').startup(function(use)
   use('nvim-telescope/telescope.nvim')
   use({ 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' })
   use('nvim-telescope/telescope-fzf-writer.nvim')
-  -- use('Yggdroot/indentLine') -- makes space indented code visible
-  -- use({ 'lukas-reineke/indent-blankline.nvim', branch = 'lua' }) --
+  use({ 'lukas-reineke/indent-blankline.nvim' })
   use({
     'alok/notational-fzf-vim',
     requires = { { 'junegunn/fzf' } },
