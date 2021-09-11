@@ -24,7 +24,10 @@ return require('packer').startup(function(use)
   use('nvim-telescope/telescope.nvim')
   use({ 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' })
   use('nvim-telescope/telescope-fzf-writer.nvim')
-  use({ 'lukas-reineke/indent-blankline.nvim' })
+  use({
+    'lukas-reineke/indent-blankline.nvim',
+    disable = true, -- lines become too visible for some reason
+  })
   use({
     'alok/notational-fzf-vim',
     requires = { { 'junegunn/fzf' } },
@@ -63,7 +66,10 @@ return require('packer').startup(function(use)
   -- use('rakr/vim-one')
   use('lewis6991/gitsigns.nvim')
   use('rhysd/committia.vim') -- improves vim 'commit' buffer
-  use('sheerun/vim-polyglot') -- general language support
+  use({
+    'sheerun/vim-polyglot',
+    disable = false, -- conflicts with treesitter indentation
+  }) -- general language support
   use('moll/vim-node') -- improves dx in node.js env
   use('SirVer/ultisnips') -- snippets engine
   use('honza/vim-snippets') -- general snippets collection
@@ -73,6 +79,7 @@ return require('packer').startup(function(use)
   use({
     'Shougo/deoplete.nvim',
     run = ':UpdateRemotePlugins',
+    disable = false,
   }) -- autocomplete
   use('norcalli/nvim-colorizer.lua') -- The fastest Neovim colorizer.
   use('machakann/vim-highlightedyank') -- highlights yanked text
