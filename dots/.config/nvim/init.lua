@@ -438,20 +438,8 @@ map.g('t', '<Esc>', 'v:lua.terminalEsc()', { expr = true })
 util.createAugroup({
   { 'BufRead,BufNewFile', '*.json', 'set', 'filetype=jsonc' },
   { 'BufRead,BufNewFile', 'package.json', 'set', 'filetype=json' },
-  { 'FileType', 'markdown', 'lua', 'require"namjul.autocmds".plainText()' },
-  {
-    'FileType',
-    'markdown',
-    "let b:AutoPairs={ '(':')', '[[':']]', '{':'}', \"'\":\"'\", '\"':'\"', \"`\":\"`\", '```':'```', '\"\"\"':'\"\"\"', \"'''\":\"'''\" }",
-  },
   { 'FileType', 'TelescopePrompt', 'call', "deoplete#custom#buffer_option('auto_complete', v:false)" },
 }, 'namjulfiletypedetect')
-
-util.createAugroup({
-  { 'FileType', 'dirvish', 'silent! nnoremap <nowait><buffer><silent> o :<C-U>.call dirvish#open("edit", 0)<CR>' }, -- Overwrite default mapping for the benefit of my muscle memory. ('o' would normally open in a split window, but we want it to open in the current one.)
-  { 'FileType', 'dirvish', 'nmap <buffer> q gq' }, -- close buffers using `gq`
-  { 'FileType', 'dirvish', 'nmap <buffer>cd :cd %:p:h<CR>:pwd<CR>' }, -- change directory wih `cd`
-}, 'namjuldirvish')
 
 util.createAugroup({
   { 'Colorscheme', '*', 'lua require"namjul.statusline".updateHighlight()' }, -- trigger highlight update see https://vi.stackexchange.com/questions/3355/why-do-custom-highlights-in-my-vimrc-get-cleared-or-reset-to-default
