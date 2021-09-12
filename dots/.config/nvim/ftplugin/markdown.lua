@@ -1,4 +1,4 @@
-require('namjul.autocmds').plainText()
+require('namjul.functions.plaintext')()
 
 vim.b.AutoPairs = {
   ['('] = ')',
