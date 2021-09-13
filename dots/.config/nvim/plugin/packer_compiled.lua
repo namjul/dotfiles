@@ -154,7 +154,8 @@ _G.packer_plugins = {
   ["nvim-ts-autotag"] = {
     config = { "\27LJ\2\n=\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\20nvim-ts-autotag\frequire\0" },
     loaded = true,
-    path = "/home/nam/.local/share/nvim/site/pack/packer/start/nvim-ts-autotag"
+    needs_bufread = false,
+    path = "/home/nam/.local/share/nvim/site/pack/packer/opt/nvim-ts-autotag"
   },
   ["packer.nvim"] = {
     loaded = true,
@@ -253,6 +254,7 @@ _G.packer_plugins = {
     path = "/home/nam/.local/share/nvim/site/pack/packer/start/vim-rhubarb"
   },
   ["vim-rooter"] = {
+    config = { "\27LJ\2\n:\0\0\2\0\4\0\0056\0\0\0009\0\1\0005\1\3\0=\1\2\0K\0\1\0\1\2\0\0\t.git\20rooter_patterns\6g\bvim\0" },
     loaded = true,
     path = "/home/nam/.local/share/nvim/site/pack/packer/start/vim-rooter"
   },
@@ -309,13 +311,6 @@ _G.packer_plugins = {
 }
 
 time([[Defining packer_plugins]], false)
--- Setup for: notational-fzf-vim
-time([[Setup for notational-fzf-vim]], true)
-try_loadstring("\27LJ\2\n«\1\0\0\2\0\6\0\t6\0\0\0009\0\1\0005\1\3\0=\1\2\0006\0\0\0009\0\1\0005\1\5\0=\1\4\0K\0\1\0\1\3\0\0\vassets\t.git\22nv_ignore_pattern\1\5\0\0\27~/Dropbox/dendron/wiki\28~/Dropbox/dendron/notes\31~/Dropbox/dendron/movement\26~/Dropbox/dendron/crm\20nv_search_paths\6g\bvim\0", "setup", "notational-fzf-vim")
-time([[Setup for notational-fzf-vim]], false)
-time([[packadd for notational-fzf-vim]], true)
-vim.cmd [[packadd notational-fzf-vim]]
-time([[packadd for notational-fzf-vim]], false)
 -- Setup for: winresizer
 time([[Setup for winresizer]], true)
 try_loadstring("\27LJ\2\n<\0\0\2\0\4\0\0056\0\0\0009\0\1\0'\1\3\0=\1\2\0K\0\1\0\n<C-T>\25winresizer_start_key\6g\bvim\0", "setup", "winresizer")
@@ -323,18 +318,25 @@ time([[Setup for winresizer]], false)
 time([[packadd for winresizer]], true)
 vim.cmd [[packadd winresizer]]
 time([[packadd for winresizer]], false)
--- Config for: zen-mode.nvim
-time([[Config for zen-mode.nvim]], true)
-try_loadstring("\27LJ\2\n:\0\0\3\0\3\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0004\2\0\0B\0\2\1K\0\1\0\nsetup\rzen-mode\frequire\0", "config", "zen-mode.nvim")
-time([[Config for zen-mode.nvim]], false)
--- Config for: nvim-ts-autotag
-time([[Config for nvim-ts-autotag]], true)
-try_loadstring("\27LJ\2\n=\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\20nvim-ts-autotag\frequire\0", "config", "nvim-ts-autotag")
-time([[Config for nvim-ts-autotag]], false)
+-- Setup for: notational-fzf-vim
+time([[Setup for notational-fzf-vim]], true)
+try_loadstring("\27LJ\2\n«\1\0\0\2\0\6\0\t6\0\0\0009\0\1\0005\1\3\0=\1\2\0006\0\0\0009\0\1\0005\1\5\0=\1\4\0K\0\1\0\1\3\0\0\vassets\t.git\22nv_ignore_pattern\1\5\0\0\27~/Dropbox/dendron/wiki\28~/Dropbox/dendron/notes\31~/Dropbox/dendron/movement\26~/Dropbox/dendron/crm\20nv_search_paths\6g\bvim\0", "setup", "notational-fzf-vim")
+time([[Setup for notational-fzf-vim]], false)
+time([[packadd for notational-fzf-vim]], true)
+vim.cmd [[packadd notational-fzf-vim]]
+time([[packadd for notational-fzf-vim]], false)
 -- Config for: gruvbox.nvim
 time([[Config for gruvbox.nvim]], true)
 try_loadstring("\27LJ\2\n7\0\0\3\0\3\0\0056\0\0\0009\0\1\0'\2\2\0B\0\2\1K\0\1\0\24colorscheme gruvbox\bcmd\bvim\0", "config", "gruvbox.nvim")
 time([[Config for gruvbox.nvim]], false)
+-- Config for: zen-mode.nvim
+time([[Config for zen-mode.nvim]], true)
+try_loadstring("\27LJ\2\n:\0\0\3\0\3\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0004\2\0\0B\0\2\1K\0\1\0\nsetup\rzen-mode\frequire\0", "config", "zen-mode.nvim")
+time([[Config for zen-mode.nvim]], false)
+-- Config for: vim-rooter
+time([[Config for vim-rooter]], true)
+try_loadstring("\27LJ\2\n:\0\0\2\0\4\0\0056\0\0\0009\0\1\0005\1\3\0=\1\2\0K\0\1\0\1\2\0\0\t.git\20rooter_patterns\6g\bvim\0", "config", "vim-rooter")
+time([[Config for vim-rooter]], false)
 if should_profile then save_profiles() end
 
 end)

@@ -206,7 +206,12 @@ require('packer').startup(function(use)
     end,
   })
   use('szw/vim-maximizer')
-  use('airblade/vim-rooter')
+  use({
+    'airblade/vim-rooter',
+    config = function()
+      vim.g.rooter_patterns = { '.git' }
+    end,
+  })
 end)
 
 ----------------------------------------
