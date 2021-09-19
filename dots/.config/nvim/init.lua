@@ -182,6 +182,7 @@ require('paq')({
   'folke/zen-mode.nvim',
   'szw/vim-maximizer',
   'airblade/vim-rooter',
+  'neovim/nvim-lspconfig',
 })
 
 ----------------------------------------
@@ -236,6 +237,8 @@ vim.cmd('colorscheme gruvbox')
 ----------------------------------------
 
 local vimp = require('vimp')
+
+map.g('n', 'K', ':call v:lua.showDocumentation()<CR>', { noremap = true, silent = true }) -- Use K to show documentation in preview window.
 
 -- LEADER
 --------------------
@@ -549,6 +552,7 @@ var.g({
   ale_sign_warning = '⚠',
   ale_sign_info = 'ℹ',
   ale_fix_on_save = 1,
+  ale_disable_lsp = 1,
 })
 
 cmd('highlight link ALEVirtualTextError GruvboxRed')
@@ -557,16 +561,9 @@ cmd('highlight link ALEVirtualTextInfo GruvboxBlue')
 
 map.g('n', '[g', '<Plug>(ale_previous_wrap)', { silent = true, noremap = false })
 map.g('n', ']g', '<Plug>(ale_next_wrap)', { silent = true, noremap = false })
-map.g('n', 'gD', '<Plug>(ale_go_to_type_definition)', { silent = true, noremap = false })
-map.g('n', 'gd', '<Plug>(ale_go_to_definition)', { silent = true, noremap = false })
-map.g('n', 'gr', '<Plug>(ale_find_references) :ALEFindReferences -relative<Return>', { silent = true, noremap = false })
-map.g('n', 'gp', '<Plug>(ale_detail)', { silent = true, noremap = false })
-map.g('n', '<leader>rn', '<Plug>(ale_rename)', { silent = true, noremap = false })
-
-map.g('n', 'K', ':call v:lua.showDocumentation()<CR>', { noremap = true, silent = true }) -- Use K to show documentation in preview window.
 
 -- PLUGIN: deoplete.nvim
-var.g({ ['deoplete#enable_at_startup'] = 1 })
+var.g({ ['deoplete#enable_at_startup'] = 0 })
 
 -- PLUGIN:neoterm
 var.g({ neoterm_autoinsert = 1 })
@@ -716,6 +713,35 @@ require('telescope').load_extension('fzf')
 
 -- PLUGIN:nvim-colorizer.lua #sdfsdfs
 require('colorizer').setup()
+
+-- PLUGIN:nvim-lspconfig
+local nvim_lsp = require('lspconfig')
+
+local on_attach = function(client, bufnr)
+  -- Enable completion triggered by <c-x><c-o>
+  opt.b({
+    omnifunc = 'v:lua.vim.lsp.omnifunc',
+  })
+
+  -- Mappings.
+  local opts = { silent = true }
+
+  map.b('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
+  map.b('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
+  map.b('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
+  map.b('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
+  map.b('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+  map.b('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+  map.b('n', 'gp', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
+  map.b('n', '<leader>d', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
+end
+
+nvim_lsp.tsserver.setup({
+  on_attach = on_attach,
+  flags = {
+    debounce_text_changes = 150,
+  },
+})
 
 ----------------------------------------
 -- Custom Plugins
