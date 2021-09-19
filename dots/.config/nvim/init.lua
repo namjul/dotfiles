@@ -151,11 +151,6 @@ require('paq')({
   'mattn/gist-vim', -- interact with github gist from vim
   'mattn/webapi-vim', -- needed for `gist-vim`
   'dense-analysis/ale', -- linter, fixer and lsp
-  {
-    'Shougo/deoplete.nvim',
-    run = ':UpdateRemotePlugins',
-    disable = false,
-  }, -- autocomplete
   'norcalli/nvim-colorizer.lua', -- The fastest Neovim colorizer.
   'machakann/vim-highlightedyank', -- highlights yanked text
   'dkarter/bullets.vim', -- enhance bullet points management
@@ -180,6 +175,11 @@ require('paq')({
   'airblade/vim-rooter',
   'neovim/nvim-lspconfig',
   'AndrewRadev/switch.vim',
+  'hrsh7th/cmp-nvim-lsp',
+  'hrsh7th/cmp-path',
+  'hrsh7th/cmp-buffer',
+  'hrsh7th/nvim-cmp',
+  'glepnir/lspsaga.nvim',
 })
 
 ----------------------------------------
@@ -415,7 +415,6 @@ map.g('t', '<Esc>', 'v:lua.terminalEsc()', { expr = true })
 util.createAugroup({
   { 'BufRead,BufNewFile', '*.json', 'set', 'filetype=jsonc' },
   { 'BufRead,BufNewFile', 'package.json', 'set', 'filetype=json' },
-  { 'FileType', 'TelescopePrompt', 'call', "deoplete#custom#buffer_option('auto_complete', v:false)" },
 }, 'namjulfiletypedetect')
 
 util.createAugroup({
@@ -546,24 +545,15 @@ var.g({
   ale_sign_warning = '⚠',
   ale_sign_info = 'ℹ',
   ale_fix_on_save = 1,
-  -- ale_disable_lsp = 1,
+  ale_disable_lsp = 1,
 })
 
 cmd('highlight link ALEVirtualTextError GruvboxRed')
 cmd('highlight link ALEVirtualTextWarning GruvboxYellow')
 cmd('highlight link ALEVirtualTextInfo GruvboxBlue')
 
-map.g('n', 'gD', '<Plug>(ale_go_to_type_definition)', { silent = true, noremap = false })
-map.g('n', 'gd', '<Plug>(ale_go_to_definition)', { silent = true, noremap = false })
-map.g('n', 'gr', '<Plug>(ale_find_references) :ALEFindReferences -relative<Return>', { silent = true, noremap = false })
-map.g('n', 'gp', '<Plug>(ale_detail)', { silent = true, noremap = false })
-map.g('n', '<leader>rn', '<Plug>(ale_rename)', { silent = true, noremap = false })
-
 map.g('n', '[g', '<Plug>(ale_previous_wrap)', { silent = true, noremap = false })
 map.g('n', ']g', '<Plug>(ale_next_wrap)', { silent = true, noremap = false })
-
--- PLUGIN: deoplete.nvim
-var.g({ ['deoplete#enable_at_startup'] = 1 })
 
 -- PLUGIN:neoterm
 var.g({ neoterm_autoinsert = 1 })
@@ -726,9 +716,9 @@ local nvim_lsp = require('lspconfig')
 
 local on_attach = function(client, bufnr)
   -- Enable completion triggered by <c-x><c-o>
-  opt.b({
-    omnifunc = 'v:lua.vim.lsp.omnifunc',
-  })
+  -- opt.b({
+  --   omnifunc = 'v:lua.vim.lsp.omnifunc',
+  -- })
 
   -- Mappings.
   local opts = { silent = true }
@@ -753,12 +743,30 @@ vim.cmd([[
   highlight link LspDiagnosticsSignHint GruvboxBlue
 ]])
 
--- nvim_lsp.tsserver.setup({
---   on_attach = on_attach,
---   flags = {
---     debounce_text_changes = 150,
---   },
--- })
+nvim_lsp.tsserver.setup({
+  on_attach = on_attach,
+  flags = {
+    debounce_text_changes = 150,
+  },
+})
+
+-- PLUGIN: nvim-cmp
+local cmp = require('cmp')
+
+cmp.setup({
+  mapping = {
+    -- ['<C-dd>'] = cmp.mapping.scroll_docs(-4),
+    -- ['<C-ff>'] = cmp.mapping.scroll_docs(4),
+    -- ['<C-ss>'] = cmp.mapping.complete(),
+    -- ['<C-e>'] = cmp.mapping.close(),
+    -- ['<CR>'] = cmp.mapping.confirm({ select = true }),
+  },
+  sources = {
+    { name = 'nvim_lsp' },
+    { name = 'path' },
+    { name = 'buffer' },
+  },
+})
 
 ----------------------------------------
 -- Custom Plugins
