@@ -117,11 +117,7 @@ require('paq')({
   'nvim-telescope/telescope.nvim',
   { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' },
   'nvim-telescope/telescope-fzf-writer.nvim',
-  {
-    'lukas-reineke/indent-blankline.nvim',
-    disable = true, -- lines become too visible for some reason
-  },
-
+  -- 'lukas-reineke/indent-blankline.nvim',
   'junegunn/fzf',
   'alok/notational-fzf-vim', -- combines the fzf with the concept from notational
 
@@ -700,6 +696,9 @@ require('nvim-treesitter.configs').setup({
 -- PLUGIN:gitsigns.nvim
 require('gitsigns').setup({
   current_line_blame = true,
+  preview_config = {
+    border = 'none',
+  },
 })
 
 -- PLUGIN:telescope
