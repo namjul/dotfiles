@@ -21,15 +21,16 @@ end
 local function supportsBlurFocus(callback)
   local filetype = util.opt.b('filetype')
   local listed = util.opt.b('buflisted')
-  if autocmds.filetypeBlacklist[filetype] ~= true and listed then
+  local floatingWindow = vim.api.nvim_win_get_config(vim.api.nvim_get_current_win()).relative ~= ''
+  if autocmds.filetypeBlacklist[filetype] ~= true and listed and not floatingWindow then
     callback(filetype)
   end
 end
 
 local function focusWindow()
   if util.var.g(focusedFlag) ~= true then
-    util.opt.w({ winhighlight = '' })
     supportsBlurFocus(function()
+      util.opt.w({ winhighlight = '' })
       util.opt.w({
         conceallevel = 0,
         list = true,
@@ -42,8 +43,8 @@ end
 
 local function blurWindow()
   if util.var.g(focusedFlag) ~= false then
-    util.opt.w({ winhighlight = winhighlightBlurred })
     supportsBlurFocus(function()
+      util.opt.w({ winhighlight = winhighlightBlurred })
       util.opt.w({
         conceallevel = 0, -- disabled now since currently wikilinks in markdown files get completely hidden
         list = false,
