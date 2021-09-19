@@ -723,13 +723,13 @@ local on_attach = function(client, bufnr)
   -- Mappings.
   local opts = { silent = true }
 
-  map.b('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
-  map.b('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
+  map.b('n', '[d', "<cmd>lua require'lspsaga.diagnostic'.lsp_jump_diagnostic_prev()<CR>", opts)
+  map.b('n', ']d', "<cmd>lua require'lspsaga.diagnostic'.lsp_jump_diagnostic_next()<CR>", opts)
   map.b('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
-  map.b('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
-  map.b('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+  map.b('n', 'K', "<cmd>lua require'lspsaga.hover'.render_hover_doc()<CR>", opts)
+  map.b('n', '<leader>rn', "<cmd>lua require('lspsaga.rename').rename()<CR>", opts)
   map.b('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-  map.b('n', 'gp', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
+  map.b('n', 'gp', "<cmd>lua require'lspsaga.diagnostic'.show_line_diagnostics()<CR>", opts)
   map.b('n', '<leader>d', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
 end
 
