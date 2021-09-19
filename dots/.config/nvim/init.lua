@@ -742,6 +742,16 @@ local on_attach = function(client, bufnr)
   map.b('n', '<leader>d', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
 end
 
+vim.cmd([[
+  sign define LspDiagnosticsSignError text=✖
+  sign define LspDiagnosticsSignWarning text=⚠
+  sign define LspDiagnosticsSignInformation text=ℹ
+  sign define LspDiagnosticsSignHint text=➤
+  highlight link LspDiagnosticsSignError GruvboxRed
+  highlight link LspDiagnosticsSignWarning GruvboxYellow
+  highlight link LspDiagnosticsSignHint GruvboxBlue
+]])
+
 -- nvim_lsp.tsserver.setup({
 --   on_attach = on_attach,
 --   flags = {
