@@ -552,18 +552,24 @@ var.g({
   ale_sign_warning = '⚠',
   ale_sign_info = 'ℹ',
   ale_fix_on_save = 1,
-  ale_disable_lsp = 1,
+  -- ale_disable_lsp = 1,
 })
 
 cmd('highlight link ALEVirtualTextError GruvboxRed')
 cmd('highlight link ALEVirtualTextWarning GruvboxYellow')
 cmd('highlight link ALEVirtualTextInfo GruvboxBlue')
 
+map.g('n', 'gD', '<Plug>(ale_go_to_type_definition)', { silent = true, noremap = false })
+map.g('n', 'gd', '<Plug>(ale_go_to_definition)', { silent = true, noremap = false })
+map.g('n', 'gr', '<Plug>(ale_find_references) :ALEFindReferences -relative<Return>', { silent = true, noremap = false })
+map.g('n', 'gp', '<Plug>(ale_detail)', { silent = true, noremap = false })
+map.g('n', '<leader>rn', '<Plug>(ale_rename)', { silent = true, noremap = false })
+
 map.g('n', '[g', '<Plug>(ale_previous_wrap)', { silent = true, noremap = false })
 map.g('n', ']g', '<Plug>(ale_next_wrap)', { silent = true, noremap = false })
 
 -- PLUGIN: deoplete.nvim
-var.g({ ['deoplete#enable_at_startup'] = 0 })
+var.g({ ['deoplete#enable_at_startup'] = 1 })
 
 -- PLUGIN:neoterm
 var.g({ neoterm_autoinsert = 1 })
@@ -736,12 +742,12 @@ local on_attach = function(client, bufnr)
   map.b('n', '<leader>d', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
 end
 
-nvim_lsp.tsserver.setup({
-  on_attach = on_attach,
-  flags = {
-    debounce_text_changes = 150,
-  },
-})
+-- nvim_lsp.tsserver.setup({
+--   on_attach = on_attach,
+--   flags = {
+--     debounce_text_changes = 150,
+--   },
+-- })
 
 ----------------------------------------
 -- Custom Plugins
