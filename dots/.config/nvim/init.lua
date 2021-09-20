@@ -755,11 +755,11 @@ local cmp = require('cmp')
 
 cmp.setup({
   mapping = {
-    -- ['<C-dd>'] = cmp.mapping.scroll_docs(-4),
-    -- ['<C-ff>'] = cmp.mapping.scroll_docs(4),
-    -- ['<C-ss>'] = cmp.mapping.complete(),
-    -- ['<C-e>'] = cmp.mapping.close(),
-    -- ['<CR>'] = cmp.mapping.confirm({ select = true }),
+    ['<C-e>'] = cmp.mapping.close(),
+    ['<CR>'] = cmp.mapping.confirm({
+      behavior = cmp.ConfirmBehavior.Replace,
+      select = true,
+    }),
   },
   sources = {
     { name = 'nvim_lsp' },
