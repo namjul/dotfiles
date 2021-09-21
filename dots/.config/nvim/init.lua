@@ -489,9 +489,6 @@ require('zen-mode').setup({})
 -- PLUGIN: vim-rooter
 vim.g.rooter_patterns = { '.git' }
 
--- PLUGIN: nvim-ts-autotag
-require('nvim-ts-autotag').setup()
-
 -- PLUGIN: winresizer
 vim.g.winresizer_start_key = '<C-T>'
 
@@ -680,6 +677,7 @@ require('nvim-treesitter.configs').setup({
   ensure_installed = {
     'tsx',
     'typescript',
+    'javascript',
     'toml',
     'fish',
     'bash',
@@ -690,6 +688,9 @@ require('nvim-treesitter.configs').setup({
     'lua',
     'scss',
     'css',
+  },
+  autotag = {
+    enable = true,
   },
 })
 
