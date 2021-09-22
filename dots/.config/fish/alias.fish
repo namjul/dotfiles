@@ -43,6 +43,7 @@ abbr en 'trans :en'
 abbr de 'trans :de'
 abbr grn 'git rebase -i HEAD~ ' # git interactive rebase to n
 abbr run 'npm run' # shorthand for npm run
+abbr nv 'node --version'
 
 # ls
 set TREE_IGNORE 'cache|log|logs|node_modules|vendor'
