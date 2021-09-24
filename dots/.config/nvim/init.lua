@@ -728,6 +728,10 @@ local on_attach = function(client, bufnr)
 
   -- vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, { border = 'single' })
 
+  vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+    virtual_text = false, -- only show virtual_text when cursor is resting on line
+  })
+
   map.b('n', '[d', "<cmd>lua require'lspsaga.diagnostic'.lsp_jump_diagnostic_prev()<CR>", opts)
   map.b('n', ']d', "<cmd>lua require'lspsaga.diagnostic'.lsp_jump_diagnostic_next()<CR>", opts)
   map.b('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
