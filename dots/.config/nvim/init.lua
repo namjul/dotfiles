@@ -179,6 +179,7 @@ require('paq')({
   'szw/vim-maximizer',
   'airblade/vim-rooter',
   'neovim/nvim-lspconfig',
+  'AndrewRadev/switch.vim',
 })
 
 ----------------------------------------
