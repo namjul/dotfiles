@@ -90,6 +90,7 @@ brew install croc # https://github.com/schollz/croc -- Easily and securely send 
 brew install massren # https://github.com/laurent22/massren -- easily rename multiple files using your text editor
 brew install xsv # https://github.com/BurntSushi/xsv -- A fast CSV command line toolkit written in Rust.
 brew install yatharth/misc/wolframalpha-cli # https://github.com/yatharth/wolframalpha-cli -- query wolframalpha from cli `wa`
+brew install slides # https://github.com/maaslalani/slides
 
 
 # Remove outdated versions from the cellar
