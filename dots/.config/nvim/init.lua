@@ -758,6 +758,8 @@ vim.cmd([[
 
 -- setup typescript
 -- local capabilities = vim.lsp.protocol.make_client_capabilities()
+-- https://github.com/neovim/nvim-lspconfig/issues/960#issuecomment-857087882
+-- also checkout https://www.reddit.com/r/neovim/comments/og1cdv/neovim_lsp_how_do_you_get_diagnostic_mesages_to/
 
 nvim_lsp.tsserver.setup({
   -- capabilities = capabilities,
@@ -804,7 +806,7 @@ nvim_lsp.efm.setup({
     'typescriptreact',
     'typescript.tsx',
     'lua',
-    'markdown'
+    'markdown',
   },
   root_dir = function(fname)
     return nvim_lsp.util.root_pattern('tsconfig.json')(fname)
@@ -820,7 +822,7 @@ nvim_lsp.efm.setup({
       ['javascript.jsx'] = { prettier, eslint },
       ['typescript.tsx'] = { prettier, eslint },
       lua = { stylua },
-      markdown = { prettier }
+      markdown = { prettier },
     },
   },
 })
