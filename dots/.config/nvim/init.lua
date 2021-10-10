@@ -150,7 +150,7 @@ require('paq')({
   'honza/vim-snippets', -- general snippets collection
   'mattn/gist-vim', -- interact with github gist from vim
   'mattn/webapi-vim', -- needed for `gist-vim`
-  'dense-analysis/ale', -- linter, fixer and lsp
+  -- 'dense-analysis/ale', -- linter, fixer and lsp
   'norcalli/nvim-colorizer.lua', -- The fastest Neovim colorizer.
   'machakann/vim-highlightedyank', -- highlights yanked text
   'dkarter/bullets.vim', -- enhance bullet points management
@@ -514,46 +514,46 @@ var.g({
 })
 
 -- PLUGIN: ale
-var.g({
-  ale_virtualtext_cursor = 1,
-  ale_virtualtext_prefix = '❐ ',
-  ale_echo_msg_format = '[%linter%] [%severity%] %code: %%s',
-  ale_lint_on_text_changed = 'never',
-  ale_linter_aliases = {
-    javascriptreact = { 'javascript', 'jsx' },
-    typescriptreact = { 'typescript', 'tsx' },
-  },
-  ale_linters = {
-    typescript = { 'eslint', 'tsserver', 'typecheck' },
-    javascript = { 'eslint', 'tsserver', 'flow' },
-    json = {},
-    jsonc = {},
-  },
-  ale_fixers = {
-    javascriptreact = { 'prettier' },
-    typescriptreact = { 'prettier' },
-    javascript = { 'prettier' },
-    typescript = { 'prettier' },
-    html = { 'prettier' },
-    json = { 'prettier' },
-    mdx = { 'prettier' },
-    lua = { 'stylua' },
-  },
-  ale_lua_stylua_options = '--search-parent-directories',
-  ale_javascript_prettier_use_local_config = 1,
-  ale_sign_error = '✖',
-  ale_sign_warning = '⚠',
-  ale_sign_info = 'ℹ',
-  ale_fix_on_save = 1,
-  ale_disable_lsp = 1,
-})
-
-cmd('highlight link ALEVirtualTextError GruvboxRed')
-cmd('highlight link ALEVirtualTextWarning GruvboxYellow')
-cmd('highlight link ALEVirtualTextInfo GruvboxBlue')
-
-map.g('n', '[g', '<Plug>(ale_previous_wrap)', { silent = true, noremap = false })
-map.g('n', ']g', '<Plug>(ale_next_wrap)', { silent = true, noremap = false })
+-- var.g({
+--   ale_virtualtext_cursor = 1,
+--   ale_virtualtext_prefix = '❐ ',
+--   ale_echo_msg_format = '[%linter%] [%severity%] %code: %%s',
+--   ale_lint_on_text_changed = 'never',
+--   ale_linter_aliases = {
+--     javascriptreact = { 'javascript', 'jsx' },
+--     typescriptreact = { 'typescript', 'tsx' },
+--   },
+--   ale_linters = {
+--     typescript = { 'eslint', 'tsserver', 'typecheck' },
+--     javascript = { 'eslint', 'tsserver', 'flow' },
+--     json = {},
+--     jsonc = {},
+--   },
+--   ale_fixers = {
+--     javascriptreact = { 'prettier' },
+--     typescriptreact = { 'prettier' },
+--     javascript = { 'prettier' },
+--     typescript = { 'prettier' },
+--     html = { 'prettier' },
+--     json = { 'prettier' },
+--     mdx = { 'prettier' },
+--     lua = { 'stylua' },
+--   },
+--   ale_lua_stylua_options = '--search-parent-directories',
+--   ale_javascript_prettier_use_local_config = 1,
+--   ale_sign_error = '✖',
+--   ale_sign_warning = '⚠',
+--   ale_sign_info = 'ℹ',
+--   ale_fix_on_save = 1,
+--   ale_disable_lsp = 1,
+-- })
+--
+-- cmd('highlight link ALEVirtualTextError GruvboxRed')
+-- cmd('highlight link ALEVirtualTextWarning GruvboxYellow')
+-- cmd('highlight link ALEVirtualTextInfo GruvboxBlue')
+--
+-- map.g('n', '[g', '<Plug>(ale_previous_wrap)', { silent = true, noremap = false })
+-- map.g('n', ']g', '<Plug>(ale_next_wrap)', { silent = true, noremap = false })
 
 -- PLUGIN:neoterm
 var.g({ neoterm_autoinsert = 1 })
@@ -722,41 +722,93 @@ local on_attach = function(client, bufnr)
 
   -- Mappings.
   local opts = { silent = true }
+  map.b('n', '[d', "<cmd>lua vim.lsp.diagnostic.goto_prev({ enable_popup = false })<CR>", opts)
+  map.b('n', ']d', "<cmd>lua vim.lsp.diagnostic.goto_next({ enable_popup = false })<CR>", opts)
 
-  -- vim.cmd([[autocmd ColorScheme * highlight NormalFloat guibg=#1f2335]])
-  -- vim.cmd([[autocmd ColorScheme * highlight FloatBorder guifg=white guibg=#1f2335]])
-
-  -- vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, { border = 'single' })
-
-  vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
-    virtual_text = false, -- only show virtual_text when cursor is resting on line
-  })
-
-  map.b('n', '[d', "<cmd>lua require'lspsaga.diagnostic'.lsp_jump_diagnostic_prev()<CR>", opts)
-  map.b('n', ']d', "<cmd>lua require'lspsaga.diagnostic'.lsp_jump_diagnostic_next()<CR>", opts)
   map.b('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
   map.b('n', 'K', "<cmd>lua require'lspsaga.hover'.render_hover_doc()<CR>", opts)
-  -- map.b('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
   map.b('n', '<leader>rn', "<cmd>lua require('lspsaga.rename').rename()<CR>", opts)
   map.b('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
   map.b('n', 'gp', "<cmd>lua require'lspsaga.diagnostic'.show_line_diagnostics()<CR>", opts)
   map.b('n', '<leader>d', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
+
+  vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+    virtual_text = {
+      spacing = 2,
+      source = "always",
+    },
+    underline = true,
+    signs = true,
+  })
+
+  vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, { border = 'single' })
+
 end
 
 vim.cmd([[
-  sign define LspDiagnosticsSignError text=✖
-  sign define LspDiagnosticsSignWarning text=⚠
-  sign define LspDiagnosticsSignInformation text=ℹ
-  sign define LspDiagnosticsSignHint text=➤
-  highlight link LspDiagnosticsSignError GruvboxRed
-  highlight link LspDiagnosticsSignWarning GruvboxYellow
-  highlight link LspDiagnosticsSignHint GruvboxBlue
+  highlight LspDiagnosticsLineNrError guibg=#51202A guifg=#FF0000 gui=bold
+  highlight LspDiagnosticsLineNrWarning guibg=#51412A guifg=#FFA500 gui=bold
+  highlight LspDiagnosticsLineNrInformation guibg=#1E535D guifg=#00FFFF gui=bold
+  highlight LspDiagnosticsLineNrHint guibg=#1E205D guifg=#0000FF gui=bold
+
+  sign define LspDiagnosticsSignError text= texthl=LspDiagnosticsSignError linehl= numhl=GruvboxRed
+  sign define LspDiagnosticsSignWarning text= texthl=LspDiagnosticsSignWarning linehl= numhl=GruvboxYellow
+  sign define LspDiagnosticsSignInformation text= texthl=LspDiagnosticsSignInformation linehl= numhl=GruvboxBlue
+  sign define LspDiagnosticsSignHint text= texthl=LspDiagnosticsSignHint linehl= numhl=GruvboxAqua
 ]])
 
+-- setup typescript
 nvim_lsp.tsserver.setup({
   on_attach = on_attach,
+  filetypes = {
+    'javascript',
+    'javascriptreact',
+    'javascript.jsx',
+    'typescript',
+    'typescriptreact',
+    'typescript.tsx',
+  },
   flags = {
     debounce_text_changes = 150,
+  },
+})
+
+-- setup linting & formatting
+local eslint = {
+  lintCommand = './node_modules/.bin/eslint -f visualstudio --stdin --stdin-filename ${INPUT}',
+  lintFormats = {"%f(%l,%c): %tarning %m", "%f(%l,%c): %rror %m"}, -- using https://eslint.org/docs/user-guide/formatters/#visualstudio formatter
+  lintIgnoreExitCode = true,
+  lintStdin = true,
+}
+
+-- local stylua = {
+--   formatCommand = "stylua --search-parent-directories --stdin-filename=${INPUT} -",
+--   formatStdin = true,
+--   -- logFile = '~/stylua.output.log',
+--   -- logLevel = 1
+-- }
+
+nvim_lsp.efm.setup({
+  init_options = { documentFormatting = true },
+  filetypes = {
+    'javascript',
+    'javascriptreact',
+    'javascript.jsx',
+    'typescript',
+    'typescriptreact',
+    'typescript.tsx',
+    'lua'
+  },
+  root_dir = function(fname)
+    return nvim_lsp.util.root_pattern('tsconfig.json')(fname)
+      or nvim_lsp.util.root_pattern('.eslintrc.js', '.git')(fname)
+  end,
+  settings = {
+    rootMarkers = { '.eslintrc.js', '.git/' },
+    languages = {
+      typescript = { eslint },
+      -- lua = { stylua }
+    },
   },
 })
 
@@ -789,6 +841,7 @@ cmp.setup({
     },
   },
 })
+
 
 ----------------------------------------
 -- Custom Plugins
