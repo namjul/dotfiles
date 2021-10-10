@@ -722,8 +722,8 @@ local on_attach = function(client, bufnr)
 
   -- Mappings.
   local opts = { silent = true }
-  map.b('n', '[d', "<cmd>lua vim.lsp.diagnostic.goto_prev({ enable_popup = false })<CR>", opts)
-  map.b('n', ']d', "<cmd>lua vim.lsp.diagnostic.goto_next({ enable_popup = false })<CR>", opts)
+  map.b('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev({ enable_popup = false })<CR>', opts)
+  map.b('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next({ enable_popup = false })<CR>', opts)
 
   map.b('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
   map.b('n', 'K', "<cmd>lua require'lspsaga.hover'.render_hover_doc()<CR>", opts)
@@ -735,14 +735,13 @@ local on_attach = function(client, bufnr)
   vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
     virtual_text = {
       spacing = 2,
-      source = "always",
+      source = 'always',
     },
     underline = true,
     signs = true,
   })
 
   vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, { border = 'single' })
-
 end
 
 vim.cmd([[
@@ -758,7 +757,10 @@ vim.cmd([[
 ]])
 
 -- setup typescript
+-- local capabilities = vim.lsp.protocol.make_client_capabilities()
+
 nvim_lsp.tsserver.setup({
+  -- capabilities = capabilities,
   on_attach = on_attach,
   filetypes = {
     'javascript',
@@ -775,20 +777,24 @@ nvim_lsp.tsserver.setup({
 
 -- setup linting & formatting
 local eslint = {
-  lintCommand = './node_modules/.bin/eslint -f visualstudio --stdin --stdin-filename ${INPUT}',
-  lintFormats = {"%f(%l,%c): %tarning %m", "%f(%l,%c): %rror %m"}, -- using https://eslint.org/docs/user-guide/formatters/#visualstudio formatter
+  lintCommand = 'npx eslint -f visualstudio --stdin --stdin-filename ${INPUT}',
+  lintFormats = { '%f(%l,%c): %tarning %m', '%f(%l,%c): %rror %m' }, -- using https://eslint.org/docs/user-guide/formatters/#visualstudio formatter
   lintIgnoreExitCode = true,
   lintStdin = true,
 }
 
--- local stylua = {
---   formatCommand = "stylua --search-parent-directories --stdin-filename=${INPUT} -",
---   formatStdin = true,
---   -- logFile = '~/stylua.output.log',
---   -- logLevel = 1
--- }
+local stylua = {
+  formatCommand = 'stylua --search-parent-directories --stdin-filepath=${INPUT} -',
+  formatStdin = true,
+}
+
+local prettier = {
+  formatCommand = 'npx prettier --stdin-filepath=${INPUT}',
+  formatStdin = true,
+}
 
 nvim_lsp.efm.setup({
+  cmd = { 'efm-langserver', '-logfile', '/tmp/efm.log', '-loglevel', '5' },
   init_options = { documentFormatting = true },
   filetypes = {
     'javascript',
@@ -797,7 +803,8 @@ nvim_lsp.efm.setup({
     'typescript',
     'typescriptreact',
     'typescript.tsx',
-    'lua'
+    'lua',
+    'markdown'
   },
   root_dir = function(fname)
     return nvim_lsp.util.root_pattern('tsconfig.json')(fname)
@@ -806,11 +813,20 @@ nvim_lsp.efm.setup({
   settings = {
     rootMarkers = { '.eslintrc.js', '.git/' },
     languages = {
-      typescript = { eslint },
-      -- lua = { stylua }
+      typescript = { prettier, eslint },
+      javascript = { prettier, eslint },
+      typescriptreact = { prettier, eslint },
+      javascriptreact = { prettier, eslint },
+      ['javascript.jsx'] = { prettier, eslint },
+      ['typescript.tsx'] = { prettier, eslint },
+      lua = { stylua },
+      markdown = { prettier }
     },
   },
 })
+
+-- nnoremap <silent> ff    <cmd>lua vim.lsp.buf.formatting()<CR>
+-- autocmd BufWritePre *.go lua vim.lsp.buf.formatting()
 
 -- PLUGIN: nvim-cmp
 local cmp = require('cmp')
@@ -841,7 +857,6 @@ cmp.setup({
     },
   },
 })
-
 
 ----------------------------------------
 -- Custom Plugins
