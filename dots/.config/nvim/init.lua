@@ -746,15 +746,10 @@ local on_attach = function(client, bufnr)
 end
 
 vim.cmd([[
-  highlight LspDiagnosticsLineNrError guibg=#51202A guifg=#FF0000 gui=bold
-  highlight LspDiagnosticsLineNrWarning guibg=#51412A guifg=#FFA500 gui=bold
-  highlight LspDiagnosticsLineNrInformation guibg=#1E535D guifg=#00FFFF gui=bold
-  highlight LspDiagnosticsLineNrHint guibg=#1E205D guifg=#0000FF gui=bold
-
-  sign define LspDiagnosticsSignError text=>> texthl=LspDiagnosticsSignError linehl= numhl=GruvboxRed
-  sign define LspDiagnosticsSignWarning text=>> texthl=LspDiagnosticsSignWarning linehl= numhl=GruvboxYellow
-  sign define LspDiagnosticsSignInformation text=>> texthl=LspDiagnosticsSignInformation linehl= numhl=GruvboxBlue
-  sign define LspDiagnosticsSignHint text=>> texthl=LspDiagnosticsSignHint linehl= numhl=GruvboxAqua
+  sign define LspDiagnosticsSignError text=>> texthl=LspDiagnosticsSignError linehl= numhl=LspDiagnosticsDefaultError
+  sign define LspDiagnosticsSignWarning text=>> texthl=LspDiagnosticsSignWarning linehl= numhl=LspDiagnosticsDefaultWarning
+  sign define LspDiagnosticsSignInformation text=>> texthl=LspDiagnosticsSignInformation linehl= numhl=LspDiagnosticsDefaultInformation
+  sign define LspDiagnosticsSignHint text=>> texthl=LspDiagnosticsSignHint linehl= numhl=LspDiagnosticsDefaultInformation
 ]])
 
 -- setup typescript
