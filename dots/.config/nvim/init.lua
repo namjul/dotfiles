@@ -714,11 +714,11 @@ require('colorizer').setup()
 -- PLUGIN:nvim-lspconfig
 local nvim_lsp = require('lspconfig')
 
-local on_attach = function(client, bufnr)
+local on_attach = function()
   -- Enable completion triggered by <c-x><c-o>
-  -- opt.b({
-  --   omnifunc = 'v:lua.vim.lsp.omnifunc',
-  -- })
+  opt.b({
+    omnifunc = 'v:lua.vim.lsp.omnifunc',
+  })
 
   -- Mappings.
   local opts = { silent = true }
@@ -731,6 +731,7 @@ local on_attach = function(client, bufnr)
   map.b('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
   map.b('n', 'gp', "<cmd>lua require'lspsaga.diagnostic'.show_line_diagnostics()<CR>", opts)
   map.b('n', '<leader>d', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
+  map.b('n', 'ff', '<cmd>lua vim.lsp.buf.formatting()<CR>', { silent = true })
 
   vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
     virtual_text = {
@@ -797,6 +798,7 @@ local prettier = {
 nvim_lsp.efm.setup({
   -- cmd = { 'efm-langserver', '-logfile', '/tmp/efm.log', '-loglevel', '5' },
   init_options = { documentFormatting = true },
+  on_attach = on_attach,
   filetypes = {
     'javascript',
     'javascriptreact',
@@ -825,9 +827,6 @@ nvim_lsp.efm.setup({
     },
   },
 })
-
--- nnoremap <silent> ff    <cmd>lua vim.lsp.buf.formatting()<CR>
--- autocmd BufWritePre *.go lua vim.lsp.buf.formatting()
 
 -- PLUGIN: nvim-cmp
 local cmp = require('cmp')
