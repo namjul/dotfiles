@@ -56,16 +56,6 @@ To make `asdf` work add the following to `~/.profile`:
 source $(brew --prefix asdf)/asdf.sh
 ```
 
-### Fonts
-
-Install a font of your choice
-- https://github.com/cseelus/monego *
-- https://github.com/tonsky/FiraCode
-- https://monolisa.dev/
-- https://coding-fonts.css-tricks.com/fonts/anonymous-pro/
-- https://github.com/ryanoasis/nerd-fonts
-- Ascii Art "ANSI Shadow" https://patorjk.com/software/taag/#p=display&f=ANSI%20Shadow&t=bashrc
-
 ## Vim Keyboard shortcuts
 
 **Legend**
