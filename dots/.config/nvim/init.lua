@@ -736,7 +736,7 @@ local on_attach = function(client, bufnr)
     virtual_text = {
       spacing = 2,
       source = 'always',
-      prefix = '■',
+      prefix = '',
     },
     underline = true,
     signs = true,
