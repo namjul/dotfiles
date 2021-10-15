@@ -714,15 +714,12 @@ require('colorizer').setup()
 -- PLUGIN:nvim-lspconfig
 local nvim_lsp = require('lspconfig')
 
-local on_attach = function()
-  -- Enable completion triggered by <c-x><c-o>
-  opt.b({
-    omnifunc = 'v:lua.vim.lsp.omnifunc',
-  })
-
+local on_attach = function(client, bufnr)
   -- Mappings.
   local opts = { silent = true }
-  map.b('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev({ enable_popup = false })<CR>', opts)
+
+  -- See `:help vim.lsp.*` for documentation on any of the below functions
+  map.b('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev({ enable_popup = false })<CR>', opts) -- TODO use bufnr
   map.b('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next({ enable_popup = false })<CR>', opts)
 
   map.b('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
@@ -733,18 +730,26 @@ local on_attach = function()
   map.b('n', '<leader>d', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
   map.b('n', 'ff', '<cmd>lua vim.lsp.buf.formatting()<CR>', { silent = true })
 
-  vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
-    virtual_text = {
-      spacing = 2,
-      source = 'always',
-      prefix = '',
-    },
-    underline = true,
-    signs = true,
-  })
-
-  vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, { border = 'single' })
+  -- formatting
+  -- if client.resolved_capabilities.document_formatting then
+  --   vim.api.nvim_command [[augroup Format]]
+  --   vim.api.nvim_command [[autocmd! * <buffer>]]
+  --   vim.api.nvim_command [[autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_seq_sync()]]
+  --   vim.api.nvim_command [[augroup END]]
+  -- end
 end
+
+vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+  virtual_text = {
+    spacing = 2,
+    source = 'always',
+    prefix = '',
+  },
+  underline = true,
+  signs = true,
+})
+
+vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, { border = 'single' })
 
 vim.cmd([[
   sign define LspDiagnosticsSignError text= texthl=LspDiagnosticsSignError linehl= numhl=LspDiagnosticsDefaultError
@@ -778,7 +783,7 @@ nvim_lsp.tsserver.setup({
 -- for available options see https://github.com/mattn/efm-langserver/blob/master/langserver/handler.go#L53
 local eslint = {
   prefix = 'eslint',
-  lintCommand = 'npx eslint -f visualstudio --stdin --stdin-filename ${INPUT}',
+  lintCommand = 'eslint_d -f visualstudio --stdin --stdin-filename ${INPUT}',
   lintFormats = { '%f(%l,%c): %tarning %m', '%f(%l,%c): %rror %m' }, -- see https://eslint.org/docs/user-guide/formatters/#visualstudio formatter, https://github.com/reviewdog/errorformat
   lintIgnoreExitCode = true,
   lintStdin = true,
@@ -808,6 +813,9 @@ nvim_lsp.efm.setup({
     'typescript.tsx',
     'lua',
     'markdown',
+    'json',
+    'jsonc',
+    'css'
   },
   root_dir = function(fname)
     return nvim_lsp.util.root_pattern('tsconfig.json')(fname)
@@ -824,6 +832,9 @@ nvim_lsp.efm.setup({
       ['typescript.tsx'] = { prettier, eslint },
       lua = { stylua },
       markdown = { prettier },
+      json = { prettier },
+      jsonc = { prettier },
+      css = { prettier }
     },
   },
 })
@@ -843,18 +854,6 @@ cmp.setup({
     { name = 'nvim_lsp' },
     { name = 'path' },
     { name = 'buffer' },
-  },
-  documentation = {
-    border = {
-      '🭽',
-      '▔',
-      '🭾',
-      '▕',
-      '🭿',
-      '▁',
-      '🭼',
-      '▏',
-    },
   },
 })
 
