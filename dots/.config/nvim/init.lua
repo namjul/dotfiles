@@ -736,6 +736,7 @@ local on_attach = function(client, bufnr)
     virtual_text = {
       spacing = 2,
       source = 'always',
+      prefix = '■',
     },
     underline = true,
     signs = true,
@@ -750,10 +751,10 @@ vim.cmd([[
   highlight LspDiagnosticsLineNrInformation guibg=#1E535D guifg=#00FFFF gui=bold
   highlight LspDiagnosticsLineNrHint guibg=#1E205D guifg=#0000FF gui=bold
 
-  sign define LspDiagnosticsSignError text= texthl=LspDiagnosticsSignError linehl= numhl=GruvboxRed
-  sign define LspDiagnosticsSignWarning text= texthl=LspDiagnosticsSignWarning linehl= numhl=GruvboxYellow
-  sign define LspDiagnosticsSignInformation text= texthl=LspDiagnosticsSignInformation linehl= numhl=GruvboxBlue
-  sign define LspDiagnosticsSignHint text= texthl=LspDiagnosticsSignHint linehl= numhl=GruvboxAqua
+  sign define LspDiagnosticsSignError text=>> texthl=LspDiagnosticsSignError linehl= numhl=GruvboxRed
+  sign define LspDiagnosticsSignWarning text=>> texthl=LspDiagnosticsSignWarning linehl= numhl=GruvboxYellow
+  sign define LspDiagnosticsSignInformation text=>> texthl=LspDiagnosticsSignInformation linehl= numhl=GruvboxBlue
+  sign define LspDiagnosticsSignHint text=>> texthl=LspDiagnosticsSignHint linehl= numhl=GruvboxAqua
 ]])
 
 -- setup typescript
@@ -777,15 +778,18 @@ nvim_lsp.tsserver.setup({
   },
 })
 
--- setup linting & formatting
+-- setup diagnostics with errorformat (efm)
+-- for available options see https://github.com/mattn/efm-langserver/blob/master/langserver/handler.go#L53
 local eslint = {
+  prefix = 'eslint',
   lintCommand = 'npx eslint -f visualstudio --stdin --stdin-filename ${INPUT}',
-  lintFormats = { '%f(%l,%c): %tarning %m', '%f(%l,%c): %rror %m' }, -- using https://eslint.org/docs/user-guide/formatters/#visualstudio formatter
+  lintFormats = { '%f(%l,%c): %tarning %m', '%f(%l,%c): %rror %m' }, -- see https://eslint.org/docs/user-guide/formatters/#visualstudio formatter, https://github.com/reviewdog/errorformat
   lintIgnoreExitCode = true,
   lintStdin = true,
 }
 
 local stylua = {
+  prefix = 'stylua',
   formatCommand = 'stylua --search-parent-directories --stdin-filepath=${INPUT} -',
   formatStdin = true,
 }
@@ -796,7 +800,7 @@ local prettier = {
 }
 
 nvim_lsp.efm.setup({
-  cmd = { 'efm-langserver', '-logfile', '/tmp/efm.log', '-loglevel', '5' },
+  -- cmd = { 'efm-langserver', '-logfile', '/tmp/efm.log', '-loglevel', '5' },
   init_options = { documentFormatting = true },
   filetypes = {
     'javascript',
