@@ -746,10 +746,10 @@ local on_attach = function(client, bufnr)
 end
 
 vim.cmd([[
-  sign define LspDiagnosticsSignError text=>> texthl=LspDiagnosticsSignError linehl= numhl=LspDiagnosticsDefaultError
-  sign define LspDiagnosticsSignWarning text=>> texthl=LspDiagnosticsSignWarning linehl= numhl=LspDiagnosticsDefaultWarning
-  sign define LspDiagnosticsSignInformation text=>> texthl=LspDiagnosticsSignInformation linehl= numhl=LspDiagnosticsDefaultInformation
-  sign define LspDiagnosticsSignHint text=>> texthl=LspDiagnosticsSignHint linehl= numhl=LspDiagnosticsDefaultInformation
+  sign define LspDiagnosticsSignError text= texthl=LspDiagnosticsSignError linehl= numhl=LspDiagnosticsDefaultError
+  sign define LspDiagnosticsSignWarning text= texthl=LspDiagnosticsSignWarning linehl= numhl=LspDiagnosticsDefaultWarning
+  sign define LspDiagnosticsSignInformation text= texthl=LspDiagnosticsSignInformation linehl= numhl=LspDiagnosticsDefaultInformation
+  sign define LspDiagnosticsSignHint text= texthl=LspDiagnosticsSignHint linehl= numhl=LspDiagnosticsDefaultInformation
 ]])
 
 -- setup typescript
