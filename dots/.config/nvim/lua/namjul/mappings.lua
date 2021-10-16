@@ -1,9 +1,7 @@
 local vimp = require('vimp')
 local cmd = vim.cmd -- to execute Vim commands e.g. cmd('pwd')
 local fn = vim.fn -- to call Vim functions e.g. fn.bufnr()
-local inspect = vim.inspect -- pretty-print Lua objects (useful for inspecting tables)
 local util = require('namjul.utils')
-local opt = util.opt
 local map = util.map
 local var = util.var
 
@@ -14,6 +12,7 @@ local var = util.var
 var.g({ mapleader = ' ' })
 var.b({ mapleader = ' ' })
 
+map.g('n', '<leader>a', 'ggVG') -- select all
 map.g('n', '<leader><leader>', '<C-^>') -- open last buffer.
 map.g('n', '<leader>o', ':only<CR>') -- close all windows but the active one
 
