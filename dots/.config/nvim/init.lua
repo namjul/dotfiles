@@ -186,10 +186,6 @@ vim.cmd('colorscheme gruvbox')
 ----------------------------------------
 
 util.createAugroup({
-  { 'BufRead,BufNewFile', 'package.json', 'set', 'filetype=json' },
-}, 'namjulfiletypedetect')
-
-util.createAugroup({
   { 'Colorscheme', '*', 'lua require"namjul.statusline".updateHighlight()' }, -- trigger highlight update see https://vi.stackexchange.com/questions/3355/why-do-custom-highlights-in-my-vimrc-get-cleared-or-reset-to-default
   {
     'BufWinEnter,BufWritePost,FileWritePost,TextChanged,TextChangedI,WinEnter',
