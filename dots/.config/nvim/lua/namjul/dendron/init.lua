@@ -15,20 +15,14 @@ local M = {}
 function M.start_engine(opts)
   assert(not DendronJob, 'you already started a neuron server')
 
-  DendronJob = Job
-    :new({
-      command = 'dendron',
-      args = { 'launchEngineServer', '--init', '--port', opts.port },
-      cwd = opts.dendron_dir,
-      on_exit = function(_, data)
-        print(data .. ' on_exit')
-      end,
-      on_stdout = function(_, data)
-        print(data .. ' on_stdout')
-      end,
-      on_stderr = utils.on_stderr_factory(opts.name),
-    })
-    :start()
+  DendronJob = Job:new({
+    command = 'dendron',
+    args = { 'launchEngineServer', '--init', '--port', opts.port },
+    cwd = opts.dendron_dir,
+    on_stderr = utils.on_stderr_factory(opts.name),
+  })
+
+  DendronJob:start()
 
   vim.cmd([[
       augroup DendronJobStop
@@ -44,7 +38,7 @@ end
 
 function M.stop()
   if DendronJob ~= nil then
-    DendronJob:shutdown()
+    uv.kill(DendronJob.pid, 15)
     DendronJob = nil
   end
 end
@@ -92,7 +86,12 @@ function M.setup(user_config)
         print('Start Dendron Engine: ' .. data)
         if data == 1 then
           -- start engine
-          M.start_engine({ port = dendron_port, dendron_dir = M.config.dendron_dir, verbose = true })
+          M.start_engine({
+            port = dendron_port,
+            dendron_dir = M.config.dendron_dir,
+            verbose = true,
+            name = 'start engine',
+          })
         end
       end),
     })
