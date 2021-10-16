@@ -72,14 +72,6 @@ function _G.openDailyJN(type)
   return command .. util.t('<CR>')
 end
 
-function _G.showDocumentation()
-  if ({ vim = true, lua = true, help = true })[vim.bo.filetype] then
-    fn.execute('h ' .. fn.expand('<cword>'))
-  else
-    cmd(':ALEHover')
-  end
-end
-
 ----------------------------------------
 -- Plugins
 ----------------------------------------
@@ -148,14 +140,10 @@ require('paq')({
   'moll/vim-node', -- improves dx in node.js env
   'SirVer/ultisnips', -- snippets engine
   'honza/vim-snippets', -- general snippets collection
+  'quangnguyen30192/cmp-nvim-ultisnips', -- nvim-cmp source for ultisnips
   'mattn/gist-vim', -- interact with github gist from vim
   'mattn/webapi-vim', -- needed for `gist-vim`
-  'dense-analysis/ale', -- linter, fixer and lsp
-  {
-    'Shougo/deoplete.nvim',
-    run = ':UpdateRemotePlugins',
-    disable = false,
-  }, -- autocomplete
+  -- 'dense-analysis/ale', -- linter, fixer and lsp
   'norcalli/nvim-colorizer.lua', -- The fastest Neovim colorizer.
   'machakann/vim-highlightedyank', -- highlights yanked text
   'dkarter/bullets.vim', -- enhance bullet points management
@@ -180,6 +168,11 @@ require('paq')({
   'airblade/vim-rooter',
   'neovim/nvim-lspconfig',
   'AndrewRadev/switch.vim',
+  'hrsh7th/nvim-cmp',
+  'hrsh7th/cmp-nvim-lsp',
+  'hrsh7th/cmp-path',
+  'hrsh7th/cmp-buffer',
+  'glepnir/lspsaga.nvim',
 })
 
 ----------------------------------------
@@ -234,8 +227,6 @@ vim.cmd('colorscheme gruvbox')
 ----------------------------------------
 
 local vimp = require('vimp')
-
-map.g('n', 'K', ':call v:lua.showDocumentation()<CR>', { noremap = true, silent = true }) -- Use K to show documentation in preview window.
 
 -- LEADER
 --------------------
@@ -415,7 +406,6 @@ map.g('t', '<Esc>', 'v:lua.terminalEsc()', { expr = true })
 util.createAugroup({
   { 'BufRead,BufNewFile', '*.json', 'set', 'filetype=jsonc' },
   { 'BufRead,BufNewFile', 'package.json', 'set', 'filetype=json' },
-  { 'FileType', 'TelescopePrompt', 'call', "deoplete#custom#buffer_option('auto_complete', v:false)" },
 }, 'namjulfiletypedetect')
 
 util.createAugroup({
@@ -513,57 +503,6 @@ var.g({
   gruvbox_contrast_light = 'medium',
   gruvbox_italic = 1,
 })
-
--- PLUGIN: ale
-var.g({
-  ale_virtualtext_cursor = 1,
-  ale_virtualtext_prefix = '❐ ',
-  ale_echo_msg_format = '[%linter%] [%severity%] %code: %%s',
-  ale_lint_on_text_changed = 'never',
-  ale_linter_aliases = {
-    javascriptreact = { 'javascript', 'jsx' },
-    typescriptreact = { 'typescript', 'tsx' },
-  },
-  ale_linters = {
-    typescript = { 'eslint', 'tsserver', 'typecheck' },
-    javascript = { 'eslint', 'tsserver', 'flow' },
-    json = {},
-    jsonc = {},
-  },
-  ale_fixers = {
-    javascriptreact = { 'prettier' },
-    typescriptreact = { 'prettier' },
-    javascript = { 'prettier' },
-    typescript = { 'prettier' },
-    html = { 'prettier' },
-    json = { 'prettier' },
-    mdx = { 'prettier' },
-    lua = { 'stylua' },
-  },
-  ale_lua_stylua_options = '--search-parent-directories',
-  ale_javascript_prettier_use_local_config = 1,
-  ale_sign_error = '✖',
-  ale_sign_warning = '⚠',
-  ale_sign_info = 'ℹ',
-  ale_fix_on_save = 1,
-  -- ale_disable_lsp = 1,
-})
-
-cmd('highlight link ALEVirtualTextError GruvboxRed')
-cmd('highlight link ALEVirtualTextWarning GruvboxYellow')
-cmd('highlight link ALEVirtualTextInfo GruvboxBlue')
-
-map.g('n', 'gD', '<Plug>(ale_go_to_type_definition)', { silent = true, noremap = false })
-map.g('n', 'gd', '<Plug>(ale_go_to_definition)', { silent = true, noremap = false })
-map.g('n', 'gr', '<Plug>(ale_find_references) :ALEFindReferences -relative<Return>', { silent = true, noremap = false })
-map.g('n', 'gp', '<Plug>(ale_detail)', { silent = true, noremap = false })
-map.g('n', '<leader>rn', '<Plug>(ale_rename)', { silent = true, noremap = false })
-
-map.g('n', '[g', '<Plug>(ale_previous_wrap)', { silent = true, noremap = false })
-map.g('n', ']g', '<Plug>(ale_next_wrap)', { silent = true, noremap = false })
-
--- PLUGIN: deoplete.nvim
-var.g({ ['deoplete#enable_at_startup'] = 1 })
 
 -- PLUGIN:neoterm
 var.g({ neoterm_autoinsert = 1 })
@@ -725,40 +664,171 @@ require('colorizer').setup()
 local nvim_lsp = require('lspconfig')
 
 local on_attach = function(client, bufnr)
-  -- Enable completion triggered by <c-x><c-o>
-  opt.b({
-    omnifunc = 'v:lua.vim.lsp.omnifunc',
-  })
-
   -- Mappings.
-  local opts = { silent = true }
+  local opts = { 'silent', 'override' }
 
-  map.b('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
-  map.b('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
-  map.b('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
-  map.b('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
-  map.b('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-  map.b('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-  map.b('n', 'gp', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
-  map.b('n', '<leader>d', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
+  -- See `:help vim.lsp.*` for documentation on any of the below functions
+  vimp.add_buffer_maps(bufnr, function()
+    vimp.nnoremap(opts, '[d', function()
+      vim.lsp.diagnostic.goto_prev({ enable_popup = false })
+    end)
+    vimp.nnoremap(opts, ']d', function()
+      vim.lsp.diagnostic.goto_next({ enable_popup = false })
+    end)
+    vimp.nnoremap(opts, 'gd', function()
+      vim.lsp.buf.definition()
+    end)
+    vimp.nnoremap(opts, 'K', function()
+      vim.lsp.buf.hover()
+    end)
+    vimp.nnoremap(opts, '<leader>rn', function()
+      vim.lsp.buf.rename()
+    end)
+    vimp.nnoremap(opts, 'gr', function()
+      vim.lsp.buf.references()
+    end)
+    vimp.nnoremap(util.shallow_merge(opts, { 'repeatable' }), 'gp', function()
+      vim.lsp.diagnostic.show_line_diagnostics({ show_header = false })
+    end)
+    vimp.nnoremap(opts, '<leader>d', function()
+      vim.lsp.diagnostic.set_loclist()
+    end)
+    vimp.nnoremap(opts, 'ff', function()
+      vim.lsp.buf.formatting()
+    end)
+  end)
+
+  -- formatting
+  if client.resolved_capabilities.document_formatting then
+    vim.cmd([[
+      augroup NamjulFormat
+      autocmd! * <buffer>
+      autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_seq_sync(nil, nil, { 'efm' })
+      augroup END
+    ]])
+  end
 end
 
+vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+  virtual_text = {
+    spacing = 2,
+    source = 'always',
+    prefix = '',
+  },
+  underline = true,
+  signs = true,
+})
+
+vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, {})
+
 vim.cmd([[
-  sign define LspDiagnosticsSignError text=✖
-  sign define LspDiagnosticsSignWarning text=⚠
-  sign define LspDiagnosticsSignInformation text=ℹ
-  sign define LspDiagnosticsSignHint text=➤
-  highlight link LspDiagnosticsSignError GruvboxRed
-  highlight link LspDiagnosticsSignWarning GruvboxYellow
-  highlight link LspDiagnosticsSignHint GruvboxBlue
+  sign define LspDiagnosticsSignError text= texthl=LspDiagnosticsSignError linehl= numhl=LspDiagnosticsDefaultError
+  sign define LspDiagnosticsSignWarning text= texthl=LspDiagnosticsSignWarning linehl= numhl=LspDiagnosticsDefaultWarning
+  sign define LspDiagnosticsSignInformation text= texthl=LspDiagnosticsSignInformation linehl= numhl=LspDiagnosticsDefaultInformation
+  sign define LspDiagnosticsSignHint text= texthl=LspDiagnosticsSignHint linehl= numhl=LspDiagnosticsDefaultInformation
 ]])
 
--- nvim_lsp.tsserver.setup({
---   on_attach = on_attach,
---   flags = {
---     debounce_text_changes = 150,
---   },
--- })
+nvim_lsp.tsserver.setup({
+  -- capabilities = capabilities,
+  on_attach = on_attach,
+  filetypes = {
+    'javascript',
+    'javascriptreact',
+    'javascript.jsx',
+    'typescript',
+    'typescriptreact',
+    'typescript.tsx',
+  },
+  flags = {
+    debounce_text_changes = 150,
+  },
+})
+
+-- setup diagnostics with errorformat (efm)
+-- for available options see https://github.com/mattn/efm-langserver/blob/master/langserver/handler.go#L53
+local eslint = {
+  prefix = 'eslint',
+  lintCommand = 'eslint_d -f visualstudio --stdin --stdin-filename ${INPUT}',
+  lintFormats = { '%f(%l,%c): %tarning %m', '%f(%l,%c): %rror %m' }, -- see https://eslint.org/docs/user-guide/formatters/#visualstudio formatter, https://github.com/reviewdog/errorformat
+  lintIgnoreExitCode = true,
+  lintStdin = true,
+}
+
+local stylua = {
+  prefix = 'stylua',
+  formatCommand = 'stylua --search-parent-directories --stdin-filepath=${INPUT} -',
+  formatStdin = true,
+}
+
+local prettier = {
+  formatCommand = 'prettier --stdin-filepath=${INPUT}',
+  formatStdin = true,
+}
+
+nvim_lsp.efm.setup({
+  -- cmd = { 'efm-langserver', '-logfile', '/tmp/efm.log', '-loglevel', '5' },
+  init_options = { documentFormatting = true },
+  on_attach = on_attach,
+  filetypes = {
+    'javascript',
+    'javascriptreact',
+    'javascript.jsx',
+    'typescript',
+    'typescriptreact',
+    'typescript.tsx',
+    'lua',
+    'markdown',
+    'json',
+    'jsonc',
+    'css',
+  },
+  flags = {
+    debounce_text_changes = 150,
+  },
+  root_dir = function(fname)
+    return nvim_lsp.util.root_pattern('.eslintrc.js', '.git')(fname)
+  end,
+  settings = {
+    rootMarkers = { '.eslintrc.js', '.git/' },
+    languages = {
+      typescript = { prettier, eslint },
+      javascript = { prettier, eslint },
+      typescriptreact = { prettier, eslint },
+      javascriptreact = { prettier, eslint },
+      ['javascript.jsx'] = { prettier, eslint },
+      ['typescript.tsx'] = { prettier, eslint },
+      lua = { stylua },
+      markdown = { prettier },
+      json = { prettier },
+      jsonc = { prettier },
+      css = { prettier },
+    },
+  },
+})
+
+-- PLUGIN: nvim-cmp
+local cmp = require('cmp')
+
+cmp.setup({
+  snippet = {
+    expand = function(args)
+      vim.fn['UltiSnips#Anon'](args.body)
+    end,
+  },
+  mapping = {
+    ['<C-e>'] = cmp.mapping.close(),
+    ['<CR>'] = cmp.mapping.confirm({
+      behavior = cmp.ConfirmBehavior.Replace,
+      select = true,
+    }),
+  },
+  sources = {
+    { name = 'nvim_lsp' },
+    { name = 'path' },
+    { name = 'buffer' },
+    { name = 'ultisnips' },
+  },
+})
 
 ----------------------------------------
 -- Custom Plugins

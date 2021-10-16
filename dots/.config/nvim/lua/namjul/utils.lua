@@ -102,4 +102,8 @@ function utils.unload_lua_namespace(prefix)
   end
 end
 
+function utils.shallow_merge(dest, source)
+  return vim.tbl_extend('force', dest, source)
+end
+
 return utils

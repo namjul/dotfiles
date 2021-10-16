@@ -91,6 +91,7 @@ brew install massren # https://github.com/laurent22/massren -- easily rename mul
 brew install xsv # https://github.com/BurntSushi/xsv -- A fast CSV command line toolkit written in Rust.
 brew install yatharth/misc/wolframalpha-cli # https://github.com/yatharth/wolframalpha-cli -- query wolframalpha from cli `wa`
 brew install slides # https://github.com/maaslalani/slides
+brew install efm-langserver # https://github.com/mattn/efm-langserver
 
 
 # Remove outdated versions from the cellar
