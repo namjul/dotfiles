@@ -102,7 +102,14 @@ map.g('n', '<leader>gb', ":lua require('telescope.builtin').git_branches()<CR>")
 map.g('', 'Y', 'y$') -- multi-mode mappings (Normal, Visual, Operating-pending modes).
 
 -- PLUGIN:notational-fzf-vim
-map.g('n', '<leader>l', ':NV<CR>', { silent = true })
+-- map.g('n', '<leader>l', ':NV<CR>', { silent = true })
+map.g(
+  'n',
+  '<leader>l',
+  ":lua require('namjul.dendron._telescope').lookup(require('telescope.themes').get_ivy({}))<CR>",
+  { silent = true }
+)
+
 -- PLUGIN:goyo.vim
 map.g('n', '<leader>z', ':ZenMode<CR>', { silent = true })
 

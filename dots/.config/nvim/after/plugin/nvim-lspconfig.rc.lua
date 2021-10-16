@@ -164,8 +164,6 @@ else
   end
 end
 
-print(cmd)
-
 if cmd ~= nil then
   require('lspconfig').sumneko_lua.setup({
     cmd = cmd,
