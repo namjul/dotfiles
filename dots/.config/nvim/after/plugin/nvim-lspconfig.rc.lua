@@ -121,7 +121,6 @@ nvim_lsp.efm.setup({
     'lua',
     'markdown',
     'json',
-    'jsonc',
     'css',
   },
   flags = {
@@ -142,7 +141,6 @@ nvim_lsp.efm.setup({
       lua = { stylua },
       markdown = { prettier },
       json = { prettier },
-      jsonc = { prettier },
       css = { prettier },
     },
   },
