@@ -71,7 +71,6 @@ end
 
 require('paq')({
   'savq/paq-nvim',
-
   'tpope/vim-sensible', -- sensible defaults
   'svermeulen/vimpeccable', -- Neovim plugin that allows you to easily map keys directly to lua code inside your init.lua
   'wincent/pinnacle', -- Required for namjul.statusline. Highlight group manipulation utils
@@ -92,10 +91,8 @@ require('paq')({
   'nvim-telescope/telescope.nvim',
   { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' },
   'nvim-telescope/telescope-fzf-writer.nvim',
-  -- 'lukas-reineke/indent-blankline.nvim',
   'junegunn/fzf',
   'alok/notational-fzf-vim', -- combines the fzf with the concept from notational
-
   'benmills/vimux', -- allows to send commands from vim to tmux
   'tyewang/vimux-jest-test', -- simplifies running jest test from vim
   'justinmk/vim-dirvish', -- file explorer
@@ -104,16 +101,6 @@ require('paq')({
   'Valloric/MatchTagAlways', -- highlights xml tags enclosing the cursor
   'simeji/winresizer', -- helper for resizing windows
   'camspiers/lens.vim', -- auto resizing of windows
-  -- 'morhetz/gruvbox'
-  -- 'chriskempson/base16-vim'
-  -- 'icymind/NeoSolarized'
-  -- 'arcticicestudio/nord-vim'
-  -- 'mhartington/oceanic-next'
-  -- 'srcery-colors/srcery-vim'
-  -- 'sonph/onehalf', { 'rtp': 'vim/' }
-  -- 'drewtempelmeyer/palenight.vim'
-  -- 'ayu-theme/ayu-vim'
-  -- 'rakr/vim-one'
   'lewis6991/gitsigns.nvim',
   'rhysd/committia.vim', -- improves vim 'commit' buffer
   'moll/vim-node', -- improves dx in node.js env
@@ -122,7 +109,6 @@ require('paq')({
   'quangnguyen30192/cmp-nvim-ultisnips', -- nvim-cmp source for ultisnips
   'mattn/gist-vim', -- interact with github gist from vim
   'mattn/webapi-vim', -- needed for `gist-vim`
-  -- 'dense-analysis/ale', -- linter, fixer and lsp
   'norcalli/nvim-colorizer.lua', -- The fastest Neovim colorizer.
   'machakann/vim-highlightedyank', -- highlights yanked text
   'dkarter/bullets.vim', -- enhance bullet points management
@@ -151,7 +137,7 @@ require('paq')({
   'hrsh7th/cmp-nvim-lsp',
   'hrsh7th/cmp-path',
   'hrsh7th/cmp-buffer',
-  'glepnir/lspsaga.nvim',
+  'kevinoid/vim-jsonc',
 })
 
 ----------------------------------------
@@ -383,7 +369,6 @@ map.g('t', '<Esc>', 'v:lua.terminalEsc()', { expr = true })
 ----------------------------------------
 
 util.createAugroup({
-  { 'BufRead,BufNewFile', '*.json', 'set', 'filetype=jsonc' },
   { 'BufRead,BufNewFile', 'package.json', 'set', 'filetype=json' },
 }, 'namjulfiletypedetect')
 
