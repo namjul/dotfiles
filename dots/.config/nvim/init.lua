@@ -63,10 +63,6 @@ end
 -- Plugins
 ----------------------------------------
 
--- start pre-plugin settings
-var.g({ polyglot_disabled = { 'markdown' } })
--- end
-
 -- install pag-nvim
 local install_path = fn.stdpath('data') .. '/site/pack/paqs/start/paq-nvim'
 if fn.empty(fn.glob(install_path)) > 0 then
@@ -120,10 +116,6 @@ require('paq')({
   -- 'rakr/vim-one'
   'lewis6991/gitsigns.nvim',
   'rhysd/committia.vim', -- improves vim 'commit' buffer
-  {
-    'sheerun/vim-polyglot',
-    disable = false, -- conflicts with treesitter indentation
-  }, -- general language support
   'moll/vim-node', -- improves dx in node.js env
   'SirVer/ultisnips', -- snippets engine
   'honza/vim-snippets', -- general snippets collection
