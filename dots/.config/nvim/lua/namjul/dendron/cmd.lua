@@ -1,4 +1,5 @@
 local dendron = require('namjul/dendron')
+local utils = require('namjul/dendron/utils')
 local Job = require('plenary/job')
 
 local M = {}
@@ -7,32 +8,34 @@ function M.dendron(opts)
   table.insert(opts.args, '--enginePort')
   table.insert(opts.args, dendron.config.dendron_port)
 
-  local jsonStr = ''
+  local result = ''
+
   Job
     :new({
       command = 'dendron',
       args = opts.args,
       cwd = opts.dendron_dir,
-      on_exit = vim.schedule_wrap(function(err, return_val)
-        opts.callback(vim.fn.json_decode(jsonStr))
+      on_exit = vim.schedule_wrap(function()
+        opts.callback(opts.json and vim.fn.json_decode(result) or result)
       end),
-      on_stdout = vim.schedule_wrap(function(err, return_val)
-        jsonStr = jsonStr .. return_val
+      on_stdout = vim.schedule_wrap(function(error, data)
+        assert(not error, error)
+        result = result .. data
       end),
-      on_stderr = function(j, return_val)
-        print(return_val, 'on_stderr')
-      end,
+      on_stderr = utils.on_stderr_factory(opts.name),
     })
     :start()
 end
 
 function M.lookup(arg_opts, dendron_dir, json_fn)
+  print('Lookup')
   arg_opts['cmd'] = 'lookup'
   M.dendron({
     args = M.dendron_arg_maker(arg_opts),
     dendron_dir = dendron_dir,
     name = 'dendron lookup',
     callback = json_fn,
+    json = true,
   })
 end
 
@@ -65,10 +68,5 @@ function M.dendron_arg_maker(opts)
 
   return args
 end
-
-M.lookup({ query = 'hello', vault = 'wiki' }, vim.fn.expand('~/Dropbox/dendron'), function(data)
-  print(vim.inspect(vim.fn.keys(data)))
-end)
--- M.delete({ query = 'hello', vault = 'wiki' }, '~/Dropbox/dendron')
 
 return M

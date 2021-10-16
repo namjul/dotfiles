@@ -17,18 +17,13 @@ function M.start_engine(opts)
       command = 'dendron',
       args = { 'launchEngineServer', '--init', '--port', opts.port },
       cwd = opts.dendron_dir,
-      on_exit = function(j, return_val)
-        print(return_val, 'on_exit')
-        print(vim.inspect(j:result()))
+      on_exit = function(_, data)
+        print(data .. ' on_exit')
       end,
-      on_stdout = function(j, return_val)
-        print(return_val, 'on_stdout')
-        -- print(vim.inspect(j:result()))
+      on_stdout = function(_, data)
+        print(data .. ' on_stdout')
       end,
-      on_stderr = function(j, return_val)
-        print(return_val, 'on_stderr')
-        -- print(vim.inspect(j:result()))
-      end,
+      on_stderr = utils.on_stderr_factory(opts.name),
     })
     :start()
 end
@@ -46,8 +41,12 @@ function M.setup(user_config)
     error('dendron is not executable')
   end
 
-  local user_config = user_config or {}
-  M.config = vim.tbl_extend('keep', user_config, default_config)
+  user_config = user_config or {}
+
+  -- create M.config for external reference
+  M.config = vim.tbl_extend('force', default_config, user_config)
+
+  -- expand dendron directory
   M.config.dendron_dir = vim.fn.expand(M.config.dendron_dir)
 
   -- local dendron_config_file = vim.fn.expand(M.config.dendron_dir .. '/dendron.yml')
@@ -63,12 +62,12 @@ function M.setup(user_config)
 
   M.config.dendron_port = dendron_port
 
-  -- check if dendron engine is already running
+  -- check if dendron engine is already running and start if not
   Job
     :new({
       command = 'lsof',
       args = { '-i:' .. dendron_port },
-      on_exit = function(j, return_val)
+      on_exit = function(_, return_val)
         if return_val == 1 then
           -- start engine
           M.start_engine({ port = dendron_port, dendron_dir = M.config.dendron_di })
@@ -77,7 +76,5 @@ function M.setup(user_config)
     })
     :start()
 end
-
-M.setup({ dendron_dir = '~/Dropbox/dendron' })
 
 return M

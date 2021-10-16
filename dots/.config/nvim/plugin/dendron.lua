@@ -1,4 +1,5 @@
 require('namjul.dendron').setup({
+  dendron_dir = '~/Dropbox/dendron'
   -- virtual_titles = true,
   -- mappings = true,
   -- run = nil, -- function to run when in neuron dir
