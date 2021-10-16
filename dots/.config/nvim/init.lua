@@ -7,11 +7,9 @@
 
 local cmd = vim.cmd -- to execute Vim commands e.g. cmd('pwd')
 local fn = vim.fn -- to call Vim functions e.g. fn.bufnr()
-local inspect = vim.inspect -- pretty-print Lua objects (useful for inspecting tables)
+-- local inspect = vim.inspect -- pretty-print Lua objects (useful for inspecting tables)
 local util = require('namjul.utils')
 local opt = util.opt
-local map = util.map
-local var = util.var
 
 ----------------------------------------
 -- Functions
