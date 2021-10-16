@@ -220,10 +220,4 @@ util.createAugroup({
   { 'BufNewFile', '*.sh', 'lua', 'require"namjul.autocmds".skeleton("~/.config/nvim/templates/skeleton.sh")' },
 }, 'namjulskeletons')
 
-----------------------------------------
--- Externals
-----------------------------------------
-
 require('namjul.mappings')
-require('namjul.statusline').set()
-require('namjul.translator')
