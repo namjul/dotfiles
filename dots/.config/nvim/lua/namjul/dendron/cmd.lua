@@ -28,7 +28,6 @@ function M.dendron(opts)
 end
 
 function M.lookup(arg_opts, dendron_dir, json_fn)
-  print('Lookup')
   arg_opts['cmd'] = 'lookup'
   M.dendron({
     args = M.dendron_arg_maker(arg_opts),

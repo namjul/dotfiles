@@ -1,5 +1,6 @@
 local dendron = require('namjul/dendron')
 local cmd = require('namjul/dendron.cmd')
+local telescope = require('namjul/dendron/_telescope')
 
 dendron.setup({
   dendron_dir = '~/Dropbox/dendron',
@@ -14,6 +15,8 @@ dendron.setup({
 --   -- print(vim.inspect(data))
 --   print(vim.inspect(vim.fn.keys(data)))
 -- end)
-cmd.delete({ query = 'hello', vault = 'wiki' }, dendron.config.dendron_dir, function(data)
-  print(data)
-end)
+-- cmd.delete({ query = 'hello', vault = 'wiki' }, dendron.config.dendron_dir, function(data)
+--   print(data)
+-- end)
+
+telescope.lookup(require('telescope.themes').get_ivy({ cwd = '~/Dropbox/dendron' }))
