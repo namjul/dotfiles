@@ -2,6 +2,7 @@ local utils = require('namjul/dendron/utils')
 local context_manager = require('plenary/context_manager')
 local Job = require('plenary/job')
 
+local uv = vim.loop
 local with = context_manager.with
 local open = context_manager.open
 
@@ -12,7 +13,9 @@ local open = context_manager.open
 local M = {}
 
 function M.start_engine(opts)
-  Job
+  assert(not DendronJob, 'you already started a neuron server')
+
+  DendronJob = Job
     :new({
       command = 'dendron',
       args = { 'launchEngineServer', '--init', '--port', opts.port },
@@ -26,6 +29,24 @@ function M.start_engine(opts)
       on_stderr = utils.on_stderr_factory(opts.name),
     })
     :start()
+
+  vim.cmd([[
+      augroup DendronJobStop
+      autocmd!
+      au VimLeave * lua require'namjul.dendron'.stop()
+      augroup END
+    ]])
+
+  if opts.verbose then
+    print('Started dendron server at' .. opts.port)
+  end
+end
+
+function M.stop()
+  if DendronJob ~= nil then
+    DendronJob:shutdown()
+    DendronJob = nil
+  end
 end
 
 function M.setup(user_config)
@@ -67,12 +88,13 @@ function M.setup(user_config)
     :new({
       command = 'lsof',
       args = { '-i:' .. dendron_port },
-      on_exit = function(_, return_val)
-        if return_val == 1 then
+      on_exit = vim.schedule_wrap(function(_, data)
+        print('Start Dendron Engine: ' .. data)
+        if data == 1 then
           -- start engine
-          M.start_engine({ port = dendron_port, dendron_dir = M.config.dendron_di })
+          M.start_engine({ port = dendron_port, dendron_dir = M.config.dendron_dir, verbose = true })
         end
-      end,
+      end),
     })
     :start()
 end
