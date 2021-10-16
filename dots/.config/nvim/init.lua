@@ -59,19 +59,6 @@ function _G.terminalEsc()
   return vim.bo.filetype == 'fzf' and util.t('<Esc>') or util.t('<C-\\><C-n>')
 end
 
--- opens my daily note/journal page
-function _G.openDailyJN(type)
-  local path = os.getenv('HOME')
-    .. '/Dropbox/'
-    .. (type == 'journal' and type .. '/' .. os.date('%d.%m.%Y') or NOTATIONAL_FOLDER .. '/wiki/daily-notes')
-    .. '.md'
-  local command = ':e ' .. path
-  if not util.fileExists(path) and type == 'journal' then
-    command = command .. ' | 0r ~/.config/nvim/templates/journal-skeleton.md'
-  end
-  return command .. util.t('<CR>')
-end
-
 ----------------------------------------
 -- Plugins
 ----------------------------------------
@@ -435,12 +422,6 @@ util.createAugroup({
 
 util.createAugroup({
   { 'BufNewFile', '*.sh', 'lua', 'require"namjul.autocmds".skeleton("~/.config/nvim/templates/skeleton.sh")' },
-  {
-    'BufNewFile',
-    '27.04.2021.md',
-    'lua',
-    'require"namjul.autocmds".skeleton("~/.config/nvim/templates/journal-morning-skeleton.md")',
-  },
 }, 'namjulskeletons')
 
 ----------------------------------------
