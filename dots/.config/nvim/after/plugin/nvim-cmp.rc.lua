@@ -8,10 +8,6 @@ cmp.setup({
   },
   mapping = {
     ['<C-e>'] = cmp.mapping.close(),
-    ['<CR>'] = cmp.mapping.confirm({
-      behavior = cmp.ConfirmBehavior.Replace,
-      select = true,
-    }),
   },
   sources = {
     { name = 'nvim_lsp' },
