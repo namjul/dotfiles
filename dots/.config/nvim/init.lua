@@ -180,7 +180,7 @@ opt.b({
   undofile = true, -- Maintain undo history between sessions
 })
 
-vim.cmd('colorscheme gruvbox')
+vim.cmd('colorscheme gruvbox_extended')
 
 ----------------------------------------
 -- AUTO COMMANDS

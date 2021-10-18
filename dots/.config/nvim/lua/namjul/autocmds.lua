@@ -12,6 +12,7 @@ local winhighlightBlurred = table.concat({
   'Normal:ColorColumn',
   'NormalNC:ColorColumn',
   'SignColumn:ColorColumn',
+  'VertSplit:VertSplitBlur',
 }, ',')
 
 local function setCursorline(active)
