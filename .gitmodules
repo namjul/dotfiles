@@ -1,0 +1,3 @@
+[submodule "dots/.config/nvim/lua/namjul/dendron/lua-yaml"]
+	path = dots/.config/nvim/lua/namjul/dendron/lua-yaml
+	url = https://github.com/exosite/lua-yaml
