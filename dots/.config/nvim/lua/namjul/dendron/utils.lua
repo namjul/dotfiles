@@ -17,6 +17,17 @@ function M.file_exists(path)
   end
 end
 
+function M.lines_from(path)
+  if not M.file_exists(path) then
+    return {}
+  end
+  local lines = {}
+  for line in io.lines(path) do
+    lines[#lines + 1] = line
+  end
+  return lines
+end
+
 function M.trim(s)
   return (string.gsub(s, '^%s*(.-)%s*$', '%1'))
 end

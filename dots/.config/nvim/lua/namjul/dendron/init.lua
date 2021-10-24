@@ -1,14 +1,11 @@
 local utils = require('namjul/dendron/utils')
 local context_manager = require('plenary/context_manager')
 local Job = require('plenary/job')
+local yaml = require('namjul/dendron/lua-yaml/yaml')
 
 local uv = vim.loop
 local with = context_manager.with
 local open = context_manager.open
-
---[[ references
-  - https://github.com/oberblastmeister/neuron.nvim/blob/master/lua/neuron.lua
---]]
 
 local M = {}
 
@@ -64,8 +61,12 @@ function M.setup(user_config)
   -- expand dendron directory
   M.config.dendron_dir = vim.fn.expand(M.config.dendron_dir)
 
-  -- local dendron_config_file = vim.fn.expand(M.config.dendron_dir .. '/dendron.yml')
+  local dendron_config_file = vim.fn.expand(M.config.dendron_dir .. '/dendron.yml')
   local dendron_port_file = vim.fn.expand(M.config.dendron_dir .. '/.dendron.port')
+
+  if not utils.file_exists(dendron_config_file) then
+    error('not a dendron project')
+  end
 
   local dendron_port = 3005
 
@@ -74,6 +75,8 @@ function M.setup(user_config)
       return reader:read()
     end)
   end
+
+  local dendron_config = yaml.eval(table.concat(utils.lines_from(dendron_config_file), '\n'))
 
   M.config.dendron_port = dendron_port
 
