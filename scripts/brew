@@ -92,7 +92,7 @@ brew install xsv # https://github.com/BurntSushi/xsv -- A fast CSV command line 
 brew install yatharth/misc/wolframalpha-cli # https://github.com/yatharth/wolframalpha-cli -- query wolframalpha from cli `wa`
 brew install slides # https://github.com/maaslalani/slides
 brew install efm-langserver # https://github.com/mattn/efm-langserver
-
+brew install ghq #https://github.com/x-motemen/ghq
 
 # Remove outdated versions from the cellar
 brew cleanup
