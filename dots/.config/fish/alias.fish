@@ -46,14 +46,16 @@ abbr run 'npm run' # shorthand for npm run
 abbr nv 'node --version'
 
 # ls
-set TREE_IGNORE 'cache|log|logs|node_modules|vendor'
-alias ls 'exa --group-directories-first'
-abbr la 'ls -a'
-abbr ll 'ls --git -l'
-abbr lt 'ls --tree -D -L 2 -I $TREE_IGNORE'
-abbr ltt 'ls --tree -D -L 3 -I $TREE_IGNORE'
-abbr lttt 'ls --tree -D -L 4 -I $TREE_IGNORE'
-abbr ltttt 'ls --tree -D -L 5 -I $TREE_IGNORE'
+if type -q exa
+  set TREE_IGNORE 'cache|log|logs|node_modules|vendor|.git'
+  alias ls 'exa --icons'
+  abbr la 'ls -a'
+  abbr ll 'ls -l'
+  abbr lla 'ls -l -a'
+  abbr lt 'ls --tree -D -L 2 -I $TREE_IGNORE'
+  abbr ltt 'ls --tree -D -L 3 -I $TREE_IGNORE'
+  abbr lttt 'ls --tree -D -L 4 -I $TREE_IGNORE'
+end
 
 # vim
 if command -v nvim &> /dev/null
