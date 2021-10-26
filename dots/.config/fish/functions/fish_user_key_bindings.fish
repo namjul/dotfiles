@@ -1,3 +1,8 @@
+
+# fish automatically executes a function called `fish_user_key_bindings` if it exists.
+
+fzf_key_bindings
+
 function fish_user_key_bindings
   # vi mode
   fish_vi_key_bindings
@@ -6,11 +11,11 @@ function fish_user_key_bindings
   # fzf
   bind \cf 'fzf-file-widget'
   bind \cr 'fzf-history-widget'
-  bind \ec 'fzf-cd-widget'
+  bind \ec 'fzf_change_directory'
   bind \co 'fdo'
   bind --mode insert \cf 'fzf-file-widget'
   bind --mode insert \cr 'fzf-history-widget'
-  bind --mode insert \ec 'fzf-cd-widget'
+  bind --mode insert \ec 'fzf_change_directory'
   bind --mode insert \co 'fdo'
 
   # lf file manager
@@ -18,5 +23,3 @@ function fish_user_key_bindings
   bind --mode insert \eo 'set old_tty (stty -g); stty sane; lfcd; stty $old_tty; commandline -f repaint'
 
 end
-
-fzf_key_bindings
