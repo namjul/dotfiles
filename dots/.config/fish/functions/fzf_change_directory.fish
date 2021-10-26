@@ -7,7 +7,7 @@ function fzf_change_directory -d "Change directory"
     echo $HOME/.config
     echo $HOME/.dotfiles
     ghq list -p
-    command rg --files --follow --no-ignore-vcs --max-depth 2 ~/code . --null 2> /dev/null | xargs -0 dirname | grep -vxF '.'
+    command rg --files --follow --no-ignore-vcs --max-depth 3 ~/code . --null 2> /dev/null | xargs -0 dirname | grep -vxF '.'
   end | sed -e 's/\/$//' | sort | uniq | fzf | read foo -l
 
   if [ $foo ]
