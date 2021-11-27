@@ -44,6 +44,7 @@ abbr de 'trans :de'
 abbr grn 'git rebase -i HEAD~ ' # git interactive rebase to n
 abbr run 'npm run' # shorthand for npm run
 abbr nv 'node --version'
+abbr untar 'tar -xvf' # extract .tar.gz
 
 # ls
 if type -q exa
