@@ -17,6 +17,7 @@
   cb      = checkout -b
   ct      = checkout --track
   master  = checkout master
+  main    = checkout main
   develop = checkout develop
 
   d       = diff -w
