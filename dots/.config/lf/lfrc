@@ -1,3 +1,4 @@
+set ratios 1:2:3
 # https://raw.githubusercontent.com/gokcehan/lf/master/etc/lfrc.example
 
 # interpreter for shell commands
@@ -107,3 +108,7 @@ map D trash        # custom command
 
 # Hide prompt title at the top
 set promptfmt ""
+
+# Setup preview
+set previewer ~/.config/lf/preview
+set cleaner ~/.config/lf/cleaner

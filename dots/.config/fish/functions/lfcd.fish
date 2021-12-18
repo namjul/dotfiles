@@ -13,7 +13,7 @@
 
 function lfcd
   set tmp (mktemp)
-  lf -last-dir-path=$tmp $argv
+  lfrun -last-dir-path=$tmp $argv
   if test -f "$tmp"
     set dir (cat $tmp)
     rm -f $tmp
