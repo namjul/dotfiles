@@ -85,6 +85,7 @@ require('paq')({
   'nvim-telescope/telescope.nvim',
   { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' },
   'nvim-telescope/telescope-fzf-writer.nvim',
+  'ThePrimeagen/harpoon', -- navigation helper
   'junegunn/fzf',
   'alok/notational-fzf-vim', -- combines the fzf with the concept from notational
   'benmills/vimux', -- allows to send commands from vim to tmux

@@ -12,7 +12,7 @@ local var = util.var
 var.g({ mapleader = ' ' })
 var.b({ mapleader = ' ' })
 
-map.g('n', '<leader>a', 'ggVG') -- select all
+-- map.g('n', '<leader>a', 'ggVG') -- select all (using now `:%d` or `:%y`)
 map.g('n', '<leader><leader>', '<C-^>') -- open last buffer.
 map.g('n', '<leader>o', ':only<CR>') -- close all windows but the active one
 
@@ -92,7 +92,7 @@ map.g('n', '<leader><C-l>', ':rightb vsp new<CR>')
 
 map.g('n', '<leader>2', ':w<CR>:! ./%<CR>') -- execute current file
 
-vimp.nnoremap('<leader>df', require('namjul.functions.telescope').searchDotfiles)
+-- vimp.nnoremap('<leader>df', require('namjul.functions.telescope').searchDotfiles)
 
 map.g('n', '<leader>gb', ":lua require('telescope.builtin').git_branches()<CR>")
 
@@ -105,7 +105,7 @@ map.g('', 'Y', 'y$') -- multi-mode mappings (Normal, Visual, Operating-pending m
 -- map.g('n', '<leader>l', ':NV<CR>', { silent = true })
 map.g(
   'n',
-  '<leader>l',
+  '<leader>d',
   ":lua require('namjul.dendron._telescope').lookup(require('telescope.themes').get_ivy({}))<CR>",
   { silent = true }
 )
@@ -116,13 +116,21 @@ map.g('n', '<leader>z', ':ZenMode<CR>', { silent = true })
 -- PLUGIN:vim-maximizer
 map.g('n', '<leader>m', ':MaximizerToggle<CR>', { silent = true })
 
+-- PLUGIN:harpoon
+map.g('n', '<leader>a', ':lua require("harpoon.mark").add_file()<CR>', { silent = true })
+map.g('n', '<leader>s', ':lua require("harpoon.ui").toggle_quick_menu()<CR>', { silent = true })
+map.g('n', '<leader>j', ':lua require("harpoon.ui").nav_file(1)<CR>', { silent = true })
+map.g('n', '<leader>k', ':lua require("harpoon.ui").nav_file(2)<CR>', { silent = true })
+map.g('n', '<leader>l', ':lua require("harpoon.ui").nav_file(3)<CR>', { silent = true })
+map.g('n', '<leader>ö', ':lua require("harpoon.ui").nav_file(4)<CR>', { silent = true })
+
 -- moving text
-map.g('v', 'J', ":m '>+1<CR>gv=gv")
-map.g('v', 'K', ":m '<-2<CR>gv=gv")
-map.g('i', '<C-j>', '<esc>:m .+1<CR>==')
-map.g('i', '<C-k>', '<esc>:m .-2<CR>==')
-map.g('n', '<leader>k', ':m .-2<CR>==')
-map.g('n', '<leader>j', ':m .+1<CR>==')
+-- map.g('v', 'J', ":m '>+1<CR>gv=gv")
+-- map.g('v', 'K', ":m '<-2<CR>gv=gv")
+-- map.g('i', '<C-j>', '<esc>:m .+1<CR>==')
+-- map.g('i', '<C-k>', '<esc>:m .-2<CR>==')
+map.g('n', 'K', ':m .-2<CR>==')
+map.g('n', 'J', ':m .+1<CR>==')
 
 -- NORMAL
 --------------------
