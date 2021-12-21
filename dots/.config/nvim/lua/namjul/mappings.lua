@@ -92,7 +92,7 @@ map.g('n', '<leader><C-l>', ':rightb vsp new<CR>')
 
 map.g('n', '<leader>2', ':w<CR>:! ./%<CR>') -- execute current file
 
--- vimp.nnoremap('<leader>df', require('namjul.functions.telescope').searchDotfiles)
+vimp.nnoremap('<leader>y', require('namjul.functions.telescope').searchDotfiles)
 
 map.g('n', '<leader>gb', ":lua require('telescope.builtin').git_branches()<CR>")
 
