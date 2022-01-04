@@ -1,14 +1,12 @@
-local dendron = require('namjul/dendron')
 local utils = require('namjul/dendron/utils')
 local Job = require('plenary/job')
 
 local M = {}
 
 function M.dendron(opts)
-  table.insert(opts.args, '--enginePort')
-  table.insert(opts.args, dendron.config.dendron_port)
-
   local result = ''
+
+  print(vim.inspect(opts.args))
 
   Job
     :new({
@@ -64,6 +62,8 @@ function M.dendron_arg_maker(opts)
     table.insert(args, '--vault')
     table.insert(args, opts.vault)
   end
+
+  table.insert(args, '--attach')
 
   return args
 end

@@ -19,4 +19,4 @@ dendron.setup({
 --   print(data)
 -- end)
 
-telescope.lookup(require('telescope.themes').get_ivy())
+-- telescope.lookup(require('telescope.themes').get_ivy())

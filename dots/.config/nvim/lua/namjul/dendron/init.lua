@@ -2,6 +2,7 @@ local utils = require('namjul/dendron/utils')
 local context_manager = require('plenary/context_manager')
 local Job = require('plenary/job')
 local yaml = require('namjul/dendron/lua-yaml/yaml')
+local cmd = require('namjul/dendron/cmd')
 
 local uv = vim.loop
 local with = context_manager.with
@@ -44,9 +45,10 @@ function M.setup(user_config)
   local default_config = {
     dendron_dir = '~/dendron',
     -- virtual_titles = true, -- set virtual titles
-    -- mappings = true, -- to set default mappings
+    mappings = true, -- to set default mappings
     -- run = nil, -- custom code to run
     -- leader = 'gz', -- the leader key to for all mappings
+    verbose = true,
   }
 
   if vim.fn.executable('dendron') == 0 then
@@ -76,9 +78,8 @@ function M.setup(user_config)
     end)
   end
 
-  local dendron_config = yaml.eval(table.concat(utils.lines_from(dendron_config_file), '\n'))
-
   M.config.dendron_port = dendron_port
+  M.config.dendron_config = yaml.eval(table.concat(utils.lines_from(dendron_config_file), '\n'))
 
   -- check if dendron engine is already running and start if not
   Job
@@ -86,19 +87,42 @@ function M.setup(user_config)
       command = 'lsof',
       args = { '-i:' .. dendron_port },
       on_exit = vim.schedule_wrap(function(_, data)
-        print('Start Dendron Engine: ' .. data)
         if data == 1 then
           -- start engine
           M.start_engine({
             port = dendron_port,
             dendron_dir = M.config.dendron_dir,
-            verbose = true,
+            verbose = M.config.verbose,
             name = 'start engine',
           })
+        elseif M.config.verbose then
+          print('Dendron Engine already running.')
         end
       end),
     })
     :start()
+end
+
+function M.openDailyNote()
+  local journalConfig = M.config.dendron_config.workspace.journal
+  local fname = string.format('%s.%s.%s', journalConfig.dailyDomain, journalConfig.name, os.date('%Y.%m.%d'))
+  local vault = journalConfig.dailyVault
+  local filePath = string.format('%s/%s/%s.md', M.config.dendron_dir, vault, fname)
+
+  if utils.file_exists(filePath) then
+    vim.cmd(string.format('edit %s', filePath))
+  else
+    cmd.lookup(
+      {
+        query = fname,
+        vault = vault,
+      },
+      M.config.dendron_dir,
+      function()
+        vim.cmd(string.format('edit %s', filePath))
+      end
+    )
+  end
 end
 
 return M

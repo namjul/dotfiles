@@ -109,6 +109,8 @@ map.g(
   ":lua require('namjul.dendron._telescope').lookup(require('telescope.themes').get_ivy({}))<CR>",
   { silent = true }
 )
+map.g('n', '<leader><C-i>', ":lua require('namjul.dendron').openDailyNote()<CR>", { silent = true })
+map.g('n', '<leader><C-l>', ':NV<CR>', { silent = true })
 
 -- PLUGIN:goyo.vim
 map.g('n', '<leader>z', ':ZenMode<CR>', { silent = true })
