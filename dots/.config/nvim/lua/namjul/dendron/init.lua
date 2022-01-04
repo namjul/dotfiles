@@ -8,7 +8,9 @@ local uv = vim.loop
 local with = context_manager.with
 local open = context_manager.open
 
-local M = {}
+local M = {
+  loading = false,
+}
 
 function M.start_engine(opts)
   assert(not DendronJob, 'you already started a neuron server')
@@ -112,6 +114,7 @@ function M.openDailyNote()
   if utils.file_exists(filePath) then
     vim.cmd(string.format('edit %s', filePath))
   else
+    M.loading = true
     cmd.lookup(
       {
         query = fname,
@@ -119,10 +122,15 @@ function M.openDailyNote()
       },
       M.config.dendron_dir,
       function()
+        M.loading = false
         vim.cmd(string.format('edit %s', filePath))
       end
     )
   end
+end
+
+function M.status()
+  return M.loading and 'dendron...' or ''
 end
 
 return M
