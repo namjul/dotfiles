@@ -1,4 +1,3 @@
-
 # dotfiles [⛰ ](screenshot.png)
 
 ## Parts
@@ -30,6 +29,7 @@ eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
 ## Installation
 
 Clone dotfiles to home directory
+
 ```
 git clone https://github.com/namjul/dotfiles
 ```
@@ -41,6 +41,7 @@ and run the install script
 ```
 
 It will:
+
 1. install brew packages
 2. setup symlinks
 3. setup vim configuration files and downloads `vim-plug` if it does not exist
@@ -62,36 +63,92 @@ source $(brew --prefix asdf)/asdf.sh
 `<leader>` == `space`
 `C` == ctrl key
 
-| Mapping | Functionality                                                              | Replaced Mapping |
-| ------- | -------------------------------------------------------------------------- | ---------------- |
-| `<leader>r`   | reload nvim config                                                            | None             |
-| `<leader>s`   | quick save                                                                    | None             |
-| `<leader>w`   | quick write                                                                    | None             |
-| `<leader>f`   | format                                                                        | :ALEFix             |
-| `<leader>n`   | open `vaffle` file explorer                                                     | None             |
-| `<leader>jk`  | escape                                                                        | Esc             |
-| `<leader>/`   | search in project folder                                                       | :Ag<CR> |
-| `<leader>*`  | search word under cursor in project folder                                  | :Ag <C-R><C-W><CR> |
-| `<leader>a`   | Select all                                                                    | ggVG |
-| `<leader>evr` | edit vimrc                                                                    | :<C-U>edit ~/.vimrc<CR> |
-| `<leader>bg`  | toogle background                                                             | None
-| `<leader>gb`  | git blame                                                                     | :Gblame<cr> |
-| `<leader>gs`  | git status                                                                    | :Gstatus<cr> |
-| `<leader>gc`  | git commit                                                                    | :Gcommit -v<cr> |
-| `<leader>ga`  | git add -p                                                                    | :Git add -p<cr> |
-| `<leader>gm`  | git commit --amend                                                            | :Gcommit --amend<cr> |
-| `<leader>gp`  | git push                                                                      | :Gpush<cr> |
-| `<leader>gd`  | git diff                                                                      | :Gdiff<cr> |
-| `<leader>gw`  | git ...                                                                       | :Gwrite<cr> |
-| `<leader>vp`  | Prompt for a command to run                                                   | :VimuxPromptCommand<CR> |
-| `<leader>vl`  | Run last command executed by VimuxRunCommand                                  | :VimuxRunLastCommand<CR> |
-| `<leader>vi`  | Inspect runner pane                                                           | :VimuxInspectRunner<CR> |
-| `<leader>vz`  | " Zoom the tmux runner pane                                                 | :VimuxZoomRunner<CR> |
-| `w!!` | write in sudo mode | None |
-| `<C-L>` | clear search highlight | :nohlsearch |:spv
-| `H` | jump high | Default |
-| `M` | jump middle | Default |
-| `L` | jump low | Default |
+### Navigation
+
+| Mapping       | Functionality             | Replaced Mapping |
+| ------------- | ------------------------- | ---------------- |
+| <leader>a     | add spot                  |                  |
+| <leader>s     | list spots                |                  |
+| <leader>j     | navigation to spot 1      |                  |
+| <leader>k     | navigation to spot 2      |                  |
+| <leader>l     | navigation to spot 3      |                  |
+| <leader>ö     | navigation to spot 4      |                  |
+| <leader>f     | fuzzy find files          |                  |
+| <leader>b     | fuzzy find buffer         |                  |
+| <leader>c     | fuzzy find commands       |                  |
+| <leader>d     | dendron lookup            |                  |
+| <leader><C-L> | dendron search            |                  |
+| <leader><C-I> | open daily note           |                  |
+| <leader>y     | dotfiles fuzzy find files |
+| <leader>gb    | browser git branches      |                  |
+| [d            | previous diagnostic       |                  |
+| ]d            | next diagnostic           |                  |
+| gf            | go to file                |                  |
+| gd            | go to definition (lsp)    |                  |
+| gr            | show references (lsp)     |                  |
+| -             | open file explorer        |                  |
+
+### Search/Editing
+
+| Mapping    | Functionality      | Replaced Mapping |
+| ---------- | ------------------ | ---------------- |
+| /          | local search       |                  |
+| <leader>/  | global search      |                  |
+| <leader>\* | cursor word search |                  |
+| <leader>e  | search replace     |                  |
+| <leader>rn | rename (lsp)       |                  |
+| <C-L>      | clear search       |                  |
+| K          | move line up       |                  |
+| J          | move line down     |                  |
+
+### Git
+
+| Mapping       | Functionality      | Replaced Mapping             |
+| ------------- | ------------------ | ---------------------------- |
+| `<leader>hb`  | git blame          |                              |
+| `<leader>hs`  | state hunk         | :Gitsigns stage_hunk         |
+| `<leader>hu`  | undo state hunk    | :Gitsigns undo_stage_hunk    |
+| `<leader>hr`  | reset hunk         | :Gitsigns reset_hunk         |
+| `<leader>hR`  | reset buffer       | :Gitsigns reset_buffer       |
+| `<leader>hp`  | preview hunk       | :Gitsigns preview_hunk       |
+| `<leader>hS`  | state buffer       | :Gitsigns state_buffer       |
+| `<leader>hU`  | reset buffer index | :Gitsigns reset_buffer_index |
+| `<leader>gs`  | git status         | :Git                         |
+| `<leader>gc`  | git commit         | :Gcommit -v                  |
+| `<leader>ga`  | git add -p         | :Git add -p                  |
+| `<leader>gm`  | git commit --amend | :Gcommit --amend             |
+| `<leader>gp`  | git push           | :Gpush                       |
+| `<leader>gd`  | git diff           | :Gdiff                       |
+| `<leader>gw`  | write and git add  | :Gwrite                      |
+| `<leader>gbr` | open github        | :GBrowse                     |
+
+### Tmux
+
+| Mapping      | Functionality                                | Replaced Mapping         |
+| ------------ | -------------------------------------------- | ------------------------ |
+| `<leader>vp` | Prompt for a command to run                  | :VimuxPromptCommand<CR>  |
+| `<leader>vl` | Run last command executed by VimuxRunCommand | :VimuxRunLastCommand<CR> |
+| `<leader>vi` | Inspect runner pane                          | :VimuxInspectRunner<CR>  |
+| `<leader>vz` | " Zoom the tmux runner pane                  | :VimuxZoomRunner<CR>     |
+
+### Misc
+
+| Mapping      | Functionality          | Replaced Mapping |
+| ------------ | ---------------------- | ---------------- |
+| `<leader>r`  | reload nvim config     |                  |
+| `<leader>x`  | quick save             |                  |
+| `<leader>w`  | quick write            |                  |
+| `<leader>q`  | quick quit             |                  |
+| `ff`         | format                 |                  |
+| `<leader>jk` | escape                 | Esc              |
+| `<leader>a`  | Select all             | ggVG             |
+| `yob`        | toogle background      |                  |
+| `w!!`        | write in sudo mode     |                  |
+| `<C-L>`      | clear search highlight | :nohlsearch      |
+| `H`          | jump high              | Default          |
+| `M`          | jump middle            | Default          |
+| `L`          | jump low               | Default          |
+| `<leader>2`  | execute current file   |                  |
 
 # Others
 
