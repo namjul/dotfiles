@@ -85,10 +85,10 @@ map.g(
 ) -- search commands
 
 -- open new splits in a semantic way
-map.g('n', '<leader><C-h>', ':lefta vs new<CR>')
-map.g('n', '<leader><C-j>', ':below sp new<CR>')
-map.g('n', '<leader><C-k>', ':above sp new<CR>')
-map.g('n', '<leader><C-l>', ':rightb vsp new<CR>')
+-- map.g('n', '<leader><C-h>', ':lefta vs new<CR>')
+-- map.g('n', '<leader><C-j>', ':below sp new<CR>')
+-- map.g('n', '<leader><C-k>', ':above sp new<CR>')
+-- map.g('n', '<leader><C-l>', ':rightb vsp new<CR>')
 
 map.g('n', '<leader>2', ':w<CR>:! ./%<CR>') -- execute current file
 
@@ -101,8 +101,15 @@ map.g('n', '<leader>gb', ":lua require('telescope.builtin').git_branches()<CR>")
 
 map.g('', 'Y', 'y$') -- multi-mode mappings (Normal, Visual, Operating-pending modes).
 
--- PLUGIN:notational-fzf-vim
--- map.g('n', '<leader>l', ':NV<CR>', { silent = true })
+-- moving text
+-- map.g('v', 'J', ":m '>+1<CR>gv=gv")
+-- map.g('v', 'K', ":m '<-2<CR>gv=gv")
+-- map.g('i', '<C-j>', '<esc>:m .+1<CR>==')
+-- map.g('i', '<C-k>', '<esc>:m .-2<CR>==')
+map.g('n', 'K', ':m .-2<CR>==')
+map.g('n', 'J', ':m .+1<CR>==')
+
+-- PLUGIN:dendron
 map.g(
   'n',
   '<leader>d',
@@ -126,24 +133,16 @@ map.g('n', '<leader>k', ':lua require("harpoon.ui").nav_file(2)<CR>', { silent =
 map.g('n', '<leader>l', ':lua require("harpoon.ui").nav_file(3)<CR>', { silent = true })
 map.g('n', '<leader>ö', ':lua require("harpoon.ui").nav_file(4)<CR>', { silent = true })
 
--- moving text
--- map.g('v', 'J', ":m '>+1<CR>gv=gv")
--- map.g('v', 'K', ":m '<-2<CR>gv=gv")
--- map.g('i', '<C-j>', '<esc>:m .+1<CR>==')
--- map.g('i', '<C-k>', '<esc>:m .-2<CR>==')
-map.g('n', 'K', ':m .-2<CR>==')
-map.g('n', 'J', ':m .+1<CR>==')
-
 -- NORMAL
 --------------------
 
 map.g('n', 'Q', '') -- avoid unintentional switches to Ex mode.
 
 -- move between windows.
-map.g('n', '<C-h>', '<C-w>h')
-map.g('n', '<C-j>', '<C-w>j')
-map.g('n', '<C-k>', '<C-w>k')
-map.g('n', '<C-l>', '<C-w>l')
+-- map.g('n', '<C-h>', '<C-w>h')
+-- map.g('n', '<C-j>', '<C-w>j')
+-- map.g('n', '<C-k>', '<C-w>k')
+-- map.g('n', '<C-l>', '<C-w>l')
 
 -- store relative line number jumps in the jumplist if they exceed a threshold.
 map.g('n', 'k', '(v:count > 5 ? "m\\\'" . v:count : "") . "k"', { expr = true })
@@ -165,10 +164,10 @@ map.g('n', '<S-Right>', ':lnfile<CR>', { silent = true })
 --------------------
 
 -- move between windows.
-map.g('x', '<C-h>', '<C-w>h')
-map.g('x', '<C-j>', '<C-w>j')
-map.g('x', '<C-k>', '<C-w>k')
-map.g('x', '<C-l>', '<C-w>l')
+-- map.g('x', '<C-h>', '<C-w>h')
+-- map.g('x', '<C-j>', '<C-w>j')
+-- map.g('x', '<C-k>', '<C-w>k')
+-- map.g('x', '<C-l>', '<C-w>l')
 
 -- COMMAND
 --------------------
