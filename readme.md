@@ -57,6 +57,25 @@ To make `asdf` work add the following to `~/.profile`:
 source $(brew --prefix asdf)/asdf.sh
 ```
 
+## Cli Workflows
+
+### Navigation
+
+| Mapping  | Functionality             |
+| -------- | ------------------------- |
+| `Ctrl-o` | fuzzy file and `open`     |
+| `Ctrl-f` | fuzzy file                |
+| `Alt-c`  | fuzzy folders and `cs`    |
+| `Alt-o`  | open `lf` file explorer   |
+| `z`      | `cd` using magic          |
+| `db`     | `cd` into `~/Dropbox`     |
+| `dd`     | `cd` into `~/.dotfiles`   |
+| `dc`     | `cd` into `~/code`        |
+| `-`      | cd into previous location |
+| `..`     | `cd ..`                   |
+| `...`    | `cd ../..`                |
+| `....`   | `cd ../../..`             |
+
 ## Vim Keyboard shortcuts
 
 **Legend**
@@ -87,6 +106,11 @@ source $(brew --prefix asdf)/asdf.sh
 | gd            | go to definition (lsp)    |                  |
 | gr            | show references (lsp)     |                  |
 | -             | open file explorer        |                  |
+| <leader>m     | maximaize window          |                  |
+| <C-W>h        | move to left pane         |                  |
+| <C-W>l        | move to right pane        |                  |
+| <C-W>k        | move to top pane          |                  |
+| <C-W>j        | move to bottom pane       |                  |
 
 ### Search/Editing
 
@@ -149,6 +173,7 @@ source $(brew --prefix asdf)/asdf.sh
 | `M`          | jump middle            | Default          |
 | `L`          | jump low               | Default          |
 | `<leader>2`  | execute current file   |                  |
+| `<leader>z`  | zen mode               |                  |
 
 # Others
 
