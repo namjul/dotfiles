@@ -45,3 +45,5 @@ end
 function ignorehistory --on-event fish_prompt
     history --delete --prefix tomb
 end
+
+thefuck --alias | source

@@ -93,6 +93,7 @@ brew install yatharth/misc/wolframalpha-cli # https://github.com/yatharth/wolfra
 brew install slides # https://github.com/maaslalani/slides
 brew install efm-langserver # https://github.com/mattn/efm-langserver
 brew install ghq #https://github.com/x-motemen/ghq
+brew install thefuck # https://github.com/nvbn/thefuck
 
 # Remove outdated versions from the cellar
 brew cleanup
