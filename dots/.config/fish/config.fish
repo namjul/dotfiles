@@ -47,3 +47,4 @@ function ignorehistory --on-event fish_prompt
 end
 
 thefuck --alias | source
+zoxide init fish | source
