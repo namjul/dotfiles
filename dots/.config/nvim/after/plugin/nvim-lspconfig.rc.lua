@@ -2,10 +2,9 @@ local nvim_lsp = require('lspconfig')
 local vimp = require('vimp')
 local util = require('namjul.utils')
 
---- mappings ---
-
 local on_attach = function(_, bufnr)
-  -- Mappings.
+  --- mappings ---
+
   local opts = { 'silent', 'override' }
 
   -- See `:help vim.lsp.*` for documentation on any of the below functions
@@ -72,7 +71,6 @@ vim.cmd([[
   sign define LspDiagnosticsSignHint text= texthl=LspDiagnosticsSignHint linehl= numhl=LspDiagnosticsDefaultInformation
 ]])
 
-
 --- setup typescript lsp ---
 
 nvim_lsp.tsserver.setup({
@@ -90,7 +88,6 @@ nvim_lsp.tsserver.setup({
     debounce_text_changes = 150,
   },
 })
-
 
 --- setup lua lsp ---
 
@@ -134,6 +131,45 @@ end
 
 ---setup diagnostics with errorformat (efm) ---
 -- for available options see https://github.com/mattn/efm-langserver/blob/master/langserver/handler.go#L53
+-- https://github.com/creativenull/efmls-configs-nvim/blob/main/supported-linters-and-formatters.md
+
+local efmls = require('efmls-configs')
+efmls.init({
+  on_attach = on_attach,
+  init_options = {
+    documentFormatting = true,
+  },
+})
+
+local eslint = require('efmls-configs.linters.eslint_d')
+local fs = require('efmls-configs.fs')
+local bin = fs.executable('eslint_d', fs.Scope.NODE)
+local args = '--no-color --format visualstudio --stdin --stdin-filename ${INPUT}'
+eslint = vim.tbl_extend('force', eslint, {
+  lintCommand = string.format('%s %s', bin, args),
+  lintFormats = { '%f(%l,%c): %tarning %m', '%f(%l,%c): %rror %m' }, -- see https://eslint.org/docs/user-guide/formatters/#visualstudio formatter, https://github.com/reviewdog/errorformat
+})
+local prettier = require('efmls-configs.formatters.prettier')
+local stylua = require('efmls-configs.formatters.stylua')
+
+efmls.setup({
+  javascript = {
+    linter = eslint,
+    formatter = prettier,
+  },
+  typescript = { linter = eslint, formatter = prettier },
+  typescriptreact = { linter = eslint, formatter = prettier },
+  javascriptreact = { linter = eslint, formatter = prettier },
+  ['javascript.jsx'] = { linter = eslint, formatter = prettier },
+  ['typescript.tsx'] = { linter = eslint, formatter = prettier },
+  lua = { formatter = stylua },
+  markdown = { formatter = prettier },
+  json = { formatter = prettier },
+  css = { formatter = prettier },
+})
+
+--[[
+
 local eslint = {
   prefix = 'eslint',
   lintCommand = 'eslint_d -f visualstudio --stdin --stdin-filename ${INPUT}',
@@ -173,7 +209,7 @@ nvim_lsp.efm.setup({
     debounce_text_changes = 150,
   },
   root_dir = function(fname)
-    return nvim_lsp.util.root_pattern('.eslintrc.js', '.git')(fname)
+    return nvim_lsp.util.root_pattern('.eslintrc.js', '.git', 'dendron.yml')(fname)
   end,
   settings = {
     rootMarkers = { '.eslintrc.js', '.git/' },

@@ -128,6 +128,7 @@ require('paq')({
   'szw/vim-maximizer',
   'airblade/vim-rooter',
   'neovim/nvim-lspconfig',
+  'creativenull/efmls-configs-nvim',
   'AndrewRadev/switch.vim',
   'hrsh7th/nvim-cmp',
   'hrsh7th/cmp-nvim-lsp',
