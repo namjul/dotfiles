@@ -2,7 +2,9 @@ local nvim_lsp = require('lspconfig')
 local vimp = require('vimp')
 local util = require('namjul.utils')
 
-local on_attach = function(client, bufnr)
+--- mappings ---
+
+local on_attach = function(_, bufnr)
   -- Mappings.
   local opts = { 'silent', 'override' }
 
@@ -70,6 +72,9 @@ vim.cmd([[
   sign define LspDiagnosticsSignHint text= texthl=LspDiagnosticsSignHint linehl= numhl=LspDiagnosticsDefaultInformation
 ]])
 
+
+--- setup typescript lsp ---
+
 nvim_lsp.tsserver.setup({
   -- capabilities = capabilities,
   on_attach = on_attach,
@@ -86,7 +91,48 @@ nvim_lsp.tsserver.setup({
   },
 })
 
--- setup diagnostics with errorformat (efm)
+
+--- setup lua lsp ---
+
+local cmd = nil
+
+if vim.fn.has('unix') == 1 then
+  cmd = vim.fn.expand('~/code/lua-language-server/bin/Linux/lua-language-server')
+  if vim.fn.executable(cmd) == 1 then
+    cmd = { cmd, '-E', vim.fn.expand('~/code/lua-language-server/main.lua') }
+  else
+    cmd = nil
+  end
+else
+  cmd = 'lua-language-server'
+  if vim.fn.executable(cmd) == 1 then
+    cmd = { cmd }
+  else
+    cmd = nil
+  end
+end
+
+if cmd ~= nil then
+  require('lspconfig').sumneko_lua.setup({
+    cmd = cmd,
+    on_attach = on_attach,
+    settings = {
+      Lua = {
+        diagnostics = {
+          enable = true,
+          globals = { 'vim' },
+        },
+        filetypes = { 'lua' },
+        runtime = {
+          path = vim.split(package.path, ';'),
+          version = 'LuaJIT',
+        },
+      },
+    },
+  })
+end
+
+---setup diagnostics with errorformat (efm) ---
 -- for available options see https://github.com/mattn/efm-langserver/blob/master/langserver/handler.go#L53
 local eslint = {
   prefix = 'eslint',
