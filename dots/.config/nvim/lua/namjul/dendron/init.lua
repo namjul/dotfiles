@@ -32,7 +32,7 @@ function M.start_engine(opts)
     ]])
 
   if opts.verbose then
-    print('Started dendron server at' .. opts.port)
+    print('Started dendron server at ' .. opts.port)
   end
 end
 
