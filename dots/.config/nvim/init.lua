@@ -135,6 +135,7 @@ require('paq')({
   'hrsh7th/cmp-buffer',
   'kevinoid/vim-jsonc',
   { 'oberblastmeister/neuron.nvim', branch = 'unstable' },
+  'TaDaa/vimade',
 })
 
 ----------------------------------------
