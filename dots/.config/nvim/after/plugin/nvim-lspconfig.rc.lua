@@ -228,40 +228,4 @@ nvim_lsp.efm.setup({
   },
 })
 
-local cmd = nil
-
-if vim.fn.has('unix') == 1 then
-  cmd = vim.fn.expand('~/code/lua-language-server/bin/Linux/lua-language-server')
-  if vim.fn.executable(cmd) == 1 then
-    cmd = { cmd, '-E', vim.fn.expand('~/code/lua-language-server/main.lua') }
-  else
-    cmd = nil
-  end
-else
-  cmd = 'lua-language-server'
-  if vim.fn.executable(cmd) == 1 then
-    cmd = { cmd }
-  else
-    cmd = nil
-  end
-end
-
-if cmd ~= nil then
-  require('lspconfig').sumneko_lua.setup({
-    cmd = cmd,
-    on_attach = on_attach,
-    settings = {
-      Lua = {
-        diagnostics = {
-          enable = true,
-          globals = { 'vim' },
-        },
-        filetypes = { 'lua' },
-        runtime = {
-          path = vim.split(package.path, ';'),
-          version = 'LuaJIT',
-        },
-      },
-    },
-  })
-end
+--]]
