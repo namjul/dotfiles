@@ -135,6 +135,9 @@ end
 
 local efmls = require('efmls-configs')
 efmls.init({
+  root_dir = function(fname)
+    return nvim_lsp.util.root_pattern('.git', 'dendron.yml')(fname)
+  end,
   on_attach = on_attach,
   init_options = {
     documentFormatting = true,
