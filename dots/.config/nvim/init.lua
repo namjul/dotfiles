@@ -121,7 +121,6 @@ require('paq')({
     end,
   },
   'windwp/nvim-ts-autotag', -- auto closes xml tags
-  'rktjmp/lush.nvim', -- Define Neovim themes as a DSL in lua, with real-time feedback.
   'ellisonleao/gruvbox.nvim',
   'rafcamlet/nvim-luapad',
   'folke/zen-mode.nvim',
@@ -183,7 +182,7 @@ opt.b({
   undofile = true, -- Maintain undo history between sessions
 })
 
-vim.cmd('colorscheme gruvbox_extended')
+vim.cmd('colorscheme gruvbox')
 
 ----------------------------------------
 -- AUTO COMMANDS
