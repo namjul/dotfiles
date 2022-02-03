@@ -94,11 +94,15 @@ brew install slides # https://github.com/maaslalani/slides
 brew install efm-langserver # https://github.com/mattn/efm-langserver
 brew install ghq #https://github.com/x-motemen/ghq
 brew install thefuck # https://github.com/nvbn/thefuck
+brew install entr # https://github.com/eradman/entr
+brew install hexyl # https://github.com/sharkdp/hexyl
+brew install duf # https://github.com/muesli/duf
+brew install dog # https://github.com/ogham/dog
+brew install pnpm # https://pnpm.io/installation
+brew install scmpuff # https://github.com/mroth/scmpuff
+brew install direnv # https://github.com/direnv/direnv
 
 # Remove outdated versions from the cellar
 brew cleanup
 
 
-brew install hexyl # https://github.com/sharkdp/hexyl
-brew install duf # https://github.com/muesli/duf
-brew install dog # https://github.com/ogham/dog
