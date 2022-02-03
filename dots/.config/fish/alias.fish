@@ -45,6 +45,7 @@ abbr grn 'git rebase -i HEAD~ ' # git interactive rebase to n
 abbr run 'npm run' # shorthand for npm run
 abbr nv 'node --version'
 abbr untar 'tar -xvf' # extract .tar.gz
+abbr --add unset 'set --erase' # remove env variable
 
 # ls
 if type -q exa
