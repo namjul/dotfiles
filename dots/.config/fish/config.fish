@@ -38,6 +38,9 @@ if status is-interactive
   end
 
   starship init fish | source
+  thefuck --alias | source
+  zoxide init fish | source
+  direnv hook fish | source
 end
 
 # do not track `tomb` commands
