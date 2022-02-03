@@ -23,7 +23,7 @@ abbr --add -- - 'cd -'
 
 abbr h 'history'
 abbr j 'jobs'
-abbr l 'less'
+abbr l 'less -R'
 
 abbr mv 'mv -i'
 abbr cp 'cp -i -p'
