@@ -138,7 +138,7 @@ source $(brew --prefix asdf)/asdf.sh
 | `<leader>hS`  | state buffer       | :Gitsigns state_buffer       |
 | `<leader>hU`  | reset buffer index | :Gitsigns reset_buffer_index |
 | `<leader>gs`  | git status         | :Git                         |
-| `<leader>gc`  | git commit         | :Gcommit -v                  |
+| `<leader>gc`  | git commit         | :G commit -v                  |
 | `<leader>ga`  | git add -p         | :Git add -p                  |
 | `<leader>gm`  | git commit --amend | :Gcommit --amend             |
 | `<leader>gp`  | git push           | :Gpush                       |
