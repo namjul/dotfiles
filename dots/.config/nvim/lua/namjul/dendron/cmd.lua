@@ -13,12 +13,16 @@ function M.dendron(opts)
       command = 'dendron',
       args = opts.args,
       cwd = opts.dendron_dir,
-      on_exit = vim.schedule_wrap(function()
-        opts.callback(opts.json and vim.fn.json_decode(result) or result)
-      end),
+      -- on_exit = vim.schedule_wrap(function()
+      --   opts.callback(opts.json and vim.fn.json_decode(result) or result)
+      -- end),
       on_stdout = vim.schedule_wrap(function(error, data)
         assert(not error, error)
         result = result .. data
+        -- data ends with `}`. this is needed because currently dendron takes long time to exit even after the note has already been greated.
+        if data == '}' then
+          opts.callback(opts.json and vim.fn.json_decode(result) or result)
+        end
       end),
       on_stderr = utils.on_stderr_factory(opts.name),
     })
