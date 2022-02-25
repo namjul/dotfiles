@@ -101,6 +101,7 @@ brew install dog # https://github.com/ogham/dog
 brew install pnpm # https://pnpm.io/installation
 brew install scmpuff # https://github.com/mroth/scmpuff
 brew install direnv # https://github.com/direnv/direnv
+brew install pnpm # https://pnpm.io
 
 # Remove outdated versions from the cellar
 brew cleanup
