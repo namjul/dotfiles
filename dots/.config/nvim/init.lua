@@ -54,6 +54,15 @@ function _G.terminalEsc()
   return vim.bo.filetype == 'fzf' and util.t('<Esc>') or util.t('<C-\\><C-n>')
 end
 
+
+----------------------------------------
+-- Global variables
+----------------------------------------
+
+util.var.g({
+  loaded_netrwPlugin = 1,
+})
+
 ----------------------------------------
 -- Plugins
 ----------------------------------------
@@ -217,6 +226,10 @@ util.createAugroup({
 util.createAugroup({
   { 'BufNewFile', '*.sh', 'lua', 'require"namjul.autocmds".skeleton("~/.config/nvim/templates/skeleton.sh")' },
 }, 'namjulskeletons')
+
+----------------------------------------
+-- Inits
+----------------------------------------
 
 require('namjul.mappings')
 
