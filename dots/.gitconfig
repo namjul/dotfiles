@@ -25,10 +25,11 @@
   staged  = dc -w
   dino    = diff --name-only
   dt      = !git diff --no-color | xclip -selection clipboard
+  dft     = difftool
 
   c       = commit
   cm      = commit -m
-  ca      = commit --amend 
+  ca      = commit --amend
   amend   = commit --amend --no-edit
   reword  = commit --amend --only -v --
 
@@ -54,7 +55,7 @@
   lg      = log --color --graph --pretty=format:'%C(auto)%h%Creset %s%C(auto)%d%Creset %C(magenta bold)(%cr)%Creset %C(cyan)<%aN>%Creset' --abbrev-commit
 
   g       = grep --line-number --break --heading
-  
+
   setpromail = config user.email 'samuel.hobl@adverity.com'
 
   aliases = !git config --get-regexp 'alias.*' | colrm 1 6 | sed 's/[ ]/ = /' | sort
@@ -66,7 +67,7 @@
 [core]
   # Use custom `.gitignore` and `.gitattributes`
   excludesfile = ~/.gitignore
-  pager = "delta --diff-so-fancy"
+  # pager = "delta --diff-so-fancy"
 
 [color]
   branch = auto
@@ -112,7 +113,15 @@
 [init]
   defaultBranch = main
 [user]
-	name = Samuel Hobl
-	email = nam@hobl.at
+  name = Samuel Hobl
+  email = nam@hobl.at
 [github]
-	user = namjul
+  user = namjul
+[diff]
+  tool = difftastic
+[difftool]
+  prompt = false
+[difftool "difftastic"]
+  cmd = difft "$LOCAL" "$REMOTE"
+[pager]
+  difftool = true
