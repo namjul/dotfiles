@@ -54,7 +54,6 @@ function _G.terminalEsc()
   return vim.bo.filetype == 'fzf' and util.t('<Esc>') or util.t('<C-\\><C-n>')
 end
 
-
 ----------------------------------------
 -- Global variables
 ----------------------------------------
@@ -105,7 +104,6 @@ require('paq')({
   'jiangmiao/auto-pairs', -- auto closes pairs
   'Valloric/MatchTagAlways', -- highlights xml tags enclosing the cursor
   'simeji/winresizer', -- helper for resizing windows
-  'camspiers/lens.vim', -- auto resizing of windows
   'lewis6991/gitsigns.nvim',
   'rhysd/committia.vim', -- improves vim 'commit' buffer
   'moll/vim-node', -- improves dx in node.js env
@@ -144,7 +142,7 @@ require('paq')({
   'hrsh7th/cmp-buffer',
   'kevinoid/vim-jsonc',
   { 'oberblastmeister/neuron.nvim', branch = 'unstable' },
-  'TaDaa/vimade',
+  'TaDaa/vimade', -- An eye friendly plugin that fades your inactive buffers and preserves your syntax highlighting!
 })
 
 ----------------------------------------

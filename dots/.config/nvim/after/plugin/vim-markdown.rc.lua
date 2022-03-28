@@ -8,6 +8,7 @@ util.var.g({
     'ts=typescriptreact',
     'yarn=sh',
     'git=sh',
+    'yml=yaml',
   },
   vim_markdown_no_extensions_in_markdown = 1,
   vim_markdown_new_list_item_indent = 0,

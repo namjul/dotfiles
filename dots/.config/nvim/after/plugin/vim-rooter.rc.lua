@@ -1,1 +1,1 @@
-vim.g.rooter_patterns = { '.git' }
+vim.g.rooter_patterns = { '.git', 'dendron.yml' }

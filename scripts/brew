@@ -96,7 +96,7 @@ brew install ghq #https://github.com/x-motemen/ghq
 brew install thefuck # https://github.com/nvbn/thefuck
 brew install entr # https://github.com/eradman/entr
 brew install hexyl # https://github.com/sharkdp/hexyl
-brew install duf # https://github.com/muesli/duf
+brew install duf # https://github.com/muesli/duf -- Disk Usage/Free Utility - a better 'df' alternative
 brew install dog # https://github.com/ogham/dog
 brew install pnpm # https://pnpm.io/installation
 brew install scmpuff # https://github.com/mroth/scmpuff

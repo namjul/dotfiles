@@ -41,6 +41,7 @@ if status is-interactive
   thefuck --alias | source
   zoxide init fish | source
   direnv hook fish | source
+  # scmpuff init -s --shell=fish | source
 end
 
 # do not track `tomb` commands

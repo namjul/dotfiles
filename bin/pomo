@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 # from https://github.com/sayanarijit/pomo
+# run `pomo 45 Take a break and move a bit`
 
 arg1=$1
 shift
