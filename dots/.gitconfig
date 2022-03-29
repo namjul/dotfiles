@@ -113,8 +113,8 @@
 [init]
   defaultBranch = main
 [user]
-  name = Samuel Hobl
-  email = nam@hobl.at
+	name = Samuel Hobl
+	email = nam@hobl.at
 [github]
   user = namjul
 [diff]
