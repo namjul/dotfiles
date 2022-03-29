@@ -41,8 +41,8 @@ abbr x exit
 abbr t todo
 abbr en 'trans :en'
 abbr de 'trans :de'
-abbr grn 'git rebase -i HEAD~ ' # git interactive rebase to n
-abbr run 'npm run' # shorthand for npm run
+abbr grn 'git rebase -i HEAD~' # git interactive rebase to n
+abbr run 'dum run' # shorthand for npm run
 abbr nv 'node --version'
 abbr untar 'tar -xvf' # extract .tar.gz
 abbr --add unset 'set --erase' # remove env variable

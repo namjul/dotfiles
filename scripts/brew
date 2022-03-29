@@ -102,6 +102,7 @@ brew install pnpm # https://pnpm.io/installation
 brew install scmpuff # https://github.com/mroth/scmpuff
 brew install direnv # https://github.com/direnv/direnv
 brew install pnpm # https://pnpm.io
+brew install egoist/tap/dum # https://github.com/egoist/dum
 
 # Remove outdated versions from the cellar
 brew cleanup
