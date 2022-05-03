@@ -6,9 +6,9 @@ cmp.setup({
       vim.fn['UltiSnips#Anon'](args.body)
     end,
   },
-  mapping = {
-    ['<C-e>'] = cmp.mapping.close(),
-  },
+  mapping = cmp.mapping.preset.insert({
+    ['<C-e>'] = cmp.mapping.abort(),
+  }),
   sources = {
     { name = 'nvim_lsp' },
     { name = 'path' },
