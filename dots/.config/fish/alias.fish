@@ -46,6 +46,7 @@ abbr run 'dum run' # shorthand for npm run
 abbr nv 'node --version'
 abbr untar 'tar -xvf' # extract .tar.gz
 abbr --add unset 'set --erase' # remove env variable
+abbr repl 'NODE_PATH=(npm root -g) node'
 
 # ls
 if type -q exa
