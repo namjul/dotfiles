@@ -5,7 +5,7 @@ npm-check
 npmlist
 tern
 ntl
-trymodule
+@jopemachine/trymodule
 pageres-cli
 lerna
 yarn
@@ -15,6 +15,7 @@ git-file-history
 typescript
 typescript-language-server
 tsun
+ts-node
 prettier
 spech
 cliflix
