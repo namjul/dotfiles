@@ -83,6 +83,7 @@ require('paq')({
   'tpope/vim-rhubarb', -- open files on github
   'tpope/vim-surround', -- adds operators for surrounding characters
   'tpope/vim-unimpaired', -- set of complementary pair commands
+  'tpope/vim-abolish', -- Case-preserving find and replace
   'tomtom/tcomment_vim', -- Temporarily commenting
   'svermeulen/vim-cutlass', -- seperate `cut` form `delete`
   'svermeulen/vim-subversive', -- adds a subsitute operator
