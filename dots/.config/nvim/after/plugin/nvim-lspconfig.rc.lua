@@ -10,10 +10,10 @@ local on_attach = function(_, bufnr)
   -- See `:help vim.lsp.*` for documentation on any of the below functions
   vimp.add_buffer_maps(bufnr, function()
     vimp.nnoremap(opts, '[d', function()
-      vim.lsp.diagnostic.goto_prev({ enable_popup = false })
+      vim.diagnostic.goto_prev({ enable_popup = false })
     end)
     vimp.nnoremap(opts, ']d', function()
-      vim.lsp.diagnostic.goto_next({ enable_popup = false })
+      vim.diagnostic.goto_next({ enable_popup = false })
     end)
     vimp.nnoremap(opts, 'gd', function()
       vim.lsp.buf.definition()
@@ -31,7 +31,7 @@ local on_attach = function(_, bufnr)
       vim.lsp.buf.references()
     end)
     vimp.nnoremap(util.shallow_merge(opts, { 'repeatable' }), 'gp', function()
-      vim.lsp.diagnostic.show_line_diagnostics({ show_header = false })
+      vim.diagnostic.show_line_diagnostics({ show_header = false })
     end)
     -- vimp.nnoremap(opts, '<leader>d', function()
     --   vim.lsp.diagnostic.set_loclist()
@@ -42,14 +42,14 @@ local on_attach = function(_, bufnr)
   end)
 
   -- formatting
-  if client.resolved_capabilities.document_formatting then
-    vim.cmd([[
-      augroup NamjulFormat
-      autocmd! * <buffer>
-      autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_seq_sync(nil, nil, { 'efm' })
-      augroup END
-    ]])
-  end
+  -- if client.resolved_capabilities.document_formatting then
+  --   vim.cmd([[
+  --     augroup NamjulFormat
+  --     autocmd! * <buffer>
+  --     autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_seq_sync(nil, nil, { 'efm' })
+  --     augroup END
+  --   ]])
+  -- end
 end
 
 vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
