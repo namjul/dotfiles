@@ -24,7 +24,7 @@ local function supportsBlurFocus(callback)
   local listed = util.opt.b('buflisted')
   local floatingWindow = vim.api.nvim_win_get_config(vim.api.nvim_get_current_win()).relative ~= ''
   if autocmds.filetypeBlacklist[filetype] ~= true and listed and not floatingWindow then
-    -- callback(filetype) -- depricate for vimade
+    callback(filetype)
   end
 end
 

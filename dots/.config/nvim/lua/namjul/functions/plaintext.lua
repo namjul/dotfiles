@@ -4,7 +4,7 @@ local function plaintext()
   local opt = util.opt
   local map = util.map
   if vim.fn.has('conceal') == 1 then
-    opt.b({ concealcursor = nc })
+    opt.b({ concealcursor = 'nc' })
   end
 
   opt.w({
@@ -15,7 +15,6 @@ local function plaintext()
 
   opt.b({
     textwidth = 0,
-    wrapmargin = 0,
     wrapmargin = 0,
   })
 

@@ -143,7 +143,6 @@ require('paq')({
   'hrsh7th/cmp-buffer',
   'kevinoid/vim-jsonc',
   { 'oberblastmeister/neuron.nvim', branch = 'unstable' },
-  'TaDaa/vimade', -- An eye friendly plugin that fades your inactive buffers and preserves your syntax highlighting!
 })
 
 ----------------------------------------
