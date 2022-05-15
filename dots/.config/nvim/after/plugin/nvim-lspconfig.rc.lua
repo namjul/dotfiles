@@ -167,6 +167,8 @@ efmls.setup({
   ['typescript.tsx'] = { linter = eslint, formatter = prettier },
   lua = { formatter = stylua },
   markdown = { formatter = prettier },
+  html = { formatter = prettier },
+  handlebars = { formatter = prettier },
   json = { formatter = prettier },
   css = { formatter = prettier },
 })
