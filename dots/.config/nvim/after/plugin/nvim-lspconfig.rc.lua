@@ -152,7 +152,7 @@ eslint = vim.tbl_extend('force', eslint, {
   lintCommand = string.format('%s %s', bin, args),
   lintFormats = { '%f(%l,%c): %tarning %m', '%f(%l,%c): %rror %m' }, -- see https://eslint.org/docs/user-guide/formatters/#visualstudio formatter, https://github.com/reviewdog/errorformat
 })
-local prettier = require('efmls-configs.formatters.prettier')
+local prettier = require('efmls-configs.formatters.prettier_d')
 local stylua = require('efmls-configs.formatters.stylua')
 
 efmls.setup({
