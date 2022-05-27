@@ -22,6 +22,7 @@ require('nvim-treesitter.configs').setup({
     'lua',
     'scss',
     'css',
+    'glimmer'
   },
   autotag = {
     enable = true,
