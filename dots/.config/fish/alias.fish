@@ -47,6 +47,9 @@ abbr nv 'node --version'
 abbr untar 'tar -xvf' # extract .tar.gz
 abbr --add unset 'set --erase' # remove env variable
 abbr repl 'NODE_PATH=(npm root -g) node'
+abbr tst 'toggl start'
+abbr tsp 'toggl stop'
+abbr tc 'toggl continue'
 
 # ls
 if type -q exa
