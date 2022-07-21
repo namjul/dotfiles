@@ -104,6 +104,7 @@ brew install direnv # https://github.com/direnv/direnv
 brew install pnpm # https://pnpm.io
 brew install egoist/tap/dum # https://github.com/egoist/dum
 brew install pnpm # https://pnpm.io/
+brew install bash-snippets # https://github.com/alexanderepstein/Bash-Snippets
 
 # Remove outdated versions from the cellar
 brew cleanup
