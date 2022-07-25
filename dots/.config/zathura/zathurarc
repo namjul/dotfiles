@@ -13,3 +13,6 @@ set incremental-search true
 # zoom
 map <C-i> zoom in
 map <C-o> zoom out
+
+# allow opening links in browser
+set sandbox none
