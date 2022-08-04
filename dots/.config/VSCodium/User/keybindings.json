@@ -1,8 +1,12 @@
-// Place your key bindings in this file to override the defaults
 [
   {
-    "key": "cmd+l",
-    "command": "-dendron.lookupNote"
+    "command": "dendron.lookupNote",
+    "key": "ctrl+l",
+    "when": "dendron:pluginActive",
+    "args": {
+      // https://wiki.dendron.so/notes/ad270a7d-2aed-4273-8319-eb6536e38b29/
+      "selectionType": "selectionExtract"
+    }
   },
   {
     "command": "vscode-neovim.send-blocking",
