@@ -19,5 +19,15 @@
     "key": "j",
     "when": "neovim.mode == insert && editorTextFocus",
     "args": "j"
+  },
+  {
+    "key": "9 h",
+    "command": "dendron.goNextHierarchy",
+    "when": "dendron:pluginActive",
+  },
+  {
+    "key": "8 h",
+    "command": "dendron.goPrevHierarchy",
+    "when": "dendron:pluginActive",
   }
 ]
