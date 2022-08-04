@@ -1,7 +1,19 @@
 // Place your key bindings in this file to override the defaults
 [
-    {
-        "key": "cmd+l",
-        "command": "-dendron.lookupNote"
-    },
+  {
+    "key": "cmd+l",
+    "command": "-dendron.lookupNote"
+  },
+  {
+    "command": "vscode-neovim.send-blocking",
+    "key": "k",
+    "when": "neovim.mode == insert && editorTextFocus",
+    "args": "k"
+  },
+  {
+    "command": "vscode-neovim.send-blocking",
+    "key": "j",
+    "when": "neovim.mode == insert && editorTextFocus",
+    "args": "j"
+  }
 ]

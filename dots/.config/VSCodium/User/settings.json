@@ -5,6 +5,6 @@
     "workbench.editor.enablePreview": false,
     "workbench.colorTheme": "Gruvbox Dark Medium",
     "vscode-neovim.neovimExecutablePaths.linux": "/home/nam/neovim/bin/nvim",
-    "vscode-neovim.neovimInitVimPaths.linux": "/home/nam/.dotfiles/dots/.config/nvim/init.lua 1 ",
+    "vscode-neovim.neovimInitVimPaths.linux": "/home/nam/.dotfiles/dots/.config/nvim/init.lua",
     "vscode-neovim.logPath": "/tmp/vscode-neovim"
 }
