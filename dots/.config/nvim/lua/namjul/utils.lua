@@ -106,4 +106,8 @@ function utils.shallow_merge(dest, source)
   return vim.tbl_extend('force', dest, source)
 end
 
+function utils.isVsCode()
+  return vim.api.nvim_eval('exists("g:vscode")') ~= 0 and true or false
+end
+
 return utils

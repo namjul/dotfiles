@@ -38,12 +38,17 @@ vimp.nnoremap('<leader>p', function()
   print(file)
 end)
 
-vimp.nnoremap('<leader>te', '<cmd>:Trans en<CR>')
-vimp.nnoremap('<leader>tg', '<cmd>:Trans de<CR>')
+  vimp.nnoremap('<leader>te', ':Trans en<CR>')
+  vimp.nnoremap('<leader>tg', ':Trans de<CR>')
 
-map.g('n', '<leader>w', ':write<CR>') -- quick save
-map.g('n', '<leader>x', ':exit<CR>') -- like ":wq", but write only when changes have been
-map.g('n', '<leader>q', ':quit<CR>') -- quites the current window and vim if its the last
+if util.isVsCode() then
+  vimp.nnoremap('<leader>w', ':Write<CR>') -- quick save
+  vimp.nnoremap('<leader>q', ':Quit<CR>') -- quites the current window and vim if its the last
+else
+  vimp.nnoremap('<leader>w', ':write<CR>') -- quick save
+  vimp.nnoremap('<leader>x', ':exit<CR>') -- like ":wq", but write only when changes have been
+  vimp.nnoremap('<leader>q', ':quit<CR>') -- quites the current window and vim if its the last
+end
 
 -- telescrope mappings
 map.g(
