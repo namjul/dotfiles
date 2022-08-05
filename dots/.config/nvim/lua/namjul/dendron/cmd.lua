@@ -19,8 +19,8 @@ function M.dendron(opts)
       on_stdout = vim.schedule_wrap(function(error, data)
         assert(not error, error)
         result = result .. data
-        -- data ends with `}`. this is needed because currently dendron takes long time to exit even after the note has already been greated.
-        if data == '}' then
+        -- data ends with `]`. this is needed because currently dendron takes long time to exit even after the note has already been greated.
+        if data == ']' then
           opts.callback(opts.json and vim.fn.json_decode(result) or result)
         end
       end),
@@ -30,7 +30,7 @@ function M.dendron(opts)
 end
 
 function M.lookup(arg_opts, dendron_dir, json_fn)
-  arg_opts['cmd'] = 'lookup'
+  arg_opts['cmd'] = 'lookup_legacy'
   M.dendron({
     args = M.dendron_arg_maker(arg_opts),
     dendron_dir = dendron_dir,
