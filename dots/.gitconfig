@@ -31,7 +31,7 @@
   cm      = commit -m
   ca      = commit --amend
   amend   = commit --amend --no-edit
-  reword  = commit --amend --only -v --
+  reword  = commit --amend --only -v
 
   p       = push
   pf      = push --force-with-lease
