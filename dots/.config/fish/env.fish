@@ -24,6 +24,11 @@ export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
 
 export BAT_THEME="gruvbox"
 
+#neovide
+export NEOVIDE_MULTIGRID="true"
+
+
+
 # Set env variable with fallback
 # https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html
 set -q XDG_DATA_HOME; or set -x XDG_DATA_HOME $HOME/.local/share
