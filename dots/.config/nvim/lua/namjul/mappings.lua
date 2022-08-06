@@ -38,8 +38,8 @@ vimp.nnoremap('<leader>p', function()
   print(file)
 end)
 
-  vimp.nnoremap('<leader>te', ':Trans en<CR>')
-  vimp.nnoremap('<leader>tg', ':Trans de<CR>')
+vimp.nnoremap('<leader>te', ':Trans en<CR>')
+vimp.nnoremap('<leader>tg', ':Trans de<CR>')
 
 if util.isVsCode() then
   vimp.nnoremap('<leader>w', ':Write<CR>') -- quick save
@@ -48,6 +48,26 @@ else
   vimp.nnoremap('<leader>w', ':write<CR>') -- quick save
   vimp.nnoremap('<leader>x', ':exit<CR>') -- like ":wq", but write only when changes have been
   vimp.nnoremap('<leader>q', ':quit<CR>') -- quites the current window and vim if its the last
+end
+
+map.g('n', 'gx', ':!open <cWORD><CR>')
+
+-- guifont mappings
+if util.isNeoVide() then
+
+  -- Call function on startup to set default value
+  require('namjul.functions.guifont').resetGuiFont()
+
+  local opts = { 'silent' }
+  vimp.nnoremap(opts, '<C-+>', function()
+    require('namjul.functions.guifont').resizeGuiFont(1)
+  end)
+  vimp.nnoremap(opts, '<C-->', function()
+    require('namjul.functions.guifont').resizeGuiFont(-1)
+  end)
+  vimp.nnoremap(opts, '<C-0>', function()
+    require('namjul.functions.guifont').resetGuiFont()
+  end)
 end
 
 -- telescrope mappings

@@ -110,4 +110,8 @@ function utils.isVsCode()
   return vim.api.nvim_eval('exists("g:vscode")') ~= 0 and true or false
 end
 
+function utils.isNeoVide()
+  return vim.api.nvim_eval('exists("g:neovide")') ~= 0 and true or false
+end
+
 return utils

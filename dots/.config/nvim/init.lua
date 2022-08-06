@@ -143,7 +143,7 @@ require('paq')({
   'hrsh7th/cmp-buffer',
   'kevinoid/vim-jsonc',
   { 'oberblastmeister/neuron.nvim', branch = 'unstable' },
-  'mracos/mermaid.vim'
+  'mracos/mermaid.vim',
 })
 
 ----------------------------------------
@@ -172,7 +172,7 @@ opt.g({
   pastetoggle = '<F2>',
   tabline = '%!v:lua.mytabline()',
   undodir = os.getenv('XDG_DATA_HOME') .. '/nvim/undo',
-  guifont = 'Monego_Nerd_Font'
+  guifont = 'Monego_Nerd_Font',
 })
 
 -- Window
