@@ -2,7 +2,7 @@
 
 local M = {}
 
-vim.g.gui_font_default_size = 12
+vim.g.gui_font_default_size = 10
 vim.g.gui_font_size = vim.g.gui_font_default_size
 
 function M.refreshGuiFont()
