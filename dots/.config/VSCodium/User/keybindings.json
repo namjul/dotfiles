@@ -27,18 +27,18 @@
   //},
 
   // neovim
-  {
-    "command": "vscode-neovim.send-blocking",
-    "key": "k",
-    "when": "neovim.mode == insert && editorTextFocus",
-    "args": "k"
-  },
-  {
-    "command": "vscode-neovim.send-blocking",
-    "key": "j",
-    "when": "neovim.mode == insert && editorTextFocus",
-    "args": "j"
-  },
+  //{
+  //  "command": "vscode-neovim.send-blocking",
+  //  "key": "k",
+  //  "when": "neovim.mode == insert && editorTextFocus",
+  //  "args": "k"
+  //},
+  //{
+  //  "command": "vscode-neovim.send-blocking",
+  //  "key": "j",
+  //  "when": "neovim.mode == insert && editorTextFocus",
+  //  "args": "j"
+  //},
 
   // dendron
   {
