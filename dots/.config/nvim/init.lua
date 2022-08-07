@@ -110,7 +110,6 @@ require('paq')({
   'moll/vim-node', -- improves dx in node.js env
   'SirVer/ultisnips', -- snippets engine
   'honza/vim-snippets', -- general snippets collection
-  'quangnguyen30192/cmp-nvim-ultisnips', -- nvim-cmp source for ultisnips
   'mattn/gist-vim', -- interact with github gist from vim
   'mattn/webapi-vim', -- needed for `gist-vim`
   'norcalli/nvim-colorizer.lua', -- The fastest Neovim colorizer.
@@ -119,7 +118,7 @@ require('paq')({
   'csexton/trailertrash.vim', -- highlight trailing whitespace
   'kassio/neoterm', -- simple terminal access
   'godlygeek/tabular', -- auto alignment
-  { 'namjul/vim-markdown', branch = 'wikilinks' }, -- own fork of that adds wikilinks support
+  -- { 'namjul/vim-markdown', branch = 'wikilinks' }, -- own fork of that adds wikilinks support
   'tpope/vim-obsession', -- helper to start vim sessions
   'ellisonleao/glow.nvim', -- markdown preview
   {
@@ -141,6 +140,7 @@ require('paq')({
   'hrsh7th/cmp-nvim-lsp',
   'hrsh7th/cmp-path',
   'hrsh7th/cmp-buffer',
+  'quangnguyen30192/cmp-nvim-ultisnips', -- nvim-cmp source for ultisnips
   'kevinoid/vim-jsonc',
   { 'oberblastmeister/neuron.nvim', branch = 'unstable' },
   'mracos/mermaid.vim',
