@@ -1,4 +1,4 @@
-local nvim_lsp = require('lspconfig')
+local lspconfig = require('lspconfig')
 local vimp = require('vimp')
 local util = require('namjul.utils')
 
@@ -71,9 +71,28 @@ vim.cmd([[
   sign define LspDiagnosticsSignHint text= texthl=LspDiagnosticsSignHint linehl= numhl=LspDiagnosticsDefaultInformation
 ]])
 
+local lsp_defaults = {
+  flags = {
+    debounce_text_changes = 150,
+  },
+  -- capabilities = require('cmp_nvim_lsp').update_capabilities(
+  --   vim.lsp.protocol.make_client_capabilities()
+  -- ),
+  on_attach = function(client, bufnr)
+    vim.api.nvim_exec_autocmds('User', {pattern = 'LspAttached'})
+  end
+}
+
+-- merge with lspconfig defaults
+lspconfig.util.default_config = vim.tbl_deep_extend(
+  'force',
+  lspconfig.util.default_config,
+  lsp_defaults
+)
+
 --- setup typescript lsp ---
 
-nvim_lsp.tsserver.setup({
+lspconfig.tsserver.setup({
   -- capabilities = capabilities,
   on_attach = on_attach,
   filetypes = {
@@ -83,9 +102,6 @@ nvim_lsp.tsserver.setup({
     'typescript',
     'typescriptreact',
     'typescript.tsx',
-  },
-  flags = {
-    debounce_text_changes = 150,
   },
 })
 
@@ -110,7 +126,7 @@ else
 end
 
 if cmd ~= nil then
-  require('lspconfig').sumneko_lua.setup({
+  lspconfig.sumneko_lua.setup({
     cmd = cmd,
     on_attach = on_attach,
     settings = {
@@ -129,6 +145,17 @@ if cmd ~= nil then
   })
 end
 
+--- setup rust lsp ---
+
+lspconfig['rust_analyzer'].setup{
+    on_attach = on_attach,
+    -- Server-specific settings...
+    settings = {
+      ["rust-analyzer"] = {}
+    }
+}
+
+
 ---setup diagnostics with errorformat (efm) ---
 -- for available options see https://github.com/mattn/efm-langserver/blob/master/langserver/handler.go#L53
 -- https://github.com/creativenull/efmls-configs-nvim/blob/main/supported-linters-and-formatters.md
@@ -136,7 +163,7 @@ end
 local efmls = require('efmls-configs')
 efmls.init({
   root_dir = function(fname)
-    return nvim_lsp.util.root_pattern('.git', 'dendron.yml')(fname)
+    return lspconfig.util.root_pattern('.git', 'dendron.yml')(fname)
   end,
   on_attach = on_attach,
   init_options = {
