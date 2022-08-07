@@ -131,8 +131,8 @@ map.g('', 'Y', 'y$') -- multi-mode mappings (Normal, Visual, Operating-pending m
 -- map.g('v', 'K', ":m '<-2<CR>gv=gv")
 -- map.g('i', '<C-j>', '<esc>:m .+1<CR>==')
 -- map.g('i', '<C-k>', '<esc>:m .-2<CR>==')
-map.g('n', 'K', ':m .-2<CR>==')
-map.g('n', 'J', ':m .+1<CR>==')
+-- map.g('n', 'K', ':m .-2<CR>==')
+-- map.g('n', 'J', ':m .+1<CR>==')
 
 -- PLUGIN:dendron
 map.g(
