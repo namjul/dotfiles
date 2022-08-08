@@ -7,3 +7,6 @@ Sessionx.vim
 
 # Temporary
 .netrwhist
+
+# Nushell
+history.txt
