@@ -90,7 +90,7 @@ require('paq')({
   'svermeulen/vim-yoink', -- adds easy access to history of yanks
   'wincent/loupe', -- enhancements to vim's search commands
   'wincent/scalpel', -- helper for search and replace
-  'editorconfig/editorconfig-vim', -- support editor config files (https://editorconfig.org/)
+  'gpanders/editorconfig.nvim', -- support editor config files (https://editorconfig.org/)
   'nvim-lua/plenary.nvim',
   'nvim-telescope/telescope.nvim',
   { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' },
