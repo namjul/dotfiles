@@ -11,9 +11,15 @@ if status is-login
   bass source ~/.profile
 end
 
-# notify if brew command does not exists
-if ! type -q brew
+if not type -q brew
+  # notify if brew command does not exists
   echo "Make sure `brew` command is available."
+end
+
+if not type -q shellfirm
+  # show this message to the user and don't register to terminal hook
+  # we want to show the user that he not protected with `shellfirm`
+  echo "`shellfirm` binary is missing. see installation guide: https://github.com/kaplanelad/shellfirm#installation."
 end
 
 if status is-interactive
@@ -42,6 +48,15 @@ if status is-interactive
   zoxide init fish | source
   direnv hook fish | source
   # scmpuff init -s --shell=fish | source
+
+  if type -q shellfirm
+    function checkShellFirm --on-event fish_preexec
+      stty sane
+      shellfirm pre-command --command "$argv"
+      commandline -f execute
+    end
+  end
+
 end
 
 # do not track `tomb` commands
