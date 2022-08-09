@@ -78,8 +78,8 @@ require('paq')({
   'lewis6991/gitsigns.nvim',
   'rhysd/committia.vim', -- improves vim 'commit' buffer
   'moll/vim-node', -- improves dx in node.js env
-  'SirVer/ultisnips', -- snippets engine
-  'honza/vim-snippets', -- general snippets collection
+  'L3MON4D3/LuaSnip', -- snippets engine
+  'rafamadriz/friendly-snippets', -- general snippets collection
   'mattn/gist-vim', -- interact with github gist from vim
   'mattn/webapi-vim', -- needed for `gist-vim`
   'norcalli/nvim-colorizer.lua', -- The fastest Neovim colorizer.
@@ -110,11 +110,11 @@ require('paq')({
   'hrsh7th/cmp-nvim-lsp',
   'hrsh7th/cmp-path',
   'hrsh7th/cmp-buffer',
-  'quangnguyen30192/cmp-nvim-ultisnips', -- nvim-cmp source for ultisnips
+  'saadparwaiz1/cmp_luasnip', -- nvim-cmp source for Luasnip
   'kevinoid/vim-jsonc',
   { 'oberblastmeister/neuron.nvim', branch = 'unstable' },
   'mracos/mermaid.vim',
-  'folke/which-key.nvim'
+  'folke/which-key.nvim',
 })
 
 ----------------------------------------
@@ -144,6 +144,7 @@ opt.g({
   tabline = '%!v:lua.mytabline()',
   undodir = os.getenv('XDG_DATA_HOME') .. '/nvim/undo',
   guifont = 'Monego_Nerd_Font',
+  completeopt = 'menu,menuone,noselect',
 })
 
 -- Window
