@@ -6,8 +6,5 @@ if [ -x "$(command -v asdf)" ]; then
   asdf plugin-add ruby https://github.com/asdf-vm/asdf-ruby.git
   asdf plugin-add nodejs https://github.com/asdf-vm/asdf-nodejs.git
   asdf plugin-add rust https://github.com/code-lever/asdf-rust.git
-
-  # Imports Node.js release team's OpenPGP keys to main keyring
-  bash ~/.asdf/plugins/nodejs/bin/import-release-team-keyring
 fi
 
