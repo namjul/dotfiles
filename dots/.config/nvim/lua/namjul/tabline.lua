@@ -1,4 +1,3 @@
-local inspect = vim.inspect -- pretty-print Lua objects (useful for inspecting tables)
 local fn = vim.fn
 
 local tabline = {}

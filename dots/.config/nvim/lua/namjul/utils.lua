@@ -68,8 +68,7 @@ utils.map = {
   end,
 }
 
--- The function is called `t` for `termcodes`.
-function utils.t(str)
+function utils.termcodes(str)
   -- Adjust boolean arguments as needed
   return vim.api.nvim_replace_termcodes(str, true, true, true)
 end

@@ -6,38 +6,10 @@
 -- ██║ ╚████║███████╗╚██████╔╝ ╚████╔╝ ██║██║ ╚═╝ ██║    ██║██║ ╚████║██║   ██║
 -- ╚═╝  ╚═══╝╚══════╝ ╚═════╝   ╚═══╝  ╚═╝╚═╝     ╚═╝    ╚═╝╚═╝  ╚═══╝╚═╝   ╚═╝
 
-local cmd = vim.cmd -- to execute Vim commands e.g. cmd('pwd')
 local fn = vim.fn -- to call Vim functions e.g. fn.bufnr()
 -- local inspect = vim.inspect -- pretty-print Lua objects (useful for inspecting tables)
 local util = require('namjul.utils')
 local opt = util.opt
-
-----------------------------------------
--- Functions
-----------------------------------------
-
--- markdown table alignment in lua
--- https://gist.github.com/tpope/287147
-local function alignMdTable()
-  local pattern = '^%s*|%s.*%s|%s*$'
-  local lineNumber = fn.line('.')
-  local currentColumn = fn.col('.')
-  local previousLine = fn.getline(lineNumber - 1)
-  local currentLine = fn.getline('.')
-  local nextLine = fn.getline(lineNumber + 1)
-
-  if
-    fn.exists(':Tabularize')
-    and currentLine:match('^%s*|')
-    and (previousLine:match(pattern) or nextLine:match(pattern))
-  then
-    local column = #currentLine:sub(1, currentColumn):gsub('[^|]', '')
-    local position = #fn.matchstr(currentLine:sub(1, currentColumn), '.*|\\s*\\zs.*')
-    cmd('Tabularize/|/l1') -- `l` means left aligned and `1` means one space of cell padding
-    cmd('normal! 0')
-    fn.search(('[^|]*|'):rep(column) .. ('\\s\\{-\\}'):rep(position), 'ce', lineNumber)
-  end
-end
 
 ----------------------------------------
 -- Global functions
@@ -48,10 +20,8 @@ function _G.mytabline()
   return require('namjul.tabline').line()
 end
 
-_G.alignMdTable = alignMdTable
-
-function _G.terminalEsc()
-  return vim.bo.filetype == 'fzf' and util.t('<Esc>') or util.t('<C-\\><C-n>')
+function _G.alignMdTable()
+  return require('namjul.functions.alignMdTable')()
 end
 
 ----------------------------------------
@@ -144,6 +114,7 @@ require('paq')({
   'kevinoid/vim-jsonc',
   { 'oberblastmeister/neuron.nvim', branch = 'unstable' },
   'mracos/mermaid.vim',
+  'folke/which-key.nvim'
 })
 
 ----------------------------------------
@@ -231,12 +202,4 @@ util.createAugroup({
 -- Inits
 ----------------------------------------
 
-require('namjul.mappings')
-
--- require('neuron').setup({
---   virtual_titles = true,
---   mappings = true,
---   run = nil, -- function to run when in neuron dir
---   neuron_dir = '~/code/neuron/doc', -- the directory of all of your notes, expanded by default (currently supports only one directory for notes, find a way to detect neuron.dhall to use any directory)
---   leader = 'gz', -- the leader key to for all mappings, remember with 'go zettel'
--- })
+require('namjul.keymaps')
