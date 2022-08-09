@@ -171,7 +171,7 @@ wk.register({
   },
   ['<C-i>'] = { ":lua require('namjul.dendron').openDailyNote()<CR>", 'Create Daily Note' },
   ['<C-l>'] = { ':NV<CR>', 'Search in Dendron' },
-  z = { '<Esc>', 'Enter Zenmode' },
+  z = { ':ZenMode<CR>', 'Enter Zenmode' },
   m = { ':MaximizerToggle<CR>', 'Maximize window' },
   -- PLUGIN:harpoon
   a = { ':lua require("harpoon.mark").add_file()<CR>', 'XXX' },
