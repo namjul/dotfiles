@@ -14,6 +14,21 @@ function M.findFiles(args)
   require('telescope.builtin').find_files(require('telescope.themes').get_ivy(opts))
 end
 
+function M.findRecent(args)
+  args = args or {}
+  local opts = {
+    prompt_title = 'find recent files',
+    include_current_session = true,
+    -- cwd_only = true
+  }
+
+  for k, v in pairs(args) do
+    opts[k] = v
+  end
+
+  require('telescope.builtin').oldfiles(require('telescope.themes').get_ivy(opts))
+end
+
 function M.searchDotfiles()
   M.findFiles({ cwd = '~/.dotfiles' })
 end

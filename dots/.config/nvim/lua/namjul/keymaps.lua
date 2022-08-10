@@ -142,10 +142,12 @@ wk.register({
     ":lua require('telescope.builtin').live_grep(require('telescope.themes').get_ivy({}))<CR>",
     'Search word',
   },
-  f = {
-    ":lua require('namjul.functions.telescope').findFiles()<CR>",
-    'Find Files',
-  },
+  f = { ":lua require('namjul.functions.telescope').findFiles()<CR>", 'Find Files' },
+  -- f = {
+  --   name = 'file', -- optional group name
+  --   f = { ":lua require('namjul.functions.telescope').findFiles()<CR>", 'Find Files' },
+  --   r = { ":lua require('namjul.functions.telescope').findRecent()<CR>", 'Find Recent Files' },
+  -- },
   b = {
     ":lua require('telescope.builtin').buffers(require('telescope.themes').get_ivy({}))<CR>",
     'Find Buffer',
@@ -180,10 +182,7 @@ wk.register({
   k = { ':lua require("harpoon.ui").nav_file(2)<CR>', 'XXX' },
   l = { ':lua require("harpoon.ui").nav_file(3)<CR>', 'XXX' },
   ['ö'] = { ':lua require("harpoon.ui").nav_file(4)<CR>', 'XXX' },
-}, util.shallow_merge(
-  defaultMapping,
-  { prefix = '<leader>' }
-))
+}, util.shallow_merge(defaultMapping, { prefix = '<leader>' }))
 
 -- VISUAL
 --------------------
@@ -208,17 +207,14 @@ wk.register({
   ['.'] = { '.<C-g>u' },
   ['!'] = { '!<C-g>u' },
   ['?'] = { '?<C-g>u' },
-}, util.shallow_merge(
-  defaultMapping,
-  { mode = 'i' }
-))
+}, util.shallow_merge(defaultMapping, { mode = 'i' }))
 
 -- TERMINAL
 --------------------
 
 wk.register({
   t = {
-    name = "terminal",
-    q = { util.termcodes("<C-\\><C-N>"),	"Close terminal" },
+    name = 'terminal',
+    q = { util.termcodes('<C-\\><C-N>'), 'Close terminal' },
   },
-}, { prefix = "<leader>", mode = 't', noremap = true, silent = true })
+}, { prefix = '<leader>', mode = 't', noremap = true, silent = true })
