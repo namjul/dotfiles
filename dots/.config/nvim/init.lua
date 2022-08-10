@@ -115,6 +115,7 @@ require('paq')({
   { 'oberblastmeister/neuron.nvim', branch = 'unstable' },
   'mracos/mermaid.vim',
   'folke/which-key.nvim',
+  'abecodes/tabout.nvim' -- tabbing out from parentheses, quotes, and similar contexts today.
 })
 
 ----------------------------------------
