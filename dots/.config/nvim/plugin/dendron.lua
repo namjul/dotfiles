@@ -1,7 +1,7 @@
 local util = require('namjul.utils')
 
 if not util.isVsCode() then
-  require('namjul.dendron').setup({
+  require('dendron').setup({
     dendron_dir = '~/Dropbox/dendron'
     -- virtual_titles = true,
     -- mappings = true,

@@ -166,10 +166,10 @@ wk.register({
   },
   -- PLUGIN:dendron
   d = {
-    ":lua require('namjul.dendron._telescope').lookup(require('telescope.themes').get_ivy({}))<CR>",
+    ":lua require('dendron._telescope').lookup(require('telescope.themes').get_ivy({}))<CR>",
     'Lookup in Dendron',
   },
-  ['<C-i>'] = { ":lua require('namjul.dendron').openDailyNote()<CR>", 'Create Daily Note' },
+  ['<C-i>'] = { ":lua require('dendron').openDailyNote()<CR>", 'Create Daily Note' },
   ['<C-l>'] = { ':NV<CR>', 'Search in Dendron' },
   z = { ':ZenMode<CR>', 'Enter Zenmode' },
   m = { ':MaximizerToggle<CR>', 'Maximize window' },

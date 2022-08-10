@@ -30,7 +30,7 @@ local defaultStl = {
   '%*', -- Reset highlight group.
   ' ', -- Space.
   '%=', -- switch to right side
-  '%{luaeval("require\'namjul.dendron\'.status()")}',
+  '%{luaeval("require\'dendron\'.status()")}',
   ' ', -- Space.
   '%5*', -- Switch to User5 highlight group (italics).
   '%{luaeval("require\'namjul.statusline\'.rhs()")}',
