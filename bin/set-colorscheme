@@ -1,0 +1,50 @@
+#!/usr/bin/env fish
+
+# set alactitty and neovim darkmode
+# parts from https://linuxconfig.org/how-to-obtain-sunrise-sunset-time-for-any-location-from-linux-command-line
+
+function dark
+  echo "dark"
+  nvim-ctrl 'set background=dark'
+  alacritty-colorscheme apply gruvbox-dark.yml
+end
+
+function light
+  echo "light"
+  nvim-ctrl 'set background=light'
+  alacritty-colorscheme apply gruvbox-light.yml
+end
+
+argparse --name=my_function 'h/help' 'n/name=' -- $argv
+
+  set location "AUXX0025" # from: https://weather.codes/search/
+  set tmpfile /tmp/$location.out
+
+  wget -q "https://weather.com/weather/today/l/$location" -O "$tmpfile"
+
+  set SUNR (grep SunriseSunset "$tmpfile" | grep -oE '((1[0-2]|0?[1-9]):([0-5][0-9]) ?([AaPp][Mm]))' | head -1)
+  set SUNS (grep SunriseSunset "$tmpfile" | grep -oE '((1[0-2]|0?[1-9]):([0-5][0-9]) ?([AaPp][Mm]))' | tail -1)
+
+
+  set sunrise (date --date="$SUNR" +%s)
+  set sunset (date --date="$SUNS" +%s)
+  set now (date +%s)
+
+  echo "$sunrise"
+
+  if test "$argv" = "dark"
+    dark
+    return 1
+  else if test "$argv" = "light"
+    light
+    return 1
+  end
+
+  if test "$now" -lt "$sunrise" -o "$now" -gt "$sunset"
+    dark
+    return 1
+  else if test "$now" -gt "$sunrise"
+    light
+    return 1
+  end
+or return
