@@ -150,6 +150,11 @@ opt.g({
   completeopt = 'menu,menuone,noselect',
 })
 
+-- opt.g currenlty does not support tables
+vim.opt.fillchars = {
+  vert = " ",
+}
+
 -- Window
 opt.w({
   number = true, -- Show relative lines numbers
