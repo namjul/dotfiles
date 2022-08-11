@@ -202,9 +202,3 @@ util.createAugroup({
   { 'BufNewFile', '*.sh', 'lua', 'require"namjul.autocmds".skeleton("~/.config/nvim/templates/skeleton.sh")' },
 }, 'namjulskeletons')
 
-----------------------------------------
--- Inits
-----------------------------------------
-
-require('namjul.keymaps')
-require('namjul.cmds')
