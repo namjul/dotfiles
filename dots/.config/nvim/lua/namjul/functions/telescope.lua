@@ -4,7 +4,21 @@ function M.findFiles(args)
   args = args or {}
   local opts = {
     find_command = { 'rg', '--files' },
-    prompt_title = '',
+    prompt_title = 'find files',
+  }
+
+  for k, v in pairs(args) do
+    opts[k] = v
+  end
+
+  require('telescope.builtin').find_files(require('telescope.themes').get_ivy(opts))
+end
+
+function M.findMostWanted(args)
+  args = args or {}
+  local opts = {
+    find_command = { 'most-wanted-dirs' },
+    prompt_title = 'Most wanted dirs',
   }
 
   for k, v in pairs(args) do

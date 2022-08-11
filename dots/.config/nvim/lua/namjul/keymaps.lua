@@ -142,12 +142,13 @@ wk.register({
     ":lua require('telescope.builtin').live_grep(require('telescope.themes').get_ivy({}))<CR>",
     'Search word',
   },
-  f = { ":lua require('namjul.functions.telescope').findFiles()<CR>", 'Find Files' },
-  -- f = {
-  --   name = 'file', -- optional group name
-  --   f = { ":lua require('namjul.functions.telescope').findFiles()<CR>", 'Find Files' },
-  --   r = { ":lua require('namjul.functions.telescope').findRecent()<CR>", 'Find Recent Files' },
-  -- },
+  -- f = { ":lua require('namjul.functions.telescope').findFiles()<CR>", 'Find Files' },
+  f = {
+    name = 'file', -- optional group name
+    f = { ":lua require('namjul.functions.telescope').findFiles()<CR>", 'Find Files' },
+    r = { ":lua require('namjul.functions.telescope').findRecent()<CR>", 'Find Recent Files' },
+    c = { ":lua require('namjul.functions.telescope').findMostWanted()<CR>", 'Find Most Wanted Files' },
+  },
   b = {
     ":lua require('telescope.builtin').buffers(require('telescope.themes').get_ivy({}))<CR>",
     'Find Buffer',
