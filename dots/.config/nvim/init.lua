@@ -144,7 +144,7 @@ opt.g({
   pastetoggle = '<F2>',
   tabline = '%!v:lua.mytabline()',
   undodir = os.getenv('XDG_DATA_HOME') .. '/nvim/undo',
-  guifont = 'Monego_Nerd_Font',
+  guifont = 'Cascadia_Code',
   completeopt = 'menu,menuone,noselect',
 })
 
