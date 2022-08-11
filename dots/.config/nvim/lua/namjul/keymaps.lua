@@ -176,12 +176,12 @@ wk.register({
   z = { ':ZenMode<CR>', 'Enter Zenmode' },
   m = { ':MaximizerToggle<CR>', 'Maximize window' },
   -- PLUGIN:harpoon
-  a = { ':lua require("harpoon.mark").add_file()<CR>', 'XXX' },
-  s = { ':lua require("harpoon.ui").toggle_quick_menu()<CR>', 'XXX' },
-  j = { ':lua require("harpoon.ui").nav_file(1)<CR>', 'XXX' },
-  k = { ':lua require("harpoon.ui").nav_file(2)<CR>', 'XXX' },
-  l = { ':lua require("harpoon.ui").nav_file(3)<CR>', 'XXX' },
-  ['ö'] = { ':lua require("harpoon.ui").nav_file(4)<CR>', 'XXX' },
+  a = { ':lua require("harpoon.mark").add_file()<CR>', 'Add file to harpoon' },
+  s = { ':lua require("harpoon.ui").toggle_quick_menu()<CR>', 'Toggle harpoon menu' },
+  j = { ':lua require("harpoon.ui").nav_file(1)<CR>', 'Harpoon: Goto(1)' },
+  k = { ':lua require("harpoon.ui").nav_file(2)<CR>', 'Harpoon: Goto(2)' },
+  l = { ':lua require("harpoon.ui").nav_file(3)<CR>', 'Harpoon: Goto(3)' },
+  ['ö'] = { ':lua require("harpoon.ui").nav_file(4)<CR>', 'Harpoon: Goto(4)' },
 }, util.shallow_merge(defaultMapping, { prefix = '<leader>' }))
 
 -- VISUAL
