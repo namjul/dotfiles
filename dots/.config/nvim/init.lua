@@ -115,7 +115,8 @@ require('paq')({
   { 'oberblastmeister/neuron.nvim', branch = 'unstable' },
   'mracos/mermaid.vim',
   'folke/which-key.nvim',
-  'abecodes/tabout.nvim' -- tabbing out from parentheses, quotes, and similar contexts today.
+  'abecodes/tabout.nvim', -- tabbing out from parentheses, quotes, and similar contexts today.
+  'rest-nvim/rest.nvim' -- http client in neovim
 })
 
 ----------------------------------------
@@ -205,3 +206,4 @@ util.createAugroup({
 ----------------------------------------
 
 require('namjul.keymaps')
+require('namjul.cmds')

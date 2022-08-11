@@ -16,13 +16,14 @@ require('nvim-treesitter.configs').setup({
     'bash',
     'php',
     'json',
+    'http',
     'graphql',
     'yaml',
     'html',
     'lua',
     'scss',
     'css',
-    'glimmer'
+    'glimmer',
   },
   autotag = {
     enable = true,
