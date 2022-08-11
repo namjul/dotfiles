@@ -217,8 +217,8 @@ wk.register({
 --------------------
 
 wk.register({
-  t = {
-    name = 'terminal',
-    q = { util.termcodes('<C-\\><C-N>'), 'Close terminal' },
+  ['<Esc>'] = {
+    util.termcodes('<C-\\><C-N>'),
+    'Close terminal',
   },
-}, { prefix = '<leader>', mode = 't', noremap = true, silent = true })
+}, { prefix = '', mode = 't', noremap = true, silent = true })
