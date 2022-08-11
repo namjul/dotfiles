@@ -112,13 +112,16 @@ require('paq')({
   'hrsh7th/cmp-buffer',
   'saadparwaiz1/cmp_luasnip', -- nvim-cmp source for Luasnip
   'kevinoid/vim-jsonc',
-  { 'oberblastmeister/neuron.nvim', branch = 'unstable' },
+  -- { 'oberblastmeister/neuron.nvim', branch = 'unstable' },
+  'namjul/dendron.nvim',
   'mracos/mermaid.vim',
   'folke/which-key.nvim',
   'abecodes/tabout.nvim', -- tabbing out from parentheses, quotes, and similar contexts today.
   'rest-nvim/rest.nvim', -- http client in neovim
   'monaqa/dial.nvim'
 })
+
+-- vim.opt.runtimepath:append '~/code/dendron.nvim'  -- Use an absolute path
 
 ----------------------------------------
 -- Options
