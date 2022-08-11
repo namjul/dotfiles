@@ -190,10 +190,14 @@ wk.register({
 -- COMMAND
 --------------------
 
-wk.register({
-  ['<C-a'] = { '<Home>' },
-  ['<C-e'] = { '<End>' },
-}, util.shallow_merge(defaultMapping, { mode = 'c' }))
+-- currently not working https://github.com/folke/which-key.nvim/issues/312
+-- wk.register({
+--   ['<C-a'] = { '<Home>' },
+--   ['<C-e'] = { '<End>' },
+-- }, util.shallow_merge(defaultMapping, { mode = 'c', noremap = true }))
+
+map.g('c', '<C-a>', '<Home>')
+map.g('c', '<C-e>', '<End>')
 
 -- INSERT
 --------------------
