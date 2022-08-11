@@ -116,7 +116,8 @@ require('paq')({
   'mracos/mermaid.vim',
   'folke/which-key.nvim',
   'abecodes/tabout.nvim', -- tabbing out from parentheses, quotes, and similar contexts today.
-  'rest-nvim/rest.nvim' -- http client in neovim
+  'rest-nvim/rest.nvim', -- http client in neovim
+  'monaqa/dial.nvim'
 })
 
 ----------------------------------------
