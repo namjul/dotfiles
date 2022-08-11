@@ -148,10 +148,19 @@ wk.register({
     f = { ":lua require('namjul.functions.telescope').findFiles()<CR>", 'Find Files' },
     r = { ":lua require('namjul.functions.telescope').findRecent()<CR>", 'Find Recent Files' },
     c = { ":lua require('namjul.functions.telescope').findMostWanted()<CR>", 'Find Most Wanted Files' },
-  },
-  b = {
-    ":lua require('telescope.builtin').buffers(require('telescope.themes').get_ivy({}))<CR>",
-    'Find Buffer',
+    b = {
+      ":lua require('telescope.builtin').buffers(require('telescope.themes').get_ivy({}))<CR>",
+      'Find Buffer',
+    },
+    d = { require('namjul.functions.telescope').searchDotfiles, 'Search dotfiles' },
+    g = {
+      b = { ":lua require('telescope.builtin').git_branches()<CR>", 'Find branch' },
+    },
+    l = {
+      ":lua require('dendron._telescope').lookup(require('telescope.themes').get_ivy({}))<CR>",
+      'Lookup in Dendron',
+    },
+    y = { ':NV<CR>', 'Search in Dendron' },
   },
   c = {
     ":lua require('telescope.builtin').commands(require('telescope.themes').get_ivy({}))<CR>",
@@ -163,17 +172,8 @@ wk.register({
   -- ['<C-k>'] = { ':above sp new<CR>', 'Open new file above' },
   -- ['<C-l>'] = { ':rightb vsp new<CR>', 'Open new file to the right' },
   ['2'] = { ':w<CR>:! ./%<CR>', 'Execute current file' },
-  y = { require('namjul.functions.telescope').searchDotfiles, 'Search dotfiles' },
-  g = {
-    b = { ":lua require('telescope.builtin').git_branches()<CR>", 'Find branch' },
-  },
   -- PLUGIN:dendron
-  d = {
-    ":lua require('dendron._telescope').lookup(require('telescope.themes').get_ivy({}))<CR>",
-    'Lookup in Dendron',
-  },
   ['<C-i>'] = { ":lua require('dendron').openDailyNote()<CR>", 'Create Daily Note' },
-  ['<C-l>'] = { ':NV<CR>', 'Search in Dendron' },
   z = { ':ZenMode<CR>', 'Enter Zenmode' },
   m = { ':MaximizerToggle<CR>', 'Maximize window' },
   -- PLUGIN:harpoon
