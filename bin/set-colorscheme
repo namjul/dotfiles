@@ -7,11 +7,15 @@
 function dark
   nvim-ctrl 'set background=dark'
   alacritty-colorscheme apply gruvbox-dark.yml
+  echo 'set background=dark' >~/.vimrc_background
+  echo "dark"
 end
 
 function light
   nvim-ctrl 'set background=light'
   alacritty-colorscheme apply gruvbox-light.yml
+  echo 'set background=light' >~/.vimrc_background
+  echo "light"
 end
 
 argparse --name=my_function 'h/help' 'n/name=' -- $argv

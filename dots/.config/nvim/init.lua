@@ -176,3 +176,7 @@ opt.b({
 })
 
 vim.cmd('colorscheme gruvbox')
+
+if util.readable(vim.fn.expand("~/.vimrc_background")) then
+  vim.cmd('source ~/.vimrc_background')
+end

@@ -2,9 +2,9 @@ local cmd = vim.cmd -- to execute Vim commands e.g. cmd('pwd')
 local fn = vim.fn -- to call Vim functions e.g. fn.bufnr()
 local inspect = vim.inspect -- pretty-print Lua objects (useful for inspecting tables)
 
-local utils = {}
+local M = {}
 
-function utils.addValues(valueType, values, kind)
+function M.addValues(valueType, values, kind)
   kind = kind or 'options'
   local vimValue = vim[valueType]
 
@@ -23,33 +23,33 @@ function utils.addValues(valueType, values, kind)
   end
 end
 
-utils.opt = {
+M.opt = {
   g = function(options)
-    return utils.addValues('o', options)
+    return M.addValues('o', options)
   end,
   b = function(options)
-    return utils.addValues('bo', options)
+    return M.addValues('bo', options)
   end,
   w = function(options)
-    return utils.addValues('wo', options)
+    return M.addValues('wo', options)
   end,
 }
 
-utils.var = {
+M.var = {
   g = function(variables)
-    return utils.addValues('g', variables, 'variables')
+    return M.addValues('g', variables, 'variables')
   end,
   w = function(variables)
-    return utils.addValues('w', variables, 'variables')
+    return M.addValues('w', variables, 'variables')
   end,
   b = function(variables)
-    return utils.addValues('b', variables, 'variables')
+    return M.addValues('b', variables, 'variables')
   end,
   t = function(variables)
-    return utils.addValues('t', variables, 'variables')
+    return M.addValues('t', variables, 'variables')
   end,
   v = function(variables)
-    return utils.addValues('v', variables, 'variables')
+    return M.addValues('v', variables, 'variables')
   end,
 }
 
@@ -58,7 +58,7 @@ local function defaultOptions(options)
   return vim.tbl_extend('force', { noremap = true }, options or {})
 end
 
-utils.map = {
+M.map = {
   g = function(mode, lhs, rhs, options)
     vim.api.nvim_set_keymap(mode, lhs, rhs, defaultOptions(options))
   end,
@@ -68,12 +68,12 @@ utils.map = {
   end,
 }
 
-function utils.termcodes(str)
+function M.termcodes(str)
   -- Adjust boolean arguments as needed
   return vim.api.nvim_replace_termcodes(str, true, true, true)
 end
 
-function utils.createAugroup(autocmds, name)
+function M.createAugroup(autocmds, name)
   cmd('augroup ' .. name)
   cmd('autocmd!')
   for _, autocmd in ipairs(autocmds) do
@@ -82,7 +82,7 @@ function utils.createAugroup(autocmds, name)
   cmd('augroup END')
 end
 
-function utils.fileExists(name)
+function M.fileExists(name)
   local f = io.open(name, 'r')
   if f ~= nil then
     io.close(f)
@@ -92,7 +92,7 @@ function utils.fileExists(name)
   end
 end
 
-function utils.unload_lua_namespace(prefix)
+function M.unload_lua_namespace(prefix)
   local prefix_with_dot = prefix .. '.'
   for key, value in pairs(package.loaded) do
     if key == prefix or key:sub(1, #prefix_with_dot) == prefix_with_dot then
@@ -101,16 +101,24 @@ function utils.unload_lua_namespace(prefix)
   end
 end
 
-function utils.shallow_merge(dest, source)
+function M.shallow_merge(dest, source)
   return vim.tbl_extend('force', dest, source)
 end
 
-function utils.isVsCode()
+function M.isVsCode()
   return vim.api.nvim_eval('exists("g:vscode")') ~= 0 and true or false
 end
 
-function utils.isNeoVide()
+function M.isNeoVide()
   return vim.api.nvim_eval('exists("g:neovide")') ~= 0 and true or false
 end
 
-return utils
+function M.readable(file_path)
+  return vim.fn.filereadable(file_path) ~= 0
+end
+
+function M.is_directory(file_path)
+  return vim.fn.isdirectory(file_path) ~= 0
+end
+
+return M
