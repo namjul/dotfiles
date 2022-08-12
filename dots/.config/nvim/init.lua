@@ -70,7 +70,7 @@ require('paq')({
   'alok/notational-fzf-vim', -- combines the fzf with the concept from notational
   'benmills/vimux', -- allows to send commands from vim to tmux
   'tyewang/vimux-jest-test', -- simplifies running jest test from vim
-  'justinmk/vim-dirvish', -- file explorer
+  'elihunter173/dirbuf.nvim',  -- file explorer
   'jeffkreeftmeijer/vim-numbertoggle', -- improves the display of line numbers
   'jiangmiao/auto-pairs', -- auto closes pairs
   'Valloric/MatchTagAlways', -- highlights xml tags enclosing the cursor
