@@ -2,6 +2,7 @@
 
 # set alactitty and neovim darkmode
 # parts from https://linuxconfig.org/how-to-obtain-sunrise-sunset-time-for-any-location-from-linux-command-line
+# TODO use https://fostips.com/light-dark-command-ubuntu-22-04/
 
 function dark
   echo "dark"

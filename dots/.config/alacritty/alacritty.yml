@@ -8,7 +8,6 @@
 #
 
 # Configuration for Alacritty, the GPU enhanced terminal emulator
-
 # Any items in the `env` entry below will be added as
 # environment variables. Some entries may override variables
 # set by alacritty it self.
@@ -23,6 +22,7 @@ env:
   TERM: xterm-256color
 
 window:
+  startup_mode: Fullscreen
   # Window dimensions in character columns and lines
   # Falls back to size specified by window manager if set to 0x0.
   # (changes require restart)
