@@ -5,23 +5,24 @@
 # TODO use https://fostips.com/light-dark-command-ubuntu-22-04/
 
 function dark
-  echo "dark"
   nvim-ctrl 'set background=dark'
   alacritty-colorscheme apply gruvbox-dark.yml
 end
 
 function light
-  echo "light"
   nvim-ctrl 'set background=light'
   alacritty-colorscheme apply gruvbox-light.yml
 end
 
 argparse --name=my_function 'h/help' 'n/name=' -- $argv
 
+  set dayOfYear (date +%j)
   set location "AUXX0025" # from: https://weather.codes/search/
-  set tmpfile /tmp/$location.out
+  set tmpfile /tmp/$location.$dayOfYear.out
 
-  wget -q "https://weather.com/weather/today/l/$location" -O "$tmpfile"
+  if not test -e "$tmpfile"
+    wget -q "https://weather.com/weather/today/l/$location" -O "$tmpfile"
+  end
 
   set SUNR (grep SunriseSunset "$tmpfile" | grep -oE '((1[0-2]|0?[1-9]):([0-5][0-9]) ?([AaPp][Mm]))' | head -1)
   set SUNS (grep SunriseSunset "$tmpfile" | grep -oE '((1[0-2]|0?[1-9]):([0-5][0-9]) ?([AaPp][Mm]))' | tail -1)
@@ -30,8 +31,6 @@ argparse --name=my_function 'h/help' 'n/name=' -- $argv
   set sunrise (date --date="$SUNR" +%s)
   set sunset (date --date="$SUNS" +%s)
   set now (date +%s)
-
-  echo "$sunrise"
 
   if test "$argv" = "dark"
     dark
