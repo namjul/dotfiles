@@ -110,9 +110,9 @@ lspconfig.tsserver.setup({
 local cmd = nil
 
 if vim.fn.has('unix') == 1 then
-  cmd = vim.fn.expand('~/code/lua-language-server/bin/Linux/lua-language-server')
+  cmd = vim.fn.expand('~/local/lua-language-server/bin/lua-language-server')
   if vim.fn.executable(cmd) == 1 then
-    cmd = { cmd, '-E', vim.fn.expand('~/code/lua-language-server/main.lua') }
+    cmd = { cmd, '-E', vim.fn.expand('~/local/lua-language-server/main.lua') }
   else
     cmd = nil
   end
