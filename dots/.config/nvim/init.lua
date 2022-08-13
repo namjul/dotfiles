@@ -24,6 +24,10 @@ function _G.alignMdTable()
   return require('namjul.functions.alignMdTable')()
 end
 
+function _G.P(...)
+  vim.pretty_print(...)
+end
+
 ----------------------------------------
 -- Global variables
 ----------------------------------------
