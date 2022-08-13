@@ -109,10 +109,6 @@ wk.register({
     end,
     'Reload vimrc',
   },
-  g = {
-    ":VimuxRunCommand('echo ' . expand('%:p') . ' | entr -c -c glow ' . expand('%:p'))<CR>",
-    "Preview markdown in Glow"
-  },
   p = {
     function()
       local file = fn.join({ fn.expand('%'), fn.line('.') })

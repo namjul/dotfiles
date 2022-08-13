@@ -11,3 +11,7 @@ end, {})
 vim.api.nvim_create_user_command('RestNvimLast', function()
   restNvim.last()
 end, {})
+
+vim.api.nvim_create_user_command('PreviewMarkdown', function()
+  vim.cmd("VimuxRunCommand('echo ' . expand('%:p') . ' | entr -c -c glow ' . expand('%:p'))")
+end, {})
