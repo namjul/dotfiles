@@ -1,5 +1,9 @@
 #!/usr/bin/env fish
 
+# inspiration from https://youtu.be/KKxhf50FIPI?t=754
+# https://github.com/craftzdog/dotfiles-public/blob/master/.config/fish/functions/peco_change_directory.fish
+# https://gist.github.com/tsub/4448666a276b088bce3f19005f512c15
+
 begin
   echo $HOME/.config
   echo $HOME/.dotfiles
