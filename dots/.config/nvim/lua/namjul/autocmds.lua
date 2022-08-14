@@ -107,8 +107,6 @@ function autocmds.skeleton(path)
   cmd('0r ' .. path)
 end
 
-autocmds.filetypeBlacklist = {
-  ['dirvish'] = true,
-}
+autocmds.filetypeBlacklist = {}
 
 return autocmds
