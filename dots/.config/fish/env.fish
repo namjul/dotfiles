@@ -22,8 +22,6 @@ export FZF_ALT_C_COMMAND="$FZF_DEFAULT_COMMAND --null | xargs -0 dirname | sort 
 # ripgrep
 export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
 
-export BAT_THEME="gruvbox"
-
 #neovide
 export NEOVIDE_MULTIGRID="true"
 
