@@ -26,3 +26,4 @@ lodash
 @dendronhq/dendron-cli
 @fsouza/prettierd
 eslint_d
+get-title
