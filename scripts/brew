@@ -98,10 +98,8 @@ brew install entr # https://github.com/eradman/entr
 brew install hexyl # https://github.com/sharkdp/hexyl
 brew install duf # https://github.com/muesli/duf -- Disk Usage/Free Utility - a better 'df' alternative
 brew install dog # https://github.com/ogham/dog
-brew install pnpm # https://pnpm.io/installation
 brew install scmpuff # https://github.com/mroth/scmpuff
 brew install direnv # https://github.com/direnv/direnv
-brew install pnpm # https://pnpm.io
 brew install egoist/tap/dum # https://github.com/egoist/dum
 brew install pnpm # https://pnpm.io/
 brew install bash-snippets # https://github.com/alexanderepstein/Bash-Snippets
