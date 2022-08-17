@@ -41,15 +41,18 @@ end
 require('paq')({
   'savq/paq-nvim',
   'tpope/vim-sensible', -- sensible defaults
+
   'svermeulen/vimpeccable', -- Neovim plugin that allows you to easily map keys directly to lua code inside your init.lua
   'wincent/pinnacle', -- Required for namjul.statusline. Highlight group manipulation utils
+
   'tpope/vim-repeat', -- enables the repeat command to work with external plugins
   'tpope/vim-fugitive', -- git integration
   'rbong/vim-flog', -- git branch viewer
   'tpope/vim-rhubarb', -- open files on github
-  'tpope/vim-surround', -- adds operators for surrounding characters
+  'tpope/vim-surround', -- adds operators for surrounding characters TODO replace with 'machakann/vim-sandwich', (http://joereynoldsaudio.com/2020/01/22/vim-sandwich-is-better-than-surround.html)
   'tpope/vim-unimpaired', -- set of complementary pair commands
   'tpope/vim-abolish', -- Case-preserving find and replace
+
   'tomtom/tcomment_vim', -- Temporarily commenting
   'svermeulen/vim-cutlass', -- seperate `cut` form `delete`
   'svermeulen/vim-subversive', -- adds a subsitute operator
