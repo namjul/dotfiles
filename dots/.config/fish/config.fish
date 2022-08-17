@@ -44,7 +44,6 @@ if status is-interactive
   end
 
   starship init fish | source
-  thefuck --alias | source
   zoxide init fish | source
   direnv hook fish | source
   # scmpuff init -s --shell=fish | source
