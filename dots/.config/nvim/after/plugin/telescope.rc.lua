@@ -1,3 +1,9 @@
+local has_telescope = pcall(require, 'telescope')
+
+if not has_telescope then
+  return
+end
+
 local actions = require('telescope.actions')
 
 require('telescope').setup({

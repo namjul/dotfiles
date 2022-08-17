@@ -1,3 +1,9 @@
+local has_luasnip = pcall(require, 'luasnip')
+
+if not has_luasnip then
+  return
+end
+
 local ls = require('luasnip')
 local getUrlTitle = require('namjul.functions.getUrlTitle')
 local s = ls.snippet

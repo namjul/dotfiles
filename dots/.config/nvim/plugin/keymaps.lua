@@ -1,10 +1,26 @@
-local vimp = require('vimp')
+local has_which_key = pcall(require, 'which-key')
+local has_vimp = pcall(require, 'vimp')
+
+if not has_which_key or not has_vimp then
+  return
+end
+
+
 local cmd = vim.cmd -- to execute Vim commands e.g. cmd('pwd')
 local fn = vim.fn -- to call Vim functions e.g. fn.bufnr()
 local util = require('namjul.utils')
 local map = util.map
 local var = util.var
 local wk = require('which-key')
+local vimp = require('vimp')
+
+wk.setup {
+  ignore_missing = false
+  -- your configuration comes here
+  -- or leave it empty to use the default settings
+  -- refer to the configuration section below
+}
+
 
 -- LEADER
 --------------------

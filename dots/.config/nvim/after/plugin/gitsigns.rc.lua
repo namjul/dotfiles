@@ -1,3 +1,9 @@
+local has_gitsigns = pcall(require, 'gitsigns')
+
+if not has_gitsigns then
+  return
+end
+
 local util = require('namjul.utils')
 local map = util.map
 
@@ -8,8 +14,8 @@ require('gitsigns').setup({
   },
   on_attach = function(bufnr)
     -- Navigation
-    map.b('n', ']c', "&diff ? ']c' : '<cmd>Gitsigns next_hunk<CR>'", {expr=true}, bufnr)
-    map.b('n', '[c', "&diff ? '[c' : '<cmd>Gitsigns prev_hunk<CR>'", {expr=true}, bufnr)
+    map.b('n', ']c', "&diff ? ']c' : '<cmd>Gitsigns next_hunk<CR>'", { expr = true }, bufnr)
+    map.b('n', '[c', "&diff ? '[c' : '<cmd>Gitsigns prev_hunk<CR>'", { expr = true }, bufnr)
 
     -- Actions
     map.b('n', '<leader>hs', ':Gitsigns stage_hunk<CR>', {}, bufnr)
@@ -29,5 +35,5 @@ require('gitsigns').setup({
     -- Text object
     map.b('o', 'ih', ':<C-U>Gitsigns select_hunk<CR>', {}, bufnr)
     map.b('x', 'ih', ':<C-U>Gitsigns select_hunk<CR>', {}, bufnr)
-  end
+  end,
 })

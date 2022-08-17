@@ -1,3 +1,9 @@
+local has_neuron = pcall(require, 'neuron')
+
+if not has_neuron then
+  return
+end
+
 -- require('neuron').setup({
 --   virtual_titles = true,
 --   mappings = true,

@@ -1,9 +1,18 @@
+local has_lspconfig = pcall(require, 'lspconfig')
+local has_vimp = pcall(require, 'vimp')
+
+if not has_lspconfig or not has_vimp then
+  return
+end
+
 local lspconfig = require('lspconfig')
 local vimp = require('vimp')
 local util = require('namjul.utils')
 
 local on_attach = function(_, bufnr)
   --- mappings ---
+
+  -- TODO move into keymaps.lua
 
   local opts = { 'silent', 'override' }
 

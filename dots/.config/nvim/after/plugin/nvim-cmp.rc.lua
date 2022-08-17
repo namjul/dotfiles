@@ -1,3 +1,11 @@
+local has_cmp = pcall(require, 'cmp')
+local has_tabout = pcall(require, 'tabout')
+local has_luasnip = pcall(require, 'luasnip')
+
+if not has_cmp or not has_tabout or not has_luasnip then
+  return
+end
+
 local cmp = require('cmp')
 local luasnip = require('luasnip')
 local tabout = require('tabout')

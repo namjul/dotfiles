@@ -1,3 +1,9 @@
+local has_nvim_treesitter = pcall(require, 'nvim-treesitter')
+
+if not has_nvim_treesitter then
+  return
+end
+
 require('nvim-treesitter.configs').setup({
   highlight = {
     enable = true,
