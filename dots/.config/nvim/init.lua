@@ -87,7 +87,6 @@ require('paq')({
   'csexton/trailertrash.vim', -- highlight trailing whitespace
   'kassio/neoterm', -- simple terminal access
   'godlygeek/tabular', -- auto alignment
-  -- { 'namjul/vim-markdown', branch = 'wikilinks' }, -- own fork of that adds wikilinks support
   'tpope/vim-obsession', -- helper to start vim sessions
   'ellisonleao/glow.nvim', -- markdown preview
   {
@@ -117,7 +116,7 @@ require('paq')({
   'folke/which-key.nvim',
   'abecodes/tabout.nvim', -- tabbing out from parentheses, quotes, and similar contexts today.
   'rest-nvim/rest.nvim', -- http client in neovim
-  'monaqa/dial.nvim'
+  'monaqa/dial.nvim',
 })
 
 -- vim.opt.runtimepath:append '~/code/dendron.nvim'  -- Use an absolute path
@@ -154,7 +153,7 @@ opt.g({
 
 -- opt.g currenlty does not support tables
 vim.opt.fillchars = {
-  vert = " ",
+  vert = ' ',
 }
 
 -- Window
@@ -176,6 +175,6 @@ opt.b({
 
 vim.cmd('colorscheme gruvbox')
 
-if util.readable(vim.fn.expand("~/.vimrc_background")) then
+if util.readable(vim.fn.expand('~/.vimrc_background')) then
   vim.cmd('source ~/.vimrc_background')
 end
