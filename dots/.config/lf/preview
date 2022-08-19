@@ -12,12 +12,7 @@ image() {
 batorcat() {
 	file="$1"
 	shift
-	if command -v bat > /dev/null 2>&1
-	then
-		bat --color=always --style=plain --pager=never "$file" "$@"
-	else
-		cat "$file"
-	fi
+	cat "$file"
 }
 
 CACHE="$HOME/.cache/lf/thumbnail.$(stat --printf '%n\0%i\0%F\0%s\0%W\0%Y' -- "$(readlink -f "$1")" | sha256sum | awk '{print $1}'))"
