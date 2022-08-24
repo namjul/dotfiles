@@ -28,3 +28,9 @@ util.createAugroup({
 util.createAugroup({
   { 'BufNewFile', '*.sh', 'lua', 'require"namjul.autocmds".skeleton("~/.config/nvim/templates/skeleton.sh")' },
 }, 'namjulskeletons')
+
+
+util.createAugroup({
+  { 'BufRead', 'tsconfig.*.json', 'set filetype=jsonc' },
+  { 'BufNewFile', 'tsconfig.*.json', 'set filetype=jsonc' },
+}, 'JsoncFilterType')

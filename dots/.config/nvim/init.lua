@@ -114,7 +114,6 @@ require('paq')({
   'hrsh7th/cmp-path',
   'hrsh7th/cmp-buffer',
   'saadparwaiz1/cmp_luasnip', -- nvim-cmp source for Luasnip
-  'kevinoid/vim-jsonc',
   -- { 'oberblastmeister/neuron.nvim', branch = 'unstable' },
   'namjul/dendron.nvim',
   'mracos/mermaid.vim',
