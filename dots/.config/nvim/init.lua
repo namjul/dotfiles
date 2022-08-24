@@ -122,6 +122,7 @@ require('paq')({
   'abecodes/tabout.nvim', -- tabbing out from parentheses, quotes, and similar contexts today.
   'rest-nvim/rest.nvim', -- http client in neovim
   'monaqa/dial.nvim',
+  'wsdjeg/vim-fetch'
 })
 
 -- vim.opt.runtimepath:append '~/code/dendron.nvim'  -- Use an absolute path

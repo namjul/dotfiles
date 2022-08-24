@@ -127,7 +127,7 @@ wk.register({
   },
   p = {
     function()
-      local file = fn.join({ fn.expand('%'), fn.line('.') })
+      local file = fn.join({ fn.expand('%'), fn.line('.'), fn.col('.') }, ':')
       cmd('let @+="' .. file .. '"')
       print(file)
     end,
