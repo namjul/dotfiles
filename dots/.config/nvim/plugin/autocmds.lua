@@ -31,6 +31,6 @@ util.createAugroup({
 
 
 util.createAugroup({
-  { 'BufRead', 'tsconfig.*.json', 'set filetype=jsonc' },
-  { 'BufNewFile', 'tsconfig.*.json', 'set filetype=jsonc' },
+  { 'BufRead', 'tsconfig*.json', 'set filetype=jsonc' },
+  { 'BufNewFile', 'tsconfig*.json', 'set filetype=jsonc' },
 }, 'JsoncFilterType')
