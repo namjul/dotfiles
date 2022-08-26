@@ -88,7 +88,7 @@ require('paq')({
   'mattn/webapi-vim', -- needed for `gist-vim`
   'norcalli/nvim-colorizer.lua', -- The fastest Neovim colorizer.
   'machakann/vim-highlightedyank', -- highlights yanked text
-  'dkarter/bullets.vim', -- enhance bullet points management
+  'dkarter/bullets.vim', -- enhance bullet points management TODO replace with 'gaoDean/autolist.nvim' when checkboxes are supported
   'csexton/trailertrash.vim', -- highlight trailing whitespace
   'kassio/neoterm', -- simple terminal access
   'godlygeek/tabular', -- auto alignment
