@@ -5,7 +5,6 @@ if not has_which_key or not has_vimp then
   return
 end
 
-
 local cmd = vim.cmd -- to execute Vim commands e.g. cmd('pwd')
 local fn = vim.fn -- to call Vim functions e.g. fn.bufnr()
 local util = require('namjul.utils')
@@ -14,13 +13,9 @@ local var = util.var
 local wk = require('which-key')
 local vimp = require('vimp')
 
-wk.setup {
-  ignore_missing = false
-  -- your configuration comes here
-  -- or leave it empty to use the default settings
-  -- refer to the configuration section below
-}
-
+wk.setup({
+  ignore_missing = false,
+})
 
 -- LEADER
 --------------------
@@ -77,6 +72,13 @@ wk.register({
   ['<S-Down>'] = { ':lnext<CR>', 'Next in location list' },
   ['<S-Left>'] = { ':lpfile<CR>', 'Last Error in location list' },
   ['<S-Right>'] = { ':lnfile<CR>', 'First Error in location list' },
+  p = { '<Plug>(YankyPutAfter)', 'Put yank after' },
+  P = { '<Plug>(YankyPutBefore)', 'Put yank before' },
+  gp = { '<Plug>(YankyGPutAfter)', 'Put yank after leaving cursor after text' },
+  gP = { '<Plug>(YankyGPutBefore)', 'Put yank before leaving cursor after text' },
+  ['<c-n>'] = { '<Plug>(YankyCycleForward)', 'Yank cycle forward' },
+  ['<c-p>'] = { '<Plug>(YankyCycleBackward)', 'Yank cycle backward' },
+  y = { '<Plug>(YankyYank)', 'Yank which preserves cursor position' },
 }, defaultMapping)
 
 -- guifont mappings
@@ -104,6 +106,9 @@ if util.isNeoVide() then
     },
   }, defaultMapping)
 end
+
+-- LEADER
+--------------------
 
 wk.register({
   ['<leader>'] = { '<C-^>', 'Open last buffer' },
@@ -203,6 +208,14 @@ wk.register({
 
 -- VISUAL
 --------------------
+
+wk.register({
+  pp = { '<Plug>(YankyPutAfter)', 'Put yank after' },
+  P = { '<Plug>(YankyPutBefore)', 'Put yank before' },
+  gp = { '<Plug>(YankyGPutAfter)', 'Put yank after leaving cursor after text' },
+  gP = { '<Plug>(YankyGPutBefore)', 'Put yank before leaving cursor after text' },
+  y = { '<Plug>(YankyYank)', 'Yank which preserves cursor position' },
+}, util.shallow_merge(defaultMapping, { mode = 'x' }))
 
 -- COMMAND
 --------------------

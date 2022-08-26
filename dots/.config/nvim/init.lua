@@ -56,7 +56,7 @@ require('paq')({
   'tomtom/tcomment_vim', -- Temporarily commenting
   'svermeulen/vim-cutlass', -- seperate `cut` form `delete`
   'svermeulen/vim-subversive', -- adds a subsitute operator
-  'svermeulen/vim-yoink', -- adds easy access to history of yanks
+  'gbprod/yanky.nvim', -- adds easy access to history of yanks
   'wincent/loupe', -- enhancements to vim's search commands
   'wincent/scalpel', -- helper for search and replace
   'gpanders/editorconfig.nvim', -- support editor config files (https://editorconfig.org/)
@@ -87,7 +87,6 @@ require('paq')({
   'mattn/gist-vim', -- interact with github gist from vim
   'mattn/webapi-vim', -- needed for `gist-vim`
   'norcalli/nvim-colorizer.lua', -- The fastest Neovim colorizer.
-  'machakann/vim-highlightedyank', -- highlights yanked text
   'dkarter/bullets.vim', -- enhance bullet points management TODO replace with 'gaoDean/autolist.nvim' when checkboxes are supported
   'csexton/trailertrash.vim', -- highlight trailing whitespace
   'kassio/neoterm', -- simple terminal access
@@ -120,7 +119,7 @@ require('paq')({
   'folke/which-key.nvim',
   'abecodes/tabout.nvim', -- tabbing out from parentheses, quotes, and similar contexts today.
   'rest-nvim/rest.nvim', -- http client in neovim
-  'monaqa/dial.nvim',
+  'monaqa/dial.nvim', -- enhanced increment/decrement plugin for Neovim.
   'wsdjeg/vim-fetch'
 })
 
