@@ -21,6 +21,7 @@ require('nvim-treesitter.configs').setup({
     'fish',
     'markdown',
     'bash',
+    'rust',
     'php',
     'json',
     'http',
