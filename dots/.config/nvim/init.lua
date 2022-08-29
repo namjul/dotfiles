@@ -49,10 +49,10 @@ require('paq')({
   'tpope/vim-fugitive', -- git integration
   'rbong/vim-flog', -- git branch viewer
   'tpope/vim-rhubarb', -- open files on github
-  'tpope/vim-surround', -- adds operators for surrounding characters TODO replace with 'machakann/vim-sandwich', (http://joereynoldsaudio.com/2020/01/22/vim-sandwich-is-better-than-surround.html)
   'tpope/vim-unimpaired', -- set of complementary pair commands
   'tpope/vim-abolish', -- Case-preserving find and replace
 
+  'machakann/vim-sandwich', -- adds operators for surrounding characters
   'tomtom/tcomment_vim', -- Temporarily commenting
   'svermeulen/vim-cutlass', -- seperate `cut` form `delete`
   'svermeulen/vim-subversive', -- adds a subsitute operator
