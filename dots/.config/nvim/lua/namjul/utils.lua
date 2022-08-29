@@ -120,4 +120,16 @@ function M.is_directory(file_path)
   return vim.fn.isdirectory(file_path) ~= 0
 end
 
+-- from https://github.com/wincent/wincent/blob/b0a88e810481b0be31218eb1aa37104ce4874ee0/aspects/nvim/files/.config/nvim/lua/wincent/plugin/load.lua
+function M.loadPlugin(plugin)
+  if vim.v.vim_did_enter == 1 then
+    -- Modifies 'runtimepath' _and_ sources files.
+    vim.cmd('packadd ' .. plugin)
+  else
+    -- Just modifies 'runtimepath'; Vim will source the files later as part of
+    -- |load-plugins| process.
+    vim.cmd('packadd ' .. plugin)
+  end
+end
+
 return M

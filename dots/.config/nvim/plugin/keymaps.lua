@@ -193,6 +193,8 @@ wk.register({
   ['<C-i>'] = { ":lua require('dendron').openDailyNote()<CR>", 'Create Daily Note' },
   z = { ':ZenMode<CR>', 'Enter Zenmode' },
   m = { ':MaximizerToggle<CR>', 'Maximize window' },
+  n = { '<Plug>(LoupeClearHighlight)', 'Clear search highlight' },
+  e = { '<Plug>(Scalpel)', 'Replace word' },
   -- PLUGIN:harpoon
   a = { ':lua require("harpoon.mark").add_file()<CR>', 'Add file to harpoon' },
   s = { ':lua require("harpoon.ui").toggle_quick_menu()<CR>', 'Toggle harpoon menu' },
