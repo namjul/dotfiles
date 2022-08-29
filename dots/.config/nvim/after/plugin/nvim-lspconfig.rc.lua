@@ -1,54 +1,51 @@
 local has_lspconfig = pcall(require, 'lspconfig')
-local has_vimp = pcall(require, 'vimp')
 
-if not has_lspconfig or not has_vimp then
+if not has_lspconfig then
   return
 end
 
 local lspconfig = require('lspconfig')
-local vimp = require('vimp')
-local util = require('namjul.utils')
 
 local on_attach = function(_, bufnr)
   --- mappings ---
 
-  -- TODO move into keymaps.lua
-
-  local opts = { 'silent', 'override' }
-
   -- See `:help vim.lsp.*` for documentation on any of the below functions
-  vimp.add_buffer_maps(bufnr, function()
-    vimp.nnoremap(opts, '[d', function()
+  local mappings = {
+    ['[d'] = function()
       vim.diagnostic.goto_prev({ enable_popup = false })
-    end)
-    vimp.nnoremap(opts, ']d', function()
+    end,
+    [']d'] = function()
       vim.diagnostic.goto_next({ enable_popup = false })
-    end)
-    vimp.nnoremap(opts, 'gd', function()
+    end,
+    ['gd'] = function()
       vim.lsp.buf.definition()
-    end)
-    vimp.nnoremap(opts, 'K', function()
+    end,
+    ['K'] = function()
       if ({ vim = true, lua = true, help = true })[vim.bo.filetype] then
         vim.fn.execute('h ' .. vim.fn.expand('<cword>'))
       end
       vim.lsp.buf.hover()
-    end)
-    vimp.nnoremap(opts, '<leader>rn', function()
+    end,
+    ['<leader>rn'] = function()
       vim.lsp.buf.rename()
-    end)
-    vimp.nnoremap(opts, 'gr', function()
+    end,
+    ['gr'] = function()
       vim.lsp.buf.references()
-    end)
-    -- vimp.nnoremap(util.shallow_merge(opts, { 'repeatable' }), 'gp', function()
+    end,
+    -- ['gp']= function()
     --   vim.lsp.diagnostic.show_line_diagnostics({ show_header = false })
-    -- end)
-    -- vimp.nnoremap(opts, '<leader>d', function()
+    -- end,
+    -- ['<leader>d']= function()
     --   vim.lsp.diagnostic.set_loclist()
-    -- end)
-    vimp.nnoremap(opts, 'ff', function()
+    -- end,
+    ['ff'] = function()
       vim.lsp.buf.formatting()
-    end)
-  end)
+    end,
+  }
+
+  for k, v in pairs(mappings) do
+    vim.keymap.set('n', k, v, { buffer = bufnr, silent = true })
+  end
 
   -- formatting
   -- if client.resolved_capabilities.document_formatting then
@@ -88,16 +85,12 @@ local lsp_defaults = {
   --   vim.lsp.protocol.make_client_capabilities()
   -- ),
   on_attach = function()
-    vim.api.nvim_exec_autocmds('User', {pattern = 'LspAttached'})
-  end
+    vim.api.nvim_exec_autocmds('User', { pattern = 'LspAttached' })
+  end,
 }
 
 -- merge with lspconfig defaults
-lspconfig.util.default_config = vim.tbl_deep_extend(
-  'force',
-  lspconfig.util.default_config,
-  lsp_defaults
-)
+lspconfig.util.default_config = vim.tbl_deep_extend('force', lspconfig.util.default_config, lsp_defaults)
 
 --- setup typescript lsp ---
 
@@ -156,14 +149,13 @@ end
 
 --- setup rust lsp ---
 
-lspconfig['rust_analyzer'].setup{
-    on_attach = on_attach,
-    -- Server-specific settings...
-    settings = {
-      ["rust-analyzer"] = {}
-    }
-}
-
+lspconfig['rust_analyzer'].setup({
+  on_attach = on_attach,
+  -- Server-specific settings...
+  settings = {
+    ['rust-analyzer'] = {},
+  },
+})
 
 ---setup diagnostics with errorformat (efm) ---
 -- for available options see https://github.com/mattn/efm-langserver/blob/master/langserver/handler.go#L53

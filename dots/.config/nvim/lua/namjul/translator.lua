@@ -3,7 +3,6 @@
 -- Uses https://github.com/soimort/translate-shell
 -- TODO use https://github.com/nvim-lua/popup.nvim API
 
-local vimp = require('vimp')
 local api = vim.api
 local buf, win, word, language
 
@@ -72,9 +71,7 @@ local function set_mappings()
   }
 
   for k, v in pairs(mappings) do
-    vimp.add_buffer_maps(buf, function()
-      vimp.nnoremap(k, v)
-    end)
+    vim.keymap.set('n', k, v, { buffer = buf })
   end
 end
 

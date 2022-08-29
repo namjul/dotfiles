@@ -1,7 +1,6 @@
 local has_which_key = pcall(require, 'which-key')
-local has_vimp = pcall(require, 'vimp')
 
-if not has_which_key or not has_vimp then
+if not has_which_key then
   return
 end
 
@@ -11,7 +10,6 @@ local util = require('namjul.utils')
 local map = util.map
 local var = util.var
 local wk = require('which-key')
-local vimp = require('vimp')
 
 wk.setup({
   ignore_missing = false,
@@ -120,8 +118,6 @@ wk.register({
   o = { ':only<CR>', 'Close all windows but active one' },
   r = {
     function()
-      -- Remove all previously added vimpeccable maps
-      vimp.unmap_all()
       -- Unload the lua namespace so that the next time require('config.X') is called
       -- it will reload the file
       require('namjul.utils').unload_lua_namespace('namjul')

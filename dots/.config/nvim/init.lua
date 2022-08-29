@@ -42,7 +42,6 @@ require('paq')({
   'savq/paq-nvim',
   'tpope/vim-sensible', -- sensible defaults
 
-  'svermeulen/vimpeccable', -- Neovim plugin that allows you to easily map keys directly to lua code inside your init.lua
   'wincent/pinnacle', -- Required for namjul.statusline. Highlight group manipulation utils
 
   'tpope/vim-repeat', -- enables the repeat command to work with external plugins
