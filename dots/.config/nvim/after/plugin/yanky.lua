@@ -1,3 +1,9 @@
+local has_yanky = pcall(require, 'yanky')
+
+if not has_yanky then
+  return
+end
+
 require('yanky').setup({
   highlight = {
     on_put = true,
