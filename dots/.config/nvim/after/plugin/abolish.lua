@@ -4,4 +4,5 @@ vim.cmd([[
   Abolish fucnton function
   Abolish fucntion function
   Abolish fuction function
+  Abolish sord sort
 ]])
