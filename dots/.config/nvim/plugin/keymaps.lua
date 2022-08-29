@@ -63,6 +63,10 @@ wk.register({
     'store relative line number jumps in the jumplist if they exceed a threshold.',
     expr = true,
   },
+  ['<C-L>'] = {
+    ":lua require('dendron._telescope').lookup(require('telescope.themes').get_ivy({}))<CR>",
+    'Lookup in Dendron',
+  },
   -- repurpose cursor keys (accessible near homerow via "SpaceFN" layout) for one of my most oft-use key sequences.
   ['<Up>'] = { ':cprevious<CR>', 'Previous in quickfix list' },
   ['<Down>'] = { ':cnext<CR>', 'Next in quickfix list' },
@@ -163,7 +167,6 @@ wk.register({
     ":lua require('telescope.builtin').live_grep(require('telescope.themes').get_ivy({}))<CR>",
     'Search word',
   },
-  -- f = { ":lua require('namjul.functions.telescope').findFiles()<CR>", 'Find Files' },
   f = {
     name = 'file', -- optional group name
     f = { ":lua require('namjul.functions.telescope').findFiles()<CR>", 'Find Files' },
@@ -176,10 +179,7 @@ wk.register({
     d = { require('namjul.functions.telescope').searchDotfiles, 'Search dotfiles' },
     g = {
       b = { ":lua require('telescope.builtin').git_branches()<CR>", 'Find branch' },
-    },
-    l = {
-      ":lua require('dendron._telescope').lookup(require('telescope.themes').get_ivy({}))<CR>",
-      'Lookup in Dendron',
+      c = { ":lua require('telescope.builtin').git_commits()<CR>", 'Find buffer commits' },
     },
     y = { ':NV<CR>', 'Search in Dendron' },
   },
