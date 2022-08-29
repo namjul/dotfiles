@@ -61,7 +61,6 @@ require('paq')({
   'wincent/scalpel', -- helper for search and replace
   'gpanders/editorconfig.nvim', -- support editor config files (https://editorconfig.org/)
   'nvim-lua/plenary.nvim',
-  'unblevable/quick-scope', -- `f` and `F` character highlight
 
   'nvim-telescope/telescope.nvim',
   { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' },
