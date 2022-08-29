@@ -22,17 +22,26 @@ end
 
 argparse --name=my_function 'h/help' 'n/name=' -- $argv
 
+  # setup https://www.latlong.net/
+  set latitude "48.208176"
+  set longtitue "16.373819"
+
+  set location "$latitude-$longtitue"
   set dayOfYear (date +%j)
-  set location "AUXX0025" # from: https://weather.codes/search/
   set tmpfile /tmp/$location.$dayOfYear.out
 
   if not test -e "$tmpfile"
-    wget -q "https://weather.com/weather/today/l/$location" -O "$tmpfile"
+    set result (wget -q -O - "http://api.sunrise-sunset.org/json?lat=$latitude&lng=$longtitue&date=today" | jq -r '.results | {sunrise, sunset} | join("\\\n")')
+    if test -n "$result"
+      echo "$result" > "$tmpfile"
+    else
+      echo "nothing"
+      return 1
+    end
   end
 
-  set SUNR (grep SunriseSunset "$tmpfile" | grep -oE '((1[0-2]|0?[1-9]):([0-5][0-9]) ?([AaPp][Mm]))' | head -1)
-  set SUNS (grep SunriseSunset "$tmpfile" | grep -oE '((1[0-2]|0?[1-9]):([0-5][0-9]) ?([AaPp][Mm]))' | tail -1)
-
+  set SUNR (echo -e (cat "$tmpfile") | head -1)
+  set SUNS (echo -e (cat "$tmpfile") | tail -1)
 
   set sunrise (date --date="$SUNR" +%s)
   set sunset (date --date="$SUNS" +%s)
