@@ -11,4 +11,5 @@ vim.cmd([[
   Abolish fucntion function
   Abolish fuction function
   Abolish sord sort
+  Abolish dendorn dendron
 ]])
