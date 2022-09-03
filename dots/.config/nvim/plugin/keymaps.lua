@@ -80,6 +80,7 @@ wk.register({
   gP = { '<Plug>(YankyGPutBefore)', 'Put yank before leaving cursor after text' },
   ['<c-n>'] = { '<Plug>(YankyCycleForward)', 'Yank cycle forward' },
   ['<c-p>'] = { '<Plug>(YankyCycleBackward)', 'Yank cycle backward' },
+  ['<c-k>'] = { ":lua require('namjul.functions.telescope').findFiles()<CR>", 'Go to File' },
   y = { '<Plug>(YankyYank)', 'Yank which preserves cursor position' },
 }, defaultMapping)
 
@@ -164,10 +165,9 @@ wk.register({
     'Search word',
   },
   f = {
-    name = 'file', -- optional group name
-    f = { ":lua require('namjul.functions.telescope').findFiles()<CR>", 'Find Files' },
+    name = 'find',
     r = { ":lua require('namjul.functions.telescope').findRecent()<CR>", 'Find Recent Files' },
-    c = { ":lua require('namjul.functions.telescope').findMostWanted()<CR>", 'Find Most Wanted Files' },
+    c = { ":lua require('namjul.functions.telescope').findMostWanted()<CR>", 'Find Most Wanted Folders' },
     b = {
       ":lua require('telescope.builtin').buffers(require('telescope.themes').get_ivy({}))<CR>",
       'Find Buffer',
