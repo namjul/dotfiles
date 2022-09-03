@@ -50,6 +50,8 @@ abbr repl 'NODE_PATH=(npm root -g) node'
 abbr tst 'toggl start'
 abbr tsp 'toggl stop'
 abbr tc 'toggl continue'
+abbr tn 'toggl now'
+abbr ts 'toggl sum'
 
 # ls
 if type -q exa
