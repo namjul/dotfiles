@@ -202,6 +202,20 @@ wk.register({
   k = { ':lua require("harpoon.ui").nav_file(2)<CR>', 'Harpoon: Goto(2)' },
   l = { ':lua require("harpoon.ui").nav_file(3)<CR>', 'Harpoon: Goto(3)' },
   ['ö'] = { ':lua require("harpoon.ui").nav_file(4)<CR>', 'Harpoon: Goto(4)' },
+  dp = {
+    function()
+      return require('debugprint').debugprint()
+    end,
+    'DebugPrint',
+    expr = true
+  },
+  dv = {
+    function()
+      return require('debugprint').debugprint({ variable = true })
+    end,
+    'DebugPrint',
+    expr = true
+  },
 }, util.shallow_merge(defaultMapping, { prefix = '<leader>' }))
 
 -- VISUAL

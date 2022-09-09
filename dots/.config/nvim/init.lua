@@ -123,7 +123,8 @@ require('paq')({
   { 'abecodes/tabout.nvim', opt = true }, -- tabbing out from parentheses, quotes, and similar contexts today.
   { 'rest-nvim/rest.nvim', opt = true }, -- http client in neovim
   { 'monaqa/dial.nvim', opt = true }, -- enhanced increment/decrement plugin for Neovim.
-  { 'wsdjeg/vim-fetch', opt = true },
+  { 'wsdjeg/vim-fetch', opt = true }, -- enables to process line and column jump specifications
+  { 'andrewferrier/debugprint.nvim', opt = true }
 })
 
 if vim.o.loadplugins then
@@ -192,6 +193,7 @@ if vim.o.loadplugins then
     util.loadPlugin('rest.nvim')
     util.loadPlugin('vim-fetch')
     util.loadPlugin('dendron.nvim')
+    util.loadPlugin('debugprint.nvim')
   end
 end
 
