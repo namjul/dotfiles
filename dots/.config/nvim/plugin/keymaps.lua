@@ -188,6 +188,7 @@ wk.register({
   -- ['<C-j>'] = { ':below sp new<CR>', 'Open new file below' },
   -- ['<C-k>'] = { ':above sp new<CR>', 'Open new file above' },
   -- ['<C-l>'] = { ':rightb vsp new<CR>', 'Open new file to the right' },
+  ['1'] = { ':RooterToggle<CR>', 'Execute current file', silent = false },
   ['2'] = { ':w<CR>:! ./%<CR>', 'Execute current file' },
   -- PLUGIN:dendron
   ['<C-i>'] = { ":lua require('dendron').openDailyNote()<CR>", 'Create Daily Note' },
