@@ -56,8 +56,6 @@
 
   g       = grep --line-number --break --heading
 
-  setpromail = config user.email 'samuel.hobl@adverity.com'
-
   aliases = !git config --get-regexp 'alias.*' | colrm 1 6 | sed 's/[ ]/ = /' | sort
 
 [apply]
@@ -113,8 +111,8 @@
 [init]
   defaultBranch = main
 [user]
-	name = Samuel Hobl
-	email = nam@hobl.at
+  name = Samuel Hobl
+  email = samuel.hobl@gmail.com
 [github]
   user = namjul
 [diff]
