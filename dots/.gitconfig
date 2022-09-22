@@ -110,9 +110,6 @@
   rebase = false
 [init]
   defaultBranch = main
-[user]
-  name = Samuel Hobl
-  email = samuel.hobl@gmail.com
 [github]
   user = namjul
 [diff]
