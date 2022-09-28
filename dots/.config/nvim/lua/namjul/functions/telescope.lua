@@ -3,7 +3,7 @@ local M = {}
 function M.findFiles(args)
   args = args or {}
   local opts = {
-    find_command = { 'rg', '--files' },
+    find_command = { 'rg', '--files', '--hidden', '--follow' },
     prompt_title = 'find files',
   }
 
