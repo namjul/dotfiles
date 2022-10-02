@@ -110,7 +110,7 @@ require('paq')({
   { 'szw/vim-maximizer', opt = true },
   { 'airblade/vim-rooter', opt = true },
   { 'neovim/nvim-lspconfig', opt = true },
-  { 'creativenull/efmls-configs-nvim', opt = true },
+  { 'jose-elias-alvarez/null-ls.nvim', opt = true },
   { 'AndrewRadev/switch.vim', opt = true }, -- fast boolean switch
   { 'hrsh7th/nvim-cmp', opt = true },
   { 'hrsh7th/cmp-nvim-lsp', opt = true },
@@ -183,7 +183,6 @@ if vim.o.loadplugins then
     util.loadPlugin('vim-maximizer')
     util.loadPlugin('vim-rooter')
     util.loadPlugin('nvim-lspconfig')
-    util.loadPlugin('efmls-configs-nvim')
     util.loadPlugin('nvim-cmp')
     util.loadPlugin('cmp-nvim-lsp')
     util.loadPlugin('cmp-path')
@@ -196,6 +195,7 @@ if vim.o.loadplugins then
     util.loadPlugin('dendron.nvim')
     util.loadPlugin('debugprint.nvim')
     util.loadPlugin('sniprun')
+    util.loadPlugin('null-ls.nvim')
   end
 end
 

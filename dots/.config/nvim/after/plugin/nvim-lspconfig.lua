@@ -39,7 +39,7 @@ local on_attach = function(_, bufnr)
     --   vim.lsp.diagnostic.set_loclist()
     -- end,
     ['ff'] = function()
-      vim.lsp.buf.formatting()
+      vim.lsp.buf.format({ async = true })
     end,
   }
 
@@ -79,7 +79,7 @@ vim.cmd([[
 
 local lsp_defaults = {
   flags = {
-    debounce_text_changes = 150,
+    debounce_text_changes = 250,
   },
   -- capabilities = require('cmp_nvim_lsp').update_capabilities(
   --   vim.lsp.protocol.make_client_capabilities()
@@ -157,108 +157,18 @@ lspconfig['rust_analyzer'].setup({
   },
 })
 
----setup diagnostics with errorformat (efm) ---
--- for available options see https://github.com/mattn/efm-langserver/blob/master/langserver/handler.go#L53
--- https://github.com/creativenull/efmls-configs-nvim/blob/main/supported-linters-and-formatters.md
+--- formating and diagnostics ---
 
-local efmls = require('efmls-configs')
-efmls.init({
+require('null-ls').setup({
+  on_attach = on_attach,
   root_dir = function(fname)
     return lspconfig.util.root_pattern('.git', 'dendron.yml')(fname)
   end,
-  on_attach = on_attach,
-  init_options = {
-    documentFormatting = true,
+  diagnostics_format = '[#{c}] #{m} (#{s})',
+  sources = {
+    require('null-ls').builtins.formatting.stylua,
+    require('null-ls').builtins.formatting.rustfmt,
+    require('null-ls').builtins.formatting.prettierd,
+    require('null-ls').builtins.diagnostics.eslint_d,
   },
 })
-
-local eslint = require('efmls-configs.linters.eslint_d')
-local fs = require('efmls-configs.fs')
-local bin = fs.executable('eslint_d', fs.Scope.NODE)
-local args = '--no-color --format visualstudio --stdin --stdin-filename ${INPUT}'
-eslint = vim.tbl_extend('force', eslint, {
-  lintCommand = string.format('%s %s', bin, args),
-  lintFormats = { '%f(%l,%c): %tarning %m', '%f(%l,%c): %rror %m' }, -- see https://eslint.org/docs/user-guide/formatters/#visualstudio formatter, https://github.com/reviewdog/errorformat
-})
-local prettier = require('efmls-configs.formatters.prettier_d')
-local stylua = require('efmls-configs.formatters.stylua')
-
-efmls.setup({
-  javascript = {
-    linter = eslint,
-    formatter = prettier,
-  },
-  typescript = { linter = eslint, formatter = prettier },
-  typescriptreact = { linter = eslint, formatter = prettier },
-  javascriptreact = { linter = eslint, formatter = prettier },
-  ['javascript.jsx'] = { linter = eslint, formatter = prettier },
-  ['typescript.tsx'] = { linter = eslint, formatter = prettier },
-  lua = { formatter = stylua },
-  markdown = { formatter = prettier },
-  html = { formatter = prettier },
-  handlebars = { formatter = prettier },
-  json = { formatter = prettier },
-  css = { formatter = prettier },
-})
-
---[[
-
-local eslint = {
-  prefix = 'eslint',
-  lintCommand = 'eslint_d -f visualstudio --stdin --stdin-filename ${INPUT}',
-  lintFormats = { '%f(%l,%c): %tarning %m', '%f(%l,%c): %rror %m' }, -- see https://eslint.org/docs/user-guide/formatters/#visualstudio formatter, https://github.com/reviewdog/errorformat
-  lintIgnoreExitCode = true,
-  lintStdin = true,
-}
-
-local stylua = {
-  prefix = 'stylua',
-  formatCommand = 'stylua --search-parent-directories --stdin-filepath=${INPUT} -',
-  formatStdin = true,
-}
-
-local prettier = {
-  formatCommand = 'prettier --stdin-filepath=${INPUT}',
-  formatStdin = true,
-}
-
-nvim_lsp.efm.setup({
-  -- cmd = { 'efm-langserver', '-logfile', '/tmp/efm.log', '-loglevel', '5' },
-  init_options = { documentFormatting = true },
-  on_attach = on_attach,
-  filetypes = {
-    'javascript',
-    'javascriptreact',
-    'javascript.jsx',
-    'typescript',
-    'typescriptreact',
-    'typescript.tsx',
-    'lua',
-    'markdown',
-    'json',
-    'css',
-  },
-  flags = {
-    debounce_text_changes = 150,
-  },
-  root_dir = function(fname)
-    return nvim_lsp.util.root_pattern('.eslintrc.js', '.git', 'dendron.yml')(fname)
-  end,
-  settings = {
-    rootMarkers = { '.eslintrc.js', '.git/' },
-    languages = {
-      typescript = { prettier, eslint },
-      javascript = { prettier, eslint },
-      typescriptreact = { prettier, eslint },
-      javascriptreact = { prettier, eslint },
-      ['javascript.jsx'] = { prettier, eslint },
-      ['typescript.tsx'] = { prettier, eslint },
-      lua = { stylua },
-      markdown = { prettier },
-      json = { prettier },
-      css = { prettier },
-    },
-  },
-})
-
---]]
