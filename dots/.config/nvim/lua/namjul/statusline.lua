@@ -3,10 +3,6 @@ local cmd = vim.cmd
 local has_pinnacle = pcall(require, 'wincent.pinnacle')
 local has_dendron = pcall(require, 'dendron')
 
-if not has_dendron or not has_pinnacle then
-  return
-end
-
 local pinnacle = require('wincent.pinnacle')
 
 
@@ -38,7 +34,7 @@ local defaultStl = {
   '%*', -- Reset highlight group.
   ' ', -- Space.
   '%=', -- switch to right side
-  '%{luaeval("require\'dendron\'.status()")}',
+  has_dendron and '%{luaeval("require\'dendron\'.status()")}' or '',
   ' ', -- Space.
   '%5*', -- Switch to User5 highlight group (italics).
   '%{luaeval("require\'namjul.statusline\'.rhs()")}',

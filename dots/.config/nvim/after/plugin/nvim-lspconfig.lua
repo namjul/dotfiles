@@ -104,6 +104,12 @@ lspconfig['rust_analyzer'].setup({
 
 --- formating and diagnostics ---
 
+local has_null_ls = pcall(require, 'null-ls')
+
+if not has_null_ls then
+  return
+end
+
 require('null-ls').setup({
   root_dir = function(fname)
     return lspconfig.util.root_pattern('.git', 'dendron.yml')(fname)

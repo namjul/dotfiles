@@ -130,6 +130,7 @@ require('paq')({
 })
 
 if vim.o.loadplugins then
+  util.loadPlugin('plenary.nvim')
   util.loadPlugin('vim-abolish')
   util.loadPlugin('gruvbox.nvim')
   util.loadPlugin('pinnacle')
@@ -146,13 +147,13 @@ if vim.o.loadplugins then
   util.loadPlugin('vim-subversive')
   util.loadPlugin('loupe')
   if not util.isVsCode() then
+    util.loadPlugin('dendron.nvim')
     util.loadPlugin('vim-repeat')
     util.loadPlugin('vim-fugitive')
     util.loadPlugin('vim-flog')
     util.loadPlugin('vim-rhubarb')
     util.loadPlugin('editorconfig.nvim')
     util.loadPlugin('scalpel')
-    util.loadPlugin('plenary.nvim')
     util.loadPlugin('telescope.nvim')
     util.loadPlugin('telescope-fzf-native.nvim')
     util.loadPlugin('telescope-fzf-writer.nvim')
@@ -193,7 +194,6 @@ if vim.o.loadplugins then
     util.loadPlugin('tabout.nvim')
     util.loadPlugin('rest.nvim')
     util.loadPlugin('vim-fetch')
-    util.loadPlugin('dendron.nvim')
     util.loadPlugin('debugprint.nvim')
     util.loadPlugin('sniprun')
     util.loadPlugin('null-ls.nvim')
