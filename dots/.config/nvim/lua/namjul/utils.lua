@@ -128,7 +128,7 @@ function M.loadPlugin(plugin)
   else
     -- Just modifies 'runtimepath'; Vim will source the files later as part of
     -- |load-plugins| process.
-    vim.cmd('packadd ' .. plugin)
+    vim.cmd('packadd! ' .. plugin)
   end
 end
 
