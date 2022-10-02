@@ -84,8 +84,48 @@ wk.register({
   y = { '<Plug>(YankyYank)', 'Yank which preserves cursor position' },
   gr = {
     ':Trouble lsp_references<CR>',
-    'LSP References'
-  }
+    'LSP References',
+  },
+  ['[d'] = {
+    function()
+      vim.diagnostic.goto_prev({ enable_popup = false })
+    end,
+    'LSP Diagnostic Previous',
+  },
+  [']d'] = {
+    function()
+      vim.diagnostic.goto_next({ enable_popup = false })
+    end,
+    'LSP Diagnostic Next',
+  },
+  ['gd'] = {
+    function()
+      vim.lsp.buf.definition()
+    end,
+    'LSp Definition',
+  },
+  ['K'] = {
+    function()
+      if ({ vim = true, lua = true, help = true })[vim.bo.filetype] then
+        vim.fn.execute('h ' .. vim.fn.expand('<cword>'))
+      end
+      vim.lsp.buf.hover()
+    end,
+    'LSP Hover or Vim K',
+  },
+  ['<leader>rn'] = {
+    function()
+      vim.lsp.buf.rename()
+    end,
+    'LSP Rename',
+  },
+
+  ['ff'] = {
+    function()
+      vim.lsp.buf.format({ async = true })
+    end,
+    'LSP format'
+  },
 }, defaultMapping)
 
 -- guifont mappings
@@ -212,14 +252,14 @@ wk.register({
       return require('debugprint').debugprint()
     end,
     'DebugPrint',
-    expr = true
+    expr = true,
   },
   dv = {
     function()
       return require('debugprint').debugprint({ variable = true })
     end,
     'DebugPrint',
-    expr = true
+    expr = true,
   },
 }, util.shallow_merge(defaultMapping, { prefix = '<leader>' }))
 

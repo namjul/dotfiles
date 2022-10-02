@@ -6,58 +6,6 @@ end
 
 local lspconfig = require('lspconfig')
 
-local on_attach = function(_, bufnr)
-  --- mappings ---
-
-  -- See `:help vim.lsp.*` for documentation on any of the below functions
-  local mappings = {
-    ['[d'] = function()
-      vim.diagnostic.goto_prev({ enable_popup = false })
-    end,
-    [']d'] = function()
-      vim.diagnostic.goto_next({ enable_popup = false })
-    end,
-    ['gd'] = function()
-      vim.lsp.buf.definition()
-    end,
-    ['K'] = function()
-      if ({ vim = true, lua = true, help = true })[vim.bo.filetype] then
-        vim.fn.execute('h ' .. vim.fn.expand('<cword>'))
-      end
-      vim.lsp.buf.hover()
-    end,
-    ['<leader>rn'] = function()
-      vim.lsp.buf.rename()
-    end,
-    -- ['gr'] = function()
-    --   vim.lsp.buf.references()
-    -- end,
-    -- ['gp']= function()
-    --   vim.lsp.diagnostic.show_line_diagnostics({ show_header = false })
-    -- end,
-    -- ['<leader>d']= function()
-    --   vim.lsp.diagnostic.set_loclist()
-    -- end,
-    ['ff'] = function()
-      vim.lsp.buf.format({ async = true })
-    end,
-  }
-
-  for k, v in pairs(mappings) do
-    vim.keymap.set('n', k, v, { buffer = bufnr, silent = true })
-  end
-
-  -- formatting
-  -- if client.resolved_capabilities.document_formatting then
-  --   vim.cmd([[
-  --     augroup NamjulFormat
-  --     autocmd! * <buffer>
-  --     autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_seq_sync(nil, nil, { 'efm' })
-  --     augroup END
-  --   ]])
-  -- end
-end
-
 vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
   virtual_text = {
     spacing = 2,
@@ -96,7 +44,6 @@ lspconfig.util.default_config = vim.tbl_deep_extend('force', lspconfig.util.defa
 
 lspconfig.tsserver.setup({
   -- capabilities = capabilities,
-  on_attach = on_attach,
   filetypes = {
     'javascript',
     'javascriptreact',
@@ -130,7 +77,6 @@ end
 if cmd ~= nil then
   lspconfig.sumneko_lua.setup({
     cmd = cmd,
-    on_attach = on_attach,
     settings = {
       Lua = {
         diagnostics = {
@@ -150,7 +96,6 @@ end
 --- setup rust lsp ---
 
 lspconfig['rust_analyzer'].setup({
-  on_attach = on_attach,
   -- Server-specific settings...
   settings = {
     ['rust-analyzer'] = {},
@@ -160,7 +105,6 @@ lspconfig['rust_analyzer'].setup({
 --- formating and diagnostics ---
 
 require('null-ls').setup({
-  on_attach = on_attach,
   root_dir = function(fname)
     return lspconfig.util.root_pattern('.git', 'dendron.yml')(fname)
   end,
