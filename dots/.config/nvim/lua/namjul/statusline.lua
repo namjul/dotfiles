@@ -1,6 +1,14 @@
-local pinnacle = require('wincent.pinnacle')
 local util = require('namjul.utils')
 local cmd = vim.cmd
+local has_pinnacle = pcall(require, 'wincent.pinnacle')
+local has_dendron = pcall(require, 'dendron')
+
+if not has_dendron or not has_pinnacle then
+  return
+end
+
+local pinnacle = require('wincent.pinnacle')
+
 
 local defaultLhsColor = 'GruvboxFg4'
 local modifiedLhsColor = 'GruvboxGreen'

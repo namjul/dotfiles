@@ -29,9 +29,9 @@ local on_attach = function(_, bufnr)
     ['<leader>rn'] = function()
       vim.lsp.buf.rename()
     end,
-    ['gr'] = function()
-      vim.lsp.buf.references()
-    end,
+    -- ['gr'] = function()
+    --   vim.lsp.buf.references()
+    -- end,
     -- ['gp']= function()
     --   vim.lsp.diagnostic.show_line_diagnostics({ show_header = false })
     -- end,

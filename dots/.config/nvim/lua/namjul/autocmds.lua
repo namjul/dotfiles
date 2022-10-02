@@ -23,7 +23,7 @@ local function supportsBlurFocus(callback)
   local filetype = util.opt.b('filetype')
   local listed = util.opt.b('buflisted')
   local floatingWindow = vim.api.nvim_win_get_config(vim.api.nvim_get_current_win()).relative ~= ''
-  if autocmds.filetypeBlacklist[filetype] ~= true and listed and not floatingWindow then
+  if autocmds.filetypeBlacklist[filetype] ~= true and listed and not floatingWindow or autocmds.filetypeWhitelist[filetype] == true then
     callback(filetype)
   end
 end
@@ -108,5 +108,6 @@ function autocmds.skeleton(path)
 end
 
 autocmds.filetypeBlacklist = {}
+autocmds.filetypeWhitelist = { ['Trouble'] = true }
 
 return autocmds

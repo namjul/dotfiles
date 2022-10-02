@@ -126,6 +126,7 @@ require('paq')({
   { 'wsdjeg/vim-fetch', opt = true }, -- enables to process line and column jump specifications
   { 'andrewferrier/debugprint.nvim', opt = true },
   { 'michaelb/sniprun', opt = true, run = 'bash ./install.sh' },
+  { 'folke/trouble.nvim', opt = true },
 })
 
 if vim.o.loadplugins then
@@ -196,6 +197,7 @@ if vim.o.loadplugins then
     util.loadPlugin('debugprint.nvim')
     util.loadPlugin('sniprun')
     util.loadPlugin('null-ls.nvim')
+    util.loadPlugin('trouble.nvim')
   end
 end
 

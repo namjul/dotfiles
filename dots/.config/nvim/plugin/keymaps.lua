@@ -82,6 +82,10 @@ wk.register({
   ['<c-p>'] = { '<Plug>(YankyCycleBackward)', 'Yank cycle backward' },
   ['<c-k>'] = { ":lua require('namjul.functions.telescope').findFiles()<CR>", 'Go to File' },
   y = { '<Plug>(YankyYank)', 'Yank which preserves cursor position' },
+  gr = {
+    ':Trouble lsp_references<CR>',
+    'LSP References'
+  }
 }, defaultMapping)
 
 -- guifont mappings
