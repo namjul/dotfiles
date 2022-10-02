@@ -90,7 +90,7 @@ require('paq')({
   { 'rafamadriz/friendly-snippets', opt = true }, -- general snippets collection
   { 'mattn/gist-vim', opt = true }, -- interact with github gist from vim
   { 'mattn/webapi-vim', opt = true }, -- needed for `gist-vim`
-  { 'norcalli/nvim-colorizer.lua', opt = true }, -- The fastest Neovim colorizer.
+  { 'uga-rosa/ccc.nvim', opt = true }, -- Super powerful color picker / colorizer plugin.
   { 'dkarter/bullets.vim', opt = true }, -- enhance bullet points management TODO replace with 'gaoDean/autolist.nvim' when checkboxes are supported
   { 'csexton/trailertrash.vim', opt = true }, -- highlight trailing whitespace
   { 'godlygeek/tabular', opt = true }, -- auto alignment
@@ -170,7 +170,7 @@ if vim.o.loadplugins then
     util.loadPlugin('friendly-snippets')
     util.loadPlugin('gist-vim')
     util.loadPlugin('webapi-vim')
-    util.loadPlugin('nvim-colorizer.lua')
+    util.loadPlugin('ccc.nvim')
     util.loadPlugin('trailertrash.vim')
     util.loadPlugin('tabular')
     util.loadPlugin('vim-obsession')
