@@ -5,7 +5,7 @@
 # TODO use https://fostips.com/light-dark-command-ubuntu-22-04/
 
 function dark
-  nvim-ctrl 'set background=dark'
+  nvim-ctrl.sh ':set background=dark<CR>'
   alacritty-colorscheme apply gruvbox-dark.yml
   gsettings set org.gnome.desktop.interface color-scheme prefer-dark
   echo 'set background=dark' >~/.vimrc_background
@@ -13,7 +13,7 @@ function dark
 end
 
 function light
-  nvim-ctrl 'set background=light'
+  nvim-ctrl.sh ':set background=light<CR>'
   alacritty-colorscheme apply gruvbox-light.yml
   gsettings set org.gnome.desktop.interface color-scheme prefer-light
   echo 'set background=light' >~/.vimrc_background
