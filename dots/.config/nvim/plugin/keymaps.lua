@@ -81,6 +81,7 @@ wk.register({
   ['<c-n>'] = { '<Plug>(YankyCycleForward)', 'Yank cycle forward' },
   ['<c-p>'] = { '<Plug>(YankyCycleBackward)', 'Yank cycle backward' },
   ['<c-k>'] = { ":lua require('namjul.functions.telescope').findFiles()<CR>", 'Go to File' },
+  ['<c-s>'] = { '<Plug>(Switch)', 'Switch' },
   y = { '<Plug>(YankyYank)', 'Yank which preserves cursor position' },
   gr = {
     ':Trouble lsp_references<CR>',
@@ -124,8 +125,11 @@ wk.register({
     function()
       vim.lsp.buf.format({ async = true })
     end,
-    'LSP format'
+    'LSP format',
   },
+  s = { '<Plug>(leap-forward-to)', 'Leap forward to' },
+  S = { '<Plug>(leap-backward-to)', 'Leap backward to' },
+  gs = { '<Plug>(leap-cross-window)', 'Leap cross window' },
 }, defaultMapping)
 
 -- guifont mappings
@@ -241,8 +245,8 @@ wk.register({
   n = { '<Plug>(LoupeClearHighlight)', 'Clear search highlight' },
   e = { '<Plug>(Scalpel)', 'Replace word' },
   -- PLUGIN:harpoon
-  a = { ':lua require("harpoon.mark").add_file()<CR>', 'Add file to harpoon' },
-  s = { ':lua require("harpoon.ui").toggle_quick_menu()<CR>', 'Toggle harpoon menu' },
+  ba = { ':lua require("harpoon.mark").add_file()<CR>', 'Add file to harpoon' },
+  bl = { ':lua require("harpoon.ui").toggle_quick_menu()<CR>', 'Toggle harpoon menu' },
   j = { ':lua require("harpoon.ui").nav_file(1)<CR>', 'Harpoon: Goto(1)' },
   k = { ':lua require("harpoon.ui").nav_file(2)<CR>', 'Harpoon: Goto(2)' },
   l = { ':lua require("harpoon.ui").nav_file(3)<CR>', 'Harpoon: Goto(3)' },
@@ -261,6 +265,9 @@ wk.register({
     'DebugPrint',
     expr = true,
   },
+  s = { '<Plug>(SubversiveSubstitute)', 'Substitute' },
+  ss = { '<Plug>(SubversiveSubstituteLine)', 'Substitute line' },
+  S = { '<Plug>(SubversiveSubstituteToEndOfLine)', 'Substitute End of line' },
 }, util.shallow_merge(defaultMapping, { prefix = '<leader>' }))
 
 -- VISUAL
@@ -272,7 +279,19 @@ wk.register({
   gp = { '<Plug>(YankyGPutAfter)', 'Put yank after leaving cursor after text' },
   gP = { '<Plug>(YankyGPutBefore)', 'Put yank before leaving cursor after text' },
   y = { '<Plug>(YankyYank)', 'Yank which preserves cursor position' },
+  s = { '<Plug>(leap-forward-to)', 'Leap forward to' },
+  S = { '<Plug>(leap-backward-to)', 'Leap backward to' },
+  gs = { '<Plug>(leap-cross-window)', 'Leap cross window' },
 }, util.shallow_merge(defaultMapping, { mode = 'x' }))
+
+-- OPERATOR PENDING
+--------------------
+
+wk.register({
+  s = { '<Plug>(leap-forward-to)', 'Leap forward to' },
+  S = { '<Plug>(leap-backward-to)', 'Leap backward to' },
+  gs = { '<Plug>(leap-cross-window)', 'Leap cross window' },
+}, util.shallow_merge(defaultMapping, { mode = 'o' }))
 
 -- COMMAND
 --------------------

@@ -61,7 +61,7 @@ require('paq')({
   { 'tpope/vim-rhubarb', opt = true }, -- open files on github
   { 'tpope/vim-unimpaired', opt = true }, -- set of complementary pair commands
   { 'tpope/vim-abolish', opt = true }, -- Case-preserving find and replace
-  { 'machakann/vim-sandwich', opt = true }, -- adds operators for surrounding characters
+  { 'kylechui/nvim-surround', opt = true }, -- adds operators for surrounding characters
   { 'tomtom/tcomment_vim', opt = true }, -- Temporarily commenting
   { 'svermeulen/vim-cutlass', opt = true }, -- seperate `cut` form `delete`
   { 'svermeulen/vim-subversive', opt = true }, -- adds a subsitute operator
@@ -127,6 +127,7 @@ require('paq')({
   { 'andrewferrier/debugprint.nvim', opt = true },
   { 'michaelb/sniprun', opt = true, run = 'bash ./install.sh' },
   { 'folke/trouble.nvim', opt = true },
+  { 'ggandor/leap.nvim', opt = true }
 })
 
 if vim.o.loadplugins then
@@ -138,7 +139,7 @@ if vim.o.loadplugins then
   util.loadPlugin('vim-sensible')
   util.loadPlugin('vim-unimpaired')
   util.loadPlugin('tcomment_vim')
-  util.loadPlugin('vim-sandwich')
+  util.loadPlugin('nvim-surround')
   util.loadPlugin('which-key.nvim')
   util.loadPlugin('bullets.vim')
   util.loadPlugin('switch.vim')
@@ -198,6 +199,7 @@ if vim.o.loadplugins then
     util.loadPlugin('sniprun')
     util.loadPlugin('null-ls.nvim')
     util.loadPlugin('trouble.nvim')
+    util.loadPlugin('leap.nvim')
   end
 end
 
