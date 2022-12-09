@@ -34,9 +34,10 @@ brew install wget
 # neovim
 brew install neovim --HEAD
 
-# fzf
+# fuzzy find
 brew install fzf
 yes | $(brew --prefix)/opt/fzf/install
+brew install fzy
 
 # tmux
 brew install tmux
@@ -103,6 +104,8 @@ brew install direnv # https://github.com/direnv/direnv
 brew install egoist/tap/dum # https://github.com/egoist/dum
 brew install pnpm # https://pnpm.io/
 brew install bash-snippets # https://github.com/alexanderepstein/Bash-Snippets
+brew install gron # https://github.com/tomnomnom/gron
+brew install scc # https://github.com/boyter/scc
 
 # Remove outdated versions from the cellar
 brew cleanup
