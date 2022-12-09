@@ -1,0 +1,28 @@
+(
+    domain_crawl_limit: Finite(500000),
+    inflight_crawl_limit: Finite(10),
+    inflight_domain_limit: Finite(2),
+    run_wizard: true,
+    allow_list: [],
+    block_list: [
+        "web.archive.org",
+    ],
+    shortcut: "CmdOrCtrl+Shift+/",
+    data_directory: "/home/nam/.local/share/spyglass",
+    crawl_external_links: false,
+    disable_telemetry: false,
+    plugin_settings: {
+        "firefox-importer": {
+            "FIREFOX_DATA_FOLDER": "",
+        },
+        "chrome-importer": {
+            "CHROME_DATA_FOLDER": "",
+        },
+        "local-file-importer": {
+            "EXTS_LIST": "[\"md\",\"mdx\",\"txt\"]",
+            "FOLDERS_LIST": "[\"/home/nam/Dropbox/dendron\"]",
+        },
+    },
+    disable_autolaunch: false,
+    port: 4664,
+)
