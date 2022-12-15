@@ -62,7 +62,7 @@ wk.register({
     expr = true,
   },
   ['<C-L>'] = {
-    ":lua require('dendron._telescope').lookup(require('telescope.themes').get_ivy({}))<CR>",
+    ":lua require('dendron.telescope').lookup(require('telescope.themes').get_ivy({}))<CR>",
     'Lookup in Dendron',
   },
   -- repurpose cursor keys (accessible near homerow via "SpaceFN" layout) for one of my most oft-use key sequences.
