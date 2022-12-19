@@ -70,20 +70,20 @@ wk.register({
     'Lookup in Dendron',
   },
   -- repurpose cursor keys (accessible near homerow via "SpaceFN" layout) for one of my most oft-use key sequences.
-  ['<Up>'] = { ':cprevious<CR>', 'Previous in quickfix list' },
+  ['<Up>'] = { ':cprev<CR>', 'Previous in quickfix list' },
   ['<Down>'] = { ':cnext<CR>', 'Next in quickfix list' },
   ['<Left>'] = { ':cpfile<CR>', 'Last Error in quickfix list' },
   ['<Right>'] = { ':cnfile<CR>', 'First Error in quickfix list' },
-  ['<S-Up>'] = { ':lprevious<CR>', 'Previous in location list' },
+  ['<S-Up>'] = { ':lprev<CR>', 'Previous in location list' },
   ['<S-Down>'] = { ':lnext<CR>', 'Next in location list' },
   ['<S-Left>'] = { ':lpfile<CR>', 'Last Error in location list' },
   ['<S-Right>'] = { ':lnfile<CR>', 'First Error in location list' },
-  p = { '<Plug>(YankyPutAfter)', 'Put yank after' },
-  P = { '<Plug>(YankyPutBefore)', 'Put yank before' },
-  gp = { '<Plug>(YankyGPutAfter)', 'Put yank after leaving cursor after text' },
-  gP = { '<Plug>(YankyGPutBefore)', 'Put yank before leaving cursor after text' },
-  ['<c-n>'] = { '<Plug>(YankyCycleForward)', 'Yank cycle forward' },
-  ['<c-p>'] = { '<Plug>(YankyCycleBackward)', 'Yank cycle backward' },
+  -- p = { '<Plug>(YankyPutAfter)', 'Put yank after' },
+  -- P = { '<Plug>(YankyPutBefore)', 'Put yank before' },
+  -- gp = { '<Plug>(YankyGPutAfter)', 'Put yank after leaving cursor after text' },
+  -- gP = { '<Plug>(YankyGPutBefore)', 'Put yank before leaving cursor after text' },
+  -- ['<c-n>'] = { '<Plug>(YankyCycleForward)', 'Yank cycle forward' },
+  -- ['<c-p>'] = { '<Plug>(YankyCycleBackward)', 'Yank cycle backward' },
   ['<c-k>'] = { ":lua require('namjul.functions.telescope').findFiles()<CR>", 'Go to File' },
   ['<c-s>'] = { '<Plug>(Switch)', 'Switch' },
   y = { '<Plug>(YankyYank)', 'Yank which preserves cursor position' },
@@ -127,6 +127,7 @@ wk.register({
   s = { '<Plug>(leap-forward-to)', 'Leap forward to' },
   S = { '<Plug>(leap-backward-to)', 'Leap backward to' },
   gs = { '<Plug>(leap-cross-window)', 'Leap cross window' },
+  -- x = { ':!chmod +x %<CR>', "Make current file executable" },
 }, defaultMapping)
 
 -- guifont mappings
@@ -277,16 +278,17 @@ wk.register({
 --------------------
 
 wk.register({
-  p = { '<Plug>(YankyPutAfter)', 'Put yank after' },
-  P = { '<Plug>(YankyPutBefore)', 'Put yank before' },
-  gp = { '<Plug>(YankyGPutAfter)', 'Put yank after leaving cursor after text' },
-  gP = { '<Plug>(YankyGPutBefore)', 'Put yank before leaving cursor after text' },
-  y = { '<Plug>(YankyYank)', 'Yank which preserves cursor position' },
+  -- p = { '<Plug>(YankyPutAfter)', 'Put yank after' },
+  -- P = { '<Plug>(YankyPutBefore)', 'Put yank before' },
+  -- gp = { '<Plug>(YankyGPutAfter)', 'Put yank after leaving cursor after text' },
+  -- gP = { '<Plug>(YankyGPutBefore)', 'Put yank before leaving cursor after text' },
+  -- y = { '<Plug>(YankyYank)', 'Yank which preserves cursor position' },
   s = { '<Plug>(leap-forward-to)', 'Leap forward to' },
   S = { '<Plug>(leap-backward-to)', 'Leap backward to' },
   gs = { '<Plug>(leap-cross-window)', 'Leap cross window' },
   J = { ":m '>+1<CR>gv=gv", 'Move up' },
   K = { ":m '<-2<CR>gv=gv", 'move down' },
+  p = { [["_dP]], 'Paste without overide' },
 }, util.shallow_merge(defaultMapping, { mode = 'x' }))
 
 -- OPERATOR PENDING
