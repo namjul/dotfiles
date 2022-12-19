@@ -1,1 +1,0 @@
-require('namjul.translator')

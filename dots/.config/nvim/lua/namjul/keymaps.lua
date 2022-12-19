@@ -61,6 +61,7 @@ wk.register({
     'store relative line number jumps in the jumplist if they exceed a threshold.',
     expr = true,
   },
+  J = { 'mzJ`z', 'Join lines' },
   ['<C-L>'] = {
     ":lua require('dendron.telescope').lookup(require('telescope.themes').get_ivy({}))<CR>",
     'Lookup in Dendron',
@@ -165,6 +166,7 @@ wk.register({
   ['<leader>'] = { '<C-^>', 'Open last buffer' },
   -- disabled (using now `:%d` or `:%y`) a = { "ggVG", 'select all' }
   o = { ':only<CR>', 'Close all windows but active one' },
+  pv = { vim.cmd.Ex, 'Reload config' },
   r = {
     function()
       -- Unload the lua namespace so that the next time require('config.X') is called
@@ -282,6 +284,8 @@ wk.register({
   s = { '<Plug>(leap-forward-to)', 'Leap forward to' },
   S = { '<Plug>(leap-backward-to)', 'Leap backward to' },
   gs = { '<Plug>(leap-cross-window)', 'Leap cross window' },
+  J = { ":m '>+1<CR>gv=gv", 'Move up' },
+  K = { ":m '<-2<CR>gv=gv", 'move down' },
 }, util.shallow_merge(defaultMapping, { mode = 'x' }))
 
 -- OPERATOR PENDING

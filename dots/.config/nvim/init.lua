@@ -6,9 +6,8 @@
 -- ██║ ╚████║███████╗╚██████╔╝ ╚████╔╝ ██║██║ ╚═╝ ██║    ██║██║ ╚████║██║   ██║
 -- ╚═╝  ╚═══╝╚══════╝ ╚═════╝   ╚═══╝  ╚═╝╚═╝     ╚═╝    ╚═╝╚═╝  ╚═══╝╚═╝   ╚═╝
 
-local fn = vim.fn -- to call Vim functions e.g. fn.bufnr()
--- local inspect = vim.inspect -- pretty-print Lua objects (useful for inspecting tables)
 local util = require('namjul.utils')
+local fn = vim.fn -- to call Vim functions e.g. fn.bufnr()
 local opt = util.opt
 
 ----------------------------------------
@@ -41,6 +40,7 @@ vim.g.nv_search_paths = {
 vim.g.nv_ignore_pattern = { 'assets', '.git' }
 vim.g.winresizer_start_key = '<C-T>'
 vim.g.VimuxOrientation = 'h'
+vim.g.switch_mapping = ""
 
 ----------------------------------------
 -- Plugins
@@ -262,3 +262,42 @@ vim.cmd('colorscheme gruvbox')
 if util.readable(vim.fn.expand('~/.vimrc_background')) then
   vim.cmd('source ~/.vimrc_background')
 end
+
+util.createAugroup({
+  { 'Colorscheme', '*', 'lua require"namjul.statusline".updateHighlight()' }, -- trigger highlight update see https://vi.stackexchange.com/questions/3355/why-do-custom-highlights-in-my-vimrc-get-cleared-or-reset-to-default
+  {
+    'BufWinEnter,BufWritePost,FileWritePost,TextChanged,TextChangedI,WinEnter',
+    '*',
+    'lua',
+    'require"namjul.statusline".checkModified()',
+  },
+}, 'namjulstatusline')
+
+util.createAugroup({
+  { 'BufEnter', '*', 'lua', 'require"namjul.autocmds".bufEnter()' },
+  { 'BufLeave', '*', 'lua', 'require"namjul.autocmds".bufLeave()' },
+  { 'BufWinEnter', '*', 'lua', 'require"namjul.autocmds".bufWinEnter()' },
+  { 'BufWritePost', '*', 'lua', 'require"namjul.autocmds".bufWritePost()' },
+  { 'FocusGained', '*', 'lua', 'require"namjul.autocmds".focusGained()' },
+  { 'FocusLost', '*', 'lua', 'require"namjul.autocmds".focusLost()' },
+  { 'InsertEnter', '*', 'lua', 'require"namjul.autocmds".insertEnter()' },
+  { 'InsertLeave', '*', 'lua', 'require"namjul.autocmds".insertLeave()' },
+  { 'VimEnter', '*', 'lua', 'require"namjul.autocmds".vimEnter()' },
+  { 'WinEnter', '*', 'lua', 'require"namjul.autocmds".winEnter()' },
+  { 'WinLeave', '*', 'lua', 'require"namjul.autocmds".winLeave()' },
+  { 'InsertLeave', '*', 'set nopaste' }, --Disable paste mode on leaving insert mode.
+}, 'namjulautocmds')
+
+util.createAugroup({
+  { 'BufNewFile', '*.sh', 'lua', 'require"namjul.autocmds".skeleton("~/.config/nvim/templates/skeleton.sh")' },
+}, 'namjulskeletons')
+
+
+util.createAugroup({
+  { 'BufRead', 'tsconfig*.json', 'set filetype=jsonc' },
+  { 'BufNewFile', 'tsconfig*.json', 'set filetype=jsonc' },
+}, 'JsoncFilterType')
+
+require('namjul.statusline').set()
+require('namjul.translator')
+require('namjul.keymaps')
