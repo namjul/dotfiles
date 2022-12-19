@@ -46,6 +46,10 @@ local defaultMapping = {
 
 wk.register({
   ['-'] = { vim.cmd.Ex, 'Open Explore' },
+  ['<C-d>'] = { '<C-d>zz', 'Up' },
+  ['<C-u>'] = { '<C-u>zz', 'Down' },
+  n = { 'nzzzv', 'Search next' },
+  N = { 'Nzzzv', 'Search Previous' },
   Q = { '', 'avoid unintentional switches to Ex mode.' },
   gx = { ':!open <cWORD><CR>', 'open url' },
   -- ['<C-h>'] = { '<C-w>h', 'Focus window on the left' },
@@ -244,7 +248,7 @@ wk.register({
   ['<C-i>'] = { ":lua require('dendron').openDailyNote()<CR>", 'Create Daily Note' },
   z = { ':ZenMode<CR>', 'Enter Zenmode' },
   m = { ':MaximizerToggle<CR>', 'Maximize window' },
-  n = { '<Plug>(LoupeClearHighlight)', 'Clear search highlight' },
+  n = { ':nohlsearch<CR>', 'Clear search highlight' },
   e = { '<Plug>(Scalpel)', 'Replace word' },
   -- PLUGIN:harpoon
   ba = { ':lua require("harpoon.mark").add_file()<CR>', 'Add file to harpoon' },

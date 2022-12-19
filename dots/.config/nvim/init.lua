@@ -67,7 +67,6 @@ require('paq')({
   { 'svermeulen/vim-subversive', opt = true }, -- adds a subsitute operator
   { 'gbprod/yanky.nvim', opt = true }, -- adds easy access to history of yanks
   { 'wincent/pinnacle', opt = true }, -- Required for namjul.statusline. Highlight group manipulation utils
-  { 'wincent/loupe', opt = true }, -- enhancements to vim's search commands
   { 'wincent/scalpel', opt = true }, -- helper for search and replace
   { 'gpanders/editorconfig.nvim', opt = true }, -- support editor config files (https://editorconfig.org/)
   { 'nvim-lua/plenary.nvim', opt = true },
@@ -146,7 +145,6 @@ if vim.o.loadplugins then
   util.loadPlugin('dial.nvim')
   util.loadPlugin('vim-cutlass')
   util.loadPlugin('vim-subversive')
-  util.loadPlugin('loupe')
   if not util.isVsCode() then
     util.loadPlugin('dendron.nvim')
     util.loadPlugin('vim-repeat')
