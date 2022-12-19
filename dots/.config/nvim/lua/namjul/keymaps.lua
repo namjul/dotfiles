@@ -277,7 +277,7 @@ wk.register({
 --------------------
 
 wk.register({
-  pp = { '<Plug>(YankyPutAfter)', 'Put yank after' },
+  p = { '<Plug>(YankyPutAfter)', 'Put yank after' },
   P = { '<Plug>(YankyPutBefore)', 'Put yank before' },
   gp = { '<Plug>(YankyGPutAfter)', 'Put yank after leaving cursor after text' },
   gP = { '<Plug>(YankyGPutBefore)', 'Put yank before leaving cursor after text' },
