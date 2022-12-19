@@ -45,6 +45,7 @@ local defaultMapping = {
 }
 
 wk.register({
+  ['-'] = { vim.cmd.Ex, 'Open Explore' },
   Q = { '', 'avoid unintentional switches to Ex mode.' },
   gx = { ':!open <cWORD><CR>', 'open url' },
   -- ['<C-h>'] = { '<C-w>h', 'Focus window on the left' },
@@ -166,7 +167,6 @@ wk.register({
   ['<leader>'] = { '<C-^>', 'Open last buffer' },
   -- disabled (using now `:%d` or `:%y`) a = { "ggVG", 'select all' }
   o = { ':only<CR>', 'Close all windows but active one' },
-  pv = { vim.cmd.Ex, 'Reload config' },
   r = {
     function()
       -- Unload the lua namespace so that the next time require('config.X') is called

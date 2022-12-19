@@ -79,7 +79,7 @@ require('paq')({
   { 'alok/notational-fzf-vim', opt = true }, -- combines the fzf with the concept from notational
   { 'benmills/vimux', opt = true }, -- allows to send commands from vim to tmux
   { 'tyewang/vimux-jest-test', opt = true }, -- simplifies running jest test from vim
-  { 'justinmk/vim-dirvish', opt = true }, -- file explorer TODO try again replacing with elihunter173/dirbuf.nvim
+  { 'tpope/vim-vinegar', opt = true }, -- file explorer TODO try again replacing with elihunter173/dirbuf.nvim
   { 'jeffkreeftmeijer/vim-numbertoggle', opt = true }, -- improves the display of line numbers
   { 'jiangmiao/auto-pairs', opt = true }, -- auto closes pairs
   { 'Valloric/MatchTagAlways', opt = true }, -- highlights xml tags enclosing the cursor
@@ -163,7 +163,7 @@ if vim.o.loadplugins then
     util.loadPlugin('notational-fzf-vim')
     util.loadPlugin('vimux')
     util.loadPlugin('vimux-jest-test')
-    util.loadPlugin('vim-dirvish')
+    util.loadPlugin('vim-vinegar')
     util.loadPlugin('vim-numbertoggle')
     util.loadPlugin('auto-pairs')
     util.loadPlugin('MatchTagAlways')
