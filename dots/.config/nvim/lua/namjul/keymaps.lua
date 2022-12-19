@@ -25,8 +25,6 @@ var.b({ mapleader = ' ' })
 map.g('', 'Y', 'y$') -- multi-mode mappings (Normal, Visual, Operating-pending modes).
 
 -- moving text
--- map.g('v', 'J', ":m '>+1<CR>gv=gv")
--- map.g('v', 'K', ":m '<-2<CR>gv=gv")
 -- map.g('i', '<C-j>', '<esc>:m .+1<CR>==')
 -- map.g('i', '<C-k>', '<esc>:m .-2<CR>==')
 -- map.g('n', 'K', ':m .-2<CR>==')
@@ -120,13 +118,6 @@ wk.register({
     end,
     'LSP Hover or Vim K',
   },
-  ['<leader>rn'] = {
-    function()
-      vim.lsp.buf.rename()
-    end,
-    'LSP Rename',
-  },
-
   ['ff'] = {
     function()
       vim.lsp.buf.format({ async = true })
@@ -274,6 +265,12 @@ wk.register({
   s = { '<Plug>(SubversiveSubstitute)', 'Substitute' },
   ss = { '<Plug>(SubversiveSubstituteLine)', 'Substitute line' },
   S = { '<Plug>(SubversiveSubstituteToEndOfLine)', 'Substitute End of line' },
+  rn = {
+    function()
+      vim.lsp.buf.rename()
+    end,
+    'LSP Rename',
+  },
 }, util.shallow_merge(defaultMapping, { prefix = '<leader>' }))
 
 -- VISUAL
