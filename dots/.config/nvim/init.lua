@@ -46,13 +46,7 @@ vim.g.switch_mapping = ""
 -- Plugins
 ----------------------------------------
 
--- install pag-nvim
-local install_path = fn.stdpath('data') .. '/site/pack/paqs/start/paq-nvim'
-if fn.empty(fn.glob(install_path)) > 0 then
-  fn.system({ 'git', 'clone', '--depth=1', 'https://github.com/savq/paq-nvim.git', install_path })
-end
-
-require('paq')({
+local is_bootstrap = require('namjul.bootstrap').bootstrap_paq({
   'savq/paq-nvim',
   { 'tpope/vim-sensible', opt = true }, -- sensible defaults
   { 'tpope/vim-repeat', opt = true }, -- enables the repeat command to work with external plugins
@@ -128,6 +122,10 @@ require('paq')({
   { 'folke/trouble.nvim', opt = true },
   { 'ggandor/leap.nvim', opt = true }
 })
+
+if is_bootstrap then
+  return
+end
 
 if vim.o.loadplugins then
   util.loadPlugin('plenary.nvim')
