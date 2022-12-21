@@ -76,7 +76,7 @@ require('paq')({
   { 'ThePrimeagen/harpoon', opt = true }, -- navigation helper
   { 'junegunn/fzf', opt = true },
   { 'alok/notational-fzf-vim', opt = true }, -- combines the fzf with the concept from notational
-  { 'benmills/vimux', opt = true }, -- allows to send commands from vim to tmux
+  { 'preservim/vimux', opt = true }, -- allows to send commands from vim to tmux
   { 'tyewang/vimux-jest-test', opt = true }, -- simplifies running jest test from vim
   { 'tpope/vim-vinegar', opt = true }, -- file explorer TODO try again replacing with elihunter173/dirbuf.nvim
   { 'jeffkreeftmeijer/vim-numbertoggle', opt = true }, -- improves the display of line numbers

@@ -277,7 +277,11 @@ wk.register({
     'LSP Rename',
   },
   Y = { [["+Y]], 'Yank into clipboard' },
-  y = { [["+y]], "Yank into clipboard" }
+  y = { [["+y]], "Yank into clipboard" },
+  vp = { vim.cmd.VimuxPromptCommand, "Prompt for a command to run"},
+  vl = { vim.cmd.VimuxRunLastCommand, "Run last command executed by VimuxRunCommand"},
+  vi = { vim.cmd.VimuxInspectRunner, "Vimux Inspect runner pane"},
+  vz = { vim.cmd.VimuxZoomRunner, "Zoom the tmux runner pane"},
 }, util.shallow_merge(defaultMapping, { prefix = '<leader>' }))
 
 wk.register({
