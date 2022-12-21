@@ -84,7 +84,7 @@ wk.register({
   -- ['<c-n>'] = { '<Plug>(YankyCycleForward)', 'Yank cycle forward' },
   -- ['<c-p>'] = { '<Plug>(YankyCycleBackward)', 'Yank cycle backward' },
   y = { '<Plug>(YankyYank)', 'Yank which preserves cursor position' },
-  ['<c-k>'] = { ":lua require('namjul.functions.telescope').findGitFiles()<CR>", 'Go to File' },
+  ['<c-k>'] = { ":lua require('namjul.functions.telescope').findFiles()<CR>", 'Go to File' },
   ['<c-s>'] = { '<Plug>(Switch)', 'Switch' },
   gr = {
     ':Trouble lsp_references<CR>',
