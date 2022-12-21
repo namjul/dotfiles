@@ -14,6 +14,45 @@ function M.findFiles(args)
   require('telescope.builtin').find_files(require('telescope.themes').get_ivy(opts))
 end
 
+function M.findGitFiles(args)
+  args = args or {}
+  local opts = {
+    prompt_title = 'find git files',
+  }
+
+  for k, v in pairs(args) do
+    opts[k] = v
+  end
+
+  require('telescope.builtin').git_files(require('telescope.themes').get_ivy(opts))
+end
+
+function M.grepString(args)
+  args = args or {}
+  local opts = {
+    prompt_title = 'Grep string',
+  }
+
+  for k, v in pairs(args) do
+    opts[k] = v
+  end
+
+  require('telescope.builtin').grep_string(require('telescope.themes').get_ivy(opts))
+end
+
+function M.liveGrep(args)
+  args = args or {}
+  local opts = {
+    prompt_title = 'Live grep',
+  }
+
+  for k, v in pairs(args) do
+    opts[k] = v
+  end
+
+  require('telescope.builtin').live_grep(require('telescope.themes').get_ivy(opts))
+end
+
 function M.findMostWanted(args)
   args = args or {}
   local opts = {

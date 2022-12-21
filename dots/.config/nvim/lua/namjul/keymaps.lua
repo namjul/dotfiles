@@ -69,7 +69,6 @@ wk.register({
     ":lua require('dendron.telescope').lookup(require('telescope.themes').get_ivy({}))<CR>",
     'Lookup in Dendron',
   },
-  -- repurpose cursor keys (accessible near homerow via "SpaceFN" layout) for one of my most oft-use key sequences.
   ['<Up>'] = { ':cprev<CR>', 'Previous in quickfix list' },
   ['<Down>'] = { ':cnext<CR>', 'Next in quickfix list' },
   ['<Left>'] = { ':cpfile<CR>', 'Last Error in quickfix list' },
@@ -84,9 +83,9 @@ wk.register({
   -- gP = { '<Plug>(YankyGPutBefore)', 'Put yank before leaving cursor after text' },
   -- ['<c-n>'] = { '<Plug>(YankyCycleForward)', 'Yank cycle forward' },
   -- ['<c-p>'] = { '<Plug>(YankyCycleBackward)', 'Yank cycle backward' },
-  ['<c-k>'] = { ":lua require('namjul.functions.telescope').findFiles()<CR>", 'Go to File' },
+  -- y = { '<Plug>(YankyYank)', 'Yank which preserves cursor position' },
+  ['<c-k>'] = { ":lua require('namjul.functions.telescope').findGitFiles()<CR>", 'Go to File' },
   ['<c-s>'] = { '<Plug>(Switch)', 'Switch' },
-  y = { '<Plug>(YankyYank)', 'Yank which preserves cursor position' },
   gr = {
     ':Trouble lsp_references<CR>',
     'LSP References',
@@ -162,6 +161,7 @@ end
 wk.register({
   ['<leader>'] = { '<C-^>', 'Open last buffer' },
   -- disabled (using now `:%d` or `:%y`) a = { "ggVG", 'select all' }
+  -- a = { 'ggVG', 'Select all' },
   o = { ':only<CR>', 'Close all windows but active one' },
   r = {
     function()
@@ -203,11 +203,15 @@ wk.register({
     'like ":wq", but write only when changes have been made',
   },
   ['*'] = {
-    ":lua require('telescope.builtin').grep_string(require('telescope.themes').get_ivy({}))<CR>",
+    ":lua require('namjul.functions.telescope').grepString()<CR>",
+    'Grep word under cursor',
+  },
+  ['?'] = {
+    ":lua require('namjul.functions.telescope').grepString({ search = vim.fn.input('Grep > ') })<CR>",
     'Grep word',
   },
   ['/'] = {
-    ":lua require('telescope.builtin').live_grep(require('telescope.themes').get_ivy({}))<CR>",
+    ":lua require('namjul.functions.telescope').liveGrep()<CR>",
     'Search word',
   },
   f = {
@@ -272,7 +276,13 @@ wk.register({
     end,
     'LSP Rename',
   },
+  Y = { [["+Y]], 'Yank into clipboard' },
+  y = { [["+y]], "Yank into clipboard" }
 }, util.shallow_merge(defaultMapping, { prefix = '<leader>' }))
+
+wk.register({
+  y = { [["+y]], 'Yank into clipboard' },
+}, util.shallow_merge(defaultMapping, { prefix = '<leader>', mode = 'v' }))
 
 -- VISUAL
 --------------------
@@ -318,7 +328,6 @@ map.g('c', '<C-e>', '<End>')
 wk.register({
   ['jk'] = { '<Esc>', 'Esc Mapping' },
   ['<Bar>'] = { '<Bar><Esc>:call v:lua.alignMdTable() <CR>a', 'Align markdonw table' },
-  -- jk = { '<Esc>', 'Escape mapping',  { noremap = false } },
   -- Undo break points
   [','] = { ',<C-g>u' },
   ['.'] = { '.<C-g>u' },

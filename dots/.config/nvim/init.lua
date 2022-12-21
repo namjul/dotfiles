@@ -218,7 +218,7 @@ opt.g({
   }, ''),
   visualbell = true, --  Use visual bell instead of audible bell
   backupcopy = 'yes', -- optimize webpack watch option and also crontab editing
-  clipboard = 'unnamedplus',
+  -- clipboard = 'unnamedplus',
   ignorecase = true,
   smartcase = true,
   wildignorecase = true,
