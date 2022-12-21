@@ -83,7 +83,7 @@ wk.register({
   -- gP = { '<Plug>(YankyGPutBefore)', 'Put yank before leaving cursor after text' },
   -- ['<c-n>'] = { '<Plug>(YankyCycleForward)', 'Yank cycle forward' },
   -- ['<c-p>'] = { '<Plug>(YankyCycleBackward)', 'Yank cycle backward' },
-  -- y = { '<Plug>(YankyYank)', 'Yank which preserves cursor position' },
+  y = { '<Plug>(YankyYank)', 'Yank which preserves cursor position' },
   ['<c-k>'] = { ":lua require('namjul.functions.telescope').findGitFiles()<CR>", 'Go to File' },
   ['<c-s>'] = { '<Plug>(Switch)', 'Switch' },
   gr = {
@@ -292,7 +292,7 @@ wk.register({
   -- P = { '<Plug>(YankyPutBefore)', 'Put yank before' },
   -- gp = { '<Plug>(YankyGPutAfter)', 'Put yank after leaving cursor after text' },
   -- gP = { '<Plug>(YankyGPutBefore)', 'Put yank before leaving cursor after text' },
-  -- y = { '<Plug>(YankyYank)', 'Yank which preserves cursor position' },
+  y = { '<Plug>(YankyYank)', 'Yank which preserves cursor position' },
   s = { '<Plug>(leap-forward-to)', 'Leap forward to' },
   S = { '<Plug>(leap-backward-to)', 'Leap backward to' },
   gs = { '<Plug>(leap-cross-window)', 'Leap cross window' },
