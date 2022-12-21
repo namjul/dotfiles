@@ -80,7 +80,7 @@ require('paq')({
   { 'tyewang/vimux-jest-test', opt = true }, -- simplifies running jest test from vim
   { 'tpope/vim-vinegar', opt = true }, -- file explorer TODO try again replacing with elihunter173/dirbuf.nvim
   { 'jeffkreeftmeijer/vim-numbertoggle', opt = true }, -- improves the display of line numbers
-  { 'jiangmiao/auto-pairs', opt = true }, -- auto closes pairs
+  { 'windwp/nvim-autopairs', opt = true }, -- auto closes pairs
   { 'Valloric/MatchTagAlways', opt = true }, -- highlights xml tags enclosing the cursor
   { 'simeji/winresizer', opt = true }, -- helper for resizing windows
   { 'lewis6991/gitsigns.nvim', opt = true },
@@ -163,7 +163,7 @@ if vim.o.loadplugins then
     util.loadPlugin('vimux-jest-test')
     util.loadPlugin('vim-vinegar')
     util.loadPlugin('vim-numbertoggle')
-    util.loadPlugin('auto-pairs')
+    util.loadPlugin('nvim-autopairs')
     util.loadPlugin('MatchTagAlways')
     util.loadPlugin('winresizer')
     util.loadPlugin('gitsigns.nvim')
