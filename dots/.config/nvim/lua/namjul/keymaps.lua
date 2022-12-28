@@ -43,7 +43,7 @@ local defaultMapping = {
 }
 
 wk.register({
-  ['-'] = { vim.cmd.Ex, 'Open Explore' },
+  -- ['-'] = { vim.cmd.Ex, 'Open Explore' },
   ['<C-d>'] = { '<C-d>zz', 'Up' },
   ['<C-u>'] = { '<C-u>zz', 'Down' },
   n = { 'nzzzv', 'Search next' },
