@@ -43,7 +43,6 @@ local defaultMapping = {
 }
 
 wk.register({
-  -- ['-'] = { vim.cmd.Ex, 'Open Explore' },
   ['<C-d>'] = { '<C-d>zz', 'Up' },
   ['<C-u>'] = { '<C-u>zz', 'Down' },
   n = { 'nzzzv', 'Search next' },
@@ -276,8 +275,6 @@ wk.register({
     end,
     'LSP Rename',
   },
-  Y = { [["+Y]], 'Yank into clipboard' },
-  y = { [["+y]], "Yank into clipboard" },
   vp = { vim.cmd.VimuxPromptCommand, "Prompt for a command to run"},
   vl = { vim.cmd.VimuxRunLastCommand, "Run last command executed by VimuxRunCommand"},
   vi = { vim.cmd.VimuxInspectRunner, "Vimux Inspect runner pane"},
