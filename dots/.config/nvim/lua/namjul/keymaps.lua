@@ -64,10 +64,6 @@ wk.register({
     expr = true,
   },
   J = { 'mzJ`z', 'Join lines' },
-  ['<C-L>'] = {
-    ":lua require('dendron.telescope').lookup(require('telescope.themes').get_ivy({}))<CR>",
-    'Lookup in Dendron',
-  },
   ['<Up>'] = { ':cprev<CR>', 'Previous in quickfix list' },
   ['<Down>'] = { ':cnext<CR>', 'Next in quickfix list' },
   ['<Left>'] = { ':cpfile<CR>', 'Last Error in quickfix list' },
@@ -83,6 +79,10 @@ wk.register({
   -- ['<c-n>'] = { '<Plug>(YankyCycleForward)', 'Yank cycle forward' },
   -- ['<c-p>'] = { '<Plug>(YankyCycleBackward)', 'Yank cycle backward' },
   y = { '<Plug>(YankyYank)', 'Yank which preserves cursor position' },
+  ['<c-l>'] = {
+    ":lua require('dendron.telescope').lookup(require('telescope.themes').get_ivy({}))<CR>",
+    'Lookup in Dendron',
+  },
   ['<c-k>'] = { ":lua require('namjul.functions.telescope').findFiles()<CR>", 'Go to File' },
   ['<c-s>'] = { '<Plug>(Switch)', 'Switch' },
   gr = {
