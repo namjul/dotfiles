@@ -106,6 +106,7 @@ brew install pnpm # https://pnpm.io/
 brew install bash-snippets # https://github.com/alexanderepstein/Bash-Snippets
 brew install gron # https://github.com/tomnomnom/gron
 brew install scc # https://github.com/boyter/scc
+brew install lorem
 
 # Remove outdated versions from the cellar
 brew cleanup
