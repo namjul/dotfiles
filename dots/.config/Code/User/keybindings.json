@@ -50,14 +50,14 @@
       "selectionType": "selectionExtract"
     }
   },
-  {
-    "key": "8 h",
-    "command": "dendron.goPrevHierarchy",
-    "when": "dendron:pluginActive && editorTextFocus && neovim.mode != insert",
-  },
-  {
-    "key": "9 h",
-    "command": "dendron.goNextHierarchy",
-    "when": "dendron:pluginActive && editorTextFocus && neovim.mode != insert",
-  },
+  // {
+  //   "key": "8 h",
+  //   "command": "dendron.goPrevHierarchy",
+  //   "when": "dendron:pluginActive && editorTextFocus && neovim.mode != insert",
+  // },
+  // {
+  //   "key": "9 h",
+  //   "command": "dendron.goNextHierarchy",
+  //   "when": "dendron:pluginActive && editorTextFocus && neovim.mode != insert",
+  // },
 ]
