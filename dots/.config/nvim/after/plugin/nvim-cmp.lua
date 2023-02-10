@@ -13,15 +13,17 @@ local tabout = require('tabout')
 cmp.setup({
   snippet = {
     expand = function(args)
-      require('luasnip').lsp_expand(args.body)
+      luasnip.lsp_expand(args.body)
     end,
   },
   mapping = cmp.mapping.preset.insert({
     ['<C-b>'] = cmp.mapping.scroll_docs(-4),
     ['<C-f>'] = cmp.mapping.scroll_docs(4),
     ['<C-Space>'] = cmp.mapping.complete(),
-    ['<C-e>'] = cmp.mapping.abort(),
-    ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+    ['<CR>'] = cmp.mapping.confirm({
+      behavior = cmp.ConfirmBehavior.Replace,
+      select = true,
+    }),
     ['<Tab>'] = cmp.mapping(function(fallback)
       if luasnip.expandable() then
         luasnip.expand()

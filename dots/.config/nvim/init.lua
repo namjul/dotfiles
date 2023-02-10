@@ -7,7 +7,6 @@
 -- ╚═╝  ╚═══╝╚══════╝ ╚═════╝   ╚═══╝  ╚═╝╚═╝     ╚═╝    ╚═╝╚═╝  ╚═══╝╚═╝   ╚═╝
 
 local util = require('namjul.utils')
-local fn = vim.fn -- to call Vim functions e.g. fn.bufnr()
 local opt = util.opt
 
 ----------------------------------------
