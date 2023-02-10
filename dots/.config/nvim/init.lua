@@ -116,7 +116,6 @@ local is_bootstrap = require('namjul.bootstrap').bootstrap_paq({
   { 'wsdjeg/vim-fetch', opt = true }, -- enables to process line and column jump specifications
   { 'andrewferrier/debugprint.nvim', opt = true },
   { 'michaelb/sniprun', opt = true, run = 'bash ./install.sh' },
-  { 'folke/trouble.nvim', opt = true },
   { 'ggandor/leap.nvim', opt = true },
 })
 
@@ -183,7 +182,6 @@ if vim.o.loadplugins then
     util.loadPlugin('debugprint.nvim')
     util.loadPlugin('sniprun')
     util.loadPlugin('null-ls.nvim')
-    util.loadPlugin('trouble.nvim')
     util.loadPlugin('leap.nvim')
   end
 end
@@ -285,3 +283,6 @@ require('lualine').setup({
 
 -- Enable Comment.nvim
 require('Comment').setup()
+
+-- The line beneath this is called `modeline`. See `:help modeline`
+-- vim: ts=2 sts=2 sw=2 et

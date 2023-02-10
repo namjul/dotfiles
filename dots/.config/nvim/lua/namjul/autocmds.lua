@@ -105,6 +105,5 @@ function autocmds.skeleton(path)
 end
 
 autocmds.filetypeBlacklist = {}
-autocmds.filetypeWhitelist = { ['Trouble'] = true }
 
 return autocmds

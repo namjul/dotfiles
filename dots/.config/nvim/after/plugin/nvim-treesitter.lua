@@ -48,5 +48,5 @@ require('nvim-treesitter.configs').setup({
   -- enables https://github.com/windwp/nvim-ts-autotag
   autotag = {
     enable = true,
-  }
+  },
 })

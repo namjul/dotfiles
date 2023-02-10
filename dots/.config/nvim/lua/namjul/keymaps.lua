@@ -86,7 +86,9 @@ wk.register({
   ['<c-k>'] = { ":lua require('namjul.functions.telescope').findFiles()<CR>", 'Go to File' },
   ['<c-s>'] = { '<Plug>(Switch)', 'Switch' },
   gr = {
-    ':Trouble lsp_references<CR>',
+    function()
+      vim.lsp.buf.references()
+    end,
     'LSP References',
   },
   ['[d'] = {
@@ -224,8 +226,14 @@ wk.register({
     },
     d = { require('namjul.functions.telescope').search_dotfiles, 'Search dotfiles' },
     g = {
-      b = { ":lua require('telescope.builtin').git_branches(require('telescope.themes').get_ivy({}))<CR>", 'Find branch' },
-      c = { ":lua require('telescope.builtin').git_commits(require('telescope.themes').get_ivy({}))<CR>", 'Find buffer commits' },
+      b = {
+        ":lua require('telescope.builtin').git_branches(require('telescope.themes').get_ivy({}))<CR>",
+        'Find branch',
+      },
+      c = {
+        ":lua require('telescope.builtin').git_commits(require('telescope.themes').get_ivy({}))<CR>",
+        'Find buffer commits',
+      },
     },
     y = { ':NV<CR>', 'Search in Dendron' },
   },
@@ -276,10 +284,10 @@ wk.register({
     end,
     'LSP Rename',
   },
-  vp = { vim.cmd.VimuxPromptCommand, "Prompt for a command to run"},
-  vl = { vim.cmd.VimuxRunLastCommand, "Run last command executed by VimuxRunCommand"},
-  vi = { vim.cmd.VimuxInspectRunner, "Vimux Inspect runner pane"},
-  vz = { vim.cmd.VimuxZoomRunner, "Zoom the tmux runner pane"},
+  vp = { vim.cmd.VimuxPromptCommand, 'Prompt for a command to run' },
+  vl = { vim.cmd.VimuxRunLastCommand, 'Run last command executed by VimuxRunCommand' },
+  vi = { vim.cmd.VimuxInspectRunner, 'Vimux Inspect runner pane' },
+  vz = { vim.cmd.VimuxZoomRunner, 'Zoom the tmux runner pane' },
 }, util.shallow_merge(defaultMapping, { prefix = '<leader>' }))
 
 wk.register({
