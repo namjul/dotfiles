@@ -91,7 +91,7 @@ local is_bootstrap = require('namjul.bootstrap').bootstrap_paq({
   {
     'nvim-treesitter/nvim-treesitter',
     run = function()
-      vim.cmd('TSUpdate')
+      pcall(require('nvim-treesitter.install').update({ with_sync = true }))
     end,
     opt = true,
   },
@@ -287,7 +287,7 @@ require('namjul.keymaps')
 require('lualine').setup({
   options = {
     icons_enabled = false,
-    theme = 'onedark',
+    theme = 'gruvbox',
     component_separators = '|',
     section_separators = '',
   },
