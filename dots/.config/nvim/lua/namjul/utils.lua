@@ -1,6 +1,4 @@
 local cmd = vim.cmd -- to execute Vim commands e.g. cmd('pwd')
-local fn = vim.fn -- to call Vim functions e.g. fn.bufnr()
-local inspect = vim.inspect -- pretty-print Lua objects (useful for inspecting tables)
 
 local M = {}
 
@@ -93,7 +91,7 @@ end
 
 function M.unload_lua_namespace(prefix)
   local prefix_with_dot = prefix .. '.'
-  for key, value in pairs(package.loaded) do
+  for key, _ in pairs(package.loaded) do
     if key == prefix or key:sub(1, #prefix_with_dot) == prefix_with_dot then
       package.loaded[key] = nil
     end
