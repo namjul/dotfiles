@@ -40,7 +40,7 @@ vim.g.nv_search_paths = {
 vim.g.nv_ignore_pattern = { 'assets', '.git' }
 vim.g.winresizer_start_key = '<C-T>'
 vim.g.VimuxOrientation = 'h'
-vim.g.switch_mapping = ""
+vim.g.switch_mapping = ''
 
 ----------------------------------------
 -- Plugins
@@ -56,10 +56,10 @@ local is_bootstrap = require('namjul.bootstrap').bootstrap_paq({
   { 'tpope/vim-unimpaired', opt = true }, -- set of complementary pair commands
   { 'tpope/vim-abolish', opt = true }, -- Case-preserving find and replace
   { 'kylechui/nvim-surround', opt = true }, -- adds operators for surrounding characters
-  { 'tomtom/tcomment_vim', opt = true }, -- Temporarily commenting
+  { 'numToStr/Comment.nvim' }, -- "gc" to comment visual regions/lines
   { 'svermeulen/vim-cutlass', opt = true }, -- seperate `cut` form `delete`
   { 'svermeulen/vim-subversive', opt = true }, -- adds a subsitute operator
-  { 'nvim-lualine/lualine.nvim', opt = true }, -- fancier statusline
+  { 'nvim-lualine/lualine.nvim' }, -- fancier statusline
   { 'gbprod/yanky.nvim', opt = true }, -- adds easy access to history of yanks
   { 'gpanders/editorconfig.nvim', opt = true }, -- support editor config files (https://editorconfig.org/)
   { 'nvim-lua/plenary.nvim', opt = true },
@@ -119,7 +119,7 @@ local is_bootstrap = require('namjul.bootstrap').bootstrap_paq({
   { 'andrewferrier/debugprint.nvim', opt = true },
   { 'michaelb/sniprun', opt = true, run = 'bash ./install.sh' },
   { 'folke/trouble.nvim', opt = true },
-  { 'ggandor/leap.nvim', opt = true }
+  { 'ggandor/leap.nvim', opt = true },
 })
 
 if is_bootstrap then
@@ -133,7 +133,6 @@ if vim.o.loadplugins then
   util.loadPlugin('yanky.nvim')
   util.loadPlugin('vim-sensible')
   util.loadPlugin('vim-unimpaired')
-  util.loadPlugin('tcomment_vim')
   util.loadPlugin('nvim-surround')
   util.loadPlugin('which-key.nvim')
   util.loadPlugin('bullets.vim')
@@ -275,7 +274,6 @@ util.createAugroup({
   { 'BufNewFile', '*.sh', 'lua', 'require"namjul.autocmds".skeleton("~/.config/nvim/templates/skeleton.sh")' },
 }, 'namjulskeletons')
 
-
 util.createAugroup({
   { 'BufRead', 'tsconfig*.json', 'set filetype=jsonc' },
   { 'BufNewFile', 'tsconfig*.json', 'set filetype=jsonc' },
@@ -286,11 +284,14 @@ require('namjul.keymaps')
 
 -- Set lualine as statusline
 -- See `:help lualine.txt`
-require('lualine').setup {
+require('lualine').setup({
   options = {
     icons_enabled = false,
     theme = 'onedark',
     component_separators = '|',
     section_separators = '',
   },
-}
+})
+
+-- Enable Comment.nvim
+require('Comment').setup()
