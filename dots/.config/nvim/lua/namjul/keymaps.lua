@@ -169,11 +169,11 @@ wk.register({
     g = { ':Trans de <CR>', 'Translate to German(word under cursor)' },
   },
   w = {
-    util.isVsCode() and ':Write<CR>' or ':write<CR>',
+    ':write<CR>',
     'Quick save',
   },
   q = {
-    util.isVsCode() and ':Quit<CR>' or ':quit<CR>',
+    ':quit<CR>',
     'Quites the current window and vim if its the last',
   },
   x = {
