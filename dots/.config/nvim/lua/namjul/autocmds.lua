@@ -1,5 +1,4 @@
 local util = require('namjul.utils')
-local statusline = require('namjul.statusline')
 local cmd = vim.cmd
 
 local focusedFlag = 'namjulFocused'
@@ -38,7 +37,6 @@ local function focusWindow()
       })
     end)
     util.var.g({ [focusedFlag] = true })
-    statusline.focus()
   end
 end
 
@@ -52,7 +50,6 @@ local function blurWindow()
       })
     end)
     util.var.g({ [focusedFlag] = false })
-    statusline.blur()
   end
 end
 

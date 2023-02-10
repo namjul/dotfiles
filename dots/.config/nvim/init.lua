@@ -59,8 +59,8 @@ local is_bootstrap = require('namjul.bootstrap').bootstrap_paq({
   { 'tomtom/tcomment_vim', opt = true }, -- Temporarily commenting
   { 'svermeulen/vim-cutlass', opt = true }, -- seperate `cut` form `delete`
   { 'svermeulen/vim-subversive', opt = true }, -- adds a subsitute operator
+  { 'nvim-lualine/lualine.nvim', opt = true }, -- fancier statusline
   { 'gbprod/yanky.nvim', opt = true }, -- adds easy access to history of yanks
-  { 'wincent/pinnacle', opt = true }, -- Required for namjul.statusline. Highlight group manipulation utils
   { 'wincent/scalpel', opt = true }, -- helper for search and replace
   { 'gpanders/editorconfig.nvim', opt = true }, -- support editor config files (https://editorconfig.org/)
   { 'nvim-lua/plenary.nvim', opt = true },
@@ -131,7 +131,6 @@ if vim.o.loadplugins then
   util.loadPlugin('plenary.nvim')
   util.loadPlugin('vim-abolish')
   util.loadPlugin('gruvbox.nvim')
-  util.loadPlugin('pinnacle')
   util.loadPlugin('yanky.nvim')
   util.loadPlugin('vim-sensible')
   util.loadPlugin('vim-unimpaired')
@@ -260,16 +259,6 @@ if util.readable(vim.fn.expand('~/.vimrc_background')) then
 end
 
 util.createAugroup({
-  { 'Colorscheme', '*', 'lua require"namjul.statusline".updateHighlight()' }, -- trigger highlight update see https://vi.stackexchange.com/questions/3355/why-do-custom-highlights-in-my-vimrc-get-cleared-or-reset-to-default
-  {
-    'BufWinEnter,BufWritePost,FileWritePost,TextChanged,TextChangedI,WinEnter',
-    '*',
-    'lua',
-    'require"namjul.statusline".checkModified()',
-  },
-}, 'namjulstatusline')
-
-util.createAugroup({
   { 'BufEnter', '*', 'lua', 'require"namjul.autocmds".bufEnter()' },
   { 'BufLeave', '*', 'lua', 'require"namjul.autocmds".bufLeave()' },
   { 'BufWinEnter', '*', 'lua', 'require"namjul.autocmds".bufWinEnter()' },
@@ -294,6 +283,16 @@ util.createAugroup({
   { 'BufNewFile', 'tsconfig*.json', 'set filetype=jsonc' },
 }, 'JsoncFilterType')
 
-require('namjul.statusline').set()
 require('namjul.translator')
 require('namjul.keymaps')
+
+-- Set lualine as statusline
+-- See `:help lualine.txt`
+require('lualine').setup {
+  options = {
+    icons_enabled = false,
+    theme = 'onedark',
+    component_separators = '|',
+    section_separators = '',
+  },
+}
