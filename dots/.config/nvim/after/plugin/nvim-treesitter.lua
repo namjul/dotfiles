@@ -22,9 +22,7 @@ require('nvim-treesitter.configs').setup({
     additional_vim_regex_highlighting = false,
   },
   -- Indentation based on treesitter for the = operator. NOTE: This is an experimental feature.
-  indent = {
-    enable = true,
-  },
+  indent = { enable = true, disable = { 'python' } },
   ensure_installed = {
     'help',
     'tsx',
