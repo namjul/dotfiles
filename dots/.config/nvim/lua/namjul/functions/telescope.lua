@@ -27,7 +27,7 @@ function M.findGitFiles(args)
   require('telescope.builtin').git_files(require('telescope.themes').get_ivy(opts))
 end
 
-function M.grepString(args)
+function M.grep_string(args)
   args = args or {}
   local opts = {
     prompt_title = 'Grep string',
@@ -40,7 +40,7 @@ function M.grepString(args)
   require('telescope.builtin').grep_string(require('telescope.themes').get_ivy(opts))
 end
 
-function M.liveGrep(args)
+function M.live_grep(args)
   args = args or {}
   local opts = {
     prompt_title = 'Live grep',
@@ -53,7 +53,7 @@ function M.liveGrep(args)
   require('telescope.builtin').live_grep(require('telescope.themes').get_ivy(opts))
 end
 
-function M.findMostWanted(args)
+function M.find_most_wanted(args)
   args = args or {}
   local opts = {
     find_command = { 'most-wanted-dirs' },
@@ -67,7 +67,7 @@ function M.findMostWanted(args)
   require('telescope.builtin').find_files(require('telescope.themes').get_ivy(opts))
 end
 
-function M.findRecent(args)
+function M.find_recent(args)
   args = args or {}
   local opts = {
     prompt_title = 'find recent files',
@@ -82,7 +82,7 @@ function M.findRecent(args)
   require('telescope.builtin').oldfiles(require('telescope.themes').get_ivy(opts))
 end
 
-function M.searchDotfiles()
+function M.search_dotfiles()
   M.findFiles({ cwd = '~/.dotfiles' })
 end
 
