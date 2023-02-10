@@ -62,10 +62,9 @@ local is_bootstrap = require('namjul.bootstrap').bootstrap_paq({
   { 'nvim-lualine/lualine.nvim' }, -- fancier statusline
   { 'gbprod/yanky.nvim', opt = true }, -- adds easy access to history of yanks
   { 'tpope/vim-sleuth' }, -- support editor config files (https://editorconfig.org/)
-  { 'nvim-lua/plenary.nvim', opt = true },
-  { 'nvim-telescope/telescope.nvim', opt = true },
-  { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make', opt = true },
-  { 'nvim-telescope/telescope-fzf-writer.nvim', opt = true },
+  { 'nvim-lua/plenary.nvim' },
+  { 'nvim-telescope/telescope.nvim', branch = '0.1.x' },
+  { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' },
   { 'ThePrimeagen/harpoon', opt = true }, -- navigation helper
   { 'junegunn/fzf', opt = true },
   { 'alok/notational-fzf-vim', opt = true }, -- combines the fzf with the concept from notational
@@ -127,7 +126,6 @@ if is_bootstrap then
 end
 
 if vim.o.loadplugins then
-  util.loadPlugin('plenary.nvim')
   util.loadPlugin('vim-abolish')
   util.loadPlugin('gruvbox.nvim')
   util.loadPlugin('yanky.nvim')
@@ -146,9 +144,6 @@ if vim.o.loadplugins then
     util.loadPlugin('vim-fugitive')
     util.loadPlugin('vim-flog')
     util.loadPlugin('vim-rhubarb')
-    util.loadPlugin('telescope.nvim')
-    util.loadPlugin('telescope-fzf-native.nvim')
-    util.loadPlugin('telescope-fzf-writer.nvim')
     util.loadPlugin('harpoon')
     util.loadPlugin('fzf')
     util.loadPlugin('notational-fzf-vim')
