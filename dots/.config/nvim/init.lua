@@ -47,75 +47,79 @@ vim.g.switch_mapping = ''
 
 local is_bootstrap = require('namjul.bootstrap').bootstrap_paq({
   'savq/paq-nvim',
-  { 'tpope/vim-sensible'}, -- sensible defaults
-  { 'tpope/vim-repeat'}, -- enables the repeat command to work with external plugins
-  { 'tpope/vim-fugitive'}, -- git integration
-  { 'rbong/vim-flog'}, -- git branch viewer
-  { 'tpope/vim-rhubarb'}, -- open files on github
-  { 'tpope/vim-unimpaired'}, -- set of complementary pair commands
-  { 'tpope/vim-abolish'}, -- Case-preserving find and replace
-  { 'kylechui/nvim-surround'}, -- adds operators for surrounding characters
+  { 'tpope/vim-sensible' }, -- sensible defaults
+  { 'tpope/vim-repeat' }, -- enables the repeat command to work with external plugins
+  { 'tpope/vim-fugitive' }, -- git integration
+  { 'rbong/vim-flog' }, -- git branch viewer
+  { 'tpope/vim-rhubarb' }, -- open files on github
+  { 'tpope/vim-unimpaired' }, -- set of complementary pair commands
+  { 'tpope/vim-abolish' }, -- Case-preserving find and replace
+  { 'kylechui/nvim-surround' }, -- adds operators for surrounding characters
   { 'numToStr/Comment.nvim' }, -- "gc" to comment visual regions/lines
-  { 'svermeulen/vim-cutlass'}, -- seperate `cut` form `delete`
-  { 'svermeulen/vim-subversive'}, -- adds a subsitute operator
+  { 'svermeulen/vim-cutlass' }, -- seperate `cut` form `delete`
+  { 'svermeulen/vim-subversive' }, -- adds a subsitute operator
   { 'nvim-lualine/lualine.nvim' }, -- fancier statusline
-  { 'gbprod/yanky.nvim'}, -- adds easy access to history of yanks
+  { 'gbprod/yanky.nvim' }, -- adds easy access to history of yanks
   { 'tpope/vim-sleuth' }, -- support editor config files (https://editorconfig.org/)
   { 'nvim-lua/plenary.nvim' },
   { 'nvim-telescope/telescope.nvim', branch = '0.1.x' },
   { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' },
-  { 'ThePrimeagen/harpoon'}, -- navigation helper
-  { 'junegunn/fzf'},
-  { 'alok/notational-fzf-vim'}, -- combines the fzf with the concept from notational
-  { 'preservim/vimux'}, -- allows to send commands from vim to tmux
-  { 'tyewang/vimux-jest-test'}, -- simplifies running jest test from vim
-  { 'tpope/vim-vinegar'}, -- file explorer TODO try again replacing with elihunter173/dirbuf.nvim
-  { 'jeffkreeftmeijer/vim-numbertoggle'}, -- improves the display of line numbers
-  { 'windwp/nvim-autopairs'}, -- auto closes pairs
-  { 'Valloric/MatchTagAlways'}, -- highlights xml tags enclosing the cursor
-  { 'simeji/winresizer'}, -- helper for resizing windows
-  { 'lewis6991/gitsigns.nvim'},
-  { 'rhysd/committia.vim'}, -- improves vim 'commit' buffer
-  { 'L3MON4D3/LuaSnip'}, -- snippets engine
-  { 'rafamadriz/friendly-snippets'}, -- general snippets collection
-  { 'mattn/webapi-vim'}, -- needed for `gist-vim`
-  { 'mattn/gist-vim'}, -- interact with github gist from vim
-  { 'uga-rosa/ccc.nvim'}, -- Super powerful color picker / colorizer plugin.
-  { 'dkarter/bullets.vim'}, -- enhance bullet points management TODO replace with 'gaoDean/autolist.nvim' when checkboxes are supported
-  { 'csexton/trailertrash.vim'}, -- highlight trailing whitespace
-  { 'godlygeek/tabular'}, -- auto alignment
-  { 'tpope/vim-obsession'}, -- helper to start vim sessions
-  { 'ellisonleao/glow.nvim'}, -- markdown preview
+  { 'ThePrimeagen/harpoon' }, -- navigation helper
+  { 'junegunn/fzf' },
+  { 'alok/notational-fzf-vim' }, -- combines the fzf with the concept from notational
+  { 'preservim/vimux' }, -- allows to send commands from vim to tmux
+  { 'tyewang/vimux-jest-test' }, -- simplifies running jest test from vim
+  { 'tpope/vim-vinegar' }, -- file explorer TODO try again replacing with elihunter173/dirbuf.nvim
+  { 'jeffkreeftmeijer/vim-numbertoggle' }, -- improves the display of line numbers
+  { 'windwp/nvim-autopairs' }, -- auto closes pairs
+  { 'Valloric/MatchTagAlways' }, -- highlights xml tags enclosing the cursor
+  { 'simeji/winresizer' }, -- helper for resizing windows
+  { 'lewis6991/gitsigns.nvim' },
+  { 'rhysd/committia.vim' }, -- improves vim 'commit' buffer
+  { 'L3MON4D3/LuaSnip' }, -- snippets engine
+  { 'rafamadriz/friendly-snippets' }, -- general snippets collection
+  { 'mattn/webapi-vim' }, -- needed for `gist-vim`
+  { 'mattn/gist-vim' }, -- interact with github gist from vim
+  { 'uga-rosa/ccc.nvim' }, -- Super powerful color picker / colorizer plugin.
+  { 'dkarter/bullets.vim' }, -- enhance bullet points management TODO replace with 'gaoDean/autolist.nvim' when checkboxes are supported
+  { 'csexton/trailertrash.vim' }, -- highlight trailing whitespace
+  { 'godlygeek/tabular' }, -- auto alignment
+  { 'tpope/vim-obsession' }, -- helper to start vim sessions
+  { 'ellisonleao/glow.nvim' }, -- markdown preview
   {
     'nvim-treesitter/nvim-treesitter',
     run = function()
       pcall(require('nvim-treesitter.install').update({ with_sync = true }))
     end,
   },
-  { 'windwp/nvim-ts-autotag'}, -- auto closes xml tags
-  { 'ellisonleao/gruvbox.nvim'},
-  { 'rafcamlet/nvim-luapad'},
-  { 'folke/zen-mode.nvim'},
-  { 'szw/vim-maximizer'},
-  { 'airblade/vim-rooter'},
-  { 'neovim/nvim-lspconfig'},
-  { 'jose-elias-alvarez/null-ls.nvim'},
-  { 'AndrewRadev/switch.vim'}, -- fast boolean switch
-  { 'hrsh7th/nvim-cmp'},
-  { 'hrsh7th/cmp-nvim-lsp'},
-  { 'hrsh7th/cmp-path'},
-  { 'hrsh7th/cmp-buffer'},
-  { 'saadparwaiz1/cmp_luasnip'}, -- nvim-cmp source for Luasnip
-  { 'namjul/dendron.nvim'},
-  { 'mracos/mermaid.vim'},
-  { 'folke/which-key.nvim'},
-  { 'abecodes/tabout.nvim'}, -- tabbing out from parentheses, quotes, and similar contexts today.
-  { 'rest-nvim/rest.nvim'}, -- http client in neovim
-  { 'monaqa/dial.nvim'}, -- enhanced increment/decrement plugin for Neovim.
-  { 'wsdjeg/vim-fetch'}, -- enables to process line and column jump specifications
-  { 'andrewferrier/debugprint.nvim'},
-  { 'michaelb/sniprun'},
-  { 'ggandor/leap.nvim'},
+  { 'windwp/nvim-ts-autotag' }, -- auto closes xml tags
+  { 'ellisonleao/gruvbox.nvim' },
+  { 'rafcamlet/nvim-luapad' },
+  { 'folke/zen-mode.nvim' },
+  { 'szw/vim-maximizer' },
+  { 'airblade/vim-rooter' },
+  { 'williamboman/mason.nvim' },
+  { 'williamboman/mason-lspconfig.nvim' },
+  { 'neovim/nvim-lspconfig' },
+  { 'jose-elias-alvarez/null-ls.nvim' },
+  { 'j-hui/fidget.nvim' },
+  { 'folke/neodev.nvim' },
+  { 'AndrewRadev/switch.vim' }, -- fast boolean switch
+  { 'hrsh7th/nvim-cmp' },
+  { 'hrsh7th/cmp-nvim-lsp' },
+  { 'hrsh7th/cmp-path' },
+  { 'hrsh7th/cmp-buffer' },
+  { 'saadparwaiz1/cmp_luasnip' }, -- nvim-cmp source for Luasnip
+  { 'namjul/dendron.nvim' },
+  { 'mracos/mermaid.vim' },
+  { 'folke/which-key.nvim' },
+  { 'abecodes/tabout.nvim' }, -- tabbing out from parentheses, quotes, and similar contexts today.
+  { 'rest-nvim/rest.nvim' }, -- http client in neovim
+  { 'monaqa/dial.nvim' }, -- enhanced increment/decrement plugin for Neovim.
+  { 'wsdjeg/vim-fetch' }, -- enables to process line and column jump specifications
+  { 'andrewferrier/debugprint.nvim' },
+  { 'michaelb/sniprun' },
+  { 'ggandor/leap.nvim' },
 })
 
 if is_bootstrap then
