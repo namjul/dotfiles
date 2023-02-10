@@ -40,8 +40,8 @@ local lsp_defaults = {
     debounce_text_changes = 250,
   },
   capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities()),
-  on_attach = function()
-    vim.api.nvim_exec_autocmds('User', { pattern = 'LspAttached' })
+  on_attach = function(_, bufnr)
+    vim.api.nvim_exec_autocmds('User', { pattern = 'LspAttached', data = { bufnr = bufnr } })
   end,
 }
 

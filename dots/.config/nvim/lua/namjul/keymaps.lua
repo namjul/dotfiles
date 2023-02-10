@@ -85,12 +85,6 @@ wk.register({
   },
   ['<c-k>'] = { ":lua require('namjul.functions.telescope').findFiles()<CR>", 'Go to File' },
   ['<c-s>'] = { '<Plug>(Switch)', 'Switch' },
-  gr = {
-    function()
-      vim.lsp.buf.references()
-    end,
-    'LSP References',
-  },
   ['[d'] = {
     function()
       vim.diagnostic.goto_prev({ enable_popup = false })
@@ -102,27 +96,6 @@ wk.register({
       vim.diagnostic.goto_next({ enable_popup = false })
     end,
     'LSP Diagnostic Next',
-  },
-  ['gd'] = {
-    function()
-      vim.lsp.buf.definition()
-    end,
-    'LSp Definition',
-  },
-  ['K'] = {
-    function()
-      if ({ vim = true, lua = true, help = true })[vim.bo.filetype] then
-        vim.fn.execute('h ' .. vim.fn.expand('<cword>'))
-      end
-      vim.lsp.buf.hover()
-    end,
-    'LSP Hover or Vim K',
-  },
-  ['ff'] = {
-    function()
-      vim.lsp.buf.format({ async = true })
-    end,
-    'LSP format',
   },
   s = { '<Plug>(leap-forward-to)', 'Leap forward to' },
   S = { '<Plug>(leap-backward-to)', 'Leap backward to' },
@@ -253,7 +226,6 @@ wk.register({
   z = { ':ZenMode<CR>', 'Enter Zenmode' },
   m = { ':MaximizerToggle<CR>', 'Maximize window' },
   n = { ':nohlsearch<CR>', 'Clear search highlight' },
-  e = { '<Plug>(Scalpel)', 'Replace word' },
   -- PLUGIN:harpoon
   ba = { ':lua require("harpoon.mark").add_file()<CR>', 'Add file to harpoon' },
   bl = { ':lua require("harpoon.ui").toggle_quick_menu()<CR>', 'Toggle harpoon menu' },
@@ -278,16 +250,22 @@ wk.register({
   s = { '<Plug>(SubversiveSubstitute)', 'Substitute' },
   ss = { '<Plug>(SubversiveSubstituteLine)', 'Substitute line' },
   S = { '<Plug>(SubversiveSubstituteToEndOfLine)', 'Substitute End of line' },
-  rn = {
-    function()
-      vim.lsp.buf.rename()
-    end,
-    'LSP Rename',
-  },
   vp = { vim.cmd.VimuxPromptCommand, 'Prompt for a command to run' },
   vl = { vim.cmd.VimuxRunLastCommand, 'Run last command executed by VimuxRunCommand' },
   vi = { vim.cmd.VimuxInspectRunner, 'Vimux Inspect runner pane' },
   vz = { vim.cmd.VimuxZoomRunner, 'Zoom the tmux runner pane' },
+  e = {
+    function()
+      vim.diagnostic.open_float()
+    end,
+    'LSP open diagnostic',
+  },
+  i = {
+    function()
+      vim.diagnostic.setloclist()
+    end,
+    'LSP open locallist',
+  },
 }, util.shallow_merge(defaultMapping, { prefix = '<leader>' }))
 
 wk.register({
@@ -354,3 +332,46 @@ wk.register({
     'Close terminal',
   },
 }, { prefix = '', mode = 't', noremap = true, silent = true })
+
+-- LSP
+--------------------
+
+vim.api.nvim_create_autocmd('User', {
+  pattern = 'LspAttached',
+  desc = 'LSP actions',
+  callback = function(arg)
+
+    local bufnr = arg.data.bufnr
+
+    local nmap = function(keys, func, desc)
+      if desc then
+        desc = 'LSP: ' .. desc
+      end
+
+      vim.keymap.set('n', keys, func, { buffer = bufnr, desc = desc })
+    end
+
+    nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
+    nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
+
+    nmap('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
+    -- nmap('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
+    nmap('gr', vim.lsp.buf.references, '[G]oto [R]eferences')
+    nmap('gI', vim.lsp.buf.implementation, '[G]oto [I]mplementation')
+    nmap('<leader>D', vim.lsp.buf.type_definition, 'Type [D]efinition')
+    nmap('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
+    nmap('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
+    nmap('K', function()
+      if ({ vim = true, lua = true, help = true })[vim.bo.filetype] then
+        vim.fn.execute('h ' .. vim.fn.expand('<cword>'))
+      end
+      vim.lsp.buf.hover()
+    end, 'Hover Documentation')
+    nmap('KK', vim.lsp.buf.signature_help, 'Signature Documentation')
+
+    -- Create a command `:Format` local to the LSP buffer
+    vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
+      vim.lsp.buf.format()
+    end, { desc = 'Format current buffer with LSP' })
+  end,
+})
