@@ -134,7 +134,10 @@ end
 
 wk.register({
   -- ['<leader>'] = { '<C-^>', 'Open last buffer' },
-  ['<space>'] = { ":lua require('telescope.builtin').buffers(require('telescope.themes').get_ivy({}))<CR>", '[ ] Find existing buffers' },
+  ['<space>'] = {
+    ":lua require('telescope.builtin').buffers(require('telescope.themes').get_ivy({}))<CR>",
+    '[ ] Find existing buffers',
+  },
   -- disabled (using now `:%d` or `:%y`) a = { "ggVG", 'select all' }
   -- a = { 'ggVG', 'Select all' },
   o = { ':only<CR>', 'Close all windows but active one' },
@@ -341,7 +344,6 @@ vim.api.nvim_create_autocmd('User', {
   pattern = 'LspAttached',
   desc = 'LSP actions',
   callback = function(arg)
-
     local bufnr = arg.data.bufnr
 
     local nmap = function(keys, func, desc)
@@ -356,12 +358,18 @@ vim.api.nvim_create_autocmd('User', {
     nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
 
     nmap('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
-    -- nmap('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
-    nmap('gr', vim.lsp.buf.references, '[G]oto [R]eferences')
+    nmap('gr', function()
+      require('telescope.builtin').lsp_references(require('telescope.themes').get_ivy({}))
+    end, '[G]oto [R]eferences')
+    -- nmap('gr', vim.lsp.buf.references, '[G]oto [R]eferences')
     nmap('gI', vim.lsp.buf.implementation, '[G]oto [I]mplementation')
     nmap('<leader>D', vim.lsp.buf.type_definition, 'Type [D]efinition')
-    nmap('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
-    nmap('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
+    nmap('<leader>ds', function()
+      require('telescope.builtin').lsp_document_symbols(require('telescope.themes').get_ivy({}))
+    end, '[D]ocument [S]ymbols')
+    nmap('<leader>ws', function()
+      require('telescope.builtin').lsp_dynamic_workspace_symbols(require('telescope.themes').get_ivy({}))
+    end, '[W]orkspace [S]ymbols')
     nmap('K', function()
       if ({ vim = true, lua = true, help = true })[vim.bo.filetype] then
         vim.fn.execute('h ' .. vim.fn.expand('<cword>'))
