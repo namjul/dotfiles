@@ -61,7 +61,6 @@ local is_bootstrap = require('namjul.bootstrap').bootstrap_paq({
   { 'svermeulen/vim-subversive', opt = true }, -- adds a subsitute operator
   { 'nvim-lualine/lualine.nvim', opt = true }, -- fancier statusline
   { 'gbprod/yanky.nvim', opt = true }, -- adds easy access to history of yanks
-  { 'wincent/scalpel', opt = true }, -- helper for search and replace
   { 'gpanders/editorconfig.nvim', opt = true }, -- support editor config files (https://editorconfig.org/)
   { 'nvim-lua/plenary.nvim', opt = true },
   { 'nvim-telescope/telescope.nvim', opt = true },
@@ -149,7 +148,6 @@ if vim.o.loadplugins then
     util.loadPlugin('vim-flog')
     util.loadPlugin('vim-rhubarb')
     util.loadPlugin('editorconfig.nvim')
-    util.loadPlugin('scalpel')
     util.loadPlugin('telescope.nvim')
     util.loadPlugin('telescope-fzf-native.nvim')
     util.loadPlugin('telescope-fzf-writer.nvim')
