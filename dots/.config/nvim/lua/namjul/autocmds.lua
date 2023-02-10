@@ -105,5 +105,6 @@ function autocmds.skeleton(path)
 end
 
 autocmds.filetypeBlacklist = {}
+autocmds.filetypeWhitelist = {}
 
 return autocmds
