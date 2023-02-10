@@ -215,6 +215,7 @@ wk.register({
   },
   f = {
     name = 'find',
+    h = { ":lua require('telescope.builtin').help_tags()<CR>", 'Find Help' },
     r = { ":lua require('namjul.functions.telescope').findRecent()<CR>", 'Find Recent Files' },
     c = { ":lua require('namjul.functions.telescope').findMostWanted()<CR>", 'Find Most Wanted Folders' },
     b = {
