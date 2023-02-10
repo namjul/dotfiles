@@ -92,6 +92,7 @@ local is_bootstrap = require('namjul.bootstrap').bootstrap_paq({
       pcall(require('nvim-treesitter.install').update({ with_sync = true }))
     end,
   },
+  { 'nvim-treesitter/nvim-treesitter-textobjects' },
   { 'windwp/nvim-ts-autotag' }, -- auto closes xml tags
   { 'ellisonleao/gruvbox.nvim' },
   { 'rafcamlet/nvim-luapad' },
