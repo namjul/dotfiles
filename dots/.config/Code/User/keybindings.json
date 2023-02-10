@@ -41,15 +41,15 @@
   //},
 
   // dendron
-  {
-    "command": "dendron.lookupNote",
-    "key": "ctrl+l",
-    "when": "dendron:pluginActive",
-    "args": {
-      // https://wiki.dendron.so/notes/ad270a7d-2aed-4273-8319-eb6536e38b29/
-      "selectionType": "selectionExtract"
-    }
-  },
+  // {
+  //   "command": "dendron.lookupNote",
+  //   "key": "ctrl+l",
+  //   "when": "dendron:pluginActive",
+  //   "args": {
+  //     // https://wiki.dendron.so/notes/ad270a7d-2aed-4273-8319-eb6536e38b29/
+  //     "selectionType": "selectionExtract"
+  //   }
+  // },
   // {
   //   "key": "8 h",
   //   "command": "dendron.goPrevHierarchy",
