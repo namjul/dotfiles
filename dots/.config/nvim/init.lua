@@ -61,7 +61,7 @@ local is_bootstrap = require('namjul.bootstrap').bootstrap_paq({
   { 'svermeulen/vim-subversive', opt = true }, -- adds a subsitute operator
   { 'nvim-lualine/lualine.nvim' }, -- fancier statusline
   { 'gbprod/yanky.nvim', opt = true }, -- adds easy access to history of yanks
-  { 'gpanders/editorconfig.nvim', opt = true }, -- support editor config files (https://editorconfig.org/)
+  { 'tpope/vim-sleuth' }, -- support editor config files (https://editorconfig.org/)
   { 'nvim-lua/plenary.nvim', opt = true },
   { 'nvim-telescope/telescope.nvim', opt = true },
   { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make', opt = true },
@@ -146,7 +146,6 @@ if vim.o.loadplugins then
     util.loadPlugin('vim-fugitive')
     util.loadPlugin('vim-flog')
     util.loadPlugin('vim-rhubarb')
-    util.loadPlugin('editorconfig.nvim')
     util.loadPlugin('telescope.nvim')
     util.loadPlugin('telescope-fzf-native.nvim')
     util.loadPlugin('telescope-fzf-writer.nvim')
@@ -243,9 +242,6 @@ opt.w({
 
 -- Buffer
 opt.b({
-  tabstop = 2, -- Make tabs as wide as two spaces
-  shiftwidth = 2, -- The # of spaces for indenting.
-  expandtab = true, -- use spaces, not tabs
   undofile = true, -- Maintain undo history between sessions
 })
 
