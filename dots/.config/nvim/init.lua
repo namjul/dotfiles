@@ -47,143 +47,79 @@ vim.g.switch_mapping = ''
 
 local is_bootstrap = require('namjul.bootstrap').bootstrap_paq({
   'savq/paq-nvim',
-  { 'tpope/vim-sensible', opt = true }, -- sensible defaults
-  { 'tpope/vim-repeat', opt = true }, -- enables the repeat command to work with external plugins
-  { 'tpope/vim-fugitive', opt = true }, -- git integration
-  { 'rbong/vim-flog', opt = true }, -- git branch viewer
-  { 'tpope/vim-rhubarb', opt = true }, -- open files on github
-  { 'tpope/vim-unimpaired', opt = true }, -- set of complementary pair commands
-  { 'tpope/vim-abolish', opt = true }, -- Case-preserving find and replace
-  { 'kylechui/nvim-surround', opt = true }, -- adds operators for surrounding characters
+  { 'tpope/vim-sensible'}, -- sensible defaults
+  { 'tpope/vim-repeat'}, -- enables the repeat command to work with external plugins
+  { 'tpope/vim-fugitive'}, -- git integration
+  { 'rbong/vim-flog'}, -- git branch viewer
+  { 'tpope/vim-rhubarb'}, -- open files on github
+  { 'tpope/vim-unimpaired'}, -- set of complementary pair commands
+  { 'tpope/vim-abolish'}, -- Case-preserving find and replace
+  { 'kylechui/nvim-surround'}, -- adds operators for surrounding characters
   { 'numToStr/Comment.nvim' }, -- "gc" to comment visual regions/lines
-  { 'svermeulen/vim-cutlass', opt = true }, -- seperate `cut` form `delete`
-  { 'svermeulen/vim-subversive', opt = true }, -- adds a subsitute operator
+  { 'svermeulen/vim-cutlass'}, -- seperate `cut` form `delete`
+  { 'svermeulen/vim-subversive'}, -- adds a subsitute operator
   { 'nvim-lualine/lualine.nvim' }, -- fancier statusline
-  { 'gbprod/yanky.nvim', opt = true }, -- adds easy access to history of yanks
+  { 'gbprod/yanky.nvim'}, -- adds easy access to history of yanks
   { 'tpope/vim-sleuth' }, -- support editor config files (https://editorconfig.org/)
   { 'nvim-lua/plenary.nvim' },
   { 'nvim-telescope/telescope.nvim', branch = '0.1.x' },
   { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' },
-  { 'ThePrimeagen/harpoon', opt = true }, -- navigation helper
-  { 'junegunn/fzf', opt = true },
-  { 'alok/notational-fzf-vim', opt = true }, -- combines the fzf with the concept from notational
-  { 'preservim/vimux', opt = true }, -- allows to send commands from vim to tmux
-  { 'tyewang/vimux-jest-test', opt = true }, -- simplifies running jest test from vim
-  { 'tpope/vim-vinegar', opt = true }, -- file explorer TODO try again replacing with elihunter173/dirbuf.nvim
-  { 'jeffkreeftmeijer/vim-numbertoggle', opt = true }, -- improves the display of line numbers
-  { 'windwp/nvim-autopairs', opt = true }, -- auto closes pairs
-  { 'Valloric/MatchTagAlways', opt = true }, -- highlights xml tags enclosing the cursor
-  { 'simeji/winresizer', opt = true }, -- helper for resizing windows
-  { 'lewis6991/gitsigns.nvim', opt = true },
-  { 'rhysd/committia.vim', opt = true }, -- improves vim 'commit' buffer
-  { 'L3MON4D3/LuaSnip', opt = true }, -- snippets engine
-  { 'rafamadriz/friendly-snippets', opt = true }, -- general snippets collection
-  { 'mattn/gist-vim', opt = true }, -- interact with github gist from vim
-  { 'mattn/webapi-vim', opt = true }, -- needed for `gist-vim`
-  { 'uga-rosa/ccc.nvim', opt = true }, -- Super powerful color picker / colorizer plugin.
-  { 'dkarter/bullets.vim', opt = true }, -- enhance bullet points management TODO replace with 'gaoDean/autolist.nvim' when checkboxes are supported
-  { 'csexton/trailertrash.vim', opt = true }, -- highlight trailing whitespace
-  { 'godlygeek/tabular', opt = true }, -- auto alignment
-  { 'tpope/vim-obsession', opt = true }, -- helper to start vim sessions
-  { 'ellisonleao/glow.nvim', opt = true }, -- markdown preview
+  { 'ThePrimeagen/harpoon'}, -- navigation helper
+  { 'junegunn/fzf'},
+  { 'alok/notational-fzf-vim'}, -- combines the fzf with the concept from notational
+  { 'preservim/vimux'}, -- allows to send commands from vim to tmux
+  { 'tyewang/vimux-jest-test'}, -- simplifies running jest test from vim
+  { 'tpope/vim-vinegar'}, -- file explorer TODO try again replacing with elihunter173/dirbuf.nvim
+  { 'jeffkreeftmeijer/vim-numbertoggle'}, -- improves the display of line numbers
+  { 'windwp/nvim-autopairs'}, -- auto closes pairs
+  { 'Valloric/MatchTagAlways'}, -- highlights xml tags enclosing the cursor
+  { 'simeji/winresizer'}, -- helper for resizing windows
+  { 'lewis6991/gitsigns.nvim'},
+  { 'rhysd/committia.vim'}, -- improves vim 'commit' buffer
+  { 'L3MON4D3/LuaSnip'}, -- snippets engine
+  { 'rafamadriz/friendly-snippets'}, -- general snippets collection
+  { 'mattn/webapi-vim'}, -- needed for `gist-vim`
+  { 'mattn/gist-vim'}, -- interact with github gist from vim
+  { 'uga-rosa/ccc.nvim'}, -- Super powerful color picker / colorizer plugin.
+  { 'dkarter/bullets.vim'}, -- enhance bullet points management TODO replace with 'gaoDean/autolist.nvim' when checkboxes are supported
+  { 'csexton/trailertrash.vim'}, -- highlight trailing whitespace
+  { 'godlygeek/tabular'}, -- auto alignment
+  { 'tpope/vim-obsession'}, -- helper to start vim sessions
+  { 'ellisonleao/glow.nvim'}, -- markdown preview
   {
     'nvim-treesitter/nvim-treesitter',
     run = function()
       pcall(require('nvim-treesitter.install').update({ with_sync = true }))
     end,
-    opt = true,
   },
-  { 'windwp/nvim-ts-autotag', opt = true }, -- auto closes xml tags
-  { 'ellisonleao/gruvbox.nvim', opt = true },
-  { 'rafcamlet/nvim-luapad', opt = true },
-  { 'folke/zen-mode.nvim', opt = true },
-  { 'szw/vim-maximizer', opt = true },
-  { 'airblade/vim-rooter', opt = true },
-  { 'neovim/nvim-lspconfig', opt = true },
-  { 'jose-elias-alvarez/null-ls.nvim', opt = true },
-  { 'AndrewRadev/switch.vim', opt = true }, -- fast boolean switch
-  { 'hrsh7th/nvim-cmp', opt = true },
-  { 'hrsh7th/cmp-nvim-lsp', opt = true },
-  { 'hrsh7th/cmp-path', opt = true },
-  { 'hrsh7th/cmp-buffer', opt = true },
-  { 'saadparwaiz1/cmp_luasnip', opt = true }, -- nvim-cmp source for Luasnip
-  { 'namjul/dendron.nvim', opt = true },
-  { 'mracos/mermaid.vim', opt = true },
-  { 'folke/which-key.nvim', opt = true },
-  { 'abecodes/tabout.nvim', opt = true }, -- tabbing out from parentheses, quotes, and similar contexts today.
-  { 'rest-nvim/rest.nvim', opt = true }, -- http client in neovim
-  { 'monaqa/dial.nvim', opt = true }, -- enhanced increment/decrement plugin for Neovim.
-  { 'wsdjeg/vim-fetch', opt = true }, -- enables to process line and column jump specifications
-  { 'andrewferrier/debugprint.nvim', opt = true },
-  { 'michaelb/sniprun', opt = true, run = 'bash ./install.sh' },
-  { 'ggandor/leap.nvim', opt = true },
+  { 'windwp/nvim-ts-autotag'}, -- auto closes xml tags
+  { 'ellisonleao/gruvbox.nvim'},
+  { 'rafcamlet/nvim-luapad'},
+  { 'folke/zen-mode.nvim'},
+  { 'szw/vim-maximizer'},
+  { 'airblade/vim-rooter'},
+  { 'neovim/nvim-lspconfig'},
+  { 'jose-elias-alvarez/null-ls.nvim'},
+  { 'AndrewRadev/switch.vim'}, -- fast boolean switch
+  { 'hrsh7th/nvim-cmp'},
+  { 'hrsh7th/cmp-nvim-lsp'},
+  { 'hrsh7th/cmp-path'},
+  { 'hrsh7th/cmp-buffer'},
+  { 'saadparwaiz1/cmp_luasnip'}, -- nvim-cmp source for Luasnip
+  { 'namjul/dendron.nvim'},
+  { 'mracos/mermaid.vim'},
+  { 'folke/which-key.nvim'},
+  { 'abecodes/tabout.nvim'}, -- tabbing out from parentheses, quotes, and similar contexts today.
+  { 'rest-nvim/rest.nvim'}, -- http client in neovim
+  { 'monaqa/dial.nvim'}, -- enhanced increment/decrement plugin for Neovim.
+  { 'wsdjeg/vim-fetch'}, -- enables to process line and column jump specifications
+  { 'andrewferrier/debugprint.nvim'},
+  { 'michaelb/sniprun'},
+  { 'ggandor/leap.nvim'},
 })
 
 if is_bootstrap then
   return
-end
-
-if vim.o.loadplugins then
-  util.loadPlugin('vim-abolish')
-  util.loadPlugin('gruvbox.nvim')
-  util.loadPlugin('yanky.nvim')
-  util.loadPlugin('vim-sensible')
-  util.loadPlugin('vim-unimpaired')
-  util.loadPlugin('nvim-surround')
-  util.loadPlugin('which-key.nvim')
-  util.loadPlugin('bullets.vim')
-  util.loadPlugin('switch.vim')
-  util.loadPlugin('dial.nvim')
-  util.loadPlugin('vim-cutlass')
-  util.loadPlugin('vim-subversive')
-  if not util.isVsCode() then
-    util.loadPlugin('dendron.nvim')
-    util.loadPlugin('vim-repeat')
-    util.loadPlugin('vim-fugitive')
-    util.loadPlugin('vim-flog')
-    util.loadPlugin('vim-rhubarb')
-    util.loadPlugin('harpoon')
-    util.loadPlugin('fzf')
-    util.loadPlugin('notational-fzf-vim')
-    util.loadPlugin('vimux')
-    util.loadPlugin('vimux-jest-test')
-    util.loadPlugin('vim-vinegar')
-    util.loadPlugin('vim-numbertoggle')
-    util.loadPlugin('nvim-autopairs')
-    util.loadPlugin('MatchTagAlways')
-    util.loadPlugin('winresizer')
-    util.loadPlugin('gitsigns.nvim')
-    util.loadPlugin('committia.vim')
-    util.loadPlugin('LuaSnip')
-    util.loadPlugin('friendly-snippets')
-    util.loadPlugin('gist-vim')
-    util.loadPlugin('webapi-vim')
-    util.loadPlugin('ccc.nvim')
-    util.loadPlugin('trailertrash.vim')
-    util.loadPlugin('tabular')
-    util.loadPlugin('vim-obsession')
-    util.loadPlugin('glow.nvim')
-    util.loadPlugin('nvim-treesitter')
-    util.loadPlugin('nvim-ts-autotag')
-    util.loadPlugin('nvim-luapad')
-    util.loadPlugin('zen-mode.nvim')
-    util.loadPlugin('vim-maximizer')
-    util.loadPlugin('vim-rooter')
-    util.loadPlugin('nvim-lspconfig')
-    util.loadPlugin('nvim-cmp')
-    util.loadPlugin('cmp-nvim-lsp')
-    util.loadPlugin('cmp-path')
-    util.loadPlugin('cmp-buffer')
-    util.loadPlugin('cmp_luasnip')
-    util.loadPlugin('mermaid.vim')
-    util.loadPlugin('tabout.nvim')
-    util.loadPlugin('rest.nvim')
-    util.loadPlugin('vim-fetch')
-    util.loadPlugin('debugprint.nvim')
-    util.loadPlugin('sniprun')
-    util.loadPlugin('null-ls.nvim')
-    util.loadPlugin('leap.nvim')
-  end
 end
 
 -- vim.opt.runtimepath:append '~/code/dendron.nvim'  -- Use an absolute path
