@@ -357,7 +357,9 @@ vim.api.nvim_create_autocmd('User', {
     nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
     nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
 
-    nmap('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
+    nmap('gd', function()
+      require('telescope.builtin').lsp_definitions(require('telescope.themes').get_ivy({}))
+    end, '[G]oto [D]efinition')
     nmap('gr', function()
       require('telescope.builtin').lsp_references(require('telescope.themes').get_ivy({}))
     end, '[G]oto [R]eferences')
