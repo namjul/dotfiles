@@ -6,7 +6,7 @@
 
 function dark
   nvim-ctrl.sh ':set background=dark<CR>'
-  alacritty-colorscheme apply gruvbox-dark.yml
+  alacritty-colorscheme apply onedark-dark.yml
   gsettings set org.gnome.desktop.interface color-scheme prefer-dark
   echo 'set background=dark' >~/.vimrc_background
   echo "dark"
@@ -14,7 +14,7 @@ end
 
 function light
   nvim-ctrl.sh ':set background=light<CR>'
-  alacritty-colorscheme apply gruvbox-light.yml
+  alacritty-colorscheme apply onedark-light.yml
   gsettings set org.gnome.desktop.interface color-scheme prefer-light
   echo 'set background=light' >~/.vimrc_background
   echo "light"

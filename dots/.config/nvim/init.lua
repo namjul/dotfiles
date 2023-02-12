@@ -95,6 +95,7 @@ local is_bootstrap = require('namjul.bootstrap').bootstrap_paq({
   { 'nvim-treesitter/nvim-treesitter-textobjects' },
   { 'windwp/nvim-ts-autotag' }, -- auto closes xml tags
   { 'ellisonleao/gruvbox.nvim' },
+  { 'navarasu/onedark.nvim' },
   { 'rafcamlet/nvim-luapad' },
   { 'folke/zen-mode.nvim' },
   { 'szw/vim-maximizer' },
@@ -179,7 +180,11 @@ opt.b({
   undofile = true, -- Maintain undo history between sessions
 })
 
-vim.cmd('colorscheme gruvbox')
+require('onedark').setup({
+  style = 'warmer',
+})
+
+vim.cmd('colorscheme onedark')
 
 if util.readable(vim.fn.expand('~/.vimrc_background')) then
   vim.cmd('source ~/.vimrc_background')
@@ -217,7 +222,7 @@ require('namjul.keymaps')
 require('lualine').setup({
   options = {
     icons_enabled = false,
-    theme = 'gruvbox',
+    theme = 'onedark',
     component_separators = '|',
     section_separators = '',
   },
