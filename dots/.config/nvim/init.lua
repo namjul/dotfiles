@@ -160,7 +160,7 @@ opt.g({
   undodir = os.getenv('XDG_DATA_HOME') .. '/nvim/undo',
   guifont = 'Cascadia_Code',
   completeopt = 'menu,menuone,noselect',
-  showmode = false -- hide status line at the bottom
+  showmode = false, -- hide status line at the bottom
 })
 
 -- opt.g currenlty does not support tables
