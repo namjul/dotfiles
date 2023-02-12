@@ -41,6 +41,8 @@ vim.g.winresizer_start_key = '<C-T>'
 vim.g.VimuxOrientation = 'h'
 vim.g.switch_mapping = ''
 
+vim.g.trailertrash_blacklist = { 'mason' }
+
 ----------------------------------------
 -- Plugins
 ----------------------------------------
