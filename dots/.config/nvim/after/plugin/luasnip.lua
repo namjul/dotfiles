@@ -4,7 +4,7 @@ if not has_luasnip then
   return
 end
 
--- local ls = require('luasnip')
+require('luasnip')
 
 
 -- https://github.com/dendronhq/dendron-template/blob/master/vault/.vscode/dendron.code-snippets
