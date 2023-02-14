@@ -31,10 +31,8 @@ end
 ----------------------------------------
 
 vim.g.nv_search_paths = {
-  '~/Dropbox/dendron/wiki',
-  '~/Dropbox/dendron/notes',
-  '~/Dropbox/dendron/movement',
-  '~/Dropbox/dendron/crm',
+  '~/Dropbox/logseq/pages',
+  '~/Dropbox/logseq/journals',
 }
 vim.g.nv_ignore_pattern = { 'assets', '.git' }
 vim.g.winresizer_start_key = '<C-T>'
@@ -114,7 +112,6 @@ local is_bootstrap = require('namjul.bootstrap').bootstrap_paq({
   { 'hrsh7th/cmp-path' },
   { 'hrsh7th/cmp-buffer' },
   { 'saadparwaiz1/cmp_luasnip' }, -- nvim-cmp source for Luasnip
-  { 'namjul/dendron.nvim' },
   { 'mracos/mermaid.vim' },
   { 'folke/which-key.nvim' },
   { 'abecodes/tabout.nvim' }, -- tabbing out from parentheses, quotes, and similar contexts today.
@@ -124,13 +121,12 @@ local is_bootstrap = require('namjul.bootstrap').bootstrap_paq({
   { 'andrewferrier/debugprint.nvim' },
   { 'michaelb/sniprun' },
   { 'ggandor/leap.nvim' },
+  { 'stevearc/overseer.nvim' },
 })
 
 if is_bootstrap then
   return
 end
-
--- vim.opt.runtimepath:append '~/code/dendron.nvim'  -- Use an absolute path
 
 ----------------------------------------
 -- Options
