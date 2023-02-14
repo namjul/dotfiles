@@ -35,6 +35,7 @@ vim.g.nv_search_paths = {
   '~/Dropbox/logseq/journals',
 }
 vim.g.nv_ignore_pattern = { 'assets', '.git' }
+vim.g.nv_show_preview = false
 vim.g.winresizer_start_key = '<C-T>'
 vim.g.VimuxOrientation = 'h'
 vim.g.switch_mapping = ''
