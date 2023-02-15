@@ -80,8 +80,8 @@ wk.register({
   -- ['<c-p>'] = { '<Plug>(YankyCycleBackward)', 'Yank cycle backward' },
   y = { '<Plug>(YankyYank)', 'Yank which preserves cursor position' },
   ['<c-l>'] = {
-    ":lua require('dendron.telescope').lookup(require('telescope.themes').get_ivy({}))<CR>",
-    'Lookup in Dendron',
+    ':NV<CR>',
+    'Search in PKM',
   },
   ['<c-k>'] = { ":lua require('namjul.functions.telescope').findFiles()<CR>", 'Go to File' },
   ['<c-s>'] = { '<Plug>(Switch)', 'Switch' },
@@ -100,7 +100,6 @@ wk.register({
   s = { '<Plug>(leap-forward-to)', 'Leap forward to' },
   S = { '<Plug>(leap-backward-to)', 'Leap backward to' },
   gs = { '<Plug>(leap-cross-window)', 'Leap cross window' },
-  -- x = { ':!chmod +x %<CR>', "Make current file executable" },
 }, defaultMapping)
 
 -- guifont mappings
@@ -212,7 +211,6 @@ wk.register({
         'Find buffer commits',
       },
     },
-    y = { ':NV<CR>', 'Search in Dendron' },
   },
   c = {
     ":lua require('telescope.builtin').commands(require('telescope.themes').get_ivy({}))<CR>",
@@ -223,10 +221,9 @@ wk.register({
   -- ['<C-j>'] = { ':below sp new<CR>', 'Open new file below' },
   -- ['<C-k>'] = { ':above sp new<CR>', 'Open new file above' },
   -- ['<C-l>'] = { ':rightb vsp new<CR>', 'Open new file to the right' },
-  ['1'] = { ':RooterToggle<CR>', 'Execute current file', silent = false },
+  ['1'] = { ':RooterToggle<CR>', 'Toggle Rooter', silent = false },
   ['2'] = { ':w<CR>:! ./%<CR>', 'Execute current file' },
-  -- PLUGIN:dendron
-  ['<C-i>'] = { ":lua require('dendron').openDailyNote()<CR>", 'Create Daily Note' },
+  ['3'] = { ':!chmod +x %<CR>', "Make current file executable" },
   z = { ':ZenMode<CR>', 'Enter Zenmode' },
   m = { ':MaximizerToggle<CR>', 'Maximize window' },
   n = { ':nohlsearch<CR>', 'Clear search highlight' },
