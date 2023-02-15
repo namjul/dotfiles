@@ -1,1 +1,5 @@
-{:git/disable-auto-commit? false}
+{
+ :git/disable-auto-commit? false
+ :shortcuts {:go/search "ctrl+l", :editor/insert-link "ctrl+a"}
+}
+
