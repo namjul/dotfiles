@@ -58,6 +58,14 @@ require('nvim-treesitter.configs').setup({
       scope_incremental = '<c-s>',
       node_decremental = '<c-n>',
     },
+    -- fix from https://github.com/nvim-treesitter/nvim-treesitter/issues/2634#issuecomment-1362479800
+    is_supported = function()
+      local ct = vim.fn.getcmdwintype()
+      if ct ~= '' then
+        return false
+      end
+      return true
+    end,
   },
 
   textobjects = {
