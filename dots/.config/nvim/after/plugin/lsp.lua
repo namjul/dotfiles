@@ -16,6 +16,7 @@ require('neodev').setup()
 local servers = {
   rust_analyzer = {},
   tsserver = {},
+  marksman = {},
   lua_ls = {
     Lua = {
       workspace = { checkThirdParty = false },
