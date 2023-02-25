@@ -237,10 +237,8 @@ require('clipboard-image').setup({
       vim.fn.inputrestore()
       return name
     end,
-  },
-  markdown = {
-    img_dir = { 'assets', 'images' },
-    img_dir_txt = 'assets/images',
+    img_dir = { '%:p:h', 'assets', 'images' },
+    img_dir_txt = './assets/images',
   },
 })
 
