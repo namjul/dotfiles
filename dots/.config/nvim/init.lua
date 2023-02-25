@@ -69,6 +69,7 @@ local is_bootstrap = require('namjul.bootstrap').bootstrap_paq({
   { 'junegunn/fzf' },
   { 'alok/notational-fzf-vim' }, -- combines the fzf with the concept from notational
   { 'ekickx/clipboard-image.nvim' },
+  {  'euclio/vim-markdown-composer' },
   { 'preservim/vimux' }, -- allows to send commands from vim to tmux
   { 'tyewang/vimux-jest-test' }, -- simplifies running jest test from vim
   { 'tpope/vim-vinegar' }, -- file explorer TODO try again replacing with elihunter173/dirbuf.nvim
