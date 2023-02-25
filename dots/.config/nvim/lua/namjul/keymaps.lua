@@ -162,6 +162,9 @@ wk.register({
     end,
     'Show the path of the current file and add it to clipboard (mnemonic: path; useful when you have a lot of splits and the status line gets truncated).',
   },
+  P = {
+    ':PasteImg <CR>', 'Paste image from clipboard'
+  },
   t = {
     name = 'Translator',
     e = { ':Trans en <CR>', 'Translate to English(word under cursor)' },

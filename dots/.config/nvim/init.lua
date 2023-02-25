@@ -68,6 +68,7 @@ local is_bootstrap = require('namjul.bootstrap').bootstrap_paq({
   { 'ThePrimeagen/harpoon' }, -- navigation helper
   { 'junegunn/fzf' },
   { 'alok/notational-fzf-vim' }, -- combines the fzf with the concept from notational
+  { 'ekickx/clipboard-image.nvim' },
   { 'preservim/vimux' }, -- allows to send commands from vim to tmux
   { 'tyewang/vimux-jest-test' }, -- simplifies running jest test from vim
   { 'tpope/vim-vinegar' }, -- file explorer TODO try again replacing with elihunter173/dirbuf.nvim
@@ -122,7 +123,6 @@ local is_bootstrap = require('namjul.bootstrap').bootstrap_paq({
   { 'andrewferrier/debugprint.nvim' },
   { 'michaelb/sniprun' },
   { 'ggandor/leap.nvim' },
-  { 'stevearc/overseer.nvim' },
 })
 
 if is_bootstrap then
@@ -227,8 +227,22 @@ require('lualine').setup({
   },
 })
 
--- Enable Comment.nvim
 require('Comment').setup()
+
+require('clipboard-image').setup({
+  default = {
+    img_name = function()
+      vim.fn.inputsave()
+      local name = vim.fn.input('Name: ')
+      vim.fn.inputrestore()
+      return name
+    end,
+  },
+  markdown = {
+    img_dir = { 'assets', 'images' },
+    img_dir_txt = 'assets/images',
+  },
+})
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
