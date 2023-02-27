@@ -32,6 +32,7 @@ end
 
 vim.g.nv_search_paths = {
   '~/Dropbox/pkm',
+  '~/ghq/github.com/kevinslin/seed-tldr/vault'
 }
 vim.g.nv_ignore_pattern = { 'assets', '.git' }
 vim.g.nv_use_short_pathnames = 0
