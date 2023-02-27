@@ -133,8 +133,8 @@ end
 
 wk.register({
   -- ['<leader>'] = { '<C-^>', 'Open last buffer' },
-  ['<space>'] = {
-    ":lua require('telescope.builtin').buffers(require('telescope.themes').get_ivy({}))<CR>",
+  ['<leader>'] = {
+    ":lua require('namjul.functions.telescope').findBuffers()<CR>",
     '[ ] Find existing buffers',
   },
   -- disabled (using now `:%d` or `:%y`) a = { "ggVG", 'select all' }

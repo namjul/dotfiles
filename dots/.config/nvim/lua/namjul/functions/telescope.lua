@@ -4,7 +4,7 @@ function M.findFiles(args)
   args = args or {}
   local opts = {
     find_command = { 'rg', '--files', '--hidden', '--follow' },
-    prompt_title = 'find files',
+    prompt_title = 'Files',
     previewer = false,
   }
 
@@ -13,6 +13,20 @@ function M.findFiles(args)
   end
 
   require('telescope.builtin').find_files(require('telescope.themes').get_ivy(opts))
+end
+
+function M.findBuffers(args)
+  args = args or {}
+  local opts = {
+    prompt_title = 'Buffers',
+    previewer = false,
+  }
+
+  for k, v in pairs(args) do
+    opts[k] = v
+  end
+
+  require('telescope.builtin').buffers(require('telescope.themes').get_ivy(opts))
 end
 
 function M.findGitFiles(args)
