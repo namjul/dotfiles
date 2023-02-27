@@ -40,8 +40,8 @@ vim.g.nv_show_preview = false
 vim.g.winresizer_start_key = '<C-T>'
 vim.g.VimuxOrientation = 'h'
 vim.g.switch_mapping = ''
-
 vim.g.trailertrash_blacklist = { 'mason' }
+vim.g.markdown_composer_open_browser = 0
 
 ----------------------------------------
 -- Plugins
