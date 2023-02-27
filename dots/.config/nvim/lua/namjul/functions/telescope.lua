@@ -5,6 +5,7 @@ function M.findFiles(args)
   local opts = {
     find_command = { 'rg', '--files', '--hidden', '--follow' },
     prompt_title = 'find files',
+    previewer = false,
   }
 
   for k, v in pairs(args) do
@@ -58,6 +59,7 @@ function M.find_most_wanted(args)
   local opts = {
     find_command = { 'most-wanted-dirs' },
     prompt_title = 'Most wanted dirs',
+    previewer = false,
   }
 
   for k, v in pairs(args) do
@@ -72,6 +74,7 @@ function M.find_recent(args)
   local opts = {
     prompt_title = 'find recent files',
     include_current_session = true,
+    previewer = false,
     -- cwd_only = true
   }
 
