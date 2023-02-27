@@ -358,10 +358,10 @@ vim.api.nvim_create_autocmd('User', {
     -- nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
 
     nmap('gd', function()
-      require('telescope.builtin').lsp_definitions(require('telescope.themes').get_ivy({}))
+      require('namjul.functions.telescope').findLspDefinitions()
     end, '[G]oto [D]efinition')
     nmap('gr', function()
-      require('telescope.builtin').lsp_references(require('telescope.themes').get_ivy({}))
+      require('namjul.functions.telescope').findLspReferences()
     end, '[G]oto [R]eferences')
     -- nmap('gr', vim.lsp.buf.references, '[G]oto [R]eferences')
     nmap('gI', vim.lsp.buf.implementation, '[G]oto [I]mplementation')
