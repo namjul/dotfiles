@@ -2,7 +2,7 @@
 
 .PHONY: install
 
-# TODO asdf, brew, nvim
+# TODO rtx, brew, nvim
 
 install:
 	@echo "Creating symlinks"

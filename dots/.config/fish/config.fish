@@ -19,7 +19,7 @@ end
 if not type -q shellfirm
   # show this message to the user and don't register to terminal hook
   # we want to show the user that he not protected with `shellfirm`
-  echo "`shellfirm` binary is missing. see installation guide: https://github.com/kaplanelad/shellfirm#installation."
+  echo "`shellfirm` binary is missing. see installation guide: https://github.com/kaplanelad/shellfirm "
 end
 
 if status is-interactive
@@ -46,6 +46,7 @@ if status is-interactive
   starship init fish | source
   zoxide init fish | source
   direnv hook fish | source
+  rtx activate fish | source
   # scmpuff init -s --shell=fish | source
 
   if type -q shellfirm

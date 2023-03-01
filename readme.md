@@ -34,28 +34,7 @@ Clone dotfiles to home directory
 git clone https://github.com/namjul/dotfiles
 ```
 
-and run the install script
-
-```
-./install
-```
-
-It will:
-
-1. install brew packages
-2. setup symlinks
-3. setup vim configuration files and downloads `vim-plug` if it does not exist
-4. install `asdf` plugins
-
-## Postinstallation
-
-### `asdf`
-
-To make `asdf` work add the following to `~/.profile`:
-
-```sh
-source $(brew --prefix asdf)/asdf.sh
-```
+cd and run `make`
 
 ### git
 
@@ -69,7 +48,6 @@ GIT_COMMITTER_EMAIL="$GIT_AUTHOR_EMAIL"
 git config --global user.name "$GIT_AUTHOR_NAME"
 git config --global user.email "$GIT_AUTHOR_EMAIL"
 ```
-
 
 ## Cli Workflows
 
