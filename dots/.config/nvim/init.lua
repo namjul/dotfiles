@@ -32,7 +32,7 @@ end
 
 vim.g.nv_search_paths = {
   '~/Dropbox/pkm',
-  '~/ghq/github.com/kevinslin/seed-tldr/vault'
+  '~/ghq/github.com/kevinslin/seed-tldr/vault',
 }
 vim.g.nv_ignore_pattern = { 'assets', '.git' }
 vim.g.nv_use_short_pathnames = 0
@@ -70,7 +70,7 @@ local is_bootstrap = require('namjul.bootstrap').bootstrap_paq({
   { 'junegunn/fzf' },
   { 'alok/notational-fzf-vim' }, -- combines the fzf with the concept from notational
   { 'ekickx/clipboard-image.nvim' },
-  {  'euclio/vim-markdown-composer' },
+  { 'euclio/vim-markdown-composer' },
   { 'preservim/vimux' }, -- allows to send commands from vim to tmux
   { 'tyewang/vimux-jest-test' }, -- simplifies running jest test from vim
   { 'tpope/vim-vinegar' }, -- file explorer TODO try again replacing with elihunter173/dirbuf.nvim
@@ -125,6 +125,8 @@ local is_bootstrap = require('namjul.bootstrap').bootstrap_paq({
   { 'andrewferrier/debugprint.nvim' },
   { 'michaelb/sniprun' },
   { 'ggandor/leap.nvim' },
+  { 'stevearc/overseer.nvim' },
+  { 'stevearc/dressing.nvim' },
 })
 
 if is_bootstrap then
@@ -215,6 +217,12 @@ util.createAugroup({
   { 'BufNewFile', 'tsconfig*.json', 'set filetype=jsonc' },
 }, 'JsoncFilterType')
 
+require('dressing').setup({
+  select = {
+    telescope = require('telescope.themes').get_ivy({}),
+  },
+})
+
 require('namjul.translator')
 require('namjul.keymaps')
 
@@ -243,6 +251,8 @@ require('clipboard-image').setup({
     img_dir_txt = './assets/images',
   },
 })
+
+require('overseer').setup()
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
