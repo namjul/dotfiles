@@ -235,6 +235,31 @@ require('lualine').setup({
     component_separators = '|',
     section_separators = '',
   },
+  sections = {
+    lualine_a = { {
+      'mode',
+      fmt = function(value)
+        return value:sub(1, 1)
+      end,
+    } },
+    lualine_b = {},
+    lualine_c = {
+      {
+        'filename',
+        separator = '',
+        path = 1
+      },
+      {
+        'filetype',
+        fmt = function(value)
+          return (value:len() > 0) and '[' .. value .. ']' or ''
+        end,
+      },
+    },
+    lualine_x = { 'encoding', 'fileformat' },
+    lualine_y = { 'progress' },
+    lualine_z = { 'location' },
+  },
 })
 
 require('Comment').setup()
