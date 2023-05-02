@@ -116,7 +116,6 @@ local is_bootstrap = require('namjul.bootstrap').bootstrap_paq({
   { 'hrsh7th/cmp-path' },
   { 'hrsh7th/cmp-buffer' },
   { 'saadparwaiz1/cmp_luasnip' }, -- nvim-cmp source for Luasnip
-  { 'mracos/mermaid.vim' },
   { 'folke/which-key.nvim' },
   { 'abecodes/tabout.nvim' }, -- tabbing out from parentheses, quotes, and similar contexts today.
   { 'rest-nvim/rest.nvim' }, -- http client in neovim

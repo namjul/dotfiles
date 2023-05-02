@@ -43,6 +43,7 @@ require('nvim-treesitter.configs').setup({
     'scss',
     'css',
     'glimmer',
+    'mermaid'
   },
 
   -- enables https://github.com/windwp/nvim-ts-autotag
