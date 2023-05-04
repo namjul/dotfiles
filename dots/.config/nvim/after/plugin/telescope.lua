@@ -9,10 +9,11 @@ local actions = require('telescope.actions')
 require('telescope').setup({
   defaults = {
     prompt_prefix = ' ',
-    mappings = {
+    mappings = { -- https://github.com/nvim-telescope/telescope.nvim#default-mappings
       i = {
         ['<esc>'] = actions.close,
         ['<C-q>'] = actions.send_to_qflist,
+        ['<M-p>'] = require('telescope.actions.layout').toggle_preview,
       },
     },
   },
