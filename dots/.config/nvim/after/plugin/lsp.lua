@@ -1,9 +1,10 @@
 local has_mason = pcall(require, 'mason')
 local has_fidget = pcall(require, 'fidget')
 local has_neodev = pcall(require, 'neodev')
+local has_lspconfig = pcall(require, 'lspconfig')
 local has_mason_lspconfig = pcall(require, 'mason-lspconfig')
 
-if not has_mason and not has_fidget and not has_neodev and not has_mason_lspconfig then
+if not has_mason and not has_fidget and not has_neodev and not has_mason_lspconfig and not has_lspconfig then
   return
 end
 
@@ -52,6 +53,7 @@ lspconfig.util.default_config = vim.tbl_deep_extend('force', lspconfig.util.defa
 mason_lspconfig.setup_handlers({
   function(server_name)
     lspconfig[server_name].setup({
+      root_dir = lspconfig.util.root_pattern('.git'),
       settings = servers[server_name],
     })
   end,
