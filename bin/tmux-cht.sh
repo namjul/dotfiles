@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+
+# rewrite to include devdocs https://www.eseth.org/2020/devdocs-cli.html https://github.com/whiteinge/dotfiles/blob/9b3650b/bin/devdocs-local
+
 selected=`cat ~/.tmux-cht-languages ~/.tmux-cht-command | fzf`
 if [[ -z $selected ]]; then
     exit 0
