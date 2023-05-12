@@ -161,6 +161,7 @@ opt.g({
   guifont = 'Cascadia_Code',
   completeopt = 'menu,menuone,noselect',
   showmode = false, -- hide status line at the bottom
+   tabstop = 2 -- spaces per tab
 })
 
 -- opt.g currenlty does not support tables
@@ -252,7 +253,7 @@ require('lualine').setup({
       {
         'filename',
         separator = '',
-        path = 1
+        path = 1,
       },
       {
         'filetype',
