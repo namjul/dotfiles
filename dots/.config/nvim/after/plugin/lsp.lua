@@ -24,6 +24,7 @@ local servers = {
       telemetry = { enable = false },
     },
   },
+  volar = {},
 }
 
 require('mason').setup()
