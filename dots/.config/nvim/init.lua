@@ -229,6 +229,13 @@ require('dressing').setup({
   },
 })
 
+
+vim.filetype.add({
+  extension = {
+    mdx = 'mdx'
+  }
+})
+
 require('namjul.translator')
 require('namjul.keymaps')
 
