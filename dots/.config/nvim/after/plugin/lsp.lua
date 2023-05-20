@@ -54,7 +54,7 @@ lspconfig.util.default_config = vim.tbl_deep_extend('force', lspconfig.util.defa
 mason_lspconfig.setup_handlers({
   function(server_name)
     lspconfig[server_name].setup({
-      root_dir = lspconfig.util.root_pattern('.git'),
+      -- root_dir = lspconfig.util.root_pattern('.git'),
       settings = servers[server_name],
     })
   end,
