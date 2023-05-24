@@ -214,6 +214,10 @@ wk.register({
         'Find buffer commits',
       },
     },
+    l = {
+      ":Flogsplit<CR>",
+      "Open Flog"
+    }
   },
   c = {
     ":lua require('telescope.builtin').commands(require('telescope.themes').get_ivy({}))<CR>",
