@@ -86,6 +86,17 @@ function M.search(args)
   require('telescope').extensions.live_grep_args.live_grep_args(require('telescope.themes').get_ivy(opts))
 end
 
+function M.pkm()
+  M.search({
+    path_display = { "tail" },
+    default_text = '"" --iglob *',
+    search_dirs = {
+      '~/Dropbox/pkm',
+      '~/ghq/github.com/kevinslin/seed-tldr/vault',
+    },
+  })
+end
+
 function M.live_grep(args)
   args = args or {}
   local opts = {

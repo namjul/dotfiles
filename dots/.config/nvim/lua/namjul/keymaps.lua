@@ -80,7 +80,7 @@ wk.register({
   -- ['<c-p>'] = { '<Plug>(YankyCycleBackward)', 'Yank cycle backward' },
   y = { '<Plug>(YankyYank)', 'Yank which preserves cursor position' },
   ['<c-l>'] = {
-    ':NV<CR>',
+    ":lua require('namjul.functions.telescope').pkm()<CR>",
     'Search in PKM',
   },
   ['<c-k>'] = { ":lua require('namjul.functions.telescope').findFiles()<CR>", 'Go to File' },

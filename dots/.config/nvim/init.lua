@@ -30,13 +30,6 @@ end
 -- Plugins requiring settings to exist
 ----------------------------------------
 
-vim.g.nv_search_paths = {
-  '~/Dropbox/pkm',
-  '~/ghq/github.com/kevinslin/seed-tldr/vault',
-}
-vim.g.nv_ignore_pattern = { 'assets', '.git' }
-vim.g.nv_use_short_pathnames = 0
-vim.g.nv_show_preview = false
 vim.g.winresizer_start_key = '<C-T>'
 vim.g.VimuxOrientation = 'h'
 vim.g.switch_mapping = ''
@@ -68,8 +61,6 @@ local is_bootstrap = require('namjul.bootstrap').bootstrap_paq({
   { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' },
   { 'nvim-telescope/telescope-live-grep-args.nvim' },
   { 'ThePrimeagen/harpoon' }, -- navigation helper
-  { 'junegunn/fzf' },
-  { 'alok/notational-fzf-vim' }, -- combines the fzf with the concept from notational
   { 'ekickx/clipboard-image.nvim' },
   { 'euclio/vim-markdown-composer' },
   { 'preservim/vimux' }, -- allows to send commands from vim to tmux
