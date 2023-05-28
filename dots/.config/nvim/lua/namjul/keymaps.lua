@@ -214,6 +214,8 @@ wk.register({
         'Find buffer commits',
       },
     },
+  },
+  g = {
     l = {
       ":Flogsplit<CR>",
       "Open Flog"
