@@ -187,8 +187,8 @@ wk.register({
     'Grep word under cursor',
   },
   ['?'] = {
-    ":lua require('namjul.functions.telescope').grep_string({ search = vim.fn.input('Grep > ') })<CR>",
-    'Grep word',
+    ":lua require('namjul.functions.telescope').search()<CR>",
+    'Ripgrep live args',
   },
   ['/'] = {
     ":lua require('namjul.functions.telescope').live_grep()<CR>",

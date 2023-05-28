@@ -66,6 +66,7 @@ local is_bootstrap = require('namjul.bootstrap').bootstrap_paq({
   { 'nvim-lua/plenary.nvim' },
   { 'nvim-telescope/telescope.nvim', branch = '0.1.x' },
   { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' },
+  { 'nvim-telescope/telescope-live-grep-args.nvim' },
   { 'ThePrimeagen/harpoon' }, -- navigation helper
   { 'junegunn/fzf' },
   { 'alok/notational-fzf-vim' }, -- combines the fzf with the concept from notational

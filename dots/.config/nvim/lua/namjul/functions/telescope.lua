@@ -75,6 +75,17 @@ function M.grep_string(args)
   require('telescope.builtin').grep_string(require('telescope.themes').get_ivy(opts))
 end
 
+function M.search(args)
+  args = args or {}
+  local opts = {}
+
+  for k, v in pairs(args) do
+    opts[k] = v
+  end
+
+  require('telescope').extensions.live_grep_args.live_grep_args(require('telescope.themes').get_ivy(opts))
+end
+
 function M.live_grep(args)
   args = args or {}
   local opts = {
