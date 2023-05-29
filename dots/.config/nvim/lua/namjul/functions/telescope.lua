@@ -1,3 +1,8 @@
+local actions = require('telescope.actions')
+local lga_actions = require('telescope-live-grep-args.actions')
+local builtin = require('telescope.builtin')
+local slugify = require('namjul.functions.slugify')
+
 local M = {}
 
 function M.findFiles(args)
@@ -10,7 +15,7 @@ function M.findFiles(args)
   for k, v in pairs(args) do
     opts[k] = v
   end
-  require('telescope.builtin').find_files(require('telescope.themes').get_ivy(opts))
+  builtin.find_files(require('telescope.themes').get_ivy(opts))
 end
 
 function M.findBuffers(args)
@@ -24,7 +29,7 @@ function M.findBuffers(args)
     opts[k] = v
   end
 
-  require('telescope.builtin').buffers(require('telescope.themes').get_ivy(opts))
+  builtin.buffers(require('telescope.themes').get_ivy(opts))
 end
 
 function M.findLspDefinitions(args)
@@ -36,7 +41,7 @@ function M.findLspDefinitions(args)
   for k, v in pairs(args) do
     opts[k] = v
   end
-  require('telescope.builtin').lsp_definitions(require('telescope.themes').get_ivy(opts))
+  builtin.lsp_definitions(require('telescope.themes').get_ivy(opts))
 end
 
 function M.findLspReferences(args)
@@ -48,7 +53,7 @@ function M.findLspReferences(args)
   for k, v in pairs(args) do
     opts[k] = v
   end
-  require('telescope.builtin').lsp_references(require('telescope.themes').get_ivy(opts))
+  builtin.lsp_references(require('telescope.themes').get_ivy(opts))
 end
 
 function M.findGitFiles(args)
@@ -59,7 +64,7 @@ function M.findGitFiles(args)
   for k, v in pairs(args) do
     opts[k] = v
   end
-  require('telescope.builtin').git_files(require('telescope.themes').get_ivy(opts))
+  builtin.git_files(require('telescope.themes').get_ivy(opts))
 end
 
 function M.grep_string(args)
@@ -72,27 +77,54 @@ function M.grep_string(args)
     opts[k] = v
   end
 
-  require('telescope.builtin').grep_string(require('telescope.themes').get_ivy(opts))
+  builtin.grep_string(require('telescope.themes').get_ivy(opts))
 end
 
 function M.search(args)
   args = args or {}
-  local opts = {}
+  local opts = {
+    auto_quoting = true,
+    mappings = {
+      i = {
+        ['<C-k>'] = lga_actions.quote_prompt(),
+        ['<C-i>'] = lga_actions.quote_prompt({ postfix = ' --iglob ' }),
+      },
+    },
+  }
 
   for k, v in pairs(args) do
-    opts[k] = v
+    if type(v) == 'table' and opts[k] then
+      opts[k] = vim.tbl_deep_extend('force', opts[k], v)
+    else
+      opts[k] = v
+    end
   end
 
   require('telescope').extensions.live_grep_args.live_grep_args(require('telescope.themes').get_ivy(opts))
 end
 
 function M.pkm()
+  local search_dirs = {
+    '~/Dropbox/pkm',
+    '~/ghq/github.com/kevinslin/seed-tldr/vault',
+  }
+
   M.search({
-    path_display = { "tail" },
+    path_display = { 'tail' },
     default_text = '"" --iglob *',
-    search_dirs = {
-      '~/Dropbox/pkm',
-      '~/ghq/github.com/kevinslin/seed-tldr/vault',
+    search_dirs = search_dirs,
+    mappings = {
+      i = {
+        -- TODO make it work with enter `<CR>`
+        ['<C-x>'] = function(prompt_bufnr)
+          local current_picker = require('telescope.actions.state').get_current_picker(prompt_bufnr)
+          local prompt = slugify(current_picker:_get_prompt())
+          local filename = search_dirs[1] .. '/' .. prompt .. '.md'
+
+          actions.close(prompt_bufnr)
+          vim.cmd('e ' .. filename)
+        end,
+      },
     },
   })
 end
