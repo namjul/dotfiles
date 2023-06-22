@@ -87,7 +87,7 @@ function M.search(args)
     mappings = {
       i = {
         ['<C-k>'] = lga_actions.quote_prompt(),
-        ['<C-i>'] = lga_actions.quote_prompt({ postfix = ' --iglob ' }),
+        ['<C-j>'] = lga_actions.quote_prompt({ postfix = ' --iglob ' }),
       },
     },
   }
