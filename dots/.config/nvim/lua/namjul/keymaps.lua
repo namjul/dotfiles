@@ -191,7 +191,7 @@ wk.register({
     'Ripgrep live args',
   },
   ['/'] = {
-    ":lua require('namjul.functions.telescope').live_grep()<CR>",
+    ":lua require('namjul.functions.telescope').search({ previewer = false })<CR>",
     'Search word',
   },
   f = {
