@@ -237,8 +237,8 @@ wk.register({
   m = { ':MaximizerToggle<CR>', 'Maximize window' },
   n = { ':nohlsearch<CR>', 'Clear search highlight' },
   -- PLUGIN:harpoon
-  ba = { ':lua require("harpoon.mark").add_file()<CR>', 'Add file to harpoon' },
-  bl = { ':lua require("harpoon.ui").toggle_quick_menu()<CR>', 'Toggle harpoon menu' },
+  ha = { ':lua require("harpoon.mark").add_file()<CR>', 'Add file to harpoon' },
+  hl = { ':lua require("harpoon.ui").toggle_quick_menu()<CR>', 'Toggle harpoon menu' },
   j = { ':lua require("harpoon.ui").nav_file(1)<CR>', 'Harpoon: Goto(1)' },
   k = { ':lua require("harpoon.ui").nav_file(2)<CR>', 'Harpoon: Goto(2)' },
   l = { ':lua require("harpoon.ui").nav_file(3)<CR>', 'Harpoon: Goto(3)' },
