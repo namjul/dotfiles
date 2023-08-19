@@ -1,0 +1,5 @@
+
+# See https://github.com/artempyanykh/marksman/blob/main/Tests/default.marksman.toml for default config
+
+[completion]
+wiki.style = "file-stem"
