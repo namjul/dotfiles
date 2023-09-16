@@ -22,7 +22,7 @@ env:
   TERM: xterm-256color
 
 window:
-  startup_mode: Fullscreen
+  # startup_mode: Fullscreen
   # Window dimensions in character columns and lines
   # Falls back to size specified by window manager if set to 0x0.
   # (changes require restart)
@@ -355,3 +355,31 @@ key_bindings:
   - {key: F10, mods: Super, chars: "\e[21;3~"}
   - {key: F11, mods: Super, chars: "\e[23;3~"}
   - {key: F12, mods: Super, chars: "\e[24;3~"}
+colors:
+  # COLORSCHEME: onedark-light.yml
+  # Default colors
+  primary:
+    background: '#fafafa'
+    foreground: '#383a42'
+
+  # Normal colors
+  normal:
+    black: '#1e2127'
+    red: '#e45649'
+    green: '#50a14f'
+    yellow: '#986801'
+    blue: '#4078f2'
+    magenta: '#a626a4'
+    cyan: '#0184bc'
+    white: '#abb2bf'
+
+  # Bright colors
+  bright:
+    black: '#5c6370'
+    red: '#e06c75'
+    green: '#98c379'
+    yellow: '#d19a66'
+    blue: '#61afef'
+    magenta: '#c678dd'
+    cyan: '#56b6c2'
+    white: '#ffffff'
