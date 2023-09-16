@@ -64,10 +64,3 @@ end
 function ignorehistory --on-event fish_prompt
     history --delete --prefix tomb
 end
-
-# pnpm
-set -gx PNPM_HOME "/home/nam/.local/share/pnpm"
-if not string match -q -- $PNPM_HOME $PATH
-  set -gx PATH "$PNPM_HOME" $PATH
-end
-# pnpm end

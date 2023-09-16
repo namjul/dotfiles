@@ -25,10 +25,14 @@ export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
 #neovide
 export NEOVIDE_MULTIGRID="true"
 
-
-
 # Set env variable with fallback
 # https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html
 set -q XDG_DATA_HOME; or set -x XDG_DATA_HOME $HOME/.local/share
 set -q XDG_CONFIG_HOME; or set -x XDG_CONFIG_HOME $HOME/.config
 
+# pnpm
+set -gx PNPM_HOME "/home/nam/.local/share/pnpm"
+if not string match -q -- $PNPM_HOME $PATH
+  set -gx PATH "$PNPM_HOME" $PATH
+end
+# pnpm end
