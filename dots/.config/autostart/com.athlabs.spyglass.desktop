@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=com.athlabs.spyglass
+Comment=com.athlabs.spyglassstartup script
+Exec=/tmp/.mount_spyglaaksIQb/usr/bin/spyglass 
+StartupNotify=false
+Terminal=false

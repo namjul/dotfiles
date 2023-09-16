@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Exec=xset r rate 200 30
+Hidden=false
+NoDisplay=false
+X-GNOME-Autostart-enabled=true
+Name[de_DE]=keyboard rate
+Name=keyboard rate
+Comment[de_DE]=
+Comment=
