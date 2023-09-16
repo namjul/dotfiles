@@ -6,6 +6,8 @@ end
 
 require('nvim-treesitter.configs').setup({
 
+  ignore_install = {},
+
   -- Automatically install missing parsers when entering buffer
   -- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
   auto_install = true,
@@ -42,7 +44,7 @@ require('nvim-treesitter.configs').setup({
     'scss',
     'css',
     'glimmer',
-    'mermaid'
+    'mermaid',
   },
 
   -- enables https://github.com/windwp/nvim-ts-autotag
@@ -114,5 +116,4 @@ require('nvim-treesitter.configs').setup({
   },
 })
 
-local ft_to_parser = require("nvim-treesitter.parsers").filetype_to_parsername
-ft_to_parser.mdx = "markdown"
+vim.treesitter.language.register('markdown', 'mdx')  -- the someft filetype will use the python parser and queries.
