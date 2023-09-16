@@ -125,6 +125,8 @@ local is_bootstrap = require('namjul.bootstrap').bootstrap_paq({
       require('chatgpt').setup()
     end,
   },
+  { 'luckasRanarison/nvim-devdocs' }
+
 })
 
 if is_bootstrap then
@@ -290,6 +292,7 @@ require('clipboard-image').setup({
 
 require('overseer').setup()
 require('fidget').setup()
+require("nvim-devdocs").setup()
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
