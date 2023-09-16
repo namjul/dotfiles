@@ -73,13 +73,13 @@ local is_bootstrap = require('namjul.bootstrap').bootstrap_paq({
   { 'lewis6991/gitsigns.nvim' },
   { 'rhysd/committia.vim' },               -- improves vim 'commit' buffer
   { 'L3MON4D3/LuaSnip' },                  -- snippets engine
-  { 'rafamadriz/friendly-snippets' },      -- general snippets collection
+  { 'rafamadriz/friendly-snippets' }, -- general snippets collection
   { 'mattn/webapi-vim' },                  -- needed for `gist-vim`
   { 'mattn/gist-vim' },                    -- interact with github gist from vim
   { 'uga-rosa/ccc.nvim' },                 -- Super powerful color picker / colorizer plugin.
   { 'dkarter/bullets.vim' },               -- enhance bullet points management TODO replace with 'gaoDean/autolist.nvim' when checkboxes are supported
   { 'csexton/trailertrash.vim' },          -- highlight trailing whitespace
-  { 'godlygeek/tabular' },                 -- auto alignment
+  -- { 'godlygeek/tabular' }, -- auto alignment
   { 'tpope/vim-obsession' },               -- helper to start vim sessions
   { 'ellisonleao/glow.nvim' },             -- markdown preview
   {
@@ -89,10 +89,11 @@ local is_bootstrap = require('namjul.bootstrap').bootstrap_paq({
     end,
   },
   { 'nvim-treesitter/nvim-treesitter-textobjects' },
+  { 'nvim-treesitter/nvim-treesitter-context' },
   { 'windwp/nvim-ts-autotag' }, -- auto closes xml tags
   { 'ellisonleao/gruvbox.nvim' },
   { 'navarasu/onedark.nvim' },
-  { 'rafcamlet/nvim-luapad' },
+  -- { 'rafcamlet/nvim-luapad' },
   { 'folke/zen-mode.nvim' },
   { 'szw/vim-maximizer' },
   { 'airblade/vim-rooter' },
@@ -111,22 +112,21 @@ local is_bootstrap = require('namjul.bootstrap').bootstrap_paq({
   { 'folke/which-key.nvim' },
   { 'abecodes/tabout.nvim' },     -- tabbing out from parentheses, quotes, and similar contexts today.
   { 'rest-nvim/rest.nvim' },      -- http client in neovim
-  { 'monaqa/dial.nvim' },         -- enhanced increment/decrement plugin for Neovim.
-  { 'wsdjeg/vim-fetch' },         -- enables to process line and column jump specifications
-  { 'andrewferrier/debugprint.nvim' },
-  { 'michaelb/sniprun' },
+  -- { 'monaqa/dial.nvim' },         -- enhanced increment/decrement plugin for Neovim.
+  -- { 'wsdjeg/vim-fetch' },         -- enables to process line and column jump specifications
+  -- { 'andrewferrier/debugprint.nvim' },
+  { 'michaelb/sniprun',                           run = './install.sh' },
   { 'ggandor/leap.nvim' },
   { 'stevearc/overseer.nvim' },
   { 'stevearc/dressing.nvim' },
-  { 'MunifTanjim/nui.nvim' }, -- required by chatgpt.nvim
-  {
-    'jackmort/chatgpt.nvim',
-    run = function()
-      require('chatgpt').setup()
-    end,
-  },
-  { 'luckasRanarison/nvim-devdocs' }
-
+  -- { 'MunifTanjim/nui.nvim' }, -- required by chatgpt.nvim
+  -- {
+  --   'jackmort/chatgpt.nvim',
+  --   run = function()
+  --     require('chatgpt').setup()
+  --   end,
+  -- },
+  { 'luckasRanarison/nvim-devdocs' },
 })
 
 if is_bootstrap then
@@ -172,16 +172,16 @@ vim.opt.fillchars = {
 
 -- Window
 opt.w({
-  number = true,     -- Show relative lines numbers
+  number = true, -- Show relative lines numbers
   cursorline = true, -- Highlight current line
-  wrap = false,      -- don't wrap lines
-  list = true,       -- show whitespaces
+  wrap = false, -- don't wrap lines
+  list = true, -- show whitespaces
   listchars = table.concat({
-    'nbsp:⦸',      -- CIRCLED REVERSE SOLIDUS (U+29B8, UTF-8: E2 A6 B8)
-    'extends:»',    -- RIGHT-POINTING DOUBLE ANGLE QUOTATION MARK (U+00BB, UTF-8: C2 BB)
-    'precedes:«',   -- LEFT-POINTING DOUBLE ANGLE QUOTATION MARK (U+00AB, UTF-8: C2 AB)
-    'tab:»·',      -- WHITE RIGHT-POINTING TRIANGLE (U+25B7, UTF-8: E2 96 B7) + MIDLINE HORIZONTAL ELLIPSIS (U+22EF, UTF-8: E2 8B AF)
-    'trail:•',     -- BULLET (U+2022, UTF-8: E2 80 A2)
+    'nbsp:⦸', -- CIRCLED REVERSE SOLIDUS (U+29B8, UTF-8: E2 A6 B8)
+    'extends:»', -- RIGHT-POINTING DOUBLE ANGLE QUOTATION MARK (U+00BB, UTF-8: C2 BB)
+    'precedes:«', -- LEFT-POINTING DOUBLE ANGLE QUOTATION MARK (U+00AB, UTF-8: C2 AB)
+    'tab:»·', -- WHITE RIGHT-POINTING TRIANGLE (U+25B7, UTF-8: E2 96 B7) + MIDLINE HORIZONTAL ELLIPSIS (U+22EF, UTF-8: E2 8B AF)
+    'trail:•', -- BULLET (U+2022, UTF-8: E2 80 A2)
   }, ','),
 })
 
@@ -292,7 +292,8 @@ require('clipboard-image').setup({
 
 require('overseer').setup()
 require('fidget').setup()
-require("nvim-devdocs").setup()
+require('glow').setup()
+require('nvim-devdocs').setup()
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
