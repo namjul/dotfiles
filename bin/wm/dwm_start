@@ -1,0 +1,33 @@
+#!/usr/bin/env sh
+
+eval $(killall ssh-agent; ssh-agent)
+eval $(killall gpg-agent; gpg-agent --daemon)
+
+# map caps lock to escape
+setxkbmap -option ctrl:nocaps
+xcape -e 'Control_L=Escape'
+
+# set background-color
+dwm_background &
+
+# set keyboard speed
+xset r rate 200 30
+
+# fonts
+xset +fp /home/nam/.fonts
+xset fp rehash
+
+# start dropbox
+dropbox start
+
+# start statusbar
+dwm_status_conky &
+
+# start dwm
+while true; do
+  # Log stderror to a file
+  #dwm 2> ~/.dwm.log
+  dwm > ~/.dwm.log 2>&1
+  # No error logging
+  #dwm >/dev/null 2>&1
+done

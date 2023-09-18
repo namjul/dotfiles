@@ -1,3 +1,3 @@
 #!/usr/bin/env sh
 
-eval 'gnome-terminal -x sudo -p "Enter password to reboot the computer: " pm-suspend'
+i3lock -d -c 000000 & systemctl suspend
