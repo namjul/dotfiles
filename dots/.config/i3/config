@@ -43,6 +43,13 @@ exec --no-startup-id nm-applet
 # scripts
 exec --no-startup-id bash ~/.config/i3/autostart.sh
 
+# screens
+exec --no-startup-id xrandr --output DP1 --auto --left-of eDP1
+workspace 1 output DP1
+workspace 2 output DP1
+workspace 3 output eDP1
+
+
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
