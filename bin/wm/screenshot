@@ -1,1 +1,8 @@
-gnome-terminal -x sudo -p "Enter password to reboot the computer: " pm-suspend
+#!/usr/bin/env sh
+
+if which shutter
+then
+  shutter -s
+else
+  scrot MyScreenshot.png
+fi
