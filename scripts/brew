@@ -50,7 +50,7 @@ brew instal git-delta # https://github.com/dandavison/delta -- A viewer for git 
 brew install fd # finder
 brew install bat # previewer
 brew install starship # https://github.com/starship/starship -- cometmilky_way The minimal, blazing-fast, and infinitely customizable prompt for any shell!
-brew install exa # https://github.com/ogham/exa -- A modern replacement for ‘ls’.
+brew install eza # https://github.com/ogham/exa -- A modern replacement for ‘ls’.
 brew install ripgrep # Ripgrep - fzf/vim is configured to use this
 brew install procs # A modern replacement for ps written in Rust -- https://github.com/dalance/procs
 brew install sd # https://github.com/chmln/sd -- Intuitive find & replace CLI (sed alternative)

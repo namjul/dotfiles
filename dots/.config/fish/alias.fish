@@ -54,9 +54,9 @@ abbr tn 'toggl now'
 abbr tsm 'toggl sum'
 
 # ls
-if type -q exa
+if type -q eza
   set TREE_IGNORE 'cache|log|logs|node_modules|vendor|.git'
-  alias ls 'exa --icons'
+  alias ls 'eza --icons'
   abbr la 'ls -a'
   abbr ll 'ls -l'
   abbr lla 'ls -l -a'
