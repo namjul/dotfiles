@@ -22,6 +22,13 @@ if not type -q shellfirm
   echo "`shellfirm` binary is missing. see installation guide: https://github.com/kaplanelad/shellfirm "
 end
 
+# https://gist.github.com/josh-padnick/c90183be3d0e1feb89afd7573505cab3
+if not pgrep --full ssh-agent | string collect > /dev/null
+  eval (ssh-agent -c)
+  set -Ux SSH_AGENT_PID $SSH_AGENT_PID
+  set -Ux SSH_AUTH_SOCK $SSH_AUTH_SOCK
+end
+
 if status is-interactive
   set fish_greeting # remove fish's greeting
 
