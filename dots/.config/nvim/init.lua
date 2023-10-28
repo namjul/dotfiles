@@ -127,6 +127,7 @@ local is_bootstrap = require('namjul.bootstrap').bootstrap_paq({
   --   end,
   -- },
   { 'luckasRanarison/nvim-devdocs' },
+  { 'm-demare/hlargs.nvim' }
 })
 
 if is_bootstrap then
