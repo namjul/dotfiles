@@ -109,6 +109,8 @@ brew install scc # https://github.com/boyter/scc
 brew install lorem
 brew install gum
 brew install timewarrior # https://github.com/GothenburgBitFactory/timewarrior
+brew install noborus/tap/trdsql # https://github.com/noborus/trdsql -- CLI tool that can execute SQL queries on CSV, LTSV, JSON and TBLN. Can output to various formats.
+brew install tig # https://jonas.github.io/tig/
 
 # Remove outdated versions from the cellar
 brew cleanup
