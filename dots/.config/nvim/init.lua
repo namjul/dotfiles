@@ -58,7 +58,7 @@ local is_bootstrap = require('namjul.bootstrap').bootstrap_paq({
   { 'tpope/vim-sleuth' },          -- support editor config files (https://editorconfig.org/)
   { 'nvim-lua/plenary.nvim' },
   { 'nvim-telescope/telescope.nvim',               branch = '0.1.x' },
-  { 'nvim-telescope/telescope-fzf-native.nvim',    run = 'make' },
+  { 'nvim-telescope/telescope-fzf-native.nvim',    build = 'make' },
   { 'nvim-telescope/telescope-live-grep-args.nvim' },
   { 'ThePrimeagen/harpoon' }, -- navigation helper
   { 'ekickx/clipboard-image.nvim' },
@@ -84,7 +84,7 @@ local is_bootstrap = require('namjul.bootstrap').bootstrap_paq({
   { 'ellisonleao/glow.nvim' },             -- markdown preview
   {
     'nvim-treesitter/nvim-treesitter',
-    run = function()
+    build = function()
       pcall(require('nvim-treesitter.install').update({ with_sync = true }))
     end,
   },
@@ -115,14 +115,14 @@ local is_bootstrap = require('namjul.bootstrap').bootstrap_paq({
   -- { 'monaqa/dial.nvim' },         -- enhanced increment/decrement plugin for Neovim.
   -- { 'wsdjeg/vim-fetch' },         -- enables to process line and column jump specifications
   -- { 'andrewferrier/debugprint.nvim' },
-  { 'michaelb/sniprun',                           run = './install.sh' },
+  { 'michaelb/sniprun',                           build = './install.sh' },
   { 'ggandor/leap.nvim' },
   { 'stevearc/overseer.nvim' },
   { 'stevearc/dressing.nvim' },
   -- { 'MunifTanjim/nui.nvim' }, -- required by chatgpt.nvim
   -- {
   --   'jackmort/chatgpt.nvim',
-  --   run = function()
+  --   build = function()
   --     require('chatgpt').setup()
   --   end,
   -- },
