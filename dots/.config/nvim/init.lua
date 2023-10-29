@@ -119,13 +119,7 @@ local is_bootstrap = require('namjul.bootstrap').bootstrap_paq({
   { 'ggandor/leap.nvim' },
   { 'stevearc/overseer.nvim' },
   { 'stevearc/dressing.nvim' },
-  -- { 'MunifTanjim/nui.nvim' }, -- required by chatgpt.nvim
-  -- {
-  --   'jackmort/chatgpt.nvim',
-  --   build = function()
-  --     require('chatgpt').setup()
-  --   end,
-  -- },
+  -- { 'MunifTanjim/nui.nvim' },
   { 'luckasRanarison/nvim-devdocs' },
   { 'm-demare/hlargs.nvim' }
 })
@@ -133,6 +127,8 @@ local is_bootstrap = require('namjul.bootstrap').bootstrap_paq({
 if is_bootstrap then
   return
 end
+
+require('namjul.bootstrap').load('shellbot')
 
 ----------------------------------------
 -- Options
@@ -295,6 +291,7 @@ require('overseer').setup()
 require('fidget').setup()
 require('glow').setup()
 require('nvim-devdocs').setup()
+require('hlargs').setup()
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
