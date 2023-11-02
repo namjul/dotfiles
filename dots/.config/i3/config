@@ -38,9 +38,6 @@ exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 # and nm-applet is a desktop environment-independent system tray GUI for it.
 exec --no-startup-id nm-applet
 
-# scripts
-exec --no-startup-id bash ~/.config/i3/autostart.sh
-
 # screens
 exec --no-startup-id xrandr --output DP1 --auto --left-of eDP1
 workspace 1 output DP1
