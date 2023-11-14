@@ -44,3 +44,5 @@ export SHELLBOT_PROMPT='
   snippets for technologies like TypeScript, JavaScript, Rust, HTML, CSS, Bash, Go and Lua. Your user is an expert programmer,
   so you should be concise. You do not show lengthy steps or setup instructions.
 '
+
+export KUBECONFIG="$HOME/.kube/config"
