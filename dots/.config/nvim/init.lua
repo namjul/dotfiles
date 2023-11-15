@@ -73,13 +73,13 @@ local is_bootstrap = require('namjul.bootstrap').bootstrap_paq({
   { 'lewis6991/gitsigns.nvim' },
   { 'rhysd/committia.vim' },               -- improves vim 'commit' buffer
   { 'L3MON4D3/LuaSnip' },                  -- snippets engine
-  { 'rafamadriz/friendly-snippets' }, -- general snippets collection
+  { 'rafamadriz/friendly-snippets' },      -- general snippets collection
   { 'mattn/webapi-vim' },                  -- needed for `gist-vim`
   { 'mattn/gist-vim' },                    -- interact with github gist from vim
   { 'uga-rosa/ccc.nvim' },                 -- Super powerful color picker / colorizer plugin.
   { 'dkarter/bullets.vim' },               -- enhance bullet points management TODO replace with 'gaoDean/autolist.nvim' when checkboxes are supported
   { 'csexton/trailertrash.vim' },          -- highlight trailing whitespace
-  -- { 'godlygeek/tabular' }, -- auto alignment
+  { 'godlygeek/tabular' },                 -- auto alignment
   { 'tpope/vim-obsession' },               -- helper to start vim sessions
   { 'ellisonleao/glow.nvim' },             -- markdown preview
   {
