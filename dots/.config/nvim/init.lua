@@ -214,12 +214,16 @@ util.createAugroup({
 
 util.createAugroup({
   { 'BufNewFile', '*.sh', 'lua', 'require"namjul.autocmds".skeleton("~/.config/nvim/templates/skeleton.sh")' },
+  { 'BufNewFile', '*.html', 'lua', 'require"namjul.autocmds".skeleton("~/.config/nvim/templates/skeleton.html")' },
+  { 'BufNewFile', '*.http', 'lua', 'require"namjul.autocmds".skeleton("~/.config/nvim/templates/skeleton.http")' },
 }, 'namjulskeletons')
 
 util.createAugroup({
   { 'BufRead',    'tsconfig*.json', 'set filetype=jsonc' },
   { 'BufNewFile', 'tsconfig*.json', 'set filetype=jsonc' },
 }, 'JsoncFilterType')
+
+require('namjul.cmds')
 
 require('dressing').setup({
   select = {
