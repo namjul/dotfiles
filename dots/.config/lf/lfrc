@@ -30,6 +30,9 @@ map <enter> shell
 map x $$f
 map X !$f
 
+# toggle hidden files
+map . set hidden!
+
 # dedicated keys for file opener actions
 # map o &mimeopen $f
 # map O $mimeopen --ask $f
