@@ -170,10 +170,10 @@ wk.register({
     e = { ':Trans en <CR>', 'Translate to English(word under cursor)' },
     g = { ':Trans de <CR>', 'Translate to German(word under cursor)' },
   },
-  w = {
-    ':write<CR>',
-    'Quick save',
-  },
+  -- w = {
+  --   ':write<CR>',
+  --   'Quick save',
+  -- },
   q = {
     ':quit<CR>',
     'Quites the current window and vim if its the last',
