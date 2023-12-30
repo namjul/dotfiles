@@ -372,6 +372,7 @@ vim.api.nvim_create_autocmd('User', {
     -- nmap('gr', vim.lsp.buf.references, '[G]oto [R]eferences')
     nmap('gI', vim.lsp.buf.implementation, '[G]oto [I]mplementation')
     nmap('<leader>D', vim.lsp.buf.type_definition, 'Type [D]efinition')
+    nmap('<leader>a', vim.lsp.buf.code_action, 'Code [A]action')
     nmap('<leader>ds', function()
       require('telescope.builtin').lsp_document_symbols(require('telescope.themes').get_ivy({}))
     end, '[D]ocument [S]ymbols')
@@ -391,4 +392,6 @@ vim.api.nvim_create_autocmd('User', {
       vim.lsp.buf.format()
     end, { desc = 'Format current buffer with LSP' })
   end,
+
+
 })
