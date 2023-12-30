@@ -217,8 +217,8 @@ wk.register({
   },
   g = {
     l = {
-      ":Flogsplit<CR>",
-      "Open Flog"
+      ":Gclog<CR>",
+      "Open Git log"
     }
   },
   c = {

@@ -45,7 +45,7 @@ local is_bootstrap = require('namjul.bootstrap').bootstrap_paq({
   { 'tpope/vim-sensible' },        -- sensible defaults
   { 'tpope/vim-repeat' },          -- enables the repeat command to work with external plugins
   { 'tpope/vim-fugitive' },        -- git integration
-  { 'rbong/vim-flog' },            -- git branch viewer
+  -- { 'rbong/vim-flog' },            -- git branch viewer
   { 'tpope/vim-rhubarb' },         -- open files on github
   { 'tpope/vim-unimpaired' },      -- set of complementary pair commands
   { 'tpope/vim-abolish' },         -- Case-preserving find and replace
