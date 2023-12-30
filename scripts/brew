@@ -111,6 +111,9 @@ brew install gum
 brew install timewarrior # https://github.com/GothenburgBitFactory/timewarrior
 brew install noborus/tap/trdsql # https://github.com/noborus/trdsql -- CLI tool that can execute SQL queries on CSV, LTSV, JSON and TBLN. Can output to various formats.
 brew install tig # https://jonas.github.io/tig/
+brew install age # https://github.com/FiloSottile/age
+brew install khal # https://github.com/pimutils/khal
+brew install vdirsyncer # https://github.com/pimutils/vdirsyncer
 
 # Remove outdated versions from the cellar
 brew cleanup
