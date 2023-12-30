@@ -71,7 +71,7 @@ local is_bootstrap = require('namjul.bootstrap').bootstrap_paq({
   { 'Valloric/MatchTagAlways' },           -- highlights xml tags enclosing the cursor
   { 'simeji/winresizer' },                 -- helper for resizing windows
   { 'lewis6991/gitsigns.nvim' },
-  { 'rhysd/committia.vim' },               -- improves vim 'commit' buffer
+  -- { 'rhysd/committia.vim' },               -- improves vim 'commit' buffer
   { 'L3MON4D3/LuaSnip' },                  -- snippets engine
   { 'rafamadriz/friendly-snippets' },      -- general snippets collection
   { 'mattn/webapi-vim' },                  -- needed for `gist-vim`
