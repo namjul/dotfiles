@@ -49,7 +49,7 @@ if status is-interactive
   starship init fish | source
   zoxide init fish | source
   direnv hook fish | source
-  rtx activate fish | source
+  mise activate fish | source
   # scmpuff init -s --shell=fish | source
 
   if type -q shellfirm

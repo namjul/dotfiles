@@ -75,7 +75,7 @@ brew install fish
 brew install github/gh/gh
 brew install asciinema # https://github.com/asciinema/asciinema -- Terminal session recorder video_camera
 brew install translate-shell
-brew install jdxcode/tap/rtx # asdf alternative
+brew install mise # asdf alternative
 brew install glow
 brew install exercism
 brew install stylua
