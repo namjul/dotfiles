@@ -9,7 +9,7 @@ vim.api.nvim_create_user_command('PasteMDLink', function()
   local title = getUrlTitle(url)
   if title then
     local mdLink = string.format('[%s](%s)', title, url)
-    vim.cmd('normal! a ' .. mdLink)
+    vim.cmd('normal! a' .. mdLink)
   end
 end, {})
 
