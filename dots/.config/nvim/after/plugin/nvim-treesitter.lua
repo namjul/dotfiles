@@ -6,6 +6,8 @@ end
 
 require('nvim-treesitter.configs').setup({
 
+  modules = {},
+
   ignore_install = {},
 
   -- Automatically install missing parsers when entering buffer
