@@ -33,7 +33,6 @@ abbr gs 'git status'
 abbr week 'date +%V' # Get week number
 abbr path 'echo $PATH | tr -s " " "\n"' # Pretty print the path
 alias cat="bat" # Drop-in replacement for cat TODO add  --theme=gruvbox-(set-colorscheme) but a fast implementation
-abbr tms "$HOME/.dotfiles/scripts/tmux-setup.sh" # tmux setup
 abbr tmp ' cd (mktemp -d)'
 abbr pbcopy 'xclip -selection clipboard' # replicate pbcopy from macos
 abbr pbpaste 'xclip -selection clipboard -o'
@@ -52,6 +51,7 @@ abbr tp 'toggl stop'
 abbr tc 'toggl continue'
 abbr tn 'toggl now'
 abbr tsm 'toggl sum'
+abbr tb "tmux new -s (pwd | sed 's/.*\///g')" # begin tmux session
 
 # ls
 if type -q eza
