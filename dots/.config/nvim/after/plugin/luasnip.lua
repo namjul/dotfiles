@@ -49,3 +49,9 @@ ls.add_snippets('markdown', {
 }, { key = 'all' })
 
 require('luasnip.loaders.from_vscode').lazy_load()
+
+
+-- uuid
+-- console.log
+-- export default named function
+-- snippets/global.json
