@@ -187,11 +187,8 @@ opt.b({
   undofile = true, -- Maintain undo history between sessions
 })
 
-require('onedark').setup({
-  style = 'warmer',
-})
-
-vim.cmd('colorscheme onedark')
+require('gruvbox').setup()
+vim.cmd('colorscheme gruvbox')
 
 if util.readable(vim.fn.expand('~/.vimrc_background')) then
   vim.cmd('source ~/.vimrc_background')
@@ -245,7 +242,7 @@ require('namjul.keymaps')
 require('lualine').setup({
   options = {
     icons_enabled = false,
-    theme = 'onedark',
+    theme = 'gruvbox',
     component_separators = '|',
     section_separators = '',
   },
