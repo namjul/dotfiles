@@ -100,6 +100,7 @@ local is_bootstrap = require('namjul.bootstrap').bootstrap_paq({
   { 'williamboman/mason.nvim' },
   { 'williamboman/mason-lspconfig.nvim' },
   { 'neovim/nvim-lspconfig' },
+  { 'stevearc/conform.nvim' },
   { 'nvimtools/none-ls.nvim' },
   { 'j-hui/fidget.nvim',                          branch = 'legacy' }, -- Standalone UI for nvim-lsp progress
   { 'folke/neodev.nvim' },
@@ -293,6 +294,20 @@ require('fidget').setup()
 require('glow').setup()
 require('nvim-devdocs').setup()
 require('hlargs').setup()
+require('conform').setup({
+  notify_on_error = false,
+  format_on_save = {
+    timeout_ms = 500,
+    lsp_fallback = true,
+  },
+  formatters_by_ft = {
+    lua = { 'stylua' },
+    -- Conform will run multiple formatters sequentially
+    -- python = { 'isort', 'black' },
+    -- Use a sub-list to run only the first available formatter
+    javascript = { { 'prettierd', 'prettier' } },
+  },
+})
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et

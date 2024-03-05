@@ -16,7 +16,9 @@ require('neodev').setup()
 
 local servers = {
   rust_analyzer = {},
-  tsserver = {},
+  tsserver = {
+    -- single_file_support = false,
+  },
   marksman = {},
   lua_ls = {
     Lua = {
@@ -91,8 +93,6 @@ require('null-ls').setup({
   diagnostics_format = '[#{c}] #{m} (#{s})',
   sources = {
     require('null-ls').builtins.formatting.stylua,
-    require('null-ls').builtins.formatting.rustfmt,
-    require('null-ls').builtins.formatting.prettierd,
     require('null-ls').builtins.diagnostics.eslint_d,
   },
 })
