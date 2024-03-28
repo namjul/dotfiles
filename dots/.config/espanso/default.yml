@@ -15,6 +15,10 @@ matches:
     replace: "don't"
     word: true
 
+  - trigger: "its"
+    replace: "it's"
+    word: true
+
   - trigger: "cant"
     replace: "can't"
     word: true
