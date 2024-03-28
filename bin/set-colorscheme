@@ -4,16 +4,26 @@
 # parts from https://linuxconfig.org/how-to-obtain-sunrise-sunset-time-for-any-location-from-linux-command-line
 # TODO use https://fostips.com/light-dark-command-ubuntu-22-04/
 
+
+# Function to send user vars to wezterm to change colorscheme
+# https://wezfurlong.org/wezterm/recipes/passing-data.html#user-vars
+# https://wezfurlong.org/wezterm/config/lua/pane/get_user_vars.html?h=tmux
+function weztermColorscheme
+  printf "\033Ptmux;\033\033]1337;SetUserVar=%s=%s\007\033\\" "theme" (echo -n $argv[1] | base64)
+end
+
 function dark
   nvim-ctrl.sh ':set background=dark<CR>'
-  alacritty-colorscheme apply onedark-dark.yml
+  # alacritty-colorscheme apply onedark-dark.yml
+  weztermColorscheme dark
   gsettings set org.gnome.desktop.interface color-scheme prefer-dark
   echo 'set background=dark' >~/.vimrc_background
 end
 
 function light
   nvim-ctrl.sh ':set background=light<CR>'
-  alacritty-colorscheme apply onedark-light.yml
+  # alacritty-colorscheme apply onedark-light.yml
+  weztermColorscheme light
   gsettings set org.gnome.desktop.interface color-scheme prefer-light
   echo 'set background=light' >~/.vimrc_background
 end
