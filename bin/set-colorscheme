@@ -17,7 +17,7 @@ function dark
   # alacritty-colorscheme apply onedark-dark.yml
   weztermColorscheme dark
   gsettings set org.gnome.desktop.interface color-scheme prefer-dark
-  echo 'set background=dark' >~/.vimrc_background
+  # echo 'set background=dark' >~/.vimrc_background
 end
 
 function light
@@ -25,7 +25,7 @@ function light
   # alacritty-colorscheme apply onedark-light.yml
   weztermColorscheme light
   gsettings set org.gnome.desktop.interface color-scheme prefer-light
-  echo 'set background=light' >~/.vimrc_background
+  # echo 'set background=light' >~/.vimrc_background
 end
 
 argparse --name=my_function 'h/help' 'n/name=' -- $argv
