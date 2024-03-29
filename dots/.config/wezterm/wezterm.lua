@@ -1,7 +1,8 @@
 local wezterm = require('wezterm')
 
--- Allow working with both the current release and the nightly
 local config = {}
+
+-- Allow working with both the current release and the nightly
 if wezterm.config_builder then
   config = wezterm.config_builder()
 end
@@ -13,7 +14,7 @@ config.color_scheme = dark
 config.leader = { key = 'Space', mods = 'CTRL', timeout_milliseconds = 1000 }
 config.font = wezterm.font('JetBrains Mono')
 config.enable_tab_bar = true
-config.hide_tab_bar_if_only_one_tab = true
+config.hide_tab_bar_if_only_one_tab = false
 config.disable_default_key_bindings = true
 
 config.keys = {
@@ -88,18 +89,18 @@ config.keys = {
 
   -- resize movement
   {
-    mods = 'LEADER',
-    key = 'H',
+    mods = 'SUPER',
+    key = 'h',
     action = wezterm.action.AdjustPaneSize({ 'Left', 3 }),
   },
   {
-    mods = 'LEADER',
-    key = 'L',
+    mods = 'SUPER',
+    key = 'l',
     action = wezterm.action.AdjustPaneSize({ 'Right', 3 }),
   },
   {
-    mods = 'LEADER',
-    key = 'J',
+    mods = 'SUPER',
+    key = 'j',
     action = wezterm.action.AdjustPaneSize({ 'Down', 3 }),
   },
   {
@@ -124,14 +125,8 @@ config.keys = {
   },
 
   -- scroll
-  {
-    mods = 'LEADER',
-    key = '[',
-    action = wezterm.action.MoveTabRelative(1),
-  },
-
-  { key = 'j', mods = 'SHIFT', action = wezterm.action.ScrollByPage(-1) },
-  { key = 'k', mods = 'SHIFT', action = wezterm.action.ScrollByPage(1) },
+  { key = 'k', mods = 'SHIFT', action = wezterm.action.ScrollByPage(-1) },
+  { key = 'j', mods = 'SHIFT', action = wezterm.action.ScrollByPage(1) },
 
   -- fonts sizes
   {
@@ -195,6 +190,18 @@ wezterm.on('user-var-changed', function(window, pane, name, value)
   end
 
   window:set_config_overrides(overrides)
+end)
+
+wezterm.on('update-right-status', function(window, pane)
+  local date = wezterm.strftime('%Y.%m.%d %H:%M')
+  local leader = ''
+  if window:leader_is_active() then
+    leader = 'LEADER'
+  end
+  window:set_right_status(wezterm.format({
+    { Text = date .. ' ' },
+    { Text = leader .. ' ' },
+  }))
 end)
 
 return config
