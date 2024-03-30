@@ -1,4 +1,6 @@
 local wezterm = require('wezterm')
+local mux = wezterm.mux
+local set_colorscheme = require('./set_colorscheme')
 
 local config = {}
 
@@ -173,6 +175,24 @@ config.keys = {
     action = wezterm.action.CloseCurrentTab({ confirm = true }),
   },
 }
+
+wezterm.on('gui-attached', function()
+  local workspace = mux.get_active_workspace()
+  for _, window in ipairs(mux.all_windows()) do
+    local overrides = window:gui_window():get_config_overrides() or {}
+    local theme = set_colorscheme.run()
+
+    -- change color_theme
+    if theme == 'dark' then
+      overrides.color_scheme = dark
+    end
+    if theme == 'light' then
+      overrides.color_scheme = light
+    end
+
+    window:gui_window():set_config_overrides(overrides)
+  end
+end)
 
 -- listen to user vars and change configs
 -- https://wezfurlong.org/wezterm/recipes/passing-data.html#user-vars
