@@ -292,7 +292,7 @@ require('clipboard-image').setup({
 require('overseer').setup()
 require('fidget').setup()
 require('glow').setup()
-require('nvim-devdocs').setup()
+require('nvim-devdocs').setup({})
 require('hlargs').setup()
 require('conform').setup({
   notify_on_error = false,
@@ -306,6 +306,7 @@ require('conform').setup({
     -- python = { 'isort', 'black' },
     -- Use a sub-list to run only the first available formatter
     javascript = { { 'prettierd', 'prettier' } },
+    typescript = { { 'prettierd', 'prettier' } },
   },
 })
 
