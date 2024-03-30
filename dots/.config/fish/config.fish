@@ -42,9 +42,9 @@ if status is-interactive
   end
 
   # Tmux
-  if command -v tmux > /dev/null 2>&1
-     test -z $TMUX && tmux new-session;
-  end
+  # if command -v tmux > /dev/null 2>&1
+  #    test -z $TMUX && tmux new-session;
+  # end
 
   starship init fish | source
   zoxide init fish | source
