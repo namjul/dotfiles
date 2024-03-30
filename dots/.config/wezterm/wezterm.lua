@@ -23,7 +23,7 @@ config.keys = {
 
   {
     mods = 'LEADER',
-    key = 'm',
+    key = 'z',
     action = wezterm.action.TogglePaneZoomState,
   },
   {
@@ -106,8 +106,8 @@ config.keys = {
     action = wezterm.action.AdjustPaneSize({ 'Down', 3 }),
   },
   {
-    mods = 'LEADER',
-    key = 'K',
+    mods = 'SUPER',
+    key = 'k',
     action = wezterm.action.AdjustPaneSize({ 'Up', 3 }),
   },
 
@@ -127,8 +127,8 @@ config.keys = {
   },
 
   -- scroll
-  { key = 'k', mods = 'SHIFT', action = wezterm.action.ScrollByPage(-1) },
-  { key = 'j', mods = 'SHIFT', action = wezterm.action.ScrollByPage(1) },
+  { key = 'k', mods = 'SUPER', action = wezterm.action.ScrollByPage(-1) },
+  { key = 'j', mods = 'SUPER', action = wezterm.action.ScrollByPage(1) },
 
   -- fonts sizes
   {
