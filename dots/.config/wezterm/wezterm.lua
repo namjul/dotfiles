@@ -12,6 +12,30 @@ end
 local light = 'GruvboxLight'
 local dark = 'GruvboxDark'
 
+local function colorscheme(window, toggle)
+  local overrides = window:get_config_overrides() or {}
+  local theme = nil
+
+  if toggle then
+    if overrides.color_scheme == light then
+      theme = 'dark'
+    else
+      theme = 'light'
+    end
+  end
+
+  theme = set_colorscheme.run(theme)
+
+  if theme == 'dark' then
+    overrides.color_scheme = dark
+  end
+  if theme == 'light' then
+    overrides.color_scheme = light
+  end
+
+  window:set_config_overrides(overrides)
+end
+
 config.color_scheme = dark
 config.leader = { key = 'Space', mods = 'CTRL', timeout_milliseconds = 1000 }
 config.font = wezterm.font('JetBrains Mono')
@@ -25,6 +49,13 @@ config.keys = {
     mods = 'LEADER',
     key = 'z',
     action = wezterm.action.TogglePaneZoomState,
+  },
+  {
+    mods = 'LEADER',
+    key = 'y',
+    action = wezterm.action_callback(function(window)
+      colorscheme(window, true)
+    end),
   },
   {
     mods = 'LEADER',
@@ -177,39 +208,9 @@ config.keys = {
 }
 
 wezterm.on('gui-attached', function()
-  local workspace = mux.get_active_workspace()
   for _, window in ipairs(mux.all_windows()) do
-    local overrides = window:gui_window():get_config_overrides() or {}
-    local theme = set_colorscheme.run()
-
-    -- change color_theme
-    if theme == 'dark' then
-      overrides.color_scheme = dark
-    end
-    if theme == 'light' then
-      overrides.color_scheme = light
-    end
-
-    window:gui_window():set_config_overrides(overrides)
+    colorscheme(window:gui_window())
   end
-end)
-
--- listen to user vars and change configs
--- https://wezfurlong.org/wezterm/recipes/passing-data.html#user-vars
-wezterm.on('user-var-changed', function(window, pane, name, value)
-  local overrides = window:get_config_overrides() or {}
-
-  -- change color_theme
-  if name == 'theme' then
-    if value == 'dark' then
-      overrides.color_scheme = dark
-    end
-    if value == 'light' then
-      overrides.color_scheme = light
-    end
-  end
-
-  window:set_config_overrides(overrides)
 end)
 
 wezterm.on('update-right-status', function(window, pane)
