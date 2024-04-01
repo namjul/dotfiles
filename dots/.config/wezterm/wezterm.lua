@@ -1,6 +1,6 @@
 local wezterm = require('wezterm')
 local mux = wezterm.mux
-local set_colorscheme = require('./set_colorscheme')
+local colorscheme = require('./colorscheme')
 
 local config = {}
 
@@ -12,7 +12,7 @@ end
 local light = 'GruvboxLight'
 local dark = 'GruvboxDark'
 
-local function colorscheme(window, toggle)
+local function change_colorscheme(window, toggle)
   local overrides = window:get_config_overrides() or {}
   local theme = nil
 
@@ -24,7 +24,7 @@ local function colorscheme(window, toggle)
     end
   end
 
-  theme = set_colorscheme.run(theme)
+  theme = colorscheme.sun(theme)
 
   if theme == 'dark' then
     overrides.color_scheme = dark
@@ -34,6 +34,12 @@ local function colorscheme(window, toggle)
   end
 
   window:set_config_overrides(overrides)
+end
+
+local function change_colorscheme_windows()
+  for _, window in ipairs(mux.all_windows()) do
+    change_colorscheme(window:gui_window())
+  end
 end
 
 config.color_scheme = dark
@@ -54,7 +60,7 @@ config.keys = {
     mods = 'LEADER',
     key = 'y',
     action = wezterm.action_callback(function(window)
-      colorscheme(window, true)
+      change_colorscheme(window, true)
     end),
   },
   {
@@ -207,11 +213,8 @@ config.keys = {
   },
 }
 
-wezterm.on('gui-attached', function()
-  for _, window in ipairs(mux.all_windows()) do
-    colorscheme(window:gui_window())
-  end
-end)
+wezterm.on('gui-attached', change_colorscheme_windows)
+wezterm.time.call_after(60, change_colorscheme_windows)
 
 wezterm.on('update-right-status', function(window, pane)
   local date = wezterm.strftime('%Y.%m.%d %H:%M')

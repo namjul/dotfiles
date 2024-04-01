@@ -55,7 +55,7 @@ local function parse_time(time_str)
 end
 
 -- requires: wget, jq
-function M.run(theme)
+function M.sun(theme)
   if theme ~= nil then
     M.set(theme)
     return theme
