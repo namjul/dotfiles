@@ -203,7 +203,7 @@ config.keys = {
 
   {
     mods = 'LEADER',
-    key = 'x',
+    key = 'v',
     action = wezterm.action.ActivateCopyMode,
   },
   {
@@ -213,7 +213,7 @@ config.keys = {
   },
   {
     mods = 'LEADER',
-    key = 'w',
+    key = 'x',
     action = wezterm.action.CloseCurrentTab({ confirm = true }),
   },
 }
