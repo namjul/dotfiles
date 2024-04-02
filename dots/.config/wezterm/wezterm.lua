@@ -42,6 +42,11 @@ local function change_colorscheme_windows()
   end
 end
 
+local function change_colorscheme_scheduler()
+  change_colorscheme_windows()
+  wezterm.time.call_after(60, change_colorscheme_scheduler)
+end
+
 config.color_scheme = dark
 config.leader = { key = 'Space', mods = 'CTRL', timeout_milliseconds = 1000 }
 config.font = wezterm.font('JetBrains Mono')
@@ -213,8 +218,7 @@ config.keys = {
   },
 }
 
-wezterm.on('gui-attached', change_colorscheme_windows)
-wezterm.time.call_after(60, change_colorscheme_windows)
+wezterm.on('gui-attached', change_colorscheme_scheduler)
 
 wezterm.on('update-right-status', function(window, pane)
   local date = wezterm.strftime('%Y.%m.%d %H:%M')
