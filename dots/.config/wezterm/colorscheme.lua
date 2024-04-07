@@ -82,7 +82,7 @@ function M.sun(theme)
     local result = handle:read('*a')
     handle:close()
 
-    if result then
+    if result ~= '' then
       os.execute('echo "' .. result .. '" > ' .. tmpfile)
     else
       error('Could not fetch sunrise-sunset data')
@@ -105,8 +105,9 @@ function M.sun(theme)
   return value
 end
 
-if arg and arg[1] then
-  M.set(arg[1])
+if arg and arg[0] then
+  print(arg)
+  M.sun(arg[1])
 end
 
 return M
