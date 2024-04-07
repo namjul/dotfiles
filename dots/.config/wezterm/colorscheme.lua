@@ -65,6 +65,7 @@ function M.sun(theme)
   -- from https://www.latlong.net/
   local latitude = '48.208176'
   local longtitue = '16.373819'
+  local timezoneid = 'Europe/Vienna'
 
   local location = latitude .. '-' .. longtitue
   local dayOfYear = os.date('%j')
@@ -76,6 +77,8 @@ function M.sun(theme)
       .. latitude
       .. '&lng='
       .. longtitue
+      .. '&tzid='
+      .. timezoneid
       .. '&date=today"'
       .. ' | jq -r \'.results | {sunrise, sunset} | join("\\n")\''
     local handle = assert(io.popen(fetchCmd))
