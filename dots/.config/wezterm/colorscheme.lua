@@ -55,12 +55,7 @@ local function parse_time(time_str)
 end
 
 -- requires: wget, jq
-function M.sun(theme)
-  if theme ~= nil then
-    M.set(theme)
-    return theme
-  end
-
+function M.sun()
   -- setup Vienna coordinates
   -- from https://www.latlong.net/
   local latitude = '48.208176'
@@ -88,7 +83,8 @@ function M.sun(theme)
     if result ~= '' then
       os.execute('echo "' .. result .. '" > ' .. tmpfile)
     else
-      error('Could not fetch sunrise-sunset data')
+      -- Could not fetch sunrise-sunset data
+      return nil
     end
   end
 

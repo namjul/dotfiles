@@ -22,9 +22,9 @@ local function change_colorscheme(window, toggle)
     else
       theme = 'light'
     end
+  else
+    theme = colorscheme.sun() or 'dark'
   end
-
-  theme = colorscheme.sun(theme)
 
   if theme == 'dark' then
     overrides.color_scheme = dark
