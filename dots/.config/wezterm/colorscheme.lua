@@ -17,7 +17,7 @@ end
 
 function M.set(theme)
   if theme == 'dark' or theme == 'light' then
-    os.execute("nvim-ctrl.sh ':set background=" .. theme .. "<CR>'")
+    os.execute("nvim-ctrl.sh 'set background=" .. theme .. "'")
     os.execute('gsettings set org.gnome.desktop.interface color-scheme prefer-' .. theme)
     os.execute("echo 'set background=" .. theme .. "' >~/.vimrc_background")
 
