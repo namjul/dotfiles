@@ -65,7 +65,7 @@ function M.sun()
   local location = latitude .. '-' .. longtitue
   local dayOfYear = os.date('%j')
 
-  local tmpfile = '/tmp/' .. location .. '.' .. dayOfYear .. '.out'
+  local tmpfile = '/var/tmp/' .. location .. '.' .. dayOfYear .. '.out'
 
   if not file_exists(tmpfile) then
     local fetchCmd = 'wget -q -O - "http://api.sunrise-sunset.org/json?lat='
