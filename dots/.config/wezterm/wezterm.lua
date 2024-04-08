@@ -52,7 +52,7 @@ config.leader = { key = 'Space', mods = 'CTRL', timeout_milliseconds = 1000 }
 config.font = wezterm.font('JetBrains Mono')
 config.enable_tab_bar = true
 config.hide_tab_bar_if_only_one_tab = false
-config.disable_default_key_bindings = true
+config.disable_default_key_bindings = false
 
 config.keys = {
 
