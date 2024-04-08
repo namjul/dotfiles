@@ -13,6 +13,8 @@ local light = 'GruvboxLight'
 local dark = 'GruvboxDark'
 
 local function change_colorscheme(window, toggle)
+  -- window:toast_notification('wezterm', 'change_colorscheme', nil, 4000)
+
   local overrides = window:get_config_overrides() or {}
   local theme = nil
 
