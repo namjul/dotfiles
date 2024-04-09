@@ -41,7 +41,7 @@ vim.g.markdown_composer_open_browser = 0
 ----------------------------------------
 
 local is_bootstrap = require('namjul.bootstrap').bootstrap_paq({
-  'savq/paq-nvim',
+  { 'savq/paq-nvim' },
   { 'tpope/vim-sensible' }, -- sensible defaults
   { 'tpope/vim-repeat' }, -- enables the repeat command to work with external plugins
   { 'tpope/vim-fugitive' }, -- git integration
@@ -77,7 +77,7 @@ local is_bootstrap = require('namjul.bootstrap').bootstrap_paq({
   { 'mattn/webapi-vim' }, -- needed for `gist-vim`
   { 'mattn/gist-vim' }, -- interact with github gist from vim
   { 'uga-rosa/ccc.nvim' }, -- Super powerful color picker / colorizer plugin.
-  { 'dkarter/bullets.vim' }, -- enhance bullet points management TODO replace with 'gaoDean/autolist.nvim' when checkboxes are supported
+  -- { 'dkarter/bullets.vim' }, -- enhance bullet points management TODO replace with 'gaoDean/autolist.nvim' when checkboxes are supported
   { 'csexton/trailertrash.vim' }, -- highlight trailing whitespace
   { 'godlygeek/tabular' }, -- auto alignment
   { 'tpope/vim-obsession' }, -- helper to start vim sessions
@@ -112,7 +112,7 @@ local is_bootstrap = require('namjul.bootstrap').bootstrap_paq({
   { 'saadparwaiz1/cmp_luasnip' }, -- nvim-cmp source for Luasnip
   { 'folke/which-key.nvim' },
   { 'abecodes/tabout.nvim' }, -- tabbing out from parentheses, quotes, and similar contexts today.
-  { 'rest-nvim/rest.nvim' }, -- http client in neovim
+  -- { 'rest-nvim/rest.nvim' }, -- http client in neovim
   -- { 'monaqa/dial.nvim' },         -- enhanced increment/decrement plugin for Neovim.
   -- { 'wsdjeg/vim-fetch' },         -- enables to process line and column jump specifications
   -- { 'andrewferrier/debugprint.nvim' },
