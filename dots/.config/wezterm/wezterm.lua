@@ -58,6 +58,13 @@ config.disable_default_key_bindings = false
 
 config.keys = {
 
+  -- Turn off the default ALT-Enter Fullscreen action, since i3 already does this and frees the binding.
+  {
+    key = 'Enter',
+    mods = 'ALT',
+    action = wezterm.action.DisableDefaultAssignment,
+  },
+
   {
     mods = 'LEADER',
     key = 'z',
