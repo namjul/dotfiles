@@ -178,8 +178,8 @@ config.keys = {
   },
 
   -- scroll
-  { key = 'k', mods = 'SUPER', action = wezterm.action.ScrollByPage(-1) },
-  { key = 'j', mods = 'SUPER', action = wezterm.action.ScrollByPage(1) },
+  { key = 'k', mods = 'SUPER', action = wezterm.action.ScrollByPage(-0.1) },
+  { key = 'j', mods = 'SUPER', action = wezterm.action.ScrollByPage(0.1) },
 
   -- fonts sizes
   {
