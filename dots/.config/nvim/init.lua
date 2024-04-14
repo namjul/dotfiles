@@ -13,11 +13,6 @@ local opt = util.opt
 -- Global functions
 ----------------------------------------
 
--- tabline = '%!v:lua.require(\'namjul.tabline\').line()' results in an error reported here https://github.com/neovim/neovim/issues/13862
-function _G.mytabline()
-  return require('namjul.tabline').line()
-end
-
 function _G.alignMdTable()
   return require('namjul.functions.alignMdTable')()
 end
@@ -155,7 +150,7 @@ opt.g({
   gdefault = true, -- Add the g flag to search/replace by default
   background = 'dark',
   pastetoggle = '<F2>',
-  tabline = '%!v:lua.mytabline()',
+  tabline = "%!v:lua.require('namjul.tabline').line()",
   undodir = os.getenv('XDG_DATA_HOME') .. '/nvim/undo',
   guifont = 'Cascadia_Code',
   completeopt = 'menu,menuone,noselect',
