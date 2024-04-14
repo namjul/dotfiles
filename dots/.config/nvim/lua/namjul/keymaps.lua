@@ -100,6 +100,7 @@ wk.register({
   s = { '<Plug>(leap-forward-to)', 'Leap forward to' },
   S = { '<Plug>(leap-backward-to)', 'Leap backward to' },
   gs = { '<Plug>(leap-cross-window)', 'Leap cross window' },
+  ['-'] = { '<CMD>Oil<CR>', 'Open parent directory' },
 }, defaultMapping)
 
 -- guifont mappings

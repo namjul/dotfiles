@@ -65,7 +65,6 @@ local is_bootstrap = require('namjul.bootstrap').bootstrap_paq({
   { 'euclio/vim-markdown-composer' },
   { 'preservim/vimux' }, -- allows to send commands from vim to tmux
   { 'tyewang/vimux-jest-test' }, -- simplifies running jest test from vim
-  { 'tpope/vim-vinegar' }, -- file explorer TODO try again replacing with elihunter173/dirbuf.nvim
   { 'jeffkreeftmeijer/vim-numbertoggle' }, -- improves the display of line numbers
   { 'windwp/nvim-autopairs' }, -- auto closes pairs
   { 'Valloric/MatchTagAlways' }, -- highlights xml tags enclosing the cursor
@@ -123,6 +122,7 @@ local is_bootstrap = require('namjul.bootstrap').bootstrap_paq({
   -- { 'MunifTanjim/nui.nvim' },
   { 'luckasRanarison/nvim-devdocs' },
   { 'm-demare/hlargs.nvim' },
+  { 'stevearc/oil.nvim' },
 })
 
 if is_bootstrap then
@@ -293,6 +293,7 @@ require('overseer').setup()
 require('fidget').setup()
 require('glow').setup()
 require('nvim-devdocs').setup({})
+require('oil').setup()
 require('hlargs').setup()
 require('conform').setup({
   notify_on_error = false,
