@@ -164,7 +164,8 @@ wk.register({
     'Show the path of the current file and add it to clipboard (mnemonic: path; useful when you have a lot of splits and the status line gets truncated).',
   },
   P = {
-    ':PasteImg <CR>', 'Paste image from clipboard'
+    ':PasteImg <CR>',
+    'Paste image from clipboard',
   },
   t = {
     name = 'Translator',
@@ -218,9 +219,9 @@ wk.register({
   },
   g = {
     l = {
-      ":Gclog<CR>",
-      "Open Git log"
-    }
+      ':Gclog<CR>',
+      'Open Git log',
+    },
   },
   c = {
     ":lua require('telescope.builtin').commands(require('telescope.themes').get_ivy({}))<CR>",
@@ -233,7 +234,7 @@ wk.register({
   -- ['<C-l>'] = { ':rightb vsp new<CR>', 'Open new file to the right' },
   ['1'] = { ':RooterToggle<CR>', 'Toggle Rooter', silent = false },
   ['2'] = { ':w<CR>:! ./%<CR>', 'Execute current file' },
-  ['3'] = { ':!chmod +x %<CR>', "Make current file executable" },
+  ['3'] = { ':!chmod +x %<CR>', 'Make current file executable' },
   z = { ':ZenMode<CR>', 'Enter Zenmode' },
   m = { ':MaximizerToggle<CR>', 'Maximize window' },
   n = { ':nohlsearch<CR>', 'Clear search highlight' },
@@ -393,6 +394,4 @@ vim.api.nvim_create_autocmd('User', {
       vim.lsp.buf.format()
     end, { desc = 'Format current buffer with LSP' })
   end,
-
-
 })
