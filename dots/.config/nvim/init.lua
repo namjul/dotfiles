@@ -64,7 +64,7 @@ local is_bootstrap = require('namjul.bootstrap').bootstrap_paq({
   { 'windwp/nvim-autopairs' }, -- auto closes pairs
   { 'Valloric/MatchTagAlways' }, -- highlights xml tags enclosing the cursor
   { 'simeji/winresizer' }, -- helper for resizing windows
-  { 'lewis6991/gitsigns.nvim' },
+  -- { 'lewis6991/gitsigns.nvim' },
   -- { 'rhysd/committia.vim' },               -- improves vim 'commit' buffer
   { 'L3MON4D3/LuaSnip' }, -- snippets engine
   { 'rafamadriz/friendly-snippets' }, -- general snippets collection
@@ -118,6 +118,7 @@ local is_bootstrap = require('namjul.bootstrap').bootstrap_paq({
   { 'luckasRanarison/nvim-devdocs' },
   { 'm-demare/hlargs.nvim' },
   { 'stevearc/oil.nvim' },
+  { 'echasnovski/mini.nvim' },
 })
 
 if is_bootstrap then
@@ -311,6 +312,7 @@ require('conform').setup({
     typescript = { { 'prettierd', 'prettier' } },
   },
 })
+require('mini.diff').setup()
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
