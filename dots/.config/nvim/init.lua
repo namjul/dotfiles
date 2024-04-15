@@ -288,7 +288,13 @@ require('overseer').setup()
 require('fidget').setup()
 require('glow').setup()
 require('nvim-devdocs').setup({})
-require('oil').setup()
+require('oil').setup({
+  keymaps = {
+    ['<C-h>'] = false,
+    ['<C-v>'] = 'actions.select_vsplit',
+    ['<C-s>'] = 'actions.select_split',
+  },
+})
 require('hlargs').setup()
 require('conform').setup({
   notify_on_error = false,
