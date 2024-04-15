@@ -21,11 +21,11 @@ function M.set(theme)
     os.execute('gsettings set org.gnome.desktop.interface color-scheme prefer-' .. theme)
     os.execute("echo 'set background=" .. theme .. "' >~/.vimrc_background")
 
-  -- does not work
-  -- os.execute('printf "\\033]1337;SetUserVar=%s=%s\\007" "theme" ' .. ({
-  --   dark = 'ZGFyawo=',
-  --   light = 'bGlnaHQK',
-  -- })[theme])
+    -- does not work
+    -- os.execute('printf "\\033]1337;SetUserVar=%s=%s\\007" "theme" ' .. ({
+    --   dark = 'ZGFyawo=',
+    --   light = 'bGlnaHQK',
+    -- })[theme])
   else
     error('theme does not exist.')
   end
@@ -105,8 +105,11 @@ function M.sun()
 end
 
 if arg and arg[0] then
-  print(arg)
-  M.sun(arg[1])
+  if arg[1] then
+    M.set(arg[1])
+  else
+    M.sun()
+  end
 end
 
 return M
