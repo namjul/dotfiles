@@ -15,11 +15,14 @@ local function file_exists(name)
   end
 end
 
+local alacritty_colorscheme = "gruvbox"
+
 function M.set(theme)
   if theme == 'dark' or theme == 'light' then
     os.execute("nvim-ctrl.sh 'set background=" .. theme .. "'")
     os.execute('gsettings set org.gnome.desktop.interface color-scheme prefer-' .. theme)
     os.execute("echo 'set background=" .. theme .. "' >~/.vimrc_background")
+    os.execute('alacritty-colorscheme apply ' .. alacritty_colorscheme .. '-' .. theme .. '.yml')
 
     -- does not work
     -- os.execute('printf "\\033]1337;SetUserVar=%s=%s\\007" "theme" ' .. ({
