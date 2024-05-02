@@ -1,4 +1,3 @@
-#!/usr/bin/env lua
 
 local M = {}
 
@@ -105,14 +104,6 @@ function M.sun()
   end
   M.set(value)
   return value
-end
-
-if arg and arg[0] then
-  if arg[1] then
-    M.set(arg[1])
-  else
-    M.sun()
-  end
 end
 
 return M
