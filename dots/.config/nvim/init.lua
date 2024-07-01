@@ -119,6 +119,7 @@ local is_bootstrap = require('namjul.bootstrap').bootstrap_paq({
   { 'm-demare/hlargs.nvim' },
   { 'stevearc/oil.nvim' },
   { 'echasnovski/mini.nvim' },
+  { 'andreshazard/vim-freemarker'}
 })
 
 if is_bootstrap then
