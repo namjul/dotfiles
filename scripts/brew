@@ -115,6 +115,7 @@ brew install khal # https://github.com/pimutils/khal
 brew install vdirsyncer # https://github.com/pimutils/vdirsyncer
 brew install charmbracelet/tap/mods #https://github.com/charmbracelet/mods/
 brew install youtube-dl # https://github.com/ytdl-org/youtube-dl
+brew install glab # https://gitlab.com/gitlab-org/cli
 
 # Remove outdated versions from the cellar
 brew cleanup
