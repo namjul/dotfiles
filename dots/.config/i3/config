@@ -40,9 +40,9 @@ exec --no-startup-id nm-applet
 
 # screens
 exec --no-startup-id xrandr --output DP1 --auto --left-of eDP1
-workspace 1 output DP1
-workspace 2 output DP1
-workspace 3 output eDP1
+# workspace 1 output DP1
+# workspace 2 output DP1
+# workspace 3 output eDP1
 
 
 # Use pactl to adjust volume in PulseAudio.
@@ -205,12 +205,16 @@ bindsym XF86MonBrightnessDown exec xbacklight -dec 5 # decrease screen brightnes
 
 ## Manual management of external displays
 # Set the shortcuts and what they do
-set $mode_display Ext Screen (v) DP1 ON, (h) DP2 ON, (x) DP1 OFF, (y) DP2 OFF
+set $mode_display Ext Screen (m) mobile, (d) docked
 mode "$mode_display" {
-    bindsym v exec --no-startup-id xrandr --output DP1 --auto --above eDP1, mode "default"
-    bindsym h exec --no-startup-id xrandr --output DP2 --auto --above eDP1, mode "default"
-    bindsym x exec --no-startup-id xrandr --output DP1 --auto --off, mode "default"
-    bindsym y exec --no-startup-id xrandr --output DP2 --auto --off, mode "default"
+
+    bindsym m exec --no-startup-id autorandr mobile, mode "default"
+    bindsym d exec --no-startup-id autorandr docked, mode "default"
+
+    # bindsym v exec --no-startup-id xrandr --output DP1 --auto --above eDP1, mode "default"
+    # bindsym h exec --no-startup-id xrandr --output DP1-2 --auto --above eDP1, mode "default"
+    # bindsym x exec --no-startup-id xrandr --output DP1 --auto --off, mode "default"
+    # bindsym y exec --no-startup-id xrandr --output DP1-2 --auto --off, mode "default"
 
     # back to normal: Enter or Escape
     bindsym Return mode "default"
@@ -220,7 +224,7 @@ mode "$mode_display" {
 bindsym $mod+x mode "$mode_display"
 
 # Workspace assignments
-assign [instance="^google-chrome"] $ws1
+assign [instance="^google-chrome"] $ws2
 
 # bindsym $mod+b [instance="^google-chrome"] focus
 bindsym $mod+g exec --no-startup-id gnome-control-center
