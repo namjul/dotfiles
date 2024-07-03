@@ -38,6 +38,7 @@ abbr pbcopy 'xclip -selection clipboard' # replicate pbcopy from macos
 abbr pbpaste 'xclip -selection clipboard -o'
 abbr x exit
 abbr t todo
+abbr tw timew
 abbr en 'trans :en'
 abbr de 'trans :de'
 abbr grn 'git rebase -i HEAD~' # git interactive rebase to n
