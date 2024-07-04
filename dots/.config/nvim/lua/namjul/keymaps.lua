@@ -188,10 +188,6 @@ wk.register({
     ":lua require('namjul.functions.telescope').grep_string()<CR>",
     'Grep word under cursor',
   },
-  ['?'] = {
-    ":lua require('namjul.functions.telescope').search()<CR>",
-    'Ripgrep live args',
-  },
   ['/'] = {
     ":lua require('namjul.functions.telescope').search({ previewer = false })<CR>",
     'Search word',
