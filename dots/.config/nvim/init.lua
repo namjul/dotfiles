@@ -315,7 +315,23 @@ require('conform').setup({
 })
 require('mini.diff').setup()
 
-require("harpoon"):setup()
+require('harpoon'):setup({
+  default = {
+    get_root_dir = function()
+      local root_dir = vim.fs.dirname(vim.fs.find({ ".root" }, { upward = true })[1])
+      if root_dir then
+        return string.gsub(root_dir, '\n', '')
+      end
+
+      local root_git_dir = vim.fn.system('git rev-parse --show-toplevel')
+      vim.print(root_git_dir)
+      if vim.v.shell_error == 0 and root_git_dir ~= nil then
+        return string.gsub(root_git_dir, '\n', '')
+      end
+      return vim.loop.cwd()
+    end,
+  },
+})
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
