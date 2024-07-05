@@ -116,3 +116,18 @@ set promptfmt ""
 # Setup preview
 set previewer ~/.config/lf/preview
 set cleaner ~/.config/lf/cleaner
+
+# zoxide
+cmd z %{{
+	result="$(zoxide query --exclude $PWD "$@")"
+	lf -remote "send $id cd '$result'"
+}}
+
+cmd zi ${{
+	result="$(zoxide query -i)"
+	lf -remote "send $id cd '$result'"
+}}
+
+cmd on-cd &{{
+        zoxide add "$PWD"
+}}
