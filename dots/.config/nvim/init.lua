@@ -324,7 +324,6 @@ require('harpoon'):setup({
       end
 
       local root_git_dir = vim.fn.system('git rev-parse --show-toplevel')
-      vim.print(root_git_dir)
       if vim.v.shell_error == 0 and root_git_dir ~= nil then
         return string.gsub(root_git_dir, '\n', '')
       end
