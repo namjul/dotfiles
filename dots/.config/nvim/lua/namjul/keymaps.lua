@@ -5,11 +5,12 @@ if not has_which_key then
 end
 
 local cmd = vim.cmd -- to execute Vim commands e.g. cmd('pwd')
-local fn = vim.fn -- to call Vim functions e.g. fn.bufnr()
+local fn = vim.fn   -- to call Vim functions e.g. fn.bufnr()
 local util = require('namjul.utils')
 local map = util.map
 local var = util.var
 local wk = require('which-key')
+local harpoon = require('harpoon')
 
 wk.setup({
   ignore_missing = false,
@@ -234,13 +235,45 @@ wk.register({
   z = { ':ZenMode<CR>', 'Enter Zenmode' },
   m = { ':MaximizerToggle<CR>', 'Maximize window' },
   n = { ':nohlsearch<CR>', 'Clear search highlight' },
+
   -- PLUGIN:harpoon
-  ha = { ':lua require("harpoon.mark").add_file()<CR>', 'Add file to harpoon' },
-  hl = { ':lua require("harpoon.ui").toggle_quick_menu()<CR>', 'Toggle harpoon menu' },
-  j = { ':lua require("harpoon.ui").nav_file(1)<CR>', 'Harpoon: Goto(1)' },
-  k = { ':lua require("harpoon.ui").nav_file(2)<CR>', 'Harpoon: Goto(2)' },
-  l = { ':lua require("harpoon.ui").nav_file(3)<CR>', 'Harpoon: Goto(3)' },
-  ['ö'] = { ':lua require("harpoon.ui").nav_file(4)<CR>', 'Harpoon: Goto(4)' },
+  ha = {
+    function()
+      harpoon:list():add()
+    end,
+    'Add file to harpoon',
+  },
+  hl = {
+    function()
+      harpoon.ui:toggle_quick_menu(harpoon:list())
+    end,
+    'Toggle harpoon menu',
+  },
+  j = {
+    function()
+      harpoon:list():select(1)
+    end,
+    'Harpoon: Goto(1)',
+  },
+  k = {
+    function()
+      harpoon:list():select(2)
+    end,
+    'Harpoon: Goto(2)',
+  },
+  l = {
+    function()
+      harpoon:list():select(3)
+    end,
+    'Harpoon: Goto(3)',
+  },
+  ['ö'] = {
+    function()
+      harpoon:list():select(4)
+    end,
+    'Harpoon: Goto(4)',
+  },
+
   dp = {
     function()
       return require('debugprint').debugprint()

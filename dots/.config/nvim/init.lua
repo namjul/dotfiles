@@ -55,7 +55,7 @@ local is_bootstrap = require('namjul.bootstrap').bootstrap_paq({
   { 'nvim-telescope/telescope.nvim', branch = '0.1.x' },
   { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
   { 'nvim-telescope/telescope-live-grep-args.nvim' },
-  { 'ThePrimeagen/harpoon' }, -- navigation helper
+  { 'ThePrimeagen/harpoon', branch = 'harpoon2' }, -- navigation helper
   { 'ekickx/clipboard-image.nvim' },
   { 'euclio/vim-markdown-composer' },
   { 'preservim/vimux' }, -- allows to send commands from vim to tmux
@@ -314,6 +314,8 @@ require('conform').setup({
   },
 })
 require('mini.diff').setup()
+
+require("harpoon"):setup()
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
