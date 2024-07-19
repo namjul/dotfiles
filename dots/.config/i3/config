@@ -230,5 +230,5 @@ bindsym $mod+x mode "$mode_display"
 # Workspace assignments
 assign [instance="^google-chrome"] $ws2
 
-# bindsym $mod+b [instance="^google-chrome"] focus
+bindsym $mod+b [instance="^google-chrome"] focus
 bindsym $mod+g exec --no-startup-id gnome-control-center
