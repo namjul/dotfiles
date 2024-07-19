@@ -39,6 +39,8 @@ abbr pbpaste 'xclip -selection clipboard -o'
 abbr x exit
 abbr t todo
 abbr tw timew
+abbr tws timew start
+abbr twsum timew summary :annotation :ids :week
 abbr en 'trans :en'
 abbr de 'trans :de'
 abbr grn 'git rebase -i HEAD~' # git interactive rebase to n
