@@ -9,11 +9,6 @@ if ! command -v mise &> /dev/null; then
 fi
 
 
-if ! command -v nala &> /dev/null; then
-  echo "No 'nala' executable found. Install with 'curl https://gitlab.com/volian/volian-archive/-/raw/main/install-nala.sh | bash'"
-  exit 1
-fi
-
 echo "Creating symlinks"
 stow -v dots
 
