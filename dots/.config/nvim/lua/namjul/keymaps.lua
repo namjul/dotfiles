@@ -12,6 +12,10 @@ local var = util.var
 local wk = require('which-key')
 local harpoon = require('harpoon')
 
+wk.setup({
+  ignore_missing = false,
+})
+
 -- LEADER
 --------------------
 
@@ -39,7 +43,7 @@ local defaultMapping = {
   nowait = false,
 }
 
-wk.add({
+wk.register({
   ['<C-d>'] = { '<C-d>zz', 'Up' },
   ['<C-u>'] = { '<C-u>zz', 'Down' },
   n = { 'nzzzv', 'Search next' },
@@ -104,7 +108,7 @@ wk.add({
 if util.isNeoVide() then
   local guifont = require('namjul.functions.guifont')
   guifont.resetGuiFont() -- Call function on startup to set default value
-  wk.add({
+  wk.register({
     ['<C-+>'] = {
       function()
         guifont.resizeGuiFont(1)
@@ -129,7 +133,7 @@ end
 -- LEADER
 --------------------
 
-wk.add({
+wk.register({
   -- ['<leader>'] = { '<C-^>', 'Open last buffer' },
   ['<leader>'] = {
     ":lua require('namjul.functions.telescope').findBuffers()<CR>",
@@ -305,14 +309,14 @@ wk.add({
   },
 }, util.shallow_merge(defaultMapping, { prefix = '<leader>' }))
 
-wk.add({
+wk.register({
   y = { [["+y]], 'Yank into clipboard' },
 }, util.shallow_merge(defaultMapping, { prefix = '<leader>', mode = 'v' }))
 
 -- VISUAL
 --------------------
 
-wk.add({
+wk.register({
   -- p = { '<Plug>(YankyPutAfter)', 'Put yank after' },
   -- P = { '<Plug>(YankyPutBefore)', 'Put yank before' },
   -- gp = { '<Plug>(YankyGPutAfter)', 'Put yank after leaving cursor after text' },
@@ -329,7 +333,7 @@ wk.add({
 -- OPERATOR PENDING
 --------------------
 
-wk.add({
+wk.register({
   s = { '<Plug>(leap-forward-to)', 'Leap forward to' },
   S = { '<Plug>(leap-backward-to)', 'Leap backward to' },
   gs = { '<Plug>(leap-cross-window)', 'Leap cross window' },
@@ -350,7 +354,7 @@ map.g('c', '<C-e>', '<End>')
 -- INSERT
 --------------------
 
-wk.add({
+wk.register({
   ['jk'] = { '<Esc>', 'Esc Mapping' },
   ['<Bar>'] = { '<Bar><Esc>:call v:lua.alignMdTable() <CR>a', 'Align markdonw table' },
   -- Undo break points
@@ -363,7 +367,7 @@ wk.add({
 -- TERMINAL
 --------------------
 
-wk.add({
+wk.register({
   ['<Esc>'] = {
     util.termcodes('<C-\\><C-N>'),
     'Close terminal',
