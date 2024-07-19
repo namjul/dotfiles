@@ -31,7 +31,7 @@ eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
 Clone dotfiles to home directory
 
 ```
-git clone https://github.com/namjul/dotfiles
+git clone https://github.com/namjul/dotfiles ~/.dotfiles
 ```
 
 cd and run `make`
