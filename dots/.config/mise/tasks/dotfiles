@@ -1,6 +1,17 @@
 #!/bin/bash
+# mise description="Creates symlinks in $HOME to the dotfiles in this rep"
 
-echo 'my dotfiles script'
+trap 'echo "Warning: A command has failed. Exiting the script. Line was ($0:$LINENO): $(sed -n "${LINENO}p" "$0")"; exit 3' ERR
+set -Eeuo pipefail
+
+if ! command -v stow &> /dev/null; then
+  echo "No 'stow' executable found."
+  exit 1
+fi
+
+echo "Creating symlinks"
+stow -v dots
+
 
 # based on https://github.com/necolas/dotfiles/blob/master/bin/dotfiles
 # 1. download dotfiles if not exist

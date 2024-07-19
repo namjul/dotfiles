@@ -8,9 +8,7 @@ if ! command -v mise &> /dev/null; then
   exit 1
 fi
 
-
-echo "Creating symlinks"
-stow -v dots
+# ln -s $(pwd)/aspects $(pwd)/.mise/tasks
 
 echo "The following mise tasks are available:"
 mise t
