@@ -7,6 +7,7 @@
 mkdir -p ~/Dropbox/inbox/pics/
 FILENAME=~/Dropbox/inbox/pics/screenshot_`date +%Y-%m-%d-%H:%M`.png
 
+# TODO replace with https://sr.ht/~emersion/grim/
 # use gnome tool for taking area screenshot
 gnome-screenshot -a -f $FILENAME
 
