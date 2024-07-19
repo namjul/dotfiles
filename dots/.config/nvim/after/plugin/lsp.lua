@@ -92,6 +92,7 @@ end
 require('null-ls').setup({
   diagnostics_format = '[#{c}] #{m} (#{s})',
   sources = {
+    -- TODO load when available
     require('null-ls').builtins.formatting.stylua,
     require('null-ls').builtins.diagnostics.eslint,
   },
