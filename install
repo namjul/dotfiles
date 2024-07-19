@@ -8,7 +8,11 @@ if ! command -v mise &> /dev/null; then
   exit 1
 fi
 
+# TODO use aspects
 # ln -s $(pwd)/aspects $(pwd)/.mise/tasks
+
+# enable tasks
+mise settings set experimental true
 
 echo "The following mise tasks are available:"
 mise t
