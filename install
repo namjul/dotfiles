@@ -1,0 +1,22 @@
+#!/bin/bash
+
+trap 'echo "Warning: A command has failed. Exiting the script. Line was ($0:$LINENO): $(sed -n "${LINENO}p" "$0")"; exit 3' ERR
+set -Eeuo pipefail
+
+if ! command -v mise &> /dev/null; then
+  echo "No 'mise' executable found. Install with 'curl https://mise.run | sh'"
+  exit 1
+fi
+
+
+if ! command -v nala &> /dev/null; then
+  echo "No 'nala' executable found. Install with 'curl https://gitlab.com/volian/volian-archive/-/raw/main/install-nala.sh | bash'"
+  exit 1
+fi
+
+echo "Creating symlinks"
+stow -v dots
+
+echo "The following mise tasks are available:"
+mise t
+
