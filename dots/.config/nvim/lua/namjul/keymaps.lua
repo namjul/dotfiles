@@ -12,10 +12,6 @@ local var = util.var
 local wk = require('which-key')
 local harpoon = require('harpoon')
 
-wk.setup({
-  ignore_missing = false,
-})
-
 -- LEADER
 --------------------
 
@@ -43,7 +39,7 @@ local defaultMapping = {
   nowait = false,
 }
 
-wk.register({
+wk.add({
   ['<C-d>'] = { '<C-d>zz', 'Up' },
   ['<C-u>'] = { '<C-u>zz', 'Down' },
   n = { 'nzzzv', 'Search next' },
@@ -108,7 +104,7 @@ wk.register({
 if util.isNeoVide() then
   local guifont = require('namjul.functions.guifont')
   guifont.resetGuiFont() -- Call function on startup to set default value
-  wk.register({
+  wk.add({
     ['<C-+>'] = {
       function()
         guifont.resizeGuiFont(1)
@@ -133,7 +129,7 @@ end
 -- LEADER
 --------------------
 
-wk.register({
+wk.add({
   -- ['<leader>'] = { '<C-^>', 'Open last buffer' },
   ['<leader>'] = {
     ":lua require('namjul.functions.telescope').findBuffers()<CR>",
@@ -309,14 +305,14 @@ wk.register({
   },
 }, util.shallow_merge(defaultMapping, { prefix = '<leader>' }))
 
-wk.register({
+wk.add({
   y = { [["+y]], 'Yank into clipboard' },
 }, util.shallow_merge(defaultMapping, { prefix = '<leader>', mode = 'v' }))
 
 -- VISUAL
 --------------------
 
-wk.register({
+wk.add({
   -- p = { '<Plug>(YankyPutAfter)', 'Put yank after' },
   -- P = { '<Plug>(YankyPutBefore)', 'Put yank before' },
   -- gp = { '<Plug>(YankyGPutAfter)', 'Put yank after leaving cursor after text' },
@@ -333,7 +329,7 @@ wk.register({
 -- OPERATOR PENDING
 --------------------
 
-wk.register({
+wk.add({
   s = { '<Plug>(leap-forward-to)', 'Leap forward to' },
   S = { '<Plug>(leap-backward-to)', 'Leap backward to' },
   gs = { '<Plug>(leap-cross-window)', 'Leap cross window' },
@@ -354,7 +350,7 @@ map.g('c', '<C-e>', '<End>')
 -- INSERT
 --------------------
 
-wk.register({
+wk.add({
   ['jk'] = { '<Esc>', 'Esc Mapping' },
   ['<Bar>'] = { '<Bar><Esc>:call v:lua.alignMdTable() <CR>a', 'Align markdonw table' },
   -- Undo break points
@@ -367,7 +363,7 @@ wk.register({
 -- TERMINAL
 --------------------
 
-wk.register({
+wk.add({
   ['<Esc>'] = {
     util.termcodes('<C-\\><C-N>'),
     'Close terminal',
