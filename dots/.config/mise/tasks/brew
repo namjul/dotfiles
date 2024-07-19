@@ -1,56 +1,35 @@
 #!/bin/bash
 
+trap 'echo "Warning: A command has failed. Exiting the script. Line was ($0:$LINENO): $(sed -n "${LINENO}p" "$0")"; exit 3' ERR
+set -Eeuo pipefail
+
+
 kernel_name=`uname`
 brew=$([ kernel_name == 'Dargin' ] && echo 'Homebrew' || echo 'Linuxbrew')
 
-# Check for brew and install if needed
-
 which brew
 if [[ $? != 0 ]] ; then
-  echo "Installing $brew ..."
-  yes | bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+  echo "Install $brew https://brew.sh/"
+	exit 1
 else
   echo "$brew already installed ..."
 fi
 
-# Make sure we’re using the latest Homebrew
+# Make sure we’re using the latest Brew
 brew update
 
 # Upgrade any already-installed formular
 brew upgrade
 
-# Install GNU core utilities (those that come with OS X are outdated)
-brew install coreutils
-
-# Install GNU `find`, `locate`, `updatedb`, and `xargs`, g-prefixed
-brew install findutils
-
-# Install Bash 4
-brew install bash
-
-# Install wget
+# General packages.
+brew install coreutils # Install GNU core utilities (those that come with OS X are outdated)
+brew install findutils # Install GNU `find`, `locate`, `updatedb`, and `xargs`, g-prefixed
 brew install wget
-
-# neovim
-brew install neovim --HEAD
-
-# fuzzy find
-brew install fzf
-yes | $(brew --prefix)/opt/fzf/install
-brew install fzy
-
-# tmux
 brew install tmux
-
-# git
 brew install git
 brew instal git-delta # https://github.com/dandavison/delta -- A viewer for git and diff output
-
-# rust
-brew install fd # finder
-brew install bat # previewer
-brew install starship # https://github.com/starship/starship -- cometmilky_way The minimal, blazing-fast, and infinitely customizable prompt for any shell!
-brew install eza # https://github.com/ogham/exa -- A modern replacement for ‘ls’.
+brew install fzf
+brew install eza # https://github.com/eza-community/eza
 brew install ripgrep # Ripgrep - fzf/vim is configured to use this
 brew install procs # A modern replacement for ps written in Rust -- https://github.com/dalance/procs
 brew install sd # https://github.com/chmln/sd -- Intuitive find & replace CLI (sed alternative)
@@ -62,12 +41,10 @@ brew install grex # https://github.com/pemistahl/grex -- A command-line tool and
 brew install zoxide # https://github.com/ajeetdsouza/zoxide -- A smarter cd command. Supports all major shells.
 brew install nushell # https://github.com/nushell/nushell -- A new type of shell
 brew install lf # https://github.com/gokcehan/lf -- list-files, ranger replacement
-brew tap clementtsang/bottom
 brew install bottom # https://github.com/ClementTsang/bottom -- Yet another cross-platform graphical process/system monitor.
-
-# Install everything else
-brew install tree
 brew install python
+brew install python3
+brew install tree
 brew install xclip
 brew install wmctrl
 brew install httpie # https://github.com/httpie/httpie -- Modern, user-friendly command-line HTTP client for the API era
@@ -120,5 +97,3 @@ brew install zx # https://google.github.io/zx/setup
 
 # Remove outdated versions from the cellar
 brew cleanup
-
-
