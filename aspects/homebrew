@@ -94,6 +94,7 @@ brew install youtube-dl # https://github.com/ytdl-org/youtube-dl
 brew install glab # https://gitlab.com/gitlab-org/cli
 brew install zx # https://google.github.io/zx/setup
 brew install starship # https://github.com/starship/starship
+brew install bat # https://github.com/sharkdp/bat
 
 # Remove outdated versions from the cellar
 brew cleanup
