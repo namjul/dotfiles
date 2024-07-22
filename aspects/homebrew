@@ -40,6 +40,7 @@ brew install bandwhich # https://github.com/imsnif/bandwhich -- Terminal bandwid
 brew install grex # https://github.com/pemistahl/grex -- A command-line tool and library for generating regular expressions from user-provided test cases
 brew install zoxide # https://github.com/ajeetdsouza/zoxide -- A smarter cd command. Supports all major shells.
 brew install nushell # https://github.com/nushell/nushell -- A new type of shell
+brew tap kaplanelad/tap && brew install shellfirm # https://github.com/kaplanelad/shellfirm
 brew install lf # https://github.com/gokcehan/lf -- list-files, ranger replacement
 brew install bottom # https://github.com/ClementTsang/bottom -- Yet another cross-platform graphical process/system monitor.
 brew install python
