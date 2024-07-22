@@ -19,7 +19,7 @@ end
 if not type -q shellfirm
   # show this message to the user and don't register to terminal hook
   # we want to show the user that he not protected with `shellfirm`
-  echo "`shellfirm` binary is missing. see installation guide: https://github.com/kaplanelad/shellfirm "
+  echo "`shellfirm` binary is missing. see installation guide: https://github.com/kaplanelad/shellfirm"
 end
 
 # https://gist.github.com/dmccombs/6345e5b8319e3a060b64181c1784f567
