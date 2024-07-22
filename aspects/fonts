@@ -1,0 +1,27 @@
+#!/usr/bin/env zx
+
+/**
+
+# mise description=""Installs JetBrains Mono font files"
+
+*/
+
+
+echo("create ~/fonts")
+await within(async () => {
+  await $`mkdir -p ~/fonts`
+})
+
+echo("install Source Code Pro")
+await within(async () => {
+
+  // TODO Check to see whether submodule is present.
+
+  const files = await glob("vendor/fonts/JetBrainsMono/fonts/ttf/*.ttf")
+  const target = path.join(os.homedir(), 'fonts')
+
+  for (const ttf of files) {
+    await $`cp ${ttf} ${target}`
+  }
+
+})
