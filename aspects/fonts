@@ -7,13 +7,11 @@
 */
 
 
-echo("create ~/fonts")
-await within(async () => {
+await spinner("create ~/fonts", async () => {
   await $`mkdir -p ~/fonts`
 })
 
-echo("install Source Code Pro")
-await within(async () => {
+await spinner("install Source Code Pro", async () => {
 
   // TODO Check to see whether submodule is present.
 
@@ -24,4 +22,5 @@ await within(async () => {
     await $`cp ${ttf} ${target}`
   }
 
+  await $`fc-cache -f -v`
 })
