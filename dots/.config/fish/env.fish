@@ -2,6 +2,7 @@
 # See: https://docs.brew.sh/Analytics
 export HOMEBREW_NO_ANALYTICS=1
 export HOMEBREW_NO_AUTO_UPDATE=1
+export HOMEBREW_AUTO_UPDATE_SECS="86400"
 
 # Make vim the default editor
 export VISUAL="nvim"
