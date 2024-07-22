@@ -60,7 +60,7 @@ brew install sops # https://github.com/mozilla/sops -- Simple and flexible tool 
 brew install fx # https://github.com/antonmedv/fx/ Command-line tool and terminal JSON viewer fire
 brew install jq # https://github.com/stedolan/jq -- https://github.com/stedolan/jq
 # brew install harelba/q/q # http://harelba.github.io/q/ -- q - Run SQL directly on CSV or TSV files
-brew tap kaplanelad/tap && brew install shellfirm
+# brew tap kaplanelad/tap && brew install shellfirm
 brew install loc # https://github.com/cgag/loc -- Count lines of code quickly.
 brew install croc # https://github.com/schollz/croc -- Easily and securely send things from one computer to another
 brew install massren # https://github.com/laurent22/massren -- easily rename multiple files using your text editor
