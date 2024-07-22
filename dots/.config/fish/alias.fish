@@ -9,6 +9,7 @@ abbr db 'cd ~/Dropbox'
 abbr dc 'cd ~/code'
 
 # quick edits
+alias e vim
 alias ev 'nvim ~/.dotfiles/dots/.config/nvim/init.lua'
 alias ed 'nvim ~/.dotfiles/dots/'
 alias ef 'nvim ~/.dotfiles/dots/.config/fish/config.fish'
@@ -67,10 +68,3 @@ if type -q eza
   abbr ltt 'ls --tree -D -L 3 -I $TREE_IGNORE'
   abbr lttt 'ls --tree -D -L 4 -I $TREE_IGNORE'
 end
-
-# vim
-if command -v nvim &> /dev/null
-  alias vim="nvim" # Use `\vim` or `command vim` to get the real vim.
-  alias e vim
-end
-

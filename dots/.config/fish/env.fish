@@ -5,8 +5,11 @@ export HOMEBREW_NO_AUTO_UPDATE=1
 export HOMEBREW_AUTO_UPDATE_SECS="86400"
 
 # Make vim the default editor
-export VISUAL="nvim"
-export EDITOR="$VISUAL"
+if command -v nvim &> /dev/null
+  export EDITOR=(which nvim)
+else if command -v vim &> /dev/null
+  export EDITOR=(which vim)
+end
 
 # Prefer US English and use UTF-8
 export LANG="en_US"
