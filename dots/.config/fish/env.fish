@@ -1,4 +1,8 @@
 
+# See: https://docs.brew.sh/Analytics
+export HOMEBREW_NO_ANALYTICS=1
+export HOMEBREW_NO_AUTO_UPDATE=1
+
 # Make vim the default editor
 export VISUAL="nvim"
 export EDITOR="$VISUAL"
