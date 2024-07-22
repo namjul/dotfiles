@@ -11,6 +11,9 @@ fi
 # use aspects
 ln -s $(pwd)/aspects $(pwd)/.mise/tasks
 
+# install global mise tools
+mise install --yes
+
 echo "The following mise tasks are available:"
 mise t
 
