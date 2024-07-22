@@ -9,7 +9,7 @@ abbr db 'cd ~/Dropbox'
 abbr dc 'cd ~/code'
 
 # quick edits
-alias e vim
+alias e $EDITOR
 alias ev 'nvim ~/.dotfiles/dots/.config/nvim/init.lua'
 alias ed 'nvim ~/.dotfiles/dots/'
 alias ef 'nvim ~/.dotfiles/dots/.config/fish/config.fish'
