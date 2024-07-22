@@ -1,5 +1,6 @@
 [Desktop Entry]
 Type=Application
+Comment=Set keyboard rate
 Exec=xset r rate 200 30
 Hidden=false
 NoDisplay=false
