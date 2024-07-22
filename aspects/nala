@@ -12,4 +12,5 @@ else
   echo "nala already installed ..."
 fi
 
+nala install -y stow
 nala install -y i3
