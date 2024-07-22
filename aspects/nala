@@ -11,6 +11,7 @@ else
   echo "nala already installed ..."
 fi
 
+sudo nala install -y cmake # to build tools (alacritty)
 sudo nala install -y build-essential procps curl file git # homebrew essentials
 sudo nala install -y stow # to symlink dotfiles
 sudo nala install -y i3 # window manager
