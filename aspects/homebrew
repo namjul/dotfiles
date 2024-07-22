@@ -96,6 +96,7 @@ brew install glab # https://gitlab.com/gitlab-org/cli
 brew install zx # https://google.github.io/zx/setup
 brew install starship # https://github.com/starship/starship
 brew install bat # https://github.com/sharkdp/bat
+brew install chafa # https://github.com/hpjansson/chafa Terminal graphics
 
 # Remove outdated versions from the cellar
 brew cleanup
