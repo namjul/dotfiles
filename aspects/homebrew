@@ -97,6 +97,7 @@ brew install zx # https://google.github.io/zx/setup
 brew install starship # https://github.com/starship/starship
 brew install bat # https://github.com/sharkdp/bat
 brew install chafa # https://github.com/hpjansson/chafa Terminal graphics
+brew install chroma # https://github.com/alecthomas/chroma
 
 # Remove outdated versions from the cellar
 brew cleanup
