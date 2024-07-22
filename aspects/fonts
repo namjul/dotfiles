@@ -8,7 +8,7 @@
 
 
 await spinner("create ~/fonts", async () => {
-  await $`mkdir -p ~/fonts`
+  await $`mkdir -p ~/.local/share/fonts`
 })
 
 await spinner("install Source Code Pro", async () => {
@@ -16,7 +16,7 @@ await spinner("install Source Code Pro", async () => {
   // TODO Check to see whether submodule is present.
 
   const files = await glob("vendor/fonts/JetBrainsMono/fonts/ttf/*.ttf")
-  const target = path.join(os.homedir(), 'fonts')
+  const target = path.join(os.homedir(), '.local/share/fonts')
 
   for (const ttf of files) {
     await $`cp ${ttf} ${target}`
