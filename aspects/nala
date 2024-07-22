@@ -3,7 +3,6 @@
 trap 'echo "Warning: A command has failed. Exiting the script. Line was ($0:$LINENO): $(sed -n "${LINENO}p" "$0")"; exit 3' ERR
 set -Eeuo pipefail
 
-sudo nala install -y i3 # wm manager
 
 if ! command -v nala &> /dev/null; then
   echo "Install nala https://gitlab.com/volian/nala/-/wikis/Installation"
@@ -12,5 +11,5 @@ else
   echo "nala already installed ..."
 fi
 
-nala install -y stow
-nala install -y i3
+sudo nala install -y stow
+sudo nala install -y i3
