@@ -4,7 +4,7 @@
 trap 'echo "Warning: A command has failed. Exiting the script. Line was ($0:$LINENO): $(sed -n "${LINENO}p" "$0")"; exit 3' ERR
 set -Eeuo pipefail
 
-echo "add zsh to /etc/shell"
+echo "add fish to /etc/shell"
 fishPath="$(which fish)"
 if ! cat /etc/shells | grep --color=auto fish; then
   echo "add '$fishPath' to '/etc/shells'"
