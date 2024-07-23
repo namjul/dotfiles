@@ -17,9 +17,9 @@ case $(file --brief --mime-type "$FILE") in
     ;;
   application/json | text/*)
     if [[ $FILE == *.md ]]; then
-      # Need `-s dark` to force color outside of interactive shell:
+      # Need `-s light` to force color outside of interactive shell:
       # https://github.com/charmbracelet/glow/issues/440
-      glow -s dark --width "$WIDTH" "$FILE"
+      glow -s light --width "$WIDTH" "$FILE"
     else
       chroma -- "$FILE"
     fi
