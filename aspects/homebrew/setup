@@ -1,0 +1,22 @@
+#!/bin/bash
+# mise description="Setup Homebrew"
+# mise hide=true
+
+trap 'echo "Warning: A command has failed. Exiting the script. Line was ($0:$LINENO): $(sed -n "${LINENO}p" "$0")"; exit 3' ERR
+set -Eeuo pipefail
+
+kernel_name=`uname`
+brew=$([ kernel_name == 'Dargin' ] && echo 'Homebrew' || echo 'Linuxbrew')
+
+if ! command -v brew &> /dev/null; then
+  echo "Install $brew https://brew.sh/"
+  exit 1
+else
+  echo "$brew already installed ..."
+fi
+
+# Make sure we’re using the latest Brew
+brew update
+
+# Upgrade any already-installed formular
+brew upgrade

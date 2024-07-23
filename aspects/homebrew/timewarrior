@@ -1,0 +1,24 @@
+#!/bin/bash
+# mise description="Install & Setup timewarrior"
+# mise hide=true
+
+trap 'echo "Warning: A command has failed. Exiting the script. Line was ($0:$LINENO): $(sed -n "${LINENO}p" "$0")"; exit 3' ERR
+set -Eeuo pipefail
+
+brew install timewarrior # https://github.com/GothenburgBitFactory/timewarrior
+
+echo "checking symlink timewarrior"
+timewarrior=~/.local/share/timewarror
+timestamp=$DROPBOX_DIR/backup/timewarrior.$(date +'%Y.%m.%d-%S')
+if [[ -f "$timewarrior" ]] && ! [[ -L "$timewarrior" ]]; then
+  mkdir -p $timewarrior
+  mv $timewarrior $timestamp
+fi
+
+if ! [[ -L "$timewarrior" ]]; then
+  echo "setup timewarrior symlink"
+  ln -s $DROPBOX_DIR/timewarrior/ $timewarrior
+  if [[ -f "$timestamp" ]]; then
+    mv "$timestamp/*" $DROPBOX_DIR/timewarrior/
+  fi
+fi
