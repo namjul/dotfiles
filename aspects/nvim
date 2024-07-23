@@ -1,0 +1,27 @@
+#!/usr/bin/env zx
+
+/**
+# mise description="Configures Vim/Neovim"
+*/
+
+const { Readable } = require('stream');
+const { finished } = require('stream/promises');
+
+await spinner('make /opt/nvim', async () => {
+  await $`mkdir -p ${os.homedir()}/local/nvim`
+})
+
+await spinner('download Neovim appimage', async () => {
+  const stream = fs.createWriteStream(`${os.homedir()}/local/nvim/nvim.appimage`);
+  const { body } = await fetch('https://github.com/neovim/neovim/releases/download/v0.9.5/nvim.appimage')
+  await finished(Readable.fromWeb(body).pipe(stream));
+});
+
+await spinner('make Neovim appimage executable', async () => {
+  await $`chmod 0755 ${os.homedir()}/local/nvim/nvim.appimage`
+});
+
+await spinner('extract Neovim appimage files', async () => {
+  cd(`${os.homedir()}/local/nvim/`)
+  await $`${os.homedir()}/local/nvim/nvim.appimage --appimage-extract`
+});
