@@ -9,7 +9,9 @@ if ! command -v mise &> /dev/null; then
 fi
 
 # use aspects
-ln -s $(pwd)/aspects $(pwd)/.mise/tasks
+if ! [[ -L "$(pwd)/.mise/tasks" ]]; then
+ ln -s $(pwd)/aspects $(pwd)/.mise/tasks
+fi
 
 # install global mise tools
 mise install --yes
