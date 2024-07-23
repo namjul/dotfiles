@@ -15,4 +15,5 @@ sudo nala install -y build-essential procps curl file git # homebrew essentials
 sudo nala install -y stow # to symlink dotfiles
 sudo nala install -y i3 # window manager
 sudo nala install -y feh # to manage background image
+sudo nala install -y nautilus-dropbox # to manage background image
 
