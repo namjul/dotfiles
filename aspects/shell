@@ -7,9 +7,24 @@ set -Eeuo pipefail
 echo "add fish to /etc/shell"
 fishPath="$(which fish)"
 if ! cat /etc/shells | grep --color=auto fish; then
-  echo "add '$fishPath' to '/etc/shells'"
-  exit 1
+ echo "add '$fishPath' to '/etc/shells'"
+ exit 1
 fi
 
 echo "set user shell to fish"
 chsh -s "$fishPath"
+
+echo "checking symlink fish history"
+fishHistory=~/.local/share/fish/fish_history
+timestamp=$DROPBOX_DIR/backup/fish-history.$(date +'%Y.%m.%d-%S')
+if [[ -f "$fishHistory" ]] && ! [[ -L "$fishHistory" ]]; then
+  mv $fishHistory $timestamp
+fi
+
+if ! [[ -L "$fishHistory" ]]; then
+  echo "setup fish-history symlink"
+  ln -sf $DROPBOX_DIR/backup/fish_history $fishHistory
+  if [[ -f "$timestamp" ]]; then
+    cat "$timestamp" > $DROPBOX_DIR/backup/fish_history
+  fi
+fi
