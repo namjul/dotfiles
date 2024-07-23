@@ -16,3 +16,6 @@ normal = { family = "JetBrainsMono", style = "Medium" }
 bold = { family = "JetBrainsMono", style = "Bold" }
 italic = { family = "JetBrainsMono", style = "Italic" }
 size = 12
+
+[window]
+padding = { x = 10, y = 10}
