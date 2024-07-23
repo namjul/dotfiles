@@ -54,3 +54,5 @@ export SHELLBOT_PROMPT='
 '
 
 export KUBECONFIG="$HOME/.kube/config"
+
+export DROPBOX_DIR="$HOME/Dropbox"
