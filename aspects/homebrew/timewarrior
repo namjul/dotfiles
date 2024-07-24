@@ -8,7 +8,7 @@ set -Eeuo pipefail
 brew install timewarrior # https://github.com/GothenburgBitFactory/timewarrior
 
 echo "checking symlink timewarrior"
-timewarrior=~/.local/share/timewarror
+timewarrior=~/.local/share/timewarrior
 timestamp=$DROPBOX_DIR/backup/timewarrior.$(date +'%Y.%m.%d-%S')
 if [[ -f "$timewarrior" ]] && ! [[ -L "$timewarrior" ]]; then
   mkdir -p $timewarrior
@@ -17,8 +17,8 @@ fi
 
 if ! [[ -L "$timewarrior" ]]; then
   echo "setup timewarrior symlink"
-  ln -s $DROPBOX_DIR/timewarrior/ $timewarrior
+  ln -s $DATA_DIR/timewarrior/ $timewarrior
   if [[ -f "$timestamp" ]]; then
-    mv "$timestamp/*" $DROPBOX_DIR/timewarrior/
+    mv "$timestamp/*" $DATA_DIR/timewarrior/
   fi
 fi

@@ -23,8 +23,8 @@ fi
 
 if ! [[ -L "$fishHistory" ]]; then
   echo "setup fish-history symlink"
-  ln -sf $DROPBOX_DIR/backup/fish_history $fishHistory
+  ln -sf $DATA_DIR/fish_history $fishHistory
   if [[ -f "$timestamp" ]]; then
-    cat "$timestamp" > $DROPBOX_DIR/backup/fish_history
+    cat "$timestamp" > $DATA_DIR/fish_history
   fi
 fi
