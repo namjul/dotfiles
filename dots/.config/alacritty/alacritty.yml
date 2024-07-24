@@ -72,19 +72,19 @@ font:
   # The normal (roman) font face to use.
   normal:
     # family: Fira Code # should be "Menlo" or something on macOS.
-    family: JetBrainsMono
+    family: JetBrainsMonoNerdFont
     # Style can be specified to pick a specific face.
     style: Medium
 
   # The bold font face
   bold:
-    family: JetBrainsMono   # should be "Menlo" or something on macOS.
+    family: JetBrainsMonoNerdFont   # should be "Menlo" or something on macOS.
     # Style can be specified to pick a specific face.
     style: Bold
 
   # The italic font face
   italic:
-    family: JetBrainsMono   # should be "Menlo" or something on macOS.
+    family: JetBrainsMonoNerdFont   # should be "Menlo" or something on macOS.
     # Style can be specified to pick a specific face.
     style: Italic
 
@@ -356,30 +356,63 @@ key_bindings:
   - {key: F11, mods: Super, chars: "\e[23;3~"}
   - {key: F12, mods: Super, chars: "\e[24;3~"}
 colors:
-  # COLORSCHEME: onedark-light.yml
+  # COLORSCHEME: gruvbox-light.yml
   # Default colors
   primary:
-    background: '#fafafa'
-    foreground: '#383a42'
+    # hard contrast: background = '#f9f5d7'
+    background: '#fbf1c7'
+    # soft contrast: background = '#f2e5bc'
+    foreground: '#3c3836'
 
   # Normal colors
   normal:
-    black: '#1e2127'
-    red: '#e45649'
-    green: '#50a14f'
-    yellow: '#986801'
-    blue: '#4078f2'
-    magenta: '#a626a4'
-    cyan: '#0184bc'
-    white: '#abb2bf'
+    black: '#fbf1c7'
+    red: '#cc241d'
+    green: '#98971a'
+    yellow: '#d79921'
+    blue: '#458588'
+    magenta: '#b16286'
+    cyan: '#689d6a'
+    white: '#7c6f64'
 
   # Bright colors
   bright:
-    black: '#5c6370'
-    red: '#e06c75'
-    green: '#98c379'
-    yellow: '#d19a66'
-    blue: '#61afef'
-    magenta: '#c678dd'
-    cyan: '#56b6c2'
-    white: '#ffffff'
+    black: '#928374'
+    red: '#9d0006'
+    green: '#79740e'
+    yellow: '#b57614'
+    blue: '#076678'
+    magenta: '#8f3f71'
+    cyan: '#427b58'
+    white: '#3c3836'
+  cursor:
+    text: CellBackground
+    cursor: CellForeground
+  vi_mode_cursor:
+    text: CellBackground
+    cursor: CellForeground
+  # search:
+  #   matches:
+  #     foreground: '#000000'
+  #     background: '#ffffff'
+  #   focused_match:
+  #    foreground: CellBackground
+  #    background: CellForeground
+  #   bar:
+  #     background: ''
+  #     foreground: ''
+  # line_indicator:
+  #   foreground: None
+  #   background: None
+  selection:
+    text: CellBackground
+    background: CellForeground
+  dim:
+    black: '#32302f'
+    red: '#9d0006'
+    green: '#79740e'
+    yellow: '#b57614'
+    blue: '#076678'
+    magenta: '#8f3f71'
+    cyan: '#427b58'
+    white: '#928374'

@@ -2,6 +2,3 @@
 	path = dots/.config/nvim/pack/bundle/opt/shellbot/lua
 	url = git@github.com:wincent/shellbot.git
 	branch = wincent
-[submodule "vendor/fonts/JetBrainsMono"]
-	path = vendor/fonts/JetBrainsMono
-	url = https://github.com/JetBrains/JetBrainsMono

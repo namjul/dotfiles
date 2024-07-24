@@ -12,9 +12,9 @@ import = [
 ]
 
 [font]
-normal = { family = "JetBrainsMono", style = "Medium" }
-bold = { family = "JetBrainsMono", style = "Bold" }
-italic = { family = "JetBrainsMono", style = "Italic" }
+normal = { family = "JetBrainsMonoNerdFont", style = "Medium" }
+bold = { family = "JetBrainsMonoNerdFont", style = "Bold" }
+italic = { family = "JetBrainsMonoNerdFont", style = "Italic" }
 size = 12
 
 [window]

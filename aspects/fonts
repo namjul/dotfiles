@@ -4,16 +4,24 @@
 # mise description="Installs JetBrains Mono font files"
 */
 
+const { Readable } = require('stream');
+const { finished } = require('stream/promises');
 
 await spinner("create ~/fonts", async () => {
   await $`mkdir -p ~/.local/share/fonts`
 })
 
-await spinner("install Source Code Pro", async () => {
+await spinner("download JetbrainsMono", async () => {
+  const stream = fs.createWriteStream(`${os.homedir()}/opt/JetBrainsMono.zip`);
+  const { body } = await fetch('https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/JetBrainsMono.zip')
+  await finished(Readable.fromWeb(body).pipe(stream));
+  await $`unzip -o ${os.homedir()}/opt/JetBrainsMono.zip -d ${os.homedir()}/opt/JetBrainsMono/`
+  await $`rm ${os.homedir()}/opt/JetBrainsMono.zip`
+})
 
-  // TODO Check to see whether submodule is present.
+await spinner("install", async () => {
 
-  const files = await glob("vendor/fonts/JetBrainsMono/fonts/ttf/*.ttf")
+  const files = await glob(`${os.homedir()}/opt/JetBrainsMono/*.ttf`)
   const target = path.join(os.homedir(), '.local/share/fonts')
 
   for (const ttf of files) {
