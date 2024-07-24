@@ -10,3 +10,6 @@ Sessionx.vim
 
 # Nushell
 history.txt
+
+# Sops
+secrets_decrypted
