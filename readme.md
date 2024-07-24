@@ -39,10 +39,10 @@ cd and run `install`
 ### git
 
 ```bash
-GIT_AUTHOR_NAME="name"
-GIT_AUTHOR_EMAIL="email"
-GIT_COMMITTER_NAME="$GIT_AUTHOR_NAME"
-GIT_COMMITTER_EMAIL="$GIT_AUTHOR_EMAIL"
+export GIT_AUTHOR_NAME="name"
+export GIT_AUTHOR_EMAIL="email"
+export GIT_COMMITTER_NAME="$GIT_AUTHOR_NAME"
+export GIT_COMMITTER_EMAIL="$GIT_AUTHOR_EMAIL"
 
 # Set the credentials (modifies ~/.gitconfig)
 git config --global user.name "$GIT_AUTHOR_NAME"
