@@ -1,0 +1,10 @@
+#!/bin/bash
+# mise description="Install ssh key"
+
+trap 'echo "Warning: A command has failed. Exiting the script. Line was ($0:$LINENO): $(sed -n "${LINENO}p" "$0")"; exit 3' ERR
+set -Eeuo pipefail
+
+echo "Installing ssh key"
+sops -d --extract '["public_key"]' --output ~/.ssh/id_ed25519_general.pub secrets/ssh.yml
+sops -d --extract '["private_key"]' --output ~/.ssh/id_ed25519_general secrets/ssh.yml
+chmod 600 ~/.ssh/id_ed25519_general.*
