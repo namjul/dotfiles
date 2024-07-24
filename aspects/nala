@@ -18,5 +18,5 @@ sudo nala install -y i3 # window manager
 sudo nala install -y feh # to manage background image
 sudo nala install -y nautilus-dropbox # to manage background image
 sudo nala install -y zathura # a document viewer
-sudo nala install -y cryptsetup # used for tomb
+sudo nala install -y cryptsetup steghide # used for tomb
 
