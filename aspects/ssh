@@ -7,4 +7,4 @@ set -Eeuo pipefail
 echo "Installing ssh key"
 sops -d --extract '["public_key"]' --output ~/.ssh/id_rsa.pub secrets/ssh.yml
 sops -d --extract '["private_key"]' --output ~/.ssh/id_rsa secrets/ssh.yml
-chmod 600 ~/.ssh/id_rsa.*
+chmod 600 ~/.ssh/id_rsa*
