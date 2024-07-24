@@ -20,4 +20,5 @@ sudo nala install -y nautilus-dropbox # to manage background image
 sudo nala install -y zathura # a document viewer
 sudo nala install -y cryptsetup steghide # used for tomb
 sudo nala install -y pass # https://www.passwordstore.org/
+sudo nala install -y autorandr # https://github.com/phillipberndt/autorandr
 
