@@ -1,8 +1,11 @@
+export DROPBOX_DIR="$HOME/Dropbox"
+export DATA_DIR="$HOME/Dropbox/data"
 
-# See: https://docs.brew.sh/Analytics
-export HOMEBREW_NO_ANALYTICS=1
+export HOMEBREW_NO_ANALYTICS=1 # https://docs.brew.sh/Analytics
 export HOMEBREW_NO_AUTO_UPDATE=1
 export HOMEBREW_AUTO_UPDATE_SECS="86400"
+
+export _ZO_DATA_DIR="$DATA_DIR/zoxide"
 
 # Make vim the default editor
 if command -v nvim &> /dev/null
@@ -55,4 +58,3 @@ export SHELLBOT_PROMPT='
 
 export KUBECONFIG="$HOME/.kube/config"
 
-export DROPBOX_DIR="$HOME/Dropbox"
