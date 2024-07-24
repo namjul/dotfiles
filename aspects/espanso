@@ -29,3 +29,8 @@ await spinner('extract Espanoe appimage files', async () => {
   cd(`${os.homedir()}/opt/espanso/`)
   await $`${os.homedir()}/opt/espanso/espanso.appimage --appimage-extract`
 });
+
+await spinner('setup systemd service', async () => {
+ await $`espanso service register`
+ await $`espanso start`
+});
