@@ -86,6 +86,7 @@ brew install chafa # https://github.com/hpjansson/chafa Terminal graphics
 brew install chroma # https://github.com/alecthomas/chroma
 brew install neofetch # https://github.com/dylanaraps/neofetch
 brew install trash-cli # https://github.com/andreafrancia/trash-cli
+brew install openssl
 
 # Remove outdated versions from the cellar
 brew cleanup
