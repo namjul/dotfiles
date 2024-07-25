@@ -7,7 +7,7 @@
 abbr dd 'cd $HOME/.dotfiles'
 abbr db 'cd ~/Dropbox'
 abbr dc 'cd ~/code'
-abbr cdls 'cd ~/.local/share'
+abbr dls 'cd ~/.local/share'
 
 # quick edits
 alias e $EDITOR
