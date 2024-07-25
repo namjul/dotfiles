@@ -49,11 +49,6 @@ require('nvim-treesitter.configs').setup({
     'mermaid',
   },
 
-  -- enables https://github.com/windwp/nvim-ts-autotag
-  autotag = {
-    enable = true,
-  },
-
   incremental_selection = {
     enable = true,
     keymaps = {
