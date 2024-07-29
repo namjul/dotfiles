@@ -27,8 +27,6 @@ brew install zoxide # https://github.com/ajeetdsouza/zoxide -- A smarter cd comm
 brew install nushell # https://github.com/nushell/nushell -- A new type of shell
 brew install lf # https://github.com/gokcehan/lf -- list-files, ranger replacement
 brew install bottom # https://github.com/ClementTsang/bottom -- Yet another cross-platform graphical process/system monitor.
-brew install python
-brew install python3
 brew install tree
 brew install xclip
 brew install wmctrl
