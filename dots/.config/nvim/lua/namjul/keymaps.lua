@@ -119,7 +119,7 @@ wk.add(
   { "<leader>f", group = "find", nowait = false, remap = false },
   { "<leader>fb", ":lua require('telescope.builtin').buffers(require('telescope.themes').get_ivy({}))<CR>", desc = "Find Buffer", nowait = false, remap = false },
   { "<leader>fc", ":lua require('namjul.functions.telescope').find_most_wanted()<CR>", desc = "Find Most Wanted Folders", nowait = false, remap = false },
-  { "<leader>fd", ":lua require('namjul.functions.telescope').search_dotfiles", desc = "Search dotfiles", nowait = false, remap = false },
+  { "<leader>fd", ":lua require('namjul.functions.telescope').search_dotfiles()<CR>", desc = "Search dotfiles", nowait = false, remap = false },
   { "<leader>fgb", ":lua require('telescope.builtin').git_branches(require('telescope.themes').get_ivy({}))<CR>", desc = "Find branch", nowait = false, remap = false },
   { "<leader>fgc", ":lua require('telescope.builtin').git_commits(require('telescope.themes').get_ivy({}))<CR>", desc = "Find buffer commits", nowait = false, remap = false },
   { "<leader>fh", ":lua require('telescope.builtin').help_tags(require('telescope.themes').get_ivy({}))<CR>", desc = "Find Help", nowait = false, remap = false },
