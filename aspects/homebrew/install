@@ -28,7 +28,7 @@ brew install nushell # https://github.com/nushell/nushell -- A new type of shell
 brew install lf # https://github.com/gokcehan/lf -- list-files, ranger replacement
 brew install bottom # https://github.com/ClementTsang/bottom -- Yet another cross-platform graphical process/system monitor.
 brew install tree
-brew install xclip
+brew install xclip xsel
 brew install wmctrl
 brew install httpie # https://github.com/httpie/httpie -- Modern, user-friendly command-line HTTP client for the API era
 brew install fish
