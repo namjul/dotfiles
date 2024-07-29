@@ -1,3 +1,4 @@
 #!/usr/bin/env sh
 
-shutdown -P now
+sudo shutdown -P now
+
