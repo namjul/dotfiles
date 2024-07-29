@@ -12,6 +12,7 @@ WIDTH=$((WIDTH / 10 * 9))
 WIDTH=$((WIDTH < 10 ? $2 : WIDTH)) # Too small. Just leave it as it was.
 
 case $(file --brief --mime-type "$FILE") in
+  application/zip) unzip -l "$1";;
   image/*)
     chafa --fill=block --symbols=block --colors=256 --size="$WIDTH"x"$HEIGHT" "$FILE"
     ;;
