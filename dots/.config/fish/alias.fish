@@ -31,7 +31,6 @@ abbr mv 'mv -i'
 abbr cp 'cp -i -p'
 abbr grep 'grep --color=auto'
 abbr g 'git'
-abbr gs 'git status'
 abbr week 'date +%V' # Get week number
 abbr path 'echo $PATH | tr -s " " "\n"' # Pretty print the path
 alias cat="bat" # Drop-in replacement for cat TODO add  --theme=gruvbox-(set-colorscheme) but a fast implementation

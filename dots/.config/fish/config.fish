@@ -49,8 +49,8 @@ if status is-interactive
   starship init fish | source
   zoxide init fish | source
   direnv hook fish | source
-  # mise activate fish | source # already handled by homebrew
-  # scmpuff init -s --shell=fish | source
+  mise activate fish | source
+  scmpuff init -s --shell=fish | source
 
   if type -q shellfirm
     function checkShellFirm --on-event fish_preexec
