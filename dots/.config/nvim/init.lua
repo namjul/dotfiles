@@ -56,7 +56,7 @@ local is_bootstrap = require('namjul.bootstrap').bootstrap_paq({
   { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
   { 'nvim-telescope/telescope-live-grep-args.nvim' },
   { 'ThePrimeagen/harpoon', branch = 'harpoon2' }, -- navigation helper
-  { 'ekickx/clipboard-image.nvim' },
+  { 'TobinPalmer/pastify.nvim' },
   { 'euclio/vim-markdown-composer' },
   { 'preservim/vimux' }, -- allows to send commands from vim to tmux
   { 'tyewang/vimux-jest-test' }, -- simplifies running jest test from vim
@@ -273,16 +273,31 @@ require('lualine').setup({
 
 require('Comment').setup()
 
-require('clipboard-image').setup({
-  default = {
-    img_name = function()
+-- require('clipboard-image').setup({
+--   default = {
+--     img_name = function()
+--       vim.fn.inputsave()
+--       local name = vim.fn.input('Name: ')
+--       vim.fn.inputrestore()
+--       return name
+--     end,
+--     img_dir = { '%:p:h', 'assets', 'images' },
+--     img_dir_txt = './assets/images',
+--   },
+-- })
+
+require('pastify').setup({
+  opts = {
+    absolute_path = false, -- use absolute or relative path to the working directory
+    local_path = './assets/images', -- The path to put local files in, ex <cwd>/assets/images/<filename>.png
+    save = 'local', -- Either 'local' or 'online' or 'local_file'
+    filename = function()
       vim.fn.inputsave()
       local name = vim.fn.input('Name: ')
       vim.fn.inputrestore()
       return name
     end,
-    img_dir = { '%:p:h', 'assets', 'images' },
-    img_dir_txt = './assets/images',
+    default_ft = 'markdown', -- Default filetype to use
   },
 })
 
@@ -315,7 +330,7 @@ require('mini.diff').setup()
 require('harpoon'):setup({
   default = {
     get_root_dir = function()
-      local root_dir = vim.fs.dirname(vim.fs.find({ ".root" }, { upward = true })[1])
+      local root_dir = vim.fs.dirname(vim.fs.find({ '.root' }, { upward = true })[1])
       if root_dir then
         return string.gsub(root_dir, '\n', '')
       end

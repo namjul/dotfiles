@@ -110,7 +110,7 @@ wk.add(
   { "<leader>3", ":!chmod +x %<CR>", desc = "Make current file executable", nowait = false, remap = false },
   { "<leader><leader>", ":lua require('namjul.functions.telescope').findBuffers()<CR>", desc = "[ ] Find existing buffers", nowait = false, remap = false },
   -- { "<leader><leader>", "<C-^>", desc = "Open last buffer", nowait = false, remap = false },
-  { "<leader>P", ":PasteImg <CR>", desc = "Paste image from clipboard", nowait = false, remap = false },
+  { "<leader>P", ":Pastify <CR>", desc = "Paste image from clipboard", nowait = false, remap = false },
   { "<leader>S", "<Plug>(SubversiveSubstituteToEndOfLine)", desc = "Substitute End of line", nowait = false, remap = false },
   { "<leader>c", ":lua require('telescope.builtin').commands(require('telescope.themes').get_ivy({}))<CR>", desc = "Find Command", nowait = false, remap = false },
   { "<leader>dp", function() return require('debugprint').debugprint() end, desc = "DebugPrint", expr = true, nowait = false, remap = false, replace_keycodes = false },
