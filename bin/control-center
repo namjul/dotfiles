@@ -1,0 +1,4 @@
+#!/usr/bin/env fish
+
+export XDG_CURRENT_DESKTOP="GNOME"
+gnome-control-center
