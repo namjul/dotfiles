@@ -44,6 +44,8 @@ exec --no-startup-id xrandr --output DP1 --auto --left-of eDP1
 # workspace 2 output DP1
 # workspace 3 output eDP1
 
+exec --no-startup-id notify-battery
+
 # move focused workspace between monitors
 bindsym $mod+Ctrl+Up move workspace to output up
 bindsym $mod+Ctrl+Down move workspace to output down
