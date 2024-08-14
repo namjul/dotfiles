@@ -21,9 +21,10 @@
   develop = checkout develop
 
   d       = diff -w
-  dc      = diff --cached -w
-  staged  = dc -w
+  ds      = diff --staged -w
+  staged  = ds -w
   dino    = diff --name-only
+  dw      = diff --word-diff
   dt      = !git diff --no-color | xclip -selection clipboard
   dft     = difftool
 
