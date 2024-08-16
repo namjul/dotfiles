@@ -11,6 +11,13 @@ if status is-login
   bass source ~/.profile
 end
 
+# Set Lenovo Trackpoint Speed
+if xinput list-props "TPPS/2 Synaptics TrackPoint" > /dev/null 2>&1
+  xinput set-prop "TPPS/2 Synaptics TrackPoint" "libinput Accel Speed" -0.5
+end
+
+
+
 if not type -q brew
   # notify if brew command does not exists
   echo "Make sure `brew` command is available."
