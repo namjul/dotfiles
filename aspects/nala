@@ -23,4 +23,5 @@ sudo nala install -y pass # https://www.passwordstore.org/
 sudo nala install -y autorandr # https://github.com/phillipberndt/autorandr
 sudo nala install -y flameshot # https://github.com/flameshot-org/flameshot
 sudo nala install -y nsxiv # https://github.com/nsxiv/nsxiv
-sudo nala install -y vlc
+sudo nala install -y vlc # https://github.com/videolan/vlc
+sudo nala install -y dunst # https://github.com/dunst-project/dunst
