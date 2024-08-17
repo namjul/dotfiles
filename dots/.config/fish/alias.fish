@@ -40,6 +40,7 @@ abbr de 'trans :de'
 # node
 abbr repl 'NODE_PATH=(npm root -g) node'
 abbr run 'dum run' # shorthand for npm run
+abbr nr 'npm run' # shorthand for npm run
 abbr nv 'node --version'
 
 # timewarrior
@@ -74,6 +75,7 @@ abbr pbcopy 'xclip -selection clipboard' # replicate pbcopy from macos
 abbr pbpaste 'xclip -selection clipboard -o'
 abbr untar 'tar -xvf' # extract .tar.gz
 abbr --add unset 'set --erase' # remove env variable
+abbr mr 'mise run' # run mise tasks
 
 # ls
 if type -q eza
