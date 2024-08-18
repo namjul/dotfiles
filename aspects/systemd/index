@@ -1,0 +1,29 @@
+#!/usr/bin/env zx
+
+/**
+# mise description="Generic grab bag of stuff that runs out of systemd"
+# mise alias="systemd"
+*/
+
+
+await spinner('create ~/.config/systemd/user', async () => {
+  await $`mkdir -p ~/.config/systemd/user`
+})
+
+await spinner('set up ~/.config/systemd/user/ssh-agent.service', async () => {
+  const aspect = __dirname
+  const unit = '.config/systemd/user/ssh-agent.service';
+  const source = path.join(aspect, 'files', unit)
+  const target = path.join(os.homedir(), unit)
+  await $`cp ${source} ${target}`
+})
+
+await spinner('systemd daemon-reload', async () => {
+  await $`systemctl --user daemon-reload`
+})
+
+await spinner('enable ssh-agent.service', async () => {
+  await $`systemctl --user enable ssh-agent.service --now`
+})
+
+

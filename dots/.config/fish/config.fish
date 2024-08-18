@@ -29,9 +29,6 @@ if not type -q shellfirm
   echo "`shellfirm` binary is missing. see installation guide: https://github.com/kaplanelad/shellfirm"
 end
 
-# https://gist.github.com/dmccombs/6345e5b8319e3a060b64181c1784f567
-# set (gnome-keyring-daemon --start | string split "=")
-
 if status is-interactive
   set fish_greeting # remove fish's greeting
 
