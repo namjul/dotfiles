@@ -234,6 +234,7 @@ vim.filetype.add({
 
 require('namjul.translator')
 require('namjul.keymaps')
+require('namjul.filetype')
 
 -- Set lualine as statusline
 -- See `:help lualine.txt`
