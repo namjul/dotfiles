@@ -1,5 +1,6 @@
 #!/bin/bash
 # mise description="Install Homebrew packages"
+# mise alias="homebrew"
 # mise depends=["homebrew/setup", "homebrew/timewarrior"]
 
 trap 'echo "Warning: A command has failed. Exiting the script. Line was ($0:$LINENO): $(sed -n "${LINENO}p" "$0")"; exit 3' ERR
