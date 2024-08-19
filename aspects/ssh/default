@@ -1,10 +1,13 @@
 #!/bin/bash
 # mise description="Install ssh key"
+# mise alias="ssh"
 
 trap 'echo "Warning: A command has failed. Exiting the script. Line was ($0:$LINENO): $(sed -n "${LINENO}p" "$0")"; exit 3' ERR
 set -Eeuo pipefail
 
 echo "Installing ssh key"
-sops -d --extract '["public_key"]' --output ~/.ssh/id_rsa.pub secrets/ssh.yml
-sops -d --extract '["private_key"]' --output ~/.ssh/id_rsa secrets/ssh.yml
+
+dirname=$(dirname "$(realpath "$0")")
+sops -d --extract '["public_key"]' --output ~/.ssh/id_rsa.pub "$dirname/ssh.yml"
+sops -d --extract '["private_key"]' --output ~/.ssh/id_rsa "$dirname/ssh.yml"
 chmod 600 ~/.ssh/id_rsa*
