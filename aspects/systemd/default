@@ -5,13 +5,13 @@
 # mise alias="systemd"
 */
 
+const aspect = __dirname
 
 await spinner('create ~/.config/systemd/user', async () => {
   await $`mkdir -p ~/.config/systemd/user`
 })
 
 await spinner('set up ~/.config/systemd/user/ssh-agent.service', async () => {
-  const aspect = __dirname
   const unit = '.config/systemd/user/ssh-agent.service';
   const source = path.join(aspect, 'files', unit)
   const target = path.join(os.homedir(), unit)

@@ -1,6 +1,11 @@
 #!/bin/bash
 # mise description="Setup cronjobs"
 
+trap 'echo "Warning: A command has failed. Exiting the script. Line was ($0:$LINENO): $(sed -n "${LINENO}p" "$0")"; exit 3' ERR
+set -Eeuo pipefail
+
+echo "cron"
+
 # SHELL=/bin/bash
 #
 # 0 12 * * * . $HOME/.profile; ~/Dropbox/bin/envato-items.sh --log >> ~/Dropbox/logs/cron-logs.txt
