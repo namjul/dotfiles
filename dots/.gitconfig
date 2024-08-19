@@ -1,11 +1,9 @@
 # A good starting point: https://gist.github.com/rab/4067067
+# checkout  https://github.com/necolas/dotfiles/commit/916952ac1c0e30ce6a0b7e3ed4a9167c4f16f9c3#diff-2134a4e7ec4e3abf1f4b1ae2e138d47bf3cfa7d837db92d9d1e61e16de4ba349
 
 [alias]
-  a       = add
-  aa      = add .
   ai      = add -i
   fza     = !git ls-files -m -o --exclude-standard | fzf --print0 -m --preview 'git diff {}' --height=100% --preview-window=top:50%:wrap | xargs -0 -t git add
-  patch   = add -p 
 
   b       = branch
   be      = branch --edit-description
@@ -13,9 +11,18 @@
   done    = branch --verbose --merged
   um      = branch --verbose --no-merged
 
+  cp      = cherry-pick
   co      = checkout
   cb      = checkout -b
   ct      = checkout --track
+  count   = !git --no-pager log --oneline | wc -l
+  full    = show --format=fuller
+  fresh   = remote update --prune
+
+  # Show just the HEAD commit message (no indent) and nothing else
+  message = !git --paginate log -1 --pretty=format:%B
+  msg = message
+
   master  = checkout master
   main    = checkout main
   develop = checkout develop
@@ -24,14 +31,14 @@
   ds      = diff --staged -w
   staged  = ds -w
   dino    = diff --name-only
-  dw      = diff --word-diff
-  dt      = !git diff --no-color | xclip -selection clipboard
+  dword      = diff --word-diff
+  dcopy      = !git diff --no-color | xclip -selection clipboard
   dft     = difftool
 
   c       = commit
   cm      = commit -m
-  ca      = commit --amend
-  amend   = commit --amend --no-edit
+  amend      = commit --amend
+  recommit   = commit --amend --no-edit
   reword  = commit --amend --only -v
 
   p       = push
@@ -61,6 +68,10 @@
 
   aliases = !git config --get-regexp 'alias.*' | colrm 1 6 | sed 's/[ ]/ = /' | sort
 
+  # Find out who is currently active on the repository
+  # Displays committers in descending order of number of commits
+  who     = shortlog --numbered --summary --email --no-merges --since='3 months'
+
 [apply]
   # Detect whitespace errors when applying a patch
   whitespace = fix
@@ -70,56 +81,19 @@
   excludesfile = ~/.gitignore_global
   # pager = "delta --diff-so-fancy"
 
-[color]
-  branch = auto
-  diff = auto
-  status = auto
-  showbranch = auto
-  ui = true
-[color "branch"]
-  current = yellow reverse
-  local = yellow
-  remote = green
-[color "diff"]
-  meta = yellow bold
-  frag = magenta bold
-  old = red bold
-  new = green bold
-[color "status"]
-  added = yellow
-  changed = green
-  untracked = cyan
-
-# URL shorthands
-[url "git@github.com:"]
-  insteadOf = "gh:"
-  pushInsteadOf = "github:"
-  pushInsteadOf = "git://github.com/"
-[url "git://github.com/"]
-  insteadOf = "github:"
-[url "git@gist.github.com:"]
-  insteadOf = "gst:"
-  pushInsteadOf = "gist:"
-  pushInsteadOf = "git://gist.github.com/"
-[url "git://gist.github.com/"]
-  insteadOf = "gist:"
 [push]
-  default = current
+  default = simple
+[pull]
+  ff = only
 [merge]
   tool = vimdiff
 [mergetool]
   path = nvim
-[pull]
-  rebase = false
 [init]
   defaultBranch = main
 [github]
   user = namjul
-[diff]
-  tool = difftastic
 [difftool]
   prompt = false
-[difftool "difftastic"]
-  cmd = difft "$LOCAL" "$REMOTE"
 [pager]
   difftool = true
