@@ -3,6 +3,8 @@
 
 [alias]
   ai      = add -i
+  patch = add -p
+  p = patch
   fza     = !git ls-files -m -o --exclude-standard | fzf --print0 -m --preview 'git diff {}' --height=100% --preview-window=top:50%:wrap | xargs -0 -t git add
 
   b       = branch
@@ -17,7 +19,7 @@
   ct      = checkout --track
   count   = !git --no-pager log --oneline | wc -l
   full    = show --format=fuller
-  fresh   = remote update --prune
+  delta   = "!f() { git diff \"$@\" | delta; }; f"
 
   # Show just the HEAD commit message (no indent) and nothing else
   message = !git --paginate log -1 --pretty=format:%B
@@ -53,6 +55,16 @@
   sync    = !git fetch --all && git rebase origin/master
   syncd   = !git fetch --all && git rebase origin/develop
   fresh   = !git fetch --all --prune
+  ; fresh   = remote update --prune
+
+  # Recover previous COMMIT_EDITMSG, if there is one.
+  recover = !cat "$(git rev-parse --git-dir 2> /dev/null)/COMMIT_EDITMSG"
+
+  # Mark merge conflicts as resolved.
+  resolve = "!f() { git add $(git diff --name-only --diff-filter=U -- \"${@:-.}\"); }; f"
+
+  # requires Git 1.6.2 or later
+  rollback = !bash -c 'git reset --merge HEAD~${1-1}' -
 
   rehard  = reset --hard
   resoft  = reset --soft
@@ -83,6 +95,7 @@
 
 [push]
   default = simple
+  autoSetupRemote = true
 [pull]
   ff = only
 [merge]
