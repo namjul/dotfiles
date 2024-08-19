@@ -1,13 +1,30 @@
-#!/bin/bash
-# mise description="Install ssh key"
+#!/usr/bin/env zx
+
+/**
+# mise description="Manages local SSH config"
 # mise alias="ssh"
+*/
 
-trap 'echo "Warning: A command has failed. Exiting the script. Line was ($0:$LINENO): $(sed -n "${LINENO}p" "$0")"; exit 3' ERR
-set -Eeuo pipefail
+const aspect = __dirname
 
-echo "Installing ssh key"
+await spinner('create ~/.ssh', async () => {
+  await fs.ensureDir("~/.ssh")
+})
 
-dirname=$(dirname "$(realpath "$0")")
-sops -d --extract '["public_key"]' --output ~/.ssh/id_rsa.pub "$dirname/ssh.yml"
-sops -d --extract '["private_key"]' --output ~/.ssh/id_rsa "$dirname/ssh.yml"
-chmod 600 ~/.ssh/id_rsa*
+await spinner('install ~/.ssh/config', async () => {
+  const unit = '.ssh/config';
+  const source = path.join(aspect, 'files', unit)
+  const target = path.join(os.homedir(), unit)
+
+  if (!await fs.pathExists(target)) {
+    await fs.copy(source, target)
+  } else {
+    console.warn(`${unit} already exists. Won't change.`)
+  }
+})
+
+await spinner('install keys', async () => {
+  await $`sops -d --extract '["public_key"]' --output ~/.ssh/id_rsa.pub ${aspect}/key.yml`
+  await $`sops -d --extract '["private_key"]' --output ~/.ssh/id_rsa ${aspect}/key.yml`
+  await $`chmod 600 ~/.ssh/id_rsa*`
+})
