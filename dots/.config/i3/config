@@ -84,6 +84,8 @@ exec --no-startup-id notify-battery -n
 # move focused workspace between monitors
 bindsym $mod+Ctrl+Up move workspace to output up
 bindsym $mod+Ctrl+Down move workspace to output down
+bindsym $mod+Ctrl+Left move workspace to output left
+bindsym $mod+Ctrl+Right move workspace to output right
 
 
 # Use pactl to adjust volume in PulseAudio.
