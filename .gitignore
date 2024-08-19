@@ -14,4 +14,4 @@ history.txt
 # Sops
 secrets_decrypted
 
-# .mise/tasks
+.mise/tasks
