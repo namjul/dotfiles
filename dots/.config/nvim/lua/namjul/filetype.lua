@@ -15,7 +15,7 @@ vim.filetype.add({
     [".*"] = function()
       local first_line = vim.api.nvim_buf_get_lines(0, 0, 1, false)[1]
       if first_line:match("^#!/usr/bin/env zx") then
-        return "typescript"
+        return "javascript"
       end
     end,
   }
