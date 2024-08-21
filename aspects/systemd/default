@@ -13,7 +13,7 @@ await spinner('create ~/.config/systemd/user', async () => {
 
 await spinner('set up ~/.config/systemd/user/ssh-agent.service', async () => {
   const unit = '.config/systemd/user/ssh-agent.service';
-  const source = path.join(aspect, 'files', unit)
+  const source = path.join(aspect, '.files', unit)
   const target = path.join(os.homedir(), unit)
   await $`cp ${source} ${target}`
 })
