@@ -6,8 +6,8 @@ error_symbol = "[➜](bold #fb4934)"
 vicmd_symbol = "[🆅](bold #a89984)"
 
 [package]
-symbol = ""
-disabled = true
+# symbol = ""
+# disabled = true
 
 [nodejs]
-disabled = true
+# disabled = true
