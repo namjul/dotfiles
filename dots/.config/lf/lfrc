@@ -120,15 +120,19 @@ set previewer ~/.config/lf/preview
 
 # zoxide
 cmd z %{{
-	result="$(zoxide query --exclude $PWD "$@")"
-	lf -remote "send $id cd '$result'"
+  result="$(zoxide query --exclude $PWD "$@")"
+  lf -remote "send $id cd '$result'"
 }}
 
 cmd zi ${{
-	result="$(zoxide query -i)"
-	lf -remote "send $id cd '$result'"
+  result="$(zoxide query -i)"
+  lf -remote "send $id cd '$result'"
 }}
 
 cmd on-cd &{{
-        zoxide add "$PWD"
+  zoxide add "$PWD"
+}}
+
+cmd cpsel ${{
+  cat "${f}" | xclip -selection clipboard
 }}

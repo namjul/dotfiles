@@ -71,11 +71,14 @@ abbr week 'date +%V' # Get week number
 abbr path 'echo $PATH | tr -s " " "\n"' # Pretty print the path
 alias cat="bat" # Drop-in replacement for cat TODO add  --theme=gruvbox-(set-colorscheme) but a fast implementation
 abbr tmp ' cd (mktemp -d)'
-abbr pbcopy 'xclip -selection clipboard' # replicate pbcopy from macos
-abbr pbpaste 'xclip -selection clipboard -o'
 abbr untar 'tar -xvf' # extract .tar.gz
 abbr --add unset 'set --erase' # remove env variable
 abbr mr 'mise run' # run mise tasks
+ # replicate pbcopy from macos
+alias pbcopy 'xclip -selection clipboard'
+alias pbpaste 'xclip -selection clipboard -o'
+abbr pc 'pbcopy'
+abbr pp 'pbpaste'
 
 # ls
 if type -q eza
