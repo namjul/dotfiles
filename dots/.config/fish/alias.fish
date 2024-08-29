@@ -26,7 +26,7 @@ abbr dls 'cd ~/.local/share'
 # shell
 abbr h 'history'
 abbr j 'jobs'
-abbr l 'less -R'
+abbr -a L --position anywhere --set-cursor "% | less -R"
 abbr x exit
 
 # git
