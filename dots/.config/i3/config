@@ -46,10 +46,13 @@ bar {
 for_window [class="^.*"] border pixel 2
 
 # class                 <border> <background> <text> <indicator> <child_border>
-client.focused          $lightgray $lightgray $bg $purple $darkgray
+client.focused          $lightgray $lightgray $bg $purple $purple
 client.focused_inactive $darkgray $darkgray $lightgray $purple $darkgray
 client.unfocused        $darkgray $darkgray $lightgray $purple $darkgray
 client.urgent           $red $red $white $red $red
+
+# Hide borders when there is only one window
+hide_edge_borders both
 
 gaps inner 10
 smart_gaps on
