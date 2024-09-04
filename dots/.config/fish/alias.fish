@@ -74,11 +74,16 @@ abbr tmp ' cd (mktemp -d)'
 abbr untar 'tar -xvf' # extract .tar.gz
 abbr --add unset 'set --erase' # remove env variable
 abbr mr 'mise run' # run mise tasks
+
  # replicate pbcopy from macos
 alias pbcopy 'xclip -selection clipboard'
 alias pbpaste 'xclip -selection clipboard -o'
 abbr pc 'pbcopy'
 abbr pp 'pbpaste'
+
+# IP addresses
+abbr globalip "dig +short myip.opendns.com @resolver1.opendns.com"
+abbr localip 'ip -o route get to 8.8.8.8 | sed -n "s/.*src \([0-9.]\+\).*/\1/p"'
 
 # ls
 if type -q eza
