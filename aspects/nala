@@ -25,6 +25,8 @@ sudo nala install -y flameshot # https://github.com/flameshot-org/flameshot
 sudo nala install -y nsxiv # https://github.com/nsxiv/nsxiv
 sudo nala install -y vlc # https://github.com/videolan/vlc
 sudo nala install -y dunst # https://github.com/dunst-project/dunst
+sudo nala install -y pulseaudio # https://github.com/pulseaudio/pulseaudio
 
 sudo nalal install -y brightnessctl # https://github.com/Hummer12007/brightnessctl
 sudo chmod +s $(which brightnessctl) # brightnessctl requires root permissions: https://github.com/i3/i3/discussions/4763 https://github.com/Hummer12007/brightnessctl?tab=readme-ov-file#permissions
+
