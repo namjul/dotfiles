@@ -12,6 +12,7 @@
   bv      = branch --verbose
   done    = branch --verbose --merged
   um      = branch --verbose --no-merged
+  inspect = blame
 
   # `git remote prune origin`: remove remote-tracking branches that were deleted from the remote repo
   # `git gc`: cleanup unnecessary files and optimize the local repository
