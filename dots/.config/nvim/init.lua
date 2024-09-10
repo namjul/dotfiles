@@ -44,7 +44,6 @@ local is_bootstrap = require('namjul.bootstrap').bootstrap_paq({
   { 'tpope/vim-rhubarb' }, -- open files on github
   { 'tpope/vim-unimpaired' }, -- set of complementary pair commands
   { 'tpope/vim-abolish' }, -- Case-preserving find and replace
-  { 'kylechui/nvim-surround' }, -- adds operators for surrounding characters
   { 'numToStr/Comment.nvim' }, -- "gc" to comment visual regions/lines
   { 'svermeulen/vim-cutlass' }, -- seperate `cut` form `delete`
   { 'svermeulen/vim-subversive' }, -- adds a subsitute operator
@@ -331,6 +330,19 @@ require('conform').setup({
   },
 })
 require('mini.diff').setup()
+require('mini.surround').setup({
+ mappings = {
+    add = 'gza', -- Add surrounding in Normal and Visual modes
+    delete = 'gzd', -- Delete surrounding
+    find = 'gzf', -- Find surrounding (to the right)
+    find_left = 'gzF', -- Find surrounding (to the left)
+    highlight = 'gzh', -- Highlight surrounding
+    replace = 'gzr', -- Replace surrounding
+    update_n_lines = 'gzn', -- Update `n_lines`
+    suffix_last = 'l', -- Suffix to search with "prev" method
+    suffix_next = 'n', -- Suffix to search with "next" method
+  },
+})
 
 require('harpoon'):setup({
   default = {
