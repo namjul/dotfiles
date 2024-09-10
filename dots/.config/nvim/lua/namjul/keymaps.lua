@@ -163,15 +163,9 @@ wk.add(
   { "<leader>vz", ":lua vim.cmd('VimuxZoomRunner')<CR>", desc = "Zoom the tmux runner pane", nowait = false, remap = false },
   { "<leader>x", ":exit<CR>", desc = 'like ":wq", but write only when changes have been made', nowait = false, remap = false },
   { "<leader>z", ":ZenMode<CR>", desc = "Enter Zenmode", nowait = false, remap = false },
-})
-
-wk.add({
   { "<leader>y", '"+y', desc = "Yank into clipboard", mode = "v", nowait = false, remap = false },
+  { "<leader>do", ':lua MiniDiff.toggle_overlay()<CR>', desc = "Toggle hunk diff overlay", nowait = false, remap = false },
 })
-
--- wk.register({
---   y = { [["+y]], 'Yank into clipboard' },
--- }, util.shallow_merge(defaultMapping, { prefix = '<leader>', mode = 'v' }))
 
 -- VISUAL
 --------------------
