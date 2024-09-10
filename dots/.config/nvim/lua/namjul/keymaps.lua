@@ -48,15 +48,15 @@ wk.add({
   { "J",         "mzJ`z",                                                           desc = "Join lines",                                                                   nowait = false, remap = false },
   { "N",         "Nzzzv",                                                           desc = "Search Previous",                                                              nowait = false, remap = false },
   { "Q",         "",                                                                desc = "avoid unintentional switches to Ex mode.",                                     nowait = false, remap = false },
-  { "S",         "<Plug>(leap-backward-to)",                                        desc = "Leap backward to",                                                             nowait = false, remap = false },
   { "[d",        function() vim.diagnostic.goto_prev({ enable_popup = false }) end, desc = "LSP Diagnostic Previous",                                                      nowait = false, remap = false },
   { "]d",        function() vim.diagnostic.goto_next({ enable_popup = false }) end, desc = "LSP Diagnostic Next",                                                          nowait = false, remap = false },
+  { "S",         "<Plug>(leap-backward-to)",                                        desc = "Leap backward to",                                                             nowait = false, remap = false },
+  { "s",         "<Plug>(leap-forward-to)",                                         desc = "Leap forward to",                                                              nowait = false, remap = false },
   { "gs",        "<Plug>(leap-cross-window)",                                       desc = "Leap cross window",                                                            nowait = false, remap = false },
   { "gx",        ":!open <cWORD><CR>",                                              desc = "open url",                                                                     nowait = false, remap = false },
   { "j",         "(v:count > 5 ? \"m\\'\" . v:count : \"\") . \"j\"",               desc = "store relative line number jumps in the jumplist if they exceed a threshold.", expr = true,    nowait = false, remap = false, replace_keycodes = false },
   { "k",         "(v:count > 5 ? \"m\\'\" . v:count : \"\") . \"k\"",               desc = "store relative line number jumps in the jumplist if they exceed a threshold.", expr = true,    nowait = false, remap = false, replace_keycodes = false },
   { "n",         "nzzzv",                                                           desc = "Search next",                                                                  nowait = false, remap = false },
-  { "s",         "<Plug>(leap-forward-to)",                                         desc = "Leap forward to",                                                              nowait = false, remap = false },
   { "y",         "<Plug>(YankyYank)",                                               desc = "Yank which preserves cursor position",                                         nowait = false, remap = false },
 })
 
@@ -176,26 +176,12 @@ wk.add({
     { "J",  ":m '>+1<CR>gv=gv",          desc = "Move up",                              nowait = false, remap = false },
     { "K",  ":m '<-2<CR>gv=gv",          desc = "move down",                            nowait = false, remap = false },
     { "S",  "<Plug>(leap-backward-to)",  desc = "Leap backward to",                     nowait = false, remap = false },
+    { "s",  "<Plug>(leap-forward-to)",   desc = "Leap forward to",                      nowait = false, remap = false },
     { "gs", "<Plug>(leap-cross-window)", desc = "Leap cross window",                    nowait = false, remap = false },
     { "p",  '"_dP',                      desc = "Paste without overide",                nowait = false, remap = false },
-    { "s",  "<Plug>(leap-forward-to)",   desc = "Leap forward to",                      nowait = false, remap = false },
     { "y",  "<Plug>(YankyYank)",         desc = "Yank which preserves cursor position", nowait = false, remap = false },
   },
 }
-)
-
--- OPERATOR PENDING
---------------------
-
-wk.add(
-  {
-    {
-      mode = { "o" },
-      { "S",  "<Plug>(leap-backward-to)",  desc = "Leap backward to",  nowait = false, remap = false },
-      { "gs", "<Plug>(leap-cross-window)", desc = "Leap cross window", nowait = false, remap = false },
-      { "s",  "<Plug>(leap-forward-to)",   desc = "Leap forward to",   nowait = false, remap = false },
-    },
-  }
 )
 
 -- COMMAND
