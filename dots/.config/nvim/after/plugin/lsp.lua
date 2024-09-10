@@ -16,7 +16,7 @@ require('neodev').setup()
 
 local servers = {
   rust_analyzer = {},
-  tsserver = {
+  ts_ls = {
     -- single_file_support = false,
   },
   marksman = {},

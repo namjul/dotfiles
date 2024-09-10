@@ -94,7 +94,7 @@ local is_bootstrap = require('namjul.bootstrap').bootstrap_paq({
   { 'williamboman/mason.nvim' },
   { 'williamboman/mason-lspconfig.nvim' },
   { 'neovim/nvim-lspconfig' },
-  { 'stevearc/conform.nvim' },
+  { 'stevearc/conform.nvim', branch = 'nvim-0.9' },
   { 'nvimtools/none-ls.nvim' },
   { 'j-hui/fidget.nvim', branch = 'legacy' }, -- Standalone UI for nvim-lsp progress
   { 'folke/neodev.nvim' },
@@ -118,7 +118,7 @@ local is_bootstrap = require('namjul.bootstrap').bootstrap_paq({
   { 'luckasRanarison/nvim-devdocs' },
   { 'm-demare/hlargs.nvim' },
   { 'stevearc/oil.nvim' },
-  { 'echasnovski/mini.nvim' },
+  { 'echasnovski/mini.nvim', branch = 'stable' },
   { 'andreshazard/vim-freemarker' },
 })
 
