@@ -1,0 +1,17 @@
+[ui]
+username = ${MERCURIAL_USERNAME}
+tweakdefaults = True
+
+[extensions]
+# uncomment the lines below to enable some popular extensions
+# (see 'hg help extensions' for more info)
+#
+#rebase =
+#uncommit =
+#amend =
+#churn =
+#convert =
+#extdiff =
+#histedit =
+#schemes =
+#shelve =
