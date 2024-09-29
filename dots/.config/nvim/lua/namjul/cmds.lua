@@ -44,3 +44,10 @@ end, {})
 vim.api.nvim_create_user_command('RestNvimLast', function()
   restNvim.last()
 end, {})
+
+vim.api.nvim_create_autocmd("BufEnter", {
+  callback = function(ctx)
+    local root = vim.fs.root(ctx.buf, {".git", "Makefile"})
+    if root then vim.uv.chdir(root) end
+  end,
+})

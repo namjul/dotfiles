@@ -89,7 +89,6 @@ local is_bootstrap = require('namjul.bootstrap').bootstrap_paq({
   -- { 'rafcamlet/nvim-luapad' },
   { 'folke/zen-mode.nvim' },
   { 'szw/vim-maximizer' },
-  { 'airblade/vim-rooter' },
   { 'williamboman/mason.nvim' },
   { 'williamboman/mason-lspconfig.nvim' },
   { 'neovim/nvim-lspconfig' },
