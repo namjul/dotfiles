@@ -53,8 +53,14 @@ local function blurWindow()
   end
 end
 
+local function rooter(ctx)
+  local root = vim.fs.root(ctx.buf, {".git", "Makefile"})
+  if root then vim.uv.chdir(root) end
+end
+
 function autocmds.bufEnter()
   focusWindow()
+  -- rooter()
 end
 
 function autocmds.bufLeave()
