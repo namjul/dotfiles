@@ -47,6 +47,7 @@ abbr nv 'node --version'
 abbr tw timew
 abbr tws timew start
 abbr twa timew annotate
+abbr twc timew continue
 abbr twsum timew summary :annotation :ids :week
 
 # todo
