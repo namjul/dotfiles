@@ -105,3 +105,12 @@ function gr
     --preview 'git log --oneline --graph --date=short --pretty="format:%C(auto)%cd %h%d %s" {1} | head -200' |
   cut -f1
 end
+
+function y
+  set tmp (mktemp -t "yazi-cwd.XXXXXX")
+  yazi $argv --cwd-file="$tmp"
+  if set cwd (command cat -- "$tmp"); and [ -n "$cwd" ]; and [ "$cwd" != "$PWD" ]
+    builtin cd -- "$cwd"
+  end
+  rm -f -- "$tmp"
+end
