@@ -16,8 +16,6 @@ if xinput list-props "TPPS/2 Synaptics TrackPoint" > /dev/null 2>&1
   xinput set-prop "TPPS/2 Synaptics TrackPoint" "libinput Accel Speed" -0.5
 end
 
-
-
 if not type -q brew
   # notify if brew command does not exists
   echo "Make sure `brew` command is available."
@@ -71,3 +69,25 @@ end
 function ignorehistory --on-event fish_prompt
     history --delete --prefix tomb
 end
+
+# function load_gitconfig_profile --on-variable PWD --description 'Load git config profile'
+#   if git status &>/dev/null
+#     set custom_repo_hosts "gitlab.tools.wienfluss.net|git-dev.rz.babiel.com" 
+#     set git_url (git remote get-url origin)
+#     set current_host (string match -r $custom_repo_hosts $git_url)
+#     switch $current_host
+#       case "mybenni"
+#         echo "Load git config profile for selfhosted gitlab"
+#       case "wienfluss"
+#         git config include.path "~/.gitconfig_wienfluss"
+#         echo "Load git config profile for wienfluss gitlab"
+#       case "babiel"
+#         git config include.path "~/.gitconfig_babiel"
+#         echo "Load git config profile for babiel gitlab"
+#     end
+#     echo $git_url
+#     echo $current_host
+#   else
+#     echo "No git repository found in current directory"
+#   end
+# end
