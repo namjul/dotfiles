@@ -103,9 +103,9 @@ function M.search(args)
   require('telescope').extensions.live_grep_args.live_grep_args(require('telescope.themes').get_ivy(opts))
 end
 
-function M.pkm()
+function M.memex()
   local search_dirs = {
-    '~/Dropbox/pkm',
+    '~/Dropbox/memex',
     '~/ghq/github.com/kevinslin/seed-tldr/vault',
   }
 

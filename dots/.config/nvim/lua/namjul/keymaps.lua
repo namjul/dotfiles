@@ -43,7 +43,7 @@ wk.add({
   { "<S-Up>",    ":lprev<CR>",                                                      desc = "Previous in location list",                                                    nowait = false, remap = false },
   { "<Up>",      ":cprev<CR>",                                                      desc = "Previous in quickfix list",                                                    nowait = false, remap = false },
   { "<c-k>",     ":lua require('namjul.functions.telescope').findFiles()<CR>",      desc = "Go to File",                                                                   nowait = false, remap = false },
-  { "<c-l>",     ":lua require('namjul.functions.telescope').pkm()<CR>",            desc = "Search in PKM",                                                                nowait = false, remap = false },
+  { "<c-l>",     ":lua require('namjul.functions.telescope').memex()<CR>",          desc = "Search in Memex",                                                                nowait = false, remap = false },
   { "<c-s>",     "<Plug>(Switch)",                                                  desc = "Switch",                                                                       nowait = false, remap = false },
   { "J",         "mzJ`z",                                                           desc = "Join lines",                                                                   nowait = false, remap = false },
   { "N",         "Nzzzv",                                                           desc = "Search Previous",                                                              nowait = false, remap = false },

@@ -9,5 +9,5 @@ echo "cron"
 # SHELL=/bin/bash
 #
 # 0 12 * * * . $HOME/.profile; ~/Dropbox/bin/envato-items.sh --log >> ~/Dropbox/logs/cron-logs.txt
-# 0 12 * * * . ~/.keychain/$HOSTNAME-sh; . $HOME/.profile; cd ~/Dropbox/pkm/; gitupdate . >> ~/Dropbox/logs/cron-logs.txt
+# 0 12 * * * . ~/.keychain/$HOSTNAME-sh; . $HOME/.profile; cd ~/Dropbox/memex/; gitupdate . >> ~/Dropbox/logs/cron-logs.txt
 # */5 * * * * . $HOME/.profile; set-colorscheme
