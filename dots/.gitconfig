@@ -63,6 +63,7 @@
   sync    = !git fetch --all && git rebase origin/master
   syncd   = !git fetch --all && git rebase origin/develop
   fresh   = !git fetch --all --prune
+  purge   = !git fetch -p && git branch -vv | awk '/: gone]/{print $1}' | xargs git branch -d
   ; fresh   = remote update --prune
 
   # Recover previous COMMIT_EDITMSG, if there is one.
