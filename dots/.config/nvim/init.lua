@@ -310,6 +310,36 @@ require('oil').setup({
     ['<C-h>'] = false,
     ['<C-v>'] = 'actions.select_vsplit',
     ['<C-s>'] = 'actions.select_split',
+    ['<C-p>'] = 'actions.copy_entry_path',
+        ["~"] = "<cmd>edit $HOME<CR>",
+        -- Mappings can be a function
+        ["gd"] = function()
+            require("oil").set_columns({ "icon", "permissions", "size", "mtime" })
+        end,
+        -- You can pass additional opts to vim.keymap.set by using
+        -- a table with the mapping as the first element.
+        ["<leader>ff"] = {
+            function()
+                require("telescope.builtin").find_files({
+                    cwd = require("oil").get_current_dir()
+                })
+            end,
+            mode = "n",
+            nowait = true,
+            desc = "Find files in the current directory"
+        },
+        -- Mappings that are a string starting with "actions." will be
+        -- one of the built-in actions, documented below.
+        ["`"] = "actions.tcd",
+        -- Some actions have parameters. These are passed in via the `opts` key.
+        ["<leader>:"] = {
+            "actions.open_cmdline",
+            opts = {
+                shorten_path = true,
+                modify = ":h",
+            },
+            desc = "Open the command line with the current directory as an argument",
+        },
   },
   skip_confirm_for_simple_edits = true,
   view_options = {
