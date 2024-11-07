@@ -1,6 +1,6 @@
 local wezterm = require('wezterm')
 local mux = wezterm.mux
-local colorscheme = require('./colorscheme')
+local colorscheme = require('../../../bin/colorscheme')
 
 local config = {}
 
