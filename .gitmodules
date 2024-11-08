@@ -1,4 +1,0 @@
-[submodule "aspects/dotfiles/files/.config/nvim/pack/bundle/opt/shellbot/lua"]
-	path = aspects/dotfiles/files/.config/nvim/pack/bundle/opt/shellbot/lua
-	url = git@github.com:wincent/shellbot.git
-	branch = wincent
