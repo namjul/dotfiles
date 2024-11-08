@@ -1,0 +1,8 @@
+
+[tools]
+sops = "latest"
+
+[task_config]
+includes = [
+  "aspects"
+]
