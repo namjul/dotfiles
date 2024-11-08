@@ -49,7 +49,7 @@ end
 # pnpm end
 
 # For now, requires a manual `cargo build --release`.
-export SHELLBOT=$HOME/.config/nvim/pack/bundle/opt/shellbot/lua/target/release/shellbot
+export SHELLBOT=$HOME/.config/nvim/pack/bundle/opt/shellbot/target/release/shellbot
 export SHELLBOT_PROMPT='
   You are a helpful assistant who provides brief explanations and short code
   snippets for technologies like TypeScript, JavaScript, Rust, HTML, CSS, Bash, Go and Lua. Your user is an expert programmer,

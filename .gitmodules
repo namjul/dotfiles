@@ -1,0 +1,4 @@
+[submodule "aspects/dotfiles/files/.config/nvim/pack/bundle/opt/shellbot"]
+	path = aspects/dotfiles/files/.config/nvim/pack/bundle/opt/shellbot
+	url = git@github.com:wincent/shellbot.git
+	branch = wincent
