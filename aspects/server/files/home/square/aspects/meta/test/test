@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+
+trap 'echo "Warning: A command has failed. Exiting the script. Line was ($0:$LINENO): $(sed -n "${LINENO}p" "$0")"; exit 3' ERR
+set -Eeuo pipefail
+
+echo "---"
+id
+namei -l $SQUARE_PATH
+echo "root: $root"
+namei -l $SQUARE_PATH/data
+echo "---"
+
+mkdir -p $SQUARE_PATH/x
+touch $SQUARE_PATH/x/jojo
+
+mkdir -p $SQUARE_PATH/data/share/test
+touch $SQUARE_PATH/data/share/test/testing.txt
+
+
+# i am in the group "square"
+#
+# for /home/square i have the following permission:
+#
+# Aug 18 13:18:06 hobl mise[2327644]: drwxr-xr-x root root   /
+# Aug 18 13:18:06 hobl mise[2327644]: drwxr-xr-x root root   home
+# Aug 18 13:18:06 hobl mise[2327644]: drwxrws--- root square square
+#
+# why do i get:
+#
+# Aug 18 13:18:06 hobl mise[2327645]: mkdir: cannot create directory ‘/home/square/x’: Read-only file system

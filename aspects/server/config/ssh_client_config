@@ -1,0 +1,9 @@
+Host hobl.at
+  HostName 80.240.23.145
+  User root
+  IdentityFile ~/.ssh/id_ed25519_personal-server
+Host soft
+  HostName 80.240.23.145
+  Port 23231
+  IdentityFile ~/.ssh/id_ed25519_personal-server
+

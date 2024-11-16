@@ -1,0 +1,4 @@
+
+dav.samho.xyz {
+  reverse_proxy localhost:5232
+}

@@ -1,0 +1,12 @@
+
+[tools]
+node = "20.5.1"
+
+[tasks."setup"]
+description = 'Install'
+run = """
+#!/usr/bin/env bash
+set -euxo pipefail
+mkdir -p /var/www/svs-nachzahlung
+cp -r ${root}/files/* /var/www/svs-nachzahlung/
+"""

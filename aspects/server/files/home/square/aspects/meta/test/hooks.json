@@ -1,0 +1,7 @@
+[
+  {
+    "id": "webhook-test",
+    "execute-command": "echo\"Hello World\"",
+    "command-working-directory": "{{ getenv "SQUARE_PATH" }}"
+  },
+]

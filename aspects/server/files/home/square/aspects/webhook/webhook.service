@@ -1,0 +1,22 @@
+[Unit]
+Description=Webhook server
+After=network.target
+Requires=network.target
+
+[Service]
+Type=simple
+EnvironmentFile=/etc/environment
+ReadWritePaths=/home/square
+Environment="HOME=/home/square"
+ExecStart=/bin/bash -c "cd \"${SQUARE_PATH}/aspects/webhook\";mise run start;"
+#WorkingDirectory=/home/square/aspects/webhook
+#ExecStart=mise run start
+Group=square
+DynamicUser=yes
+Restart=on-failure
+#PrivateTmp=true
+#ProtectSystem=strict
+#NoNewPrivileges=true
+
+[Install]
+WantedBy=multi-user.target

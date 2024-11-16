@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+set -euxo pipefail
+
+COMMENT="local@hobl"
+KEY_PATH="$KEY_DIR/$KEY_NAME"
+PUB_KEY_PATH="${KEY_PATH}.pub"
+
+sshcmd="mkdir -m 770 -p $KEY_DIR && ([[ -f \"$KEY_PATH\" ]] || (ssh-keygen -t rsa -b 4096 -N '' -C \"$COMMENT\" -f \"$KEY_PATH\") && chmod 600 ${KEY_PATH}.* ) && cat ${KEY_PATH}.pub"
+
+key=$(ssh $SERVER $sshcmd)
+
+# Create a new user
+ssh soft user delete localme
+ssh soft user create localme "-k \"$key\""
+ssh soft user set-admin localme true

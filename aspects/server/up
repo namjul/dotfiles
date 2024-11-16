@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+trap 'echo "Warning: A command has failed. Exiting the script. Line was ($0:$LINENO): $(sed -n "${LINENO}p" "$0")"; exit 3' ERR
+set -Eeuo pipefail
+
+FILES_DIR="$root/files"
+
+# copy aspects
+rsync --delete --quiet -rpt --compress --chown=:square "$FILES_DIR/home/square/aspects/" $SERVER:"$SQUARE_PATH/aspects/"
+
+sshcmd="
+# symlink aspects to mise tasks
+mkdir -p /etc/mise/tasks
+find \"$SQUARE_PATH\"/aspects -maxdepth 1 -type f -exec ln -sf {} /etc/mise/tasks \;
+
+> /etc/mise/tasks.toml
+find \"$SQUARE_PATH\"/aspects -maxdepth 2 -type f -name \"tasks.toml\" -exec cat {} >> /etc/mise/tasks.toml \;
+
+echo \"The following mise tasks are available:\" && mise t
+"
+
+ssh $SERVER "bash -l -c '$sshcmd'"

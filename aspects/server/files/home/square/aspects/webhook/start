@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+# Look for hooks.json files
+hooks_files=$(find "${root}/../" -maxdepth 3 -type f -name "hooks.json")
+
+# Initialize hooks arguments
+hooks_args=""
+
+# Loop over each hooks.json file path to construct the hooks arguments
+for hook_file in $hooks_files; do
+    hooks_args="$hooks_args -hooks $hook_file"
+done
+
+# Execute the command with the constructed hooks arguments
+if [ -n "$hooks_args" ]; then
+  eval "mise exec -- webhook $hooks_args -verbose -template"
+else
+  echo "No hooks.json files found."
+fi

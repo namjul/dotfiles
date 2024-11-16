@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+# mise description="Setup goatcounter"
+
+set -euxo pipefail
+
+if ! [ -x "$(command -v goatcounter)" ]; then
+  ghq get https://github.com/arp242/goatcounter
+  cd ~/ghq/github.com/arp242/goatcounter
+  go build -ldflags="-X zgo.at/goatcounter/v2.Version=$(git log -n1 --format='%h_%cI')" ./cmd/goatcounter
+  cp ./goatcounter /usr/local/bin/goatcounter
+fi
+
+
+mkdir -p /home/square/data/goatcounter
+cp ${root}/goatcounter.service /etc/systemd/system/goatcounter.service
+
+sudo systemctl daemon-reload
+sudo systemctl enable goatcounter.service
+sudo systemctl restart goatcounter.service

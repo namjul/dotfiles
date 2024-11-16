@@ -1,0 +1,77 @@
+
+[env]
+SERVER = "hobl.at"
+SQUARE_PATH="/home/square"
+
+[tools]
+sops = "latest"
+
+[tasks.init]
+description = 'Idempotent Initialization'
+file = "./init"
+
+[tasks.up]
+description = 'Idempotent Upload'
+file = "./up"
+
+[tasks.upinit]
+depends=["init", "up"]
+
+[tasks.local]
+description = 'Install'
+run = """
+#!/usr/bin/env bash
+set -euxo pipefail
+sops -d --extract '["public_key"]' --output ~/.ssh/id_ed25519_personal-server.pub secrets/ssh.yml
+sops -d --extract '["private_key"]' --output ~/.ssh/id_ed25519_personal-server secrets/ssh.yml
+chmod 600 ~/.ssh/id_ed25519_personal-server.*
+grep -q hobl.at ~/.ssh/config > /dev/null 2>&1 || cat config/ssh_client_config >> ~/.ssh/config
+"""
+
+[tasks.packages]
+description = 'Packages'
+run = """
+#!/usr/bin/env bash
+set -euxo pipefail
+ssh root@$SERVER 'apt-get update -y && apt-get install -y nala'
+ssh root@$SERVER 'nala -y install curl vim htop ufw git unzip gnupg acl'
+# Enable automatic security Updates
+ssh root@$SERVER 'echo "unattended-upgrades unattended-upgrades/enable_auto_updates boolean true" | debconf-set-selections && apt-get install unattended-upgrades -y'
+"""
+
+[tasks.ssh]
+description = 'Setup ssh'
+run = """
+#!/usr/bin/env bash
+set -euxo pipefail
+# Check if the file is different from our git repository and if it is the case re-upload and restart the ssh server
+ssh root@$SERVER "cat /etc/ssh/sshd_config" | diff  - config/sshd_config || (scp config/sshd_config root@$SERVER:/etc/ssh/sshd_config && ssh root@$SERVER systemctl restart ssh.service)
+"""
+
+[tasks.firewall]
+description = 'Setup firewall'
+run = """
+#!/usr/bin/env bash
+set -euxo pipefail
+scp config/ufw.sh root@$SERVER:/tmp/ufw.sh
+ssh root@$SERVER 'chmod +x /tmp/ufw.sh && /tmp/ufw.sh'
+"""
+
+[tasks.aspect]
+description = 'Exec aspect'
+run = """
+#!/usr/bin/env bash
+set -euxo pipefail
+aspect=$1
+cmd=${2:-$1}
+shift 2
+ssh root@$SERVER "cd $SQUARE_PATH/aspects/$aspect && mise trust && mise install && mise run $cmd $@"
+"""
+
+[tasks."aspect:log"]
+description = 'Log aspect'
+run = """
+#!/usr/bin/env bash
+set -euxo pipefail
+ssh root@$SERVER "journalctl -u {{arg(name="aspect")}}.service -f"
+"""

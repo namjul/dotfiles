@@ -1,0 +1,25 @@
+
+[Unit]
+Description=Caddy
+Documentation=https://caddyserver.com/docs/
+After=network.target network-online.target
+Requires=network-online.target
+
+[Service]
+Type=notify
+EnvironmentFile=/etc/environment
+DynamicUser=yes
+Group=square
+ReadWritePaths=/home/square
+WorkingDirectory=/home/square/aspects/caddy
+#ExecStart=mise exec -- env
+ExecStart=mise exec -- caddy run --environ
+ExecReload=mise exec -- caddy reload --force
+TimeoutStopSec=5s
+LimitNOFILE=1048576
+PrivateTmp=true
+ProtectSystem=full
+AmbientCapabilities=CAP_NET_ADMIN CAP_NET_BIND_SERVICE
+
+[Install]
+WantedBy=multi-user.target

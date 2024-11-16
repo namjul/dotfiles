@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+set -euxo pipefail
+
+mise install --yes
+
+go install github.com/charmbracelet/soft-serve/cmd/soft@latest
+
+mkdir -m 770 -p $SQUARE_PATH/data/share/soft-serve
+
+sudo systemctl daemon-reload
+sudo systemctl enable soft-serve.service
+sudo systemctl restart soft-serve.service

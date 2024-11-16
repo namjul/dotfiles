@@ -1,0 +1,10 @@
+[env]
+_.path = [
+    "./bin",
+]
+
+[tools]
+go = "1.22"
+
+[tasks.default]
+file = './default'

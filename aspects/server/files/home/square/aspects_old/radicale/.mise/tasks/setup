@@ -1,0 +1,50 @@
+#!/usr/bin/env bash
+# mise description="Setup radicale server"
+
+set -euxo pipefail
+
+nala install -y libffi-dev
+
+python -m pip install --upgrade radicale
+
+read ui
+username=$(echo "$ui" | tr -d '[:space:]')
+
+if [ ! -d /home/square/data/radicale/collections/collection-root/$username ]; then
+  mkdir -p /home/square/data/radicale/collections
+
+  mkdir -p /etc/radicale && htpasswd -c /etc/radicale/users $username
+
+
+  # create for user
+  mkdir -p /home/square/data/radicale/collections/collection-root/$username/{calendar,contacts}
+
+  prop=$(cat <<EOF
+{
+  "C:supported-calendar-component-set": "VEVENT",
+  "D:displayname": "hobl.at",
+  "tag": "VCALENDAR"
+}
+EOF
+  )
+  echo $prop > /home/square/data/radicale/collections/collection-root/$username/calendar/.Radicale.props
+
+  prop=$(cat <<EOF
+{
+  "D:displayname": "hobl.at",
+  "tag": "VADDRESSBOOK"
+}
+EOF
+  )
+  echo $prop > /home/square/data/radicale/collections/collection-root/$username/contacts/.Radicale.props
+
+  chmod 600 /home/square/data/radicale/collections/collection-root/$username/calendar/.Radicale.props
+  chmod 600 /home/square/data/radicale/collections/collection-root/$username/contacts/.Radicale.props
+fi
+
+cp ${root}/config /etc/radicale/config
+cp ${root}/radicale.service /etc/systemd/system/radicale.service
+
+sudo systemctl daemon-reload
+sudo systemctl enable radicale.service
+sudo systemctl restart radicale.service

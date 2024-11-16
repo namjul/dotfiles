@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# mise description="Setup Git Server"
+
+set -euxo pipefail
+
+go install github.com/charmbracelet/soft-serve/cmd/soft@latest
+
+mkdir -p ~/.soft-serve
+
+sed "s/REPLACE_ME_PUBLIC_KEY/${PUBLIC_KEY}/g" ${root}/soft-serve.service > /etc/systemd/system/soft-serve.service
+
+sudo systemctl daemon-reload
+sudo systemctl enable soft-serve.service
+sudo systemctl restart soft-serve.service

@@ -1,0 +1,4 @@
+
+dashy.samho.xyz {
+  reverse_proxy localhost:4000
+}

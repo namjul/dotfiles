@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+# mise description="Setup Webhooks"
+
+set -euxo pipefail
+
+go install github.com/adnanh/webhook@latest
+
+cp ${root}/webhook.service /etc/systemd/system/webhook.service
+
+sudo systemctl daemon-reload
+sudo systemctl enable webhook.service
+sudo systemctl restart webhook.service

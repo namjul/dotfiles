@@ -1,0 +1,14 @@
+[env]
+GOCACHE = "/home/square/data/cache/go"
+
+[settings]
+experimental = true
+
+[tools]
+ghq = "latest"
+
+[task_config]
+includes = [
+  "tasks",
+  "tasks.toml"
+]

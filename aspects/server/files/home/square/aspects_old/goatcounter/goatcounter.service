@@ -1,0 +1,19 @@
+
+[Unit]
+Description=Easy web analytics. No tracking of personal data.
+After=network.target
+Requires=network.target
+
+[Service]
+WorkingDirectory=/home/square/aspects/goatcounter
+ExecStart=mise exec -- goatcounter serve -listen localhost:5007 -tls proxy -db sqlite+/home/square/data/goatcounter/mydb.sqlite
+EnvironmentFile=/etc/environment
+DynamicUser=yes
+Group=square
+Restart=on-failure
+#Deny other users access to the calendar data
+NoNewPrivileges=true
+ReadWritePaths=/home/square/data/goatcounter
+
+[Install]
+WantedBy=multi-user.target

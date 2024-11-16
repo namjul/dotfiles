@@ -1,0 +1,17 @@
+version: '3'
+services:
+  wallabag:
+    image: wallabag/wallabag
+    environment:
+      - SYMFONY__ENV__DATABASE_PATH=%kernel.root_dir%/../data/db/wallabag.sqlite
+      - SYMFONY__ENV__DATABASE_NAME=wallabag
+      - SYMFONY__ENV__DOMAIN_NAME=https://wallabag.samho.xyz
+      - SYMFONY__ENV__SERVER_NAME="Your wallabag instance"
+    ports:
+      - "8081:80"
+    volumes:
+      - /opt/wallabag/images:/var/www/wallabag/web/assets/images
+    healthcheck:
+      test: ["CMD", "wget" ,"--no-verbose", "--tries=1", "--spider", "http://localhost"]
+      interval: 1m
+      timeout: 3s

@@ -1,0 +1,19 @@
+[Unit]
+Description=Webhook server
+After=network.target
+Requires=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/home/square/aspects/webhook
+EnvironmentFile=/etc/environment
+ExecStart=mise exec -- webhook -hooks ./hooks.json -verbose
+Group=square
+DynamicUser=yes
+Restart=on-failure
+#PrivateTmp=true
+#ProtectSystem=strict
+#NoNewPrivileges=true
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,4 @@
+MISE_DATA_DIR={SQUARE_PATH}/data/share/mise
+MISE_STATE_DIR={SQUARE_PATH}/data/state/mise
+MISE_CACHE_DIR={SQUARE_PATH}/data/cache/mise
+SQUARE_PATH={SQUARE_PATH}

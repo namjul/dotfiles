@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+# mise description="Setup rclone"
+# mise depends=["setup"]
+
+set -euxo pipefail
+
+go install github.com/rclone/rclone@latest

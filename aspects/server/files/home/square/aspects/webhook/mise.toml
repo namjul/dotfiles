@@ -1,0 +1,10 @@
+
+[tools]
+go = "1.21"
+
+[tasks.default]
+file = "./default"
+
+[tasks.start]
+hide = true
+file = "./start"

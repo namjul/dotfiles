@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+# mise description="Install wallabag"
+
+set -euxo pipefail
+
+if test ! -x "$(command -v yarn)"; then
+  npm install -g yarn
+fi
+
+
+if test ! -x "$(command -v pm2)"; then
+  npm install pm2 -g
+fi
+
+
+if test ! -x "$(command -v ghq let https://github.com/Lissy93/dashy.git | grep "dashy")"; then
+  ghq get https://github.com/Lissy93/dashy.git
+  cd ~/ghq/github.com/Lissy93/dashy
+  yarn build
+  # TODO add config
+  pm2 start "yarn start"
+fi

@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+
+set -e
+
+#USAGE flag "--repo <repo>" help="Repo name"
+
+mkdir -m 770 -p $SITE_PATH
+
+if test -n "$usage_repo"; then
+
+  repo_path="$SITE_PATH/$usage_repo"
+
+  is_git_repo=$(git -C "$repo_path" rev-parse --is-inside-work-tree > /dev/null 2>&1; echo $?)
+
+  umask 002 # set write permission for the group
+
+  export GIT_SSH_COMMAND="ssh -i ${SQUARE_PATH}/.ssh/id_rsa -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"
+
+  if [ "$is_git_repo" -ne 0 ]; then
+    git clone "ssh://localhost:23231/${usage_repo}.git" $repo_path
+    (cd ../soft-serve && mise run soft-serve:webhooks:create --repo $usage_repo --id redeploy-website) || "Could not create webhook."
+  fi
+
+  cd $repo_path
+  # git fetch
+  # TODO https://stackoverflow.com/questions/3258243/check-if-pull-needed-in-git
+  # git rev-list HEAD...origin/master --count
+  git pull origin --rebase
+
+  npm i --ci
+  npx quartz build
+fi

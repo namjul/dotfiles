@@ -1,0 +1,5 @@
+[env]
+NODE_OPTIONS = "--openssl-legacy-provider --max-old-space-size=4096"
+
+[tools]
+node = "17.9.1"

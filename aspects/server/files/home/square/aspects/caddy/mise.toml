@@ -1,0 +1,20 @@
+[env]
+XDG_CONFIG_HOME = "{{config_root}}"
+XDG_DATA_HOME = "{{env.SQUARE_PATH}}/data/share"
+_.path = [
+    "./bin",
+]
+
+[tools]
+go = "1.20"
+
+[tasks.default]
+file = './default'
+
+[tasks."caddy:config"]
+description = 'Print caddy config'
+run = """
+#!/usr/bin/env bash
+set -euxo pipefail
+ssh $SERVER 'curl http://localhost:2019/config/'
+"""

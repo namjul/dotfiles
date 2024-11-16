@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# mise description="Setup wallabag"
+
+set -euxo pipefail
+
+docker pull wallabag/wallabag
+echo $(pwd)
+docker compose up -d

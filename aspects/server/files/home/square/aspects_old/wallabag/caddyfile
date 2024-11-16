@@ -1,0 +1,4 @@
+
+wallabag.samho.xyz {
+  reverse_proxy localhost:8081
+}

@@ -1,0 +1,15 @@
+
+[env]
+SITE_PATH = "{{env.SQUARE_PATH}}/data/share/website"
+
+[tools]
+node = "20.5.1"
+
+[tasks.default]
+file = './default'
+
+[tasks.personal-website]
+run = 'mise r default --repo personal-website'
+
+[tasks.thepopupschool]
+run = 'mise r default --repo thepopupschool'

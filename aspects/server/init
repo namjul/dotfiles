@@ -1,0 +1,54 @@
+#!/usr/bin/env bash
+
+trap 'echo "Warning: A command has failed. Exiting the script. Line was ($0:$LINENO): $(sed -n "${LINENO}p" "$0")"; exit 3' ERR
+set -Eeuo pipefail
+
+FILES_DIR="$root/files"
+TEMP_DIR=$(mktemp -d)
+
+cp -r "$FILES_DIR" "$TEMP_DIR"
+find "$TEMP_DIR" -type f -exec sed -i "s|{SQUARE_PATH}|$SQUARE_PATH|g" {} +
+
+rsync -rpt --quiet --compress "$TEMP_DIR/files/" $SERVER:"/"
+
+sshcmd="
+
+# setup square
+if ! grep '^square:' /etc/group > /dev/null 2>&1; then
+  sudo addgroup square || true
+  sudo adduser root square || true
+fi
+
+# create dirs
+mkdir -p $SQUARE_PATH/data/{cache,share,state}
+
+# set group
+chgrp square $SQUARE_PATH
+#chgrp -R square $SQUARE_PATH* || true
+
+# inherit group id of parent
+chmod -R g+s $SQUARE_PATH
+
+# setup mise envars
+# echo -e \"ENV_VARS\" | sudo tee \"ENV_FILE\"
+# echo \"Environment variables added to ENV_FILE\"
+
+# install mise
+if ! command -v mise &> /dev/null; then
+  export MISE_INSTALL_PATH=\"/usr/local/bin/mise\"
+  curl https://mise.jdx.dev/install.sh | sh
+fi
+
+# copy system mise config
+# echo -e \"MISE_CONFIG\" | base64 --decode  | sudo tee \"MISE_CONFIG_FILE\" > /dev/null
+
+mise trust --all
+mise install --yes --quiet
+"
+
+ssh $SERVER "bash -l -c '$sshcmd'"
+
+# add public key as env
+if [ $(ssh $SERVER "cat /etc/environment | grep -c -w \"PUBLIC_KEY\"") -eq 0 ]; then
+  sops exec-env secrets/ssh.yml 'ssh root@$SERVER "echo PUBLIC_KEY=$public_key >> /etc/environment"'
+fi

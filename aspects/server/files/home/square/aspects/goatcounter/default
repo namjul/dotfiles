@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+set -euxo pipefail
+
+# set write permission for group
+mkdir -m 770 -p $SQUARE_PATH/data/share/goatcounter
+
+if ! [ -x "$(command -v goatcounter)" ]; then
+  ghq get https://github.com/arp242/goatcounter
+  cd ~/ghq/github.com/arp242/goatcounter
+  go build -ldflags="-X zgo.at/goatcounter/v2.Version=$(git log -n1 --format='%h_%cI')" ./cmd/goatcounter
+  mkdir -p ${root}/bin
+  cp ./goatcounter ${root}/bin/goatcounter
+fi
+
+
+cp ${root}/goatcounter.service /etc/systemd/system/goatcounter.service
+
+sudo systemctl daemon-reload
+sudo systemctl enable goatcounter.service
+sudo systemctl restart goatcounter.service

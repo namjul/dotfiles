@@ -1,0 +1,13 @@
+[
+  {
+    "id": "redeploy-website",
+    "execute-command": "mise",
+    "command-working-directory": "/home/square/aspects/website",
+    "pass-arguments-to-command": [
+      { "source": "string", "name": "run" },
+      { "source": "string", "name": "setup" },
+      { "source": "string", "name": "--git-url" },
+      { "source": "payload", "name": "repository.git_url" }
+    ]
+  },
+]

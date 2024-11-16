@@ -1,0 +1,8 @@
+[env]
+ACTUAL_CONFIG_PATH = "{{config_root}}/../config.json"
+
+[tools]
+node = "20.5.1"
+
+[tasks.actualbudget]
+file = './default'

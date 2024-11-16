@@ -1,0 +1,11 @@
+
+
+["soft-serve:webhooks:create"]
+run = """
+ssh localhost -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i $KEY_DIR/$KEY_NAME -p 23231 repo webhooks create {{option(name="repo")}} http://0.0.0.0:9000/hooks/{{option(name="id")}} -e push
+"""
+
+["soft-serve:webhooks:list"]
+run = """
+ssh localhost -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i $KEY_DIR/$KEY_NAME -p 23231 repo webhooks list {{option(name="repo")}}
+"""
