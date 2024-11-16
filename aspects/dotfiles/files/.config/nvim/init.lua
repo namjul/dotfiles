@@ -308,7 +308,7 @@ require('nvim-devdocs').setup({})
 require('oil').setup({
   keymaps = {
     ['<C-h>'] = false,
-    ['<C-v>'] = 'actions.select_vsplit',
+    -- ['<C-v>'] = 'actions.select_vsplit',
     ['<C-s>'] = 'actions.select_split',
     ['<C-p>'] = 'actions.copy_entry_path',
         ["~"] = "<cmd>edit $HOME<CR>",
