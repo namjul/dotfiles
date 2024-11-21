@@ -9,10 +9,10 @@ util.createAugroup({
   { 'FocusLost', '*', 'lua', 'require"namjul.autocmds".focusLost()' },
   { 'InsertEnter', '*', 'lua', 'require"namjul.autocmds".insertEnter()' },
   { 'InsertLeave', '*', 'lua', 'require"namjul.autocmds".insertLeave()' },
+  { 'InsertLeave', '*', 'set nopaste' }, --Disable paste mode on leaving insert mode.
   { 'VimEnter', '*', 'lua', 'require"namjul.autocmds".vimEnter()' },
   { 'WinEnter', '*', 'lua', 'require"namjul.autocmds".winEnter()' },
   { 'WinLeave', '*', 'lua', 'require"namjul.autocmds".winLeave()' },
-  { 'InsertLeave', '*', 'set nopaste' }, --Disable paste mode on leaving insert mode.
 }, 'namjulautocmds')
 
 util.createAugroup({
