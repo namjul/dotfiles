@@ -1,10 +1,9 @@
 local util = require('namjul.utils')
 local cmd = vim.cmd
 
-local focusedFlag = 'namjulFocused'
 local autocmds = {}
 
-local winhighlightBlurred = table.concat({
+local winhighlight_blurred = table.concat({
   'CursorLineNr:LineNr',
   'EndOfBuffer:ColorColumn',
   'IncSearch:ColorColumn',
@@ -15,52 +14,77 @@ local winhighlightBlurred = table.concat({
   'VertSplit:VertSplitBlur',
 }, ',')
 
-local function setCursorline(active)
+local function set_cursorline(active)
   util.opt.w({ cursorline = active })
 end
 
-local function supportsBlurFocus(callback)
-  local filetype = util.opt.b('filetype')
-  -- local listed = util.opt.b('buflisted')
-  local floatingWindow = vim.api.nvim_win_get_config(vim.api.nvim_get_current_win()).relative ~= ''
-  if autocmds.filetypeBlacklist[filetype] ~= true and not floatingWindow or autocmds.filetypeWhitelist[filetype] == true then
-    callback(filetype)
+local function focus_window()
+  local filetype = vim.bo.filetype
+
+  -- Turn on relative numbers
+  if filetype ~= '' and autocmds.number_blacklist[filetype] ~= true then
+    vim.wo.number = true
+    vim.wo.relativenumber = true
   end
+
+  if filetype == '' or autocmds.winhighlight_filetype_blacklist[filetype] ~= true then
+    vim.wo.winhighlight = ''
+  end
+
+  if filetype == '' then
+    vim.wo.list = true
+  else
+    local list = autocmds.list_filetypes[filetype]
+    if list == nil then
+      vim.wo.list = true
+    else
+      vim.wo.list = list
+    end
+  end
+
+  local conceallevel = autocmds.conceallevel_filetypes[filetype] or 2
+  vim.wo.conceallevel = conceallevel
+
 end
 
-local function focusWindow()
-  if util.var.g(focusedFlag) ~= true then
-    supportsBlurFocus(function()
-      util.opt.w({ winhighlight = '' })
-      util.opt.w({
-        conceallevel = 0,
-        list = true,
-      })
-    end)
-    util.var.g({ [focusedFlag] = true })
+local function blur_window()
+
+  local filetype = vim.bo.filetype
+
+  -- Turn off relative numbers (and turn on non-relative numbers)
+  if filetype ~= '' and autocmds.number_blacklist[filetype] ~= true then
+    vim.wo.number = true
+    vim.wo.relativenumber = false
   end
+
+  if filetype == '' or autocmds.winhighlight_filetype_blacklist[filetype] ~= true then
+    vim.wo.winhighlight = winhighlight_blurred
+  end
+
+  if filetype == '' then
+    vim.wo.list = false
+  else
+    local list = autocmds.list_filetypes[filetype]
+    if list == nil then
+      vim.wo.list = false
+    else
+      vim.wo.list = list
+    end
+  end
+
+  if filetype == '' or autocmds.conceallevel_filetypes[filetype] == nil then
+    vim.wo.conceallevel = 0
+  end
+
 end
 
-local function blurWindow()
-  if util.var.g(focusedFlag) ~= false then
-    supportsBlurFocus(function()
-      util.opt.w({ winhighlight = winhighlightBlurred })
-      util.opt.w({
-        conceallevel = 0, -- disabled now since currently wikilinks in markdown files get completely hidden
-        list = false,
-      })
-    end)
-    util.var.g({ [focusedFlag] = false })
-  end
-end
-
-local function rooter(ctx)
-  local root = vim.fs.root(ctx.buf, {".git", "Makefile"})
-  if root then vim.uv.chdir(root) end
-end
+-- local function rooter(ctx)
+--   local root = vim.fs.root(ctx.buf, {".git", "Makefile"})
+--   if root then vim.uv.chdir(root) end
+-- end
 
 function autocmds.bufEnter()
-  focusWindow()
+  focus_window()
   -- rooter()
 end
 
@@ -77,41 +101,70 @@ function autocmds.bufWritePost()
 end
 
 function autocmds.focusGained()
-  focusWindow()
+  focus_window()
 end
 
 function autocmds.focusLost()
-  blurWindow()
+  blur_window()
 end
 
 function autocmds.insertEnter()
-  setCursorline(false)
+  set_cursorline(false)
 end
 
 function autocmds.insertLeave()
-  setCursorline(true)
+  set_cursorline(true)
 end
 
 function autocmds.vimEnter()
-  focusWindow()
-  setCursorline(true)
+  focus_window()
+  set_cursorline(true)
 end
 
 function autocmds.winEnter()
-  focusWindow()
-  setCursorline(true)
+  focus_window()
+  set_cursorline(true)
 end
 
 function autocmds.winLeave()
-  blurWindow()
-  setCursorline(false)
+  blur_window()
+  set_cursorline(false)
 end
 
 function autocmds.skeleton(path)
   cmd('0r ' .. path)
 end
 
-autocmds.filetypeBlacklist = {}
-autocmds.filetypeWhitelist = {}
+autocmds.winhighlight_filetype_blacklist = {
+  ['diff'] = true,
+  ['fugitiveblame'] = true,
+  ['undotree'] = true,
+  ['qf'] = true,
+  ['TelescopePrompt'] = true
+}
+
+-- Force 'list' (when `true`) or 'nolist' (when `false`) for these.
+autocmds.list_filetypes = {
+  ['help'] = false,
+  ['shellbot'] = false,
+  ['TelescopePrompt'] = false
+}
+--
+-- Don't mess with 'conceallevel' for these.
+autocmds.conceallevel_filetypes = {
+  ['oil'] = 2,
+  ['help'] = 2,
+}
+
+-- Don't mess with numbers in these filetypes.
+autocmds.number_blacklist = {
+  ['diff'] = true,
+  ['fugitiveblame'] = true,
+  ['help'] = true,
+  ['qf'] = true,
+  ['shellbot'] = true,
+  ['undotree'] = true,
+  ['TelescopePrompt'] = true
+}
 
 return autocmds
