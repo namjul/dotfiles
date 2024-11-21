@@ -10,6 +10,7 @@ local winhighlightBlurred = table.concat({
   'IncSearch:ColorColumn',
   'Normal:ColorColumn',
   'NormalNC:ColorColumn',
+  'Search:ColorColumn',
   'SignColumn:ColorColumn',
   'VertSplit:VertSplitBlur',
 }, ',')
