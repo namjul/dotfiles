@@ -1,3 +1,4 @@
+
 local getUrlTitle = require('namjul.functions.getUrlTitle')
 
 vim.api.nvim_create_user_command('PreviewMarkdown', function()
