@@ -155,7 +155,7 @@ opt.g({
   undodir = os.getenv('XDG_DATA_HOME') .. '/nvim/undo',
   guifont = 'Cascadia_Code',
   completeopt = 'menu,menuone,noselect',
-  textwidth = 0,
+  textwidth = 80,
   showmode = false, -- hide status line at the bottom
   tabstop = 2, -- spaces per tab
 })
