@@ -21,6 +21,10 @@ local servers = {
   },
   marksman = {},
   lua_ls = {
+    diagnostics = {
+      enable = true,
+      globals = { 'vim' },
+    },
     workspace = { checkThirdParty = false },
     telemetry = { enable = false },
   },
