@@ -1,0 +1,4 @@
+ - JOB: "interception -g $DEVNODE | dual-function-keys -c /etc/interception/dual-function-keys.yaml | uinput -d $DEVNODE"
+   DEVICE:
+     EVENTS:
+       EV_KEY: [KEY_CAPSLOCK, KEY_ENTER]

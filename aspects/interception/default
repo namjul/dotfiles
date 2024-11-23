@@ -1,9 +1,47 @@
-#!/bin/bash
+#!/usr/bin/env zx
 
-# https://askubuntu.com/questions/979359/how-do-i-install-caps2esc
-# https://github.com/wincent/wincent/blob/main/aspects/interception/index.ts
-# https://gitlab.com/interception/linux/plugins/caps2esc
-# https://gitlab.com/interception/linux/tools/blob/master/README.md
-# https://gist.github.com/jsonMartin/9690654b13863f99b9cc344bb5bf7b0f
-#
-# TODO replace xcape
+import {randomBytes} from 'node:crypto';
+
+// https://askubuntu.com/questions/979359/how-do-i-install-caps2esc
+// https://github.com/wincent/wincent/blob/main/aspects/interception/index.ts
+// https://gitlab.com/interception/linux/plugins/caps2esc
+// https://gitlab.com/interception/linux/tools/blob/master/README.md
+// https://gist.github.com/jsonMartin/9690654b13863f99b9cc344bb5bf7b0f
+// https://github.com/alols/xcape/issues/122
+// https://emacsredux.com/blog/2020/07/05/remap-enter-to-control-in-gnu-linux-2020-edition/
+// alternative: https://github.com/jtroo/kanata
+
+const aspect = __dirname
+
+const prompt = `sudo[${randomBytes(16).toString('hex')}]:`;
+
+await within(async () => {
+  echo`create /etc/interception`
+  await $`sudo -S -k -p ${prompt} -- mkdir -p /etc/interception`
+})
+
+await within(async () => {
+  echo`create /etc/interception/dual-function-keys.yaml`
+  const unit = 'dual-function-keys.yaml'
+  const source = path.join(aspect, 'files', unit)
+  const target = path.join('/etc/interception', unit)
+  await $`sudo -S -k -p ${prompt} -- cp ${source} ${target}`
+})
+
+await within(async () => {
+  echo`create /etc/interception/udevmon.yaml`
+  const unit = 'udevmon.yaml'
+  const source = path.join(aspect, 'files', unit)
+  const target = path.join('/etc/interception', unit)
+  await $`sudo -S -k -p ${prompt} -- cp ${source} ${target}`
+})
+
+await within(async () => {
+  echo`enable udevmon`
+  await $`sudo -S -k -p ${prompt} -- systemctl enable udevmon --now`
+})
+
+await within(async () => {
+  echo`reload udevadm`
+  await $`sudo -S -k -p ${prompt} -- udevadm control --reload`
+})

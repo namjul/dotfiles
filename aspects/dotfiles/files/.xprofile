@@ -4,7 +4,3 @@ sh ~/.fehbg &
 
 # Set keyboard rate
 xset r rate 200 30
-
-# map caps lock to escape
-setxkbmap -option ctrl:nocaps
-xcape -e 'Control_L=Escape'
