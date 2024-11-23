@@ -1,3 +1,5 @@
+-- This is mainly a mimick of https://github.com/wincent/wincent/blob/main/aspects/nvim/files/.config/nvim/lua/wincent/autocmds.lua
+
 local cmd = vim.cmd
 
 -- TODO use mkview
@@ -185,6 +187,38 @@ local function blur_window()
   end
 end
 
+local function should_mkview()
+  return vim.bo.buftype == ''
+    and autocmds.mkview_filetype_blacklist[vim.bo.filetype] == nil
+    and vim.fn.exists('$SUDO_USER') == 0 -- Don't create root-owned files.
+end
+
+-- http://vim.wikia.com/wiki/Make_views_automatic
+local mkview = function()
+  if should_mkview() then
+    local success, err = pcall(function()
+      if vim.fn.haslocaldir() == 1 then
+        -- We never want to save an :lcd command, so hack around it...
+        vim.cmd('cd -')
+        vim.cmd('mkview')
+        vim.cmd('lcd -')
+      else
+        vim.cmd('mkview')
+      end
+    end)
+    if not success then
+      if
+        err:find('%f[%w]E32%f[%W]') == nil -- No file name; could be no buffer (eg. :checkhealth)
+        and err:find('%f[%w]E186%f[%W]') == nil -- No previous directory: probably a `git` operation.
+        and err:find('%f[%w]E190%f[%W]') == nil -- Could be name or path length exceeding NAME_MAX or PATH_MAX.
+        and err:find('%f[%w]E5108%f[%W]') == nil
+      then
+        error(err)
+      end
+    end
+  end
+end
+
 -- local function rooter(ctx)
 --   local root = vim.fs.root(ctx.buf, {".git", "Makefile"})
 --   if root then vim.uv.chdir(root) end
@@ -196,15 +230,17 @@ function autocmds.bufEnter()
 end
 
 function autocmds.bufLeave()
-  -- print('bufLeave not specified')
+  mkview()
 end
 
 function autocmds.bufWinEnter()
-  -- print('bufWinEnter not specified')
+  if should_mkview() then
+    vim.cmd('silent! loadview')
+  end
 end
 
 function autocmds.bufWritePost()
-  -- print('bufWritePost not specified')
+  mkview()
 end
 
 function autocmds.focusGained()
@@ -290,6 +326,12 @@ autocmds.ownsyntax_filetypes = {
   ['oil'] = true,
   ['help'] = true,
   ['qf'] = true,
+}
+
+autocmds.mkview_filetype_blacklist = {
+  ['diff'] = true,
+  ['gitcommit'] = true,
+  ['hgcommit'] = true,
 }
 
 return autocmds

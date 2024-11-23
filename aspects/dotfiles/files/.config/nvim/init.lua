@@ -158,6 +158,7 @@ opt.g({
   textwidth = 80,
   showmode = false, -- hide status line at the bottom
   tabstop = 2, -- spaces per tab
+  viewoptions = 'cursor,folds' -- save/restore just these (with `:{mk,load}view`)
 })
 
 -- opt.g currenlty does not support tables
