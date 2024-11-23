@@ -2,13 +2,7 @@
 
 local cmd = vim.cmd
 
--- TODO use mkview
--- https://www.vim.org/scripts/script.php?script_id=4021
--- https://github.com/wincent/wincent/blob/main/aspects/nvim/files/.config/nvim/lua/wincent/autocmds.lua
-
 local autocmds = {}
-
-local captured_settings = {}
 
 -- stylua: ignore
 local focused_colorcolumn = '+' .. table.concat({
@@ -54,52 +48,6 @@ local function set_cursorline(active)
   vim.wo.cursorline = active
 end
 
-local capture = function(filetype)
-  if not captured_settings[filetype] then
-    -- We haven't captured settings for this filetype yet.
-    captured_settings[filetype] = {
-      spell = vim.wo.spell,
-      spellcapcheck = vim.bo.spellcapcheck,
-      spellfile = vim.bo.spellfile,
-      spelllang = vim.bo.spelllang,
-    }
-  end
-end
-
-local ownsyntax = function(focussing)
-  local blurring = not focussing
-
-  local filetype = vim.bo.filetype
-
-  if focussing and filetype ~= '' then
-    if captured_settings[filetype] then
-      if vim.w.current_syntax == nil then
-        -- `ownsyntax` is off.
-        capture(filetype)
-        -- print("capture(focussing)", filetype, vim.inspect(captured_settings[filetype]))
-        vim.cmd('ownsyntax on')
-      end
-
-      if captured_settings[filetype] then
-        vim.opt_local.spell = captured_settings[filetype].spell or false
-        vim.opt_local.spellcapcheck = captured_settings[filetype].spellcapcheck or ''
-        vim.opt_local.spellfile = captured_settings[filetype].spellfile or ''
-        vim.opt_local.spelllang = captured_settings[filetype].spelllang or 'en'
-      end
-    end
-  elseif blurring and filetype ~= '' then
-    capture(filetype)
-
-    if vim.w.current_syntax ~= nil then
-      -- `ownsyntax` is on.
-      vim.cmd('ownsyntax off')
-    end
-
-    -- Suppress spelling in blurred buffer.
-    vim.wo.spell = false
-  end
-end
-
 local function focus_window()
   local filetype = vim.bo.filetype
 
@@ -116,10 +64,6 @@ local function focus_window()
   if filetype == '' or autocmds.colorcolumn_filetype_blacklist[filetype] ~= true then
     vim.wo.colorcolumn = focused_colorcolumn
   end
-
-  -- if filetype == '' or autocmds.ownsyntax_filetypes[filetype] ~= true then
-  --   ownsyntax(true)
-  -- end
 
   if filetype == '' then
     vim.wo.list = true
@@ -148,10 +92,6 @@ local function blur_window()
   if filetype == '' or autocmds.winhighlight_filetype_blacklist[filetype] ~= true then
     vim.wo.winhighlight = winhighlight_blurred
   end
-
-  -- if filetype == '' or autocmds.ownsyntax_filetypes[filetype] ~= true then
-  --   ownsyntax(false)
-  -- end
 
   if filetype == '' then
     vim.wo.list = false
@@ -300,13 +240,6 @@ autocmds.colorcolumn_filetype_blacklist = {
   ['oil'] = true,
   ['fugitiveblame'] = true,
   ['undotree'] = true,
-  ['qf'] = true,
-}
-
--- Don't do "ownsyntax on/off" for these.
-autocmds.ownsyntax_filetypes = {
-  ['oil'] = true,
-  ['help'] = true,
   ['qf'] = true,
 }
 
