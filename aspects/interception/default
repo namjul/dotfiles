@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# https://askubuntu.com/questions/979359/how-do-i-install-caps2esc
+# https://github.com/wincent/wincent/blob/main/aspects/interception/index.ts
+# https://gitlab.com/interception/linux/plugins/caps2esc
+# https://gitlab.com/interception/linux/tools/blob/master/README.md
+# https://gist.github.com/jsonMartin/9690654b13863f99b9cc344bb5bf7b0f
+#
+# TODO replace xcape
