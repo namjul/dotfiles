@@ -58,19 +58,11 @@ local capture = function(filetype)
   if not captured_settings[filetype] then
     -- We haven't captured settings for this filetype yet.
     captured_settings[filetype] = {
-
-      -- list = vim.wo.list,
-      -- linebreak = vim.wo.linebreak,
-      -- wrap = vim.wo.wrap,
-      -- textwidth = vim.bo.textwidth,
-      -- wrapmargin = vim.bo.wrapmargin,
-
-      -- spell = vim.wo.spell,
-      -- spellcapcheck = vim.bo.spellcapcheck,
-      -- spellfile = vim.bo.spellfile,
-      -- spelllang = vim.bo.spelllang,
+      spell = vim.wo.spell,
+      spellcapcheck = vim.bo.spellcapcheck,
+      spellfile = vim.bo.spellfile,
+      spelllang = vim.bo.spelllang,
     }
-    -- TODO: figure out how/when/if to update one of these objects
   end
 end
 
@@ -89,24 +81,14 @@ local ownsyntax = function(focussing)
       end
 
       if captured_settings[filetype] then
-
-        -- vim.opt_local.list = captured_settings[filetype].list or false
-        -- vim.opt_local.linebreak = captured_settings[filetype].linebreak or false
-        -- vim.opt_local.wrap = captured_settings[filetype].wrap or false
-        -- vim.opt_local.textwidth = captured_settings[filetype].textwidth or 0
-        -- vim.opt_local.wrapmargin = captured_settings[filetype].wrapmargin or 0
-
-        -- print("release capture(focussing)", filetype, vim.inspect(captured_settings[filetype]))
-
-        -- vim.opt_local.spell = captured_settings[filetype].spell or false
-        -- vim.opt_local.spellcapcheck = captured_settings[filetype].spellcapcheck or ''
-        -- vim.opt_local.spellfile = captured_settings[filetype].spellfile or ''
-        -- vim.opt_local.spelllang = captured_settings[filetype].spelllang or 'en'
+        vim.opt_local.spell = captured_settings[filetype].spell or false
+        vim.opt_local.spellcapcheck = captured_settings[filetype].spellcapcheck or ''
+        vim.opt_local.spellfile = captured_settings[filetype].spellfile or ''
+        vim.opt_local.spelllang = captured_settings[filetype].spelllang or 'en'
       end
     end
   elseif blurring and filetype ~= '' then
     capture(filetype)
-    -- print("capture(blurring)", filetype, vim.inspect(captured_settings[filetype]))
 
     if vim.w.current_syntax ~= nil then
       -- `ownsyntax` is on.
@@ -114,7 +96,7 @@ local ownsyntax = function(focussing)
     end
 
     -- Suppress spelling in blurred buffer.
-    -- vim.wo.spell = false
+    vim.wo.spell = false
   end
 end
 
@@ -135,9 +117,9 @@ local function focus_window()
     vim.wo.colorcolumn = focused_colorcolumn
   end
 
-  if filetype == '' or autocmds.ownsyntax_filetypes[filetype] ~= true then
-    ownsyntax(true)
-  end
+  -- if filetype == '' or autocmds.ownsyntax_filetypes[filetype] ~= true then
+  --   ownsyntax(true)
+  -- end
 
   if filetype == '' then
     vim.wo.list = true
@@ -167,9 +149,9 @@ local function blur_window()
     vim.wo.winhighlight = winhighlight_blurred
   end
 
-  if filetype == '' or autocmds.ownsyntax_filetypes[filetype] ~= true then
-    ownsyntax(false)
-  end
+  -- if filetype == '' or autocmds.ownsyntax_filetypes[filetype] ~= true then
+  --   ownsyntax(false)
+  -- end
 
   if filetype == '' then
     vim.wo.list = false
