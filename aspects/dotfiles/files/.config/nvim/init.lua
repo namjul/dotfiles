@@ -44,7 +44,6 @@ local is_bootstrap = require('namjul.bootstrap').bootstrap_paq({
   { 'tpope/vim-rhubarb' }, -- open files on github
   { 'tpope/vim-unimpaired' }, -- set of complementary pair commands
   { 'tpope/vim-abolish' }, -- Case-preserving find and replace
-  { 'numToStr/Comment.nvim' }, -- "gc" to comment visual regions/lines
   { 'svermeulen/vim-cutlass' }, -- seperate `cut` form `delete`
   { 'svermeulen/vim-subversive' }, -- adds a subsitute operator
   { 'nvim-lualine/lualine.nvim' }, -- fancier statusline
@@ -243,8 +242,6 @@ require('lualine').setup({
     lualine_z = { 'location' },
   },
 })
-
-require('Comment').setup()
 
 -- require('clipboard-image').setup({
 --   default = {
