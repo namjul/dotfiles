@@ -150,7 +150,6 @@ opt.g({
   termguicolors = true, -- Enable term 24 bit colour
   gdefault = true, -- Add the g flag to search/replace by default
   background = 'light',
-  pastetoggle = '<F2>',
   tabline = "%!v:lua.require('namjul.tabline').line()",
   undodir = os.getenv('XDG_DATA_HOME') .. '/nvim/undo',
   guifont = 'Cascadia_Code',
