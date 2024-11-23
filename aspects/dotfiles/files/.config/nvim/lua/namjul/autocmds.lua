@@ -1,5 +1,8 @@
-local util = require('namjul.utils')
 local cmd = vim.cmd
+
+-- TODO use mkview
+-- https://www.vim.org/scripts/script.php?script_id=4021
+-- https://github.com/wincent/wincent/blob/main/aspects/nvim/files/.config/nvim/lua/wincent/autocmds.lua
 
 local autocmds = {}
 
@@ -54,17 +57,16 @@ local capture = function(filetype)
     -- We haven't captured settings for this filetype yet.
     captured_settings[filetype] = {
 
-      list = vim.wo.list,
-      linebreak = vim.wo.linebreak,
-      wrap = vim.wo.wrap,
-      textwidth = vim.bo.textwidth,
-      wrapmargin = vim.bo.wrapmargin,
+      -- list = vim.wo.list,
+      -- linebreak = vim.wo.linebreak,
+      -- wrap = vim.wo.wrap,
+      -- textwidth = vim.bo.textwidth,
+      -- wrapmargin = vim.bo.wrapmargin,
 
       -- spell = vim.wo.spell,
       -- spellcapcheck = vim.bo.spellcapcheck,
       -- spellfile = vim.bo.spellfile,
       -- spelllang = vim.bo.spelllang,
-
     }
     -- TODO: figure out how/when/if to update one of these objects
   end
@@ -77,27 +79,44 @@ local ownsyntax = function(focussing)
 
   if focussing and filetype ~= '' then
     if captured_settings[filetype] then
+      if vim.w.current_syntax == nil then
+        -- `ownsyntax` is off.
+        capture(filetype)
+        -- print("capture(focussing)", filetype, vim.inspect(captured_settings[filetype]))
+        vim.cmd('ownsyntax on')
+      end
 
-      vim.opt_local.list = captured_settings[filetype].list or false
-      vim.opt_local.linebreak = captured_settings[filetype].linebreak or false
-      vim.opt_local.wrap = captured_settings[filetype].wrap or false
-      vim.opt_local.textwidth = captured_settings[filetype].textwidth or 0
-      vim.opt_local.wrapmargin = captured_settings[filetype].wrapmargin or 0
+      if captured_settings[filetype] then
 
-      -- vim.opt_local.spell = captured_settings[filetype].spell or false
-      -- vim.opt_local.spellcapcheck = captured_settings[filetype].spellcapcheck or ''
-      -- vim.opt_local.spellfile = captured_settings[filetype].spellfile or ''
-      -- vim.opt_local.spelllang = captured_settings[filetype].spelllang or 'en'
+        -- vim.opt_local.list = captured_settings[filetype].list or false
+        -- vim.opt_local.linebreak = captured_settings[filetype].linebreak or false
+        -- vim.opt_local.wrap = captured_settings[filetype].wrap or false
+        -- vim.opt_local.textwidth = captured_settings[filetype].textwidth or 0
+        -- vim.opt_local.wrapmargin = captured_settings[filetype].wrapmargin or 0
 
+        -- print("release capture(focussing)", filetype, vim.inspect(captured_settings[filetype]))
+
+        -- vim.opt_local.spell = captured_settings[filetype].spell or false
+        -- vim.opt_local.spellcapcheck = captured_settings[filetype].spellcapcheck or ''
+        -- vim.opt_local.spellfile = captured_settings[filetype].spellfile or ''
+        -- vim.opt_local.spelllang = captured_settings[filetype].spelllang or 'en'
+      end
     end
   elseif blurring and filetype ~= '' then
     capture(filetype)
+    -- print("capture(blurring)", filetype, vim.inspect(captured_settings[filetype]))
+
+    if vim.w.current_syntax ~= nil then
+      -- `ownsyntax` is on.
+      vim.cmd('ownsyntax off')
+    end
+
+    -- Suppress spelling in blurred buffer.
+    -- vim.wo.spell = false
   end
 end
 
 local function focus_window()
-
-  print("hier")
   local filetype = vim.bo.filetype
 
   -- Turn on relative numbers
