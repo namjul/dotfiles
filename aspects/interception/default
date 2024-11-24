@@ -1,10 +1,15 @@
 #!/usr/bin/env zx
 
+/**
+# mise description="Interception Tools. Configures the Interception Tools on Linux (analogous to Karabiner-Elements on macOS)"
+*/
+
 import {randomBytes} from 'node:crypto';
 
 // https://askubuntu.com/questions/979359/how-do-i-install-caps2esc
 // https://github.com/wincent/wincent/blob/main/aspects/interception/index.ts
 // https://gitlab.com/interception/linux/plugins/caps2esc
+// https://gitlab.com/interception/linux/plugins/dual-function-keys
 // https://gitlab.com/interception/linux/tools/blob/master/README.md
 // https://gist.github.com/jsonMartin/9690654b13863f99b9cc344bb5bf7b0f
 // https://github.com/alols/xcape/issues/122
