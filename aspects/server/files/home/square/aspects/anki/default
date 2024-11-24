@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+# mise description="Install Anki Sync Server"
+
+# set write permission for group
+mkdir -m 770 -p $SYNC_BASE
+
+if ! [ -x "$(command -v anki-sync-server)" ]; then
+  nala install protobuf-compiler
+  cargo install --git https://github.com/ankitects/anki.git --tag 24.06.3 anki-sync-server
+fi
+
+cp ${root}/anki.service /etc/systemd/system/anki.service
+
+sudo systemctl daemon-reload
+sudo systemctl enable anki.service
+sudo systemctl restart anki.service

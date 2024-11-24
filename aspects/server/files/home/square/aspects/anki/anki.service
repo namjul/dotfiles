@@ -1,0 +1,18 @@
+
+[Unit]
+Description=Anki Sync Server
+After=network.target
+Requires=network.target
+
+[Service]
+EnvironmentFile=/etc/environment
+DynamicUser=yes
+Group=square
+ReadWritePaths=/home/square
+WorkingDirectory=/home/square/aspects/anki
+ExecStart=mise exec -- anki-sync-server
+Restart=on-failure
+NoNewPrivileges=true
+
+[Install]
+WantedBy=multi-user.target
