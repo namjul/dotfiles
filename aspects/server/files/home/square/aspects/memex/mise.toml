@@ -1,0 +1,14 @@
+[env]
+SITE_PATH = "{{env.SQUARE_PATH}}/data/share/memex"
+_.path = [
+    "./bin",
+]
+
+[tools]
+go = "1.22"
+
+[tasks.default]
+file = './default'
+
+[tasks.start]
+file = './start'

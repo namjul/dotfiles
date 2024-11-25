@@ -1,0 +1,18 @@
+
+[Unit]
+Description=Markdown Server
+After=network.target
+Requires=network.target
+
+[Service]
+EnvironmentFile=/etc/environment
+DynamicUser=yes
+Group=square
+ReadWritePaths=/home/square
+WorkingDirectory=/home/square/aspects/memex
+ExecStart=mise run start
+Restart=on-failure
+NoNewPrivileges=true
+
+[Install]
+WantedBy=multi-user.target

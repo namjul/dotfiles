@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+set -e
+
+mdsrv --dir "$SITE_PATH" --addr ":8088" --tmpl ${root}/document.tmpl

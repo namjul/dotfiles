@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+
+set -e
+
+mkdir -m 770 -p $SITE_PATH
+
+cd $SITE_PATH
+
+git clone --local "$SQUARE_PATH/data/share/soft-serve/repos/memex.git" ./ || echo "Repo already cloned"
+
+if ! [ -x "$(command -v mdsrv)" ]; then
+  ghq get https://github.com/namjul/mdsrv.git
+  cd $SQUARE_PATH/data/share/ghq/github.com/namjul/mdsrv
+	./make.sh
+  mkdir -p ${root}/bin
+  cp ./bin/mdsrv ${root}/bin/mdsrv
+fi
+
+git reset --hard HEAD
+git pull origin --rebase
+
+cp ${root}/memex.service /etc/systemd/system/memex.service
+
+sudo systemctl daemon-reload
+sudo systemctl enable memex.service
+sudo systemctl restart memex.service
