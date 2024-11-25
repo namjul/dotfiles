@@ -1,2 +1,4 @@
-  [safe]
-    directory = *
+[safe]
+  directory = *
+[ghq]
+  root = {SQUARE_PATH}/data/share/ghq
