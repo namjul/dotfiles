@@ -118,7 +118,7 @@ local is_bootstrap = require('namjul.bootstrap').bootstrap_paq({
   { 'stevearc/oil.nvim' },
   { 'echasnovski/mini.nvim', branch = 'stable' },
   { 'andreshazard/vim-freemarker' },
-  { 'subnut/nvim-ghost.nvim' }
+  { 'subnut/nvim-ghost.nvim' },
 })
 
 if is_bootstrap then
@@ -157,7 +157,7 @@ opt.g({
   textwidth = 80,
   showmode = false, -- hide status line at the bottom
   tabstop = 2, -- spaces per tab
-  viewoptions = 'cursor,folds' -- save/restore just these (with `:{mk,load}view`)
+  viewoptions = 'cursor,folds', -- save/restore just these (with `:{mk,load}view`)
 })
 
 -- opt.g currenlty does not support tables
@@ -282,40 +282,40 @@ require('oil').setup({
     -- ['<C-v>'] = 'actions.select_vsplit',
     ['<C-s>'] = 'actions.select_split',
     ['<C-p>'] = 'actions.copy_entry_path',
-        ["~"] = "<cmd>edit $HOME<CR>",
-        -- Mappings can be a function
-        ["gd"] = function()
-            require("oil").set_columns({ "icon", "permissions", "size", "mtime" })
-        end,
-        -- You can pass additional opts to vim.keymap.set by using
-        -- a table with the mapping as the first element.
-        ["<leader>ff"] = {
-            function()
-                require("telescope.builtin").find_files({
-                    cwd = require("oil").get_current_dir()
-                })
-            end,
-            mode = "n",
-            nowait = true,
-            desc = "Find files in the current directory"
-        },
-        -- Mappings that are a string starting with "actions." will be
-        -- one of the built-in actions, documented below.
-        ["`"] = "actions.tcd",
-        -- Some actions have parameters. These are passed in via the `opts` key.
-        ["<leader>:"] = {
-            "actions.open_cmdline",
-            opts = {
-                shorten_path = true,
-                modify = ":h",
-            },
-            desc = "Open the command line with the current directory as an argument",
-        },
+    ['~'] = '<cmd>edit $HOME<CR>',
+    -- Mappings can be a function
+    ['gd'] = function()
+      require('oil').set_columns({ 'icon', 'permissions', 'size', 'mtime' })
+    end,
+    -- You can pass additional opts to vim.keymap.set by using
+    -- a table with the mapping as the first element.
+    ['<leader>ff'] = {
+      function()
+        require('telescope.builtin').find_files({
+          cwd = require('oil').get_current_dir(),
+        })
+      end,
+      mode = 'n',
+      nowait = true,
+      desc = 'Find files in the current directory',
+    },
+    -- Mappings that are a string starting with "actions." will be
+    -- one of the built-in actions, documented below.
+    ['`'] = 'actions.tcd',
+    -- Some actions have parameters. These are passed in via the `opts` key.
+    ['<leader>:'] = {
+      'actions.open_cmdline',
+      opts = {
+        shorten_path = true,
+        modify = ':h',
+      },
+      desc = 'Open the command line with the current directory as an argument',
+    },
   },
   skip_confirm_for_simple_edits = true,
   view_options = {
-    show_hidden = true
-  }
+    show_hidden = true,
+  },
 })
 require('hlargs').setup()
 require('conform').setup({
@@ -332,7 +332,7 @@ require('conform').setup({
 })
 require('mini.diff').setup()
 require('mini.surround').setup({
- mappings = {
+  mappings = {
     add = 'gza', -- Add surrounding in Normal and Visual modes
     delete = 'gzd', -- Delete surrounding
     find = 'gzf', -- Find surrounding (to the right)
