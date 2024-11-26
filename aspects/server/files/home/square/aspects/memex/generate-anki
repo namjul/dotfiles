@@ -1,0 +1,23 @@
+#!/bin/bash
+
+trap 'echo "Warning: A command has failed. Exiting the script. Line was ($0:$LINENO): $(sed -n "${LINENO}p" "$0")"; exit 3' ERR
+set -Eeuo pipefail
+
+cd $SITE_PATH/repo
+
+git reset --hard HEAD
+git pull origin --rebase
+
+# Create a temporary directory and store its path
+DEST_DIR=$(mktemp -d)
+
+# Find and copy all .deck.md files recursively
+find "$SITE_PATH" -type f -name "*.deck.md" -exec cp --parents {} "$DEST_DIR" \;
+
+if ! [ -x "$(command -v markdown-anki-decks)" ]; then
+  pip install markdown-anki-decks
+fi
+
+rm -rf $SITE_PATH/decks
+mkdir -p $SITE_PATH/decks
+mdankideck $DEST_DIR $SITE_PATH/decks

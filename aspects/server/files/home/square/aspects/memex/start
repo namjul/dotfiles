@@ -2,5 +2,5 @@
 
 set -e
 
-mdsrv --dir "$SITE_PATH" --addr ":8088" --tmpl ${root}/document.tmpl --assets ${SITE_PATH}/assets/
+mdsrv --dir "$SITE_PATH/repo" --addr ":8088" --tmpl ${root}/document.tmpl --assets ${SITE_PATH}/repo/assets/
 

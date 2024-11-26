@@ -6,15 +6,19 @@ mkdir -m 770 -p $SITE_PATH
 
 cd $SITE_PATH
 
-git clone --local "$SQUARE_PATH/data/share/soft-serve/repos/memex.git" ./ || echo "Repo already cloned"
+git clone --local "$SQUARE_PATH/data/share/soft-serve/repos/memex.git" "repo" || echo "Repo already cloned"
 
 if ! [ -x "$(command -v mdsrv)" ]; then
   ghq get https://github.com/namjul/mdsrv.git
   cd $SQUARE_PATH/data/share/ghq/github.com/namjul/mdsrv
-	./make.sh
+  ./make.sh
   mkdir -p ${root}/bin
   cp ./bin/mdsrv ${root}/bin/mdsrv
 fi
+
+(cd $root/../soft-serve && mise run soft-serve:webhooks:create --repo memex --id generate-anki) || "Could not create webhook."
+
+cd $SITE_PATH/repo
 
 git reset --hard HEAD
 git pull origin --rebase

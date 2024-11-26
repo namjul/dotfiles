@@ -1,0 +1,11 @@
+[
+  {
+    "id": "generate-anki",
+    "execute-command": "/usr/local/bin/mise",
+    "command-working-directory": "/home/square/aspects/memex",
+    "pass-arguments-to-command": [
+      { "source": "string", "name": "run" },
+      { "source": "string", "name": "generate:anki" }
+    ]
+  },
+]

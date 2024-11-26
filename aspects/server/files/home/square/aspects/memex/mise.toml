@@ -6,9 +6,13 @@ _.path = [
 
 [tools]
 go = "1.22"
+python = "3.11"
 
 [tasks.default]
 file = './default'
 
 [tasks.start]
 file = './start'
+
+[tasks."generate:anki"]
+file = './generate-anki'

@@ -5,5 +5,10 @@ memex.samho.xyz {
     file_server
   }
 
+  handle_path /decks* {
+    root * {$SQUARE_PATH}/data/share/memex/decks
+    file_server browse
+  }
+
   reverse_proxy localhost:8088
 }
