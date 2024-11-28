@@ -1,5 +1,0 @@
-[env]
-ACTUAL_CONFIG_PATH = "{{config_root}}/../config.json"
-
-[tasks.actualbudget]
-file = './default'

@@ -3,15 +3,5 @@
 trap 'echo "Warning: A command has failed. Exiting the script. Line was ($0:$LINENO): $(sed -n "${LINENO}p" "$0")"; exit 3' ERR
 set -Eeuo pipefail
 
-mise install --yes
-
-# TODO use systemd instead https://news.ycombinator.com/item?id=37132651
-# https://www.freedesktop.org/software/systemd/man/latest/systemd-run.html
-pm2 delete actualbudget
-mkdir -p /home/square/data/actualbudget/server-files
-mkdir -p /home/square/data/actualbudget/user-files
-npm install --global yarn
-ghq get https://github.com/actualbudget/actual-server.git
-cd ~/ghq/github.com/actualbudget/actual-server/
-yarn install
-pm2 start "yarn start" --name actualbudget
+docker compose pull
+docker compose up -d
