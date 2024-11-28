@@ -7,7 +7,7 @@ mkdir -m 770 -p $SQUARE_PATH/data/share/goatcounter
 
 if ! [ -x "$(command -v goatcounter)" ]; then
   ghq get https://github.com/arp242/goatcounter
-  cd ~/ghq/github.com/arp242/goatcounter
+  cd $SQUARE_PATH/data/share/ghq/github.com/arp242/goatcounter
   go build -ldflags="-X zgo.at/goatcounter/v2.Version=$(git log -n1 --format='%h_%cI')" ./cmd/goatcounter
   mkdir -p ${root}/bin
   cp ./goatcounter ${root}/bin/goatcounter

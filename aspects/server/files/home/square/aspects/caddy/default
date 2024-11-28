@@ -9,7 +9,7 @@ mkdir -m 770 -p $SQUARE_PATH/data/share/caddy
 
 if ! [ -x "$(command -v caddy)" ]; then
   ghq get https://github.com/caddyserver/caddy.git
-  cd ~/ghq/github.com/caddyserver/caddy
+  cd $SQUARE_PATH/data/share/ghq/github.com/caddyserver/caddy
 
   go install github.com/caddyserver/xcaddy/cmd/xcaddy@latest
   xcaddy build
