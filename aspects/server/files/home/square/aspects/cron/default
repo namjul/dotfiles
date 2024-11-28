@@ -6,7 +6,7 @@ crontab.load(function(err, crontab) {
 
   const command = 'journalctl --vacuum-time=2weeks'
   crontab.remove({command:command});
-  var job = crontab.create(command, '* * * * *');
+  var job = crontab.create(command, '@monthly');
 
 
   if (job == null) {

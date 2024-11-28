@@ -3,7 +3,10 @@
 "npm:crontab" = "latest"
 
 [tasks.setup]
-file = './setup'
+hide = true
+run = """
+npm link crontab
+"""
 
 [tasks.default]
 depends = ["setup"]
