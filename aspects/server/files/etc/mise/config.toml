@@ -6,6 +6,8 @@ experimental = true
 
 [tools]
 ghq = "latest"
+node = "20.5.1"
+"npm:zx" = "latest"
 
 [task_config]
 includes = [

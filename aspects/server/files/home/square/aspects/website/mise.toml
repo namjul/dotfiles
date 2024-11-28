@@ -2,9 +2,6 @@
 [env]
 SITE_PATH = "{{env.SQUARE_PATH}}/data/share/website"
 
-[tools]
-node = "20.5.1"
-
 [tasks.default]
 file = './default'
 
