@@ -6,6 +6,7 @@ experimental = true
 
 [tools]
 ghq = "latest"
+python = "3.11"
 node = "20.5.1"
 "npm:zx" = "latest"
 
