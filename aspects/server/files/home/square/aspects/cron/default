@@ -1,0 +1,17 @@
+#!/usr/bin/env zx
+
+import crontab from 'crontab'
+
+crontab.load(function(err, crontab) {
+
+  const command = 'journalctl --vacuum-time=2weeks'
+  crontab.remove({command:command});
+  var job = crontab.create(command, '* * * * *');
+
+
+  if (job == null) {
+    console.log('failed to create job');
+  } else {
+    crontab.save();
+  }
+})

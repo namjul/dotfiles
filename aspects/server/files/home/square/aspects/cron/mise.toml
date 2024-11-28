@@ -1,0 +1,10 @@
+
+[tools]
+"npm:crontab" = "latest"
+
+[tasks.setup]
+file = './setup'
+
+[tasks.default]
+depends = ["setup"]
+file = './default'
