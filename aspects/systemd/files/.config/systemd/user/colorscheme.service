@@ -1,0 +1,9 @@
+[Unit]
+Description=Run my script
+
+[Service]
+ExecStart=/bin/bash -c 'source $HOME/.profile && colorscheme.lua'
+
+[Install]
+WantedBy=timers.target
+
