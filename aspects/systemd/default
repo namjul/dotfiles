@@ -11,12 +11,27 @@ await spinner('create ~/.config/systemd/user', async () => {
   await $`mkdir -p ~/.config/systemd/user`
 })
 
-await spinner('set up ~/.config/systemd/user/ssh-agent.service', async () => {
-  const unit = '.config/systemd/user/ssh-agent.service';
-  const source = path.join(aspect, 'files', unit)
-  const target = path.join(os.homedir(), unit)
-  await $`cp ${source} ${target}`
-})
+await spinner('set up ~/.config/systemd/user', async () => {
+  const sourceBaseDir = path.join(aspect, 'files');
+  const targetBaseDir = path.join(os.homedir());
+
+  const files = await glob('**/*', { cwd: sourceBaseDir, dot: true })
+
+  files.forEach(relPath => {
+    const sourcePath = path.join(sourceBaseDir, relPath);
+    const targetPath = path.join(targetBaseDir, relPath);
+    const targetDir = path.dirname(targetPath);
+
+    if (!fs.existsSync(targetDir)) {
+      fs.mkdirSync(targetDir, { recursive: true });
+    }
+    // Remove existing file or symlink, if any
+    if (fs.existsSync(targetPath)) {
+      fs.unlinkSync(targetPath);
+    }
+    fs.symlinkSync(sourcePath, targetPath);
+  });
+});
 
 await spinner('systemd daemon-reload', async () => {
   await $`systemctl --user daemon-reload`
@@ -25,5 +40,10 @@ await spinner('systemd daemon-reload', async () => {
 await spinner('enable ssh-agent.service', async () => {
   await $`systemctl --user enable ssh-agent.service --now`
 })
+
+await spinner('enable colorscheme.timer', async () => {
+  await $`systemctl --user enable colorscheme.service --now`
+})
+
 
 
