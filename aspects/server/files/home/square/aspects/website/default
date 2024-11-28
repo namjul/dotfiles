@@ -25,6 +25,7 @@ if test -n "$usage_repo"; then
   # git fetch
   # TODO https://stackoverflow.com/questions/3258243/check-if-pull-needed-in-git
   # git rev-list HEAD...origin/master --count
+  git reset --hard HEAD
   git pull origin --rebase
 
   npm i --ci
