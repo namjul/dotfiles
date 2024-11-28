@@ -1,4 +1,0 @@
-
-budget.samho.xyz {
-  reverse_proxy localhost:5006
-}

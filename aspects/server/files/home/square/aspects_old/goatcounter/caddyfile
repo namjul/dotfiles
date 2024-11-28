@@ -1,4 +1,0 @@
-
-stats.samho.xyz, stats.hobl.at, stats.nachzahlung.at {
-  reverse_proxy localhost:5007
-}
