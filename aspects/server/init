@@ -27,7 +27,7 @@ chgrp square $SQUARE_PATH
 #chgrp -R square $SQUARE_PATH* || true
 
 # inherit group id of parent
-chmod -R g+s $SQUARE_PATH
+find $SQUARE_PATH -type d -exec chmod g+s {} +
 
 # setup mise envars
 # echo -e \"ENV_VARS\" | sudo tee \"ENV_FILE\"
