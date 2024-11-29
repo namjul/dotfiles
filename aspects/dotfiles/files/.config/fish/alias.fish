@@ -46,7 +46,7 @@ abbr nv 'node --version'
 # timewarrior
 abbr tw timew
 abbr twst timew start
-abbr twps timew stop
+abbr twsp timew stop
 abbr twa timew annotate
 abbr twc timew continue
 abbr tws timew summary :annotation :ids :week
