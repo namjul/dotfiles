@@ -1,9 +1,7 @@
 
 local function plaintext()
-  if vim.fn.has('conceal') == 1 then
-    vim.opt_local.concealcursor = 'nc'
-  end
 
+  vim.opt_local.concealcursor = 'nc'
   vim.opt_local.list = false
   vim.opt_local.textwidth = 0
   vim.opt_local.wrap = true
