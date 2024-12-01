@@ -1,0 +1,25 @@
+thepopupschool.org {
+  root * {$SQUARE_PATH}/data/share/website/thepopupschool/public
+  encode zstd gzip
+  try_files {path} {path}.html
+  file_server {
+    hide .git
+  }
+  handle_errors {
+    rewrite * /{err.status_code}.html
+    file_server
+  }
+  route /process {
+    reverse_proxy unix//tmp/app.sock
+  }
+}
+
+stats.thepopupschool.org {
+  reverse_proxy localhost:5007
+}
+
+
+  1 Dec 01 17:36:07 hobl mise[935316]: {"level":"warn","ts":1733074567.8184342,"msg":"$HOME environment variable is empty - please fix; some assets might be stored in ./caddy"}
+  2
+  3 Dec 01 17:36:19 hobl mise[935316]: {"level":"error","ts":1733074579.4432921,"logger":"http.log.error","msg":"error handling handler error","request":{"remote_ip":"213.147.160.221","remote_port":"15913","client_ip":"213.147.160.221","proto":"HTTP/3.0","method":"POST","host":"thepopupschool.org","uri":"/process","headers":{"Origin":["https://thepopupschool.org"],"Sec-Fetch-Mode":["cors"],"Referer":["https://thepopupschool.org/"],"Accept-Encoding":["gzip, deflate, br, zstd"],"Pragma":["no-cache"],"Sec-Ch-Ua-Platform":["\"Linux\""],"Sec-Ch-Ua-Mobile":["?0"],"Accept":["*/*"],"Content-Length":["201"],"Priority":["u=1, i"],"Cache-Control":["no-cache"],"Dnt":["1"],"Content-Type":["multipart/form-data; boundary=----WebKitFormBoundarysUOPxeNIF6beJ8jO"],"Accept-Language":["en-US,en;q=0.9,de;q=0.8"],"Sec-Fetch-Site":["same-origin"],"User-Agent":["Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"],"Sec-Ch-Ua":["\"Google Chrome\";v=\"131\", \"Chromium\";v=\"131\", \"Not_A Brand\";v=\"24\""],"Sec-Fetch-Dest":["empty"]},"tls":{"resumed":false,"version":772,"cipher_suite":4865,"proto":"h3","server_name":"thepopupschool.org"}},"duration":0.0005958,"error":"{id=rhfr6ypcm} fileserver.(*FileServer).notFound (staticfiles.go:629): HTTP 404","first_error":{"msg":"dial unix /tmp/app.sock: connect: no such file or directory","status":502,"err_id":"fkauipc2s","err_trace":"reverseproxy.statusError (reverseproxy.go:1267)"}}
+  4

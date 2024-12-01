@@ -1,0 +1,3 @@
+Flask
+genanki
+markdown-anki-decks
