@@ -13,7 +13,7 @@ await spinner('make ~/opt/nvim', async () => {
 
 await spinner('download Neovim appimage', async () => {
   const stream = fs.createWriteStream(`${os.homedir()}/opt/nvim/nvim.appimage`);
-  const { body } = await fetch('https://github.com/neovim/neovim/releases/download/v0.10.0/nvim.appimage')
+  const { body } = await fetch('https://github.com/neovim/neovim/releases/download/v0.10.2/nvim.appimage')
   await finished(Readable.fromWeb(body).pipe(stream));
 });
 
