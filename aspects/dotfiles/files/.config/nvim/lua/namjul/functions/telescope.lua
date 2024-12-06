@@ -1,6 +1,7 @@
 local actions = require('telescope.actions')
 local lga_actions = require('telescope-live-grep-args.actions')
 local builtin = require('telescope.builtin')
+local telescope_utils = require('telescope.utils')
 local slugify = require('namjul.functions.slugify')
 
 local M = {}
@@ -10,7 +11,9 @@ function M.findFiles(args)
   local opts = {
     find_command = { 'rg', '--files', '--hidden', '--follow' },
     prompt_title = 'Files',
+    path_display = { 'truncate' },
     previewer = false,
+    search_dirs = M.search_dirs,
   }
   for k, v in pairs(args) do
     opts[k] = v
@@ -84,6 +87,8 @@ function M.search(args)
   args = args or {}
   local opts = {
     auto_quoting = true,
+    search_dirs = M.search_dirs,
+    path_display = { 'truncate' },
     mappings = {
       i = {
         ['<C-k>'] = lga_actions.quote_prompt(),
@@ -103,31 +108,29 @@ function M.search(args)
   require('telescope').extensions.live_grep_args.live_grep_args(require('telescope.themes').get_ivy(opts))
 end
 
-function M.memex()
-  local search_dirs = {
-    '~/Dropbox/memex',
-    '~/ghq/github.com/kevinslin/seed-tldr/vault',
-  }
-
-  M.search({
-    path_display = { 'tail' },
-    default_text = '"" --iglob *',
-    search_dirs = search_dirs,
-    mappings = {
-      i = {
-        -- TODO make it work with enter `<CR>`
-        ['<C-x>'] = function(prompt_bufnr)
-          local current_picker = require('telescope.actions.state').get_current_picker(prompt_bufnr)
-          local prompt = slugify(current_picker:_get_prompt())
-          local filename = search_dirs[1] .. '/' .. prompt .. '.md'
-
-          actions.close(prompt_bufnr)
-          vim.cmd('e ' .. filename)
-        end,
-      },
-    },
-  })
-end
+-- function M.memex()
+--   local search_dirs = {
+--     '~/Dropbox/memex',
+--     '~/ghq/github.com/kevinslin/seed-tldr/vault',
+--   }
+--   M.search({
+--     path_display = { 'tail' },
+--     default_text = '"" --iglob *',
+--     search_dirs = search_dirs,
+--     mappings = {
+--       i = {
+--         -- TODO make it work with enter `<CR>`
+--         ['<C-x>'] = function(prompt_bufnr)
+--           local current_picker = require('telescope.actions.state').get_current_picker(prompt_bufnr)
+--           local prompt = slugify(current_picker:_get_prompt())
+--           local filename = search_dirs[1] .. '/' .. prompt .. '.md'
+--           actions.close(prompt_bufnr)
+--           vim.cmd('e ' .. filename)
+--         end,
+--       },
+--     },
+--   })
+-- end
 
 function M.live_grep(args)
   args = args or {}
@@ -169,8 +172,10 @@ function M.find_recent(args)
   require('telescope.builtin').oldfiles(require('telescope.themes').get_ivy(opts))
 end
 
-function M.search_dotfiles()
-  M.findFiles({ cwd = '~/.dotfiles' })
-end
+M.search_dirs = {
+  '~/.dotfiles',
+  '~/Dropbox/memex',
+  telescope_utils.buffer_dir(),
+}
 
 return M
