@@ -87,6 +87,7 @@ function M.search(args)
   local opts = {
     auto_quoting = true,
     path_display = { 'truncate' },
+    additional_args = { '--no-ignore-vcs' },
     mappings = {
       i = {
         ['<C-k>'] = lga_actions.quote_prompt(),
