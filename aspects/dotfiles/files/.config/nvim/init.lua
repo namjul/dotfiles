@@ -281,9 +281,10 @@ require('glow').setup()
 require('nvim-devdocs').setup({})
 require('oil').setup({
   keymaps = {
+    ['<C-t>'] = false,
     ['<C-h>'] = false,
-    -- ['<C-v>'] = 'actions.select_vsplit',
-    ['<C-s>'] = 'actions.select_split',
+    ['<C-s>'] = { 'actions.select', opts = { vertical = true } },
+    ['<C-v>'] = { 'actions.select', opts = { horizontal = true } },
     ['<C-p>'] = 'actions.copy_entry_path',
     ['~'] = '<cmd>edit $HOME<CR>',
     -- Mappings can be a function
