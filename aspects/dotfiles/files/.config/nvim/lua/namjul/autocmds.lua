@@ -219,6 +219,7 @@ autocmds.list_filetypes = {
 autocmds.conceallevel_filetypes = {
   ['oil'] = 2,
   ['help'] = 2,
+  ['markdown'] = 0,
 }
 
 -- Don't mess with numbers in these filetypes.

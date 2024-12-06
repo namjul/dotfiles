@@ -26,17 +26,6 @@ vim.api.nvim_create_user_command('PasteMDLink', function()
   end
 end, {})
 
-local previous_conceallevel = 2
-vim.api.nvim_create_user_command('ToggleConcealLevel', function()
-  local current_conceallevel = vim.wo.conceallevel
-  if current_conceallevel == 0 then
-    vim.wo.conceallevel = previous_conceallevel
-  else
-    previous_conceallevel = current_conceallevel
-    vim.wo.conceallevel = 0
-  end
-end, {})
-
 local has_rest_nvim = pcall(require, 'rest-nvim')
 
 if not has_rest_nvim then
