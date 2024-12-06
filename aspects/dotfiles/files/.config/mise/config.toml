@@ -7,6 +7,7 @@ lua = "latest"
 python = "3.11"
 bun = "latest"
 ruby = "latest"
+zig = "latest"
 
 [settings]
 experimental = true
