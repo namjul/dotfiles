@@ -159,7 +159,8 @@ opt.g({
   showmode = false, -- hide status line at the bottom
   tabstop = 2, -- spaces per tab
   viewoptions = 'cursor,folds', -- save/restore just these (with `:{mk,load}view`)
-  shiftwidth = 2 -- spaces per tab (when shifting)
+  shiftwidth = 2, -- spaces per tab (when shifting)
+  showbreak = '↳ ', -- DOWNWARDS ARROW WITH TIP RIGHTWARDS (U+21B3, UTF-8: E2 86 B3)
 })
 
 -- opt.g currenlty does not support tables
