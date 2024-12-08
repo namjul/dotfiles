@@ -19,7 +19,7 @@ local servers = {
   ts_ls = {
     -- single_file_support = false,
   },
-  marksman = {},
+  -- marksman = {},
   lua_ls = {
     diagnostics = {
       enable = true,
