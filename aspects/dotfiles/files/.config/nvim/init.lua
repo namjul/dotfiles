@@ -69,7 +69,6 @@ local is_bootstrap = require('namjul.bootstrap').bootstrap_paq({
   { 'rafamadriz/friendly-snippets' }, -- general snippets collection
   { 'mattn/webapi-vim' }, -- needed for `gist-vim`
   { 'mattn/gist-vim' }, -- interact with github gist from vim
-  { 'uga-rosa/ccc.nvim' }, -- Super powerful color picker / colorizer plugin.
   -- { 'dkarter/bullets.vim' }, -- enhance bullet points management TODO replace with 'gaoDean/autolist.nvim' when checkboxes are supported
   -- { 'csexton/trailertrash.vim' }, -- highlight trailing whitespace
   { 'godlygeek/tabular' }, -- auto alignment
@@ -116,7 +115,7 @@ local is_bootstrap = require('namjul.bootstrap').bootstrap_paq({
   -- { 'MunifTanjim/nui.nvim' },
   { 'm-demare/hlargs.nvim' },
   { 'stevearc/oil.nvim' },
-  { 'echasnovski/mini.nvim', branch = 'stable' },
+  { 'echasnovski/mini.nvim', branch = 'main' },
   { 'andreshazard/vim-freemarker' },
   { 'subnut/nvim-ghost.nvim' },
 })
