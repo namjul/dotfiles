@@ -1,15 +1,6 @@
-local has_luasnip = pcall(require, 'luasnip')
-
-if not has_luasnip then
-  return
-end
-
 local ls = require('luasnip')
-
-
--- https://github.com/dendronhq/dendron-template/blob/master/vault/.vscode/dendron.code-snippets
-
 local getUrlTitle = require('namjul.functions.getUrlTitle')
+
 local s = ls.snippet
 local sn = ls.snippet_node
 local t = ls.text_node
@@ -20,7 +11,6 @@ local d = ls.dynamic_node
 -- local r = ls.restore_node
 -- local types = require('luasnip.util.types')
 
--- already exists in friendly-snippets with `task`
 ls.add_snippets('markdown', {
   s('td', {
     t('- [ ] '),
@@ -47,11 +37,3 @@ ls.add_snippets('markdown', {
     i(0),
   }),
 }, { key = 'all' })
-
-require('luasnip.loaders.from_vscode').lazy_load()
-
-
--- uuid
--- console.log
--- export default named function
--- snippets/global.json
