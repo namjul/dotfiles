@@ -4,7 +4,7 @@
 
 I use [mise](https://mise.jdx.dev/) to place and oversee [aspects](aspects "Vantage points") of this pond.
 
-Dotfiles are listed [here](https://github.com/namjul/dotfiles/tree/master/aspects/dotfiles/files)
+dotfiles are listed [here](https://github.com/namjul/dotfiles/tree/master/aspects/dotfiles/files)
 
 The pond presents like this.
 
