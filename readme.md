@@ -2,13 +2,11 @@
 
 ![](pond=42.png "Pondlife = 42")
 
-I use [mise](https://mise.jdx.dev/) to place and oversee [aspects](https://en.wikipedia.org/wiki/Vantage_point) of this pond.
+I use [mise](https://mise.jdx.dev/) to place and oversee [aspects](aspects "Vantage points") of this pond.
 
-Find an overview of them [here](aspects).
+Dotfiles are listed [here](https://github.com/namjul/dotfiles/tree/master/aspects/dotfiles/files)
 
-My dotfiles you find listed [here](https://github.com/namjul/dotfiles/tree/master/aspects/dotfiles/files)
-
-It looks like this.
+The pond presents like this.
 
 ![](screenshot.png)
 
