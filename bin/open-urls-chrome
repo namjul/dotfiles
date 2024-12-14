@@ -1,0 +1,15 @@
+#!/bin/bash
+
+trap 'echo "Warning: A command has failed. Exiting the script. Line was ($0:$LINENO): $(sed -n "${LINENO}p" "$0")"; exit 3' ERR
+set -Eeuo pipefail
+
+# Read from clipboard, extract URLs, and open them in Google Chrome
+urls=$(xclip -selection clipboard -o | grep -Eo 'https?:\/\/[^ \)]+')
+echo "$urls"
+
+if [ -n "$urls" ]; then
+  google-chrome $urls
+else
+  echo "No valid URLs found in clipboard."
+fi
+
