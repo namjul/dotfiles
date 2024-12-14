@@ -1,4 +1,5 @@
 local ls = require('luasnip')
+local fmt = require('luasnip.extras.fmt').fmt
 local getUrlTitle = require('namjul.functions.getUrlTitle')
 
 local s = ls.snippet
@@ -12,11 +13,12 @@ local d = ls.dynamic_node
 -- local types = require('luasnip.util.types')
 
 ls.add_snippets('markdown', {
-  s('td', {
-    t('- [ ] '),
-    i(1)
-  })
-}, { key = 'all' })
+  s({ trig = 'td', dscr = 'todo' }, fmt('- [{}]', { i(1, 'value') }))
+})
+
+ls.add_snippets('markdown', {
+  s({ trig = 'link' }, fmt('[{}]({})', { i(1, 'value'),  i(2, 'value')  }))
+})
 
 ls.add_snippets('markdown', {
   s('[c', {
