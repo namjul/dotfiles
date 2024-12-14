@@ -1,18 +1,12 @@
 # "dotfiles"
 
-I want to see this project as
-
 ![](pond=42.png "Pondlife = 42")
 
 I use [mise](https://mise.jdx.dev/) to place and oversee [aspects](https://en.wikipedia.org/wiki/Vantage_point) of this pond.
+
 Find an overview of them [here](aspects).
 
-Here a list of parts that might interest
-
-- [neovim](aspects/dotfiles/files/.config/nvim)
-- [tmux config](aspects/dotfiles/files/tmux.conf)
-- [alacritty](aspects/dotfiles/files/.config/alacritty)
-- [fish configuration](aspects/dotfiles/files/.config/fish)
+My dotfiles you find listed [here](https://github.com/namjul/dotfiles/tree/master/aspects/dotfiles/files)
 
 It looks like this.
 
@@ -44,13 +38,11 @@ git config --global user.email "$GIT_AUTHOR_EMAIL"
 
 ### Installation
 
-Clone dotfiles to home directory
-
 ```
 git clone --recursive https://github.com/namjul/dotfiles ~/.dotfiles
+cd .dotfiles
+./install
 ```
-
-cd and run `install`
 
 ## Inspiration
 
