@@ -419,10 +419,16 @@ require('oil').setup({
       desc = 'Open the command line with the current directory as an argument',
     },
   },
+  delete_to_trash = true,
+  default_file_explorer = true,
   skip_confirm_for_simple_edits = true,
   view_options = {
     show_hidden = true,
-  },
+    -- natural_order = true,
+    is_always_hidden = function(name)
+      return name == '..' or name == '.git'
+    end
+  }
 })
 require('hlargs').setup()
 require('conform').setup({
