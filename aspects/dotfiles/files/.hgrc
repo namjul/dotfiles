@@ -3,6 +3,7 @@ username = ${MERCURIAL_USERNAME}
 tweakdefaults = True
 
 [extensions]
+strip =
 # uncomment the lines below to enable some popular extensions
 # (see 'hg help extensions' for more info)
 #
