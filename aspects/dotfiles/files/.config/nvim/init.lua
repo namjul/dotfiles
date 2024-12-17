@@ -387,7 +387,7 @@ require('oil').setup({
     ['<C-t>'] = false,
     ['<C-h>'] = false,
     ['<C-s>'] = { 'actions.select', opts = { vertical = true } },
-    ['<C-v>'] = { 'actions.select', opts = { horizontal = true } },
+    -- ['<C-v>'] = { 'actions.select', opts = { horizontal = true } },
     ['<C-p>'] = 'actions.copy_entry_path',
     ['~'] = '<cmd>edit $HOME<CR>',
     -- Mappings can be a function
