@@ -93,6 +93,7 @@ local is_bootstrap = require('namjul.bootstrap').bootstrap_paq({
   { 'neovim/nvim-lspconfig' },
   { 'stevearc/conform.nvim', branch = 'nvim-0.9' },
   { 'nvimtools/none-ls.nvim' },
+  { 'nvimtools/none-ls-extras.nvim' },
   { 'j-hui/fidget.nvim', branch = 'legacy' }, -- Standalone UI for nvim-lsp progress
   { 'folke/neodev.nvim' },
   { 'AndrewRadev/switch.vim' }, -- fast boolean switch

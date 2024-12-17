@@ -85,17 +85,17 @@ vim.cmd([[
 
 --- formating and diagnostics ---
 
-local has_null_ls = pcall(require, 'null-ls')
+local has_null_ls = pcall(require, 'none-ls')
 
 if not has_null_ls then
   return
 end
 
-require('null-ls').setup({
+require('none-ls').setup({
   diagnostics_format = '[#{c}] #{m} (#{s})',
   sources = {
     -- TODO load when available
-    require('null-ls').builtins.formatting.stylua,
-    require('null-ls').builtins.diagnostics.eslint,
+    require('none-ls').builtins.formatting.stylua,
+    require('none-ls').diagnostics.eslint_d,
   },
 })
