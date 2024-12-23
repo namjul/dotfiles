@@ -49,6 +49,7 @@ abbr twst timew start
 abbr twsp timew stop
 abbr twa timew annotate
 abbr twc timew continue
+abbr twd timew delete
 abbr tws timew summary :annotation :ids :week
 
 # todo
