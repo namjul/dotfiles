@@ -1,0 +1,12 @@
+font-family = "JetBrainsMono Nerd Font"
+font-size = 18
+font-feature = -liga
+theme = GruvboxDark
+window-padding-x = 0
+window-padding-y = 0
+window-padding-color = background
+window-padding-balance = false
+gtk-adwaita = false
+window-decoration = false
+window-theme = dark
+
