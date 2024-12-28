@@ -53,6 +53,7 @@ if status is-interactive
   direnv hook fish | source
   mise activate fish | source
   scmpuff init -s --shell=fish | source
+  colorscheme.lua
 
   if type -q shellfirm
     function checkShellFirm --on-event fish_preexec
