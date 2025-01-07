@@ -101,6 +101,7 @@ local is_bootstrap = require('namjul.bootstrap').bootstrap_paq({
   { 'hrsh7th/cmp-nvim-lsp' },
   { 'hrsh7th/cmp-path' },
   { 'hrsh7th/cmp-buffer' },
+  { 'hrsh7th/cmp-calc' },
   { 'saadparwaiz1/cmp_luasnip' }, -- nvim-cmp source for Luasnip
   { 'folke/which-key.nvim' },
   { 'abecodes/tabout.nvim' }, -- tabbing out from parentheses, quotes, and similar contexts today.

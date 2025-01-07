@@ -52,5 +52,6 @@ cmp.setup({
     { name = 'nvim_lsp' },
     { name = 'path' },
     { name = 'buffer' },
+    { name = 'calc' },
   },
 })
