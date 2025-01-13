@@ -93,6 +93,8 @@
   # Displays committers in descending order of number of commits
   who     = shortlog --numbered --summary --email --no-merges --since='3 months'
 
+  wip = "!f() { git commit --no-verify -m \"wip: $*\"; }; f"
+
 [apply]
   # Detect whitespace errors when applying a patch
   whitespace = fix
