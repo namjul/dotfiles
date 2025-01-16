@@ -1,26 +1,26 @@
-local ls = require('luasnip')
+local luasnip = require('luasnip')
 local fmt = require('luasnip.extras.fmt').fmt
 local getUrlTitle = require('namjul.functions.getUrlTitle')
 
-local s = ls.snippet
-local sn = ls.snippet_node
-local t = ls.text_node
-local i = ls.insert_node
-local f = ls.function_node
+local s = luasnip.snippet
+local sn = luasnip.snippet_node
+local t = luasnip.text_node
+local i = luasnip.insert_node
+local f = luasnip.function_node
 -- local c = ls.choice_node
-local d = ls.dynamic_node
+local d = luasnip.dynamic_node
 -- local r = ls.restore_node
 -- local types = require('luasnip.util.types')
 
-ls.add_snippets('markdown', {
+luasnip.add_snippets('markdown', {
   s({ trig = 'td', dscr = 'todo' }, fmt('- [{}]', { i(1, 'value') }))
 })
 
-ls.add_snippets('markdown', {
+luasnip.add_snippets('markdown', {
   s({ trig = 'link' }, fmt('[{}]({})', { i(1, 'value'),  i(2, 'value')  }))
 })
 
-ls.add_snippets('markdown', {
+luasnip.add_snippets('markdown', {
   s('[c', {
     t('['),
     d(1, function()
@@ -39,3 +39,20 @@ ls.add_snippets('markdown', {
     i(0),
   }),
 }, { key = 'all' })
+
+luasnip.add_snippets('markdown', {
+  s(
+    { trig = 'frontmatter', dscr = 'Document frontmatter' },
+    fmt(
+      [[
+      ---
+      tags: {}
+      ---
+
+    ]],
+      {
+        i(1, 'value'),
+      }
+    )
+  ),
+})
