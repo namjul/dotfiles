@@ -1,4 +1,4 @@
-local has_luasnip = pcall(require, 'luasnip')
+local has_luasnip, luasnip = pcall(require, 'luasnip')
 
 if not has_luasnip then
   return
@@ -8,8 +8,8 @@ end
 
 -- Tell LuaSnip to load on demand based on file-type.
 require('luasnip.loaders.from_lua').load({
-  lazy_paths = "~/.config/nvim/lua/namjul/snippets",
-  paths = "~/.config/nvim/lua/namjul/snippets/all.lua"
+  lazy_paths = {"~/.config/nvim/lua/namjul/snippets"},
+  -- paths = {"~/.config/nvim/lua/namjul/snippets"}
 })
 
 
