@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+current=$(dunstctl is-paused);
+
+if [ "$current" = "true" ]; then
+  notify-send "Do not disturb is OFF"
+  dunstctl set-paused "false"
+  printf "\u2717\n"
+else
+  dunstctl set-paused "true"
+  printf "\u2713\n"
+fi
+
+
+
+
