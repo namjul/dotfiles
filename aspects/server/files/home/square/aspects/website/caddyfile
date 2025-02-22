@@ -1,6 +1,13 @@
 thepopupschool.org {
+
   root * {$SQUARE_PATH}/data/share/website/thepopupschool/public
   encode zstd gzip
+
+  @trailingSlash {
+    path_regexp trailingSlash ^(.*)/$
+  }
+  redir @trailingSlash {http.regexp.trailingSlash.1} permanent
+
   try_files {path} {path}.html
   file_server {
     hide .git
