@@ -4,10 +4,11 @@ tweakdefaults = True
 
 [extensions]
 strip =
+rebase =
+shelve =
 # uncomment the lines below to enable some popular extensions
 # (see 'hg help extensions' for more info)
 #
-#rebase =
 #uncommit =
 #amend =
 #churn =
@@ -15,4 +16,3 @@ strip =
 #extdiff =
 #histedit =
 #schemes =
-#shelve =
