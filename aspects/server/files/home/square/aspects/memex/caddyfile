@@ -10,8 +10,14 @@ memex.samho.xyz, samuel.hobl.at {
     file_server browse
   }
 
-  handle_path / {
-    rewrite * /personal-website
+  @samuelHoblHost {
+    host samuel.hobl.at
+  }
+
+  handle @samuelHoblHost {
+    handle_path / {
+      rewrite * /personal-website
+    }
   }
 
   reverse_proxy localhost:8088
