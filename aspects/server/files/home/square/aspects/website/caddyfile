@@ -3,10 +3,10 @@ thepopupschool.org {
   root * {$SQUARE_PATH}/data/share/website/thepopupschool/public
   encode zstd gzip
 
-  @trailingSlash {
-    path_regexp trailingSlash ^(.*)/$
-  }
-  redir @trailingSlash {http.regexp.trailingSlash.1} permanent
+  #@trailingSlash {
+  #  path_regexp trailingSlash ^(.*)/$
+  #}
+  #redir @trailingSlash {http.regexp.trailingSlash.1} permanent
 
   try_files {path} {path}.html
   file_server {
@@ -16,23 +16,6 @@ thepopupschool.org {
     rewrite * /{err.status_code}.html
     file_server
   }
-}
-
-samuel.hobl.at {
-  root * {$SQUARE_PATH}/data/share/website/personal-website/public
-  encode zstd gzip
-  try_files {path} {path}.html
-  file_server {
-    hide .git
-  }
-  handle_errors {
-    rewrite * /{err.status_code}.html
-    file_server
-  }
-}
-
-www.hobl.at, hobl.at {
-    redir https://samuel.hobl.at
 }
 
 stats.thepopupschool.org, stats.samuel.hobl.at {

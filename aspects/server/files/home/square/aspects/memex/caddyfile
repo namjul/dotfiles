@@ -1,4 +1,4 @@
-memex.samho.xyz {
+memex.samho.xyz, samuel.hobl.at {
   handle_path /site-assets* {
     root * {$SQUARE_PATH}/aspects/memex/assets
     try_files {path} {path}
@@ -10,5 +10,14 @@ memex.samho.xyz {
     file_server browse
   }
 
+  handle_path / {
+    rewrite * /personal-website
+  }
+
   reverse_proxy localhost:8088
 }
+
+www.hobl.at, hobl.at {
+    redir https://samuel.hobl.at
+}
+
