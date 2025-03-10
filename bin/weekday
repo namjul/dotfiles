@@ -1,0 +1,5 @@
+#!/bin/bash
+
+set -Eeuo pipefail # https://github.com/guettli/programming-guidelines#shell-scripts-are-ok-if-
+
+date +%V
