@@ -92,6 +92,7 @@ brew install trash-cli # https://github.com/andreafrancia/trash-cli
 brew install openssl
 brew install neovim # Vim-fork focused on extensibility and usability (https://github.com/neovim/neovim)
 brew install sshs # Terminal user interface for SSH (https://github.com/quantumsheep/sshs)
+brew install git-absorb # https://github.com/tummychow/git-absorb
 
 
 # Remove outdated versions from the cellar
