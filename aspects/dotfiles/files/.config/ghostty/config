@@ -1,12 +1,16 @@
 font-family = "JetBrainsMono Nerd Font"
 font-size = 18
 font-feature = -liga
-theme = GruvboxDark
+theme = dark:GruvboxDark,light:GruvboxLight
 window-padding-x = 0
 window-padding-y = 0
+window-padding-balance = true
 window-padding-color = background
-window-padding-balance = false
+# window-padding-balance = false
+# adjust-cell-height = -3
+# adjust-cell-width = -2
 gtk-adwaita = false
+gtk-titlebar = false
 window-decoration = false
-window-theme = dark
-
+# window-theme = system
+# keybind = super+f=write_screen_file:open
