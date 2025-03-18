@@ -5,5 +5,5 @@ ghq = "latest"
 
 [task_config]
 includes = [
-  #"aspects"
+  "aspects/*"
 ]
