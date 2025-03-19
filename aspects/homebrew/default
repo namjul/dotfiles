@@ -93,6 +93,7 @@ brew install openssl
 brew install neovim # Vim-fork focused on extensibility and usability (https://github.com/neovim/neovim)
 brew install sshs # Terminal user interface for SSH (https://github.com/quantumsheep/sshs)
 brew install git-absorb # https://github.com/tummychow/git-absorb
+brew isntall sesh # https://github.com/joshmedeski/sesh
 
 
 # Remove outdated versions from the cellar
