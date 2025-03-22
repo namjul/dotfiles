@@ -65,7 +65,7 @@ function M.sun()
   local tmpfile = '/var/tmp/' .. location .. '.' .. dayOfYear .. '.out'
 
   if not file_exists(tmpfile) then
-    local fetchCmd = 'wget -q -O - "http://api.sunrise-sunset.org/json?lat='
+    local fetchCmd = 'wget --timeout=1 -q -O - "http://api.sunrise-sunset.org/json?lat='
       .. latitude
       .. '&lng='
       .. longtitue
@@ -80,7 +80,7 @@ function M.sun()
     if result ~= '' then
       os.execute('echo "' .. result .. '" > ' .. tmpfile)
     else
-      -- Could not fetch sunrise-sunset data
+      print("Could not fetch sunrise-sunset data")
       return nil
     end
   end
