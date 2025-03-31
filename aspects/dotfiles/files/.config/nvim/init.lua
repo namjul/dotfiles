@@ -119,6 +119,7 @@ local is_bootstrap = require('namjul.bootstrap').bootstrap_paq({
   { 'echasnovski/mini.nvim', branch = 'main' },
   { 'andreshazard/vim-freemarker' },
   { 'subnut/nvim-ghost.nvim' },
+  { 'nvim-tree/nvim-tree.lua', opt = true }
 })
 
 if is_bootstrap then
@@ -413,6 +414,39 @@ require('harpoon'):setup()
 vim.cmd("command! ChatBoT lua require'chatbot'.chatbot()")
 
 require('nvim-ts-autotag').setup()
+
+-- require('nvim-tree').setup({
+--   actions = {
+--     open_file = {
+--       window_picker = { enable = false }
+--     },
+--   },
+--   renderer = {
+--     indent_markers = {
+--       enable = true
+--     },
+--     icons = {
+--       show = {
+--         git = false,
+--         folder = false,
+--         folder_arrow = false,
+--       }
+--     },
+--     special_files = {
+--       enable = false
+--     }
+--   },
+--   git = {
+--     enable = false,
+--   },
+-- })
+-- TODO load lazy
+-- vim.api.nvim_create_autocmd("NvimTree", {
+--    group = vim.api.nvim_create_augroup("nvim-tree"),
+--    pattern = "NvimTree",
+--    command = "packadd! nvim-tree",
+--    desc = "Loads nvim-tree when filetype is NvimTree",
+--  })
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et

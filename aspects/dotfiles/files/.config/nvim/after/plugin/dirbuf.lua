@@ -4,11 +4,9 @@ if not has_dirbuf then
   return
 end
 
-local util = require('namjul.utils')
-
-util.var.g({
-  loaded_netrwPlugin = 1,
-})
+-- disable netrw at the very start of your init.lua
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
 
 require('dirbuf').setup({
   hash_padding = 2,
