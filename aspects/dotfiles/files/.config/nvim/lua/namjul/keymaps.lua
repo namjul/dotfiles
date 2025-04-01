@@ -15,9 +15,8 @@ local harpoon = require('harpoon')
 -- LEADER
 --------------------
 
--- set Space as leader
-var.g({ mapleader = ' ' })
-var.b({ mapleader = ' ' })
+vim.g.mapleader = ' '
+vim.g.maplocalleader = '\\'
 
 map.g('', 'Y', 'y$') -- multi-mode mappings (Normal, Visual, Operating-pending modes).
 
