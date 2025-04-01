@@ -6,8 +6,13 @@
 -- ██║ ╚████║███████╗╚██████╔╝ ╚████╔╝ ██║██║ ╚═╝ ██║    ██║██║ ╚████║██║   ██║
 -- ╚═╝  ╚═══╝╚══════╝ ╚═════╝   ╚═══╝  ╚═╝╚═╝     ╚═╝    ╚═╝╚═╝  ╚═══╝╚═╝   ╚═╝
 
-local util = require('namjul.utils')
-local opt = util.opt
+if vim.loader then
+  vim.loader.enable()
+end
+
+require('namjul')
+
+local util = namjul.utils
 
 ----------------------------------------
 -- Global functions
@@ -35,7 +40,7 @@ vim.g.markdown_composer_open_browser = 0
 -- Plugins
 ----------------------------------------
 
-local is_bootstrap = require('namjul.bootstrap').bootstrap_paq({
+local is_bootstrap = namjul.plugin.bootstrap({
   { 'savq/paq-nvim' },
   { 'tpope/vim-sensible' }, -- sensible defaults
   { 'tpope/vim-repeat' }, -- enables the repeat command to work with external plugins
@@ -126,7 +131,7 @@ if is_bootstrap then
   return
 end
 
-require('namjul.bootstrap').load('shellbot')
+namjul.plugin.load('shellbot')
 
 ----------------------------------------
 -- Options
@@ -216,7 +221,7 @@ vim.opt.switchbuf = 'usetab' -- try to reuse windows/tabs when switching buffers
 vim.opt.synmaxcol = 200 -- don't bother syntax highlighting long lines
 vim.opt.tabstop = 2 -- spaces per tab
 vim.opt.termguicolors = true -- use guifg/guibg instead of ctermfg/ctermbg in terminal
-vim.opt.textwidth = 80 -- automatically hard wrap at 80 columns
+vim.opt.textwidth = 120 -- automatically hard wrap at 80 columns
 vim.opt.wrap = false
 vim.opt.undofile = true -- actually use undo files
 vim.opt.updatetime = 250 -- Decrease update time (CursorHold interval)
