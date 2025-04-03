@@ -16,7 +16,7 @@ require('namjul')
 -- Plugins requiring settings to exist
 ----------------------------------------
 
-vim.g.winresizer_start_key = '<C-T>'
+vim.g.winresizer_start_key = '<S-T>'
 vim.g.VimuxOrientation = 'h'
 vim.g.switch_mapping = ''
 -- vim.g.trailertrash_blacklist = { 'mason' }
@@ -326,21 +326,11 @@ require('fidget').setup()
 require('glow').setup()
 require('oil').setup({
   keymaps = {
-    ['<C-t>'] = false,
-    ['<C-h>'] = false,
-    ['<C-s>'] = { 'actions.select', opts = { vertical = true } },
-    -- ['<C-v>'] = { 'actions.select', opts = { horizontal = true } },
     ['<C-p>'] = 'actions.copy_entry_path',
-    ['~'] = '<cmd>edit $HOME<CR>',
-    -- Mappings can be a function
-    ['gd'] = function()
-      require('oil').set_columns({ 'icon', 'permissions', 'size', 'mtime' })
-    end,
-    -- You can pass additional opts to vim.keymap.set by using
-    -- a table with the mapping as the first element.
+    -- Scope files lookup by current working directory
     ['<leader>ff'] = {
       function()
-        require('telescope.builtin').find_files({
+        namjul.functions.telescope.findFiles({
           cwd = require('oil').get_current_dir(),
         })
       end,
@@ -348,10 +338,6 @@ require('oil').setup({
       nowait = true,
       desc = 'Find files in the current directory',
     },
-    -- Mappings that are a string starting with "actions." will be
-    -- one of the built-in actions, documented below.
-    ['`'] = 'actions.tcd',
-    -- Some actions have parameters. These are passed in via the `opts` key.
     ['<leader>:'] = {
       'actions.open_cmdline',
       opts = {
