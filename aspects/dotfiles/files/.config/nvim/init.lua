@@ -12,20 +12,6 @@ end
 
 require('namjul')
 
-local util = namjul.utils
-
-----------------------------------------
--- Global functions
-----------------------------------------
-
-function _G.alignMdTable()
-  return require('namjul.functions.alignMdTable')()
-end
-
-function _G.P(...)
-  vim.pretty_print(...)
-end
-
 ----------------------------------------
 -- Plugins requiring settings to exist
 ----------------------------------------
@@ -250,7 +236,7 @@ end)
 require('gruvbox').setup()
 vim.cmd('colorscheme gruvbox')
 
-if util.readable(vim.fn.expand('~/.vimrc_background')) then
+if namjul.utils.readable(vim.fn.expand('~/.vimrc_background')) then
   vim.cmd('source ~/.vimrc_background')
 end
 
