@@ -203,11 +203,11 @@ wk.add(
   {
     {
       mode = { "i" },
-      { "!",     desc = "!<C-g>u",                             nowait = false,                remap = false },
-      { ",",     desc = ",<C-g>u",                             nowait = false,                remap = false },
-      { ".",     desc = ".<C-g>u",                             nowait = false,                remap = false },
-      { "<Bar>", "<Bar><Esc>:call v:lua.alignMdTable() <CR>a", desc = "Align markdonw table", nowait = false, remap = false },
-      { "?",     desc = "?<C-g>u",                             nowait = false,                remap = false },
+      { "!",     "!<C-g>u",                             nowait = false,                remap = false },
+      { ",",     ",<C-g>u",                             nowait = false,                remap = false },
+      { ".",     ".<C-g>u",                             nowait = false,                remap = false },
+      { "?",     "?<C-g>u",                             nowait = false,                remap = false },
+      { "<Bar>", "<Bar><Esc>:call v:lua.namjul.functions.alignMdTable() <CR>a", desc = "Align markdown table", nowait = false, remap = false },
       { "jk",    "<Esc>",                                      desc = "Esc Mapping",          nowait = false, remap = false },
     },
   }
