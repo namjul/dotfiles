@@ -13,7 +13,15 @@ local d = luasnip.dynamic_node
 -- local types = require('luasnip.util.types')
 
 luasnip.add_snippets('markdown', {
-  s({ trig = 'td', dscr = 'todo' }, fmt('- [{}]', { i(1, 'value') }))
+  s({ trig = 'code' }, fmt('`{}`', { i(1, 'value') }))
+})
+
+luasnip.add_snippets('markdown', {
+  s({ trig = 'codeblock' }, fmt('```{}\n{}\n```', { i(1, 'value'), i(2, 'value') }))
+})
+
+luasnip.add_snippets('markdown', {
+  s({ trig = 'td' }, fmt('- [{}]', { i(1, 'value') }))
 })
 
 luasnip.add_snippets('markdown', {
