@@ -18,5 +18,27 @@ vim.filetype.add({
         return "javascript"
       end
     end,
+  },
+  extension = {
+    tsx = function(_, bufnr)
+      local has_tsx_filetype = function()
+        return vim.regex('\\v<tsx>'):match_str(vim.bo[bufnr].filetype)
+      end
+
+      if not has_tsx_filetype() then
+        return 'typescript.tsx'
+      end
+      return 'typescript'
+    end,
+    jsx = function(_, bufnr)
+      local has_jsx_filetype = function()
+        return vim.regex('\\v<jsx>'):match_str(vim.bo[bufnr].filetype)
+      end
+
+      if not has_jsx_filetype() then
+        return 'javascript.jsx'
+      end
+      return 'javascript'
+    end
   }
 })

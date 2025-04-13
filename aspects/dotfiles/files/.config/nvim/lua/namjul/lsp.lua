@@ -88,7 +88,7 @@ lsp.init = function()
           },
         },
       },
-      filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx", "vue" }
+      filetypes = { "javascript", "javascript.jsx", "typescript", "typescript.tsx", "vue" }
     },
     -- marksman = {},
     lua_ls = {
