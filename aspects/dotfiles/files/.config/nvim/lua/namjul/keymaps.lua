@@ -51,6 +51,7 @@ wk.add({
   { "S",         "<Plug>(leap-backward-to)",                                        desc = "Leap backward to",                                                             nowait = false, remap = false },
   { "s",         "<Plug>(leap-forward-to)",                                         desc = "Leap forward to",                                                              nowait = false, remap = false },
   { "gs",        "<Plug>(leap-cross-window)",                                       desc = "Leap cross window",                                                            nowait = false, remap = false },
+  { "gp",        ":lua MiniDiff.toggle_overlay()<CR>",                              desc = "Toggle git hunks preview",                                                            nowait = false, remap = false },
   { "gx",        ":!open <cWORD><CR>",                                              desc = "open url",                                                                     nowait = false, remap = false },
   { "j",         "(v:count > 5 ? \"m\\'\" . v:count : \"\") . \"j\"",               desc = "store relative line number jumps in the jumplist if they exceed a threshold.", expr = true,    nowait = false, remap = false, replace_keycodes = false },
   { "k",         "(v:count > 5 ? \"m\\'\" . v:count : \"\") . \"k\"",               desc = "store relative line number jumps in the jumplist if they exceed a threshold.", expr = true,    nowait = false, remap = false, replace_keycodes = false },

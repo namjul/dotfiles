@@ -371,7 +371,11 @@ require('conform').setup({
     typescript = { { 'prettierd', 'prettier' } },
   },
 })
-require('mini.diff').setup()
+require('mini.diff').setup({
+  view = {
+    style = 'sign',
+  }
+})
 require('mini.surround').setup({
   mappings = {
     add = 'sa', -- Add surrounding in Normal and Visual modes
