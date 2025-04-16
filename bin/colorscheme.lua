@@ -1,5 +1,11 @@
 #!/usr/bin/env lua
 
+-- setup Vienna coordinates
+-- from https://www.latlong.net/
+local latitude = '48.208176'
+local longtitue = '16.373819'
+local timezoneid = 'Europe/Vienna'
+
 local M = {}
 
 -- parts from https://linuxconfig.org/how-to-obtain-sunrise-sunset-time-for-any-location-from-linux-command-line
@@ -23,6 +29,8 @@ function M.set(theme, alacritty_colorscheme)
     os.execute('gsettings set org.gnome.desktop.interface color-scheme prefer-' .. theme)
     os.execute("echo 'set background=" .. theme .. "' >~/.vimrc_background")
     os.execute('alacritty msg config "$(cat ~/.config/alacritty/themes/' .. alacritty_colorscheme .. '_' .. theme .. '.toml)"')
+    -- os.execute('pkill redshift')
+    -- os.execute('redshift -l ' .. latitude .. ':' .. longtitue .. ' -t 5700:3600 -g 0.8 -m randr &')
   else
     error('theme does not exist.')
   end
@@ -53,11 +61,6 @@ end
 
 -- requires: wget, jq
 function M.sun()
-  -- setup Vienna coordinates
-  -- from https://www.latlong.net/
-  local latitude = '48.208176'
-  local longtitue = '16.373819'
-  local timezoneid = 'Europe/Vienna'
 
   local location = latitude .. '-' .. longtitue
   local dayOfYear = os.date('%j')
