@@ -1,8 +1,4 @@
-vim.bo.textwidth = 0
-vim.wo.list = false
-vim.wo.number = false
-vim.wo.relativenumber = false
-vim.wo.showbreak = 'NONE'
+namjul.functions.plaintext()
 
 local has_shellbot = require('chatbot')
 if has_shellbot then
