@@ -1,7 +1,10 @@
 local has_shellbot = pcall(require, 'chatbot')
 
 if not has_shellbot then
-  return
+ local print_error = function()
+    vim.notify('error: SHELLBOT does not appear to be executable', vim.log.levels.ERROR)
+  end
+  vim.api.nvim_create_user_command('ChatGPT', print_error, {})
 end
 
 -- Set up an autocmd to stop me from accidentally quitting vim when shellbot is
