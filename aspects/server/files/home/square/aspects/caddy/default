@@ -11,6 +11,7 @@ if ! [ -x "$(command -v caddy)" ]; then
   ghq get https://github.com/caddyserver/caddy.git
   cd $SQUARE_PATH/data/share/ghq/github.com/caddyserver/caddy
 
+  # TODO add https://caddyserver.com/docs/modules/crowdsec
   go install github.com/caddyserver/xcaddy/cmd/xcaddy@latest
   xcaddy build
   mkdir -p ${root}/bin
