@@ -392,8 +392,6 @@ require('mini.surround').setup({
 
 require('harpoon'):setup()
 
-vim.cmd("command! ChatBoT lua require'chatbot'.chatbot()")
-
 require('nvim-ts-autotag').setup()
 
 namjul.plugin.lazy('nvim-tree.lua', {
