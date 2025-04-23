@@ -46,8 +46,6 @@ wk.add({
   { "J",         "mzJ`z",                                                           desc = "Join lines",                                                                   nowait = false, remap = false },
   { "N",         "Nzzzv",                                                           desc = "Search Previous",                                                              nowait = false, remap = false },
   { "Q",         "",                                                                desc = "avoid unintentional switches to Ex mode.",                                     nowait = false, remap = false },
-  { "[d",        function() vim.diagnostic.goto_prev({ enable_popup = false }) end, desc = "LSP Diagnostic Previous",                                                      nowait = false, remap = false },
-  { "]d",        function() vim.diagnostic.goto_next({ enable_popup = false }) end, desc = "LSP Diagnostic Next",                                                          nowait = false, remap = false },
   { "S",         "<Plug>(leap-backward-to)",                                        desc = "Leap backward to",                                                             nowait = false, remap = false },
   { "s",         "<Plug>(leap-forward-to)",                                         desc = "Leap forward to",                                                              nowait = false, remap = false },
   { "gs",        "<Plug>(leap-cross-window)",                                       desc = "Leap cross window",                                                            nowait = false, remap = false },
@@ -114,7 +112,6 @@ wk.add(
   { "<leader>c", ":lua require('telescope.builtin').commands(require('telescope.themes').get_ivy({}))<CR>", desc = "Find Command", nowait = false, remap = false },
   { "<leader>dp", function() return require('debugprint').debugprint() end, desc = "DebugPrint", expr = true, nowait = false, remap = false, replace_keycodes = false },
   { "<leader>dv", function() return require('debugprint').debugprint({ variable = true }) end, desc = "DebugPrint", expr = true, nowait = false, remap = false, replace_keycodes = false },
-  { "<leader>e", function() vim.diagnostic.open_float() end, desc = "LSP open diagnostic", nowait = false, remap = false },
   { "<leader>f", group = "find", nowait = false, remap = false },
   { "<leader>fb", ":lua require('telescope.builtin').buffers(require('telescope.themes').get_ivy({}))<CR>", desc = "Find Buffer", nowait = false, remap = false },
   { "<leader>fc", ":lua require('namjul.functions.telescope').find_most_wanted()<CR>", desc = "Find Most Wanted Folders", nowait = false, remap = false },
@@ -133,7 +130,6 @@ wk.add(
   { "<leader>k", function() harpoon:list():select(2) end, desc = "Harpoon: Goto(2)", nowait = false, remap = false },
   { "<leader>l", function() harpoon:list():select(3) end, desc = "Harpoon: Goto(3)", nowait = false, remap = false },
   { "<leader>ö", function() harpoon:list():select(4) end, desc = "Harpoon: Goto(4)", nowait = false, remap = false },
-  { "<leader>i", function() vim.diagnostic.setloclist() end, desc = "LSP open locallist", nowait = false, remap = false },
   { "<leader>m", ":MaximizerToggle<CR>", desc = "Maximize window", nowait = false, remap = false },
   { "<leader>n", ":nohlsearch<CR>", desc = "Clear search highlight", nowait = false, remap = false },
   { "<leader>o", ":only<CR>", desc = "Close all windows but active one", nowait = false, remap = false },
@@ -235,17 +231,25 @@ vim.api.nvim_create_autocmd('User', {
         desc = 'LSP: ' .. desc
       end
 
-      vim.keymap.set('n', keys, func, { buffer = bufnr, desc = desc })
+      vim.keymap.set('n', keys, func, { buffer = bufnr, desc = desc, nowait = false, remap = false })
     end
 
+    local telescope = require('namjul.functions.telescope')
+
+    nmap('[d', function() vim.diagnostic.goto_prev({ enable_popup = false }) end, "Diagnostic Previous")
+    nmap(']d', function() vim.diagnostic.goto_next({ enable_popup = false }) end, "Diagnostic Previous")
+    nmap('ca', vim.lsp.buf.code_action, '[C]ode [A]ction') -- conflicts with <leader>c
+
+    nmap('<leader>e', function() vim.diagnostic.open_float() end, "LSP open diagnostic")
+    nmap('<leader>i', function() vim.diagnostic.setloclist() end, "LSP open locallist")
+
     nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
-    -- nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction') -- conflicts with <leader>c
 
     nmap('gd', function()
-      require('namjul.functions.telescope').findLspDefinitions()
+      telescope.findLspDefinitions()
     end, '[G]oto [D]efinition')
     nmap('gr', function()
-      require('namjul.functions.telescope').findLspReferences()
+      telescope.findLspReferences()
     end, '[G]oto [R]eferences')
     -- nmap('gr', vim.lsp.buf.references, '[G]oto [R]eferences')
     nmap('gI', vim.lsp.buf.implementation, '[G]oto [I]mplementation')
@@ -263,7 +267,7 @@ vim.api.nvim_create_autocmd('User', {
       end
       vim.lsp.buf.hover()
     end, 'Hover Documentation')
-    nmap('KK', vim.lsp.buf.signature_help, 'Signature Documentation')
+    -- nmap('KK', vim.lsp.buf.signature_help, 'Signature Documentation')
 
     -- Create a command `:Format` local to the LSP buffer
     vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
