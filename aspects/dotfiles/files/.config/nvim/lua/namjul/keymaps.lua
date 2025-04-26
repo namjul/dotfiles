@@ -122,7 +122,7 @@ wk.add(
   { "<leader>fh", ":lua require('telescope.builtin').help_tags(require('telescope.themes').get_ivy({}))<CR>", desc = "Find Help", nowait = false, remap = false },
   { "<leader>fr", ":lua require('namjul.functions.telescope').find_recent()<CR>", desc = "Find Recent Files", nowait = false, remap = false },
   { "<leader>gl", ":Gclog<CR>", desc = "Open Git log", nowait = false, remap = false },
-  { "<leader>gbl", ":Gclog -- %<CR>", desc = "Open Git log", nowait = false, remap = false },
+  { "<leader>gbl", ":Gclog -- %<CR>", desc = "Open Buffer Git log", nowait = false, remap = false },
   { "<leader>h", group = "harpoon", nowait = false, remap = false },
   { "<leader>ha", function() harpoon:list():add() end, desc = "Add file to harpoon", nowait = false, remap = false },
   { "<leader>hl", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end, desc = "Toggle harpoon menu", nowait = false, remap = false },
