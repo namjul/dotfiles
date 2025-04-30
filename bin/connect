@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+
+# https://github.com/guettli/bash-strict-mode
+trap 'echo "Warning: A command has failed. Exiting the script. Line was ($0:$LINENO): $(sed -n "${LINENO}p" "$0")"; exit 3' ERR
+set -Eeuo pipefail
+
+# Usage: ./connect_bluetooth.sh --target ear|speaker
+
+DEVICE_EAR="08:DF:1F:B7:A2:EB"
+DEVICE_SPEAKER="2C:BA:CA:01:0E:7B"
+
+if [[ "$1" == "--target" ]]; then
+    case "$2" in
+        ear)
+            DEVICE="$DEVICE_EAR"
+            ;;
+        speaker)
+            DEVICE="$DEVICE_SPEAKER"
+            ;;
+        *)
+            echo "Invalid target. Use 'ear' or 'speaker'."
+            exit 1
+            ;;
+    esac
+
+    # Connect to the Bluetooth device
+    echo -e "connect $DEVICE\nexit" | bluetoothctl
+else
+    echo "Usage: $0 --target ear|speaker"
+    exit 1
+fi
