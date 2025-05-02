@@ -1,5 +1,6 @@
-
 [Default Applications]
 application/pdf=org.pwmt.zathura.desktop
 x-scheme-handler/mailto=google-chrome.desktop
 x-scheme-handler/webcal=google-chrome.desktop
+x-scheme-handler/pear=pear.desktop
+text/plain=org.gnome.TextEditor.desktop
