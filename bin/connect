@@ -6,8 +6,8 @@ set -Eeuo pipefail
 
 # Usage: ./connect_bluetooth.sh --target ear|speaker
 
-DEVICE_EAR="08:DF:1F:B7:A2:EB"
-DEVICE_SPEAKER="2C:BA:CA:01:0E:7B"
+DEVICE_SPEAKER="08:DF:1F:B7:A2:EB"
+DEVICE_EAR="2C:BA:CA:01:0E:7B"
 
 if [[ "$1" == "--target" ]]; then
     case "$2" in
