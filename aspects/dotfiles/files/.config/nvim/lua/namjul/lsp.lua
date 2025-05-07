@@ -142,9 +142,7 @@ lsp.init = function()
 
   --- formating and diagnostics ---
   local has_null_ls, null_ls = pcall(require, 'null-ls')
-    print("hier outside", has_null_ls)
   if has_null_ls then
-    print("hier inside")
     null_ls.setup({
       diagnostics_format = '[#{c}] #{m} (#{s})',
       sources = {
