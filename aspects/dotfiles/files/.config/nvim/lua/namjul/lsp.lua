@@ -141,14 +141,16 @@ lsp.init = function()
   end
 
   --- formating and diagnostics ---
-  local has_none_ls, none_ls = pcall(require, 'none-ls')
-  if has_none_ls then
-    none_ls.setup({
+  local has_null_ls, null_ls = pcall(require, 'null-ls')
+    print("hier outside", has_null_ls)
+  if has_null_ls then
+    print("hier inside")
+    null_ls.setup({
       diagnostics_format = '[#{c}] #{m} (#{s})',
       sources = {
         -- TODO load when available
-        require('none-ls').builtins.formatting.stylua,
-        require('none-ls').diagnostics.eslint_d,
+        null_ls.builtins.formatting.stylua,
+        require("none-ls.diagnostics.eslint_d")
       },
     })
   end
