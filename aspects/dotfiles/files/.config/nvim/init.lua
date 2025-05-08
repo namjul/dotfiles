@@ -110,7 +110,8 @@ local is_bootstrap = namjul.plugin.bootstrap({
   { 'echasnovski/mini.nvim', branch = 'main' },
   { 'andreshazard/vim-freemarker' },
   { 'subnut/nvim-ghost.nvim' },
-  { 'nvim-tree/nvim-tree.lua', opt = true }
+  { 'nvim-tree/nvim-tree.lua', opt = true },
+  { 'yousefakbar/notmuch.nvim' }
 })
 
 if is_bootstrap then
@@ -431,6 +432,10 @@ namjul.plugin.lazy('nvim-tree.lua', {
     { 'n', '<LocalLeader>f', ':NvimTreeFindFile<CR>', { silent = true } },
     { 'n', '<LocalLeader>t', ':NvimTreeToggle<CR>', { silent = true } },
   },
+})
+
+require('notmuch').setup({
+  notmuch_db_path = "/home/hobl/.mail"
 })
 
 -- The line beneath this is called `modeline`. See `:help modeline`

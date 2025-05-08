@@ -95,6 +95,7 @@ brew install sshs # Terminal user interface for SSH (https://github.com/quantums
 brew install git-absorb # https://github.com/tummychow/git-absorb
 brew isntall sesh # https://github.com/joshmedeski/sesh
 brew install gopass # https://github.com/gopasspw/gopass
+brew install notmuch # https://notmuchmail.org
 
 
 # Remove outdated versions from the cellar

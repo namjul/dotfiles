@@ -1,0 +1,4 @@
+#!/bin/sh
+
+# Add the tag 'newsletters' to emails containing unsubscribe-related text
+notmuch tag +newsletters '(body:unsubscribe OR body:"manage preferences" OR body:"manage your subscription" OR body:abmelden)'
