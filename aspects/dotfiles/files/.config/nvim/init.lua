@@ -80,7 +80,7 @@ local is_bootstrap = namjul.plugin.bootstrap({
   { 'szw/vim-maximizer' },
   { 'airblade/vim-rooter' },
   { 'williamboman/mason.nvim' },
-  { 'williamboman/mason-lspconfig.nvim' },
+  { 'williamboman/mason-lspconfig.nvim', branch = 'v1.32.0' },
   { 'neovim/nvim-lspconfig' },
   { 'stevearc/conform.nvim', branch = 'nvim-0.9' },
   { 'nvimtools/none-ls.nvim' },
