@@ -118,7 +118,7 @@ wk.add(
   { "<leader>fl", ":lua require('namjul.functions.telescope').memex()<CR>",          desc = "Search in Memex",                                                                nowait = false, remap = false },
   { "<leader>fd", ":lua require('namjul.functions.telescope').search_dotfiles()<CR>", desc = "Search dotfiles", nowait = false, remap = false },
   { "<leader>fgb", ":lua require('telescope.builtin').git_branches(require('telescope.themes').get_ivy({}))<CR>", desc = "Find branch", nowait = false, remap = false },
-  { "<leader>fgc", ":lua require('telescope.builtin').git_commits(require('telescope.themes').get_ivy({}))<CR>", desc = "Find buffer commits", nowait = false, remap = false },
+  { "<leader>fgc", ":lua require('telescope.builtin').git_bcommits(require('telescope.themes').get_ivy({}))<CR>", desc = "Find buffer commits", nowait = false, remap = false },
   { "<leader>fh", ":lua require('telescope.builtin').help_tags(require('telescope.themes').get_ivy({}))<CR>", desc = "Find Help", nowait = false, remap = false },
   { "<leader>fr", ":lua require('namjul.functions.telescope').find_recent()<CR>", desc = "Find Recent Files", nowait = false, remap = false },
   { "<leader>gl", ":Gclog<CR>", desc = "Open Git log", nowait = false, remap = false },
