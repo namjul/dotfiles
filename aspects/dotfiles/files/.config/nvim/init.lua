@@ -111,7 +111,8 @@ local is_bootstrap = namjul.plugin.bootstrap({
   { 'andreshazard/vim-freemarker' },
   { 'subnut/nvim-ghost.nvim' },
   { 'nvim-tree/nvim-tree.lua', opt = true },
-  { 'yousefakbar/notmuch.nvim' }
+  { 'yousefakbar/notmuch.nvim', opt = true },
+  { 'mbbill/undotree', opt = true }
 })
 
 if is_bootstrap then
@@ -434,8 +435,27 @@ namjul.plugin.lazy('nvim-tree.lua', {
   },
 })
 
-require('notmuch').setup({
-  notmuch_db_path = "/home/hobl/.mail"
+namjul.plugin.lazy('notmuch', {
+  afterload = function()
+    require('notmuch').setup({
+      notmuch_db_path = "/home/hobl/.mail"
+    })
+  end,
+  commands = {
+    'Notmuch',
+  }
+})
+
+namjul.plugin.lazy('undotree', {
+  beforeload = function()
+    vim.g.undotree_HighlightChangedText = 0
+    vim.g.undotree_SetFocusWhenToggle = 1
+    vim.g.undotree_WindowLayout = 2
+    vim.g.undotree_DiffCommand = 'diff -u'
+  end,
+  keymap = {
+      { 'n', '<Leader>u', ':UndotreeToggle<CR>', { silent = true } },
+    },
 })
 
 -- The line beneath this is called `modeline`. See `:help modeline`
