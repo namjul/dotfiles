@@ -323,7 +323,6 @@ require('pastify').setup({
   },
 })
 
-require('overseer').setup()
 require('fidget').setup()
 require('glow').setup()
 require('oil').setup({
@@ -444,6 +443,18 @@ namjul.plugin.lazy('notmuch', {
   commands = {
     'Notmuch',
   }
+})
+
+namjul.plugin.lazy('overseer', {
+  afterload = function()
+    require('overseer').setup()
+  end,
+  commands = {
+    'Notmuch',
+  },
+  keymap = {
+    { 'n', '<Leader>t', ':OverseerOpen<CR>', { silent = true } },
+  },
 })
 
 namjul.plugin.lazy('undotree', {
