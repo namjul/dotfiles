@@ -450,7 +450,9 @@ namjul.plugin.lazy('overseer', {
     require('overseer').setup()
   end,
   commands = {
-    'Notmuch',
+    'OverseerRun',
+    'OverseerOpen',
+    'OverseerToggle',
   },
   keymap = {
     { 'n', '<Leader>t', ':OverseerOpen<CR>', { silent = true } },
