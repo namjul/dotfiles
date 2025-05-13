@@ -455,7 +455,7 @@ namjul.plugin.lazy('overseer', {
     'OverseerToggle',
   },
   keymap = {
-    { 'n', '<Leader>t', ':OverseerOpen<CR>', { silent = true } },
+    { 'n', '<Leader>t', ':OverseerToggle<CR>', { silent = true } },
   },
 })
 
