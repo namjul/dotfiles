@@ -19,7 +19,7 @@ function fish_user_key_bindings
   bind --mode insert \co 'fdo'
 
   # lf file manager
-  bind \eo 'set old_tty (stty -g); stty sane; lfcd; stty $old_tty; commandline -f repaint'
-  bind --mode insert \eo 'set old_tty (stty -g); stty sane; lfcd; stty $old_tty; commandline -f repaint'
+  bind \eo 'set old_tty (stty -g); stty sane; yazicd; stty $old_tty; commandline -f repaint'
+  bind --mode insert \eo 'set old_tty (stty -g); stty sane; yazicd; stty $old_tty; commandline -f repaint'
 
 end
