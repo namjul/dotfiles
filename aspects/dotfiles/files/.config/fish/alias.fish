@@ -31,7 +31,8 @@ abbr x exit
 
 # git
 abbr g 'git'
-abbr grn 'git rebase -i HEAD~' # git interactive rebase to n
+abbr --command git grn 'git rebase -i HEAD~' # git interactive rebase to n
+abbr --command git co checkout
 
 # translation
 abbr en 'trans :en'
@@ -54,11 +55,6 @@ abbr tws timew summary :annotation :ids :week
 
 # todo
 abbr t todo
-abbr ts 'toggl start'
-abbr tp 'toggl stop'
-abbr tc 'toggl continue'
-abbr tn 'toggl now'
-abbr tsm 'toggl sum'
 
 # tmux
 abbr tb "tmux new -s (pwd | sed 's/.*\///g')" # begin tmux session
