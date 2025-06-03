@@ -65,10 +65,11 @@ if status is-interactive
 
 end
 
-# do not track `tomb` commands
-# Source: https://github.com/fish-shell/fish-shell/issues/2788
-function ignorehistory --on-event fish_prompt
-    history --delete --prefix tomb
+function fish_should_add_to_history
+    for cmd in tomb ls
+         string match -qr "^$cmd" -- $argv; and return 1
+    end
+    return 0
 end
 
 # function load_gitconfig_profile --on-variable PWD --description 'Load git config profile'
