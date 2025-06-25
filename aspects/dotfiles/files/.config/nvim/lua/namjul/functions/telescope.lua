@@ -51,6 +51,7 @@ function M.findLspReferences(args)
   local opts = {
     prompt_title = 'LSP References',
     previewer = true,
+    show_line = false,
   }
   for k, v in pairs(args) do
     opts[k] = v
