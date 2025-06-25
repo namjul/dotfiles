@@ -66,7 +66,7 @@ if status is-interactive
 end
 
 function fish_should_add_to_history
-    for cmd in tomb ls
+    for cmd in tomb
          string match -qr "^$cmd" -- $argv; and return 1
     end
     return 0
