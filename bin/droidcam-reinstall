@@ -1,8 +1,8 @@
 #!/usr/bin/env fish
 
 cd /tmp/
-wget -O droidcam_latest.zip https://files.dev47apps.net/linux/droidcam_2.0.0.zip
-# sha1sum: 3f94d6ec57a191ad146392fcf094b205e375e1ef
+wget -O droidcam_latest.zip https://files.dev47apps.net/linux/droidcam_2.1.4.zip
+# sha1sum: 6a24c08a99534a71a0b32816269e51e66e763582
 unzip droidcam_latest.zip -d droidcam
 cd droidcam && sudo ./install-client
 sudo apt install linux-headers-(uname -r) gcc make
