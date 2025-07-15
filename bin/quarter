@@ -1,0 +1,6 @@
+#!/bin/bash
+
+set -Eeuo pipefail # https://github.com/guettli/programming-guidelines#shell-scripts-are-ok-if-
+
+quarter=$((($(date +%-m) - 1) / 3 + 1))
+echo $quarter
