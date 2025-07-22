@@ -2,5 +2,5 @@
 
 set -e
 
-mdsrv --dir "$SITE_PATH/repo" --addr ":8088" --tmpl ${root}/document.tmpl --assets ${SITE_PATH}/repo/assets/
-
+cd $SQUARE_PATH/data/share/ghq/github.com/namjul/rhizomi
+bun run src/main.tsx --dir "$SITE_PATH/repo"

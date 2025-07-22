@@ -5,7 +5,7 @@ _.path = [
 ]
 
 [tools]
-go = "1.22"
+bun = "1.2.4"
 python = "3.11"
 
 [tasks.default]
