@@ -47,7 +47,7 @@ local is_bootstrap = namjul.plugin.bootstrap({
   { 'nvim-telescope/telescope-live-grep-args.nvim' },
   { 'ThePrimeagen/harpoon', branch = 'harpoon2' }, -- navigation helper
   { 'TobinPalmer/pastify.nvim' },
-  { 'euclio/vim-markdown-composer' },
+  { 'euclio/vim-markdown-composer', build = 'cargo build --release'  },
   { 'preservim/vimux' }, -- allows to send commands from vim to tmux
   { 'tyewang/vimux-jest-test' }, -- simplifies running jest test from vim
   { 'jeffkreeftmeijer/vim-numbertoggle' }, -- improves the display of line numbers
