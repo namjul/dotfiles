@@ -2,7 +2,7 @@
 [tools]
 deno = "1.5.0"
 golang = "1.20"
-node = "20.5.1"
+node = "22.16.0"
 lua = "latest"
 python = "3.11"
 bun = "latest"
