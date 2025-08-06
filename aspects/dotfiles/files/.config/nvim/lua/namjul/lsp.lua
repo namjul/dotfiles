@@ -74,23 +74,17 @@ lsp.init = function()
   end
 
   local mason_packages = vim.fn.stdpath("data") .. "/mason/packages"
-  local volar_path = mason_packages .. "/vue-language-server/node_modules/@vue/language-server"
+  local vue_language_server_path = mason_packages .. "/vue-language-server/node_modules/@vue/language-server"
+
+  local vue_plugin = {
+    name = '@vue/typescript-plugin',
+    location = vue_language_server_path,
+    languages = { 'vue' },
+    configNamespace = 'typescript',
+  }
+
   local servers = {
     rust_analyzer = {},
-    ts_ls = {
-      -- single_file_support = false,
-      init_options = {
-        plugins = {
-          {
-            name = "@vue/typescript-plugin",
-            location = volar_path,
-            languages = { "vue" },
-          },
-        },
-      },
-      filetypes = { "javascript", "javascript.jsx", "typescript", "typescript.tsx", "vue" }
-    },
-    -- marksman = {},
     lua_ls = {
       settings = {
         Lua = {
@@ -103,20 +97,41 @@ lsp.init = function()
         }
       }
     },
-    volar = {},
+    vtsls = {
+      settings = {
+        vtsls = {
+          tsserver = {
+            globalPlugins = {
+              vue_plugin,
+            },
+          },
+        },
+      },
+      filetypes = { "javascript", "javascript.jsx", "typescript", "typescript.tsx", "vue" }
+    },
+    vue_ls = {},
   }
 
+  local ensure_installed = vim.tbl_keys(servers or {})
+
   local has_mason, mason = pcall(require, 'mason')
-  local has_mason_lspconfig, mason_lspconfig = pcall(require, 'mason-lspconfig')
-  if has_mason and has_mason_lspconfig then
+  if has_mason then
     mason.setup()
-    mason_lspconfig.setup({
-      ensure_installed = vim.tbl_keys(servers),
-    })
+  end
+
+  local has_mason_tool_installer, mason_tool_installer = pcall(require, 'mason-tool-installer')
+  if has_mason_tool_installer then
+    mason_tool_installer.setup { ensure_installed = ensure_installed }
   end
 
   local has_lspconfig, lspconfig = pcall(require, 'lspconfig')
-  if has_mason_lspconfig and has_lspconfig then
+  local has_mason_lspconfig, mason_lspconfig = pcall(require, 'mason-lspconfig')
+  if has_mason and has_mason_lspconfig and has_lspconfig then
+
+    mason_lspconfig.setup({
+      ensure_installed = {}, -- explicitly set to an empty table (populated installs via mason-tool-installer)
+      automatic_enable = true
+    })
 
     local lsp_defaults = {
       flags = {
@@ -130,13 +145,10 @@ lsp.init = function()
     -- merge with lspconfig defaults
     lspconfig.util.default_config = vim.tbl_deep_extend('force', lspconfig.util.default_config, lsp_defaults)
 
-    mason_lspconfig.setup_handlers({
-      function(server_name)
-        local opts = servers[server_name] or {}
-        opts.capabilities = vim.tbl_deep_extend('force', {}, capabilities, opts.capabilities or {})
-        lspconfig[server_name].setup(opts)
-      end,
-    })
+    for server_name, server_config in pairs(servers) do
+      server_config.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server_config.capabilities or {})
+      require('lspconfig')[server_name].setup(server_config)
+    end
 
   end
 
