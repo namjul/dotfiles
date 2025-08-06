@@ -8,6 +8,14 @@ local signs = {
   UNKNOWN = '•',
 }
 
+
+vim.api.nvim_create_autocmd('LspAttach', {
+  callback = function(args)
+    local bufnr = args.buf
+    vim.api.nvim_exec_autocmds('User', { pattern = 'LspAttached', data = { bufnr = bufnr } })
+  end,
+})
+
 lsp.init = function()
 
   local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -93,6 +101,10 @@ lsp.init = function()
 
   local servers = {
     rust_analyzer = {},
+    ts_ls = {
+      -- single_file_support = false,
+     filetypes = { "javascript", "javascript.jsx", "typescript", "typescript.tsx" }
+    },
     lua_ls = {
       settings = {
         Lua = {
@@ -100,7 +112,7 @@ lsp.init = function()
             enable = true,
             globals = { 'vim' },
           },
-          workspace = { checkThirdParty = false },
+          workspace = { checkthirdparty = false },
           telemetry = { enable = false },
         }
       }
@@ -141,23 +153,12 @@ lsp.init = function()
       automatic_enable = false
     })
 
-    local lsp_defaults = {
-      flags = {
-        debounce_text_changes = 250,
-      },
-      on_attach = function(_, bufnr)
-        vim.api.nvim_exec_autocmds('User', { pattern = 'LspAttached', data = { bufnr = bufnr } })
-      end,
-    }
-
-    -- merge with lspconfig defaults
-    lspconfig.util.default_config = vim.tbl_deep_extend('force', lspconfig.util.default_config, lsp_defaults)
-
     for server_name, server_config in pairs(servers) do
       server_config.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server_config.capabilities or {})
-      require('lspconfig')[server_name].setup(server_config)
+      vim.lsp.config(server_name, server_config)
     end
 
+    vim.lsp.enable({ 'vue_ls', 'vtsls', 'lua_ls', 'ts_ls' }) -- TODO loop-over
   end
 
   --- formating and diagnostics ---
