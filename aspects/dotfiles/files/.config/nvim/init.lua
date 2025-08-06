@@ -89,12 +89,7 @@ local is_bootstrap = namjul.plugin.bootstrap({
   { 'j-hui/fidget.nvim', branch = 'legacy' }, -- Standalone UI for nvim-lsp progress
   { 'folke/neodev.nvim' },
   { 'AndrewRadev/switch.vim' }, -- fast boolean switch
-  { 'hrsh7th/nvim-cmp' },
-  { 'hrsh7th/cmp-nvim-lsp' },
-  { 'hrsh7th/cmp-path' },
-  { 'hrsh7th/cmp-buffer' },
-  { 'hrsh7th/cmp-calc' },
-  { 'saadparwaiz1/cmp_luasnip' }, -- nvim-cmp source for Luasnip
+  { 'saghen/blink.cmp', branch = 'v1.6.0' },
   { 'folke/which-key.nvim' },
   { 'abecodes/tabout.nvim' }, -- tabbing out from parentheses, quotes, and similar contexts today.
   -- { 'rest-nvim/rest.nvim' }, -- http client in neovim
@@ -395,6 +390,8 @@ require('mini.surround').setup({
 require('harpoon'):setup()
 
 require('nvim-ts-autotag').setup()
+
+require('blink.cmp').setup()
 
 namjul.plugin.lazy('nvim-tree.lua', {
   afterload = function()

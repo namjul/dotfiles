@@ -12,9 +12,17 @@ lsp.init = function()
 
   local capabilities = vim.lsp.protocol.make_client_capabilities()
 
-  local has_cmp_nvim_lsp, cmp_nvim_lsp = pcall(require, 'cmp_nvim_lsp')
-  if has_cmp_nvim_lsp then
-    capabilities = cmp_nvim_lsp.default_capabilities(capabilities)
+  local has_blink = pcall(require, 'blink.cmp')
+  if has_blink then
+    capabilities = vim.tbl_deep_extend('force', capabilities, require('blink.cmp').get_lsp_capabilities({}, false))
+    capabilities = vim.tbl_deep_extend('force', capabilities, {
+      textDocument = {
+        foldingRange = {
+          dynamicRegistration = false,
+          lineFoldingOnly = true
+        }
+      }
+    })
   end
 
   vim.diagnostic.config({
