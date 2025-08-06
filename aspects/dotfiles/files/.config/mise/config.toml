@@ -11,4 +11,4 @@ zig = "latest"
 usage = "latest"
 
 [settings]
-experimental = true
+experimental = false
