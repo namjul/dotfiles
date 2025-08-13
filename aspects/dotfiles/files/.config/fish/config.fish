@@ -44,7 +44,7 @@ if status is-interactive
   end
 
   # Tmux
-   if command -v tmux > /dev/null 2>&1
+   if test "$TERM" != "xterm-ghostty" && command -v tmux > /dev/null 2>&1
       test -z $TMUX && tmux new-session;
    end
 
