@@ -8,11 +8,15 @@ theme = dark:GruvboxDark,light:GruvboxLight
 
 # Window Settings
 gtk-titlebar = false
+window-padding-balance = true
 window-padding-x = 10
 window-padding-y = 10
 window-decoration = server
 window-save-state = always
 window-theme = system
+unfocused-split-opacity = 0.7
+link-url = true
+resize-overlay = never
 
 # Other Settings
 confirm-close-surface = false
@@ -24,10 +28,10 @@ keybind = ctrl+space>j=goto_split:down
 keybind = ctrl+space>k=goto_split:up
 keybind = ctrl+space>l=goto_split:right
 
-keybind = ctrl+space>shift+h=resize_split:left,100
-keybind = ctrl+space>shift+j=resize_split:down,100
-keybind = ctrl+space>shift+k=resize_split:up,100
-keybind = ctrl+space>shift+l=resize_split:right,100
+keybind = ctrl+r>h=resize_split:left,200
+keybind = ctrl+r>j=resize_split:down,200
+keybind = ctrl+r>k=resize_split:up,200
+keybind = ctrl+r>l=resize_split:right,200
 
 keybind = ctrl+[=scroll_page_fractional:-0.5
 keybind = ctrl+]=scroll_page_fractional:+0.5
@@ -42,5 +46,6 @@ keybind = ctrl+space>n=next_tab
 keybind = ctrl+space>p=previous_tab
 
 keybind = ctrl+space>x=close_surface
-keybind = ctrl+e=write_screen_file:paste
+keybind = ctrl+space>r=reset
+keybind = ctrl+space>e=write_screen_file:paste
 keybind = super+r=reload_config
