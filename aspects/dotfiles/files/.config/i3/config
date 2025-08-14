@@ -84,6 +84,10 @@ exec --no-startup-id xrandr --output DP1 --auto --left-of eDP1
 
 exec --no-startup-id notify-battery -n
 
+# Start xdg-desktop-portal: provides a standard interface for apps (like Ghostty) to access
+# system features such as file dialogs, notifications, and theme changes in a desktop-independent way
+exec --no-startup-id $portal_env /usr/libexec/xdg-desktop-portal
+
 # move focused workspace between monitors
 bindsym $mod+Ctrl+Up move workspace to output up
 bindsym $mod+Ctrl+Down move workspace to output down

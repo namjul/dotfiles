@@ -43,17 +43,17 @@ if status is-interactive
     set --universal fzf_fish_custom_keybindings
   end
 
-  # Tmux
-   if test "$TERM" != "xterm-ghostty" && command -v tmux > /dev/null 2>&1
-      test -z $TMUX && tmux new-session;
-   end
-
   starship init fish | source
   zoxide init fish | source
   direnv hook fish | source
   mise activate fish | source
   scmpuff init -s --shell=fish | source
   colorscheme.lua
+
+  # Tmux
+  if test "$TERM_PROGRAM" = "alacritty" && command -v tmux > /dev/null 2>&1
+     test -z $TMUX && tmux new-session;
+  end
 
   if type -q shellfirm
     function checkShellFirm --on-event fish_preexec

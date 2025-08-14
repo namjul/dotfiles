@@ -28,7 +28,11 @@ function M.set(theme, alacritty_colorscheme)
     os.execute("nvim-ctrl.sh 'set background=" .. theme .. "'")
     os.execute('gsettings set org.gnome.desktop.interface color-scheme prefer-' .. theme)
     os.execute("echo 'set background=" .. theme .. "' >~/.vimrc_background")
-    os.execute('alacritty msg config "$(cat ~/.config/alacritty/themes/' .. alacritty_colorscheme .. '_' .. theme .. '.toml)"')
+
+    if os.getenv("TERM_PROGRAM") == "tmux" then
+      os.execute('alacritty msg config "$(cat ~/.config/alacritty/themes/' .. alacritty_colorscheme .. '_' .. theme .. '.toml)"')
+    end
+
     -- os.execute('pkill redshift')
     -- os.execute('redshift -l ' .. latitude .. ':' .. longtitue .. ' -t 5700:3600 -g 0.8 -m randr &')
   else
