@@ -1,16 +1,46 @@
+shell-integration = fish
+mouse-hide-while-typing = true
+scrollback-limit = 1000000
 font-family = "JetBrainsMono Nerd Font"
 font-size = 18
 font-feature = -liga
 theme = dark:GruvboxDark,light:GruvboxLight
+
+# Window Settings
+gtk-titlebar = false
 window-padding-x = 10
 window-padding-y = 10
-window-padding-balance = true
-window-padding-color = background
-# window-padding-balance = false
-# adjust-cell-height = -3
-# adjust-cell-width = -2
-gtk-adwaita = false
-gtk-titlebar = false
-window-decoration = false
+window-decoration = server
+window-save-state = always
 window-theme = system
-# keybind = super+f=write_screen_file:open
+
+# Other Settings
+confirm-close-surface = false
+shell-integration-features = cursor,sudo,no-title
+
+# Keybindings
+keybind = ctrl+space>h=goto_split:left
+keybind = ctrl+space>j=goto_split:down
+keybind = ctrl+space>k=goto_split:up
+keybind = ctrl+space>l=goto_split:right
+
+keybind = ctrl+space>shift+h=resize_split:left,100
+keybind = ctrl+space>shift+j=resize_split:down,100
+keybind = ctrl+space>shift+k=resize_split:up,100
+keybind = ctrl+space>shift+l=resize_split:right,100
+
+keybind = ctrl+[=scroll_page_fractional:-0.5
+keybind = ctrl+]=scroll_page_fractional:+0.5
+
+keybind = ctrl+space>-=new_split:up
+keybind = ctrl+space>|=new_split:left
+keybind = ctrl+space><=new_split:left
+keybind = ctrl+space>z=toggle_split_zoom
+
+keybind = ctrl+space>c=new_tab
+keybind = ctrl+space>n=next_tab
+keybind = ctrl+space>p=previous_tab
+
+keybind = ctrl+space>x=close_surface
+keybind = ctrl+e=write_screen_file:paste
+keybind = super+r=reload_config
