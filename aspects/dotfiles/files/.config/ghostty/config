@@ -28,10 +28,10 @@ keybind = ctrl+space>j=goto_split:down
 keybind = ctrl+space>k=goto_split:up
 keybind = ctrl+space>l=goto_split:right
 
-keybind = ctrl+r>h=resize_split:left,200
-keybind = ctrl+r>j=resize_split:down,200
-keybind = ctrl+r>k=resize_split:up,200
-keybind = ctrl+r>l=resize_split:right,200
+keybind = ctrl+t>h=resize_split:left,200
+keybind = ctrl+t>j=resize_split:down,200
+keybind = ctrl+t>k=resize_split:up,200
+keybind = ctrl+t>l=resize_split:right,200
 
 keybind = ctrl+[=scroll_page_fractional:-0.5
 keybind = ctrl+]=scroll_page_fractional:+0.5
