@@ -48,4 +48,5 @@ keybind = ctrl+space>p=previous_tab
 keybind = ctrl+space>x=close_surface
 keybind = ctrl+space>r=reset
 keybind = ctrl+space>e=write_screen_file:paste
+keybind = ctrl+space>0=equalize_splits
 keybind = super+r=reload_config
