@@ -1,0 +1,15 @@
+[Unit]
+Description=Framework for dark-mode and light-mode transitions.
+Documentation=man:darkman(1)
+
+[Service]
+Type=dbus
+BusName=nl.whynothugo.darkman
+Environment=PATH=%h/.dotfiles/bin:%h/opt/nvim/squashfs-root/usr/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+ExecStart=%h/.local/bin/darkman run --verbose
+Restart=on-failure
+TimeoutStopSec=15
+Slice=background.slice
+
+[Install]
+WantedBy=default.target

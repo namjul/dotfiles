@@ -2,4 +2,4 @@ lat: 48.208176
 lng: 16.373819
 usegeoclue: false
 dbusserver: true
-portal: true
+portal: false

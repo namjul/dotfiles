@@ -41,9 +41,11 @@ await spinner('enable ssh-agent.service', async () => {
   await $`systemctl --user enable ssh-agent.service --now`
 })
 
+// await spinner('enable colorscheme.timer', async () => {
+//   await $`systemctl --user enable colorscheme.service --now`
+// })
+
 await spinner('enable colorscheme.timer', async () => {
-  await $`systemctl --user enable colorscheme.service --now`
+  await $`systemctl --user enable darkman.service --now`
 })
-
-
 
