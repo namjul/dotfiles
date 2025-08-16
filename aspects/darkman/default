@@ -1,0 +1,33 @@
+#!/usr/bin/env zx
+
+/**
+# mise description="Configures darkman"
+*/
+
+import {randomBytes} from 'node:crypto';
+
+const aspect = __dirname
+
+const { Readable } = require('stream');
+const { finished } = require('stream/promises');
+
+const prompt = `sudo[${randomBytes(16).toString('hex')}]:`;
+
+await within(async () => {
+  echo`install darkman`
+  await $`
+    ghq get https://gitlab.com/WhyNotHugo/darkman.git
+  `
+  await cd(`${await $`ghq root`}/gitlab.com/WhyNotHugo/darkman`)
+  await $`
+    make
+    make install PREFIX=~/.local/bin
+  `
+})
+
+await within(async () => {
+  echo`copy files`
+  const target = path.join(os.homedir(), '.local/share/')
+  await $`cp -r ${path.join(aspect, 'files', 'dark-mode.d')} ${target}`
+  await $`cp -r ${path.join(aspect, 'files', 'light-mode.d')} ${target}`
+})

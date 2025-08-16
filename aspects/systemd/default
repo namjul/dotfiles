@@ -45,5 +45,7 @@ await spinner('enable colorscheme.timer', async () => {
   await $`systemctl --user enable colorscheme.service --now`
 })
 
-
+await spinner('enable colorscheme.timer', async () => {
+  await $`systemctl --user enable darkman.service --now`
+})
 
