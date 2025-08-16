@@ -274,5 +274,5 @@ assign [instance="^google-chrome"] $ws2
 
 bindsym $mod+b [instance="^google-chrome"] focus
 bindsym $mod+g exec --no-startup-id gnome-control-center
-bindsym $mod+i exec --no-startup-id do-not-disturb
+bindsym $mod+m exec --no-startup-id do-not-disturb
 bindsym $mod+t exec --no-startup-id darkman toggle
