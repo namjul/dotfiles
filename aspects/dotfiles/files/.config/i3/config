@@ -113,7 +113,7 @@ bindsym Print exec flameshot gui
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Shift+Return exec alacritty
+bindsym $mod+Shift+Return exec ghostty
 
 # kill focused window
 bindsym $mod+Shift+c kill
