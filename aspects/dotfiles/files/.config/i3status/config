@@ -1,0 +1,99 @@
+# i3status configuration file.
+# see "man i3status" for documentation.
+
+# It is important that this file is edited as UTF-8.
+# The following line should contain a sharp s:
+# ß
+# If the above line is not correctly displayed, fix your editor first!
+
+general {
+        output_format = "i3bar"
+        colors = true
+        interval = 5
+        color_good = "#aaff00"
+        color_degraded = "#00dddd"
+        color_bad = "#ff2200"
+}
+
+#order += "ipv6"
+order += "disk /"
+order += "disk /home"
+#order += "run_watch DHCP"
+#order += "run_watch VPN"
+order += "wireless wlan0"
+order += "ethernet eno16777736"
+order += "battery 1"
+order += "cpu_temperature 0"
+order += "cpu_usage"
+order += "load"
+order += "tztime localdate"
+order += "tztime localtime"
+order += "volume master"
+
+disk "/" {
+        format = "  %avail "
+        prefix_type = custom
+}
+
+disk "/home" {
+        format = "  %avail "
+        prefix_type = custom
+}
+
+run_watch DHCP {
+        pidfile = "/var/run/dhclient*.pid"
+}
+
+run_watch VPN {
+        pidfile = "/var/run/vpnc/pid"
+}
+
+wireless wlan0 {
+        format_up = "  (%quality at %essid) %ip "
+        format_down = "  "
+}
+
+ethernet eno16777736 {
+        # if you use %speed, i3status requires root privileges
+        format_up = "  %ip "
+        format_down = "  "
+}
+
+battery 1 {
+        format = "  %status %percentage "
+        last_full_capacity = false
+        integer_battery_capacity = true
+        low_threshold = 20
+        threshold_type = percentage
+}
+
+cpu_temperature 0 {
+        format = "  %degrees °C "
+        max_threshold = 42
+        path = "/sys/devices/platform/coretemp.0/hwmon/hwmon0/temp1_input"
+}
+
+cpu_usage {
+        format = "  %usage "
+}
+
+load {
+        format = "  %1min "
+        max_threshold = 5
+}
+
+tztime localdate {
+        format = "  %Y-%m-%d "
+}
+
+tztime localtime {
+        format = "  %H:%M "
+}
+
+volume master {
+        format = "  %volume "
+        format_muted = "  %volume "
+        device = "default"
+        mixer = "Master"
+        mixer_idx = 0
+}
