@@ -15,7 +15,7 @@ general {
         color_bad = "#ff2200"
 }
 
-#order += "ipv6"
+order += "tztime holder__do_not_disturb"
 order += "disk /"
 order += "disk /home"
 order += "wireless wlp2s0"
@@ -87,4 +87,8 @@ volume master {
         device = "default"
         mixer = "Master"
         mixer_idx = 0
+}
+
+tztime holder__do_not_disturb {
+       format = ""
 }
