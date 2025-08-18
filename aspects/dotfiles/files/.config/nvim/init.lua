@@ -393,7 +393,14 @@ require('nvim-ts-autotag').setup()
 
 require('blink.cmp').setup({
   snippets = { preset = 'luasnip' },
-  keymap = { preset = 'enter' }
+  keymap = { preset = 'enter' },
+  sources = {
+    providers = {
+      snippets = {
+        score_offset = 1
+      }
+    }
+  }
 })
 
 namjul.plugin.lazy('nvim-tree.lua', {
