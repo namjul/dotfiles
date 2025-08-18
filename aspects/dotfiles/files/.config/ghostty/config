@@ -28,10 +28,10 @@ keybind = ctrl+space>j=goto_split:down
 keybind = ctrl+space>k=goto_split:up
 keybind = ctrl+space>l=goto_split:right
 
-keybind = ctrl+t>h=resize_split:left,200
-keybind = ctrl+t>j=resize_split:down,200
-keybind = ctrl+t>k=resize_split:up,200
-keybind = ctrl+t>l=resize_split:right,200
+keybind = ctrl+space>shift+h=resize_split:left,100
+keybind = ctrl+space>shift+j=resize_split:down,100
+keybind = ctrl+space>shift+k=resize_split:up,100
+keybind = ctrl+space>shift+l=resize_split:right,100
 
 keybind = ctrl+[=scroll_page_fractional:-0.5
 keybind = ctrl+]=scroll_page_fractional:+0.5
@@ -39,7 +39,7 @@ keybind = ctrl+]=scroll_page_fractional:+0.5
 keybind = ctrl+space>-=new_split:up
 keybind = ctrl+space>|=new_split:left
 keybind = ctrl+space><=new_split:left
-keybind = ctrl+space>z=toggle_split_zoom
+keybind = ctrl+enter=toggle_split_zoom
 
 keybind = ctrl+space>c=new_tab
 keybind = ctrl+space>n=next_tab
@@ -50,4 +50,4 @@ keybind = ctrl+space>r=reset
 keybind = ctrl+space>i=paste_from_selection
 keybind = ctrl+space>e=write_screen_file:paste
 keybind = ctrl+space>0=equalize_splits
-keybind = super+r=reload_config
+keybind = ctrl+space=reload_config
