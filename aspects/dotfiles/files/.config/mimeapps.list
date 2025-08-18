@@ -1,22 +1,17 @@
-# `mimeapps.list` is a configuration file used by Linux desktop environments to map file types and URL schemes to
-# default applications. It specifies which application should open a given file type or handle a particular protocol,
-# allowing users to set or override the default behaviors established by the system. This file is typically located in
-# directories like `~/.config/` for user-specific settings, enabling users to customize their application preferences
-# without affecting other users on the system.
-#
 [Default Applications]
+
+application/pdf=org.pwmt.zathura.desktop
+
+x-scheme-handler/mailto=google-chrome.desktop
+x-scheme-handler/webcal=google-chrome.desktop
+x-scheme-handler/pear=pear.desktop
+
+# files
+text/plain=org.gnome.TextEditor.desktop
+text/html=google-chrome.desktop
 
 # default browser
 x-scheme-handler/http=google-chrome.desktop
 x-scheme-handler/https=google-chrome.desktop
 x-scheme-handler/about=google-chrome.desktop
 x-scheme-handler/unknown=google-chrome.desktop
-
-# files
-text/plain=org.gnome.TextEditor.desktop
-text/html=google-chrome.desktop
-application/pdf=org.pwmt.zathura.desktop
-
-# others 
-x-scheme-handler/mailto=google-chrome.desktop
-x-scheme-handler/webcal=google-chrome.desktop
