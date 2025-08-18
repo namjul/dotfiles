@@ -48,7 +48,6 @@ if status is-interactive
   direnv hook fish | source
   mise activate fish | source
   scmpuff init -s --shell=fish | source
-  colorscheme.lua
 
   # Tmux
   if test "$TERM_PROGRAM" = "alacritty" && command -v tmux > /dev/null 2>&1
