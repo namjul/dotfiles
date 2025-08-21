@@ -126,9 +126,6 @@ bindsym $mod+d exec --no-startup-id "rofi -show combi"
 # .desktop file. It is a wrapper around dmenu, so you need that installed.
 # bindcode $mod+40 exec --no-startup-id i3-dmenu-desktop
 
-# lock screen
-bindsym Control+Mod1+l exec "i3lock -c 000000"
-
 # change focus
 bindsym $mod+h focus left
 bindsym $mod+j focus down
@@ -271,7 +268,7 @@ mode "$mode_display" {
 # Declare here the shortcut to bring the display selection menu
 bindsym $mod+x mode "$mode_display"
 
-set $Locker i3lock && sleep 1
+set $Locker i3lock -c 000000 && sleep 1
 
 set $mode_system System (l) lock, (e) logout, (s) suspend, (r) reboot, (Shift+s) shutdown
 mode "$mode_system" {
