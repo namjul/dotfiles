@@ -386,7 +386,10 @@ require('nvim-ts-autotag').setup()
 
 require('blink.cmp').setup({
   snippets = { preset = 'luasnip' },
-  keymap = { preset = 'enter' },
+  keymap = {
+    preset = 'enter',
+    ['<C-o>'] = { 'show', 'show_documentation', 'hide_documentation' },
+  },
   sources = {
     providers = {
       snippets = {
