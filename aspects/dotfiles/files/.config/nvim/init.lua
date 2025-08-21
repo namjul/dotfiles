@@ -99,7 +99,6 @@ local is_bootstrap = namjul.plugin.bootstrap({
   { 'michaelb/sniprun', build = './install.sh' },
   -- { 'ggandor/leap.nvim' },
   { 'stevearc/overseer.nvim' },
-  { 'stevearc/dressing.nvim' },
   -- { 'MunifTanjim/nui.nvim' },
   { 'm-demare/hlargs.nvim' },
   { 'stevearc/oil.nvim' },
@@ -237,12 +236,6 @@ vim.cmd('colorscheme gruvbox')
 if namjul.utils.readable(vim.fn.expand('~/.vimrc_background')) then
   vim.cmd('source ~/.vimrc_background')
 end
-
-require('dressing').setup({
-  select = {
-    telescope = require('telescope.themes').get_ivy({}),
-  },
-})
 
 vim.filetype.add({
   extension = {
