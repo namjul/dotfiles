@@ -397,7 +397,7 @@ require('blink.cmp').setup({
   sources = {
     providers = {
       snippets = {
-        score_offset = 1
+        score_offset = 10
       }
     }
   }
