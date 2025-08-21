@@ -251,11 +251,12 @@ bindsym $mod+r mode "resize"
 
 ## Manual management of external displays
 # Set the shortcuts and what they do
-set $mode_display Ext Screen (m) mobile, (d) docked
+set $mode_display Ext Screen (m) mobile, (d) docked home, (Shift+d) docked office
 mode "$mode_display" {
 
     bindsym m exec --no-startup-id autorandr mobile, mode "default"
-    bindsym d exec --no-startup-id autorandr docked, mode "default"
+    bindsym d exec --no-startup-id autorandr dockedhome, mode "default"
+    bindsym Shift+d exec --no-startup-id autorandr dockedoffice, mode "default"
 
     # bindsym v exec --no-startup-id xrandr --output DP1 --auto --above eDP1, mode "default"
     # bindsym h exec --no-startup-id xrandr --output DP1-2 --auto --above eDP1, mode "default"
