@@ -126,7 +126,7 @@ lsp.init = function()
           },
         },
       },
-      filetypes = { "javascript", "javascript.jsx", "typescript", "typescript.tsx", "vue" } -- TODO currently only working with *.vue files
+      filetypes = { "javascript", "javascript.jsx", "typescript", "typescript.tsx", "vue" }
     },
     vue_ls = {},
   }
