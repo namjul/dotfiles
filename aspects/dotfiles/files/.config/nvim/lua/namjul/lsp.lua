@@ -146,7 +146,7 @@ lsp.init = function()
 
     mason_lspconfig.setup({
       ensure_installed = {}, -- explicitly set to an empty table (populated installs via mason-tool-installer)
-      automatic_enable = false
+      automatic_enable = true
     })
 
     for server_name, server_config in pairs(servers) do
