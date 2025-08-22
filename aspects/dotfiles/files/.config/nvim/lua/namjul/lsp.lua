@@ -115,6 +115,9 @@ lsp.init = function()
     },
     vtsls = {
       settings = {
+        -- see config schema: https://raw.githubusercontent.com/yioneko/vtsls/refs/heads/main/packages/service/configuration.schema.json
+        typescript = { tsserver = { maxTsServerMemory = 16184 } },
+        javascript = { tsserver = { maxTsServerMemory = 16184 } },
         vtsls = {
           tsserver = {
             globalPlugins = {
