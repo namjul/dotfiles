@@ -275,7 +275,7 @@ mode "$mode_system" {
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
-bindsym $mod+q mode "$mode_system"
+bindsym $mod+Shift+q mode "$mode_system"
 
 # Workspace assignments
 assign [instance="^google-chrome"] $ws2
