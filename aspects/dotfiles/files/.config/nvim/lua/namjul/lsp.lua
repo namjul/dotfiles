@@ -101,10 +101,6 @@ lsp.init = function()
 
   local servers = {
     rust_analyzer = {},
-    ts_ls = {
-      -- single_file_support = false,
-     filetypes = { "javascript", "javascript.jsx", "typescript", "typescript.tsx" }
-    },
     lua_ls = {
       settings = {
         Lua = {
@@ -127,7 +123,7 @@ lsp.init = function()
           },
         },
       },
-      filetypes = { "javascript", "javascript.jsx", "typescript", "typescript.tsx", "vue" }
+      filetypes = { "javascript", "javascript.jsx", "typescript", "typescript.tsx", "vue" } -- TODO currently only working with *.vue files
     },
     vue_ls = {},
   }
@@ -158,7 +154,7 @@ lsp.init = function()
       vim.lsp.config(server_name, server_config)
     end
 
-    vim.lsp.enable({ 'vue_ls', 'vtsls', 'lua_ls', 'ts_ls' }) -- TODO loop-over
+    vim.lsp.enable({ 'vue_ls', 'vtsls', 'lua_ls' })
   end
 
   --- formating and diagnostics ---
