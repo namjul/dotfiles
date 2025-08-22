@@ -126,7 +126,7 @@ lsp.init = function()
           },
         },
       },
-      filetypes = { "javascript", "javascript.jsx", "typescript", "typescript.tsx", "vue" }
+      filetypes =  { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx", "vue" }
     },
     vue_ls = {},
   }
