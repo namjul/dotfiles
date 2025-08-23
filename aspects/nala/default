@@ -30,6 +30,7 @@ sudo nala install -y kazam # A screencasting program created with design in mind
 sudo nala install -y peek # Simple animated GIF screen recorder with an easy to use interface (https://github.com/phw/peek)
 sudo nala install interception-tools # Configures the Interception Tools on Linux (analogous to Karabiner-Elements on macOS)
 sudo nala install libevdev-dev libyaml-cpp-dev # for https://gitlab.com/interception/linux/plugins/dual-function-keys
+sudo nala install pavucontrol # audio control
 
 sudo nala install -y brightnessctl # https://github.com/Hummer12007/brightnessctl
 sudo chmod +s $(which brightnessctl) # brightnessctl requires root permissions: https://github.com/i3/i3/discussions/4763 https://github.com/Hummer12007/brightnessctl?tab=readme-ov-file#permissions
