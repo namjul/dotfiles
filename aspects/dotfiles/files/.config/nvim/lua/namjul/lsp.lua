@@ -160,20 +160,6 @@ lsp.init = function()
     vim.lsp.enable({ 'vue_ls', 'vtsls', 'lua_ls' })
   end
 
-  --- formating and diagnostics ---
-  local has_null_ls, null_ls = pcall(require, 'null-ls')
-  if has_null_ls then
-    null_ls.setup({
-      diagnostics_format = '[#{c}] #{m} (#{s})',
-      sources = {
-        -- TODO load when available
-        null_ls.builtins.formatting.stylua,
-        require("none-ls.diagnostics.eslint_d")
-      },
-    })
-  end
-
-
 end
 
 return lsp

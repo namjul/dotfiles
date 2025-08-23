@@ -84,8 +84,6 @@ local is_bootstrap = namjul.plugin.bootstrap({
   { 'WhoIsSethDaniel/mason-tool-installer.nvim' },
   { 'neovim/nvim-lspconfig' },
   { 'stevearc/conform.nvim', branch = 'nvim-0.9' },
-  { 'nvimtools/none-ls.nvim' },
-  { 'nvimtools/none-ls-extras.nvim' },
   { 'j-hui/fidget.nvim', branch = 'legacy' }, -- Standalone UI for nvim-lsp progress
   { 'folke/neodev.nvim' },
   { 'AndrewRadev/switch.vim' }, -- fast boolean switch
@@ -107,7 +105,8 @@ local is_bootstrap = namjul.plugin.bootstrap({
   { 'subnut/nvim-ghost.nvim' },
   { 'nvim-tree/nvim-tree.lua', opt = true },
   { 'yousefakbar/notmuch.nvim', opt = true },
-  { 'mbbill/undotree', opt = true }
+  { 'mbbill/undotree', opt = true },
+  { 'mfussenegger/nvim-lint' }
 })
 
 if is_bootstrap then
