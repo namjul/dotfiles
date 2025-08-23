@@ -1,16 +1,21 @@
 icons_format = "{icon}"
 
+
 [theme]
-theme = "solarized-dark"
-[theme.overrides]
-idle_bg = "#123456"
-idle_fg = "#abcdef"
+theme = "gruvbox-dark"
 
 [icons]
 icons = "awesome4"
-[icons.overrides]
-bat = ["|E|", "|_|", "|=|", "|F|"]
-bat_charging = "|^| "
+
+[[block]]
+block = "pomodoro"
+notify_cmd = "notify-send '{msg}'"
+blocking_cmd = false
+
+[[block]]
+block = "battery"
+interval = 5
+format = " $icon $percentage "
 
 [[block]]
 block = "cpu"
@@ -40,6 +45,10 @@ button = "left"
 cmd = "pavucontrol"
 
 [[block]]
+block = "net"
+format = " $icon {$signal_strength $ssid|Wired connection} "
+
+[[block]]
 block = "time"
 interval = 5
-format = " $timestamp.datetime(f:'%a %d/%m %R') "
+format = " $timestamp.datetime(f:'%Y.%m.%d %H:%M' ) "
