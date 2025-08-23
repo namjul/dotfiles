@@ -1,0 +1,15 @@
+#!/bin/bash
+# mise description="Install and update packages via nala, a apt wrapper"
+
+trap 'echo "Warning: A command has failed. Exiting the script. Line was ($0:$LINENO): $(sed -n "${LINENO}p" "$0")"; exit 3' ERR
+set -Eeuo pipefail
+
+sudo nala install libsensors-dev
+
+if ! [ -x "$(command -v i3status-rust)" ]; then
+  ghq get git@github.com:greshake/i3status-rust.git
+  cd "$(ghq root)/github.com/greshake/i3status-rust"
+  cargo install --path . --locked
+  git checkout v0.34.0
+  ./install.sh
+fi
