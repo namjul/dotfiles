@@ -34,6 +34,10 @@ alert = 10.0
 format = " $icon root: $available.eng(w:2) "
 
 [[block]]
+block = "notify"
+format = " $icon {$paused{Off}|On} "
+
+[[block]]
 block = "memory"
 format = " $icon $mem_total_used_percents.eng(w:2) "
 format_alt = " $icon_swap $swap_used_percents.eng(w:2) "
