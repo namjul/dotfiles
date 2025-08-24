@@ -61,6 +61,11 @@ button = "left"
 cmd = "pavucontrol"
 
 [[block]]
+block = "docker"
+interval = 2
+format = " $icon $running/$total "
+
+[[block]]
 block = "net"
 format = " $icon {$signal_strength $ssid|Wired connection} "
 
