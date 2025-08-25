@@ -51,7 +51,6 @@ local is_bootstrap = namjul.plugin.bootstrap({
   { 'preservim/vimux' }, -- allows to send commands from vim to tmux
   { 'tyewang/vimux-jest-test' }, -- simplifies running jest test from vim
   { 'jeffkreeftmeijer/vim-numbertoggle' }, -- improves the display of line numbers
-  { 'windwp/nvim-autopairs' }, -- auto closes pairs
   { 'Valloric/MatchTagAlways' }, -- highlights xml tags enclosing the cursor
   { 'simeji/winresizer' }, -- helper for resizing windows
   -- { 'lewis6991/gitsigns.nvim' },
@@ -379,6 +378,8 @@ require('mini.surround').setup({
   },
 })
 require('mini.indentscope').setup()
+
+require('mini.pairs').setup()
 
 require('harpoon'):setup()
 
