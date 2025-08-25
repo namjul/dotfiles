@@ -66,6 +66,9 @@ interval = 2
 format = " $icon $running/$total "
 
 [[block]]
+block = "scratchpad"
+
+[[block]]
 block = "net"
 format = " $icon {$signal_strength $ssid|Wired connection} "
 
