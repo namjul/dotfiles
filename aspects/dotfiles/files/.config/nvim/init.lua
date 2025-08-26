@@ -94,7 +94,6 @@ local is_bootstrap = namjul.plugin.bootstrap({
   -- { 'wsdjeg/vim-fetch' },         -- enables to process line and column jump specifications
   -- { 'andrewferrier/debugprint.nvim' },
   { 'michaelb/sniprun', build = './install.sh' },
-  -- { 'ggandor/leap.nvim' },
   { 'stevearc/overseer.nvim' },
   -- { 'MunifTanjim/nui.nvim' },
   { 'm-demare/hlargs.nvim' },
