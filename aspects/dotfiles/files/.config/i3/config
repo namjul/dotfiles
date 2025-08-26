@@ -36,11 +36,11 @@ bar {
         # text color used for blocks that do not have a color specified.
         statusline $lightgray
         # workspaces section
-        #                    border  backgr. text
-        focused_workspace    $lightgray $lightgray $bg
-        inactive_workspace   $darkgray $darkgray $lightgray
-        active_workspace     $darkgray $darkgray $lightgray
-        urgent_workspace     $red $red $bg
+        #                    border       backgr.     text
+        focused_workspace    $lightgray   $lightgray  $bg
+        inactive_workspace   $darkgray    $darkgray   $lightgray
+        active_workspace     $darkgray    $darkgray   $lightgray
+        urgent_workspace     $red $red    $bg
     }
 }
 
@@ -49,11 +49,11 @@ for_window [class="^.*"] border pixel 2
 # Set border to none for floating windows
 for_window [floating] border pixel 1
 
-# class                 <border> <background> <text> <indicator> <child_border>
-client.focused          $lightgray $lightgray $bg $purple $purple
-client.focused_inactive $darkgray $darkgray $lightgray $purple $darkgray
-client.unfocused        $darkgray $darkgray $lightgray $purple $darkgray
-client.urgent           $red $red $white $red $red
+# class                 <border>     <background>   <text>       <indicator>   <child_border>
+client.focused          $lightgray   $lightgray     $bg          $purple       $aqua
+client.focused_inactive $darkgray    $darkgray      $lightgray   $purple       $purple
+client.unfocused        $darkgray    $darkgray      $lightgray   $purple       $darkgray
+client.urgent           $red         $red           $white       $red          $red
 
 # Hide borders when there is only one window
 hide_edge_borders both
@@ -163,10 +163,10 @@ bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
 # split in horizontal orientation
-bindsym $mod+z split h
+bindsym Ctrl+l split h
 
 # split in vertical orientation
-bindsym $mod+v split v
+bindsym Ctrl+j split v
 
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
@@ -182,7 +182,7 @@ bindsym $mod+Shift+space floating toggle
 bindsym $mod+space focus mode_toggle
 
 # focus the parent container
-bindsym $mod+y focus parent
+bindsym $mod+a focus parent
 
 # focus the child container
 #bindsym $mod+d focus child
