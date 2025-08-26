@@ -5,7 +5,7 @@ if has_lint then
 
   local linters = {
     eslint = {
-      "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx", "vue" 
+      "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx", "vue"
     }
   }
 
