@@ -24,7 +24,15 @@ require('telescope').setup({
       },
     },
   },
+   extensions = {
+    ["ui-select"] = {
+      require("telescope.themes").get_ivy {
+        prompt_title = 'Select',
+      }
+    }
+  }
 })
 
 -- Enable telescope fzf native, if installed
 pcall(require('telescope').load_extension, 'fzf')
+pcall(require('telescope').load_extension, 'ui-select')
