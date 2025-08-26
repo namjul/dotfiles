@@ -47,7 +47,7 @@ bar {
 for_window [class="^.*"] border pixel 2
 
 # Set border to none for floating windows
-for_window [con_mark="scratchpad"] border none
+for_window [floating] border none
 
 # class                 <border> <background> <text> <indicator> <child_border>
 client.focused          $lightgray $lightgray $bg $purple $purple
