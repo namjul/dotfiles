@@ -47,7 +47,7 @@ bar {
 for_window [class="^.*"] border pixel 2
 
 # Set border to none for floating windows
-for_window [floating] border none
+for_window [floating] border pixel 1
 
 # class                 <border> <background> <text> <indicator> <child_border>
 client.focused          $lightgray $lightgray $bg $purple $purple
@@ -154,7 +154,7 @@ bindsym $mod+Right focus right
 bindsym $mod+Shift+h move left
 bindsym $mod+Shift+j move down
 bindsym $mod+Shift+k move up
-bindsym $mod+Shift+odiaeresis move right
+bindsym $mod+Shift+l move right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Shift+Left move left
