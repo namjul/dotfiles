@@ -108,7 +108,6 @@ wk.add(
   { "<leader>b", ":lua require('namjul.functions.telescope').findBuffers()<CR>", desc = "[ ] Find existing buffers", nowait = false, remap = false },
   { "<leader><leader>", "<C-^>", desc = "Open last buffer", nowait = false, remap = false },
   { "<leader>P", ":Pastify <CR>", desc = "Paste image from clipboard", nowait = false, remap = false },
-  { "<leader>S", "<Plug>(SubversiveSubstituteToEndOfLine)", desc = "Substitute End of line", nowait = false, remap = false },
   { "<leader>c", ":lua require('telescope.builtin').commands(require('telescope.themes').get_ivy({}))<CR>", desc = "Find Command", nowait = false, remap = false },
   { "<leader>dp", function() return require('debugprint').debugprint() end, desc = "DebugPrint", expr = true, nowait = false, remap = false, replace_keycodes = false },
   { "<leader>dv", function() return require('debugprint').debugprint({ variable = true }) end, desc = "DebugPrint", expr = true, nowait = false, remap = false, replace_keycodes = false },
@@ -149,8 +148,6 @@ wk.add(
       dofile(vim.fn.stdpath('config') .. '/init.lua')
       print('Reloaded vimrc!')
     end, desc = "Reload vimrc", nowait = false, remap = false },
-  { "<leader>s", "<Plug>(SubversiveSubstitute)", desc = "Substitute", nowait = false, remap = false },
-  { "<leader>ss", "<Plug>(SubversiveSubstituteLine)", desc = "Substitute line", nowait = false, remap = false },
   { "<leader>t", group = "Translator", nowait = false, remap = false },
   { "<leader>te", ":Trans en <CR>", desc = "Translate to English(word under cursor)", nowait = false, remap = false },
   { "<leader>tg", ":Trans de <CR>", desc = "Translate to German(word under cursor)", nowait = false, remap = false },

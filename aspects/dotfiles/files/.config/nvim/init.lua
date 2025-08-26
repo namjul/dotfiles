@@ -37,7 +37,7 @@ local is_bootstrap = namjul.plugin.bootstrap({
   { 'tpope/vim-unimpaired' }, -- set of complementary pair commands
   { 'tpope/vim-abolish' }, -- Case-preserving find and replace
   { 'svermeulen/vim-cutlass' }, -- seperate `cut` form `delete`
-  { 'svermeulen/vim-subversive' }, -- adds a subsitute operator
+  -- { 'svermeulen/vim-subversive' }, -- adds a subsitute operator
   { 'nvim-lualine/lualine.nvim' }, -- fancier statusline
   { 'gbprod/yanky.nvim' }, -- adds easy access to history of yanks
   { 'tpope/vim-sleuth' }, -- support editor config files (https://editorconfig.org/)
@@ -379,7 +379,8 @@ require('mini.surround').setup({
 })
 require('mini.indentscope').setup()
 
-require('mini.pairs').setup()
+require('mini.ai').setup()
+require('mini.operators').setup({ replace = { prefix = '<leader>r' }})
 
 require('harpoon'):setup()
 
