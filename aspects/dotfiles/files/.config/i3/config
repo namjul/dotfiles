@@ -92,6 +92,10 @@ exec --no-startup-id notify-battery -n
 # system features such as file dialogs, notifications, and theme changes in a desktop-independent way
 exec --no-startup-id $portal_env /usr/libexec/xdg-desktop-portal
 
+# Start a ghostty instance in scratchpad mode
+for_window [class="scratch.term"] move scratchpad 
+exec --no-startup-id ghostty --class=scratch.term
+
 # move focused workspace between monitors
 bindsym $mod+Ctrl+Up move workspace to output up
 bindsym $mod+Ctrl+Down move workspace to output down
@@ -285,10 +289,6 @@ mode "$mode_system" {
 }
 bindsym $mod+Shift+q mode "$mode_system"
 
-# Workspace assignments
-assign [instance="^google-chrome"] $ws2
-
 bindsym $mod+b [instance="^google-chrome"] focus
-bindsym $mod+g exec --no-startup-id gnome-control-center
 bindsym $mod+m exec --no-startup-id do-not-disturb
 bindsym $mod+t exec --no-startup-id darkman toggle
