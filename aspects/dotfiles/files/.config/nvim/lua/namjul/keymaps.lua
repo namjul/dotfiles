@@ -24,7 +24,8 @@ if has_mini_keymap then
 
   local map_combo = mini_keymap.map_combo
   local mode = { 'i', 'c', 'x', 's' }
-  map_combo(mode, 'jk', '<BS><BS><Esc>')
+  local opts = { delay = 1000 }
+  map_combo(mode, 'jk', '<BS><BS><Esc>', opts)
 
   -- To not have to worry about the order of keys, also map "kj"
   map_combo(mode, 'kj', '<BS><BS><Esc>')
