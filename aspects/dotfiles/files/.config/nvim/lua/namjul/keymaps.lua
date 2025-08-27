@@ -1,5 +1,6 @@
 local has_which_key = pcall(require, 'which-key')
 local has_mini_keymap, mini_keymap = pcall(require, 'mini.keymap')
+local has_mini_move, mini_move = pcall(require, 'mini.move')
 
 if not has_which_key then
   return
@@ -12,6 +13,17 @@ local map = util.map
 local var = util.var
 local wk = require('which-key')
 local harpoon = require('harpoon')
+
+if has_mini_move then
+  mini_move.setup({
+    mappings = {
+      left = '<S-h>',
+      right = '<S-l>',
+      down = '<S-j>',
+      up = '<S-k>',
+    }
+  })
+end
 
 if has_mini_keymap then
   mini_keymap.setup()
@@ -196,8 +208,6 @@ wk.add(
 wk.add({
   {
     mode = { "x" },
-    { "J",  ":m '>+1<CR>gv=gv",          desc = "Move up",                              nowait = false, remap = false },
-    { "K",  ":m '<-2<CR>gv=gv",          desc = "move down",                            nowait = false, remap = false },
     -- { "S",  "<Plug>(leap-backward-to)",  desc = "Leap backward to",                     nowait = false, remap = false },
     -- { "s",  "<Plug>(leap-forward-to)",   desc = "Leap forward to",                      nowait = false, remap = false },
     -- { "gs", "<Plug>(leap-cross-window)", desc = "Leap cross window",                    nowait = false, remap = false },
