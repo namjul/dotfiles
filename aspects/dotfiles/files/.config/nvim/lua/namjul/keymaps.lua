@@ -138,7 +138,7 @@ wk.add(
       print(file)
     end, desc = "Show the path of the current file and add it to clipboard (mnemonic: path; useful when you have a lot of splits and the status line gets truncated).", nowait = false, remap = false },
   { "<leader>q", ":quit<CR>", desc = "Quites the current window and vim if its the last", nowait = false, remap = false },
-  { "<leader>r", function()
+  { "<leader>R", function()
       -- Unload the lua namespace so that the next time require('config.X') is called
       -- it will reload the file
       require('namjul.utils').unload_lua_namespace('namjul')
