@@ -379,6 +379,7 @@ require('mini.indentscope').setup()
 require('mini.ai').setup()
 require('mini.pairs').setup()
 require('mini.trailspace').setup()
+require('mini.icons').setup()
 
 require('mini.operators').setup({ replace = { prefix = '<leader>r' }})
 
