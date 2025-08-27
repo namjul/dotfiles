@@ -1,4 +1,5 @@
 local has_which_key = pcall(require, 'which-key')
+local has_mini_keymap, mini_keymap = pcall(require, 'mini.keymap')
 
 if not has_which_key then
   return
@@ -11,6 +12,14 @@ local map = util.map
 local var = util.var
 local wk = require('which-key')
 local harpoon = require('harpoon')
+
+if has_mini_keymap then
+  mini_keymap.setup()
+
+  local map_multistep = mini_keymap.map_multistep
+  map_multistep('i', '<Tab>', { 'jump_after_close' })
+  map_multistep('i', '<S-Tab>', { 'jump_before_open' })
+end
 
 -- LEADER
 --------------------

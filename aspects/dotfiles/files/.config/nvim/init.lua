@@ -381,12 +381,6 @@ require('mini.indentscope').setup()
 require('mini.ai').setup()
 require('mini.pairs').setup()
 
-
-require('mini.keymap').setup()
-local map_multistep = require('mini.keymap').map_multistep
-map_multistep('i', '<Tab>', { 'jump_after_close' })
-map_multistep('i', '<S-Tab>', { 'jump_before_open' })
-
 require('mini.operators').setup({ replace = { prefix = '<leader>r' }})
 
 require('harpoon').setup()
