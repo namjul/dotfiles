@@ -380,7 +380,7 @@ require('mini.surround').setup({
 require('mini.indentscope').setup()
 
 require('mini.ai').setup()
-
+require('mini.pairs').setup()
 require('mini.operators').setup({ replace = { prefix = '<leader>r' }})
 
 require('harpoon').setup()
