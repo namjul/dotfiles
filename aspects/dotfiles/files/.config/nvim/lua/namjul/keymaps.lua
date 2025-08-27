@@ -47,10 +47,10 @@ if has_mini_keymap then
   map_combo('t', 'kj', '<BS><BS><C-\\><C-n>')
 
   -- Easier navigation
-  map_combo({ 'n', 'x' }, 'll', 'g$')
-  map_combo({ 'n', 'x' }, 'hh', 'g^')
-  map_combo({ 'n', 'x' }, 'jj', '}')
-  map_combo({ 'n', 'x' }, 'kk', '{')
+  map_combo({ 'n', 'x' }, 'll', 'g$', { delay = 150 })
+  map_combo({ 'n', 'x' }, 'hh', 'g^', { delay = 150 })
+  map_combo({ 'n', 'x' }, 'jj', '}', { delay = 150 })
+  map_combo({ 'n', 'x' }, 'kk', '{',{ delay = 150 })
 end
 
 -- LEADER
