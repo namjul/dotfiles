@@ -80,7 +80,6 @@ local is_bootstrap = namjul.plugin.bootstrap({
   { 'WhoIsSethDaniel/mason-tool-installer.nvim' },
   { 'neovim/nvim-lspconfig' },
   { 'stevearc/conform.nvim', branch = 'nvim-0.9' },
-  { 'j-hui/fidget.nvim', branch = 'legacy' }, -- Standalone UI for nvim-lsp progress
   { 'folke/neodev.nvim' },
   { 'AndrewRadev/switch.vim' }, -- fast boolean switch
   { 'saghen/blink.cmp', branch = 'v1.6.0' },
@@ -269,7 +268,6 @@ require('pastify').setup({
   },
 })
 
-require('fidget').setup()
 require('glow').setup()
 require('oil').setup({
   keymaps = {

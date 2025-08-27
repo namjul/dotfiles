@@ -83,12 +83,6 @@ lsp.init = function()
     },
   })
 
-  -- Turn on lsp status information
-  local has_fidget, fidget = pcall(require, 'fidget')
-  if has_fidget then
-    fidget.setup()
-  end
-
   local mason_packages = vim.fn.stdpath("data") .. "/mason/packages"
   local vue_language_server_path = mason_packages .. "/vue-language-server/node_modules/@vue/language-server"
 
