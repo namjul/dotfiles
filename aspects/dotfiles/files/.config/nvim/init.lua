@@ -383,6 +383,9 @@ require('mini.pairs').setup()
 
 require('mini.operators').setup({ replace = { prefix = '<leader>r' }})
 
+require('mini.notify').setup()
+vim.notify = require('mini.notify').make_notify()
+
 require('harpoon').setup()
 
 require('blink.cmp').setup({
