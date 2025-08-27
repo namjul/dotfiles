@@ -72,7 +72,6 @@ local is_bootstrap = namjul.plugin.bootstrap({
   },
   { 'nvim-treesitter/nvim-treesitter-textobjects' },
   { 'nvim-treesitter/nvim-treesitter-context' },
-  { 'windwp/nvim-ts-autotag' }, -- auto closes xml tags
   { 'ellisonleao/gruvbox.nvim' },
   { 'navarasu/onedark.nvim' },
   -- { 'rafcamlet/nvim-luapad' },
@@ -89,7 +88,6 @@ local is_bootstrap = namjul.plugin.bootstrap({
   { 'AndrewRadev/switch.vim' }, -- fast boolean switch
   { 'saghen/blink.cmp', branch = 'v1.6.0' },
   { 'folke/which-key.nvim' },
-  { 'abecodes/tabout.nvim' }, -- tabbing out from parentheses, quotes, and similar contexts today.
   -- { 'rest-nvim/rest.nvim' }, -- http client in neovim
   -- { 'monaqa/dial.nvim' },         -- enhanced increment/decrement plugin for Neovim.
   -- { 'wsdjeg/vim-fetch' },         -- enables to process line and column jump specifications
@@ -347,6 +345,7 @@ require('oil').setup({
   }
 })
 require('hlargs').setup()
+
 require('conform').setup({
   notify_on_error = false,
   format_on_save = false,
@@ -359,6 +358,7 @@ require('conform').setup({
     typescript = { { 'prettierd', 'prettier' } },
   },
 })
+
 require('mini.diff').setup({
   view = {
     style = 'sign',
@@ -378,14 +378,18 @@ require('mini.surround').setup({
   },
 })
 require('mini.indentscope').setup()
-
 require('mini.ai').setup()
 require('mini.pairs').setup()
+
+
+require('mini.keymap').setup()
+local map_multistep = require('mini.keymap').map_multistep
+map_multistep('i', '<Tab>', { 'jump_after_close' })
+map_multistep('i', '<S-Tab>', { 'jump_before_open' })
+
 require('mini.operators').setup({ replace = { prefix = '<leader>r' }})
 
 require('harpoon').setup()
-
-require('nvim-ts-autotag').setup()
 
 require('blink.cmp').setup({
   snippets = { preset = 'luasnip' },
