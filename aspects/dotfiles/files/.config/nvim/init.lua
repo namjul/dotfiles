@@ -386,6 +386,7 @@ require('mini.operators').setup({ replace = { prefix = '<leader>r' }})
 local hipatterns = require('mini.hipatterns')
 hipatterns.setup({
   highlighters = {
+    fixme = { pattern = '[Xx][Xx][Xx]', group = 'MiniHipatternsFixme' },
     hex_color = hipatterns.gen_highlighter.hex_color(),
   },
 })
