@@ -19,6 +19,17 @@ if has_mini_keymap then
   local map_multistep = mini_keymap.map_multistep
   map_multistep('i', '<Tab>', { 'jump_after_close' })
   map_multistep('i', '<S-Tab>', { 'jump_before_open' })
+
+  local map_combo = mini_keymap.map_combo
+  local mode = { 'i', 'c', 'x', 's' }
+  map_combo(mode, 'jk', '<BS><BS><Esc>')
+
+  -- To not have to worry about the order of keys, also map "kj"
+  map_combo(mode, 'kj', '<BS><BS><Esc>')
+
+  -- Escape into Normal mode from Terminal mode
+  map_combo('t', 'jk', '<BS><BS><C-\\><C-n>')
+  map_combo('t', 'kj', '<BS><BS><C-\\><C-n>')
 end
 
 -- LEADER
@@ -211,7 +222,7 @@ wk.add(
       { ".",     ".<C-g>u",                             nowait = false,                remap = false },
       { "?",     "?<C-g>u",                             nowait = false,                remap = false },
       { "<Bar>", "<Bar><Esc>:call v:lua.namjul.functions.alignMdTable() <CR>a", desc = "Align markdown table", nowait = false, remap = false },
-      { "jk",    "<Esc>",                                      desc = "Esc Mapping",          nowait = false, remap = false },
+      -- { "jk",    "<Esc>",                                      desc = "Esc Mapping",          nowait = false, remap = false },
     },
   }
 )
