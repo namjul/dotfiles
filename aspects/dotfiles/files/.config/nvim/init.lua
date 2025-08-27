@@ -383,6 +383,13 @@ require('mini.pairs').setup()
 
 require('mini.operators').setup({ replace = { prefix = '<leader>r' }})
 
+local hipatterns = require('mini.hipatterns')
+hipatterns.setup({
+  highlighters = {
+    hex_color = hipatterns.gen_highlighter.hex_color(),
+  },
+})
+
 require('mini.notify').setup()
 vim.notify = require('mini.notify').make_notify()
 
