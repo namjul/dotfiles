@@ -37,7 +37,6 @@ local is_bootstrap = namjul.plugin.bootstrap({
   { 'tpope/vim-abolish' }, -- Case-preserving find and replace
   { 'svermeulen/vim-cutlass' }, -- seperate `cut` form `delete`
   -- { 'svermeulen/vim-subversive' }, -- adds a subsitute operator
-  { 'nvim-lualine/lualine.nvim' }, -- fancier statusline
   { 'gbprod/yanky.nvim' }, -- adds easy access to history of yanks
   { 'tpope/vim-sleuth' }, -- support editor config files (https://editorconfig.org/)
   { 'nvim-lua/plenary.nvim' },
@@ -242,42 +241,6 @@ require('namjul.keymaps')
 require('namjul.lsp')
 require('namjul.filetype')
 
--- Set lualine as statusline
--- See `:help lualine.txt`
-require('lualine').setup({
-  options = {
-    icons_enabled = false,
-    theme = 'gruvbox',
-    component_separators = '|',
-    section_separators = '',
-  },
-  sections = {
-    lualine_a = { {
-      'mode',
-      fmt = function(value)
-        return value:sub(1, 1)
-      end,
-    } },
-    lualine_b = {},
-    lualine_c = {
-      {
-        'filename',
-        separator = '',
-        path = 1,
-      },
-      {
-        'filetype',
-        fmt = function(value)
-          return (value:len() > 0) and '[' .. value .. ']' or ''
-        end,
-      },
-    },
-    lualine_x = { 'encoding', 'fileformat' },
-    lualine_y = { 'progress' },
-    lualine_z = { 'location' },
-  },
-})
-
 -- require('clipboard-image').setup({
 --   default = {
 --     img_name = function()
@@ -380,7 +343,7 @@ require('mini.ai').setup()
 require('mini.pairs').setup()
 require('mini.trailspace').setup()
 require('mini.icons').setup()
-
+require('mini.statusline').setup()
 require('mini.operators').setup({ replace = { prefix = '<leader>r' }})
 
 local hipatterns = require('mini.hipatterns')
