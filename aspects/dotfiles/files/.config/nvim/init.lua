@@ -214,7 +214,7 @@ vim.opt.visualbell = true -- stop annoying beeping for non-error errors
 vim.opt.mouse = 'a' -- Enable Mouse clicking
 vim.opt.gdefault = true -- Add the g flag to search/replace by default
 vim.opt.background = 'light'
-vim.opt.tabline = "%!v:lua.require('namjul.tabline').line()"
+-- vim.opt.tabline = "%!v:lua.require('namjul.tabline').line()"
 vim.opt.showmode = false -- Don't show the mode, since it's already in the status line
 
 -- Sync clipboard between OS and Neovim.
@@ -345,6 +345,7 @@ require('mini.trailspace').setup()
 require('mini.icons').setup()
 require('mini.statusline').setup()
 require('mini.operators').setup({ replace = { prefix = '<leader>r' }})
+require('mini.tabline').setup()
 
 local hipatterns = require('mini.hipatterns')
 hipatterns.setup({
