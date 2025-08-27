@@ -346,6 +346,7 @@ require('mini.icons').setup()
 require('mini.statusline').setup()
 require('mini.operators').setup({ replace = { prefix = '<leader>r' }})
 require('mini.tabline').setup()
+require('mini.jump').setup()
 
 local hipatterns = require('mini.hipatterns')
 hipatterns.setup({
