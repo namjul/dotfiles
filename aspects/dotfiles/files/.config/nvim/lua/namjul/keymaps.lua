@@ -19,6 +19,7 @@ if has_mini_keymap then
   local map_multistep = mini_keymap.map_multistep
   map_multistep('i', '<Tab>', { 'jump_after_close' })
   map_multistep('i', '<S-Tab>', { 'jump_before_open' })
+  map_multistep('i', '<BS>', { 'hungry_bs' })
 
   local map_combo = mini_keymap.map_combo
   local mode = { 'i', 'c', 'x', 's' }
