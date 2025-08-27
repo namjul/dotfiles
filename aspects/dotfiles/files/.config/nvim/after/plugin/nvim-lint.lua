@@ -28,7 +28,7 @@ if has_lint then
         -- check if linter is is available
         for linter in pairs(linters) do
           if vim.fn.executable(lint.linters[linter].cmd()) == 1 then
-            lint.try_lint(linter)
+            lint.try_lint() -- `try_lint` includes a filetypecheck which `lint.try_lint(linter)` does not
           end
         end
 

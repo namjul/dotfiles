@@ -380,9 +380,10 @@ require('mini.surround').setup({
 require('mini.indentscope').setup()
 
 require('mini.ai').setup()
+
 require('mini.operators').setup({ replace = { prefix = '<leader>r' }})
 
-require('harpoon'):setup()
+require('harpoon').setup()
 
 require('nvim-ts-autotag').setup()
 
