@@ -19,7 +19,6 @@ require('namjul')
 vim.g.winresizer_start_key = '<S-T>'
 vim.g.VimuxOrientation = 'h'
 vim.g.switch_mapping = ''
--- vim.g.trailertrash_blacklist = { 'mason' }
 vim.g.markdown_composer_open_browser = 0
 
 ----------------------------------------
@@ -60,7 +59,6 @@ local is_bootstrap = namjul.plugin.bootstrap({
   { 'mattn/webapi-vim' }, -- needed for `gist-vim`
   { 'mattn/gist-vim' }, -- interact with github gist from vim
   -- { 'dkarter/bullets.vim' }, -- enhance bullet points management TODO replace with 'gaoDean/autolist.nvim' when checkboxes are supported
-  -- { 'csexton/trailertrash.vim' }, -- highlight trailing whitespace
   { 'godlygeek/tabular' }, -- auto alignment
   { 'tpope/vim-obsession' }, -- helper to start vim sessions
   { 'ellisonleao/glow.nvim' }, -- markdown preview
@@ -380,6 +378,7 @@ require('mini.surround').setup({
 require('mini.indentscope').setup()
 require('mini.ai').setup()
 require('mini.pairs').setup()
+require('mini.trailspace').setup()
 
 require('mini.operators').setup({ replace = { prefix = '<leader>r' }})
 
