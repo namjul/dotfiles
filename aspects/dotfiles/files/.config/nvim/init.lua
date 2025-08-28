@@ -343,7 +343,9 @@ require('mini.trailspace').setup()
 require('mini.icons').setup()
 require('mini.statusline').setup()
 require('mini.operators').setup({ replace = { prefix = '<leader>r' }})
-require('mini.tabline').setup()
+require('mini.tabline').setup({
+  tabpage_section = 'right'
+})
 require('mini.jump').setup()
 
 local hipatterns = require('mini.hipatterns')
