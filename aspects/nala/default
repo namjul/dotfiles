@@ -32,6 +32,7 @@ sudo nala install interception-tools # Configures the Interception Tools on Linu
 sudo nala install libevdev-dev libyaml-cpp-dev # for https://gitlab.com/interception/linux/plugins/dual-function-keys
 sudo nala install pavucontrol # audio control
 sudo nala install bluez # bluetooth
+sudo nala install lxpolkit # authentication agent https://wiki.archlinux.org/title/Polkit#Authentication_agents
 
 sudo nala install -y brightnessctl # https://github.com/Hummer12007/brightnessctl
 sudo chmod +s $(which brightnessctl) # brightnessctl requires root permissions: https://github.com/i3/i3/discussions/4763 https://github.com/Hummer12007/brightnessctl?tab=readme-ov-file#permissions
