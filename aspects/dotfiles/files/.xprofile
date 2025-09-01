@@ -1,6 +1,1 @@
 #!/bin/sh
-
-sh ~/.fehbg &
-
-# Set keyboard rate
-xset r rate 200 30

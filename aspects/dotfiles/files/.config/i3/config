@@ -95,8 +95,14 @@ exec --no-startup-id $portal_env /usr/libexec/xdg-desktop-portal
 # Start authentication agents (see https://wiki.archlinux.org/title/Polkit#Authentication_agents)
 exec --no-startup-id lxpolkit
 
+# Set keyboard rate
+exec --no-startup-id xset r rate 200 30
+
+# Set wallpaper
+exec --no-startup-id feh --no-fehbg --bg-scale "$HOME/.config/i3/Albert_Bierstadt,_Among_the_Sierra_Nevada_Mountains.jpg"
+
 # Start a ghostty instance in scratchpad mode
-for_window [class="scratch.term"] move scratchpad 
+for_window [class="scratch.term"] move scratchpad
 exec --no-startup-id ghostty --class=scratch.term
 
 # move focused workspace between monitors
