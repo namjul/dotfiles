@@ -99,7 +99,8 @@ local is_bootstrap = namjul.plugin.bootstrap({
   { 'nvim-tree/nvim-tree.lua', opt = true },
   { 'yousefakbar/notmuch.nvim', opt = true },
   { 'mbbill/undotree', opt = true },
-  { 'mfussenegger/nvim-lint' }
+  { 'mfussenegger/nvim-lint' },
+  { 'windwp/nvim-ts-autotag' }
 })
 
 if is_bootstrap then
@@ -466,6 +467,8 @@ namjul.plugin.lazy('undotree', {
       { 'n', '<Leader>u', ':UndotreeToggle<CR>', { silent = true } },
     },
 })
+
+require('nvim-ts-autotag').setup()
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
