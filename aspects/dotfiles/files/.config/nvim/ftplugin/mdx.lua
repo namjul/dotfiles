@@ -1,1 +1,1 @@
-require('namjul.functions.plaintext')()
+namjul.functions.plaintext()
