@@ -1,8 +1,7 @@
 # https://github.com/BurntSushi/ripgrep
 
-# allow hidden files but hide .git folders
+# Search in hidden files but exclude certain unwanted directories
 --hidden
-
 --glob=!{.git,.hg,node_modules}
 
 # https://github.com/BurntSushi/ripgrep/blob/master/FAQ.md#how-do-i-make-the-output-look-like-the-silver-searchers-output

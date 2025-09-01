@@ -31,7 +31,7 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_ALT_C_COMMAND="$FZF_DEFAULT_COMMAND --null | xargs -0 dirname | sort | uniq"
 
 # ripgrep
-export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
+export RIPGREP_CONFIG_PATH="$HOME/.config/ripgrep/.ripgreprc"
 
 #neovide
 export NEOVIDE_MULTIGRID="true"
