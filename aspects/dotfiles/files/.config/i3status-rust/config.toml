@@ -8,7 +8,7 @@ icons = "awesome4"
 
 [[block]]
 block = "pomodoro"
-notify_cmd = "notify-send '{msg}'"
+notify_cmd = "notify-send --urgency=critical '{msg}'"
 blocking_cmd = false
 
 [[block]]
