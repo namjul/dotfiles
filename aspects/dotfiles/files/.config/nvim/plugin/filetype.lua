@@ -2,6 +2,9 @@
 -- https://github.com/neovim/neovim/pull/16600#issuecomment-990409210
 
 vim.filetype.add({
+  extension = {
+    mdx = 'mdx',
+  },
   filename = {
     ["TODO"] = function()
       return "markdown"

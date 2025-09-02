@@ -55,9 +55,6 @@ end
 -- LEADER
 --------------------
 
-vim.g.mapleader = ' '
-vim.g.maplocalleader = ','
-
 map.g('', 'Y', 'y$') -- multi-mode mappings (Normal, Visual, Operating-pending modes).
 
 -- moving text
