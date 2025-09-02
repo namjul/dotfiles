@@ -80,12 +80,6 @@ exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 # and nm-applet is a desktop environment-independent system tray GUI for it.
 exec --no-startup-id nm-applet
 
-# screens
-exec --no-startup-id xrandr --output DP1 --auto --left-of eDP1
-# workspace 1 output DP1
-# workspace 2 output DP1
-# workspace 3 output eDP1
-
 exec --no-startup-id notify-battery -n
 
 # Start xdg-desktop-portal: provides a standard interface for apps (like Ghostty) to access
