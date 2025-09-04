@@ -1,6 +1,6 @@
 configuration {
   modes: [ combi ];
-  combi-modes: [ drun, run ];
+  combi-modes: [ window, drun, run ];
 }
 
 @theme "gruvbox-light"
