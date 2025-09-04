@@ -189,7 +189,7 @@ bindsym $mod+BackSpace focus mode_toggle
 bindsym $mod+p focus parent
 
 # focus the child container
-bindsym $mod+n focus child
+bindsym $mod+i focus child
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
@@ -289,7 +289,7 @@ mode "$mode_system" {
 }
 bindsym $mod+Escape mode "$mode_system"
 
-bindsym $mod+i exec --no-startup-id do-not-disturb
+bindsym $mod+z exec --no-startup-id do-not-disturb
 bindsym $mod+m exec --no-startup-id spotify
 bindsym $mod+Shift+t exec --no-startup-id darkman toggle
 bindsym $mod+b exec --no-startup-id google-chrome
@@ -297,7 +297,9 @@ bindsym $mod+Shift+s exec --no-startup-id substack
 bindsym $mod+a exec --no-startup-id chatgpt
 bindsym $mod+Shift+a exec --no-startup-id grok
 bindsym $mod+Ctrl+a exec --no-startup-id deepseek
-bindsym $mod+o exec --no-startup-id devdocs
+bindsym $mod+d exec --no-startup-id devdocs
+bindsym $mod+Shift+d exec --no-startup-id ghostty --command=lazydocker
 bindsym $mod+v exec --no-startup-id ghostty --command=btop
+bindsym $mod+n exec --no-startup-id ghostty --command=nvim
 bindsym $mod+f exec --no-startup-id nautilus
 bindsym $mod+y exec --no-startup-id youtube
