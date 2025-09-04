@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+sed -i 's/@theme "gruvbox-light"/@theme "gruvbox-dark"/' ~/.config/rofi/config.rasi
+
