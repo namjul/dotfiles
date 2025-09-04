@@ -99,6 +99,8 @@ exec_always --no-startup-id sleep 2 && feh --no-fehbg --bg-scale "$HOME/.config/
 for_window [class="scratch.term"] move scratchpad
 exec --no-startup-id ghostty --class=scratch.term
 
+bindsym $mod+b bar mode toggle
+
 # move focused workspace between monitors
 bindsym $mod+Ctrl+Up move workspace to output up
 bindsym $mod+Ctrl+Down move workspace to output down
@@ -292,6 +294,5 @@ mode "$mode_system" {
 }
 bindsym $mod+Shift+q mode "$mode_system"
 
-bindsym $mod+b [instance="^google-chrome"] focus
 bindsym $mod+m exec --no-startup-id do-not-disturb
 bindsym $mod+t exec --no-startup-id darkman toggle
