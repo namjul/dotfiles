@@ -43,6 +43,7 @@ bar {
         urgent_workspace     $red $red    $bg
     }
 }
+bindsym $mod+Shift+b bar mode toggle
 
 for_window [class="^.*"] border pixel 2
 
@@ -99,8 +100,6 @@ exec_always --no-startup-id sleep 2 && feh --no-fehbg --bg-scale "$HOME/.config/
 for_window [class="scratch.term"] move scratchpad
 exec --no-startup-id ghostty --class=scratch.term
 
-bindsym $mod+b bar mode toggle
-
 # move focused workspace between monitors
 bindsym $mod+Ctrl+Up move workspace to output up
 bindsym $mod+Ctrl+Down move workspace to output down
@@ -130,13 +129,13 @@ bindsym Print exec flameshot gui
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Shift+Return exec ghostty
+bindsym $mod+Return exec ghostty
 
 # kill focused window
-bindsym $mod+Shift+c kill
+bindsym $mod+w kill
 
 # start dmenu (a program launcher)
-bindsym $mod+d exec --no-startup-id "rofi -show combi"
+bindsym $mod+space exec --no-startup-id "rofi -show combi"
 # A more modern dmenu replacement is rofi:
 # bindcode $mod+40 exec "rofi -modi drun,run -show drun"
 # There also is i3-dmenu-desktop which only displays applications shipping a
@@ -174,7 +173,7 @@ bindsym Ctrl+Shift+l split h
 bindsym Ctrl+Shift+j split v
 
 # enter fullscreen mode for the focused container
-bindsym $mod+f fullscreen toggle
+bindsym $mod+F11 fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
 bindsym $mod+s layout toggle tabbed splith
@@ -184,13 +183,13 @@ workspace_layout tabbed
 bindsym $mod+Shift+space floating toggle
 
 # change focus between tiling / floating windows
-bindsym $mod+space focus mode_toggle
+bindsym $mod+BackSpace focus mode_toggle
 
 # focus the parent container
-bindsym $mod+a focus parent
+bindsym $mod+p focus parent
 
 # focus the child container
-#bindsym $mod+d focus child
+bindsym $mod+n focus child
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
@@ -238,23 +237,21 @@ bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcu
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
-        bindsym h resize shrink width 10 px or 10 ppt
-        bindsym k resize grow height 10 px or 10 ppt
-        bindsym j resize shrink height 10 px or 10 ppt
-        bindsym l resize grow width 10 px or 10 ppt
+    bindsym h resize shrink width 10 px or 10 ppt
+    bindsym k resize grow height 10 px or 10 ppt
+    bindsym j resize shrink height 10 px or 10 ppt
+    bindsym l resize grow width 10 px or 10 ppt
 
-        # same bindings, but for the arrow keys
-        bindsym Left resize shrink width 10 px or 10 ppt
-        bindsym Down resize grow height 10 px or 10 ppt
-        bindsym Up resize shrink height 10 px or 10 ppt
-        bindsym Right resize grow width 10 px or 10 ppt
+    # same bindings, but for the arrow keys
+    bindsym Left resize shrink width 10 px or 10 ppt
+    bindsym Down resize grow height 10 px or 10 ppt
+    bindsym Up resize shrink height 10 px or 10 ppt
+    bindsym Right resize grow width 10 px or 10 ppt
 
-        # back to normal: Enter or Escape
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
-
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
 }
-
 bindsym $mod+r mode "resize"
 
 ## Manual management of external displays
@@ -275,8 +272,6 @@ mode "$mode_display" {
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
-
-# Declare here the shortcut to bring the display selection menu
 bindsym $mod+x mode "$mode_display"
 
 set $Locker i3lock -c 000000 && sleep 1
@@ -292,7 +287,17 @@ mode "$mode_system" {
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
-bindsym $mod+Shift+q mode "$mode_system"
+bindsym $mod+Escape mode "$mode_system"
 
-bindsym $mod+m exec --no-startup-id do-not-disturb
-bindsym $mod+t exec --no-startup-id darkman toggle
+bindsym $mod+i exec --no-startup-id do-not-disturb
+bindsym $mod+m exec --no-startup-id spotify
+bindsym $mod+Shift+t exec --no-startup-id darkman toggle
+bindsym $mod+b exec --no-startup-id google-chrome
+bindsym $mod+Shift+s exec --no-startup-id substack
+bindsym $mod+a exec --no-startup-id chatgpt
+bindsym $mod+Shift+a exec --no-startup-id grok
+bindsym $mod+Ctrl+a exec --no-startup-id deepseek
+bindsym $mod+o exec --no-startup-id devdocs
+bindsym $mod+v exec --no-startup-id ghostty --command=btop
+bindsym $mod+f exec --no-startup-id nautilus
+bindsym $mod+y exec --no-startup-id youtube
