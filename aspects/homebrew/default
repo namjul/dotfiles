@@ -86,7 +86,7 @@ brew install starship # https://github.com/starship/starship
 brew install bat # https://github.com/sharkdp/bat
 # brew install chafa # https://github.com/hpjansson/chafa Terminal graphics
 # brew install chroma # https://github.com/alecthomas/chroma
-brew install neofetch # https://github.com/dylanaraps/neofetch
+brew install fastfetch # https://github.com/fastfetch-cli/fastfetch
 brew install trash-cli # https://github.com/andreafrancia/trash-cli
 brew install openssl
 brew install neovim # Vim-fork focused on extensibility and usability (https://github.com/neovim/neovim)
@@ -96,6 +96,7 @@ brew isntall sesh # https://github.com/joshmedeski/sesh
 brew install gopass # https://github.com/gopasspw/gopass
 brew install notmuch # https://notmuchmail.org
 brew install btop # https://github.com/aristocratos/btop
+brew install lazydocker # https://github.com/jesseduffield/lazydocker
 
 # Remove outdated versions from the cellar
 brew cleanup
