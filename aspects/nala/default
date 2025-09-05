@@ -35,6 +35,7 @@ sudo nala install bluez # bluetooth
 sudo nala install lxpolkit # authentication agent https://wiki.archlinux.org/title/Polkit#Authentication_agents
 brew install btop # https://github.com/aristocratos/btop
 brew install mpv # https://mpv.io/
+brew install iwd # https://wiki.archlinux.org/title/Iwd
 
 sudo nala install -y brightnessctl # https://github.com/Hummer12007/brightnessctl
 sudo chmod +s $(which brightnessctl) # brightnessctl requires root permissions: https://github.com/i3/i3/discussions/4763 https://github.com/Hummer12007/brightnessctl?tab=readme-ov-file#permissions
