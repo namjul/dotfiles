@@ -1,10 +1,11 @@
 [Desktop Entry]
 Type=Application
 Exec=rescuetime
-Hidden=false
+Hidden=true
 NoDisplay=false
 X-GNOME-Autostart-enabled=true
 Name[de_DE]=rescuetime
 Name=rescuetime
 Comment[de_DE]=
 Comment=Tracks the time you spend on apps and websites
+

@@ -6,3 +6,4 @@ Comment=com.athlabs.spyglassstartup script
 Exec=/tmp/.mount_spyglaaksIQb/usr/bin/spyglass 
 StartupNotify=false
 Terminal=false
+Hidden=true
