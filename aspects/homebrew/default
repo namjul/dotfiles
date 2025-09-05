@@ -97,7 +97,8 @@ brew install gopass # https://github.com/gopasspw/gopass
 brew install notmuch # https://notmuchmail.org
 brew install btop # https://github.com/aristocratos/btop
 brew install lazydocker # https://github.com/jesseduffield/lazydocker
-sudo nala install imv # https://sr.ht/~exec64/imv/
+brew install btop # https://github.com/aristocratos/btop
+brew install mpv # https://mpv.io/
 
 # Remove outdated versions from the cellar
 brew cleanup
