@@ -13,7 +13,7 @@ await spinner('make ~/opt/espanso', async () => {
 
 await spinner('download Espanso appimage', async () => {
   const stream = fs.createWriteStream(`${os.homedir()}/opt/espanso/espanso.appimage`);
-  const { body } = await fetch('https://github.com/federico-terzi/espanso/releases/download/v2.2.1/Espanso-X11.AppImage')
+  const { body } = await fetch('https://github.com/espanso/espanso/releases/download/v2.2.1/Espanso-X11.AppImage')
   await finished(Readable.fromWeb(body).pipe(stream));
 });
 
@@ -21,16 +21,7 @@ await spinner('make Espanso appimage executable', async () => {
   await $`chmod 0755 ${os.homedir()}/opt/espanso/espanso.appimage`
 });
 
-await spinner('create the "espanso" command alias', async () => {
-  await $`chmod 0755 ${os.homedir()}/opt/espanso/espanso.appimage`
-});
-
 await spinner('extract Espanoe appimage files', async () => {
   cd(`${os.homedir()}/opt/espanso/`)
   await $`${os.homedir()}/opt/espanso/espanso.appimage --appimage-extract`
-});
-
-await spinner('setup systemd service', async () => {
- await $`espanso service register`
- await $`espanso start`
 });
