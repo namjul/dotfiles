@@ -137,9 +137,8 @@ lsp.init = function()
     mason_tool_installer.setup { ensure_installed = ensure_installed }
   end
 
-  local has_lspconfig, lspconfig = pcall(require, 'lspconfig')
   local has_mason_lspconfig, mason_lspconfig = pcall(require, 'mason-lspconfig')
-  if has_mason and has_mason_lspconfig and has_lspconfig then
+  if has_mason and has_mason_lspconfig then
 
     mason_lspconfig.setup({
       ensure_installed = {}, -- explicitly set to an empty table (populated installs via mason-tool-installer)
