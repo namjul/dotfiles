@@ -7,19 +7,6 @@ vim.g.markdown_composer_open_browser = 0
 
 namjul.lsp.init()
 
--- require('clipboard-image').setup({
---   default = {
---     img_name = function()
---       vim.fn.inputsave()
---       local name = vim.fn.input('Name: ')
---       vim.fn.inputrestore()
---       return name
---     end,
---     img_dir = { '%:p:h', 'assets', 'images' },
---     img_dir_txt = './assets/images',
---   },
--- })
-
 require('namjul.translator')
 
 require('pastify').setup({
