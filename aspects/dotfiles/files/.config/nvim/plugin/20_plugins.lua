@@ -242,3 +242,14 @@ namjul.plugin.lazy('undotree', {
 require('nvim-ts-autotag').setup()
 
 namjul.plugin.load('shellbot')
+
+local has_luasnip = pcall(require, 'luasnip')
+
+if has_luasnip then
+  -- Tell LuaSnip to load on demand based on file-type.
+  require('luasnip.loaders.from_lua').load({
+    lazy_paths = {"~/.config/nvim/lua/namjul/snippets"},
+    -- paths = {"~/.config/nvim/lua/namjul/snippets"}
+  })
+end
+

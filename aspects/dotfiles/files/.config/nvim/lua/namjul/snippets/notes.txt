@@ -1,0 +1,4 @@
+
+-- https://github.com/dendronhq/dendron-template/blob/master/vault/.vscode/dendron.code-snippets
+-- uuid
+-- export default named function
