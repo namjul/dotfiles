@@ -292,7 +292,7 @@ bindsym $mod+Escape mode "$mode_system"
 bindsym $mod+z exec --no-startup-id do-not-disturb
 bindsym $mod+m exec --no-startup-id spotify
 bindsym $mod+Shift+t exec --no-startup-id darkman toggle
-bindsym $mod+b exec --no-startup-id google-chrome
+bindsym $mod+b exec --no-startup-id chromium
 bindsym $mod+Shift+s exec --no-startup-id substack
 bindsym $mod+a exec --no-startup-id chatgpt
 bindsym $mod+Shift+a exec --no-startup-id grok

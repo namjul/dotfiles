@@ -1,1 +1,1 @@
-google-chrome --app="https://figma.com"
+chromium --app="https://figma.com"

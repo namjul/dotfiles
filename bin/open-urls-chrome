@@ -8,7 +8,7 @@ urls=$(xclip -selection clipboard -o | grep -Eo 'https?:\/\/[^ \)]+')
 echo "$urls"
 
 if [ -n "$urls" ]; then
-  google-chrome $urls
+  chromium $urls
 else
   echo "No valid URLs found in clipboard."
 fi

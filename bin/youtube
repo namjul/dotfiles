@@ -1,1 +1,1 @@
-google-chrome --app="https://youtube.com/"
+chromium --app="https://youtube.com/"

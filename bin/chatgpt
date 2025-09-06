@@ -1,1 +1,1 @@
-google-chrome --app="https://chatgpt.com/"
+chromium --app="https://chatgpt.com/"

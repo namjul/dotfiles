@@ -1,1 +1,1 @@
-google-chrome --app="https://grok.com/"
+chromium --app="https://grok.com/"

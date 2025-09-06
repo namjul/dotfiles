@@ -1,1 +1,1 @@
-google-chrome --app="https://devdocs.io/"
+chromium --app="https://devdocs.io/"

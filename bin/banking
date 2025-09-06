@@ -1,1 +1,1 @@
-google-chrome --app="https://ebanking.easybank.at/"
+chromium --app="https://ebanking.easybank.at/"

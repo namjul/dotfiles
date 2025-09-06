@@ -1,1 +1,1 @@
-google-chrome --app="https://calendar.google.com/"
+chromium --app="https://calendar.google.com/"

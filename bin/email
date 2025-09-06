@@ -1,1 +1,1 @@
-google-chrome --app="https://gmail.com/"
+chromium --app="https://gmail.com/"

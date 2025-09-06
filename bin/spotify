@@ -1,1 +1,1 @@
-google-chrome --app="https://open.spotify.com/"
+chromium --app="https://open.spotify.com/"

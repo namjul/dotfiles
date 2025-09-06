@@ -35,7 +35,7 @@ sudo nala install lxpolkit # authentication agent https://wiki.archlinux.org/tit
 sudo nala install libpipewire-0.3-dev # required for https://github.com/tsowell/wiremix
 sudo nala install imv # https://sr.ht/~exec64/imv/
 sudo nala install iwd # https://wiki.archlinux.org/title/Iwd
-
+sudo nala install chromium
 
 sudo nala install -y brightnessctl # https://github.com/Hummer12007/brightnessctl
 sudo chmod +s $(which brightnessctl) # brightnessctl requires root permissions: https://github.com/i3/i3/discussions/4763 https://github.com/Hummer12007/brightnessctl?tab=readme-ov-file#permissions

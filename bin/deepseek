@@ -1,1 +1,1 @@
-google-chrome --app="https://chat.deepseek.com/"
+chromium --app="https://chat.deepseek.com/"
