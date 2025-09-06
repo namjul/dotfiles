@@ -305,7 +305,7 @@ bindsym $mod+f exec --no-startup-id nautilus
 bindsym $mod+y exec --no-startup-id youtube
 bindsym $mod+t exec --no-startup-id telegram
 bindsym $mod+e exec --no-startup-id email
-bindsym $mod+c exec --no-startup-id calendar
+bindsym $mod+Shift+c exec --no-startup-id calendar
 
 # Execute startup script
 exec --no-startup-id chmod u+x ~/.config/i3/startup.sh; ~/.config/i3/startup.sh
