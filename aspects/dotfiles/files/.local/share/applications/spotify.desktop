@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Name=Spotify
+Comment=Launch Spotify in Chromium
+Exec=chromium --app=https://open.spotify.com/
+Terminal=false
+Type=Application
+Categories=Network;Audio;
+StartupWMClass=spotify

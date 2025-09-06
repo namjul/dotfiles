@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Name=Grok
+Comment=Launch Grok in Chromium
+Exec=chromium --app=https://grok.com/
+Terminal=false
+Type=Application
+Categories=Network;Productivity;
+StartupWMClass=grok

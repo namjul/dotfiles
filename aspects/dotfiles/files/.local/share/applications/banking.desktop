@@ -6,4 +6,4 @@ Exec=chromium --app=https://ebanking.easybank.at/
 Terminal=false
 Type=Application
 Categories=Network;Finance;
-StartupWMClass=easybank
+StartupWMClass=banking

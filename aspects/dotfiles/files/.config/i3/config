@@ -290,22 +290,25 @@ mode "$mode_system" {
 bindsym $mod+Escape mode "$mode_system"
 
 bindsym $mod+z exec --no-startup-id do-not-disturb
-bindsym $mod+m exec --no-startup-id spotify
 bindsym $mod+Shift+t exec --no-startup-id darkman toggle
-bindsym $mod+b exec --no-startup-id chromium
-bindsym $mod+Shift+s exec --no-startup-id substack
-bindsym $mod+a exec --no-startup-id chatgpt
-bindsym $mod+Shift+a exec --no-startup-id grok
-bindsym $mod+Ctrl+a exec --no-startup-id deepseek
-bindsym $mod+d exec --no-startup-id devdocs
+
 bindsym $mod+Shift+d exec --no-startup-id ghostty --command=lazydocker
 bindsym $mod+v exec --no-startup-id ghostty --command=btop
 bindsym $mod+n exec --no-startup-id ghostty --command=nvim
-bindsym $mod+f exec --no-startup-id nautilus
-bindsym $mod+y exec --no-startup-id youtube
-bindsym $mod+t exec --no-startup-id telegram
-bindsym $mod+e exec --no-startup-id email
-bindsym $mod+Shift+c exec --no-startup-id calendar
+
+bindsym $mod+b exec --no-startup-id chromium
+
+bindsym $mod+m exec --no-startup-id gtk-launch spotify
+bindsym $mod+Shift+s exec --no-startup-id gtk-launch substack
+bindsym $mod+a exec --no-startup-id gtk-launch chatgpt
+bindsym $mod+Shift+a exec --no-startup-id gtk-launch grok
+bindsym $mod+Ctrl+a exec --no-startup-id gtk-launch deepseek
+bindsym $mod+d exec --no-startup-id gtk-launch devdocs
+bindsym $mod+f exec --no-startup-id gtk-launch org.gnome.Nautilus
+bindsym $mod+y exec --no-startup-id gtk-launch youtube
+bindsym $mod+t exec --no-startup-id gtk-launch telegram
+bindsym $mod+e exec --no-startup-id gtk-launch email
+bindsym $mod+c exec --no-startup-id gtk-launch calendar
 
 # Execute startup script
 exec --no-startup-id chmod u+x ~/.config/i3/startup.sh; ~/.config/i3/startup.sh

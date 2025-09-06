@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Name=Figma
+Comment=Launch Figma in Chromium
+Exec=chromium --app=https://figma.com/
+Terminal=false
+Type=Application
+Categories=Network;Graphics;
+StartupWMClass=figma

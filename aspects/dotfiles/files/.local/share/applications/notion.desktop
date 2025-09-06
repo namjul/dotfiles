@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Name=Notion
+Comment=Launch Notion in Chromium
+Exec=chromium --app=https://notion.so/
+Terminal=false
+Type=Application
+Categories=Network;Productivity;
+StartupWMClass=notion

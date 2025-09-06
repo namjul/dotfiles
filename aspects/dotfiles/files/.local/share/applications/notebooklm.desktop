@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Name=NotebookLM
+Comment=Launch NotebookLM in Chromium
+Exec=chromium --app=https://notebooklm.google.com/
+Terminal=false
+Type=Application
+Categories=Network;Productivity;
+StartupWMClass=notebooklm
