@@ -76,6 +76,13 @@ require('conform').setup({
 
 require('mini.git')
 
+require('mini.basics').setup({
+  options = { basic = false }, -- Manage options manually in a spirit of transparency
+  mappings = { windows = false, option_toggle_prefix = [[yo]] },
+})
+
+require('mini.bracketed').setup()
+
 require('mini.diff').setup({
   view = {
     style = 'sign',

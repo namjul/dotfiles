@@ -20,7 +20,6 @@ local is_bootstrap = namjul.plugin.bootstrap({
   -- { 'rbong/vim-flog' },            -- git branch viewer
   { 'tpope/vim-rhubarb' }, -- open files on github
   { 'shumphrey/fugitive-gitlab.vim' }, -- open files on gitlab
-  { 'tpope/vim-unimpaired' }, -- set of complementary pair commands
   { 'tpope/vim-abolish' }, -- Case-preserving find and replace
   { 'svermeulen/vim-cutlass' }, -- seperate `cut` form `delete`
   -- { 'svermeulen/vim-subversive' }, -- adds a subsitute operator
