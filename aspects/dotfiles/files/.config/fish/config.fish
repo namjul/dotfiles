@@ -27,6 +27,8 @@ if not type -q shellfirm
   echo "`shellfirm` binary is missing. see installation guide: https://github.com/kaplanelad/shellfirm"
 end
 
+mise activate fish | source
+
 if status is-interactive
   set fish_greeting # remove fish's greeting
 
@@ -46,7 +48,6 @@ if status is-interactive
   starship init fish | source
   zoxide init fish | source
   direnv hook fish | source
-  mise activate fish | source
   scmpuff init -s --shell=fish | source
 
   # Tmux
