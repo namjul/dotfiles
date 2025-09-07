@@ -16,12 +16,9 @@ local is_bootstrap = namjul.plugin.bootstrap({
   { 'savq/paq-nvim' },
   { 'tpope/vim-repeat' }, -- enables the repeat command to work with external plugins
   { 'tpope/vim-fugitive' }, -- git integration
-  -- { 'rbong/vim-flog' },            -- git branch viewer
-  { 'tpope/vim-rhubarb' }, -- open files on github
   { 'shumphrey/fugitive-gitlab.vim' }, -- open files on gitlab
   { 'tpope/vim-abolish' }, -- Case-preserving find and replace
   { 'svermeulen/vim-cutlass' }, -- seperate `cut` form `delete`
-  -- { 'svermeulen/vim-subversive' }, -- adds a subsitute operator
   { 'gbprod/yanky.nvim' }, -- adds easy access to history of yanks
   { 'tpope/vim-sleuth' }, -- support editor config files (https://editorconfig.org/)
   { 'nvim-lua/plenary.nvim' },
@@ -37,7 +34,6 @@ local is_bootstrap = namjul.plugin.bootstrap({
   { 'jeffkreeftmeijer/vim-numbertoggle' }, -- improves the display of line numbers
   { 'Valloric/MatchTagAlways' }, -- highlights xml tags enclosing the cursor
   { 'simeji/winresizer' }, -- helper for resizing windows
-  -- { 'lewis6991/gitsigns.nvim' },
   -- { 'rhysd/committia.vim' },               -- improves vim 'commit' buffer
   { 'L3MON4D3/LuaSnip', branch = 'v2.4.0' }, -- snippets engine
   { 'mattn/webapi-vim' }, -- needed for `gist-vim`
