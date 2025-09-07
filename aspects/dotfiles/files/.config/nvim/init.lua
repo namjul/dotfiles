@@ -14,7 +14,6 @@ require('namjul')
 
 local is_bootstrap = namjul.plugin.bootstrap({
   { 'savq/paq-nvim' },
-  { 'tpope/vim-sensible' }, -- sensible defaults
   { 'tpope/vim-repeat' }, -- enables the repeat command to work with external plugins
   { 'tpope/vim-fugitive' }, -- git integration
   -- { 'rbong/vim-flog' },            -- git branch viewer
