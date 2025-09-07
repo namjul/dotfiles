@@ -1,136 +1,69 @@
-local has_which_key = pcall(require, 'which-key')
-local has_mini_keymap, mini_keymap = pcall(require, 'mini.keymap')
-local has_mini_move, mini_move = pcall(require, 'mini.move')
 
-if not has_which_key then
-  return
+-- Shorter version of the most frequent way of going outside of terminal window
+vim.keymap.set('t', '<C-h>', [[<C-\><C-N><C-w>h]])
+
+-- Paste before/after linewise
+local cmd = vim.fn.has('nvim-0.12') == 1 and 'iput' or 'put'
+vim.keymap.set({ 'n', 'x' }, '[p', '<Cmd>exe "' .. cmd .. '! " . v:register<CR>', { desc = 'Paste Above' })
+vim.keymap.set({ 'n', 'x' }, ']p', '<Cmd>exe "' .. cmd .. ' "  . v:register<CR>', { desc = 'Paste Below' })
+
+vim.keymap.set('c', '<C-a>', '<Home>')
+vim.keymap.set('c', '<C-e>', '<End>')
+
+vim.keymap.set('n', "-",         "<CMD>Oil<CR>", {desc = "Open parent directory", nowait = false, remap = false })
+vim.keymap.set('n', "<C-d>",     "<C-d>zz", { desc = "Up", nowait = false, remap = false } )
+vim.keymap.set('n', "<C-u>",     "<C-u>zz", {desc = "Down", nowait = false, remap = false })
+vim.keymap.set('n', "<Down>",    ":cnext<CR>", { desc = "Next in quickfix list", nowait = false, remap = false })
+vim.keymap.set('n', "<Left>",    ":cpfile<CR>", { desc = "Last Error in quickfix list", nowait = false, remap = false })
+vim.keymap.set('n', "<Right>",   ":cnfile<CR>", { desc = "First Error in quickfix list", nowait = false, remap = false })
+vim.keymap.set('n', "<S-Down>",  ":lnext<CR>", { desc = "Next in location list", nowait = false, remap = false })
+vim.keymap.set('n', "<S-Left>",  ":lpfile<CR>", { desc = "Last Error in location list", nowait = false, remap = false })
+vim.keymap.set('n', "<S-Right>", ":lnfile<CR>", { desc = "First Error in location list", nowait = false, remap = false })
+vim.keymap.set('n', "<S-Up>",    ":lprev<CR>", { desc = "Previous in location list", nowait = false, remap = false })
+vim.keymap.set('n', "<Up>",      ":cprev<CR>", { desc = "Previous in quickfix list", nowait = false, remap = false })
+vim.keymap.set('n', "<c-k>",     ":lua require('namjul.functions.telescope').findFiles()<CR>", { desc = "Go to File", nowait = false, remap = false })
+vim.keymap.set('n', "<c-s>",     "<Plug>(Switch)", { desc = "Switch", nowait = false, remap = false })
+vim.keymap.set('n', "J",         "mzJ`z", { desc = "Join lines", nowait = false, remap = false })
+vim.keymap.set('n', "N",         "Nzzzv", { desc = "Search Previous", nowait = false, remap = false })
+vim.keymap.set('n', "Q",         "", { desc = "avoid unintentional switches to Ex mode.", nowait = false, remap = false })
+vim.keymap.set('n', "gp",        ":lua MiniDiff.toggle_overlay()<CR>", { desc = "Toggle git hunks preview", nowait = false, remap = false })
+vim.keymap.set('n', "gx",        ":!open <cWORD><CR>", { desc = "open url", nowait = false, remap = false })
+vim.keymap.set('n', "n",         "nzzzv", { desc = "Search next", nowait = false, remap = false })
+
+-- Store relative line number jumps in the jumplist if they exceed a threshold.
+vim.keymap.set('n', 'k', function()
+  return (vim.v.count > 5 and "m'" .. vim.v.count or '') .. 'k'
+end, { expr = true })
+vim.keymap.set('n', 'j', function()
+  return (vim.v.count > 5 and "m'" .. vim.v.count or '') .. 'j'
+end, { expr = true })
+
+-- Leader mappings ===
+
+-- Create `<Leader>` mappings
+local nmap_leader = function(suffix, rhs, desc, opts)
+  opts = opts or {}
+  opts.desc = desc
+  vim.keymap.set('n', '<Leader>' .. suffix, rhs, opts)
+end
+local xmap_leader = function(suffix, rhs, desc, opts)
+  opts = opts or {}
+  opts.desc = desc
+  vim.keymap.set('x', '<Leader>' .. suffix, rhs, opts)
 end
 
-local cmd = vim.cmd -- to execute Vim commands e.g. cmd('pwd')
-local fn = vim.fn   -- to call Vim functions e.g. fn.bufnr()
-local util = require('namjul.utils')
-local map = util.map
-local var = util.var
 local wk = require('which-key')
 local harpoon = require('harpoon')
-
-if has_mini_move then
-  mini_move.setup({
-    mappings = {
-      left = '<S-h>',
-      right = '<S-l>',
-      down = '<S-j>',
-      up = '<S-k>',
-    }
-  })
-end
-
-if has_mini_keymap then
-  mini_keymap.setup()
-
-  local map_multistep = mini_keymap.map_multistep
-  map_multistep('i', '<Tab>', { 'jump_after_close' })
-  map_multistep('i', '<S-Tab>', { 'jump_before_open' })
-  map_multistep('i', '<CR>', { 'minipairs_cr' })
-  map_multistep('i', '<BS>', { 'hungry_bs', 'minipairs_bs' })
-
-  -- local map_combo = mini_keymap.map_combo
-  -- local mode = { 'i', 'c', 'x', 's' }
-  -- local opts = { delay = 1000 }
-  -- map_combo(mode, 'jk', '<Esc>', opts)
-  -- map_combo(mode, 'kj', '<Esc>') -- To not have to worry about the order of keys, also map "kj"
-
-  -- Escape into Normal mode from Terminal mode
-  -- map_combo('t', 'jk', '<BS><BS><C-\\><C-n>')
-  -- map_combo('t', 'kj', '<BS><BS><C-\\><C-n>')
-
-  -- -- Easier navigation
-  -- map_combo({ 'n', 'x' }, 'll', 'g$')
-  -- map_combo({ 'n', 'x' }, 'hh', 'g^')
-  -- map_combo({ 'n', 'x' }, 'jj', '}')
-  -- map_combo({ 'n', 'x' }, 'kk', '{')
-
-end
 
 -- LEADER
 --------------------
 
-map.g('', 'Y', 'y$') -- multi-mode mappings (Normal, Visual, Operating-pending modes).
-
--- moving text
--- map.g('i', '<C-j>', '<esc>:m .+1<CR>==')
--- map.g('i', '<C-k>', '<esc>:m .-2<CR>==')
--- map.g('n', 'K', ':m .-2<CR>==')
--- map.g('n', 'J', ':m .+1<CR>==')
 
 -- NORMAL
 --------------------
 
 wk.add({
-  { "-",         "<CMD>Oil<CR>",                                                    desc = "Open parent directory",                                                        nowait = false, remap = false },
-  { "<C-d>",     "<C-d>zz",                                                         desc = "Up",                                                                           nowait = false, remap = false },
-  { "<C-u>",     "<C-u>zz",                                                         desc = "Down",                                                                         nowait = false, remap = false },
-  { "<Down>",    ":cnext<CR>",                                                      desc = "Next in quickfix list",                                                        nowait = false, remap = false },
-  { "<Left>",    ":cpfile<CR>",                                                     desc = "Last Error in quickfix list",                                                  nowait = false, remap = false },
-  { "<Right>",   ":cnfile<CR>",                                                     desc = "First Error in quickfix list",                                                 nowait = false, remap = false },
-  { "<S-Down>",  ":lnext<CR>",                                                      desc = "Next in location list",                                                        nowait = false, remap = false },
-  { "<S-Left>",  ":lpfile<CR>",                                                     desc = "Last Error in location list",                                                  nowait = false, remap = false },
-  { "<S-Right>", ":lnfile<CR>",                                                     desc = "First Error in location list",                                                 nowait = false, remap = false },
-  { "<S-Up>",    ":lprev<CR>",                                                      desc = "Previous in location list",                                                    nowait = false, remap = false },
-  { "<Up>",      ":cprev<CR>",                                                      desc = "Previous in quickfix list",                                                    nowait = false, remap = false },
-  { "<c-k>",     ":lua require('namjul.functions.telescope').findFiles()<CR>",      desc = "Go to File",                                                                   nowait = false, remap = false },
-  { "<c-s>",     "<Plug>(Switch)",                                                  desc = "Switch",                                                                       nowait = false, remap = false },
-  { "J",         "mzJ`z",                                                           desc = "Join lines",                                                                   nowait = false, remap = false },
-  { "N",         "Nzzzv",                                                           desc = "Search Previous",                                                              nowait = false, remap = false },
-  { "Q",         "",                                                                desc = "avoid unintentional switches to Ex mode.",                                     nowait = false, remap = false },
-  -- { "S",         "<Plug>(leap-backward-to)",                                        desc = "Leap backward to",                                                             nowait = false, remap = false },
-  -- { "s",         "<Plug>(leap-forward-to)",                                         desc = "Leap forward to",                                                              nowait = false, remap = false },
-  -- { "gs",        "<Plug>(leap-cross-window)",                                       desc = "Leap cross window",                                                            nowait = false, remap = false },
-  { "gp",        ":lua MiniDiff.toggle_overlay()<CR>",                              desc = "Toggle git hunks preview",                                                            nowait = false, remap = false },
-  { "gx",        ":!open <cWORD><CR>",                                              desc = "open url",                                                                     nowait = false, remap = false },
-  { "j",         "(v:count > 5 ? \"m\\'\" . v:count : \"\") . \"j\"",               desc = "store relative line number jumps in the jumplist if they exceed a threshold.", expr = true,    nowait = false, remap = false, replace_keycodes = false },
-  { "k",         "(v:count > 5 ? \"m\\'\" . v:count : \"\") . \"k\"",               desc = "store relative line number jumps in the jumplist if they exceed a threshold.", expr = true,    nowait = false, remap = false, replace_keycodes = false },
-  { "n",         "nzzzv",                                                           desc = "Search next",                                                                  nowait = false, remap = false },
-  { "y",         "<Plug>(YankyYank)",                                               desc = "Yank which preserves cursor position",                                         nowait = false, remap = false },
 })
-
-
--- guifont mappings
-if util.isNeoVide() then
-  local guifont = require('namjul.functions.guifont')
-  guifont.resetGuiFont() -- Call function on startup to set default value
-
-  wk.add({
-    {
-      "<C-+>",
-      function()
-        guifont.resizeGuiFont(1)
-      end,
-      desc = "Increase fontsize",
-      nowait = false,
-      remap = false
-    },
-    {
-      "<C-->",
-      function()
-        guifont.resizeGuiFont(-1)
-      end,
-      desc = "Decrease fontsize",
-      nowait = false,
-      remap = false
-    },
-    {
-      "<C-0>",
-      function()
-        guifont.resetGuiFont()
-      end,
-      desc = "Reset fontsize",
-      nowait = false,
-      remap = false
-    },
-  })
-
-end
 
 -- LEADER
 --------------------
@@ -149,6 +82,7 @@ wk.add(
   { "<leader>dp", function() return require('debugprint').debugprint() end, desc = "DebugPrint", expr = true, nowait = false, remap = false, replace_keycodes = false },
   { "<leader>dv", function() return require('debugprint').debugprint({ variable = true }) end, desc = "DebugPrint", expr = true, nowait = false, remap = false, replace_keycodes = false },
   { "<leader>f", group = "find", nowait = false, remap = false },
+  { "<leader>ff", ":lua require('namjul.functions.telescope').findFiles()<CR>", desc = "Find Buffer", nowait = false, remap = false },
   { "<leader>fb", ":lua require('telescope.builtin').buffers(require('telescope.themes').get_ivy({}))<CR>", desc = "Find Buffer", nowait = false, remap = false },
   { "<leader>fc", ":lua require('namjul.functions.telescope').find_most_wanted()<CR>", desc = "Find Most Wanted Folders", nowait = false, remap = false },
   { "<leader>fl", ":lua require('namjul.functions.telescope').memex()<CR>",          desc = "Search in Memex",                                                                nowait = false, remap = false },
@@ -167,11 +101,10 @@ wk.add(
   { "<leader>l", function() harpoon:list():select(3) end, desc = "Harpoon: Goto(3)", nowait = false, remap = false },
   { "<leader>ö", function() harpoon:list():select(4) end, desc = "Harpoon: Goto(4)", nowait = false, remap = false },
   { "<leader>m", ":MaximizerToggle<CR>", desc = "Maximize window", nowait = false, remap = false },
-  { "<leader>n", ":nohlsearch<CR>", desc = "Clear search highlight", nowait = false, remap = false },
   { "<leader>o", ":only<CR>", desc = "Close all windows but active one", nowait = false, remap = false },
   { "<leader>p", function()
-      local file = fn.join({ fn.expand('%'), fn.line('.'), fn.col('.') }, ':')
-      cmd('let @+="' .. file .. '"')
+      local file = vim.fn.join({ vim.fn.expand('%'), vim.fn.line('.'), vim.fn.col('.') }, ':')
+      vim.cmd('let @+="' .. file .. '"')
       print(file)
     end, desc = "Show the path of the current file and add it to clipboard (mnemonic: path; useful when you have a lot of splits and the status line gets truncated).", nowait = false, remap = false },
   { "<leader>q", ":quit<CR>", desc = "Quites the current window and vim if its the last", nowait = false, remap = false },
@@ -208,22 +141,9 @@ wk.add({
     -- { "s",  "<Plug>(leap-forward-to)",   desc = "Leap forward to",                      nowait = false, remap = false },
     -- { "gs", "<Plug>(leap-cross-window)", desc = "Leap cross window",                    nowait = false, remap = false },
     { "p",  '"_dP',                      desc = "Paste without overide",                nowait = false, remap = false },
-    { "y",  "<Plug>(YankyYank)",         desc = "Yank which preserves cursor position", nowait = false, remap = false },
   },
 }
 )
-
--- COMMAND
---------------------
-
--- currently not working https://github.com/folke/which-key.nvim/issues/312
--- wk.register({
---   ['<C-a'] = { '<Home>' },
---   ['<C-e'] = { '<End>' },
--- }, util.shallow_merge(defaultMapping, { mode = 'c', noremap = true }))
-
-map.g('c', '<C-a>', '<Home>')
-map.g('c', '<C-e>', '<End>')
 
 -- INSERT
 --------------------
@@ -236,18 +156,11 @@ wk.add(
       { ",",     ",<C-g>u",                             nowait = false,                remap = false },
       { ".",     ".<C-g>u",                             nowait = false,                remap = false },
       { "?",     "?<C-g>u",                             nowait = false,                remap = false },
-      { "<Bar>", "<Bar><Esc>:call v:lua.namjul.functions.alignMdTable() <CR>a", desc = "Align markdown table", nowait = false, remap = false },
       { "jk",    "<Esc>",                                      desc = "Esc Mapping",          nowait = false, remap = false },
     },
   }
 )
 
--- TERMINAL
---------------------
-
-wk.add({
-  { "<Esc>", "\28\14", desc = "Close terminal", mode = "t", remap = false },
-})
 
 -- LSP
 --------------------

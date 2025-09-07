@@ -88,6 +88,26 @@ require('mini.diff').setup({
     style = 'sign',
   }
 })
+
+local map_multistep = require('mini.keymap').map_multistep
+map_multistep('i', '<Tab>', { 'jump_after_close' })
+map_multistep('i', '<S-Tab>', { 'jump_before_open' })
+map_multistep('i', '<CR>', { 'minipairs_cr' })
+map_multistep('i', '<BS>', { 'hungry_bs', 'minipairs_bs' })
+
+require('mini.move').setup({
+  mappings = {
+    left = '<S-h>',
+    right = '<S-l>',
+    down = '<S-j>',
+    up = '<S-k>',
+    line_left = '<M-h>',
+    line_right = '<M-l>',
+    line_down = '<M-j>',
+    line_up = '<M-k>',
+  }
+})
+
 require('mini.surround').setup({
   mappings = {
     add = 'sa', -- Add surrounding in Normal and Visual modes
