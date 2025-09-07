@@ -176,7 +176,12 @@ require('blink.cmp').setup({
         score_offset = 10
       }
     }
-  }
+  },
+  completion = {
+    menu = { border = 'none' },
+    documentation = { window = { border = 'double' } },
+  },
+  signature = { window = { border = 'double' } },
 })
 
 namjul.plugin.lazy('nvim-tree.lua', {
