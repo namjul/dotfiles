@@ -101,10 +101,10 @@ require('mini.move').setup({
     right = '<S-l>',
     down = '<S-j>',
     up = '<S-k>',
-    line_left = '<M-h>',
-    line_right = '<M-l>',
-    line_down = '<M-j>',
-    line_up = '<M-k>',
+    line_left = '<D-h>',
+    line_right = '<D-l>',
+    line_down = '<D-j>',
+    line_up = '<D-k>',
   }
 })
 
