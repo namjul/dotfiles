@@ -74,6 +74,8 @@ require('conform').setup({
   },
 })
 
+require('mini.git')
+
 require('mini.diff').setup({
   view = {
     style = 'sign',
