@@ -19,7 +19,6 @@ local is_bootstrap = namjul.plugin.bootstrap({
   { 'shumphrey/fugitive-gitlab.vim' }, -- open files on gitlab
   { 'tpope/vim-abolish' }, -- Case-preserving find and replace
   { 'svermeulen/vim-cutlass' }, -- seperate `cut` form `delete`
-  { 'gbprod/yanky.nvim' }, -- adds easy access to history of yanks
   { 'tpope/vim-sleuth' }, -- support editor config files (https://editorconfig.org/)
   { 'nvim-lua/plenary.nvim' },
   { 'nvim-telescope/telescope.nvim', branch = '0.1.8' },
