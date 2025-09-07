@@ -31,11 +31,11 @@ video/x-theora+ogg=mpv.desktop
 application/ogg=mpv.desktop
 
 # default browser
-x-scheme-handler/http=chromium-browser.desktop
-x-scheme-handler/https=chromium-browser.desktop
-x-scheme-handler/about=chromium-browser.desktop
-x-scheme-handler/unknown=chromium-browser.desktop
+x-scheme-handler/http=chromium_chromium.desktop
+x-scheme-handler/https=chromium_chromium.desktop
+x-scheme-handler/about=chromium_chromium.desktop
+x-scheme-handler/unknown=chromium_chromium.desktop
 
 # files
 text/plain=nvim.desktop
-text/html=chromium-browser.desktop
+text/html=chromium_chromium.desktop
