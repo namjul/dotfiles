@@ -304,7 +304,7 @@ bindsym $mod+a exec --no-startup-id gtk-launch chatgpt
 bindsym $mod+Shift+a exec --no-startup-id gtk-launch grok
 bindsym $mod+Ctrl+a exec --no-startup-id gtk-launch deepseek
 bindsym $mod+d exec --no-startup-id gtk-launch devdocs
-bindsym $mod+o exec --no-startup-id gtk-launch org.gnome.Nautilus
+bindsym $mod+Shift+f exec --no-startup-id gtk-launch org.gnome.Nautilus
 bindsym $mod+y exec --no-startup-id gtk-launch youtube
 bindsym $mod+t exec --no-startup-id gtk-launch telegram
 bindsym $mod+e exec --no-startup-id gtk-launch email
