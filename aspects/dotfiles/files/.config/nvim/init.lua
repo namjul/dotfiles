@@ -26,7 +26,10 @@ local is_bootstrap = namjul.plugin.bootstrap({
   { 'nvim-telescope/telescope-live-grep-args.nvim' },
   { 'ThePrimeagen/harpoon', branch = 'harpoon2' }, -- navigation helper
   { 'TobinPalmer/pastify.nvim' },
-  { 'euclio/vim-markdown-composer', build = 'cargo build --release'  },
+  { 'iamcco/markdown-preview.nvim', build = function()
+    vim.fn['mkdp#util#install']()
+  end
+  },
   { 'simeji/winresizer' }, -- helper for resizing windows
   { 'L3MON4D3/LuaSnip', branch = 'v2.4.0' }, -- snippets engine
   {

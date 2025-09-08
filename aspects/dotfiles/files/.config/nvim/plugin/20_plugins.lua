@@ -3,7 +3,7 @@
 vim.g.winresizer_start_key = '<S-T>'
 vim.g.VimuxOrientation = 'h'
 vim.g.switch_mapping = ''
-vim.g.markdown_composer_open_browser = 0
+vim.g.mkdp_auto_close = 0
 
 namjul.lsp.init()
 

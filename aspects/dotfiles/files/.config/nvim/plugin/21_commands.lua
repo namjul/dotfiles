@@ -1,10 +1,6 @@
 
 local getUrlTitle = require('namjul.functions.getUrlTitle')
 
-vim.api.nvim_create_user_command('PreviewMarkdown', function()
-  vim.cmd("VimuxRunCommand('echo ' . expand('%:p') . ' | entr -c -c glow ' . expand('%:p'))")
-end, {})
-
 vim.api.nvim_create_user_command('Format', function(args)
   local range = nil
   if args.count ~= -1 then
