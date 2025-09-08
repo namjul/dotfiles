@@ -114,9 +114,10 @@ vim.opt.gdefault = true -- Add the g flag to search/replace by default
 -- Keyboard layout ===
 --
 -- Folds ===
-vim.opt.foldlevelstart = 99 -- start unfolded
-vim.opt.foldmethod = 'indent' -- not as cool as syntax, but faster
--- vim.opt.foldtext = 'v:lua.wincent.foldtext()'
+vim.opt.foldmethod  = 'indent' -- Set 'indent' folding method
+vim.opt.foldlevel   = 1        -- Display all folds except top ones
+vim.opt.foldnestmax = 10       -- Create folds only for some number of nested levels
+vim.o.foldtext = ''        -- Use underlying text with its highlighting
 -- vim.opt.formatoptions = vim.opt.formatoptions + 'j' -- remove comment leader when joining comment lines
 -- vim.opt.formatoptions = vim.opt.formatoptions + 'n' -- smart auto-indenting inside numbered lists
 
