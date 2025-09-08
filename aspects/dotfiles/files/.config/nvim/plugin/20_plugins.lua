@@ -28,17 +28,6 @@ require('glow').setup()
 require('oil').setup({
   keymaps = {
     ['<C-p>'] = 'actions.copy_entry_path',
-    -- Scope files lookup by current working directory
-    ['<leader>ff'] = {
-      function()
-        namjul.functions.telescope.findFiles({
-          cwd = require('oil').get_current_dir(),
-        })
-      end,
-      mode = 'n',
-      nowait = true,
-      desc = 'Find files in the current directory',
-    },
     ['<leader>:'] = {
       'actions.open_cmdline',
       opts = {
