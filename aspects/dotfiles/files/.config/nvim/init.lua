@@ -82,6 +82,5 @@ local is_bootstrap = namjul.plugin.bootstrap({
   { 'windwp/nvim-ts-autotag' }
 })
 
-if is_bootstrap then
-  return
-end
+-- Define main config table to be able to use it in scripts
+_G.Config = {}

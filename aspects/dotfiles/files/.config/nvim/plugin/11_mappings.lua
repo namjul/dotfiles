@@ -46,6 +46,8 @@ vim.keymap.set('i', ",", ",<C-g>u")
 vim.keymap.set('i', ".", ".<C-g>u")
 vim.keymap.set('i', "?", "?<C-g>u")
 
+vim.keymap.set('n', "<Leader><Leader>", "<Cmd>b#<CR>", { desc = "Alternate", noremap = true, silent = true })
+
 -- Leader mappings ===
 
 -- Create `<Leader>` mappings
@@ -60,15 +62,11 @@ local xmap_leader = function(suffix, rhs, desc, opts)
   vim.keymap.set('x', '<Leader>' .. suffix, rhs, opts)
 end
 
-nmap_leader("*", "<Cmd>lua require('namjul.functions.telescope').grep_string()<CR>", "Grep word under cursor" )
-nmap_leader("/", "<Cmd>lua require('namjul.functions.telescope').search({ previewer = false })<CR>", "Search word" )
-nmap_leader("1", "<Cmd>RooterToggle<CR>", "Toggle Rooter" )
-nmap_leader("2", "<Cmd>w<CR>:! ./%<CR>", "Execute current file" )
-nmap_leader("3", "<Cmd>!chmod +x %<CR>", "Make current file executable" )
-nmap_leader("b", "<Cmd>lua require('namjul.functions.telescope').findBuffers()<CR>", "[ ] Find existing buffers" )
-nmap_leader("<leader>", "<C-^>", "Open last buffer" )
-nmap_leader("P", "<Cmd>Pastify <CR>", "Paste image from clipboard" )
-nmap_leader("c", "<Cmd>lua require('telescope.builtin').commands(require('telescope.themes').get_ivy({}))<CR>", "Find Command" )
+-- b is for 'buffer'
+nmap_leader("ba", "<Cmd>b#<CR>", "Alternate")
+nmap_leader('bs', '<Cmd>lua Config.new_scratch_buffer()<CR>',    'Scratch')
+
+-- f is for 'fuzzy find'
 nmap_leader("ff", "<Cmd>lua require('namjul.functions.telescope').findFiles()<CR>", "Find Buffer" )
 nmap_leader("fb", "<Cmd>lua require('telescope.builtin').buffers(require('telescope.themes').get_ivy({}))<CR>", "Find Buffer" )
 nmap_leader("fc", "<Cmd>lua require('namjul.functions.telescope').find_most_wanted()<CR>", "Find Most Wanted Folders" )
@@ -78,28 +76,37 @@ nmap_leader("fgb", "<Cmd>lua require('telescope.builtin').git_branches(require('
 nmap_leader("fgc", "<Cmd>lua require('telescope.builtin').git_bcommits(require('telescope.themes').get_ivy({}))<CR>", "Find buffer commits" )
 nmap_leader("fh", "<Cmd>lua require('telescope.builtin').help_tags(require('telescope.themes').get_ivy({}))<CR>", "Find Help" )
 nmap_leader("fr", "<Cmd>lua require('namjul.functions.telescope').find_recent()<CR>", "Find Recent Files" )
+nmap_leader('fs', function() require('telescope.builtin').lsp_document_symbols(require('telescope.themes').get_ivy({})) end, '[D]ocument [S]ymbols')
+nmap_leader('fS', function() require('telescope.builtin').lsp_dynamic_workspace_symbols(require('telescope.themes').get_ivy({})) end, '[W]orkspace [S]ymbols')
+
+-- exception
+nmap_leader("*", "<Cmd>lua require('namjul.functions.telescope').grep_string()<CR>", "Grep word under cursor" )
+nmap_leader("/", "<Cmd>lua require('namjul.functions.telescope').search({ previewer = false })<CR>", "Search word" )
+nmap_leader("c", "<Cmd>lua require('telescope.builtin').commands(require('telescope.themes').get_ivy({}))<CR>", "Find Command" )
+
+-- g is for git
 nmap_leader("gl", "<Cmd>Gclog<CR>", "Open Git log" )
 nmap_leader("gbl", "<Cmd>Gclog -- %<CR>", "Open Buffer Git log" )
+nmap_leader("go", ':lua MiniDiff.toggle_overlay()<CR>', "Toggle hunk diff overlay")
+
+nmap_leader("1", "<Cmd>RooterToggle<CR>", "Toggle Rooter" )
+nmap_leader("2", "<Cmd>w<CR>:! ./%<CR>", "Execute current file" )
+nmap_leader("3", "<Cmd>!chmod +x %<CR>", "Make current file executable" )
 nmap_leader("m", "<Cmd>MaximizerToggle<CR>", "Maximize window" )
 nmap_leader("o", "<Cmd>only<CR>", "Close all windows but active one" )
 nmap_leader("q", "<Cmd>quit<CR>", "Quites the current window and vim if its the last" )
 nmap_leader("te", "<Cmd>Trans en <CR>", "Translate to English(word under cursor)" )
 nmap_leader("tg", "<Cmd>Trans de <CR>", "Translate to German(word under cursor)" )
-nmap_leader("vi", "<Cmd>lua vim.cmd('VimuxInspectRunner')<CR>", "Vimux Inspect runner pane" )
-nmap_leader("vl", "<Cmd>lua vim.cmd('VimuxRunLastCommand')<CR>", "Run last command executed by VimuxRunCommand" )
-nmap_leader("vp", "<Cmd>lua vim.cmd('VimuxPromptCommand')<CR>", "Prompt for a command to run" )
-nmap_leader("vz", "<Cmd>lua vim.cmd('VimuxZoomRunner')<CR>", "Zoom the tmux runner pane" )
 nmap_leader("x", "<Cmd>exit<CR>", 'like ":wq"' )
 nmap_leader("z", "<Cmd>ZenMode<CR>", "Enter Zenmode" )
 nmap_leader("y", '"+y', "Yank into clipboard" )
-nmap_leader("do", ':lua MiniDiff.toggle_overlay()<CR>', "Toggle hunk diff overlay")
 xmap_leader("p", '"_dP"', "Paste without overide")
-nmap_leader("<leader>p", function()
+nmap_leader("p", function()
     local file = vim.fn.join({ vim.fn.expand('%'), vim.fn.line('.'), vim.fn.col('.') }, ':')
     vim.cmd('let @+="' .. file .. '"')
     print(file)
   end, "Show the path of the current file and add it to clipboard (mnemonic: path; useful when you have a lot of splits and the status line gets truncated).")
-nmap_leader("<leader>R", function()
+nmap_leader("R", function()
     -- Unload the lua namespace so that the next time require('config.X') is called
     -- it will reload the file
     require('namjul.utils').unload_lua_namespace('namjul')
@@ -111,12 +118,12 @@ nmap_leader("<leader>R", function()
   end, "Reload vimrc")
 
 local harpoon = require('harpoon')
-nmap_leader("<leader>ha", function() harpoon:list():add() end, "Add file to harpoon" )
-nmap_leader("<leader>hl", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end, "Toggle harpoon menu" )
-nmap_leader("<leader>j", function() harpoon:list():select(1) end, "Harpoon: Goto(1)" )
-nmap_leader("<leader>k", function() harpoon:list():select(2) end, "Harpoon: Goto(2)" )
-nmap_leader("<leader>l", function() harpoon:list():select(3) end, "Harpoon: Goto(3)" )
-nmap_leader("<leader>ö", function() harpoon:list():select(4) end, "Harpoon: Goto(4)" )
+nmap_leader("ha", function() harpoon:list():add() end, "Add file to harpoon" )
+nmap_leader("hl", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end, "Toggle harpoon menu" )
+nmap_leader("j", function() harpoon:list():select(1) end, "Harpoon: Goto(1)" )
+nmap_leader("k", function() harpoon:list():select(2) end, "Harpoon: Goto(2)" )
+nmap_leader("l", function() harpoon:list():select(3) end, "Harpoon: Goto(3)" )
+nmap_leader("ö", function() harpoon:list():select(4) end, "Harpoon: Goto(4)" )
 
 
 
@@ -127,52 +134,21 @@ vim.api.nvim_create_autocmd('User', {
   pattern = 'LspAttached',
   desc = 'LSP actions',
   callback = function(arg)
-    local bufnr = arg.data.bufnr
+    nmap_leader('lk', function() vim.diagnostic.goto_prev({ enable_popup = false }) end, "Diagnostic Previous")
+    nmap_leader('ll', function() vim.diagnostic.goto_next({ enable_popup = false }) end, "Diagnostic Previous")
+    nmap_leader('la', vim.lsp.buf.code_action, '[C]ode [A]ction') -- conflicts with <leader>c
 
-    local nmap = function(keys, func, desc)
-      if desc then
-        desc = 'LSP: ' .. desc
-      end
+    nmap_leader('le', function() vim.diagnostic.open_float() end, "LSP open diagnostic")
+    nmap_leader('li', function() vim.diagnostic.setloclist() end, "LSP open locallist")
 
-      vim.keymap.set('n', keys, func, { buffer = bufnr, desc = desc, nowait = false, remap = false })
-    end
+    nmap_leader('lr', vim.lsp.buf.rename, '[R]e[n]ame')
 
-    local telescope = require('namjul.functions.telescope')
-
-    nmap('[d', function() vim.diagnostic.goto_prev({ enable_popup = false }) end, "Diagnostic Previous")
-    nmap(']d', function() vim.diagnostic.goto_next({ enable_popup = false }) end, "Diagnostic Previous")
-    nmap('ca', vim.lsp.buf.code_action, '[C]ode [A]ction') -- conflicts with <leader>c
-
-    nmap('<leader>e', function() vim.diagnostic.open_float() end, "LSP open diagnostic")
-    nmap('<leader>i', function() vim.diagnostic.setloclist() end, "LSP open locallist")
-
-    nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
-
-    nmap('gd', function()
-      telescope.findLspDefinitions()
-    end, '[G]oto [D]efinition')
-    nmap('gr', function()
-      telescope.findLspReferences()
-    end, '[G]oto [R]eferences')
-    -- nmap('gr', vim.lsp.buf.references, '[G]oto [R]eferences')
-    nmap('gI', vim.lsp.buf.implementation, '[G]oto [I]mplementation')
-    nmap('<leader>D', vim.lsp.buf.type_definition, 'Type [D]efinition')
-    nmap('<leader>a', vim.lsp.buf.code_action, 'Code [A]action')
-    nmap('<leader>ds', function()
-      require('telescope.builtin').lsp_document_symbols(require('telescope.themes').get_ivy({}))
-    end, '[D]ocument [S]ymbols')
-    nmap('<leader>ws', function()
-      require('telescope.builtin').lsp_dynamic_workspace_symbols(require('telescope.themes').get_ivy({}))
-    end, '[W]orkspace [S]ymbols')
-    nmap('K', function()
-      if ({ vim = true, lua = true, help = true })[vim.bo.filetype] then
-        vim.fn.execute('h ' .. vim.fn.expand('<cword>'))
-      end
-      vim.lsp.buf.hover()
-    end, 'Hover Documentation')
-    -- nmap('KK', vim.lsp.buf.signature_help, 'Signature Documentation')
+    nmap_leader('ld', vim.lsp.buf.definition, '[G]oto [D]efinition')
+    nmap_leader('lR', vim.lsp.buf.references, '[G]oto [R]eferences')
+    nmap_leader('lh', vim.lsp.buf.hover, '[G]oto [R]eferences')
 
     -- Create a command `:Format` local to the LSP buffer
+    local bufnr = arg.data.bufnr
     vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
       vim.lsp.buf.format()
     end, { desc = 'Format current buffer with LSP' })
