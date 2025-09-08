@@ -63,7 +63,6 @@ local is_bootstrap = namjul.plugin.bootstrap({
   { 'folke/neodev.nvim' },
   { 'AndrewRadev/switch.vim' }, -- fast boolean switch
   { 'saghen/blink.cmp', branch = 'v1.6.0' },
-  { 'folke/which-key.nvim' },
   -- { 'rest-nvim/rest.nvim' }, -- http client in neovim
   -- { 'monaqa/dial.nvim' },         -- enhanced increment/decrement plugin for Neovim.
   -- { 'wsdjeg/vim-fetch' },         -- enables to process line and column jump specifications
