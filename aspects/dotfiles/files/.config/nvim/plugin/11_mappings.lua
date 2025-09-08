@@ -22,7 +22,6 @@ vim.keymap.set('n', "<S-Right>", ":lnfile<CR>", { desc = "First Error in locatio
 vim.keymap.set('n', "<S-Up>",    ":lprev<CR>", { desc = "Previous in location list" })
 vim.keymap.set('n', "<Up>",      ":cprev<CR>", { desc = "Previous in quickfix list" })
 vim.keymap.set('n', "<c-k>",     ":lua require('namjul.functions.telescope').findFiles()<CR>", { desc = "Go to File" })
-vim.keymap.set('n', "<c-s>",     "<Plug>(Switch)", { desc = "Switch" })
 vim.keymap.set('n', "J",         "mzJ`z", { desc = "Join lines" })
 vim.keymap.set('n', "N",         "Nzzzv", { desc = "Search Previous" })
 vim.keymap.set('n', "Q",         "", { desc = "avoid unintentional switches to Ex mode." })

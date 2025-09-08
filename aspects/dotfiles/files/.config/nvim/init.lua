@@ -14,7 +14,6 @@ require('namjul')
 
 local is_bootstrap = namjul.plugin.bootstrap({
   { 'savq/paq-nvim' },
-  { 'tpope/vim-repeat' }, -- enables the repeat command to work with external plugins
   { 'tpope/vim-fugitive' }, -- git integration
   { 'shumphrey/fugitive-gitlab.vim' }, -- open files on gitlab
   { 'tpope/vim-abolish' }, -- Case-preserving find and replace
@@ -28,19 +27,8 @@ local is_bootstrap = namjul.plugin.bootstrap({
   { 'ThePrimeagen/harpoon', branch = 'harpoon2' }, -- navigation helper
   { 'TobinPalmer/pastify.nvim' },
   { 'euclio/vim-markdown-composer', build = 'cargo build --release'  },
-  { 'preservim/vimux' }, -- allows to send commands from vim to tmux
-  { 'tyewang/vimux-jest-test' }, -- simplifies running jest test from vim
-  { 'jeffkreeftmeijer/vim-numbertoggle' }, -- improves the display of line numbers
-  { 'Valloric/MatchTagAlways' }, -- highlights xml tags enclosing the cursor
   { 'simeji/winresizer' }, -- helper for resizing windows
-  -- { 'rhysd/committia.vim' },               -- improves vim 'commit' buffer
   { 'L3MON4D3/LuaSnip', branch = 'v2.4.0' }, -- snippets engine
-  { 'mattn/webapi-vim' }, -- needed for `gist-vim`
-  { 'mattn/gist-vim' }, -- interact with github gist from vim
-  -- { 'dkarter/bullets.vim' }, -- enhance bullet points management TODO replace with 'gaoDean/autolist.nvim' when checkboxes are supported
-  { 'godlygeek/tabular' }, -- auto alignment
-  { 'tpope/vim-obsession' }, -- helper to start vim sessions
-  { 'ellisonleao/glow.nvim' }, -- markdown preview
   {
     'nvim-treesitter/nvim-treesitter',
     build = function()
@@ -61,7 +49,6 @@ local is_bootstrap = namjul.plugin.bootstrap({
   { 'neovim/nvim-lspconfig' },
   { 'stevearc/conform.nvim', branch = 'nvim-0.9' },
   { 'folke/neodev.nvim' },
-  { 'AndrewRadev/switch.vim' }, -- fast boolean switch
   { 'saghen/blink.cmp', branch = 'v1.6.0' },
   -- { 'rest-nvim/rest.nvim' }, -- http client in neovim
   -- { 'monaqa/dial.nvim' },         -- enhanced increment/decrement plugin for Neovim.
@@ -70,7 +57,6 @@ local is_bootstrap = namjul.plugin.bootstrap({
   { 'michaelb/sniprun', build = './install.sh' },
   { 'stevearc/overseer.nvim' },
   -- { 'MunifTanjim/nui.nvim' },
-  { 'm-demare/hlargs.nvim' },
   { 'stevearc/oil.nvim' },
   { 'echasnovski/mini.nvim', branch = 'main' },
   { 'andreshazard/vim-freemarker' },
