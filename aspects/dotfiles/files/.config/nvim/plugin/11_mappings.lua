@@ -10,7 +10,7 @@ vim.keymap.set({ 'n', 'x' }, ']p', '<Cmd>exe "' .. cmd .. ' "  . v:register<CR>'
 vim.keymap.set('c', '<C-a>', '<Home>')
 vim.keymap.set('c', '<C-e>', '<End>')
 
-vim.keymap.set('n', "-",         "<CMD>Oil<CR>", {desc = "Open parent directory" })
+vim.keymap.set('n', "-",         "<Cmd>Oil<CR>", {desc = "Open parent directory" })
 vim.keymap.set('n', "<C-d>",     "<C-d>zz", { desc = "Up" } )
 vim.keymap.set('n', "<C-u>",     "<C-u>zz", {desc = "Down" })
 vim.keymap.set('n', "<Down>",    ":cnext<CR>", { desc = "Next in quickfix list" })
@@ -68,10 +68,11 @@ nmap_leader('bs', '<Cmd>lua Config.new_scratch_buffer()<CR>',    'Scratch')
 local edit_config_file = function(filename)
   return '<Cmd>edit ' .. vim.fn.stdpath('config') .. '/plugin/' .. filename .. '<CR>'
 end
-nmap_leader('eo', edit_config_file('10_options.lua'),                          'Options config')
-nmap_leader('em', edit_config_file('11_mappings.lua'),                          'Mappings config')
-nmap_leader('ep', edit_config_file('20_plugins.lua'),                          'Plugins config')
-nmap_leader('eq', '<Cmd>lua Config.toggle_quickfix()<CR>',                     'Quickfix')
+nmap_leader('ed', '<Cmd>Oil<CR>' , 'Directory')
+nmap_leader('eo', edit_config_file('10_options.lua'), 'Options config')
+nmap_leader('em', edit_config_file('11_mappings.lua'), 'Mappings config')
+nmap_leader('ep', edit_config_file('20_plugins.lua'), 'Plugins config')
+nmap_leader('eq', '<Cmd>lua Config.toggle_quickfix()<CR>', 'Quickfix')
 
 -- f is for 'fuzzy find'
 nmap_leader("ff", "<Cmd>lua require('namjul.functions.telescope').findFiles()<CR>", "Find Buffer" )
