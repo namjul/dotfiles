@@ -41,9 +41,6 @@ export NEOVIDE_MULTIGRID="true"
 set -q XDG_DATA_HOME; or set -x XDG_DATA_HOME $HOME/.local/share
 set -q XDG_CONFIG_HOME; or set -x XDG_CONFIG_HOME $HOME/.config
 
-# prioritize /usr/bin
-set -g PATH /usr/bin $PATH
-
 # pnpm
 set -gx PNPM_HOME "/home/nam/.local/share/pnpm"
 if not string match -q -- $PNPM_HOME $PATH
