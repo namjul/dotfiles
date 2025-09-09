@@ -17,3 +17,8 @@ desc = "Delete a bookmark"
 on = [ "b", "D" ]
 run = "plugin bookmarks delete_all"
 desc = "Delete all bookmarks"
+
+[[mgr.prepend_keymap]]
+on = [ "g", "?" ]
+run = "help"
+desc = "Open help"
