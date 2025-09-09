@@ -64,6 +64,15 @@ end
 nmap_leader("ba", "<Cmd>b#<CR>", "Alternate")
 nmap_leader('bs', '<Cmd>lua Config.new_scratch_buffer()<CR>',    'Scratch')
 
+-- e is for 'explore' and 'edit'
+local edit_config_file = function(filename)
+  return '<Cmd>edit ' .. vim.fn.stdpath('config') .. '/plugin/' .. filename .. '<CR>'
+end
+nmap_leader('eo', edit_config_file('10_options.lua'),                          'Options config')
+nmap_leader('em', edit_config_file('11_mappings.lua'),                          'Mappings config')
+nmap_leader('ep', edit_config_file('20_plugins.lua'),                          'Plugins config')
+nmap_leader('eq', '<Cmd>lua Config.toggle_quickfix()<CR>',                     'Quickfix')
+
 -- f is for 'fuzzy find'
 nmap_leader("ff", "<Cmd>lua require('namjul.functions.telescope').findFiles()<CR>", "Find Buffer" )
 nmap_leader("fb", "<Cmd>lua require('telescope.builtin').buffers(require('telescope.themes').get_ivy({}))<CR>", "Find Buffer" )
