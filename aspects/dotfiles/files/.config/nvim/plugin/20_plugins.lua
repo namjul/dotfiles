@@ -44,7 +44,7 @@ require('oil').setup({
     show_hidden = true,
     -- natural_order = true,
     is_always_hidden = function(name)
-      return name == '..' or name == '.git'
+      return name == '..'
     end
   }
 })
