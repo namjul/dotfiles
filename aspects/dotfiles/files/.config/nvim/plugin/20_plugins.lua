@@ -63,7 +63,7 @@ require('conform').setup({
   },
 })
 
-require('mini.git')
+require('mini.git').setup()
 
 require('mini.basics').setup({
   options = { basic = false }, -- Manage options manually in a spirit of transparency

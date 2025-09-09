@@ -84,17 +84,20 @@ nmap_leader("c", "<Cmd>lua require('telescope.builtin').commands(require('telesc
 
 -- g is for git
 nmap_leader("gl", "<Cmd>Gclog<CR>", "Open Git log" )
-nmap_leader("gbl", "<Cmd>Gclog -- %<CR>", "Open Buffer Git log" )
+nmap_leader("gL", "<Cmd>Gclog -- %<CR>", "Open Buffer Git log" )
 nmap_leader("go", '<Cmd>lua MiniDiff.toggle_overlay()<CR>', "Toggle hunk diff overlay")
 nmap_leader('ga', '<Cmd>Git diff --cached<CR>',                   'Added diff')
 nmap_leader('gs', '<Cmd>Git<CR>')
 nmap_leader('gc', '<Cmd>Git commit -v<CR>')
+nmap_leader('gC', '<Cmd>Git commit --amend<CR>')
 nmap_leader('ga', '<Cmd>Git add -p<CR>')
-nmap_leader('gm', '<Cmd>Git commit --amend<CR>')
 nmap_leader('gp', '<Cmd>Git push<CR>')
 nmap_leader('gd', '<Cmd>Gdiff<CR>')
 nmap_leader('gw', '<Cmd>Gwrite<CR>')
 nmap_leader('gbr', '<Cmd>GBrowse<CR>')
+nmap_leader('gx', '<Cmd>lua MiniGit.show_at_cursor()<CR>',        'Show at cursor')
+
+xmap_leader('gx', '<Cmd>lua MiniGit.show_at_cursor()<CR>',  'Show at selection')
 
 -- o is for `other`
 
@@ -110,7 +113,6 @@ nmap_leader("tg", "<Cmd>Trans de <CR>", "Translate to German(word under cursor)"
 nmap_leader("x", "<Cmd>exit<CR>", 'like ":wq"' )
 nmap_leader("z", "<Cmd>ZenMode<CR>", "Enter Zenmode" )
 nmap_leader("y", '"+y', "Yank into clipboard" )
-xmap_leader("p", '"_dP"', "Paste without overide")
 nmap_leader("p", function()
     local file = vim.fn.join({ vim.fn.expand('%'), vim.fn.line('.'), vim.fn.col('.') }, ':')
     vim.cmd('let @+="' .. file .. '"')
@@ -135,6 +137,7 @@ nmap_leader("k", function() harpoon:list():select(2) end, "Harpoon: Goto(2)" )
 nmap_leader("l", function() harpoon:list():select(3) end, "Harpoon: Goto(3)" )
 nmap_leader("ö", function() harpoon:list():select(4) end, "Harpoon: Goto(4)" )
 
+xmap_leader("p", '"_dP"', "Paste without overide")
 
 
 -- LSP
