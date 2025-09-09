@@ -25,6 +25,8 @@ if has_lint then
       -- describe the hovered symbol using Markdown.
       if vim.bo.modifiable then
 
+        -- XXX https://github.com/mfussenegger/nvim-lint/issues/482
+
         -- check if linter is is available
         for linter in pairs(linters) do
           if vim.fn.executable(lint.linters[linter].cmd()) == 1 then
