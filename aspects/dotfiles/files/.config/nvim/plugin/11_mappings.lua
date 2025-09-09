@@ -85,8 +85,20 @@ nmap_leader("c", "<Cmd>lua require('telescope.builtin').commands(require('telesc
 -- g is for git
 nmap_leader("gl", "<Cmd>Gclog<CR>", "Open Git log" )
 nmap_leader("gbl", "<Cmd>Gclog -- %<CR>", "Open Buffer Git log" )
-nmap_leader("go", ':lua MiniDiff.toggle_overlay()<CR>', "Toggle hunk diff overlay")
+nmap_leader("go", '<Cmd>lua MiniDiff.toggle_overlay()<CR>', "Toggle hunk diff overlay")
+nmap_leader('ga', '<Cmd>Git diff --cached<CR>',                   'Added diff')
+nmap_leader('gs', '<Cmd>Git<CR>')
+nmap_leader('gc', '<Cmd>Git commit -v<CR>')
+nmap_leader('ga', '<Cmd>Git add -p<CR>')
+nmap_leader('gm', '<Cmd>Git commit --amend<CR>')
+nmap_leader('gp', '<Cmd>Git push<CR>')
+nmap_leader('gd', '<Cmd>Gdiff<CR>')
+nmap_leader('gw', '<Cmd>Gwrite<CR>')
+nmap_leader('gbr', '<Cmd>GBrowse<CR>')
 
+-- o is for `other`
+
+-- misc
 nmap_leader("1", "<Cmd>RooterToggle<CR>", "Toggle Rooter" )
 nmap_leader("2", "<Cmd>w<CR>:! ./%<CR>", "Execute current file" )
 nmap_leader("3", "<Cmd>!chmod +x %<CR>", "Make current file executable" )

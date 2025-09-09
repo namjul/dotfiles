@@ -97,6 +97,7 @@ vim.opt.smartcase = true -- don't ignore case in searches if uppercase character
 vim.opt.smarttab = true -- <tab>/<BS> indent/dedent in leading whitespace
 vim.opt.smartindent = true -- Make indenting smart
 vim.opt.tabstop = 2 -- spaces per tab
+vim.opt.diffopt = vim.opt.diffopt + 'vertical'
 if not vi then
   vim.opt.softtabstop = -1 -- use 'shiftwidth' for tab/bs at end of line
 end
