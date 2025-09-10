@@ -46,6 +46,13 @@ vim.keymap.set('i', "?", "?<C-g>u")
 
 vim.keymap.set('n', "<Leader><Leader>", "<Cmd>b#<CR>", { desc = "Alternate", noremap = true, silent = true })
 
+vim.keymap.set('n', 'K', function()
+  if ({ vim = true, lua = true, help = true })[vim.bo.filetype] then
+    vim.fn.execute('h ' .. vim.fn.expand('<cword>'))
+  end
+  vim.lsp.buf.hover()
+end , { desc = 'Hover Documentation' })
+
 -- Leader mappings ===
 
 -- Create `<Leader>` mappings
@@ -92,7 +99,7 @@ nmap_leader("*", "<Cmd>lua require('namjul.functions.telescope').grep_string()<C
 nmap_leader("/", "<Cmd>lua require('namjul.functions.telescope').search({ previewer = false })<CR>", "Search word" )
 nmap_leader("c", "<Cmd>lua require('telescope.builtin').commands(require('telescope.themes').get_ivy({}))<CR>", "Find Command" )
 
--- g is for git
+-- g is for 'git'
 nmap_leader("gl", "<Cmd>Gclog<CR>", "Open Git log" )
 nmap_leader("gL", "<Cmd>Gclog -- %<CR>", "Open Buffer Git log" )
 nmap_leader("go", '<Cmd>lua MiniDiff.toggle_overlay()<CR>', "Toggle hunk diff overlay")
@@ -109,7 +116,14 @@ nmap_leader('gx', '<Cmd>lua MiniGit.show_at_cursor()<CR>',        'Show at curso
 
 xmap_leader('gx', '<Cmd>lua MiniGit.show_at_cursor()<CR>',  'Show at selection')
 
+-- L is for 'Lua'
+nmap_leader('Lc', '<Cmd>lua Config.log_clear()<CR>', 'Clear log')
+nmap_leader('Ls', '<Cmd>lua Config.log_print()<CR>', 'Show log')
+nmap_leader('LL', '<Cmd>luafile %<CR><Cmd>echo "Sourced lua"<CR>', 'Source buffer')
+
 -- o is for `other`
+nmap_leader('ot', '<Cmd>lua MiniTrailspace.trim()<CR>', 'Trim trailspace')
+nmap_leader('oh', '<Cmd>lua lua MiniNotify.show_history()<CR>', 'Notification history')
 
 -- misc
 nmap_leader("1", "<Cmd>RooterToggle<CR>", "Toggle Rooter" )

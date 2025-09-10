@@ -22,10 +22,6 @@ vim.api.nvim_create_user_command('PasteMDLink', function()
   end
 end, {})
 
-vim.api.nvim_create_user_command('Trim', function()
-  vim.cmd("lua MiniTrailspace.trim()")
-end, {})
-
 local has_rest_nvim = pcall(require, 'rest-nvim')
 
 if has_rest_nvim then
