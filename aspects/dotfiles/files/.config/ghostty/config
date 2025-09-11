@@ -23,6 +23,7 @@ confirm-close-surface = false
 shell-integration-features = cursor,sudo,no-title
 
 # Keybindings
+keybind=clear
 keybind = ctrl+space>h=goto_split:left
 keybind = ctrl+space>j=goto_split:down
 keybind = ctrl+space>k=goto_split:up
@@ -40,7 +41,7 @@ keybind = ctrl+space>-=new_split:up
 keybind = ctrl+space>shift+-=new_split:down
 keybind = ctrl+space><=new_split:left
 keybind = ctrl+space>shift+<=new_split:right
-keybind = ctrl+enter=toggle_split_zoom
+keybind = ctrl+space>z=toggle_split_zoom
 
 keybind = ctrl+space>c=new_tab
 keybind = ctrl+space>n=next_tab
