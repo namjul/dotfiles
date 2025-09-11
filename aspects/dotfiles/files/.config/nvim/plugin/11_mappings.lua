@@ -129,7 +129,7 @@ nmap_leader('LL', '<Cmd>luafile %<CR><Cmd>echo "Sourced lua"<CR>', 'Source buffe
 
 -- o is for `other`
 nmap_leader('ot', '<Cmd>lua MiniTrailspace.trim()<CR>', 'Trim trailspace')
-nmap_leader('oh', '<Cmd>lua lua MiniNotify.show_history()<CR>', 'Notification history')
+nmap_leader('oh', '<Cmd>lua MiniNotify.show_history()<CR>', 'Notification history')
 
 -- misc
 nmap_leader("1", "<Cmd>RooterToggle<CR>", "Toggle Rooter" )
