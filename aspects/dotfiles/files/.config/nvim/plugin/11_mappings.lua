@@ -28,6 +28,12 @@ vim.keymap.set('n', "gp",        ":lua MiniDiff.toggle_overlay()<CR>", { desc = 
 vim.keymap.set('n', "gx",        ":!open <cWORD><CR>", { desc = "open url" })
 vim.keymap.set('n', "n",         "nzzzv", { desc = "Search next" })
 
+-- use 'x' for cutting. works in conjuction with `vim-cutlass`
+vim.keymap.set('n', 'x', 'd')
+vim.keymap.set('x', 'x', 'd')
+vim.keymap.set('n', 'xx', 'dd')
+vim.keymap.set('n', 'X', 'D')
+
 -- Store relative line number jumps in the jumplist if they exceed a threshold.
 vim.keymap.set('n', 'k', function()
   return (vim.v.count > 5 and "m'" .. vim.v.count or '') .. 'k'
@@ -153,13 +159,15 @@ nmap_leader("R", function()
     print('Reloaded vimrc!')
   end, "Reload vimrc")
 
-local harpoon = require('harpoon')
-nmap_leader("ha", function() harpoon:list():add() end, "Add file to harpoon" )
-nmap_leader("hl", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end, "Toggle harpoon menu" )
-nmap_leader("j", function() harpoon:list():select(1) end, "Harpoon: Goto(1)" )
-nmap_leader("k", function() harpoon:list():select(2) end, "Harpoon: Goto(2)" )
-nmap_leader("l", function() harpoon:list():select(3) end, "Harpoon: Goto(3)" )
-nmap_leader("ö", function() harpoon:list():select(4) end, "Harpoon: Goto(4)" )
+local has_harpoon, harpoon = pcall(require, 'harpoon')
+if has_harpoon then
+  nmap_leader("ha", function() harpoon:list():add() end, "Add file to harpoon" )
+  nmap_leader("hl", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end, "Toggle harpoon menu" )
+  nmap_leader("j", function() harpoon:list():select(1) end, "Harpoon: Goto(1)" )
+  nmap_leader("k", function() harpoon:list():select(2) end, "Harpoon: Goto(2)" )
+  nmap_leader("l", function() harpoon:list():select(3) end, "Harpoon: Goto(3)" )
+  nmap_leader("ö", function() harpoon:list():select(4) end, "Harpoon: Goto(4)" )
+end
 
 xmap_leader("p", '"_dP"', "Paste without overide")
 

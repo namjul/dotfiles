@@ -70,9 +70,6 @@ vim.opt.splitbelow = true -- open horizontal splits below current window
 vim.o.wrap = false -- Display long lines as just one line
 vim.opt.background = 'light'
 
-require('gruvbox').setup()
-vim.cmd('colorscheme gruvbox')
-
 if vim.fn.filereadable(vim.fn.expand('~/.vimrc_background')) ~= 0 then
   vim.cmd('source ~/.vimrc_background')
 end
