@@ -224,7 +224,7 @@ later(function() require('mini.pairs').setup() end)
 
 later(function() require('mini.trailspace').setup() end)
 
-later(function() require('mini.operators').setup({ replace = { prefix = '<leader>r' } }) end)
+later(function() require('mini.operators').setup() end)
 
 later(function() require('mini.jump').setup() end)
 
