@@ -42,7 +42,7 @@ vim.opt.listchars = {
   trail = '•', -- BULLET (U+2022, UTF-8: E2 80 A2)
 }
 vim.opt.termguicolors = true -- use guifg/guibg instead of ctermfg/ctermbg in terminal
-vim.o.winborder = 'double' -- Use double-line as default border
+vim.o.winborder = 'bold' -- Use double-line as default border
 vim.opt.linebreak = true -- Wrap long lines at 'breakat' (if 'wrap' is set)
 vim.o.list = true -- Show helpful character indicators (like whitespace)
 vim.opt.number = true -- Show line numbers
