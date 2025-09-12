@@ -1,6 +1,7 @@
 local add, now, later = MiniDeps.add, MiniDeps.now, MiniDeps.later
 local now_if_args = vim.fn.argc(-1) > 0 and now or later
 
+-- Step one ===
 add({ name = 'mini.nvim' })
 
 now(function()
@@ -147,6 +148,9 @@ now_if_args(function()
   vim.treesitter.language.register('markdown', 'mdx')  -- the someft filetype will use the python parser and queries.
 
 end)
+
+-- Step two ===
+later(function() require('mini.extra').setup() end)
 
 later(function() require('mini.bracketed').setup() end)
 
@@ -587,47 +591,57 @@ later(function ()
   })
 end)
 
-later(function ()
-  add({
-    source = 'nvim-telescope/telescope.nvim',
-    checkout = '0.1.8',
-    depends = {
-      'nvim-lua/plenary.nvim',
-      'nvim-telescope/telescope-ui-select.nvim',
-      'nvim-telescope/telescope-live-grep-args.nvim'
+later(function()
+  require('mini.pick').setup({
+    mappings = {
+      choose_marked     = '<M-q>',
     }
   })
-
-  local actions = require('telescope.actions')
-
-  require('telescope').setup({
-    defaults = {
-      prompt_prefix = ' ',
-      mappings = { -- https://github.com/nvim-telescope/telescope.nvim#default-mappings
-        i = {
-          ['<esc>'] = actions.close,
-          ['<C-q>'] = actions.send_to_qflist,
-          ['<C-x>'] = false,
-          ['<C-s>'] = actions.select_horizontal,
-          ['<M-p>'] = require('telescope.actions.layout').toggle_preview,
-        },
-        n = {
-          ['<C-x>'] = false,
-          ['<C-s>'] = actions.select_horizontal,
-        },
-      },
-    },
-    extensions = {
-      ["ui-select"] = {
-        require("telescope.themes").get_ivy {
-          prompt_title = 'Select',
-        }
-      }
-    }
-  })
-
-  require("telescope").load_extension("ui-select")
+  vim.ui.select = MiniPick.ui_select
+  vim.keymap.set('n', ',', '<Cmd>Pick buf_lines scope="current" preserve_order=true<CR>', { nowait = true })
 end)
+
+-- later(function ()
+--   add({
+--     source = 'nvim-telescope/telescope.nvim',
+--     checkout = '0.1.8',
+--     depends = {
+--       'nvim-lua/plenary.nvim',
+--       'nvim-telescope/telescope-ui-select.nvim',
+--       'nvim-telescope/telescope-live-grep-args.nvim'
+--     }
+--   })
+--
+--   local actions = require('telescope.actions')
+--
+--   require('telescope').setup({
+--     defaults = {
+--       prompt_prefix = ' ',
+--       mappings = { -- https://github.com/nvim-telescope/telescope.nvim#default-mappings
+--         i = {
+--           ['<esc>'] = actions.close,
+--           ['<C-q>'] = actions.send_to_qflist,
+--           ['<C-x>'] = false,
+--           ['<C-s>'] = actions.select_horizontal,
+--           ['<M-p>'] = require('telescope.actions.layout').toggle_preview,
+--         },
+--         n = {
+--           ['<C-x>'] = false,
+--           ['<C-s>'] = actions.select_horizontal,
+--         },
+--       },
+--     },
+--     extensions = {
+--       ["ui-select"] = {
+--         require("telescope.themes").get_ivy {
+--           prompt_title = 'Select',
+--         }
+--       }
+--     }
+--   })
+--
+--   require("telescope").load_extension("ui-select")
+-- end)
 
 -- Better built-in terminal ===
 later(function()
