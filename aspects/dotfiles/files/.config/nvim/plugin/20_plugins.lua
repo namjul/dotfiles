@@ -407,6 +407,7 @@ later(function()
       -- Use a sub-list to run only the first available formatter
       javascript = { 'prettier' },
       typescript = { 'prettier' },
+      vue = { 'prettier', lsp_format = 'fallback' },
     },
   })
 end)
