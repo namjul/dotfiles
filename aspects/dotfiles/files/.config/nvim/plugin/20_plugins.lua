@@ -610,51 +610,13 @@ later(function()
 
   MiniPick.registry.memex = function()
     local cwd = vim.fn.expand('~/Dropbox/memex')
+    -- local mappings = { wipeout = { char = '<C-d>', func = function ()
+    --   print('TODO: https://github.com/nvim-telescope/telescope-live-grep-args.nvim')
+    -- end  } }
+    -- return MiniExtra.pickers.cli({ cwd = cwd }, { mappings = mappings })
     return MiniExtra.pickers.explorer({ cwd = cwd } )
   end
 end)
-
--- later(function ()
---   add({
---     source = 'nvim-telescope/telescope.nvim',
---     checkout = '0.1.8',
---     depends = {
---       'nvim-lua/plenary.nvim',
---       'nvim-telescope/telescope-ui-select.nvim',
---       'nvim-telescope/telescope-live-grep-args.nvim'
---     }
---   })
---
---   local actions = require('telescope.actions')
---
---   require('telescope').setup({
---     defaults = {
---       prompt_prefix = ' ',
---       mappings = { -- https://github.com/nvim-telescope/telescope.nvim#default-mappings
---         i = {
---           ['<esc>'] = actions.close,
---           ['<C-q>'] = actions.send_to_qflist,
---           ['<C-x>'] = false,
---           ['<C-s>'] = actions.select_horizontal,
---           ['<M-p>'] = require('telescope.actions.layout').toggle_preview,
---         },
---         n = {
---           ['<C-x>'] = false,
---           ['<C-s>'] = actions.select_horizontal,
---         },
---       },
---     },
---     extensions = {
---       ["ui-select"] = {
---         require("telescope.themes").get_ivy {
---           prompt_title = 'Select',
---         }
---       }
---     }
---   })
---
---   require("telescope").load_extension("ui-select")
--- end)
 
 -- Better built-in terminal ===
 later(function()
