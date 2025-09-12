@@ -136,7 +136,6 @@ nmap_leader('ot', '<Cmd>lua MiniTrailspace.trim()<CR>', 'Trim trailspace')
 nmap_leader('oh', '<Cmd>lua MiniNotify.show_history()<CR>', 'Notification history')
 
 -- misc
-nmap_leader("1", "<Cmd>RooterToggle<CR>", "Toggle Rooter" )
 nmap_leader("2", "<Cmd>w<CR>:! ./%<CR>", "Execute current file" )
 nmap_leader("3", "<Cmd>!chmod +x %<CR>", "Make current file executable" )
 nmap_leader("m", "<Cmd>MaximizerToggle<CR>", "Maximize window" )

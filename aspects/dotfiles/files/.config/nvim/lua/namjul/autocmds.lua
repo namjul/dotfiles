@@ -141,14 +141,8 @@ local mkview = function()
   end
 end
 
--- local function rooter(ctx)
---   local root = vim.fs.root(ctx.buf, {".git", "Makefile"})
---   if root then vim.uv.chdir(root) end
--- end
-
 function autocmds.bufEnter()
   focus_window()
-  -- rooter()
 end
 
 function autocmds.bufLeave()

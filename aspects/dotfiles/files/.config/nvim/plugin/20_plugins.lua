@@ -153,6 +153,11 @@ later(function() require('mini.bracketed').setup() end)
 later(function() require('mini.bufremove').setup() end)
 
 later(function()
+  require('mini.misc').setup()
+  MiniMisc.setup_auto_root({ '.git', 'Makefile', '.hg' })
+end)
+
+later(function()
   require('mini.diff').setup({
     view = {
       style = 'sign',
@@ -391,12 +396,6 @@ later(function()
       },
     },
   })
-end)
-
-later(function()
-  vim.g.rooter_patterns = { '.git', '.hg' }
-  vim.g.rooter_change_directory_for_non_project_files = 'current'
-  add('airblade/vim-rooter')
 end)
 
 later(function ()
