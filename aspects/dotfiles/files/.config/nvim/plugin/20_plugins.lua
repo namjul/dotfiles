@@ -3,91 +3,25 @@ local now_if_args = vim.fn.argc(-1) > 0 and now or later
 
 add({ name = 'mini.nvim' })
 
-later(function() require('mini.git').setup() end)
-
-later(function()
+now(function()
   require('mini.basics').setup({
     options = { basic = false }, -- Manage options manually in a spirit of transparency
     mappings = { windows = true, option_toggle_prefix = [[yo]] },
   })
 end)
 
-later(function() require('mini.bracketed').setup() end)
+now(function() require('mini.icons').setup() end)
 
-later(function()
-  require('mini.diff').setup({
-    view = {
-      style = 'sign',
-    }
-  })
-end)
-
-later(function()
-  local map_multistep = require('mini.keymap').map_multistep
-  map_multistep('i', '<Tab>', { 'jump_after_close' })
-  map_multistep('i', '<S-Tab>', { 'jump_before_open' })
-  map_multistep('i', '<CR>', { 'minipairs_cr' })
-  map_multistep('i', '<BS>', { 'hungry_bs', 'minipairs_bs' })
-end)
-
-later(function()
-  require('mini.move').setup({
-    mappings = {
-      left = '<S-h>',
-      right = '<S-l>',
-      down = '<S-j>',
-      up = '<S-k>',
-      line_left = '<D-h>',
-      line_right = '<D-l>',
-      line_down = '<D-j>',
-      line_up = '<D-k>',
-    }
-  })
-end)
-
-later(function()
-  require('mini.surround').setup({
-    mappings = {
-      add = 'sa', -- Add surrounding in Normal and Visual modes
-      delete = 'sd', -- Delete surrounding
-      find = 'sf', -- Find surrounding (to the right)
-      find_left = 'sF', -- Find surrounding (to the left)
-      highlight = 'sh', -- Highlight surrounding
-      replace = 'sr', -- Replace surrounding
-      update_n_lines = 'sn', -- Update `n_lines`
-      suffix_last = 'l', -- Suffix to search with "prev" method
-      suffix_next = 'n', -- Suffix to search with "next" method
-    },
-  })
-end)
-
-later(function() require('mini.indentscope').setup() end)
-later(function() require('mini.ai').setup() end)
-later(function() require('mini.pairs').setup() end)
-later(function() require('mini.trailspace').setup() end)
-later(function() require('mini.icons').setup() end)
-later(function() require('mini.statusline').setup() end)
-later(function() require('mini.operators').setup({ replace = { prefix = '<leader>r' }}) end)
-later(function() require('mini.tabline').setup({ tabpage_section = 'right' }) end)
-later(function() require('mini.jump').setup() end)
-
-later(function()
-  local hipatterns = require('mini.hipatterns')
-  hipatterns.setup({
-    highlighters = {
-      fixme = { pattern = '[Xx][Xx][Xx]', group = 'MiniHipatternsFixme' },
-      hack  = { pattern = '%f[%w]()HACK()%f[%W]',  group = 'MiniHipatternsHack'  },
-      todo  = { pattern = '%f[%w]()TODO()%f[%W]',  group = 'MiniHipatternsTodo'  },
-      note  = { pattern = '%f[%w]()NOTE()%f[%W]',  group = 'MiniHipatternsNote'  },
-      hex_color = hipatterns.gen_highlighter.hex_color(),
-    },
-  })
-end)
-
-later(function()
+now(function()
   require('mini.notify').setup()
   vim.notify = require('mini.notify').make_notify()
 end)
+
+now(function() require('mini.starter').setup() end)
+
+now(function() require('mini.statusline').setup() end)
+
+now(function() require('mini.tabline').setup({ tabpage_section = 'right' }) end)
 
 now_if_args(function()
   add({
@@ -212,6 +146,82 @@ now_if_args(function()
 
   vim.treesitter.language.register('markdown', 'mdx')  -- the someft filetype will use the python parser and queries.
 
+end)
+
+later(function() require('mini.bracketed').setup() end)
+
+later(function()
+  require('mini.diff').setup({
+    view = {
+      style = 'sign',
+    }
+  })
+end)
+
+later(function()
+  local map_multistep = require('mini.keymap').map_multistep
+  map_multistep('i', '<Tab>', { 'jump_after_close' })
+  map_multistep('i', '<S-Tab>', { 'jump_before_open' })
+  map_multistep('i', '<CR>', { 'minipairs_cr' })
+  map_multistep('i', '<BS>', { 'hungry_bs', 'minipairs_bs' })
+end)
+
+later(function()
+  require('mini.move').setup({
+    mappings = {
+      left = '<S-h>',
+      right = '<S-l>',
+      down = '<S-j>',
+      up = '<S-k>',
+      line_left = '<D-h>',
+      line_right = '<D-l>',
+      line_down = '<D-j>',
+      line_up = '<D-k>',
+    }
+  })
+end)
+
+later(function()
+  require('mini.surround').setup({
+    mappings = {
+      add = 'sa', -- Add surrounding in Normal and Visual modes
+      delete = 'sd', -- Delete surrounding
+      find = 'sf', -- Find surrounding (to the right)
+      find_left = 'sF', -- Find surrounding (to the left)
+      highlight = 'sh', -- Highlight surrounding
+      replace = 'sr', -- Replace surrounding
+      update_n_lines = 'sn', -- Update `n_lines`
+      suffix_last = 'l', -- Suffix to search with "prev" method
+      suffix_next = 'n', -- Suffix to search with "next" method
+    },
+  })
+end)
+
+later(function() require('mini.indentscope').setup() end)
+
+later(function() require('mini.ai').setup() end)
+
+later(function() require('mini.pairs').setup() end)
+
+later(function() require('mini.trailspace').setup() end)
+
+later(function() require('mini.operators').setup({ replace = { prefix = '<leader>r' }}) end)
+
+later(function() require('mini.jump').setup() end)
+
+later(function() require('mini.git').setup() end)
+
+later(function()
+  local hipatterns = require('mini.hipatterns')
+  hipatterns.setup({
+    highlighters = {
+      fixme = { pattern = '[Xx][Xx][Xx]', group = 'MiniHipatternsFixme' },
+      hack  = { pattern = '%f[%w]()HACK()%f[%W]',  group = 'MiniHipatternsHack'  },
+      todo  = { pattern = '%f[%w]()TODO()%f[%W]',  group = 'MiniHipatternsTodo'  },
+      note  = { pattern = '%f[%w]()NOTE()%f[%W]',  group = 'MiniHipatternsNote'  },
+      hex_color = hipatterns.gen_highlighter.hex_color(),
+    },
+  })
 end)
 
 -- Install LSP/formatting/linter executables ===
@@ -433,9 +443,10 @@ later(function ()
 end)
 
 now_if_args(function ()
-  -- disable netrw at the very start of your init.lua
+  -- disable netrw
   vim.g.loaded_netrw = 1
   vim.g.loaded_netrwPlugin = 1
+
   add('stevearc/oil.nvim')
   require('oil').setup({
     keymaps = {
