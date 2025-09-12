@@ -106,6 +106,7 @@ nmap_leader('fR', '<Cmd>Pick lsp scope="references"<CR>',            'References
 nmap_leader('fs', '<Cmd>Pick lsp scope="workspace_symbol"<CR>',      'Symbols workspace (LSP)')
 nmap_leader('fS', '<Cmd>Pick lsp scope="document_symbol"<CR>',       'Symbols buffer (LSP)')
 nmap_leader('fd', '<Cmd>Pick diagnostic scope="all"<CR>',            'Diagnostic workspace')
+nmap_leader('fp', '<Cmd>Pick projects<CR>',            'Diagnostic workspace')
 -- nmap_leader("fl", "<Cmd>lua require('namjul.functions.telescope').memex()<CR>",          "Search in Memex" )
 -- nmap_leader("fd", "<Cmd>lua require('namjul.functions.telescope').search_dotfiles()<CR>", "Search dotfiles" )
 -- nmap_leader("fr", "<Cmd>lua require('namjul.functions.telescope').find_recent()<CR>", "Find Recent Files" )

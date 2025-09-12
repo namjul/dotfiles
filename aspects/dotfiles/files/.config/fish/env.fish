@@ -57,4 +57,4 @@ export SHELLBOT_PROMPT='
 '
 
 export KUBECONFIG="$HOME/.kube/config"
-
+export GHQ_ROOT="$HOME/code/ghq"
