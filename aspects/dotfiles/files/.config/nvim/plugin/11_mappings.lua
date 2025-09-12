@@ -138,6 +138,10 @@ nmap_leader("oo", "<Cmd>only<CR>", "Close all windows but active one" )
 nmap_leader('oz', '<Cmd>lua MiniMisc.zoom()<CR>',          'Zoom toggle')
 nmap_leader('or', '<Cmd>lua MiniMisc.resize_window()<CR>', 'Resize to default width')
 
+-- t is for 'terminal' (uses 'neoterm') and 'minitest'
+nmap_leader('tT', '<Cmd>belowright Tnew<CR>',                          'Terminal (horizontal)')
+nmap_leader('tt', '<Cmd>vertical Tnew<CR>',                            'Terminal (vertical)')
+
 -- misc
 nmap_leader("2", "<Cmd>w<CR>:! ./%<CR>", "Execute current file" )
 nmap_leader("3", "<Cmd>!chmod +x %<CR>", "Make current file executable" )

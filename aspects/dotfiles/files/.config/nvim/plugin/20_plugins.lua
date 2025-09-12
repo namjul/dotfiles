@@ -635,6 +635,29 @@ later(function ()
   require("telescope").load_extension("ui-select")
 end)
 
+-- Better built-in terminal ===
+later(function()
+  add('kassio/neoterm')
+
+  -- Enable bracketed paste
+  vim.g.neoterm_bracketed_paste = 1
+
+  -- Don't add extra call to REPL when sending
+  vim.g.neoterm_direct_open_repl = 1
+
+  -- Open terminal to the right by default
+  vim.g.neoterm_default_mod = 'vertical'
+
+  -- Go into insert mode when terminal is opened
+  vim.g.neoterm_autoinsert = 1
+
+  -- Scroll to recent command when it is executed
+  vim.g.neoterm_autoscroll = 1
+
+  -- Don't automap keys
+  pcall(vim.keymap.del, 'n', ',tt')
+end)
+
 -- later(function () add({
 --   source = 'subnut/nvim-ghost.nvim',
 --   checkout = 'main'
@@ -712,9 +735,7 @@ later(function ()
         end
       end,
     })
-
   end
-
 end)
 
 -- add('navarasu/onedark.nvim')
