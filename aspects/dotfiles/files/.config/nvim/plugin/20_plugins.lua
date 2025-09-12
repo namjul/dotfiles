@@ -651,10 +651,10 @@ later(function ()
   pcall(require('telescope').load_extension, 'fzf')
 end)
 
-later(function () add({
-  source = 'subnut/nvim-ghost.nvim',
-  checkout = 'main'
-}) end)
+-- later(function () add({
+--   source = 'subnut/nvim-ghost.nvim',
+--   checkout = 'main'
+-- }) end)
 
 later(function ()
   local build = function (pkg)
