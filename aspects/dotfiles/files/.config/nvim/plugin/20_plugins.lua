@@ -226,6 +226,8 @@ later(function() require('mini.trailspace').setup() end)
 
 later(function() require('mini.operators').setup() end)
 
+later(function() require('mini.splitjoin').setup() end)
+
 later(function() require('mini.jump').setup() end)
 
 later(function() require('mini.git').setup() end)
