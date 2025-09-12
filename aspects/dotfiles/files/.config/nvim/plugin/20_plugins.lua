@@ -607,6 +607,11 @@ later(function()
     end
     return MiniExtra.pickers.explorer({ cwd = cwd }, { source = { choose = choose } })
   end
+
+  MiniPick.registry.memex = function()
+    local cwd = vim.fn.expand('~/Dropbox/memex')
+    return MiniExtra.pickers.explorer({ cwd = cwd } )
+  end
 end)
 
 -- later(function ()
