@@ -382,19 +382,6 @@ now(function ()
   vim.cmd('colorscheme custom_gruvbox')
 end)
 
-later(function()
-  add('folke/zen-mode.nvim')
-  require('zen-mode').setup({
-    window = {
-      width = 90,
-      options = {
-        number = true,
-        relativenumber = true,
-      },
-    },
-  })
-end)
-
 later(function ()
   add('tpope/vim-abolish')
   vim.cmd([[
