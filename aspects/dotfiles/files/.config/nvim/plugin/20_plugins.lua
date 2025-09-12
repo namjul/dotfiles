@@ -379,8 +379,7 @@ end)
 
 now(function ()
   add('ellisonleao/gruvbox.nvim')
-  require('gruvbox').setup()
-  vim.cmd('colorscheme gruvbox')
+  vim.cmd('colorscheme custom_gruvbox')
 end)
 
 later(function()
