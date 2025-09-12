@@ -23,7 +23,7 @@ confirm-close-surface = false
 shell-integration-features = cursor,sudo,no-title
 
 # Keybindings
-keybind=clear
+# keybind=clear
 keybind = ctrl+space>h=goto_split:left
 keybind = ctrl+space>j=goto_split:down
 keybind = ctrl+space>k=goto_split:up
