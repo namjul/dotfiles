@@ -67,8 +67,9 @@ vim.opt.showmode = false -- Don't show the mode, since it's already in the statu
 vim.opt.sidescroll = 0 -- sidescroll in jumps because terminals are slow
 vim.opt.splitright = true -- open vertical splits to the right of the current window
 vim.opt.splitbelow = true -- open horizontal splits below current window
-vim.o.wrap = false -- Display long lines as just one line
+vim.opt.wrap = false -- Display long lines as just one line
 vim.opt.background = 'light'
+vim.o.signcolumn    = 'yes'     -- Always show signcolumn or it would frequently shift
 
 if vim.fn.filereadable(vim.fn.expand('~/.vimrc_background')) ~= 0 then
   vim.cmd('source ~/.vimrc_background')
