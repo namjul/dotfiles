@@ -1,4 +1,5 @@
-local add, now, later = MiniDeps.add, MiniDeps.now, MiniDeps.later
+local minideps = require('mini.deps')
+local add, now, later = minideps.add, minideps.now, minideps.later
 local now_if_args = vim.fn.argc(-1) > 0 and now or later
 
 -- Step one ===
@@ -157,8 +158,61 @@ later(function() require('mini.bracketed').setup() end)
 later(function() require('mini.bufremove').setup() end)
 
 later(function()
-  require('mini.misc').setup()
-  MiniMisc.setup_auto_root({ '.git', 'Makefile', '.hg' })
+  local miniclue = require('mini.clue')
+  miniclue.setup({
+    triggers = {
+      -- Leader triggers
+      { mode = 'n', keys = '<Leader>' },
+      { mode = 'x', keys = '<Leader>' },
+
+      -- `[` and `]` keys
+      { mode = 'n', keys = '[' },
+      { mode = 'n', keys = ']' },
+
+      -- Built-in completion
+      { mode = 'i', keys = '<C-x>' },
+
+      -- `g` key
+      { mode = 'n', keys = 'g' },
+      { mode = 'x', keys = 'g' },
+
+      -- Marks
+      { mode = 'n', keys = "'" },
+      { mode = 'n', keys = '`' },
+      { mode = 'x', keys = "'" },
+      { mode = 'x', keys = '`' },
+
+      -- Registers
+      { mode = 'n', keys = '"' },
+      { mode = 'x', keys = '"' },
+      { mode = 'i', keys = '<C-r>' },
+      { mode = 'c', keys = '<C-r>' },
+
+      -- Window commands
+      { mode = 'n', keys = '<C-w>' },
+
+      -- `z` key
+      { mode = 'n', keys = 'z' },
+      { mode = 'x', keys = 'z' },
+    },
+
+    clues = {
+      -- Enhance this by adding descriptions for <Leader> mapping groups
+      miniclue.gen_clues.square_brackets(),
+      miniclue.gen_clues.builtin_completion(),
+      miniclue.gen_clues.g(),
+      miniclue.gen_clues.marks(),
+      miniclue.gen_clues.registers(),
+      miniclue.gen_clues.windows(),
+      miniclue.gen_clues.z(),
+    },
+  })
+end)
+
+later(function()
+  local minimisc = require('mini.misc')
+  minimisc.setup()
+  minimisc.setup_auto_root({ '.git', 'Makefile', '.hg' })
 end)
 
 later(function()
@@ -592,29 +646,32 @@ later(function ()
 end)
 
 later(function()
-  require('mini.pick').setup({
+  local minipick = require('mini.pick')
+  minipick.setup({
     mappings = {
       choose_marked     = '<M-q>',
     }
   })
-  vim.ui.select = MiniPick.ui_select
+  vim.ui.select = minipick.ui_select
   vim.keymap.set('n', ',', '<Cmd>Pick buf_lines scope="current" preserve_order=true<CR>', { nowait = true })
 
-  MiniPick.registry.projects = function()
+  local miniextra = require('mini.extra')
+
+  minipick.registry.projects = function()
     local cwd = vim.fn.expand('~/code')
     local choose = function(item)
-      vim.schedule(function() MiniPick.builtin.files(nil, { source = { cwd = item.path } }) end)
+      vim.schedule(function() minipick.builtin.files(nil, { source = { cwd = item.path } }) end)
     end
-    return MiniExtra.pickers.explorer({ cwd = cwd }, { source = { choose = choose } })
+    return miniextra.pickers.explorer({ cwd = cwd }, { source = { choose = choose } })
   end
 
-  MiniPick.registry.memex = function()
+  minipick.registry.memex = function()
     local cwd = vim.fn.expand('~/Dropbox/memex')
     -- local mappings = { wipeout = { char = '<C-d>', func = function ()
     --   print('TODO: https://github.com/nvim-telescope/telescope-live-grep-args.nvim')
     -- end  } }
     -- return MiniExtra.pickers.cli({ cwd = cwd }, { mappings = mappings })
-    return MiniExtra.pickers.explorer({ cwd = cwd } )
+    return miniextra.pickers.explorer({ cwd = cwd } )
   end
 end)
 
