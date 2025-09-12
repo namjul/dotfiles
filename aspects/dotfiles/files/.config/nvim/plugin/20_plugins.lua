@@ -474,32 +474,20 @@ later(function()
   })
 end)
 
-now_if_args(function()
-  -- disable netrw
-  vim.g.loaded_netrw = 1
-  vim.g.loaded_netrwPlugin = 1
+later(function()
+  local minifiles = require('mini.files')
+  minifiles.setup({ windows = { preview = true } })
 
-  add('stevearc/oil.nvim')
-  require('oil').setup({
-    keymaps = {
-      ['<C-p>'] = 'actions.copy_entry_path',
-      ['<leader>:'] = {
-        'actions.open_cmdline',
-        opts = {
-          shorten_path = true,
-          modify = ':h',
-        },
-        desc = 'Open the command line with the current directory as an argument',
-      },
-    },
-    delete_to_trash = true,
-    default_file_explorer = true,
-    skip_confirm_for_simple_edits = true,
-    view_options = {
-      show_hidden = true,
-      -- natural_order = true,
-      is_always_hidden = function(name) return name == '..' end,
-    },
+  local dotfiles_augroup = vim.api.nvim_create_augroup('dotfiles', {})
+  vim.api.nvim_create_autocmd('User', {
+    group = dotfiles_augroup,
+    pattern = 'MiniFilesExplorerOpen',
+    callback = function()
+      minifiles.set_bookmark('d', vim.fs.normalize('~/.dotfiles'), { desc = 'Dotfiles' })
+      minifiles.set_bookmark('c', vim.fn.stdpath('config'), { desc = 'Config' })
+      minifiles.set_bookmark('p', vim.fn.stdpath('data') .. '/site/pack/deps/opt', { desc = 'Plugins' })
+      minifiles.set_bookmark('w', vim.fn.getcwd, { desc = 'Working directory' })
+    end,
   })
 end)
 

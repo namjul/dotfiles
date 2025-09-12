@@ -176,6 +176,7 @@ autocmds.winhighlight_filetype_blacklist = {
   ['undotree'] = true,
   ['qf'] = true,
   ['TelescopePrompt'] = true,
+  ['minifiles'] = true,
 }
 
 -- Force 'list' (when `true`) or 'nolist' (when `false`) for these.

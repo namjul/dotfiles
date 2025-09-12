@@ -9,7 +9,6 @@ vim.keymap.set({ 'n', 'x' }, ']p', '<Cmd>exe "' .. cmd .. ' "  . v:register<CR>'
 vim.keymap.set('c', '<C-a>', '<Home>')
 vim.keymap.set('c', '<C-e>', '<End>')
 
-vim.keymap.set('n', '-', '<Cmd>Oil<CR>', { desc = 'Open parent directory' })
 vim.keymap.set('n', '<C-d>', '<C-d>zz', { desc = 'Up' })
 vim.keymap.set('n', '<C-u>', '<C-u>zz', { desc = 'Down' })
 vim.keymap.set('n', '<Down>', ':cnext<CR>', { desc = 'Next in quickfix list' })
@@ -80,7 +79,8 @@ nmap_leader('bW', '<Cmd>lua MiniBufremove.wipeout(0, true)<CR>', 'Wipeout!')
 local edit_config_file = function(filename)
   return '<Cmd>edit ' .. vim.fn.stdpath('config') .. '/plugin/' .. filename .. '<CR>'
 end
-nmap_leader('ed', '<Cmd>Oil<CR>', 'Directory')
+nmap_leader('ed', '<Cmd>lua MiniFiles.open()<CR>', 'Directory')
+nmap_leader('ef', '<Cmd>lua MiniFiles.open(vim.api.nvim_buf_get_name(0))<CR>', 'File directory')
 nmap_leader('eo', edit_config_file('10_options.lua'), 'Options config')
 nmap_leader('em', edit_config_file('11_mappings.lua'), 'Mappings config')
 nmap_leader('ep', edit_config_file('20_plugins.lua'), 'Plugins config')
