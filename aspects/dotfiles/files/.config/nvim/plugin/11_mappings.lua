@@ -103,6 +103,8 @@ nmap_leader('fS', '<Cmd>Pick lsp scope="document_symbol"<CR>', 'Symbols buffer (
 nmap_leader('fd', '<Cmd>Pick diagnostic scope="all"<CR>', 'Diagnostic workspace')
 nmap_leader('fp', '<Cmd>Pick projects<CR>', 'Diagnostic workspace')
 nmap_leader('fm', '<Cmd>Pick memex<CR>', 'Memex')
+nmap_leader('fv', '<Cmd>Pick visit_paths cwd=""<CR>', 'Visit paths (all)')
+nmap_leader('fV', '<Cmd>Pick visit_paths<CR>', 'Visit paths (cwd)')
 -- nmap_leader("fl", "<Cmd>lua require('namjul.functions.telescope').memex()<CR>",          "Search in Memex" )
 -- nmap_leader("fd", "<Cmd>lua require('namjul.functions.telescope').search_dotfiles()<CR>", "Search dotfiles" )
 -- nmap_leader("fr", "<Cmd>lua require('namjul.functions.telescope').find_recent()<CR>", "Find Recent Files" )
@@ -144,6 +146,22 @@ nmap_leader('or', '<Cmd>lua MiniMisc.resize_window()<CR>', 'Resize to default wi
 -- t is for 'terminal' (uses 'neoterm') and 'minitest'
 nmap_leader('tT', '<Cmd>belowright Tnew<CR>', 'Terminal (horizontal)')
 nmap_leader('tt', '<Cmd>vertical Tnew<CR>', 'Terminal (vertical)')
+
+-- v is for 'visits'
+nmap_leader('vv', '<Cmd>lua MiniVisits.add_label("core")<CR>', 'Add "core" label')
+nmap_leader('vV', '<Cmd>lua MiniVisits.remove_label("core")<CR>', 'Remove "core" label')
+nmap_leader('vl', '<Cmd>lua MiniVisits.add_label()<CR>', 'Add label')
+nmap_leader('vL', '<Cmd>lua MiniVisits.remove_label()<CR>', 'Remove label')
+
+local map_pick_core = function(keys, cwd, desc)
+  local rhs = function()
+    local sort_latest = MiniVisits.gen_sort.default({ recency_weight = 1 })
+    MiniExtra.pickers.visit_paths({ cwd = cwd, filter = 'core', sort = sort_latest }, { source = { name = desc } })
+  end
+  nmap_leader(keys, rhs, desc)
+end
+map_pick_core('vc', '', 'Core visits (all)')
+map_pick_core('vC', nil, 'Core visits (cwd)')
 
 -- misc
 nmap_leader('2', '<Cmd>w<CR>:! ./%<CR>', 'Execute current file')

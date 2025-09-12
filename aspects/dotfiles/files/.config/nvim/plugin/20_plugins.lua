@@ -655,6 +655,8 @@ later(function()
   end
 end)
 
+later(function() require('mini.visits').setup() end)
+
 -- Better built-in terminal ===
 later(function()
   add('kassio/neoterm')
