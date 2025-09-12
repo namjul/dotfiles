@@ -157,6 +157,8 @@ later(function() require('mini.bracketed').setup() end)
 
 later(function() require('mini.bufremove').setup() end)
 
+later(function() require('mini.cursorword').setup() end)
+
 later(function()
   local miniclue = require('mini.clue')
   miniclue.setup({
