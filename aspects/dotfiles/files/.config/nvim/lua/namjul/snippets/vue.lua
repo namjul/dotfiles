@@ -30,5 +30,5 @@ luasnip.add_snippets('vue', {
         i(0),
       }
     )
-  )
+  ),
 })

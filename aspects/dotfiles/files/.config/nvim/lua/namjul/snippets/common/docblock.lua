@@ -9,9 +9,7 @@ return {
   s({ trig = '**', dscr = 'docblock' }, {
     t({ '/**', '' }),
     f(function(args, snip)
-      local lines = vim.tbl_map(function(line)
-        return ' * ' .. vim.trim(line)
-      end, snip.env.SELECT_RAW)
+      local lines = vim.tbl_map(function(line) return ' * ' .. vim.trim(line) end, snip.env.SELECT_RAW)
       if #lines == 0 then
         return ' * '
       else

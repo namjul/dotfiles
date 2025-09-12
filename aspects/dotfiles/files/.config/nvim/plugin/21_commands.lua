@@ -1,4 +1,3 @@
-
 local getUrlTitle = require('namjul.functions.getUrlTitle')
 
 vim.api.nvim_create_user_command('Format', function(args)
@@ -27,16 +26,9 @@ local has_rest_nvim = pcall(require, 'rest-nvim')
 if has_rest_nvim then
   local restNvim = require('rest-nvim')
 
-  vim.api.nvim_create_user_command('RestNvim', function()
-    restNvim.run()
-  end, {})
+  vim.api.nvim_create_user_command('RestNvim', function() restNvim.run() end, {})
 
-  vim.api.nvim_create_user_command('RestNvimPreview', function()
-    restNvim.run(true)
-  end, {})
+  vim.api.nvim_create_user_command('RestNvimPreview', function() restNvim.run(true) end, {})
 
-  vim.api.nvim_create_user_command('RestNvimLast', function()
-    restNvim.last()
-  end, {})
+  vim.api.nvim_create_user_command('RestNvimLast', function() restNvim.last() end, {})
 end
-

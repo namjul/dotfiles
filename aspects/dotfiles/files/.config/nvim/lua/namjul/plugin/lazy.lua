@@ -22,9 +22,7 @@ local lazy = function(pack, config)
   namjul.g.lazy[key] = config
 
   config.load = function()
-    if config.beforeload ~= nil then
-      config.beforeload()
-    end
+    if config.beforeload ~= nil then config.beforeload() end
 
     if config.commands ~= nil then
       for command in pairs(config.commands) do
@@ -44,9 +42,7 @@ local lazy = function(pack, config)
       end
     end
 
-    if config.afterload ~= nil then
-      config.afterload()
-    end
+    if config.afterload ~= nil then config.afterload() end
 
     namjul.g.lazy[key] = nil
   end
@@ -93,12 +89,10 @@ local lazy = function(pack, config)
     if vim.v.vim_did_enter == 1 then
       vim.cmd('packadd! ' .. pack)
     else
-      vim.api.nvim_create_autocmd({'VimEnter'}, {
-        pattern = {'*'},
-        callback = function()
-          vim.cmd('packadd! ' .. pack)
-        end,
-        once = true
+      vim.api.nvim_create_autocmd({ 'VimEnter' }, {
+        pattern = { '*' },
+        callback = function() vim.cmd('packadd! ' .. pack) end,
+        once = true,
       })
     end
   end

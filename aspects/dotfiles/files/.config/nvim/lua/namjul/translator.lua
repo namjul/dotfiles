@@ -41,9 +41,7 @@ local function open_window()
   win = vim.api.nvim_open_win(buf, true, opts)
 end
 
-local function close_window()
-  api.nvim_win_close(win, true)
-end
+local function close_window() api.nvim_win_close(win, true) end
 
 local function update_view()
   if #word > 0 then

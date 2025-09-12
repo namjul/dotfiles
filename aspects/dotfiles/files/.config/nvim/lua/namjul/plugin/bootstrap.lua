@@ -24,7 +24,8 @@ local function bootstrap_paq(pkgs)
 
   if is_bootstrap then
     -- Exit nvim after installing plugins
-    vim.cmd('autocmd User PaqDoneInstall quit') print('==================================')
+    vim.cmd('autocmd User PaqDoneInstall quit')
+    print('==================================')
     print('    Plugins are being installed')
     print('    Wait until Packer completes,')
     print('       and restarts nvim')

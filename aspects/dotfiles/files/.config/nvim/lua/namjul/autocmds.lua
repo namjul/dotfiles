@@ -44,9 +44,7 @@ local winhighlight_blurred = table.concat({
   'VertSplit:VertSplitBlur',
 }, ',')
 
-local function set_cursorline(active)
-  vim.wo.cursorline = active
-end
+local function set_cursorline(active) vim.wo.cursorline = active end
 
 local function focus_window()
   local filetype = vim.bo.filetype
@@ -57,9 +55,7 @@ local function focus_window()
     vim.wo.relativenumber = true
   end
 
-  if filetype == '' or autocmds.winhighlight_filetype_blacklist[filetype] ~= true then
-    vim.wo.winhighlight = ''
-  end
+  if filetype == '' or autocmds.winhighlight_filetype_blacklist[filetype] ~= true then vim.wo.winhighlight = '' end
 
   if filetype == '' or autocmds.colorcolumn_filetype_blacklist[filetype] ~= true then
     vim.wo.colorcolumn = focused_colorcolumn
@@ -104,9 +100,7 @@ local function blur_window()
     end
   end
 
-  if filetype == '' or autocmds.conceallevel_filetypes[filetype] == nil then
-    vim.wo.conceallevel = 0
-  end
+  if filetype == '' or autocmds.conceallevel_filetypes[filetype] == nil then vim.wo.conceallevel = 0 end
 end
 
 local function should_mkview()
@@ -141,39 +135,23 @@ local mkview = function()
   end
 end
 
-function autocmds.bufEnter()
-  focus_window()
-end
+function autocmds.bufEnter() focus_window() end
 
-function autocmds.bufLeave()
-  mkview()
-end
+function autocmds.bufLeave() mkview() end
 
 function autocmds.bufWinEnter()
-  if should_mkview() then
-    vim.cmd('silent! loadview')
-  end
+  if should_mkview() then vim.cmd('silent! loadview') end
 end
 
-function autocmds.bufWritePost()
-  mkview()
-end
+function autocmds.bufWritePost() mkview() end
 
-function autocmds.focusGained()
-  focus_window()
-end
+function autocmds.focusGained() focus_window() end
 
-function autocmds.focusLost()
-  blur_window()
-end
+function autocmds.focusLost() blur_window() end
 
-function autocmds.insertEnter()
-  set_cursorline(false)
-end
+function autocmds.insertEnter() set_cursorline(false) end
 
-function autocmds.insertLeave()
-  set_cursorline(true)
-end
+function autocmds.insertLeave() set_cursorline(true) end
 
 function autocmds.vimEnter()
   focus_window()
@@ -190,9 +168,7 @@ function autocmds.winLeave()
   set_cursorline(false)
 end
 
-function autocmds.skeleton(path)
-  cmd('0r ' .. path)
-end
+function autocmds.skeleton(path) cmd('0r ' .. path) end
 
 autocmds.winhighlight_filetype_blacklist = {
   ['diff'] = true,

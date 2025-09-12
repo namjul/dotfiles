@@ -6,20 +6,16 @@ vim.filetype.add({
     mdx = 'mdx',
   },
   filename = {
-    ["TODO"] = function()
-      return "markdown"
-    end,
-    ["foo.(%a+)"] = function(_, _, ext)
+    ['TODO'] = function() return 'markdown' end,
+    ['foo.(%a+)'] = function(_, _, ext)
       -- The 'ext' argument is the captured match from the filename pattern
       return ext
     end,
   },
   pattern = {
-    [".*"] = function()
+    ['.*'] = function()
       local first_line = vim.api.nvim_buf_get_lines(0, 0, 1, false)[1]
-      if first_line:match("^#!/usr/bin/env zx") then
-        return "javascript"
-      end
+      if first_line:match('^#!/usr/bin/env zx') then return 'javascript' end
     end,
   },
   -- extension = {

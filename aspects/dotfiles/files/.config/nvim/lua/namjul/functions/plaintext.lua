@@ -1,12 +1,9 @@
-
 local function plaintext()
-
   vim.opt_local.concealcursor = 'nc'
   vim.opt_local.list = false
   vim.opt_local.textwidth = 0
   vim.opt_local.wrap = true
   vim.opt_local.wrapmargin = 0
-
 
   vim.keymap.set('n', 'j', 'gj', { buffer = true })
   vim.keymap.set('n', 'k', 'gk', { buffer = true })
@@ -25,7 +22,6 @@ local function plaintext()
   vim.keymap.set('i', ':', ':<C-g>u', { buffer = true })
   vim.keymap.set('i', ';', ';<C-g>u', { buffer = true })
   vim.keymap.set('i', '?', '?<C-g>u', { buffer = true })
-
 end
 
 return plaintext

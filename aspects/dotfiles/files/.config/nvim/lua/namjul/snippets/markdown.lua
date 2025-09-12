@@ -13,19 +13,19 @@ local d = luasnip.dynamic_node
 -- local types = require('luasnip.util.types')
 
 luasnip.add_snippets('markdown', {
-  s({ trig = 'code' }, fmt('`{}`', { i(1, 'value') }))
+  s({ trig = 'code' }, fmt('`{}`', { i(1, 'value') })),
 })
 
 luasnip.add_snippets('markdown', {
-  s({ trig = 'codeblock' }, fmt('```{}\n{}\n```', { i(1, 'value'), i(2, 'value') }))
+  s({ trig = 'codeblock' }, fmt('```{}\n{}\n```', { i(1, 'value'), i(2, 'value') })),
 })
 
 luasnip.add_snippets('markdown', {
-  s({ trig = 'td' }, fmt('- [{}]', { i(1, 'value') }))
+  s({ trig = 'td' }, fmt('- [{}]', { i(1, 'value') })),
 })
 
 luasnip.add_snippets('markdown', {
-  s({ trig = 'link' }, fmt('[{}]({})', { i(1, 'value'),  i(2, 'value')  }))
+  s({ trig = 'link' }, fmt('[{}]({})', { i(1, 'value'), i(2, 'value') })),
 })
 
 luasnip.add_snippets('markdown', {
@@ -40,9 +40,7 @@ luasnip.add_snippets('markdown', {
     end, { 1 }),
 
     t(']('),
-    f(function()
-      return string.gsub(vim.fn.getreg('+'), '\n', '')
-    end, {}),
+    f(function() return string.gsub(vim.fn.getreg('+'), '\n', '') end, {}),
     t(')'),
     i(0),
   }),

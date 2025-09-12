@@ -132,9 +132,7 @@ function M.memex()
   })
 end
 
-function M.search_dotfiles()
-  M.findFiles({ cwd = '~/.dotfiles' })
-end
+function M.search_dotfiles() M.findFiles({ cwd = '~/.dotfiles' }) end
 
 function M.live_grep(args)
   args = args or {}

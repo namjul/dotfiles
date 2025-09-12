@@ -8,7 +8,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
 })
 
 lsp.init = function()
-
   local capabilities = vim.lsp.protocol.make_client_capabilities()
 
   local has_blink = pcall(require, 'blink.cmp')
@@ -18,14 +17,14 @@ lsp.init = function()
       textDocument = {
         foldingRange = {
           dynamicRegistration = false,
-          lineFoldingOnly = true
-        }
-      }
+          lineFoldingOnly = true,
+        },
+      },
     })
   end
 
-  local mason_packages = vim.fn.stdpath("data") .. "/mason/packages"
-  local vue_language_server_path = mason_packages .. "/vue-language-server/node_modules/@vue/language-server"
+  local mason_packages = vim.fn.stdpath('data') .. '/mason/packages'
+  local vue_language_server_path = mason_packages .. '/vue-language-server/node_modules/@vue/language-server'
 
   local vue_plugin = {
     name = '@vue/typescript-plugin',
@@ -45,8 +44,8 @@ lsp.init = function()
           },
           workspace = { checkthirdparty = false },
           telemetry = { enable = false },
-        }
-      }
+        },
+      },
     },
     vtsls = {
       settings = {
@@ -61,7 +60,15 @@ lsp.init = function()
           },
         },
       },
-      filetypes =  { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx", "vue" }
+      filetypes = {
+        'javascript',
+        'javascriptreact',
+        'javascript.jsx',
+        'typescript',
+        'typescriptreact',
+        'typescript.tsx',
+        'vue',
+      },
     },
     vue_ls = {},
   }
@@ -69,21 +76,16 @@ lsp.init = function()
   local ensure_installed = vim.tbl_keys(servers or {})
 
   local has_mason, mason = pcall(require, 'mason')
-  if has_mason then
-    mason.setup()
-  end
+  if has_mason then mason.setup() end
 
   local has_mason_tool_installer, mason_tool_installer = pcall(require, 'mason-tool-installer')
-  if has_mason_tool_installer then
-    mason_tool_installer.setup { ensure_installed = ensure_installed }
-  end
+  if has_mason_tool_installer then mason_tool_installer.setup({ ensure_installed = ensure_installed }) end
 
   local has_mason_lspconfig, mason_lspconfig = pcall(require, 'mason-lspconfig')
   if has_mason and has_mason_lspconfig then
-
     mason_lspconfig.setup({
       ensure_installed = {}, -- explicitly set to an empty table (populated installs via mason-tool-installer)
-      automatic_enable = true
+      automatic_enable = true,
     })
 
     for server_name, server_config in pairs(servers) do
@@ -93,7 +95,6 @@ lsp.init = function()
 
     vim.lsp.enable({ 'vue_ls', 'vtsls', 'lua_ls' })
   end
-
 end
 
 return lsp

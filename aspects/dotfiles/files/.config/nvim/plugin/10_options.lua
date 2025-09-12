@@ -16,16 +16,13 @@ vim.opt.swapfile = false -- don't create swap files
 -- vim.opt.updatecount = 0 -- update swapfiles every 80 typed chars
 vim.opt.visualbell = true -- stop annoying beeping for non-error errors
 
-vim.o.shada        = "'100,<50,s10,:1000,/100,@100,h" -- Limit what is stored in ShaDa file
+vim.o.shada = "'100,<50,s10,:1000,/100,@100,h" -- Limit what is stored in ShaDa file
 
 vim.cmd('filetype plugin indent on') -- Enable filetype detection, plugins, and indentation
 
 -- Sync clipboard between OS and Neovim.
 -- Schedule the setting after `UiEnter` because it can increase startup-time.
-vim.schedule(function()
-  vim.opt.clipboard = 'unnamedplus'
-end)
-
+vim.schedule(function() vim.opt.clipboard = 'unnamedplus' end)
 
 -- UI ===
 vim.opt.guifont = 'JetBrainsMono Nerd Font'
@@ -69,11 +66,9 @@ vim.opt.splitright = true -- open vertical splits to the right of the current wi
 vim.opt.splitbelow = true -- open horizontal splits below current window
 vim.opt.wrap = false -- Display long lines as just one line
 vim.opt.background = 'light'
-vim.o.signcolumn    = 'yes'     -- Always show signcolumn or it would frequently shift
+vim.o.signcolumn = 'yes' -- Always show signcolumn or it would frequently shift
 
-if vim.fn.filereadable(vim.fn.expand('~/.vimrc_background')) ~= 0 then
-  vim.cmd('source ~/.vimrc_background')
-end
+if vim.fn.filereadable(vim.fn.expand('~/.vimrc_background')) ~= 0 then vim.cmd('source ~/.vimrc_background') end
 
 -- Colors ===
 
@@ -114,10 +109,10 @@ vim.opt.gdefault = true -- Add the g flag to search/replace by default
 -- Keyboard layout ===
 --
 -- Folds ===
-vim.opt.foldmethod  = 'indent' -- Set 'indent' folding method
-vim.opt.foldlevel   = 1        -- Display all folds except top ones
-vim.opt.foldnestmax = 10       -- Create folds only for some number of nested levels
-vim.o.foldtext = ''        -- Use underlying text with its highlighting
+vim.opt.foldmethod = 'indent' -- Set 'indent' folding method
+vim.opt.foldlevel = 1 -- Display all folds except top ones
+vim.opt.foldnestmax = 10 -- Create folds only for some number of nested levels
+vim.o.foldtext = '' -- Use underlying text with its highlighting
 -- vim.opt.formatoptions = vim.opt.formatoptions + 'j' -- remove comment leader when joining comment lines
 -- vim.opt.formatoptions = vim.opt.formatoptions + 'n' -- smart auto-indenting inside numbered lists
 

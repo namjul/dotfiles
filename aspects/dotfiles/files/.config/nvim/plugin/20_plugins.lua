@@ -93,9 +93,7 @@ now_if_args(function()
       -- fix from https://github.com/nvim-treesitter/nvim-treesitter/issues/2634#issuecomment-1362479800
       is_supported = function()
         local ct = vim.fn.getcmdwintype()
-        if ct ~= '' then
-          return false
-        end
+        if ct ~= '' then return false end
         return true
       end,
     },
@@ -146,8 +144,7 @@ now_if_args(function()
     },
   })
 
-  vim.treesitter.language.register('markdown', 'mdx')  -- the someft filetype will use the python parser and queries.
-
+  vim.treesitter.language.register('markdown', 'mdx') -- the someft filetype will use the python parser and queries.
 end)
 
 -- Step two ===
@@ -221,7 +218,7 @@ later(function()
   require('mini.diff').setup({
     view = {
       style = 'sign',
-    }
+    },
   })
 end)
 
@@ -231,20 +228,22 @@ later(function()
   map_multistep('i', '<BS>', { 'hungry_bs', 'minipairs_bs' })
 end)
 
-later(function()
-  require('mini.move').setup({
-    mappings = {
-      left = '<S-h>',
-      right = '<S-l>',
-      down = '<S-j>',
-      up = '<S-k>',
-      line_left = '<D-h>',
-      line_right = '<D-l>',
-      line_down = '<D-j>',
-      line_up = '<D-k>',
-    }
-  })
-end)
+later(
+  function()
+    require('mini.move').setup({
+      mappings = {
+        left = '<S-h>',
+        right = '<S-l>',
+        down = '<S-j>',
+        up = '<S-k>',
+        line_left = '<D-h>',
+        line_right = '<D-l>',
+        line_down = '<D-j>',
+        line_up = '<D-k>',
+      },
+    })
+  end
+)
 
 later(function()
   require('mini.surround').setup({
@@ -270,7 +269,7 @@ later(function() require('mini.pairs').setup() end)
 
 later(function() require('mini.trailspace').setup() end)
 
-later(function() require('mini.operators').setup({ replace = { prefix = '<leader>r' }}) end)
+later(function() require('mini.operators').setup({ replace = { prefix = '<leader>r' } }) end)
 
 later(function() require('mini.jump').setup() end)
 
@@ -281,18 +280,16 @@ later(function()
   hipatterns.setup({
     highlighters = {
       fixme = { pattern = '[Xx][Xx][Xx]', group = 'MiniHipatternsFixme' },
-      hack  = { pattern = '%f[%w]()HACK()%f[%W]',  group = 'MiniHipatternsHack'  },
-      todo  = { pattern = '%f[%w]()TODO()%f[%W]',  group = 'MiniHipatternsTodo'  },
-      note  = { pattern = '%f[%w]()NOTE()%f[%W]',  group = 'MiniHipatternsNote'  },
+      hack = { pattern = '%f[%w]()HACK()%f[%W]', group = 'MiniHipatternsHack' },
+      todo = { pattern = '%f[%w]()TODO()%f[%W]', group = 'MiniHipatternsTodo' },
+      note = { pattern = '%f[%w]()NOTE()%f[%W]', group = 'MiniHipatternsNote' },
       hex_color = hipatterns.gen_highlighter.hex_color(),
     },
   })
 end)
 
 -- Install LSP/formatting/linter executables ===
-later(function()
-  add('mason-org/mason.nvim')
-end)
+later(function() add('mason-org/mason.nvim') end)
 
 -- Language server configurations ===
 later(function()
@@ -310,23 +307,17 @@ later(function()
     local current_dir = vim.fn.getcwd()
 
     local matcher = function(dir)
-      local binary_path = dir .. "/node_modules/.bin/" .. binary_name
-      if vim.fn.filereadable(binary_path) == 1 then
-        return binary_path
-      end
+      local binary_path = dir .. '/node_modules/.bin/' .. binary_name
+      if vim.fn.filereadable(binary_path) == 1 then return binary_path end
       return nil
     end
 
     local start_match = matcher(current_dir)
-    if start_match then
-      return start_match
-    end
+    if start_match then return start_match end
 
     for path in vim.fs.parents(current_dir) do
       local match = matcher(path)
-      if match then
-        return match
-      end
+      if match then return match end
     end
 
     return nil -- Not found
@@ -334,17 +325,13 @@ later(function()
 
   local get_lsp_client = function()
     -- Get lsp client for current buffer
-    local buf_ft = vim.api.nvim_buf_get_option(0, "filetype")
+    local buf_ft = vim.api.nvim_buf_get_option(0, 'filetype')
     local clients = vim.lsp.get_clients({ bufnr = 0 })
-    if next(clients) == nil then
-      return nil
-    end
+    if next(clients) == nil then return nil end
 
     for _, client in pairs(clients) do
       local filetypes = client.config.filetypes
-      if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
-        return client
-      end
+      if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then return client end
     end
 
     return nil
@@ -352,15 +339,20 @@ later(function()
 
   local has_lint, lint = pcall(require, 'lint')
   if has_lint then
-
     local linters = {
       eslint = {
-        "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx", "vue"
-      }
+        'javascript',
+        'javascriptreact',
+        'javascript.jsx',
+        'typescript',
+        'typescriptreact',
+        'typescript.tsx',
+        'vue',
+      },
     }
 
     local eslint = require('lint').linters.eslint
-    eslint.cmd = function ()
+    eslint.cmd = function()
       local binary_name = 'eslint'
       local local_binary = find_nodemodules_bin(binary_name)
       return local_binary or binary_name
@@ -416,7 +408,7 @@ end)
 later(function()
   add('tpope/vim-fugitive')
   add('shumphrey/fugitive-gitlab.vim') -- open files on gitlab
-  vim.g.fugitive_gitlab_domains = {'https://gitlab.tools.wienfluss.net/'}
+  vim.g.fugitive_gitlab_domains = { 'https://gitlab.tools.wienfluss.net/' }
 end)
 
 later(function()
@@ -432,12 +424,12 @@ later(function()
   vim.g.mkdp_auto_close = 0
 end)
 
-now(function ()
+now(function()
   add('ellisonleao/gruvbox.nvim')
   vim.cmd('colorscheme custom_gruvbox')
 end)
 
-later(function ()
+later(function()
   add('tpope/vim-abolish')
   vim.cmd([[
   Abolish teh the
@@ -449,22 +441,22 @@ later(function ()
 ]])
 end)
 
-later(function () add('andreshazard/vim-freemarker') end)
+later(function() add('andreshazard/vim-freemarker') end)
 
 -- seperate `cut` form `delete`
-later(function () add('svermeulen/vim-cutlass') end)
+later(function() add('svermeulen/vim-cutlass') end)
 
 -- support editor config files (https://editorconfig.org/)
-later(function () add('tpope/vim-sleuth') end)
+later(function() add('tpope/vim-sleuth') end)
 
-later(function ()
+later(function()
   add('windwp/nvim-ts-autotag')
   require('nvim-ts-autotag').setup()
 end)
 
-later(function () require('namjul/translator') end)
+later(function() require('namjul/translator') end)
 
-later(function ()
+later(function()
   add('TobinPalmer/pastify.nvim')
   require('pastify').setup({
     opts = {
@@ -482,7 +474,7 @@ later(function ()
   })
 end)
 
-now_if_args(function ()
+now_if_args(function()
   -- disable netrw
   vim.g.loaded_netrw = 1
   vim.g.loaded_netrwPlugin = 1
@@ -506,14 +498,12 @@ now_if_args(function ()
     view_options = {
       show_hidden = true,
       -- natural_order = true,
-      is_always_hidden = function(name)
-        return name == '..'
-      end
-    }
+      is_always_hidden = function(name) return name == '..' end,
+    },
   })
 end)
 
-later(function ()
+later(function()
   add({ source = 'saghen/blink.cmp', checkout = 'v1.6.0' })
   require('blink.cmp').setup({
     snippets = { preset = 'luasnip' },
@@ -539,9 +529,9 @@ later(function ()
     sources = {
       providers = {
         snippets = {
-          score_offset = 10
-        }
-      }
+          score_offset = 10,
+        },
+      },
     },
     completion = {
       menu = { border = 'none' },
@@ -551,30 +541,30 @@ later(function ()
   })
 end)
 
-later(function ()
+later(function()
   add('nvim-tree/nvim-tree.lua')
   namjul.plugin.lazy('nvim-tree.lua', {
     afterload = function()
       require('nvim-tree').setup({
         actions = {
           open_file = {
-            window_picker = { enable = false }
+            window_picker = { enable = false },
           },
         },
         renderer = {
           indent_markers = {
-            enable = true
+            enable = true,
           },
           icons = {
             show = {
               git = false,
               folder = false,
               folder_arrow = false,
-            }
+            },
           },
           special_files = {
-            enable = false
-          }
+            enable = false,
+          },
         },
         git = {
           enable = false,
@@ -593,26 +583,24 @@ later(function ()
   })
 end)
 
-later(function ()
+later(function()
   add('yousefakbar/notmuch.nvim')
   namjul.plugin.lazy('notmuch', {
     afterload = function()
       require('notmuch').setup({
-        notmuch_db_path = "/home/hobl/.mail"
+        notmuch_db_path = '/home/hobl/.mail',
       })
     end,
     commands = {
       'Notmuch',
-    }
+    },
   })
 end)
 
-later(function ()
+later(function()
   add('stevearc/overseer.nvim')
   namjul.plugin.lazy('overseer', {
-    afterload = function()
-      require('overseer').setup()
-    end,
+    afterload = function() require('overseer').setup() end,
     commands = {
       'OverseerRun',
       'OverseerOpen',
@@ -624,7 +612,7 @@ later(function ()
   })
 end)
 
-later(function ()
+later(function()
   add('mbbill/undotree')
   namjul.plugin.lazy('undotree', {
     beforeload = function()
@@ -640,11 +628,11 @@ later(function ()
 end)
 
 -- Snippet collection =========================================================
-later(function ()
+later(function()
   add({ source = 'L3MON4D3/LuaSnip', checkout = 'v2.4.0' })
   -- Tell LuaSnip to load on demand based on file-type.
   require('luasnip.loaders.from_lua').load({
-    lazy_paths = {"~/.config/nvim/lua/namjul/snippets"},
+    lazy_paths = { '~/.config/nvim/lua/namjul/snippets' },
     -- paths = {"~/.config/nvim/lua/namjul/snippets"}
   })
 end)
@@ -653,8 +641,8 @@ later(function()
   local minipick = require('mini.pick')
   minipick.setup({
     mappings = {
-      choose_marked     = '<M-q>',
-    }
+      choose_marked = '<M-q>',
+    },
   })
   vim.ui.select = minipick.ui_select
   vim.keymap.set('n', ',', '<Cmd>Pick buf_lines scope="current" preserve_order=true<CR>', { nowait = true })
@@ -675,7 +663,7 @@ later(function()
     --   print('TODO: https://github.com/nvim-telescope/telescope-live-grep-args.nvim')
     -- end  } }
     -- return MiniExtra.pickers.cli({ cwd = cwd }, { mappings = mappings })
-    return miniextra.pickers.explorer({ cwd = cwd } )
+    return miniextra.pickers.explorer({ cwd = cwd })
   end
 end)
 
@@ -707,20 +695,17 @@ end)
 --   checkout = 'main'
 -- }) end)
 
-later(function ()
-  local build = function (pkg)
-    print("shellbot", vim.inspect(pkg.path))
-    vim.system(
-      { 'cargo', 'build', '--release' },
-      { cwd = pkg.path }
-    )
+later(function()
+  local build = function(pkg)
+    print('shellbot', vim.inspect(pkg.path))
+    vim.system({ 'cargo', 'build', '--release' }, { cwd = pkg.path })
   end
   add({
     source = 'wincent/shellbot',
     hooks = {
-      post_install = function(path) later(function ()
-        build(path)
-      end) end,
+      post_install = function(path)
+        later(function() build(path) end)
+      end,
       post_checkout = build,
     },
   })
@@ -728,14 +713,10 @@ later(function ()
   local has_shellbot, shellbot = pcall(require, 'shellbot.chatbot')
 
   if not has_shellbot then
-    local print_error = function()
-      vim.notify('error: SHELLBOT does not appear to be executable', vim.log.levels.ERROR)
-    end
+    local print_error = function() vim.notify('error: SHELLBOT does not appear to be executable', vim.log.levels.ERROR) end
     vim.api.nvim_create_user_command('Chatbot', print_error, {})
   else
-    vim.api.nvim_create_user_command('Chatbot', function ()
-      shellbot.chatbot({})
-    end, {})
+    vim.api.nvim_create_user_command('Chatbot', function() shellbot.chatbot({}) end, {})
 
     local shellbot_augroup = vim.api.nvim_create_augroup('shellbot', { clear = true })
     vim.api.nvim_create_autocmd({ 'BufEnter' }, {
@@ -745,10 +726,20 @@ later(function ()
         local modes = { 'n', 'i' }
 
         for _, mode in ipairs(modes) do
-          vim.api.nvim_buf_set_keymap(bufnr, mode, '<C-Enter>', '<ESC>:lua ChatBotSubmit()<CR>',
-            { noremap = true, silent = true })
-          vim.api.nvim_buf_set_keymap(bufnr, mode, '<S-Enter>', '<ESC>:lua ChatBotNewBuf()<CR>',
-            { noremap = true, silent = true })
+          vim.api.nvim_buf_set_keymap(
+            bufnr,
+            mode,
+            '<C-Enter>',
+            '<ESC>:lua ChatBotSubmit()<CR>',
+            { noremap = true, silent = true }
+          )
+          vim.api.nvim_buf_set_keymap(
+            bufnr,
+            mode,
+            '<S-Enter>',
+            '<ESC>:lua ChatBotNewBuf()<CR>',
+            { noremap = true, silent = true }
+          )
         end
       end,
     })
@@ -763,10 +754,10 @@ later(function ()
         if filetype == 'shellbot' and buftype == 'nofile' and win_count == 1 then
           vim.notify(
             '\n'
-            .. '┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓\n'
-            .. '┃ Use :q! if you really want to quit the last shellbot window ┃\n'
-            .. '┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛\n'
-            .. '\n',
+              .. '┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓\n'
+              .. '┃ Use :q! if you really want to quit the last shellbot window ┃\n'
+              .. '┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛\n'
+              .. '\n',
             vim.log.levels.WARN
           )
 
