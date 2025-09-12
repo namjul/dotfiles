@@ -14,6 +14,7 @@ local function open_window()
   buf = vim.api.nvim_create_buf(false, true) -- create new emtpy buffer
 
   vim.api.nvim_buf_set_option(buf, 'bufhidden', 'wipe') -- delete when hidden
+  vim.api.nvim_buf_set_option(buf, 'foldlevel', 99)
 
   -- get dimensions
   local width = api.nvim_get_option('columns')
