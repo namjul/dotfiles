@@ -29,7 +29,7 @@ local snippets = {
       end, { 1 }),
     })
   ),
-  s({ trig = 'log', dscr = 'console.log' }, fmt('console.log({});', { i(1, 'value') })),
+  s({ trig = 'log', dscr = 'console.log' }, fmt('console.log({});', { i(1, '') })),
   s(
     { trig = 'require', dscr = 'require statement' },
     fmt("const {} = require('{}{}');", {
