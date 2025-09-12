@@ -122,3 +122,23 @@ vim.o.foldtext = ''        -- Use underlying text with its highlighting
 
 -- Custom autocommands ===
 -- Diagnostics ===
+
+local diagnostic_opts = {
+  -- Define how diagnostic entries should be shown
+  signs = { priority = 9999, severity = { min = 'WARN', max = 'ERROR' } },
+  underline = { severity = { min = 'HINT', max = 'ERROR' } },
+  virtual_lines = false,
+  virtual_text = {
+    current_line = true,
+    severity = { min = 'ERROR', max = 'ERROR' },
+    spacing = 2,
+    source = 'always',
+    prefix = '',
+  },
+
+  -- Don't update diagnostics when typing
+  update_in_insert = false,
+}
+
+-- Use `later()` to avoid sourcing `vim.diagnostic` on startup
+MiniDeps.later(function() vim.diagnostic.config(diagnostic_opts) end)

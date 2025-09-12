@@ -1,14 +1,5 @@
 local lsp = {}
 
-local signs = {
-  ERROR = '✖',
-  WARN = '⚐',
-  INFO = '𝒾',
-  HINT = '✶',
-  UNKNOWN = '•',
-}
-
-
 vim.api.nvim_create_autocmd('LspAttach', {
   callback = function(args)
     local bufnr = args.buf
@@ -32,56 +23,6 @@ lsp.init = function()
       }
     })
   end
-
-  vim.diagnostic.config({
-    float = {
-      header = 'Diagnostics', -- Default is "Diagnostics:"
-      prefix = function(diagnostic, i, total)
-        if diagnostic.severity == vim.diagnostic.severity.ERROR then
-          return (signs.ERROR .. ' '), ''
-        elseif diagnostic.severity == vim.diagnostic.severity.HINT then
-          return (signs.HINT .. ' '), ''
-        elseif diagnostic.severity == vim.diagnostic.severity.INFO then
-          return (signs.INFO .. ' '), ''
-        elseif diagnostic.severity == vim.diagnostic.severity.WARN then
-          return (signs.WARN .. ' '), ''
-        else
-          return (signs.UNKNOWN .. ' '), ''
-        end
-      end,
-    },
-
-    severity_sort = true,
-
-    -- See also: https://github.com/neovim/nvim-lspconfig/wiki/UI-customization#change-diagnostic-symbols-in-the-sign-column-gutter
-    signs = {
-      text = {
-        [vim.diagnostic.severity.ERROR] = signs.ERROR,
-        [vim.diagnostic.severity.HINT] = signs.HINT,
-        [vim.diagnostic.severity.INFO] = signs.INFO,
-        [vim.diagnostic.severity.WARN] = signs.WARN,
-      },
-      texthl = {
-        [vim.diagnostic.severity.ERROR] = '',
-        [vim.diagnostic.severity.HINT] = '',
-        [vim.diagnostic.severity.INFO] = '',
-        [vim.diagnostic.severity.WARN] = '',
-      },
-      numhl = {
-        [vim.diagnostic.severity.ERROR] = 'DiagnosticSignError',
-        [vim.diagnostic.severity.HINT] = 'DiagnosticSignHint',
-        [vim.diagnostic.severity.INFO] = 'DiagnosticSignInfo',
-        [vim.diagnostic.severity.WARN] = 'DiagnosticSignWarn',
-      },
-    },
-
-    -- virtual_text = true,
-    virtual_text = {
-      spacing = 2,
-      source = 'always',
-      prefix = '',
-    },
-  })
 
   local mason_packages = vim.fn.stdpath("data") .. "/mason/packages"
   local vue_language_server_path = mason_packages .. "/vue-language-server/node_modules/@vue/language-server"
