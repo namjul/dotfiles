@@ -732,3 +732,13 @@ later(function ()
   end
 
 end)
+
+-- add('navarasu/onedark.nvim')
+-- add('rafcamlet/nvim-luapad')
+-- add('folke/neodev.nvim')
+-- add('rest-nvim/rest.nvim') -- http client in neovim
+-- add('monaqa/dial.nvim') -- enhanced increment/decrement plugin for Neovim.
+-- add('wsdjeg/vim-fetch') -- enables to process line and column jump specifications
+-- add('andrewferrier/debugprint.nvim')
+-- add('michaelb/sniprun', build = './install.sh')
+-- add('MunifTanjim/nui.nvim')
