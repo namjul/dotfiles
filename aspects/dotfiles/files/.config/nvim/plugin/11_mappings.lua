@@ -134,11 +134,11 @@ nmap_leader('LL', '<Cmd>luafile %<CR><Cmd>echo "Sourced lua"<CR>', 'Source buffe
 -- o is for `other`
 nmap_leader('ot', '<Cmd>lua MiniTrailspace.trim()<CR>', 'Trim trailspace')
 nmap_leader('oh', '<Cmd>lua MiniNotify.show_history()<CR>', 'Notification history')
+nmap_leader('oz', '<Cmd>lua MiniMisc.zoom()<CR>',          'Zoom toggle')
 
 -- misc
 nmap_leader("2", "<Cmd>w<CR>:! ./%<CR>", "Execute current file" )
 nmap_leader("3", "<Cmd>!chmod +x %<CR>", "Make current file executable" )
-nmap_leader("m", "<Cmd>MaximizerToggle<CR>", "Maximize window" )
 nmap_leader("o", "<Cmd>only<CR>", "Close all windows but active one" )
 nmap_leader("q", "<Cmd>quit<CR>", "Quites the current window and vim if its the last" )
 nmap_leader("te", "<Cmd>Trans en <CR>", "Translate to English(word under cursor)" )

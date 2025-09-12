@@ -377,8 +377,6 @@ later(function()
   vim.g.mkdp_auto_close = 0
 end)
 
-later(function() add('szw/vim-maximizer') end)
-
 now(function ()
   add('ellisonleao/gruvbox.nvim')
   require('gruvbox').setup()
