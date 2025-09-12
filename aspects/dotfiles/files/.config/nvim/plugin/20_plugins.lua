@@ -398,15 +398,15 @@ end)
 later(function()
   add('stevearc/conform.nvim')
   require('conform').setup({
-    notify_on_error = false,
-    format_on_save = false,
+    notify_on_error = true,
+    format_on_save = true,
     formatters_by_ft = {
       lua = { 'stylua' },
       -- Conform will run multiple formatters sequentially
       -- python = { 'isort', 'black' },
       -- Use a sub-list to run only the first available formatter
-      javascript = { { 'prettierd', 'prettier' } },
-      typescript = { { 'prettierd', 'prettier' } },
+      javascript = { 'prettier' },
+      typescript = { 'prettier' },
     },
   })
 end)
@@ -638,6 +638,7 @@ later(function ()
   })
 end)
 
+-- Snippet collection =========================================================
 later(function ()
   add({ source = 'L3MON4D3/LuaSnip', checkout = 'v2.4.0' })
   -- Tell LuaSnip to load on demand based on file-type.
