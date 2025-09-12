@@ -148,20 +148,29 @@ nmap_leader('tT', '<Cmd>belowright Tnew<CR>', 'Terminal (horizontal)')
 nmap_leader('tt', '<Cmd>vertical Tnew<CR>', 'Terminal (vertical)')
 
 -- v is for 'visits'
-nmap_leader('vv', '<Cmd>lua MiniVisits.add_label("core")<CR>', 'Add "core" label')
-nmap_leader('vV', '<Cmd>lua MiniVisits.remove_label("core")<CR>', 'Remove "core" label')
-nmap_leader('vl', '<Cmd>lua MiniVisits.add_label()<CR>', 'Add label')
-nmap_leader('vL', '<Cmd>lua MiniVisits.remove_label()<CR>', 'Remove label')
-
-local map_pick_core = function(keys, cwd, desc)
-  local rhs = function()
-    local sort_latest = MiniVisits.gen_sort.default({ recency_weight = 1 })
-    MiniExtra.pickers.visit_paths({ cwd = cwd, filter = 'core', sort = sort_latest }, { source = { name = desc } })
-  end
-  nmap_leader(keys, rhs, desc)
+local map_vis = function(keys, call, desc)
+  local rhs = '<Cmd>lua MiniVisits.' .. call .. '<CR>'
+  vim.keymap.set('n', '<Leader>' .. keys, rhs, { desc = desc })
 end
-map_pick_core('vc', '', 'Core visits (all)')
-map_pick_core('vC', nil, 'Core visits (cwd)')
+
+map_vis('vv', 'add_label("core")', 'Add to core')
+map_vis('vV', 'remove_label("core")', 'Remove from core')
+map_vis('vc', 'select_path("", { filter = "core" })', 'Select core (all)')
+map_vis('vC', 'select_path(nil, { filter = "core" })', 'Select core (cwd)')
+
+-- Iterate based on recency
+local minivisits = require('mini.visits')
+local sort_latest = minivisits.gen_sort.default({ recency_weight = 1 })
+local map_iterate_core = function(lhs, direction, desc)
+  local opts = { filter = 'core', sort = sort_latest, wrap = true }
+  local rhs = function() minivisits.iterate_paths(direction, vim.fn.getcwd(), opts) end
+  vim.keymap.set('n', lhs, rhs, { desc = desc })
+end
+
+map_iterate_core('[{', 'last', 'Core label (earliest)')
+map_iterate_core('[[', 'forward', 'Core label (earlier)')
+map_iterate_core(']]', 'backward', 'Core label (later)')
+map_iterate_core(']}', 'first', 'Core label (latest)')
 
 -- misc
 nmap_leader('2', '<Cmd>w<CR>:! ./%<CR>', 'Execute current file')
