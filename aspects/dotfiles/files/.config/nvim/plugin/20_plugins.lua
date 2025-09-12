@@ -167,8 +167,6 @@ end)
 
 later(function()
   local map_multistep = require('mini.keymap').map_multistep
-  map_multistep('i', '<Tab>', { 'jump_after_close' })
-  map_multistep('i', '<S-Tab>', { 'jump_before_open' })
   map_multistep('i', '<CR>', { 'minipairs_cr' })
   map_multistep('i', '<BS>', { 'hungry_bs', 'minipairs_bs' })
 end)

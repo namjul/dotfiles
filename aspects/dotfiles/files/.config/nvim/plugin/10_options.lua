@@ -94,6 +94,7 @@ vim.opt.shiftround = false -- don't always indent by multiple of shiftwidth
 vim.opt.smartcase = true -- don't ignore case in searches if uppercase characters present
 vim.opt.smarttab = true -- <tab>/<BS> indent/dedent in leading whitespace
 vim.opt.smartindent = true -- Make indenting smart
+vim.opt.shiftwidth = 2 -- Use this number of spaces for indentation
 vim.opt.tabstop = 2 -- spaces per tab
 vim.opt.diffopt = vim.opt.diffopt + 'vertical'
 if not vi then
