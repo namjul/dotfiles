@@ -338,11 +338,7 @@ end)
 
 -- Formatting ===
 later(function()
-  add({
-    source = 'stevearc/conform.nvim',
-    branch = 'nvim-0.9'
-  })
-
+  add('stevearc/conform.nvim')
   require('conform').setup({
     notify_on_error = false,
     format_on_save = false,

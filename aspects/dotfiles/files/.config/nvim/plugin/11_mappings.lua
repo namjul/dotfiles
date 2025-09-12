@@ -179,9 +179,9 @@ end
 
 xmap_leader("p", '"_dP"', "Paste without overide")
 
-
--- LSP
---------------------
+-- l is for 'LSP' (Language Server Protocol)
+local formatting_cmd = '<Cmd>lua require("conform").format({ lsp_fallback = true })<CR>'
+nmap_leader('lf', formatting_cmd, 'Format')
 
 vim.api.nvim_create_autocmd('User', {
   pattern = 'LspAttached',
