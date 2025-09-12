@@ -203,6 +203,7 @@ autocmds.number_blacklist = {
   ['undotree'] = true,
   ['TelescopePrompt'] = true,
   ['minifiles'] = true,
+  ['ministarter'] = true,
 }
 --
 -- Don't use colorcolumn when these filetypes get focus (we want them to appear
