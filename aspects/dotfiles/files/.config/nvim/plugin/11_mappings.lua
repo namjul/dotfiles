@@ -157,7 +157,6 @@ nmap_leader("q", "<Cmd>quit<CR>", "Quites the current window and vim if its the 
 nmap_leader("te", "<Cmd>Trans en <CR>", "Translate to English(word under cursor)" )
 nmap_leader("tg", "<Cmd>Trans de <CR>", "Translate to German(word under cursor)" )
 nmap_leader("x", "<Cmd>exit<CR>", 'like ":wq"' )
-nmap_leader("z", "<Cmd>ZenMode<CR>", "Enter Zenmode" )
 nmap_leader("y", '"+y', "Yank into clipboard" )
 nmap_leader("p", function()
     local file = vim.fn.join({ vim.fn.expand('%'), vim.fn.line('.'), vim.fn.col('.') }, ':')
