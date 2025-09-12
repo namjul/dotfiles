@@ -136,6 +136,7 @@ nmap_leader('ot', '<Cmd>lua MiniTrailspace.trim()<CR>', 'Trim trailspace')
 nmap_leader('oh', '<Cmd>lua MiniNotify.show_history()<CR>', 'Notification history')
 nmap_leader("oo", "<Cmd>only<CR>", "Close all windows but active one" )
 nmap_leader('oz', '<Cmd>lua MiniMisc.zoom()<CR>',          'Zoom toggle')
+nmap_leader('or', '<Cmd>lua MiniMisc.resize_window()<CR>', 'Resize to default width')
 
 -- misc
 nmap_leader("2", "<Cmd>w<CR>:! ./%<CR>", "Execute current file" )
