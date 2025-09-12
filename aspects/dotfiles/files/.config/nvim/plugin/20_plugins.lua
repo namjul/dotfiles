@@ -150,6 +150,8 @@ end)
 
 later(function() require('mini.bracketed').setup() end)
 
+later(function() require('mini.bufremove').setup() end)
+
 later(function()
   require('mini.diff').setup({
     view = {
