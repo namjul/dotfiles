@@ -114,6 +114,9 @@ nmap_leader('/', '<Cmd>Pick grep_live<CR>', 'Grep live')
 nmap_leader('*', '<Cmd>Pick grep pattern="<cword>"<CR>', 'Grep current word')
 nmap_leader('c', '<Cmd>Pick commands<CR>', 'Commands')
 
+-- s is for 'send' (Send text to neoterm buffer)
+nmap_leader('s', '<Cmd>TREPLSendLine<CR>', 'Send to terminal')
+
 -- g is for 'git'
 nmap_leader('gl', '<Cmd>Gclog<CR>', 'Open Git log')
 nmap_leader('gL', '<Cmd>Gclog -- %<CR>', 'Open Buffer Git log')
