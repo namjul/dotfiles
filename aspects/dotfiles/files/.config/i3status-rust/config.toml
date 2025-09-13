@@ -44,12 +44,6 @@ format = " $icon $brightness $resolution "
 interval = 5
 
 [[block]]
-block = "hueshift"
-hue_shifter = "redshift"
-step = 50
-click_temp = 3500
-
-[[block]]
 block = "memory"
 format = " $icon $mem_total_used_percents.eng(w:2) "
 format_alt = " $icon_swap $swap_used_percents.eng(w:2) "
