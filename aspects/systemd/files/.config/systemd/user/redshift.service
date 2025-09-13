@@ -4,11 +4,10 @@ Documentation=http://jonls.dk/redshift/
 After=graphical-session.target
 
 [Service]
+Environment=DISPLAY=:0
 ExecStart=/usr/bin/redshift -v
 Restart=always
+RestartSec=10
 
 [Install]
 WantedBy=graphical-session.target
-
-[Install]
-WantedBy=default.target
