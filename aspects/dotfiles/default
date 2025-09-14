@@ -1,56 +1,59 @@
-#!/bin/bash
-# mise description="Creates symlinks in $HOME to the dotfiles in this rep"
-# mise alias="dotfiles"
+#!/usr/bin/env zx
 
-trap 'echo "Warning: A command has failed. Exiting the script. Line was ($0:$LINENO): $(sed -n "${LINENO}p" "$0")"; exit 3' ERR
-set -Eeuo pipefail
+/**
+# mise description="Symlinks dotfiles"
+*/
 
-dirname=$(dirname "$(realpath "$0")")
+const aspect = __dirname;
+const files = path.join(aspect, "files");
 
-echo "make directories"
-mkdir -p "$HOME/.config"
-mkdir -p "$HOME/code"
+await spinner("make directories", async () => {
+  await $`mkdir -p ${os.homedir()}/.config`;
+});
 
-# echo "move originals to ~/.backups"
-# PACKAGE_DIR="$dirname/files"
-# TARGET_DIR="$HOME"
-# find "$PACKAGE_DIR" -type f | while read -r file; do
-#   relative_path="${file#"$PACKAGE_DIR/"}"
-#   target_file="$TARGET_DIR/$relative_path"
-#   echo "$target_file"
-#
-#   # Check if the target file exists
-#   if [ -e "$target_file" ]; then
-#     # Create backup
-#     backup_file="$HOME/.backups/$relative_path"
-#     mkdir -p "$(dirname "$backup_file")"
-#     mv "$target_file" "$backup_file"
-#     echo "Backed up $target_file to $backup_file"
-#   fi
-# done
+await spinner("create symlinks", async () => {
+  const targetDir = os.homedir();
+  const _files = await fs.readdir(files, {
+    recursive: true,
+    withFileTypes: true,
+  });
 
-echo "Creating symlinks"
-if ! command -v stow &> /dev/null; then
-  echo "No 'stow' executable found."
-  exit 1
-fi
-cd "$dirname"
-stow  --adopt -v files -t $HOME
+  const linkFiles = (
+    await Promise.all(
+      _files.flatMap(async (dirent) => {
+        if (!dirent.isFile()) {
+          return [];
+        }
 
+        // Contstruct source and target paths
+        const relativePath = path.relative(
+          files,
+          path.join(dirent.parentPath, dirent.name),
+        );
+        const sourcePath = path.join(files, relativePath);
+        const targetPath = path.join(targetDir, relativePath);
 
-# based on https://github.com/necolas/dotfiles/blob/master/bin/dotfiles
-# 1. download dotfiles if not exist
-# 2. source helper files
-# 3. check print help text
-# 4. check flags (--no-packages, --no-sync)
-# 5. check for build-essentials
-# 6. check homebrew
-# 7. check git
-# 8. Initialize the git repository if it's missing
-# 9. Conditionally (--no-sync) sync with the remote repository
-# 10. Conditionally (--no-packages) Install and update packages
-# 11. Ask before potentially overwriting files (linking)
-# 12. link dotfiles and source bashrc
+        // Ensure the target subdirectory exists
+        const targetSubDir = path.dirname(targetPath);
+        await fs.mkdir(targetSubDir, { recursive: true });
 
+        try {
+          await fs.access(targetPath);
+          // console.log(`SKIP: ${relativePath}: already exists in ${targetDir}`);
+          return [];
+        } catch (err) {
+          return { sourcePath, targetPath };
+        }
+      }),
+    )
+  ).flat();
 
-# https://github.com/sapegin/dotfiles/blob/master/bin/dotfiles
+  if (!linkFiles.length) {
+    console.log("No files to link");
+  }
+
+  for (const file of linkFiles) {
+    await $`ln -s "${file.sourcePath}" "${file.targetPath}"`;
+    console.log(`LINK: ${file.sourcePath} -> ${file.targetPath}`);
+  }
+});
