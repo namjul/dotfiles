@@ -3,7 +3,8 @@
 trap 'echo "Warning: A command has failed. Exiting the script. Line was ($0:$LINENO): $(sed -n "${LINENO}p" "$0")"; exit 3' ERR
 set -Eeuo pipefail
 
-FILES_DIR="$root/files"
+DIR="$(dirname "$(realpath "$0")")"
+FILES_DIR="$DIR/files"
 TEMP_DIR=$(mktemp -d)
 
 cp -r "$FILES_DIR" "$TEMP_DIR"
@@ -50,5 +51,5 @@ ssh $SERVER "bash -l -c '$sshcmd'"
 
 # add public key as env
 if [ $(ssh $SERVER "cat /etc/environment | grep -c -w \"PUBLIC_KEY\"") -eq 0 ]; then
-  sops exec-env secrets/ssh.yml 'ssh root@$SERVER "echo PUBLIC_KEY=$public_key >> /etc/environment"'
+  sops exec-env $DIR/secrets/ssh.yml 'ssh root@$SERVER "echo PUBLIC_KEY=$public_key >> /etc/environment"'
 fi

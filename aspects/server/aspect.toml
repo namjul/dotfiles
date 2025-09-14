@@ -1,24 +1,18 @@
 
-[env]
-SERVER = "hobl.at"
-SQUARE_PATH="/home/square"
-
-[tools]
-sops = "latest"
-
-[tasks.init]
+["server:init"]
 description = 'Idempotent Initialization'
-file = "./init"
+file = "aspects/server/init"
 
-[tasks.up]
+["server:up"]
 description = 'Idempotent Upload'
-file = "./up"
+file = "aspects/server/up"
 
-[tasks.upinit]
-depends=["init", "up"]
+["server:upinit"]
+depends=["server:init", "server:up"]
 
-[tasks.local]
+["server:local"]
 description = 'Install'
+tools.sops = "latest"
 run = """
 #!/usr/bin/env bash
 set -euxo pipefail
@@ -28,7 +22,7 @@ chmod 600 ~/.ssh/id_ed25519_personal-server.*
 grep -q hobl.at ~/.ssh/config > /dev/null 2>&1 || cat config/ssh_client_config >> ~/.ssh/config
 """
 
-[tasks.packages]
+["server:packages"]
 description = 'Packages'
 run = """
 #!/usr/bin/env bash
@@ -39,7 +33,7 @@ ssh root@$SERVER 'nala -y install curl vim htop ufw git unzip gnupg acl'
 ssh root@$SERVER 'echo "unattended-upgrades unattended-upgrades/enable_auto_updates boolean true" | debconf-set-selections && apt-get install unattended-upgrades -y'
 """
 
-[tasks.ssh]
+["server:ssh"]
 description = 'Setup ssh'
 run = """
 #!/usr/bin/env bash
@@ -48,7 +42,7 @@ set -euxo pipefail
 ssh root@$SERVER "cat /etc/ssh/sshd_config" | diff  - config/sshd_config || (scp config/sshd_config root@$SERVER:/etc/ssh/sshd_config && ssh root@$SERVER systemctl restart ssh.service)
 """
 
-[tasks.firewall]
+["server:firewall"]
 description = 'Setup firewall'
 run = """
 #!/usr/bin/env bash
@@ -57,7 +51,7 @@ scp config/ufw.sh root@$SERVER:/tmp/ufw.sh
 ssh root@$SERVER 'chmod +x /tmp/ufw.sh && /tmp/ufw.sh'
 """
 
-[tasks.aspect]
+["server:aspect"]
 description = 'Exec aspect'
 run = """
 #!/usr/bin/env bash
@@ -68,7 +62,7 @@ shift 2
 ssh root@$SERVER "cd $SQUARE_PATH/aspects/$aspect && mise trust && mise install && mise run $cmd $@"
 """
 
-[tasks."aspect:log"]
+["server:aspect:log"]
 description = 'Log aspect'
 run = """
 #!/usr/bin/env bash

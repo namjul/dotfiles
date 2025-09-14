@@ -1,3 +1,6 @@
+[env]
+SERVER="hobl.at"
+SQUARE_PATH="/home/square"
 
 [tools]
 sops = "latest"
@@ -5,5 +8,18 @@ ghq = "latest"
 
 [task_config]
 includes = [
-  "aspects/*"
+  "aspects/dotfiles/aspect.toml",
+  "aspects/darkman/aspect.toml",
+  "aspects/dotfiles/aspect.toml",
+  "aspects/espanso/aspect.toml",
+  "aspects/fonts/aspect.toml",
+  "aspects/homebrew/aspect.toml",
+  "aspects/i3status-rust/aspect.toml",
+  "aspects/interception/aspect.toml",
+  "aspects/nala/aspect.toml",
+  "aspects/nvim/aspect.toml",
+  "aspects/server/aspect.toml",
+  "aspects/shell/aspect.toml",
+  "aspects/ssh/aspect.toml",
+  "aspects/systemd/aspect.toml",
 ]
