@@ -150,6 +150,7 @@ nmap_leader('or', '<Cmd>lua MiniMisc.resize_window()<CR>', 'Resize to default wi
 -- t is for 'terminal' (uses 'neoterm') and 'minitest'
 nmap_leader('tT', '<Cmd>belowright Tnew<CR>', 'Terminal (horizontal)')
 nmap_leader('tt', '<Cmd>vertical Tnew<CR>', 'Terminal (vertical)')
+nmap_leader('tl', '<Cmd>Tredo<CR>', 'Terminal (redo)')
 
 -- v is for 'visits'
 local map_vis = function(keys, call, desc)
