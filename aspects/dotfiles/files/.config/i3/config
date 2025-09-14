@@ -47,9 +47,6 @@ bindsym $mod+Shift+b bar mode toggle
 
 for_window [class="^.*"] border pixel 2
 
-# Set border to none for floating windows
-for_window [floating] border pixel 1
-
 # class                 <border>     <background>   <text>       <indicator>   <child_border>
 client.focused          $lightgray   $lightgray     $bg          $purple       $aqua
 client.focused_inactive $darkgray    $darkgray      $lightgray   $purple       $purple
@@ -120,7 +117,7 @@ bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl set 5%-
 bindsym $mod+Shift+minus move scratchpad
 
 # Show the first scratchpad window
-bindsym $mod+minus scratchpad show
+bindsym $mod+minus scratchpad show; [floating] resize set 50 ppt 98 ppt; move position 1 ppt 1 ppt
 
 # Print
 bindsym Print exec flameshot gui
@@ -180,7 +177,7 @@ bindsym $mod+s layout toggle tabbed splith
 workspace_layout tabbed
 
 # toggle tiling / floating
-bindsym $mod+Shift+space floating toggle
+bindsym $mod+Shift+space floating toggle; [floating] resize set 50 ppt 98 ppt; move position 1 ppt 1 ppt
 
 # change focus between tiling / floating windows
 bindsym $mod+BackSpace focus mode_toggle
