@@ -6,10 +6,6 @@ I use [mise](https://mise.jdx.dev/) to place and oversee [aspects](aspects "Vant
 
 dotfiles are listed [here](https://github.com/namjul/dotfiles/tree/master/aspects/dotfiles/files)
 
-The pond presents like this.
-
-![](screenshot.png)
-
 ## Setup
 
 ### Homebrew
