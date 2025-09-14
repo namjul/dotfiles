@@ -501,8 +501,15 @@ later(function()
       },
     },
     completion = {
-      menu = { border = 'none' },
+      menu = {
+        border = 'none',
+        auto_show = false, -- only show menu on manual <C-space>
+      },
       documentation = { window = { border = 'double' } },
+      ghost_text = {
+        enabled = true,
+        show_with_menu = false, -- only show when menu is closed
+      },
     },
     signature = { window = { border = 'double' } },
   })
