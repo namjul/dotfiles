@@ -4,24 +4,67 @@
 # mise description="Configures Vim/Neovim"
 */
 
-const { Readable } = require('stream');
-const { finished } = require('stream/promises');
+const { Readable } = require("stream");
+const { finished } = require("stream/promises");
 
-await spinner('make ~/opt/nvim', async () => {
-  await $`mkdir -p ${os.homedir()}/opt/nvim`
-})
+const version = "v0.11.3";
+const location = `${os.homedir()}/opt/nvim/nvim.appimage`;
+const aspect = __dirname;
+const files = path.join(aspect, "files");
 
-await spinner('download Neovim appimage', async () => {
-  const stream = fs.createWriteStream(`${os.homedir()}/opt/nvim/nvim.appimage`);
-  const { body } = await fetch('https://github.com/neovim/neovim/releases/download/v0.11.3/nvim-linux-x86_64.appimage')
-  await finished(Readable.fromWeb(body).pipe(stream));
+await spinner("make ~/opt/nvim", async () => {
+  await $`mkdir -p ${os.homedir()}/opt/nvim`;
+  await $`mkdir -p ${os.homedir()}/.config`;
 });
 
-await spinner('make Neovim appimage executable', async () => {
-  await $`chmod 0755 ${os.homedir()}/opt/nvim/nvim.appimage`
-});
+if (!fs.existsSync(location)) {
+  await spinner("download Neovim appimage", async () => {
+    const stream = fs.createWriteStream(location);
+    const { body } = await fetch(
+      `https://github.com/neovim/neovim/releases/download/${version}/nvim-linux-x86_64.appimage`,
+    );
+    await finished(Readable.fromWeb(body).pipe(stream));
+  });
 
-await spinner('extract Neovim appimage files', async () => {
-  cd(`${os.homedir()}/opt/nvim/`)
-  await $`${os.homedir()}/opt/nvim/nvim.appimage --appimage-extract`
+  await spinner("make Neovim appimage executable", async () => {
+    await $`chmod 0755 ${location}`;
+  });
+
+  await spinner("extract Neovim appimage files", async () => {
+    cd(`${os.homedir()}/opt/nvim/`);
+    await $`${location} --appimage-extract`;
+  });
+}
+
+await spinner("create symlinks", async () => {
+  const targetDir = os.homedir();
+  const _files = await fs.readdir(files, {
+    recursive: true,
+    withFileTypes: true,
+  });
+
+  for (const direntry of _files) {
+    if (!direntry.isFile()) {
+      continue;
+    }
+
+    // Contstruct source and target paths
+    const relativePath = path.relative(
+      files,
+      path.join(direntry.parentPath, direntry.name),
+    );
+    const sourcePath = path.join(files, relativePath);
+    const targetPath = path.join(targetDir, relativePath);
+
+    // Ensure the target subdirectory exists
+    const targetSubDir = path.dirname(targetPath);
+    await fs.mkdir(targetSubDir, { recursive: true });
+
+    try {
+      await fs.access(targetPath);
+      console.log(`Skipping ${relativePath}: already exists in ${targetDir}`);
+    } catch (err) {
+      await $`ln -s "${sourcePath}" "${targetPath}"`;
+    }
+  }
 });
