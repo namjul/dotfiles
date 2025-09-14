@@ -86,3 +86,10 @@ vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
   command = 'set filetype=jsonc',
   group = 'JsoncFiletype',
 })
+
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = 'neoterm',
+  callback = function()
+    vim.defer_fn(function() vim.opt_local.signcolumn = 'yes' end, 50)
+  end,
+})
