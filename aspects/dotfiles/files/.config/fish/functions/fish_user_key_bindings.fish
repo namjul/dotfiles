@@ -4,9 +4,12 @@
 fzf_key_bindings
 
 function fish_user_key_bindings
+
   # vi mode
-  fish_vi_key_bindings
-  bind -M insert -m default jk force-repaint
+  if test -z "$NVIM"
+    fish_vi_key_bindings
+    bind -M insert -m default jk force-repaint
+  end
 
   # fzf
   bind \cf 'fzf-file-widget'
