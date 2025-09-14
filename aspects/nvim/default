@@ -43,28 +43,42 @@ await spinner("create symlinks", async () => {
     withFileTypes: true,
   });
 
-  for (const direntry of _files) {
-    if (!direntry.isFile()) {
-      continue;
-    }
+  const linkFiles = (
+    await Promise.all(
+      _files.flatMap(async (dirent) => {
+        if (!dirent.isFile()) {
+          return [];
+        }
 
-    // Contstruct source and target paths
-    const relativePath = path.relative(
-      files,
-      path.join(direntry.parentPath, direntry.name),
-    );
-    const sourcePath = path.join(files, relativePath);
-    const targetPath = path.join(targetDir, relativePath);
+        // Contstruct source and target paths
+        const relativePath = path.relative(
+          files,
+          path.join(dirent.parentPath, dirent.name),
+        );
+        const sourcePath = path.join(files, relativePath);
+        const targetPath = path.join(targetDir, relativePath);
 
-    // Ensure the target subdirectory exists
-    const targetSubDir = path.dirname(targetPath);
-    await fs.mkdir(targetSubDir, { recursive: true });
+        // Ensure the target subdirectory exists
+        const targetSubDir = path.dirname(targetPath);
+        await fs.mkdir(targetSubDir, { recursive: true });
 
-    try {
-      await fs.access(targetPath);
-      console.log(`Skipping ${relativePath}: already exists in ${targetDir}`);
-    } catch (err) {
-      await $`ln -s "${sourcePath}" "${targetPath}"`;
-    }
+        try {
+          await fs.access(targetPath);
+          // console.log(`SKIP: ${relativePath}: already exists in ${targetDir}`);
+          return [];
+        } catch (err) {
+          return { sourcePath, targetPath };
+        }
+      }),
+    )
+  ).flat();
+
+  if (!linkFiles.length) {
+    console.log("No files to link");
+  }
+
+  for (const file of linkFiles) {
+    await $({ nothrow: true })`ln -s "${file.sourcePath}" "${file.targetPath}"`;
+    console.log(`LINK: ${file.sourcePath} -> ${file.targetPath}`);
   }
 });
