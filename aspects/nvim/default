@@ -7,8 +7,8 @@
 const { Readable } = require("stream");
 const { finished } = require("stream/promises");
 
-const version = "v0.11.3";
-const location = `${os.homedir()}/opt/nvim/nvim.appimage`;
+const version = "v0.11.4";
+const location = `${os.homedir()}/opt/nvim/nvim${version}.appimage`;
 const aspect = __dirname;
 const files = path.join(aspect, "files");
 
@@ -32,7 +32,12 @@ if (!fs.existsSync(location)) {
 
   await spinner("extract Neovim appimage files", async () => {
     cd(`${os.homedir()}/opt/nvim/`);
-    await $`${location} --appimage-extract`;
+    try {
+      await $`${location} --appimage-extract`;
+    } catch (err) {
+      console.log(err);
+      $`rm ${location}`;
+    }
   });
 }
 
