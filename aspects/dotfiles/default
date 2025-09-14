@@ -25,13 +25,20 @@ await spinner("create symlinks", async () => {
           return [];
         }
 
+        const isHardlink = dirent.name.startsWith("hard-");
+
         // Contstruct source and target paths
-        const relativePath = path.relative(
+        const sourcePath = path.join(
           files,
-          path.join(dirent.parentPath, dirent.name),
+          path.relative(files, path.join(dirent.parentPath, dirent.name)),
         );
-        const sourcePath = path.join(files, relativePath);
-        const targetPath = path.join(targetDir, relativePath);
+        const targetPath = path.join(
+          targetDir,
+          path.relative(
+            files,
+            path.join(dirent.parentPath, dirent.name.replace(/^hard-/, "")),
+          ),
+        );
 
         // Ensure the target subdirectory exists
         const targetSubDir = path.dirname(targetPath);
@@ -42,7 +49,7 @@ await spinner("create symlinks", async () => {
           // console.log(`SKIP: ${relativePath}: already exists in ${targetDir}`);
           return [];
         } catch (err) {
-          return { sourcePath, targetPath };
+          return { sourcePath, targetPath, link: isHardlink ? "hard" : "soft" };
         }
       }),
     )
@@ -53,7 +60,12 @@ await spinner("create symlinks", async () => {
   }
 
   for (const file of linkFiles) {
-    await $`ln -s "${file.sourcePath}" "${file.targetPath}"`;
-    console.log(`LINK: ${file.sourcePath} -> ${file.targetPath}`);
+    if (file.link === "hard") {
+      await $`ln -f "${file.sourcePath}" "${file.targetPath}"`;
+      console.log(`HARDLINK: ${file.sourcePath} -> ${file.targetPath}`);
+    } else {
+      await $`ln -s "${file.sourcePath}" "${file.targetPath}"`;
+      console.log(`SOFTLINK: ${file.sourcePath} -> ${file.targetPath}`);
+    }
   }
 });
