@@ -204,6 +204,7 @@ autocmds.number_blacklist = {
   ['TelescopePrompt'] = true,
   ['minifiles'] = true,
   ['ministarter'] = true,
+  ['neoterm'] = true,
 }
 --
 -- Don't use colorcolumn when these filetypes get focus (we want them to appear
