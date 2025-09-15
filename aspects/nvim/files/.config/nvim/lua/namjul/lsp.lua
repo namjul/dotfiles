@@ -83,17 +83,15 @@ lsp.init = function()
 
   local has_mason_lspconfig, mason_lspconfig = pcall(require, 'mason-lspconfig')
   if has_mason and has_mason_lspconfig then
-    mason_lspconfig.setup({
-      ensure_installed = {}, -- explicitly set to an empty table (populated installs via mason-tool-installer)
-      automatic_enable = true,
-    })
-
     for server_name, server_config in pairs(servers) do
       server_config.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server_config.capabilities or {})
       vim.lsp.config(server_name, server_config)
     end
 
-    vim.lsp.enable({ 'vue_ls', 'vtsls', 'lua_ls' })
+    mason_lspconfig.setup({
+      ensure_installed = {}, -- explicitly set to an empty table (populated installs via mason-tool-installer)
+      automatic_enable = true,
+    })
   end
 end
 
