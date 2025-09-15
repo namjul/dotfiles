@@ -1,3 +1,4 @@
 
 [dotfiles]
+description="Symlinks dotfiles"
 file = 'aspects/dotfiles/default'

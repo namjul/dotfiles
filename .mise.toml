@@ -5,6 +5,7 @@ SQUARE_PATH="/home/square"
 [tools]
 sops = "latest"
 ghq = "latest"
+deno = "2.4"
 
 [task_config]
 includes = [

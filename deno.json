@@ -1,0 +1,29 @@
+{
+  "tasks": {
+    "dev": "deno run --watch main.ts"
+  },
+  "imports": {
+    "zx": "npm:zx@^8.8.1"
+  },
+  "permissions": {
+    "allow-all": true,
+  },
+  "compilerOptions": {
+    "strict": true, // Enables all strict type-checking options.
+    "noImplicitAny": true, // Raises an error on expressions and declarations with an implied 'any' type.
+    "strictNullChecks": true, // Ensure values like 'null' and 'undefined' are handled explicitly.
+    "strictFunctionTypes": true, // Enforces more accurate function type checking.
+    "strictBindCallApply": true, // Checks the usage of 'bind', 'call', and 'apply' methods more strictly.
+    "strictPropertyInitialization": true, // Ensures class properties are initialized in the constructor.
+    "noImplicitThis": true, // Warns when 'this' is implicitly typed as 'any'.
+    "useUnknownInCatchVariables": true, // Treat 'catch' clause variables as 'unknown' instead of 'any'.
+    "noUnusedLocals": true, // Reports errors on unused local variables.
+    "noUnusedParameters": true, // Reports errors on unused function parameters.
+    "exactOptionalPropertyTypes": true, // Tighter constraint on types with optional properties.
+    "noImplicitReturns": true, // Reports errors for functions that don't have return statements in all code paths.
+    "noFallthroughCasesInSwitch": true, // Reports errors for fallthrough cases in switch statements.
+    "noUncheckedIndexedAccess": true, // Adds 'undefined' to the type of any property accessed via an index signature.
+    "noImplicitOverride": true, // Requires 'override' modifier for methods overriding a method in a base class.
+    "noPropertyAccessFromIndexSignature": true, // Prevents accessing properties on objects via index access that don't exist in the index signature.
+  }
+}

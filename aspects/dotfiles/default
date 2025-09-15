@@ -1,10 +1,8 @@
-#!/usr/bin/env zx
+#!/usr/bin/env -S deno run --allow-all
 
-/**
-# mise description="Symlinks dotfiles"
-*/
+import { $, path, fs, spinner, os } from 'zx'
 
-const aspect = __dirname;
+const aspect = import.meta.dirname;
 const files = path.join(aspect, "files");
 
 await spinner("make directories", async () => {
@@ -48,7 +46,7 @@ await spinner("create symlinks", async () => {
           await fs.access(targetPath);
           // console.log(`SKIP: ${relativePath}: already exists in ${targetDir}`);
           return [];
-        } catch (err) {
+        } catch (_err) {
           return { sourcePath, targetPath, link: isHardlink ? "hard" : "soft" };
         }
       }),
