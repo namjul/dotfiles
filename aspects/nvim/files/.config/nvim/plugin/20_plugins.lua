@@ -187,10 +187,10 @@ later(
   function()
     require('mini.move').setup({
       mappings = {
-        left = '<S-h>',
-        right = '<S-l>',
-        down = '<S-j>',
-        up = '<S-k>',
+        left = '<D-h>',
+        right = '<D-l>',
+        down = '<D-j>',
+        up = '<D-k>',
         line_left = '<D-h>',
         line_right = '<D-l>',
         line_down = '<D-j>',
@@ -581,7 +581,7 @@ later(function()
       'OverseerToggle',
     },
     keymap = {
-      { 'n', '<Leader>t', ':OverseerToggle<CR>', { silent = true } },
+      { 'n', '<Leader>ot', ':OverseerToggle<CR>', { silent = true, desc = 'Task runner' } },
     },
   })
 end)
