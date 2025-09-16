@@ -121,6 +121,7 @@ bindsym $mod+minus scratchpad show; [floating] resize set 50 ppt 98 ppt; move po
 
 # Print
 bindsym Print exec flameshot gui
+bindsym $mod+Shift+s exec flameshot gui
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -296,7 +297,6 @@ bindsym $mod+n exec --no-startup-id ghostty -e fish -c nvim
 bindsym $mod+b exec --no-startup-id chromium
 
 bindsym $mod+m exec --no-startup-id gtk-launch spotify
-bindsym $mod+Shift+s exec --no-startup-id gtk-launch substack
 bindsym $mod+a exec --no-startup-id gtk-launch chatgpt
 bindsym $mod+Shift+a exec --no-startup-id gtk-launch grok
 bindsym $mod+Ctrl+a exec --no-startup-id gtk-launch deepseek
