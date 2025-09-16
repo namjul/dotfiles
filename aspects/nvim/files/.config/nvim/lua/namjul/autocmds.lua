@@ -1,8 +1,96 @@
--- This is mainly a mimick of https://github.com/wincent/wincent/blob/main/aspects/nvim/files/.config/nvim/lua/wincent/autocmds.lua
+-- This is inspired by https://github.com/wincent/wincent/blob/main/aspects/nvim/files/.config/nvim/lua/wincent/autocmds.lua
 
-local cmd = vim.cmd
+local H = {}
+local AutoCmds = {}
 
-local autocmds = {}
+function AutoCmds.bufEnter() H.focus_window() end
+
+function AutoCmds.bufLeave() H.mkview() end
+
+function AutoCmds.bufWinEnter()
+  if H.should_mkview() then vim.cmd('silent! loadview') end
+end
+
+function AutoCmds.bufWritePost() H.mkview() end
+
+function AutoCmds.focusGained() H.focus_window() end
+
+function AutoCmds.focusLost() H.blur_window() end
+
+function AutoCmds.insertEnter() H.set_cursorline(false) end
+
+function AutoCmds.insertLeave() H.set_cursorline(true) end
+
+function AutoCmds.vimEnter()
+  H.focus_window()
+  H.set_cursorline(true)
+end
+
+function AutoCmds.winEnter()
+  H.focus_window()
+  H.set_cursorline(true)
+end
+
+function AutoCmds.winLeave()
+  H.blur_window()
+  H.set_cursorline(false)
+end
+
+AutoCmds.winhighlight_filetype_blacklist = {
+  ['diff'] = true,
+  ['fugitiveblame'] = true,
+  ['undotree'] = true,
+  ['qf'] = true,
+  ['TelescopePrompt'] = true,
+  ['minifiles'] = true,
+}
+
+-- Force 'list' (when `true`) or 'nolist' (when `false`) for these.
+AutoCmds.list_filetypes = {
+  ['help'] = false,
+  ['shellbot'] = false,
+  ['TelescopePrompt'] = false,
+}
+--
+-- Don't mess with 'conceallevel' for these.
+AutoCmds.conceallevel_filetypes = {
+  ['oil'] = 2,
+  ['help'] = 2,
+  ['markdown'] = 0,
+}
+
+-- Don't mess with numbers in these filetypes.
+AutoCmds.number_blacklist = {
+  ['diff'] = true,
+  ['fugitiveblame'] = true,
+  ['help'] = true,
+  ['qf'] = true,
+  ['shellbot'] = true,
+  ['undotree'] = true,
+  ['TelescopePrompt'] = true,
+  ['minifiles'] = true,
+  ['ministarter'] = true,
+  ['neoterm'] = true,
+}
+--
+-- Don't use colorcolumn when these filetypes get focus (we want them to appear
+-- full-width irrespective of 'textwidth').
+AutoCmds.colorcolumn_filetype_blacklist = {
+  ['TelescopePrompt'] = true,
+  ['diff'] = true,
+  ['oil'] = true,
+  ['fugitiveblame'] = true,
+  ['undotree'] = true,
+  ['qf'] = true,
+}
+
+AutoCmds.mkview_filetype_blacklist = {
+  ['diff'] = true,
+  ['gitcommit'] = true,
+  ['hgcommit'] = true,
+}
+
+-- Helper ===
 
 -- stylua: ignore
 local focused_colorcolumn = '+' .. table.concat({
@@ -44,27 +132,25 @@ local winhighlight_blurred = table.concat({
   'VertSplit:VertSplitBlur',
 }, ',')
 
-local function set_cursorline(active) vim.wo.cursorline = active end
-
-local function focus_window()
+function H.focus_window()
   local filetype = vim.bo.filetype
 
   -- Turn on relative numbers
-  if filetype ~= '' and autocmds.number_blacklist[filetype] ~= true then
+  if filetype ~= '' and AutoCmds.number_blacklist[filetype] ~= true then
     vim.wo.number = true
     vim.wo.relativenumber = true
   end
 
-  if filetype == '' or autocmds.winhighlight_filetype_blacklist[filetype] ~= true then vim.wo.winhighlight = '' end
+  if filetype == '' or AutoCmds.winhighlight_filetype_blacklist[filetype] ~= true then vim.wo.winhighlight = '' end
 
-  if filetype == '' or autocmds.colorcolumn_filetype_blacklist[filetype] ~= true then
+  if filetype == '' or AutoCmds.colorcolumn_filetype_blacklist[filetype] ~= true then
     vim.wo.colorcolumn = focused_colorcolumn
   end
 
   if filetype == '' then
     vim.wo.list = true
   else
-    local list = autocmds.list_filetypes[filetype]
+    local list = AutoCmds.list_filetypes[filetype]
     if list == nil then
       vim.wo.list = true
     else
@@ -72,27 +158,27 @@ local function focus_window()
     end
   end
 
-  local conceallevel = autocmds.conceallevel_filetypes[filetype] or 2
+  local conceallevel = AutoCmds.conceallevel_filetypes[filetype] or 2
   vim.wo.conceallevel = conceallevel
 end
 
-local function blur_window()
+function H.blur_window()
   local filetype = vim.bo.filetype
 
   -- Turn off relative numbers (and turn on non-relative numbers)
-  if filetype ~= '' and autocmds.number_blacklist[filetype] ~= true then
+  if filetype ~= '' and AutoCmds.number_blacklist[filetype] ~= true then
     vim.wo.number = true
     vim.wo.relativenumber = false
   end
 
-  if filetype == '' or autocmds.winhighlight_filetype_blacklist[filetype] ~= true then
+  if filetype == '' or AutoCmds.winhighlight_filetype_blacklist[filetype] ~= true then
     vim.wo.winhighlight = winhighlight_blurred
   end
 
   if filetype == '' then
     vim.wo.list = false
   else
-    local list = autocmds.list_filetypes[filetype]
+    local list = AutoCmds.list_filetypes[filetype]
     if list == nil then
       vim.wo.list = false
     else
@@ -100,19 +186,19 @@ local function blur_window()
     end
   end
 
-  if filetype == '' or autocmds.conceallevel_filetypes[filetype] == nil then vim.wo.conceallevel = 0 end
+  if filetype == '' or AutoCmds.conceallevel_filetypes[filetype] == nil then vim.wo.conceallevel = 0 end
 end
 
-local function should_mkview()
+function H.should_mkview()
   return vim.bo.buftype == ''
-    and autocmds.mkview_filetype_blacklist[vim.bo.filetype] == nil
+    and AutoCmds.mkview_filetype_blacklist[vim.bo.filetype] == nil
     and vim.fn.exists('$SUDO_USER') == 0 -- Don't create root-owned files.
 end
 
 -- http://vim.wikia.com/wiki/Make_views_automatic
-local mkview = function()
-  if should_mkview() then
-    local success, err = pcall(function()
+function H.mkview()
+  if H.should_mkview() then
+    local ok, err = pcall(function()
       if vim.fn.haslocaldir() == 1 then
         -- We never want to save an :lcd command, so hack around it...
         vim.cmd('cd -')
@@ -122,7 +208,7 @@ local mkview = function()
         vim.cmd('mkview')
       end
     end)
-    if not success then
+    if err then
       if
         err:find('%f[%w]E32%f[%W]') == nil -- No file name; could be no buffer (eg. :checkhealth)
         and err:find('%f[%w]E186%f[%W]') == nil -- No previous directory: probably a `git` operation.
@@ -135,93 +221,6 @@ local mkview = function()
   end
 end
 
-function autocmds.bufEnter() focus_window() end
+function H.set_cursorline(active) vim.wo.cursorline = active end
 
-function autocmds.bufLeave() mkview() end
-
-function autocmds.bufWinEnter()
-  if should_mkview() then vim.cmd('silent! loadview') end
-end
-
-function autocmds.bufWritePost() mkview() end
-
-function autocmds.focusGained() focus_window() end
-
-function autocmds.focusLost() blur_window() end
-
-function autocmds.insertEnter() set_cursorline(false) end
-
-function autocmds.insertLeave() set_cursorline(true) end
-
-function autocmds.vimEnter()
-  focus_window()
-  set_cursorline(true)
-end
-
-function autocmds.winEnter()
-  focus_window()
-  set_cursorline(true)
-end
-
-function autocmds.winLeave()
-  blur_window()
-  set_cursorline(false)
-end
-
-function autocmds.skeleton(path) cmd('0r ' .. path) end
-
-autocmds.winhighlight_filetype_blacklist = {
-  ['diff'] = true,
-  ['fugitiveblame'] = true,
-  ['undotree'] = true,
-  ['qf'] = true,
-  ['TelescopePrompt'] = true,
-  ['minifiles'] = true,
-}
-
--- Force 'list' (when `true`) or 'nolist' (when `false`) for these.
-autocmds.list_filetypes = {
-  ['help'] = false,
-  ['shellbot'] = false,
-  ['TelescopePrompt'] = false,
-}
---
--- Don't mess with 'conceallevel' for these.
-autocmds.conceallevel_filetypes = {
-  ['oil'] = 2,
-  ['help'] = 2,
-  ['markdown'] = 0,
-}
-
--- Don't mess with numbers in these filetypes.
-autocmds.number_blacklist = {
-  ['diff'] = true,
-  ['fugitiveblame'] = true,
-  ['help'] = true,
-  ['qf'] = true,
-  ['shellbot'] = true,
-  ['undotree'] = true,
-  ['TelescopePrompt'] = true,
-  ['minifiles'] = true,
-  ['ministarter'] = true,
-  ['neoterm'] = true,
-}
---
--- Don't use colorcolumn when these filetypes get focus (we want them to appear
--- full-width irrespective of 'textwidth').
-autocmds.colorcolumn_filetype_blacklist = {
-  ['TelescopePrompt'] = true,
-  ['diff'] = true,
-  ['oil'] = true,
-  ['fugitiveblame'] = true,
-  ['undotree'] = true,
-  ['qf'] = true,
-}
-
-autocmds.mkview_filetype_blacklist = {
-  ['diff'] = true,
-  ['gitcommit'] = true,
-  ['hgcommit'] = true,
-}
-
-return autocmds
+return AutoCmds
