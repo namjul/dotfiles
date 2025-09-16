@@ -3,6 +3,7 @@
     "dev": "deno run --watch main.ts"
   },
   "imports": {
+    "@types/node": "npm:@types/node@^24.5.0",
     "zx": "npm:zx@^8.8.1"
   },
   "permissions": {
