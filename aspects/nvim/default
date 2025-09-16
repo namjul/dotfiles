@@ -1,9 +1,5 @@
 #!/usr/bin/env zx
 
-/**
-# mise description="Configures Vim/Neovim"
-*/
-
 const { Readable } = require("stream");
 const { finished } = require("stream/promises");
 
