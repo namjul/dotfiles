@@ -1,3 +1,4 @@
 
 [darkman]
+description = "Configures darkman"
 file = 'aspects/darkman/default'

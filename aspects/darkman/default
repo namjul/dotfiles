@@ -1,33 +1,24 @@
-#!/usr/bin/env zx
+#!/usr/bin/env -S deno run --allow-all
 
-/**
-# mise description="Configures darkman"
-*/
+import { $, cd, echo, os, path, within } from "zx";
 
-import {randomBytes} from 'node:crypto';
-
-const aspect = __dirname
-
-const { Readable } = require('stream');
-const { finished } = require('stream/promises');
-
-const prompt = `sudo[${randomBytes(16).toString('hex')}]:`;
+const aspect = import.meta.dirname;
 
 await within(async () => {
-  echo`install darkman`
+  echo`install darkman`;
   await $`
     ghq get https://gitlab.com/WhyNotHugo/darkman.git
-  `
-  await cd(`${await $`ghq root`}/gitlab.com/WhyNotHugo/darkman`)
+  `;
+  cd(`${await $`ghq root`}/gitlab.com/WhyNotHugo/darkman`);
   await $`
     make
     make install PREFIX=~/.local/bin
-  `
-})
+  `;
+});
 
 await within(async () => {
-  echo`copy files`
-  const target = path.join(os.homedir(), '.local/share/')
-  await $`cp -r ${path.join(aspect, 'files', 'dark-mode.d')} ${target}`
-  await $`cp -r ${path.join(aspect, 'files', 'light-mode.d')} ${target}`
-})
+  echo`copy files`;
+  const target = path.join(os.homedir(), ".local/share/");
+  await $`cp -r ${path.join(aspect, "files", "dark-mode.d")} ${target}`;
+  await $`cp -r ${path.join(aspect, "files", "light-mode.d")} ${target}`;
+});
