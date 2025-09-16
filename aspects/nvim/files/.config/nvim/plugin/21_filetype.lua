@@ -16,6 +16,8 @@ vim.filetype.add({
     ['.*'] = function()
       local first_line = vim.api.nvim_buf_get_lines(0, 0, 1, false)[1]
       if first_line:match('^#!/usr/bin/env zx') then return 'typescript' end
+      local denoShebang = '#!/usr/bin/env -S deno run'
+      if first_line:sub(1, #denoShebang) == denoShebang then return 'typescript' end
     end,
   },
   -- extension = {
