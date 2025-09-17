@@ -8,7 +8,7 @@ add({ name = 'mini.nvim' })
 now(function()
   require('mini.basics').setup({
     options = { basic = false }, -- Manage options manually in a spirit of transparency
-    mappings = { windows = true, option_toggle_prefix = [[yo]] },
+    mappings = { windows = false, move_with_alt = true, option_toggle_prefix = [[yo]] },
   })
 end)
 
@@ -183,22 +183,7 @@ later(function()
   map_multistep('i', '<BS>', { 'hungry_bs', 'minipairs_bs' })
 end)
 
-later(
-  function()
-    require('mini.move').setup({
-      mappings = {
-        left = '<D-h>',
-        right = '<D-l>',
-        down = '<D-j>',
-        up = '<D-k>',
-        line_left = '<D-h>',
-        line_right = '<D-l>',
-        line_down = '<D-j>',
-        line_up = '<D-k>',
-      },
-    })
-  end
-)
+later(function() require('mini.move').setup() end)
 
 later(function()
   require('mini.surround').setup({
@@ -581,7 +566,7 @@ later(function()
       'OverseerToggle',
     },
     keymap = {
-      { 'n', '<Leader>ot', ':OverseerToggle<CR>', { silent = true, desc = 'Task runner' } },
+      { 'n', 'yot', ':OverseerToggle<CR>', { silent = true, desc = 'Task runner' } },
     },
   })
 end)
@@ -596,7 +581,7 @@ later(function()
       vim.g.undotree_DiffCommand = 'diff -u'
     end,
     keymap = {
-      { 'n', '<Leader>u', ':UndotreeToggle<CR>', { silent = true } },
+      { 'n', 'you', ':UndotreeToggle<CR>', { silent = true } },
     },
   })
 end)
@@ -669,6 +654,7 @@ later(function()
   vim.keymap.set('n', '<C-k>', function() harpoon:list():select(3) end, { desc = 'Harpoon: Goto(3)' })
   vim.keymap.set('n', '<C-l', function() harpoon:list():select(4) end, { desc = 'Harpoon: Goto(4)' })
 end)
+
 -- Better built-in terminal ===
 later(function()
   add('kassio/neoterm')

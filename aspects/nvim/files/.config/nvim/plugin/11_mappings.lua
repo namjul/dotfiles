@@ -25,6 +25,7 @@ vim.keymap.set('n', 'Q', '', { desc = 'avoid unintentional switches to Ex mode.'
 vim.keymap.set('n', 'gp', ':lua MiniDiff.toggle_overlay()<CR>', { desc = 'Toggle git hunks preview' })
 vim.keymap.set('n', 'gx', ':!open <cWORD><CR>', { desc = 'open url' })
 vim.keymap.set('n', 'n', 'nzzzv', { desc = 'Search next' })
+vim.keymap.set('n', '-', '<Cmd>Ex<CR>', { desc = 'Open Netrw' })
 
 -- use 'x' for cutting. works in conjuction with `vim-cutlass`
 vim.keymap.set('n', 'x', 'd')
@@ -144,7 +145,6 @@ nmap_leader('LL', '<Cmd>luafile %<CR><Cmd>echo "Sourced lua"<CR>', 'Source buffe
 -- o is for `other`
 nmap_leader('ot', '<Cmd>lua MiniTrailspace.trim()<CR>', 'Trim trailspace')
 nmap_leader('oh', '<Cmd>lua MiniNotify.show_history()<CR>', 'Notification history')
-nmap_leader('oo', '<Cmd>only<CR>', 'Close all windows but active one')
 nmap_leader('oz', '<Cmd>lua MiniMisc.zoom()<CR>', 'Zoom toggle')
 nmap_leader('or', '<Cmd>lua MiniMisc.resize_window()<CR>', 'Resize to default width')
 
@@ -184,8 +184,7 @@ end, 'Reload vimrc')
 xmap_leader('p', '"_dP"', 'Paste without overide')
 
 -- l is for 'LSP' (Language Server Protocol)
-local formatting_cmd = '<Cmd>lua require("conform").format({ lsp_fallback = true })<CR>'
-nmap_leader('lf', formatting_cmd, 'Format')
+nmap_leader('lf', '<Cmd>lua require("conform").format({ lsp_fallback = true })<CR>', 'Format')
 
 vim.api.nvim_create_autocmd('User', {
   pattern = 'LspAttached',
@@ -200,17 +199,8 @@ vim.api.nvim_create_autocmd('User', {
 
     nmap_leader('lr', vim.lsp.buf.rename, '[R]e[n]ame')
 
-    nmap_leader('ld', vim.lsp.buf.definition, '[G]oto [D]efinition')
+    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, { desc = '[G]oto [D]efinition' })
     nmap_leader('lR', vim.lsp.buf.references, '[G]oto [R]eferences')
     nmap_leader('lh', vim.lsp.buf.hover, '[G]oto [R]eferences')
-
-    -- Create a command `:Format` local to the LSP buffer
-    local bufnr = arg.data.bufnr
-    vim.api.nvim_buf_create_user_command(
-      bufnr,
-      'Format',
-      function(_) vim.lsp.buf.format() end,
-      { desc = 'Format current buffer with LSP' }
-    )
   end,
 })
