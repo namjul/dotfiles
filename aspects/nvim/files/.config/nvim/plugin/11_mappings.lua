@@ -153,31 +153,6 @@ nmap_leader('tT', '<Cmd>belowright Tnew<CR>', 'Terminal (horizontal)')
 nmap_leader('tt', '<Cmd>vertical Tnew<CR>', 'Terminal (vertical)')
 nmap_leader('tl', '<Cmd>Tredo<CR>', 'Terminal (redo)')
 
--- v is for 'visits'
-local map_vis = function(keys, call, desc)
-  local rhs = '<Cmd>lua MiniVisits.' .. call .. '<CR>'
-  vim.keymap.set('n', '<Leader>' .. keys, rhs, { desc = desc })
-end
-
-map_vis('vv', 'add_label("core")', 'Add to core')
-map_vis('vV', 'remove_label("core")', 'Remove from core')
-map_vis('vc', 'select_path("", { filter = "core" })', 'Select core (all)')
-map_vis('vC', 'select_path(nil, { filter = "core" })', 'Select core (cwd)')
-
--- Iterate based on recency
-local minivisits = require('mini.visits')
-local sort_latest = minivisits.gen_sort.default({ recency_weight = 1 })
-local map_iterate_core = function(lhs, direction, desc)
-  local opts = { filter = 'core', sort = sort_latest, wrap = true }
-  local rhs = function() minivisits.iterate_paths(direction, vim.fn.getcwd(), opts) end
-  vim.keymap.set('n', lhs, rhs, { desc = desc })
-end
-
-map_iterate_core('[{', 'last', 'Core label (earliest)')
-map_iterate_core('[[', 'forward', 'Core label (earlier)')
-map_iterate_core(']]', 'backward', 'Core label (later)')
-map_iterate_core(']}', 'first', 'Core label (latest)')
-
 -- misc
 nmap_leader('2', '<Cmd>w<CR>:! ./%<CR>', 'Execute current file')
 nmap_leader('3', '<Cmd>!chmod +x %<CR>', 'Make current file executable')
@@ -205,16 +180,6 @@ nmap_leader('R', function()
   dofile(vim.fn.stdpath('config') .. '/init.lua')
   print('Reloaded vimrc!')
 end, 'Reload vimrc')
-
-local has_harpoon, harpoon = pcall(require, 'harpoon')
-if has_harpoon then
-  nmap_leader('ha', function() harpoon:list():add() end, 'Add file to harpoon')
-  nmap_leader('hl', function() harpoon.ui:toggle_quick_menu(harpoon:list()) end, 'Toggle harpoon menu')
-  nmap_leader('j', function() harpoon:list():select(1) end, 'Harpoon: Goto(1)')
-  nmap_leader('k', function() harpoon:list():select(2) end, 'Harpoon: Goto(2)')
-  nmap_leader('l', function() harpoon:list():select(3) end, 'Harpoon: Goto(3)')
-  nmap_leader('ö', function() harpoon:list():select(4) end, 'Harpoon: Goto(4)')
-end
 
 xmap_leader('p', '"_dP"', 'Paste without overide')
 

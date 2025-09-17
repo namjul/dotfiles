@@ -648,6 +648,27 @@ end)
 
 later(function() require('mini.visits').setup() end)
 
+later(function()
+  add({
+    source = 'ThePrimeagen/harpoon',
+    checkout = 'harpoon2',
+    depends = { 'nvim-lua/plenary.nvim' },
+  })
+
+  local harpoon = require('harpoon').setup()
+
+  vim.keymap.set('n', '<Leader>ha', function() harpoon:list():add() end, { desc = 'Add file to harpoon' })
+  vim.keymap.set(
+    'n',
+    '<Leader>hl',
+    function() harpoon.ui:toggle_quick_menu(harpoon:list()) end,
+    { desc = 'Toggle harpoon menu' }
+  )
+  vim.keymap.set('n', '<C-h>', function() harpoon:list():select(1) end, { desc = 'Harpoon: Goto(1)' })
+  vim.keymap.set('n', '<C-j>', function() harpoon:list():select(2) end, { desc = 'Harpoon: Goto(2)' })
+  vim.keymap.set('n', '<C-k>', function() harpoon:list():select(3) end, { desc = 'Harpoon: Goto(3)' })
+  vim.keymap.set('n', '<C-l', function() harpoon:list():select(4) end, { desc = 'Harpoon: Goto(4)' })
+end)
 -- Better built-in terminal ===
 later(function()
   add('kassio/neoterm')
