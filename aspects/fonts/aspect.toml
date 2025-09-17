@@ -1,3 +1,4 @@
 
 [fonts]
+description = "Installs JetBrains Mono font files"
 file = 'aspects/fonts/default'

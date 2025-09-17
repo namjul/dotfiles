@@ -1,32 +1,33 @@
-#!/usr/bin/env zx
+#!/usr/bin/env -S deno run --allow-all
 
-/**
-# mise description="Installs JetBrains Mono font files"
-*/
-
-const { Readable } = require('stream');
-const { finished } = require('stream/promises');
+import { $, fs, glob, os, path, spinner } from "zx";
+import { Readable } from "node:stream";
+import { finished } from "node:stream/promises";
 
 await spinner("create ~/fonts", async () => {
-  await $`mkdir -p ~/.local/share/fonts`
-})
+  await $`mkdir -p ~/.local/share/fonts`;
+});
 
 await spinner("download JetbrainsMono", async () => {
   const stream = fs.createWriteStream(`${os.homedir()}/opt/JetBrainsMono.zip`);
-  const { body } = await fetch('https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/JetBrainsMono.zip')
-  await finished(Readable.fromWeb(body).pipe(stream));
-  await $`unzip -o ${os.homedir()}/opt/JetBrainsMono.zip -d ${os.homedir()}/opt/JetBrainsMono/`
-  await $`rm ${os.homedir()}/opt/JetBrainsMono.zip`
-})
+  const { body } = await fetch(
+    "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/JetBrainsMono.zip",
+  );
+  if (body) {
+    // @ts-ignore -- some strange conflict i don't care now
+    await finished(Readable.fromWeb(body).pipe(stream));
+    await $`unzip -o ${os.homedir()}/opt/JetBrainsMono.zip -d ${os.homedir()}/opt/JetBrainsMono/`;
+    await $`rm ${os.homedir()}/opt/JetBrainsMono.zip`;
+  }
+});
 
 await spinner("install", async () => {
-
-  const files = await glob(`${os.homedir()}/opt/JetBrainsMono/*.ttf`)
-  const target = path.join(os.homedir(), '.local/share/fonts')
+  const files = await glob(`${os.homedir()}/opt/JetBrainsMono/*.ttf`);
+  const target = path.join(os.homedir(), ".local/share/fonts");
 
   for (const ttf of files) {
-    await $`cp ${ttf} ${target}`
+    await $`cp ${ttf} ${target}`;
   }
 
-  await $`fc-cache -f -v`
-})
+  await $`fc-cache -f -v`;
+});
