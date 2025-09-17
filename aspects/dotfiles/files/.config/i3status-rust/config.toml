@@ -69,4 +69,4 @@ format = " $icon {$signal_strength $ssid|Wired connection} "
 [[block]]
 block = "time"
 interval = 5
-format = " $timestamp.datetime(f:'%Y.%m.%d %H:%M' ) "
+format = " $timestamp.datetime(f:'%d %H:%M' ) "
