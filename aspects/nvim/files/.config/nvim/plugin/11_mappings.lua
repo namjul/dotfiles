@@ -37,6 +37,7 @@ vim.keymap.set('n', 'k', function() return (vim.v.count > 5 and "m'" .. vim.v.co
 vim.keymap.set('n', 'j', function() return (vim.v.count > 5 and "m'" .. vim.v.count or '') .. 'j' end, { expr = true })
 
 vim.keymap.set('i', 'jk', '<Esc>')
+vim.keymap.set('i', 'kj', '<Esc>')
 
 -- place undo points after ending signs
 vim.keymap.set('i', '!', '!<C-g>u')
