@@ -631,6 +631,11 @@ later(function()
     return miniextra.pickers.explorer({ cwd = cwd }, { source = { choose = choose } })
   end
 
+  minipick.registry.dotfiles = function()
+    local cwd = vim.fn.expand('~/.dotfiles')
+    return MiniPick.builtin.files(nil, { source = { cwd = cwd } })
+  end
+
   minipick.registry.memex = function()
     local cwd = vim.fn.expand('~/Dropbox/memex')
     -- local mappings = { wipeout = { char = '<C-d>', func = function ()
