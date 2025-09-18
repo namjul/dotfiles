@@ -183,8 +183,6 @@ later(function()
   map_multistep('i', '<BS>', { 'hungry_bs', 'minipairs_bs' })
 end)
 
-later(function() require('mini.move').setup() end)
-
 later(function()
   require('mini.surround').setup({
     mappings = {
