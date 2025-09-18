@@ -19,8 +19,6 @@ now(function()
   vim.notify = require('mini.notify').make_notify()
 end)
 
-now(function() require('mini.starter').setup() end)
-
 now(function() require('mini.statusline').setup() end)
 
 now(function() require('mini.tabline').setup({ tabpage_section = 'right' }) end)
