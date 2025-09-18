@@ -43,6 +43,7 @@ AutoCmds.winhighlight_filetype_blacklist = {
   ['qf'] = true,
   ['TelescopePrompt'] = true,
   ['minifiles'] = true,
+  ['minipick'] = true,
 }
 
 -- Force 'list' (when `true`) or 'nolist' (when `false`) for these.
@@ -69,6 +70,7 @@ AutoCmds.number_blacklist = {
   ['undotree'] = true,
   ['TelescopePrompt'] = true,
   ['minifiles'] = true,
+  ['minipick'] = true,
   ['ministarter'] = true,
   ['neoterm'] = true,
 }
