@@ -3,6 +3,7 @@ local vi = vim.v.progname == 'vi'
 -- Leader key ===
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ','
+vim.g.netrw_banner = 0
 
 -- General ===
 vim.opt.backup = false -- Don't make backups before writing
