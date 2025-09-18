@@ -56,6 +56,7 @@ lsp.init = function()
         },
       },
     },
+    pyright = {},
     vtsls = {
       settings = {
         -- see config schema: https://raw.githubusercontent.com/yioneko/vtsls/refs/heads/main/packages/service/configuration.schema.json
