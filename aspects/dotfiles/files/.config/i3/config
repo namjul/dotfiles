@@ -306,9 +306,7 @@ bindsym $mod+y exec --no-startup-id gtk-launch youtube
 bindsym $mod+t exec --no-startup-id gtk-launch telegram
 bindsym $mod+Shift+m exec --no-startup-id gtk-launch email
 bindsym $mod+Shift+c exec --no-startup-id gtk-launch calendar
+bindsym $mod+g exec --no-startup-id gromit-mpx -a
 
 # Execute startup script
 exec --no-startup-id chmod u+x ~/.config/i3/startup.sh; ~/.config/i3/startup.sh
-
-# Start XDG autostart .desktop files using dex. See also
-exec --no-startup-id dex --autostart --environment i3
