@@ -336,7 +336,7 @@ later(function()
       -- python = { 'isort', 'black' },
       -- Use a sub-list to run only the first available formatter
       javascript = { 'prettier' },
-      typescript = { 'deno_fmt', 'prettier' },
+      typescript = { 'prettier' },
       vue = { 'prettier', lsp_format = 'fallback' },
     },
   })
