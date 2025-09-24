@@ -32,9 +32,16 @@ vim.opt.emoji = false -- don't assume all emoji are double width
 vim.opt.fillchars = {
   diff = '∙', -- BULLET OPERATOR (U+2219, UTF-8: E2 88 99)
   eob = ' ', -- NO-BREAK SPACE (U+00A0, UTF-8: C2 A0) to suppress ~ at EndOfBuffer
-  fold = '·', -- MIDDLE DOT (U+00B7, UTF-8: C2 B7)
-  vert = ' ', -- BOX DRAWINGS LIGHT VERTICAL (U+2502, UTF-8: E2 94 82)
-} -- NOTE { 'eob: ', 'fold:╌', 'horiz:═', 'horizdown:╦', 'horizup:╩', 'vert:║', 'verthoriz:╬', 'vertleft:╣', 'vertright:╠' }
+  fold = '╌', -- MIDDLE DOT (U+00B7, UTF-8: C2 B7)
+  -- vert = ' ', -- BOX DRAWINGS LIGHT VERTICAL (U+2502, UTF-8: E2 94 82)
+  horiz = '═',
+  horizdown = '╦',
+  horizup = '╩',
+  vert = '║',
+  verthoriz = '╣',
+  vertleft = '╣',
+  vertright = '╠',
+}
 vim.opt.listchars = {
   nbsp = '⦸', -- CIRCLED REVERSE SOLIDUS (U+29B8, UTF-8: E2 A6 B8)
   extends = '»', -- RIGHT-POINTING DOUBLE ANGLE QUOTATION MARK (U+00BB, UTF-8: C2 BB)
@@ -67,7 +74,9 @@ vim.opt.splitright = true -- open vertical splits to the right of the current wi
 vim.opt.splitbelow = true -- open horizontal splits below current window
 vim.opt.wrap = false -- Display long lines as just one line
 vim.opt.background = 'light'
-vim.o.signcolumn = 'yes' -- Always show signcolumn or it would frequently shift
+vim.opt.signcolumn = 'yes' -- Always show signcolumn or it would frequently shift
+vim.opt.colorcolumn = '+1' -- Draw colored column one step to the right of desired maximum width
+vim.opt.textwidth = 120
 
 if vim.fn.filereadable(vim.fn.expand('~/.vimrc_background')) ~= 0 then vim.cmd('source ~/.vimrc_background') end
 
@@ -93,6 +102,9 @@ vim.opt.smartindent = true -- Make indenting smart
 vim.opt.shiftwidth = 2 -- Use this number of spaces for indentation
 vim.opt.tabstop = 2 -- spaces per tab
 vim.opt.diffopt = vim.opt.diffopt + 'vertical'
+-- vim.opt.formatoptions = vim.opt.formatoptions + 'j' -- remove comment leader when joining comment lines
+-- vim.opt.formatoptions = vim.opt.formatoptions + 'n' -- smart auto-indenting inside numbered lists
+vim.o.formatoptions = 'rqnl1j' -- Improve comment editing
 if not vi then
   vim.opt.softtabstop = -1 -- use 'shiftwidth' for tab/bs at end of line
 end
@@ -114,8 +126,6 @@ vim.opt.foldmethod = 'indent' -- Set 'indent' folding method
 vim.opt.foldlevel = 1 -- Display all folds except top ones
 vim.opt.foldnestmax = 10 -- Create folds only for some number of nested levels
 vim.o.foldtext = '' -- Use underlying text with its highlighting
--- vim.opt.formatoptions = vim.opt.formatoptions + 'j' -- remove comment leader when joining comment lines
--- vim.opt.formatoptions = vim.opt.formatoptions + 'n' -- smart auto-indenting inside numbered lists
 
 -- Custom autocommands ===
 -- Diagnostics ===
