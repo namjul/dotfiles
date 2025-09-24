@@ -414,7 +414,16 @@ end)
 
 later(function()
   local minifiles = require('mini.files')
-  minifiles.setup({ windows = { preview = true } })
+  minifiles.setup({
+    windows = { preview = true },
+
+    mappings = {
+      go_in = 'L',
+      go_in_plus = 'l',
+      go_out = '-',
+      go_out_plus = '',
+    },
+  })
 
   local set_cwd = function()
     local path = (minifiles.get_fs_entry() or {}).path

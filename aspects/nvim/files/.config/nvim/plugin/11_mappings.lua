@@ -25,7 +25,12 @@ vim.keymap.set('n', 'Q', '', { desc = 'avoid unintentional switches to Ex mode.'
 vim.keymap.set('n', 'gp', ':lua MiniDiff.toggle_overlay()<CR>', { desc = 'Toggle git hunks preview' })
 vim.keymap.set('n', 'gx', ':!open <cWORD><CR>', { desc = 'open url' })
 vim.keymap.set('n', 'n', 'nzzzv', { desc = 'Search next' })
-vim.keymap.set('n', '-', '<Cmd>Ex<CR>', { desc = 'Open Netrw' })
+vim.keymap.set(
+  'n',
+  '-',
+  '<Cmd>lua MiniFiles.open(vim.api.nvim_buf_get_name(0))<CR>',
+  { desc = 'Open parent directory' }
+)
 
 -- use 'x' for cutting. works in conjuction with `vim-cutlass`
 vim.keymap.set('n', 'x', 'd')
@@ -81,8 +86,6 @@ nmap_leader('bW', '<Cmd>lua MiniBufremove.wipeout(0, true)<CR>', 'Wipeout!')
 local edit_config_file = function(filename)
   return '<Cmd>edit ' .. vim.fn.stdpath('config') .. '/plugin/' .. filename .. '<CR>'
 end
-nmap_leader('ed', '<Cmd>lua MiniFiles.open()<CR>', 'Directory')
-nmap_leader('ef', '<Cmd>lua MiniFiles.open(vim.api.nvim_buf_get_name(0))<CR>', 'File directory')
 nmap_leader('eo', edit_config_file('10_options.lua'), 'Options config')
 nmap_leader('em', edit_config_file('11_mappings.lua'), 'Mappings config')
 nmap_leader('ep', edit_config_file('20_plugins.lua'), 'Plugins config')
