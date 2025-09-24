@@ -419,7 +419,7 @@ later(function()
 
     mappings = {
       go_in = 'L',
-      go_in_plus = 'l',
+      go_in_plus = '<CR>',
       go_out = '-',
       go_out_plus = '',
     },
