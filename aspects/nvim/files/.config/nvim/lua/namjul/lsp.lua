@@ -44,6 +44,7 @@ lsp.init = function()
         if project_root then on_dir(project_root) end
       end,
     },
+    html = {},
     lua_ls = {
       settings = {
         Lua = {
