@@ -682,6 +682,8 @@ end)
 --   checkout = 'main'
 -- }) end)
 
+later(function() add('MeanderingProgrammer/render-markdown.nvim') end)
+
 later(function()
   local build = function(pkg)
     print('shellbot', vim.inspect(pkg.path))
