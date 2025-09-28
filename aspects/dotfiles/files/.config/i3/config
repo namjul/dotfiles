@@ -9,7 +9,7 @@
 #
 # Please see https://i3wm.org/docs/userguide.html for a complete reference!
 
-set $mod Mod1
+set $mod Mod4 # windows key
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -114,10 +114,10 @@ bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl set +5%
 bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl set 5%-
 
 # Make the currently focused window a scratchpad
-bindsym $mod+Shift+minus move scratchpad
+bindsym Mod1+Shift+minus move scratchpad
 
 # Show the first scratchpad window
-bindsym $mod+minus scratchpad show; [floating] resize set 80 ppt 98 ppt; move position 1 ppt 1 ppt
+bindsym Mod1+minus scratchpad show; [floating] resize set 80 ppt 98 ppt; move position 1 ppt 1 ppt
 
 # Print
 bindsym Print exec flameshot gui
@@ -127,7 +127,7 @@ bindsym $mod+Shift+s exec flameshot gui
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec ghostty
+bindsym $mod+Shift+Return exec ghostty
 
 # kill focused window
 bindsym $mod+w kill
