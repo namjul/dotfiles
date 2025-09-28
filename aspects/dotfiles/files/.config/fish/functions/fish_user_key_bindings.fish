@@ -9,12 +9,7 @@ function fish_user_key_bindings
   if test -z "$NVIM"
     fish_vi_key_bindings
     bind -M insert -m default jk force-repaint
-    bind -M insert -m default kj force-repaint
   end
-
-  bind --mode insert tab forward-bigword
-  bind --mode insert ctrl-n down-or-search
-  bind --mode insert ctrl-p up-or-search
 
   # fzf
   bind \cf 'fzf-file-widget'

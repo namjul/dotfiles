@@ -469,13 +469,18 @@ later(function()
       ['<C-o>'] = { 'show', 'show_documentation', 'hide_documentation' },
       ['<C-e>'] = { 'hide', 'fallback' },
       ['<CR>'] = { 'accept', 'fallback' },
-
-      ['<Tab>'] = { 'accept', 'fallback' },
-
       ['<Up>'] = { 'select_prev', 'fallback' },
       ['<Down>'] = { 'select_next', 'fallback' },
       ['<C-p>'] = { 'select_prev', 'fallback_to_mappings' },
-      ['<C-n>'] = { 'select_next', 'fallback_to_mappings' },
+      ['<C-n>'] = {
+        function(cmp)
+          if cmp.is_menu_visible() then
+            cmp.select_next()
+          else
+            cmp.accept()
+          end
+        end,
+      },
     },
     sources = {
       providers = {
