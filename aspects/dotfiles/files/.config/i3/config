@@ -115,10 +115,10 @@ bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl set +5%
 bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl set 5%-
 
 # Make the currently focused window a scratchpad
-bindsym Mod1+Shift+minus move scratchpad
+bindsym $mod+Shift+minus move scratchpad
 
 # Show the first scratchpad window
-bindsym Mod1+minus scratchpad show; [floating] resize set 80 ppt 98 ppt; move position 1 ppt 1 ppt
+bindsym $mod+minus scratchpad show; [floating] resize set 80 ppt 98 ppt; move position 1 ppt 1 ppt
 
 # Print
 bindsym Print exec flameshot gui
@@ -128,7 +128,7 @@ bindsym $mod+Shift+s exec flameshot gui
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Shift+Return exec ghostty
+bindsym $mod+Return exec ghostty
 
 # kill focused window
 bindsym $mod+w kill
@@ -172,7 +172,7 @@ bindsym Ctrl+Shift+h split h
 bindsym Ctrl+Shift+v split v
 
 # enter fullscreen mode for the focused container
-bindsym Mod1+f fullscreen toggle
+bindsym $mod+f fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
 bindsym $mod+s layout toggle tabbed splith
@@ -297,7 +297,7 @@ bindsym $mod+n exec --no-startup-id ghostty -e fish -c nvim
 
 bindsym $mod+b exec --no-startup-id chromium
 
-bindsym $mod+m exec --no-startup-id gtk-launch spotify
+bindsym $mod+Shift+m exec --no-startup-id gtk-launch spotify
 bindsym $mod+a exec --no-startup-id gtk-launch chatgpt
 bindsym $mod+Shift+a exec --no-startup-id gtk-launch grok
 bindsym $mod+Ctrl+a exec --no-startup-id gtk-launch deepseek
@@ -305,8 +305,8 @@ bindsym $mod+d exec --no-startup-id gtk-launch devdocs
 bindsym $mod+Shift+f exec --no-startup-id gtk-launch org.gnome.Nautilus
 bindsym $mod+y exec --no-startup-id gtk-launch youtube
 bindsym $mod+t exec --no-startup-id gtk-launch telegram
-bindsym $mod+Shift+m exec --no-startup-id gtk-launch email
-bindsym $mod+Shift+c exec --no-startup-id gtk-launch calendar
+bindsym $mod+m exec --no-startup-id gtk-launch email
+bindsym $mod+c exec --no-startup-id gtk-launch calendar
 bindsym $mod+g exec --no-startup-id gromit-mpx -a
 
 # Execute startup script
