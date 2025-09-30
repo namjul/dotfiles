@@ -46,3 +46,4 @@ cd .dotfiles
 - https://github.com/simonsmith/dotfiles
 - https://github.com/nicknisi/dotfiles
 - https://github.com/sapegin/dotfiles
+- https://github.com/mrusme/dotfiles
