@@ -25,6 +25,7 @@ vim.keymap.set('n', 'Q', '', { desc = 'avoid unintentional switches to Ex mode.'
 vim.keymap.set('n', 'gp', ':lua MiniDiff.toggle_overlay()<CR>', { desc = 'Toggle git hunks preview' })
 vim.keymap.set('n', 'gx', ':!open <cWORD><CR>', { desc = 'open url' })
 vim.keymap.set('n', 'n', 'nzzzv', { desc = 'Search next' })
+vim.keymap.set('n', '<Tab>', 'za', { desc = 'Toggle fold' })
 vim.keymap.set(
   'n',
   '-',
