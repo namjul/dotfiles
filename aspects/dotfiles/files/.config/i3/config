@@ -291,9 +291,9 @@ bindsym $mod+Escape mode "$mode_system"
 bindsym $mod+z exec --no-startup-id do-not-disturb
 bindsym $mod+Shift+t exec --no-startup-id darkman toggle
 
-bindsym $mod+Shift+d exec --no-startup-id ghostty -e fish -c lazydocker
-bindsym $mod+v exec --no-startup-id ghostty -e fish -c btop
-bindsym $mod+n exec --no-startup-id ghostty -e fish -c nvim
+bindsym $mod+Shift+d exec --no-startup-id ghostty --title=Lazydocker -e fish -c lazydocker
+bindsym $mod+v exec --no-startup-id ghostty --title=Btop -e fish -c btop
+bindsym $mod+n exec --no-startup-id ghostty --title=Neovim -e fish -c nvim
 
 bindsym $mod+b exec --no-startup-id chromium
 
