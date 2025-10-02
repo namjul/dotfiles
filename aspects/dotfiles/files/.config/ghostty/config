@@ -53,3 +53,7 @@ keybind = ctrl+space>i=paste_from_selection
 keybind = ctrl+space>e=write_screen_file:paste
 keybind = ctrl+space>0=equalize_splits
 keybind = ctrl+space>r=reload_config
+
+# the CSI u escape sequence for Ctrl+I (U+0049 'I' with Ctrl modifier).
+keybind = ctrl+i=text:\x1b[73;5u
+
