@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Name=Perplexity
+Comment=Launch Perplexity in Chromium
+Exec=chromium --app=https://perplexity.ai/
+Terminal=false
+Type=Application
+Categories=Network;Productivity;
+StartupWMClass=perplexity
