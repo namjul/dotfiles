@@ -23,36 +23,54 @@ confirm-close-surface = false
 shell-integration-features = cursor,sudo,no-title
 
 # Keybindings
-# keybind=clear
-keybind = ctrl+space>h=goto_split:left
-keybind = ctrl+space>j=goto_split:down
-keybind = ctrl+space>k=goto_split:up
-keybind = ctrl+space>l=goto_split:right
 
-keybind = ctrl+space>shift+h=resize_split:left,100
-keybind = ctrl+space>shift+j=resize_split:down,100
-keybind = ctrl+space>shift+k=resize_split:up,100
-keybind = ctrl+space>shift+l=resize_split:right,100
+# lear all defaults
+keybind=clear
 
 keybind = ctrl+[=scroll_page_fractional:-0.5
 keybind = ctrl+]=scroll_page_fractional:+0.5
 
-keybind = ctrl+space>-=new_split:up
-keybind = ctrl+space>shift+-=new_split:down
-keybind = ctrl+space><=new_split:left
-keybind = ctrl+space>shift+<=new_split:right
-keybind = ctrl+space>z=toggle_split_zoom
-
-keybind = ctrl+space>c=new_tab
-keybind = ctrl+space>n=next_tab
-keybind = ctrl+space>p=previous_tab
-
 keybind = ctrl+space>x=close_surface
 keybind = ctrl+space>r=reset
-keybind = ctrl+space>i=paste_from_selection
 keybind = ctrl+space>e=write_screen_file:paste
 keybind = ctrl+space>0=equalize_splits
 keybind = ctrl+space>r=reload_config
+keybind = ctrl+shift+i=inspector:toggle
+
+keybind = ctrl+space>i=paste_from_selection
+keybind = shift+insert=paste_from_selection
+keybind = ctrl+shift+v=paste_from_clipboard
+keybind = ctrl+shift+c=copy_to_clipboard
+keybind = ctrl+insert=copy_to_clipboard
+
+keybind = ctrl+shift+a=select_all
+
+keybind = shift+up=adjust_selection:up
+keybind = shift+left=adjust_selection:left
+keybind = shift+right=adjust_selection:right
+keybind = shift+down=adjust_selection:down
+
+keybind = ctrl+equal=reset_font_size
+keybind = ctrl+plus=increase_font_size:1
+keybind = ctrl+minus=decrease_font_size:1
+
+# still using tmux for panes
+# keybind = ctrl+space>-=new_split:up
+# keybind = ctrl+space>shift+-=new_split:down
+# keybind = ctrl+space><=new_split:left
+# keybind = ctrl+space>shift+<=new_split:right
+# keybind = ctrl+space>z=toggle_split_zoom
+# keybind = ctrl+space>c=new_tab
+# keybind = ctrl+space>n=next_tab
+# keybind = ctrl+space>p=previous_tab
+# keybind = ctrl+space>h=goto_split:left
+# keybind = ctrl+space>j=goto_split:down
+# keybind = ctrl+space>k=goto_split:up
+# keybind = ctrl+space>l=goto_split:right
+# keybind = ctrl+space>shift+h=resize_split:left,100
+# keybind = ctrl+space>shift+j=resize_split:down,100
+# keybind = ctrl+space>shift+k=resize_split:up,100
+# keybind = ctrl+space>shift+l=resize_split:right,100
 
 # the CSI u escape sequence for Ctrl+I (U+0049 'I' with Ctrl modifier).
 keybind = ctrl+i=text:\x1b[73;5u
