@@ -2,8 +2,12 @@
 
 import { $, path, fs, spinner, os } from 'zx'
 
+
+// TODO rewrite with pseudocode from https://chatgpt.com/share/68e69492-6d68-8003-be7b-945f8b2d010e
+
 const aspect = import.meta.dirname;
-const files = path.join(aspect, "files");
+
+const files = path.join(aspect!, "files");
 
 await spinner("make directories", async () => {
   await $`mkdir -p ${os.homedir()}/.config`;

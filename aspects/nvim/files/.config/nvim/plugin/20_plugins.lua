@@ -24,6 +24,12 @@ now(function() require('mini.statusline').setup() end)
 now(function() require('mini.tabline').setup({ tabpage_section = 'right' }) end)
 
 now_if_args(function()
+  -- TODO
+  -- if vim.fn.filereadable('/usr/local/bin/python3') == 1 then
+  --   -- Avoid search, speeding up start-up.
+  --   vim.g.python3_host_prog = '/usr/local/bin/python3'
+  -- end
+
   add({
     source = 'nvim-treesitter/nvim-treesitter',
     -- Use 'master' while monitoring updates in 'main'
