@@ -26,6 +26,8 @@ vim.keymap.set('n', 'gp', ':lua MiniDiff.toggle_overlay()<CR>', { desc = 'Toggle
 vim.keymap.set('n', 'gx', ':!open <cWORD><CR>', { desc = 'open url' })
 vim.keymap.set('n', 'n', 'nzzzv', { desc = 'Search next' })
 vim.keymap.set('n', '<Tab>', 'za', { desc = 'Toggle fold' })
+vim.keymap.set('n', '<F6>', '<C-i>') -- Relying on ghostty to send C-i to F6, to avoid collision between <Tab> and <C-i> (have it send F6 instead for <C-i>).
+
 vim.keymap.set(
   'n',
   '-',

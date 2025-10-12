@@ -72,6 +72,6 @@ keybind = ctrl+minus=decrease_font_size:1
 # keybind = ctrl+space>shift+k=resize_split:up,100
 # keybind = ctrl+space>shift+l=resize_split:right,100
 
-# the CSI u escape sequence for Ctrl+I (U+0049 'I' with Ctrl modifier).
-keybind = ctrl+i=text:\x1b[73;5u
+# Change control+I to F6
+keybind = ctrl+i=text:\x1b[17~
 
