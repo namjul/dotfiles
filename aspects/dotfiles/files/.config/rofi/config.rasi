@@ -1,7 +1,7 @@
 
 
 configuration {
-  modes: [ combi ];
+  modes: [ drun, run ];
   combi-modes: [ drun ];
 }
 
