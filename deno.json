@@ -3,8 +3,9 @@
     "dev": "deno run --watch main.ts"
   },
   "imports": {
-    "@types/node": "npm:@types/node@^24.5.0",
-    "zx": "npm:zx@^8.8.1"
+    "@types/fs-extra": "npm:@types/fs-extra@^11.0.4",
+    "@types/node": "npm:@types/node@^24.7.0",
+    "zx": "npm:zx@^8.8.4"
   },
   "permissions": {
     "allow-all": true,

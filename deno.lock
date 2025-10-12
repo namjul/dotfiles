@@ -1,28 +1,52 @@
 {
   "version": "5",
   "specifiers": {
-    "npm:@types/node@^24.5.0": "24.5.0",
-    "npm:zx@^8.8.1": "8.8.1"
+    "npm:@types/fs-extra@^11.0.4": "11.0.4",
+    "npm:@types/node@^24.7.0": "24.7.0",
+    "npm:zx@^8.8.4": "8.8.4"
   },
   "npm": {
-    "@types/node@24.5.0": {
-      "integrity": "sha512-y1dMvuvJspJiPSDZUQ+WMBvF7dpnEqN4x9DDC9ie5Fs/HUZJA3wFp7EhHoVaKX/iI0cRoECV8X2jL8zi0xrHCg==",
+    "@types/fs-extra@11.0.4": {
+      "integrity": "sha512-yTbItCNreRooED33qjunPthRcSjERP1r4MqCZc7wv0u2sUkzTFp45tgUfS5+r7FrZPdmCCNflLhVSP/o+SemsQ==",
       "dependencies": [
-        "undici-types"
+        "@types/jsonfile",
+        "@types/node@24.2.0"
       ]
     },
-    "undici-types@7.12.0": {
-      "integrity": "sha512-goOacqME2GYyOZZfb5Lgtu+1IDmAlAEu5xnD3+xTzS10hT0vzpf0SPjkXwAw9Jm+4n/mQGDP3LO8CPbYROeBfQ=="
+    "@types/jsonfile@6.1.4": {
+      "integrity": "sha512-D5qGUYwjvnNNextdU59/+fI+spnwtTFmyQP0h+PfIOSkNfpU6AOICUOkm4i0OnSk+NyjdPJrxCDro0sJsWlRpQ==",
+      "dependencies": [
+        "@types/node@24.2.0"
+      ]
     },
-    "zx@8.8.1": {
-      "integrity": "sha512-qvsKBnvWHstHKCluKPlEgI/D3+mdiQyMoSSeFR8IX/aXzWIas5A297KxKgPJhuPXdrR6ma0Jzx43+GQ/8sqbrw==",
+    "@types/node@24.2.0": {
+      "integrity": "sha512-3xyG3pMCq3oYCNg7/ZP+E1ooTaGB4cG8JWRsqqOYQdbWNY4zbaV0Ennrd7stjiJEFZCaybcIgpTjJWHRfBSIDw==",
+      "dependencies": [
+        "undici-types@7.10.0"
+      ]
+    },
+    "@types/node@24.7.0": {
+      "integrity": "sha512-IbKooQVqUBrlzWTi79E8Fw78l8k1RNtlDDNWsFZs7XonuQSJ8oNYfEeclhprUldXISRMLzBpILuKgPlIxm+/Yw==",
+      "dependencies": [
+        "undici-types@7.14.0"
+      ]
+    },
+    "undici-types@7.10.0": {
+      "integrity": "sha512-t5Fy/nfn+14LuOc2KNYg75vZqClpAiqscVvMygNnlsHBFpSXdJaYtXMcdNLpl/Qvc3P2cB3s6lOV51nqsFq4ag=="
+    },
+    "undici-types@7.14.0": {
+      "integrity": "sha512-QQiYxHuyZ9gQUIrmPo3IA+hUl4KYk8uSA7cHrcKd/l3p1OTpZcM0Tbp9x7FAtXdAYhlasd60ncPpgu6ihG6TOA=="
+    },
+    "zx@8.8.4": {
+      "integrity": "sha512-44GcD+ZlM/v1OQtbwnSxLPcoE1ZEUICmR+RSbJZLAqfIixNLuMjLyh0DcS75OyfJ/sWYAwCWDmDvJ4hdnANAPQ==",
       "bin": true
     }
   },
   "workspace": {
     "dependencies": [
-      "npm:@types/node@^24.5.0",
-      "npm:zx@^8.8.1"
+      "npm:@types/fs-extra@^11.0.4",
+      "npm:@types/node@^24.7.0",
+      "npm:zx@^8.8.4"
     ]
   }
 }
