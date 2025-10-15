@@ -60,3 +60,6 @@ export SHELLBOT_PROMPT='
 
 export KUBECONFIG="$HOME/.kube/config"
 export GHQ_ROOT="$HOME/code/ghq"
+
+# For ubuntu
+export PKG_CONFIG_PATH="/usr/lib/x86_64-linux-gnu/pkgconfig:/usr/share/pkgconfig:$PKG_CONFIG_PATH"
