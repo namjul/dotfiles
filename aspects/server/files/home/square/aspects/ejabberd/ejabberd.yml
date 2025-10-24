@@ -30,7 +30,7 @@ log_rotate_count: 0
 #   - "example.org"
 
 hosts:
-  - localhost
+  - msg.samho.xyz
 
 certfiles:
   - "/etc/ejabberd/ejabberd.pem"
@@ -55,6 +55,9 @@ c2s_protocol_options: 'TLS_OPTIONS'
 s2s_protocol_options: 'TLS_OPTIONS'
 # c2s_dhfile: 'DH_FILE'
 # s2s_dhfile: 'DH_FILE'
+
+acme:
+  auto: false
 
 listen:
   -
@@ -97,7 +100,7 @@ listen:
     port: 5280
     ip: "::"
     module: ejabberd_http
-    tls: true
+    tls: false
     protocol_options: 'TLS_OPTIONS'
     request_handlers:
       /admin: ejabberd_web_admin
@@ -135,9 +138,7 @@ auth_password_format: scram
 
 acl:
   admin:
-     user:
-       - ""
-
+     user: root
   local:
     user_regexp: ""
   loopback:
