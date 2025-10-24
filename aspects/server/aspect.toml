@@ -39,7 +39,7 @@ run = """
 #!/usr/bin/env bash
 set -euxo pipefail
 # Check if the file is different from our git repository and if it is the case re-upload and restart the ssh server
-ssh root@$SERVER "cat /etc/ssh/sshd_config" | diff  - config/sshd_config || (scp config/sshd_config root@$SERVER:/etc/ssh/sshd_config && ssh root@$SERVER systemctl restart ssh.service)
+ssh root@$SERVER "cat /etc/ssh/sshd_config" | diff  - $MISE_TASK_DIR/config/sshd_config || (scp $MISE_TASK_DIR/config/sshd_config root@$SERVER:/etc/ssh/sshd_config && ssh root@$SERVER systemctl restart ssh.service)
 """
 
 ["server:firewall"]
@@ -47,7 +47,7 @@ description = 'Setup firewall'
 run = """
 #!/usr/bin/env bash
 set -euxo pipefail
-scp config/ufw.sh root@$SERVER:/tmp/ufw.sh
+scp $MISE_TASK_DIR/config/ufw.sh root@$SERVER:/tmp/ufw.sh
 ssh root@$SERVER 'chmod +x /tmp/ufw.sh && /tmp/ufw.sh'
 """
 
