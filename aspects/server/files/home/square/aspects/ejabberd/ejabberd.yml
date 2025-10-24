@@ -104,7 +104,9 @@ listen:
     protocol_options: 'TLS_OPTIONS'
     request_handlers:
       /admin: ejabberd_web_admin
-      /.well-known/acme-challenge: ejabberd_acme
+      /bosh: mod_bosh
+      /websocket: ejabberd_http_ws
+      /conversejs: mod_conversejs
   -
     port: 3478
     ip: "::"
@@ -294,6 +296,9 @@ modules:
     search: false
   mod_vcard_xupdate: {}
   mod_version: {}
+  mod_conversejs:
+    bosh_service_url: "/bosh"
+    websocket_url: "wss://msg.samho.xyz/websocket/"
 
 ### Local Variables:
 ### mode: yaml

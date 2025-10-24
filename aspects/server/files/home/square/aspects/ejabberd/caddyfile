@@ -1,5 +1,6 @@
 msg.samho.xyz {
     reverse_proxy /admin/* 127.0.0.1:5280
     reverse_proxy /bosh/* 127.0.0.1:5280
+    reverse_proxy /conversejs/* 127.0.0.1:5280
     reverse_proxy /websocket/* 127.0.0.1:5280
 }
