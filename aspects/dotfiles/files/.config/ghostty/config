@@ -46,8 +46,8 @@ keybind = shift+right=adjust_selection:right
 keybind = shift+down=adjust_selection:down
 
 keybind = ctrl+0=reset_font_size
-keybind = ctrl+plus=increase_font_size:1
-keybind = ctrl+minus=decrease_font_size:1
+keybind = ctrl++=increase_font_size:1
+keybind = ctrl+-=decrease_font_size:1
 
 # Change control+I to F6
 keybind = ctrl+i=text:\x1b[17~
