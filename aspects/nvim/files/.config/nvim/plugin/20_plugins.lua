@@ -106,6 +106,59 @@ now_if_args(function()
   vim.treesitter.language.register('markdown', 'mdx') -- the someft filetype will use the python parser and queries.
 end)
 
+now_if_args(function()
+  local minifiles = require('mini.files')
+  minifiles.setup({
+    windows = { preview = true },
+
+    mappings = {
+      go_in = 'L',
+      go_in_plus = '<CR>',
+      go_out = '-',
+      go_out_plus = '',
+    },
+
+    options = {
+      use_as_default_explorer = true,
+    },
+  })
+
+  local set_cwd = function()
+    local path = (minifiles.get_fs_entry() or {}).path
+    if path == nil then return vim.notify('Cursor is not on valid entry') end
+    vim.fn.chdir(vim.fs.dirname(path))
+  end
+
+  -- Yank in register full path of entry under cursor
+  local yank_path = function()
+    local path = (minifiles.get_fs_entry() or {}).path
+    if path == nil then return vim.notify('Cursor is not on valid entry') end
+    vim.fn.setreg(vim.v.register, path)
+  end
+
+  vim.api.nvim_create_autocmd('User', {
+    pattern = 'MiniFilesBufferCreate',
+    callback = function(args)
+      local b = args.data.buf_id
+      -- TODO add keymap to navigate to cwd
+      vim.keymap.set('n', 'cd', set_cwd, { buffer = b, desc = 'Set cwd' })
+      vim.keymap.set('n', 'gy', yank_path, { buffer = b, desc = 'Yank path' })
+    end,
+  })
+
+  local dotfiles_augroup = vim.api.nvim_create_augroup('dotfiles', {})
+  vim.api.nvim_create_autocmd('User', {
+    group = dotfiles_augroup,
+    pattern = 'MiniFilesExplorerOpen',
+    callback = function()
+      minifiles.set_bookmark('d', vim.fs.normalize('~/.dotfiles'), { desc = 'Dotfiles' })
+      minifiles.set_bookmark('c', vim.fn.stdpath('config'), { desc = 'Config' })
+      minifiles.set_bookmark('p', vim.fn.stdpath('data') .. '/site/pack/deps/opt', { desc = 'Plugins' })
+      minifiles.set_bookmark('w', vim.fn.getcwd, { desc = 'Working directory' })
+    end,
+  })
+end)
+
 -- Step two ===
 later(function() require('mini.extra').setup() end)
 
@@ -417,55 +470,6 @@ later(function()
       end,
       default_ft = 'markdown', -- Default filetype to use
     },
-  })
-end)
-
-later(function()
-  local minifiles = require('mini.files')
-  minifiles.setup({
-    windows = { preview = true },
-
-    mappings = {
-      go_in = 'L',
-      go_in_plus = '<CR>',
-      go_out = '-',
-      go_out_plus = '',
-    },
-  })
-
-  local set_cwd = function()
-    local path = (minifiles.get_fs_entry() or {}).path
-    if path == nil then return vim.notify('Cursor is not on valid entry') end
-    vim.fn.chdir(vim.fs.dirname(path))
-  end
-
-  -- Yank in register full path of entry under cursor
-  local yank_path = function()
-    local path = (minifiles.get_fs_entry() or {}).path
-    if path == nil then return vim.notify('Cursor is not on valid entry') end
-    vim.fn.setreg(vim.v.register, path)
-  end
-
-  vim.api.nvim_create_autocmd('User', {
-    pattern = 'MiniFilesBufferCreate',
-    callback = function(args)
-      local b = args.data.buf_id
-      -- TODO add keymap to navigate to cwd
-      vim.keymap.set('n', 'cd', set_cwd, { buffer = b, desc = 'Set cwd' })
-      vim.keymap.set('n', 'gy', yank_path, { buffer = b, desc = 'Yank path' })
-    end,
-  })
-
-  local dotfiles_augroup = vim.api.nvim_create_augroup('dotfiles', {})
-  vim.api.nvim_create_autocmd('User', {
-    group = dotfiles_augroup,
-    pattern = 'MiniFilesExplorerOpen',
-    callback = function()
-      minifiles.set_bookmark('d', vim.fs.normalize('~/.dotfiles'), { desc = 'Dotfiles' })
-      minifiles.set_bookmark('c', vim.fn.stdpath('config'), { desc = 'Config' })
-      minifiles.set_bookmark('p', vim.fn.stdpath('data') .. '/site/pack/deps/opt', { desc = 'Plugins' })
-      minifiles.set_bookmark('w', vim.fn.getcwd, { desc = 'Working directory' })
-    end,
   })
 end)
 
