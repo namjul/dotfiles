@@ -60,7 +60,7 @@ now_if_args(function()
       -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
       -- Using this option may slow down your editor, and you may see some duplicate highlights.
       -- Instead of true it can also be a list of languages
-      additional_vim_regex_highlighting = false,
+      additional_vim_regex_highlighting = { 'markdown' },
     },
     -- Indentation based on treesitter for the = operator. NOTE: This is an experimental feature.
     indent = { enable = true, disable = { 'python' } },
@@ -700,7 +700,16 @@ end)
 --   checkout = 'main'
 -- }) end)
 
-later(function() add('MeanderingProgrammer/render-markdown.nvim') end)
+later(function()
+  add('MeanderingProgrammer/render-markdown.nvim')
+  vim.api.nvim_set_hl(0, 'MarkdownHighlight', { bg = '#FBF719' })
+  require('render-markdown').setup({
+    inline_highlight = {
+      enabled = true,
+      highlight = 'MarkdownHighlight',
+    },
+  })
+end)
 
 later(function()
   local build = function(pkg)
