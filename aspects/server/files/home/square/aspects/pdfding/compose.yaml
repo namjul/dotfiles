@@ -4,7 +4,7 @@ services:
     image: mrmn/pdfding:latest
     user: "0:0"
     ports:
-      - "5007:8000"
+      - "5008:8000"
     environment:
       - DEFAULT_THEME=${DEFAULT_THEME:-dark}
       - DEFAULT_THEME_COLOR=${DEFAULT_THEME_COLOR:-blue}
