@@ -28,7 +28,7 @@ run = """
 #!/usr/bin/env bash
 set -euxo pipefail
 ssh root@$SERVER 'apt-get update -y && apt-get install -y nala'
-ssh root@$SERVER 'nala install -y curl vim htop ufw git unzip gnupg acl mosh'
+ssh root@$SERVER 'nala install -y curl vim htop ufw git unzip gnupg acl mosh ncdu'
 # Enable automatic security Updates
 ssh root@$SERVER 'echo "unattended-upgrades unattended-upgrades/enable_auto_updates boolean true" | debconf-set-selections && apt-get install unattended-upgrades -y'
 """
