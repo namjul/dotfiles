@@ -1,1 +1,1 @@
-ghostty --command=wiremix
+ghostty --title=Wiremix --command=wiremix
