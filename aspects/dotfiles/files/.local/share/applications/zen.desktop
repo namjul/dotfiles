@@ -1,0 +1,6 @@
+[Desktop Entry]
+Name=Zen Browser
+Exec=zen
+Type=Application
+Terminal=false
+Categories=Browser;
