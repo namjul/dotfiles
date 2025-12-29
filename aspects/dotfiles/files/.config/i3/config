@@ -118,7 +118,8 @@ bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl set 5%-
 bindsym $mod+Shift+Tab move scratchpad
 
 # Show the first scratchpad window
-bindsym $mod+Tab scratchpad show; [floating] resize set 80 ppt 98 ppt; move position 1 ppt 1 ppt
+# bindsym $mod+Tab scratchpad show; [floating] resize set 80 ppt 98 ppt; move position 1 ppt 1 ppt
+bindsym $mod+Tab exec --no-startup-id ~/.config/i3/scratchpad_focused.sh
 
 # Print
 bindsym Print exec flameshot gui
