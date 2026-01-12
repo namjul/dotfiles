@@ -5,6 +5,7 @@ golang = "1.20"
 node = "22.16.0"
 lua = "latest"
 python = "3.11"
+pipx = 'latest'
 bun = "latest"
 ruby = "latest"
 rust = "latest"
