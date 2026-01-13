@@ -155,6 +155,7 @@ now_if_args(function()
       minifiles.set_bookmark('c', vim.fn.stdpath('config'), { desc = 'Config' })
       minifiles.set_bookmark('p', vim.fn.stdpath('data') .. '/site/pack/deps/opt', { desc = 'Plugins' })
       minifiles.set_bookmark('w', vim.fn.getcwd, { desc = 'Working directory' })
+      minifiles.set_bookmark('m', vim.fs.normalize('~/Dropbox/memex/'), { desc = 'Memex' })
     end,
   })
 end)
