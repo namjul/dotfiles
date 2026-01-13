@@ -615,11 +615,7 @@ end)
 
 later(function()
   local minipick = require('mini.pick')
-  minipick.setup({
-    mappings = {
-      choose_marked = '<M-q>',
-    },
-  })
+  minipick.setup()
   vim.ui.select = minipick.ui_select
   vim.keymap.set('n', ',', '<Cmd>Pick buf_lines scope="current" preserve_order=true<CR>', { nowait = true })
 
