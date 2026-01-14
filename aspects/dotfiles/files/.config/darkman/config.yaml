@@ -1,5 +1,7 @@
-lat: 48.208176
-lng: 16.373819
+# lat: 48.208176
+# lng: 16.373819
+lat: 18.7
+lng: 98.9
 usegeoclue: false
 dbusserver: true
 portal: false

@@ -92,7 +92,7 @@ exec --no-startup-id lxpolkit
 exec_always --no-startup-id xset r rate 200 30
 
 # For i3, run geoclue agent in the background
-exec --no-startup-id /usr/libexec/geoclue-2.0/demos/agent
+# exec --no-startup-id /usr/libexec/geoclue-2.0/demos/agent
 
 # Set wallpaper
 exec_always --no-startup-id sleep 2 && feh --no-fehbg --bg-scale "$HOME/.config/i3/Albert_Bierstadt,_Among_the_Sierra_Nevada_Mountains.jpg"
