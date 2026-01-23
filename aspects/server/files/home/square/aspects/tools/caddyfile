@@ -1,0 +1,13 @@
+tools.samho.xyz {
+  root * {$SQUARE_PATH}/data/share/ghq/github.com/namjul/llm-toolbox
+  encode zstd gzip
+
+  try_files {path} {path}.html
+  file_server {
+    hide .git
+  }
+  handle_errors {
+    rewrite * /{err.status_code}.html
+    file_server
+  }
+}
