@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Name=Claude
+Comment=Launch Claude in Chromium
+Exec=chromium --app=https://claude.ai/
+Terminal=false
+Type=Application
+Categories=Network;Productivity;
+StartupWMClass=claude

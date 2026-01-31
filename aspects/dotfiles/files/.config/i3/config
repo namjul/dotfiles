@@ -303,7 +303,8 @@ bindsym $mod+b exec --no-startup-id chromium
 
 bindsym $mod+Shift+m exec --no-startup-id gtk-launch spotify
 bindsym $mod+a exec --no-startup-id gtk-launch chatgpt
-bindsym $mod+Shift+a exec --no-startup-id gtk-launch grok
+bindsym $mod+Shift+a exec --no-startup-id gtk-launch claude
+# bindsym $mod+Shift+a exec --no-startup-id gtk-launch grok
 bindsym $mod+Ctrl+a exec --no-startup-id gtk-launch deepseek
 bindsym $mod+d exec --no-startup-id gtk-launch devdocs
 bindsym $mod+Shift+f exec --no-startup-id gtk-launch org.gnome.Nautilus
