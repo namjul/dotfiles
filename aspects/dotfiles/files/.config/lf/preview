@@ -5,17 +5,33 @@
 FILE="$1"
 WIDTH="$2" # Width of preview area; for full width of `lf` UI, see $lf_width.
 HEIGHT="$3" # Height of preview area; for full height of `lf` UI, see $lf_height.
+X="$4"
+Y="$5"
+
 
 # For some reason, $WIDTH seems to overstate the number of available columns by
 # about 10%, so adjust it down to 90% of initial value.
 WIDTH=$((WIDTH / 10 * 9))
 WIDTH=$((WIDTH < 10 ? $2 : WIDTH)) # Too small. Just leave it as it was.
 
-case $(file --brief --mime-type "$FILE") in
+draw() {
+  kitten icat --stdin no --transfer-mode memory --place "${WIDTH}x${HEIGHT}@${X}x${Y}" "$FILE" </dev/null >/dev/tty
+  exit 1
+}
+
+case "$(file -Lb --mime-type "$FILE")" in
   application/zip) unzip -l "$1";;
+  # image/*)
+  #   chafa --fill=block --symbols=block --colors=256 --size="$WIDTH"x"$HEIGHT" "$FILE"
+  #   ;;
   image/*)
-    chafa --fill=block --symbols=block --colors=256 --size="$WIDTH"x"$HEIGHT" "$FILE"
+    draw "$FILE"
     ;;
+  # video/*)
+  #   # vidthumb is from here:
+  #   # https://raw.githubusercontent.com/duganchen/kitty-pistol-previewer/main/vidthumb
+  #   draw "$(vidthumb "$FILE")"
+  #   ;;
   application/json | text/*)
     if [[ $FILE == *.md ]]; then
       # Need `-s light` to force color outside of interactive shell:

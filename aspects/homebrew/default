@@ -27,6 +27,7 @@ brew install grex # https://github.com/pemistahl/grex -- A command-line tool and
 brew install zoxide # https://github.com/ajeetdsouza/zoxide -- A smarter cd command. Supports all major shells.
 brew install nushell # https://github.com/nushell/nushell -- A new type of shell
 brew install yazi # https://github.com/sxyazi/yazi
+brew install lf # https://github.com/gokcehan/lf
 brew install poppler # https://poppler.freedesktop.org
 brew intsall ffmpegthumbnailer
 brew install jstkdng/programs/ueberzugpp
