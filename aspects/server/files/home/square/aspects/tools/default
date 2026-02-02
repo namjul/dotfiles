@@ -8,6 +8,10 @@ cd $SITE_PATH
 
 git clone --local "$SQUARE_PATH/data/share/soft-serve/repos/llm-tools.git" "repo" || echo "Repo already cloned"
 
+(cd "$root/../soft-serve" && \
+  mise run soft-serve:webhooks:create --repo llm-tools --id refresh \
+) || echo "Webhook already exists (or could not be created), continuing…" >&2
+
 cd $SITE_PATH/repo
 
 git reset --hard HEAD

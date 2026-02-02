@@ -1,0 +1,11 @@
+[
+  {
+    "id": "refresh",
+    "execute-command": "/usr/local/bin/mise",
+    "command-working-directory": "/home/square/aspects/tools",
+    "pass-arguments-to-command": [
+      { "source": "string", "name": "run" },
+      { "source": "string", "name": "default" }
+    ]
+  },
+]
