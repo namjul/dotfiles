@@ -2,4 +2,13 @@
 
 set -e
 
-ghq get --update https://github.com/namjul/llm-toolbox
+mkdir -m 770 -p $SITE_PATH
+
+cd $SITE_PATH
+
+git clone --local "$SQUARE_PATH/data/share/soft-serve/repos/llm-tools.git" "repo" || echo "Repo already cloned"
+
+cd $SITE_PATH/repo
+
+git reset --hard HEAD
+git pull origin --rebase

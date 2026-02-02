@@ -1,2 +1,5 @@
+[env]
+SITE_PATH = "{{env.SQUARE_PATH}}/data/share/llm-tool"
+
 [tasks.default]
 file = './default'

@@ -1,5 +1,5 @@
 tools.samho.xyz {
-  root * {$SQUARE_PATH}/data/share/ghq/github.com/namjul/llm-toolbox
+  root * {$SQUARE_PATH}/data/share/llm-tool/repo
   encode zstd gzip
 
   try_files {path} {path}.html
