@@ -12,7 +12,9 @@ ghq get https://github.com/namjul/rhizomi
 cd $SQUARE_PATH/data/share/ghq/github.com/namjul/rhizomi
 bun install
 
-#(cd $root/../soft-serve && mise run soft-serve:webhooks:create --repo memex --id generate-anki) || "Could not create webhook."
+(cd "$root/../soft-serve" && \
+  mise run soft-serve:webhooks:create --repo memex --id generate-anki \
+) || echo "Webhook already exists (or could not be created), continuing…" >&2
 
 cd $SITE_PATH/repo
 
