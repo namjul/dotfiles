@@ -1,0 +1,23 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "theme": "gruvbox",
+  "model": "anthropic/claude-sonnet-4-5",
+  "autoupdate": true,
+  "instructions": ["CONTRIBUTING.md", "docs/guidelines.md", ".cursor/rules/*.md"],
+  "provider": {
+    "openai": {
+      "models": {
+        "gpt-5.3-codex": {
+          "options": { }
+        }
+      }
+    },
+    "anthropic": {
+      "models": {
+        "claude-sonnet-4-5-20250929": {
+          "options": { }
+        }
+      }
+    }
+  }
+}
