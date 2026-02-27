@@ -11,6 +11,7 @@ ruby = "latest"
 rust = "latest"
 zig = "latest"
 usage = "latest"
+"github:anomalyco/opencode" = "latest"
 
 [settings]
 experimental = false
