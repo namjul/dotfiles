@@ -74,6 +74,7 @@ abbr tmp ' cd (mktemp -d)'
 abbr untar 'tar -xvf' # extract .tar.gz
 abbr --add unset 'set --erase' # remove env variable
 abbr mr 'mise run' # run mise tasks
+abbr dspace 'du -cha --max-depth=1 . | grep -E "M|G"'
 
  # replicate pbcopy from macos
 alias pbcopy 'xclip -selection clipboard'
