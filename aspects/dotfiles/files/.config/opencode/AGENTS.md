@@ -1,4 +1,4 @@
-# Follow the instructions in CLAUDE.md and related files eagerly
+# Follow the instructions in AGENTS.md and related files eagerly
 You should follow the instructions immediately without being prompted.
 
 # Avoid using anthropomorphizing language
@@ -18,4 +18,29 @@ In general, if you're thinking of using `grep`, you should use rg instead, becau
 # Handling uncertainty
 When working from ambiguous inputs (screenshots not fully read, option names inferred rather than reading directly), state what you can and cannot see, then ask a clarifying question before proceeding.
 
+# Do not remove untracked files in Git
+When preparing commits, use git add to prepare the index before running git commit, including only the files that are relevant to the commit.
 
+**DO NOT** remove untracked files from the repository.
+
+# Don't create lines with trailing whitespace
+
+This includes lines with nothing but whitespace. For example, in the following example, the blank line between the calls to foo() and bar() should not contain any spaces:
+
+```
+if (true) {
+    foo();
+
+    bar();
+}
+```
+# Comments
+
+**NEVER** make descriptive comments that redundantly encode what can trivially be understood by reading well-named variables and functions. For example, the following is an example of a bad comment that has no value and should not exist:
+
+```js
+// Check if this record type is supported by the data store.
+const isDataStoreSupported = isRecordTypeSupportedByDataStore(
+  record.recordType,
+);
+```
