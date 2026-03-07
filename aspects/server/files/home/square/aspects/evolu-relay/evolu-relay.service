@@ -1,0 +1,18 @@
+
+[Unit]
+Description=Evolu Relay Server - WebSocket relay for multi-device sync
+After=network.target
+Requires=network.target
+
+[Service]
+EnvironmentFile=/etc/environment
+DynamicUser=yes
+Group=square
+ReadWritePaths=/home/square
+WorkingDirectory=/home/square/aspects/evolu-relay
+ExecStart=mise exec -- node relay.js
+Restart=on-failure
+NoNewPrivileges=true
+
+[Install]
+WantedBy=multi-user.target

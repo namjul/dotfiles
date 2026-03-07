@@ -1,0 +1,11 @@
+[env]
+RELAY_PORT = "4000"
+RELAY_QUOTA_MB = "1000"
+RELAY_LOGGING = "false"
+RELAY_DATA = "{{env.SQUARE_PATH}}/data/share/evolu-relay"
+
+[tools]
+node = "22"
+
+[tasks.default]
+file = './default'

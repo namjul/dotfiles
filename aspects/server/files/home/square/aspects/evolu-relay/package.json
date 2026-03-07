@@ -1,0 +1,10 @@
+{
+  "name": "evolu-relay",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Self-hosted Evolu WebSocket relay server for multi-device sync",
+  "dependencies": {
+    "@evolu/common": "^7.4.0",
+    "@evolu/nodejs": "^2.4.0"
+  }
+}
