@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+
+# Ensure i3-msg can connect
+export DISPLAY=:0
+export XAUTHORITY="$HOME/.Xauthority"
+
+# Usage: launch-or-focus APP_PATTERN LAUNCH_COMMAND
+# Example: launch-or-focus Wiremix "ghostty --class float-wiremix --command wiremix"
+
+if [ $# -lt 2 ]; then
+  echo "Usage: $0 APP_PATTERN LAUNCH_COMMAND"
+  exit 1
+fi
+
+APP_PATTERN="$1"
+shift
+LAUNCH_COMMAND="$*"
+
+# Find the first matching window by title, class, or instance
+WINDOW_ID=$(i3-msg -t get_tree | jq -r --arg pattern "$APP_PATTERN" '.. | objects | select(.window_properties? != null and ( (.window_properties.title // "" | test($pattern;"i")) or (.window_properties.class // "" | test($pattern;"i")) or (.window_properties.instance // "" | test($pattern;"i")))) | .id' | head -n1)
+
+if [[ -n "$WINDOW_ID" ]]; then
+  # Focus existing window
+  i3-msg "[con_id=$WINDOW_ID] focus"
+else
+  # Launch new window in background
+  setsid $LAUNCH_COMMAND >/dev/null 2>&1 &
+fi

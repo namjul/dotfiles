@@ -1,1 +1,1 @@
-ghostty --title=Impala --command=impala
+launch-or-focus impala "ghostty --title=Impala --command=impala"

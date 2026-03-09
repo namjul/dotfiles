@@ -1,1 +1,1 @@
-ghostty --title=Wiremix --command=wiremix
+launch-or-focus wiremix "ghostty --title=Wiremix --command=wiremix"

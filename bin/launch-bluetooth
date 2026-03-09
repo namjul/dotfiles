@@ -1,1 +1,1 @@
-ghostty --title=BlueTui --command=bluetui
+launch-or-focus bluetui "ghostty --title=BlueTui --command=bluetui"
