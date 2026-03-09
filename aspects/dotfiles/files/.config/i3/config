@@ -182,6 +182,8 @@ bindsym $mod+f fullscreen toggle
 bindsym $mod+s layout toggle tabbed splith
 workspace_layout tabbed
 
+for_window [class="float-win"] floating enable, move workspace current
+
 # toggle tiling / floating
 bindsym $mod+Shift+space floating toggle; [floating] resize set 50 ppt 98 ppt; move position 1 ppt 1 ppt
 

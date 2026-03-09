@@ -1,1 +1,1 @@
-launch-or-focus impala "ghostty --title=Impala --command=impala"
+launch-or-focus impala "ghostty --font-size=10 --class=org.namjul.float-win --title=Impala --command=impala"
