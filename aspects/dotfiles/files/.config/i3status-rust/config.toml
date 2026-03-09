@@ -17,6 +17,15 @@ interval = 5
 format = " $icon $percentage "
 full_format = " $icon  "
 
+[[block]]
+block = "bluetooth"
+mac = "E4:58:BC:64:1D:19"
+disconnected_format = " \uf293 "
+format = " \uf293 "
+[[block.click]]
+button = "left"
+cmd = "launch-bluetooth"
+
 # [[block]]
 # block = "cpu"
 # info_cpu = 20
@@ -33,10 +42,6 @@ full_format = " $icon  "
 # warning = 20.0
 # alert = 10.0
 # format = " $icon root: $available.eng(w:2) "
-
-[[block]]
-block = "notify"
-format = " $icon "
 
 # [[block]]
 # block = "xrandr"
@@ -55,6 +60,10 @@ format = " $icon "
 button = "left"
 cmd = "launch-audio"
 
+[[block]]
+block = "notify"
+format = " $icon "
+
 # [[block]]
 # block = "docker"
 # interval = 2
@@ -70,18 +79,13 @@ format = " $icon "
 button = "left"
 cmd = "launch-wifi"
 
+
 [[block]]
-block = "bluetooth"
-mac = "00:18:09:92:1B:BA"
-disconnected_format = " $icon "
-format = " $icon "
-[block.battery_state]
-"0..20" = "critical"
-"21..70" = "warning"
-"71..100" = "good"
+block = "custom"
+command = "echo 󰍛"
 [[block.click]]
 button = "left"
-cmd = "launch-bluetooth"
+cmd = "launch-btop"
 
 [[block]]
 block = "time"
