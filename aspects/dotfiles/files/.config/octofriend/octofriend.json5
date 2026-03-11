@@ -1,0 +1,13 @@
+{
+  configVersion: 1,
+  yourName: 'Sam',
+  models: [
+    {
+      nickname: 'Qwen 2.5 Coder 32B',
+      baseUrl: 'http://192.168.1.12:11434/v1',
+      apiEnvVar: 'HOME',
+      model: 'qwen2.5-coder:32b',
+      context: 65536,
+    },
+  ],
+}

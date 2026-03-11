@@ -5,6 +5,26 @@
   "autoupdate": true,
   "instructions": ["CONTRIBUTING.md", "docs/guidelines.md", ".cursor/rules/*.md"],
   "provider": {
+    "ollama": {
+      "npm": "@ai-sdk/openai-compatible",
+      "options": {
+        "baseURL": "http://192.168.1.12:11434/v1"
+      },
+      "models": {
+        "qwen3:8b": {
+          "tools": true,
+          "options": {
+            "num_ctx": 32768
+          }
+        },
+        "qwen2.5-coder:32b": {
+          "tools": true,
+          "options": {
+            "num_ctx": 32768
+          }
+        }
+      }
+    },
     "openai": {
       "models": {
         "gpt-5.3-codex": {
