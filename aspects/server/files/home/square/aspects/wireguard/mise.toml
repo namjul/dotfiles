@@ -1,0 +1,6 @@
+[env]
+VPS_PRIVATE_KEY = ""
+DESKTOP_PUBLIC_KEY = ""
+
+[tasks.default]
+file = './default'

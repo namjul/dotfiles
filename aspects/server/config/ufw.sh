@@ -10,5 +10,6 @@ ufw allow 443
 ufw allow 6443
 ufw allow 60000:61000/udp
 ufw allow 23231
+ufw allow 51820/udp
 ufw enable
 ufw status verbose

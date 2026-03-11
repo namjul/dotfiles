@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+# mise description="Setup WireGuard VPN Tunnel"
+
+set -euxo pipefail
+
+sudo apt install wireguard -y
+
+echo "net.ipv4.ip_forward=1" | sudo tee -a /etc/sysctl.conf
+sudo sysctl -p
+
+envsubst < ${root}/wg0.conf | sudo tee /etc/wireguard/wg0.conf
+
+sudo systemctl daemon-reload
+sudo systemctl enable --now wg-quick@wg0
+sudo systemctl restart wg-quick@wg0
