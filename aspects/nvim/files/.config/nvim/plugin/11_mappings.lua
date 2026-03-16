@@ -148,6 +148,7 @@ nmap_leader('Ls', '<Cmd>lua Config.log_print()<CR>', 'Show log')
 nmap_leader('LL', '<Cmd>luafile %<CR><Cmd>echo "Sourced lua"<CR>', 'Source buffer')
 
 -- o is for `other`
+nmap_leader('oo', ':only<CR>', 'Make the current window the only one on the screen')
 nmap_leader('ot', '<Cmd>lua MiniTrailspace.trim()<CR>', 'Trim trailspace')
 nmap_leader('oh', '<Cmd>lua MiniNotify.show_history()<CR>', 'Notification history')
 nmap_leader('oz', '<Cmd>lua MiniMisc.zoom()<CR>', 'Zoom toggle')
