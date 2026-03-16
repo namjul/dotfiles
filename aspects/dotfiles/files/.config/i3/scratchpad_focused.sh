@@ -18,5 +18,13 @@ height=$(printf "%.0f" "$(echo "$h * 0.98" | bc)")
 pos_x=$(printf "%.0f" "$(echo "$w * 0.01 + $x" | bc)")
 pos_y=$(printf "%.0f" "$(echo "$h * 0.01 + $y" | bc)")
 
-# Apply floating + resize + move commands
-i3-msg "scratchpad show, [floating] resize set $width $height, move position $pos_x $pos_y"
+# Check if scratchpad is already visible on the focused workspace
+focused_workspace=$(i3-msg -t get_workspaces | jq -r '.[] | select(.focused == true) | .name')
+scratchpad_on_workspace=$(i3-msg -t get_tree | jq -r ".. | select(.type? == \"workspace\" and .name == \"$focused_workspace\") | .. | select(.scratchpad_state? == \"changed\") | .id" | wc -l)
+
+# Toggle scratchpad and only resize/move if we're showing it
+if [ "$scratchpad_on_workspace" -eq 0 ]; then
+    i3-msg "scratchpad show, resize set $width $height, move position $pos_x $pos_y"
+else
+    i3-msg "scratchpad show"
+fi
