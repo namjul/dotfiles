@@ -6,6 +6,7 @@ local d = luasnip.dynamic_node
 local i = luasnip.insert_node
 local s = luasnip.snippet
 local sn = luasnip.snippet_node
+local t = luasnip.text_node
 
 -- Snippets common to JS and TS.
 local snippets = {
@@ -29,7 +30,11 @@ local snippets = {
       end, { 1 }),
     })
   ),
-  s({ trig = 'log', dscr = 'console.log' }, fmt('console.log({});', { i(1, '') })),
+  s('cl', {
+    t('console.log('),
+    i(1),
+    t(');'),
+  }),
   s(
     { trig = 'require', dscr = 'require statement' },
     fmt("const {} = require('{}{}');", {

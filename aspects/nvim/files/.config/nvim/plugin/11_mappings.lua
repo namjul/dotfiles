@@ -153,6 +153,12 @@ nmap_leader('oh', '<Cmd>lua MiniNotify.show_history()<CR>', 'Notification histor
 nmap_leader('oz', '<Cmd>lua MiniMisc.zoom()<CR>', 'Zoom toggle')
 nmap_leader('or', '<Cmd>lua MiniMisc.resize_window()<CR>', 'Resize to default width')
 
+vim.keymap.set('n', '<leader>ol', function()
+  local var = vim.fn.expand('<cword>')
+  local line = 'console.log("' .. var .. ':", ' .. var .. ');'
+  vim.api.nvim_put({ line }, 'l', true, true)
+end)
+
 -- t is for 'terminal' (uses 'neoterm') and 'minitest'
 nmap_leader('tT', '<Cmd>belowright Tnew<CR>', 'Terminal (horizontal)')
 nmap_leader('tt', '<Cmd>vertical Tnew<CR>', 'Terminal (vertical)')
