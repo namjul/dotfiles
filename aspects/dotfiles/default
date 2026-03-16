@@ -1,73 +1,76 @@
-#!/usr/bin/env -S deno run --allow-all
+#!/usr/bin/env bash
 
-import { $, path, fs, spinner, os } from 'zx'
+# https://github.com/guettli/bash-strict-mode
+trap 'echo "Warning: A command has failed. Exiting the script. Line was ($0:$LINENO): $(sed -n "${LINENO}p" "$0")"; exit 3' ERR
+set -Eeuo pipefail
 
+# Variables
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+FILES_DIR="$SCRIPT_DIR/files"
+TARGET_DIR="$HOME"
 
-// TODO rewrite with pseudocode from https://chatgpt.com/share/68e69492-6d68-8003-be7b-945f8b2d010e
+# Ensure base directories exist
+mkdir -p "$HOME/.config"
 
-const aspect = import.meta.dirname;
+# Process all files recursively
+while IFS= read -r -d '' source_file; do
+  # Calculate relative path from FILES_DIR
+  rel_path="${source_file#$FILES_DIR/}"
 
-const files = path.join(aspect!, "files");
+  # Get filename and check for hard- prefix
+  filename="$(basename "$source_file")"
 
-await spinner("make directories", async () => {
-  await $`mkdir -p ${os.homedir()}/.config`;
-});
+  if [[ "$filename" == hard-* ]]; then
+    # Hardlink: strip 'hard-' prefix for target
+    is_hardlink=true
+    target_name="${filename#hard-}"
+    dir_path="$(dirname "$rel_path")"
+    target_path="$TARGET_DIR/$dir_path/$target_name"
+  else
+    # Symlink: use same path
+    is_hardlink=false
+    target_path="$TARGET_DIR/$rel_path"
+  fi
 
-await spinner("create symlinks", async () => {
-  const targetDir = os.homedir();
-  const _files = await fs.readdir(files, {
-    recursive: true,
-    withFileTypes: true,
-  });
+  # Ensure target directory exists (not symlinked)
+  target_dir="$(dirname "$target_path")"
 
-  const linkFiles = (
-    await Promise.all(
-      _files.flatMap(async (dirent) => {
-        if (!dirent.isFile()) {
-          return [];
-        }
+  # CRITICAL CHECK: Detect if parent directory is a symlink
+  if [ -L "$target_dir" ]; then
+    echo "WARNING: Target directory is a symlink: $target_dir"
+    echo "  This may be a legacy directory-level symlink from old dotfiles setup."
+    echo "  Please remove it and re-run this script:"
+    echo "    rm '$target_dir'"
+    echo "    mise run dotfiles"
+    echo "  Skipping: $source_file"
+    continue
+  fi
 
-        const isHardlink = dirent.name.startsWith("hard-");
+  mkdir -p "$target_dir"
 
-        // Contstruct source and target paths
-        const sourcePath = path.join(
-          files,
-          path.relative(files, path.join(dirent.parentPath, dirent.name)),
-        );
-        const targetPath = path.join(
-          targetDir,
-          path.relative(
-            files,
-            path.join(dirent.parentPath, dirent.name.replace(/^hard-/, "")),
-          ),
-        );
+  # Skip if target already points to source (idempotent check)
+  if [ -e "$target_path" ] || [ -L "$target_path" ]; then
+    if [ "$source_file" -ef "$target_path" ]; then
+      continue
+    fi
+  fi
 
-        // Ensure the target subdirectory exists
-        const targetSubDir = path.dirname(targetPath);
-        await fs.mkdir(targetSubDir, { recursive: true });
+  # Create link
+  if $is_hardlink; then
+    # Hardlink: use ln -f (force overwrite)
+    if ! ln -f "$source_file" "$target_path"; then
+      echo "ERROR: Failed to create hardlink"
+      echo "  Source: $source_file"
+      echo "  Target: $target_path"
+      echo "  Hardlinks require source and target on same filesystem"
+      exit 1
+    fi
+    echo "HARDLINK: $source_file -> $target_path"
+  else
+    # Symlink: use ln -sfn (force, no-dereference for dirs)
+    ln -sfn "$source_file" "$target_path"
+    echo "SOFTLINK: $source_file -> $target_path"
+  fi
+done < <(find "$FILES_DIR" -type f -print0)
 
-        try {
-          await fs.access(targetPath);
-          // console.log(`SKIP: ${relativePath}: already exists in ${targetDir}`);
-          return [];
-        } catch (_err) {
-          return { sourcePath, targetPath, link: isHardlink ? "hard" : "soft" };
-        }
-      }),
-    )
-  ).flat();
-
-  if (!linkFiles.length) {
-    console.log("No files to link");
-  }
-
-  for (const file of linkFiles) {
-    if (file.link === "hard") {
-      await $`ln -f "${file.sourcePath}" "${file.targetPath}"`;
-      console.log(`HARDLINK: ${file.sourcePath} -> ${file.targetPath}`);
-    } else {
-      await $`ln -s "${file.sourcePath}" "${file.targetPath}"`;
-      console.log(`SOFTLINK: ${file.sourcePath} -> ${file.targetPath}`);
-    }
-  }
-});
+echo "Dotfiles linking complete"
