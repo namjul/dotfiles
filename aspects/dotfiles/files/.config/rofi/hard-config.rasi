@@ -5,4 +5,4 @@ configuration {
   combi-modes: [ drun ];
 }
 
-@theme "gruvbox-light"
+@theme "gruvbox-dark"
