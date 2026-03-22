@@ -158,6 +158,76 @@ now_if_args(function()
       minifiles.set_bookmark('m', vim.fs.normalize('~/Dropbox/memex/'), { desc = 'Memex' })
     end,
   })
+
+  -- currently not possible: https://github.com/nvim-mini/mini.nvim/discussions/2025#discussioncomment-14515019
+  --
+  -- local capabilities = {
+  --   willRenameFiles = 'willRename',
+  --   willCreateFiles = 'willCreate',
+  --   willDeleteFiles = 'willDelete',
+  -- }
+  --
+  -- local miniEvents = {
+  --   willRenameFiles = { 'MiniFilesActionRename' },
+  --   willCreateFiles = { 'MiniFilesActionCreate' },
+  --   willDeleteFiles = { 'MiniFilesActionDelete' },
+  -- }
+  --
+  -- local function setup_events(subscribe)
+  --   for capability in pairs(capabilities) do
+  --     subscribe(capability, miniEvents[capability])
+  --   end
+  -- end
+  --
+  -- local lsp_file_operations_augroup = vim.api.nvim_create_augroup('mini-lsp-file-operations', {})
+  -- setup_events(function(capability, event)
+  --   vim.api.nvim_create_autocmd('User', {
+  --     group = lsp_file_operations_augroup,
+  --     pattern = event,
+  --     callback = function(args)
+  --       local clients = vim.lsp.get_clients()
+  --       local method = 'workspace/' .. capability
+  --       local operation = capabilities[capability]
+  --
+  --       -- Check if any client supports this operation
+  --       local has_support = false
+  --       for _, client in ipairs(clients) do
+  --         local caps = client.server_capabilities
+  --         if caps.workspace and caps.workspace.fileOperations and caps.workspace.fileOperations[operation] then
+  --           has_support = true
+  --           break
+  --         end
+  --       end
+  --
+  --       if not has_support then return end
+  --
+  --       -- Build params
+  --       local params = { files = {} }
+  --
+  --       if capability == 'willRenameFiles' then
+  --         table.insert(params.files, {
+  --           oldUri = vim.uri_from_fname(args.data.from),
+  --           newUri = vim.uri_from_fname(args.data.to),
+  --         })
+  --       else
+  --         table.insert(params.files, {
+  --           uri = vim.uri_from_fname(args.data.path),
+  --         })
+  --       end
+  --
+  --       -- Send to all supporting clients
+  --       for _, client in ipairs(clients) do
+  --         local caps = client.server_capabilities
+  --         if caps.workspace and caps.workspace.fileOperations and caps.workspace.fileOperations[operation] then
+  --           client.request(method, params, function(err, result)
+  --             print('vim.lsp.util.apply_workspace_edit', result, client.offset_encoding)
+  --             if result then vim.lsp.util.apply_workspace_edit(result, client.offset_encoding) end
+  --           end)
+  --         end
+  --       end
+  --     end,
+  --   })
+  -- end)
 end)
 
 -- Step two ===

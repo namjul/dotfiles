@@ -12,6 +12,13 @@ vim.api.nvim_create_autocmd('LspAttach', {
 lsp.init = function()
   local capabilities = vim.lsp.protocol.make_client_capabilities()
 
+  -- -- Add file rename support
+  -- capabilities.workspace = capabilities.workspace or {}
+  -- capabilities.workspace.fileOperations = capabilities.workspace.fileOperations or {}
+  -- capabilities.workspace.fileOperations.didRename = true
+  -- capabilities.workspace.fileOperations.didCreate = true
+  -- capabilities.workspace.fileOperations.didDelete = true
+
   local has_blink = pcall(require, 'blink.cmp')
   if has_blink then
     capabilities = vim.tbl_deep_extend('force', capabilities, require('blink.cmp').get_lsp_capabilities({}, false))
