@@ -19,6 +19,7 @@
  *   RELAY_PORT=8080 RELAY_QUOTA_MB=100 node relay.js
  */
 
+import { mkdirSync } from "fs";
 import { createConsole } from "@evolu/common";
 import { createNodeJsRelay } from "@evolu/nodejs";
 
@@ -27,6 +28,9 @@ if (!relayDataDir) {
   console.error("Error: RELAY_DATA environment variable is required");
   process.exit(1);
 }
+
+mkdirSync(relayDataDir, { recursive: true });
+process.chdir(relayDataDir);
 
 const port = Number(process.env["RELAY_PORT"]) || 4000;
 const quotaMB = Number(process.env["RELAY_QUOTA_MB"]) || 10;
