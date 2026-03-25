@@ -4,6 +4,12 @@
 trap 'echo "Warning: A command has failed. Exiting the script. Line was ($0:$LINENO): $(sed -n "${LINENO}p" "$0")"; exit 3' ERR
 set -Eeuo pipefail
 
+# Read last fullscreen state (default 0 if missing)
+last_fullscreen=0
+if [ -f /tmp/i3_scratchpad_fullscreen ]; then
+    last_fullscreen=$(cat /tmp/i3_scratchpad_fullscreen)
+fi
+
 # Get the currently focused output
 focused_output=$(i3-msg -t get_workspaces | jq -r '.[] | select(.focused == true) | .output')
 
@@ -24,7 +30,14 @@ scratchpad_on_workspace=$(i3-msg -t get_tree | jq -r ".. | select(.type? == \"wo
 
 # Toggle scratchpad and only resize/move if we're showing it
 if [ "$scratchpad_on_workspace" -eq 0 ]; then
-    i3-msg "scratchpad show, resize set $width $height, move position $pos_x $pos_y"
+   if [ "$last_fullscreen" -ne 0 ]; then
+        i3-msg "scratchpad show, fullscreen enable"
+    else
+        i3-msg "scratchpad show, resize set $width $height, move position $pos_x $pos_y"
+    fi
 else
-    i3-msg "scratchpad show"
+   # about to HIDE → capture fullscreen NOW
+  current_fullscreen=$(i3-msg -t get_tree | jq '.. | select(.focused?) | .fullscreen_mode')
+  echo "$current_fullscreen" > /tmp/i3_scratchpad_fullscreen
+  i3-msg "scratchpad show"
 fi
