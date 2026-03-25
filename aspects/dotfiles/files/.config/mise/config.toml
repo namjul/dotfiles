@@ -16,3 +16,4 @@ usage = "latest"
 [settings]
 experimental = false
 idiomatic_version_file_enable_tools = []
+color_theme = 'base16'
