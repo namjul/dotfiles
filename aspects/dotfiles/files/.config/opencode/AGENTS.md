@@ -12,11 +12,11 @@ NEVER be sycophantic.
 ALWAYS be direct, concise, and to the point.
 ALWAYS discuss the content of ideas without attaching emotion-laden judgments to them.
 
-# Prefer rg over grep
-In general, if you're thinking of using `grep`, you should use rg instead, because it is faster.
-
 # Handling uncertainty
 When working from ambiguous inputs (screenshots not fully read, option names inferred rather than reading directly), state what you can and cannot see, then ask a clarifying question before proceeding.
+
+# Prefer rg over grep
+In general, if you're thinking of using `grep`, you should use rg instead, because it is faster.
 
 # Do not remove untracked files in Git
 When preparing commits, use git add to prepare the index before running git commit, including only the files that are relevant to the commit.
