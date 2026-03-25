@@ -11,12 +11,12 @@ focused_output=$(i3-msg -t get_workspaces | jq -r '.[] | select(.focused == true
 read x y w h <<< $(i3-msg -t get_outputs | jq -r ".[] | select(.name==\"$focused_output\") | \"\(.rect.x) \(.rect.y) \(.rect.width) \(.rect.height)\"")
 
 # Desired proportions (like your 80ppt x 98ppt)
-width=$(printf "%.0f" "$(echo "$w * 0.80" | bc)")
-height=$(printf "%.0f" "$(echo "$h * 0.98" | bc)")
+width=$(printf "%.0f" "$(echo "$w * 0.69" | bc)")
+height=$(printf "%.0f" "$(echo "$h * 0.96" | bc)")
 
 # Position: 1% inset
-pos_x=$(printf "%.0f" "$(echo "$w * 0.01 + $x" | bc)")
-pos_y=$(printf "%.0f" "$(echo "$h * 0.01 + $y" | bc)")
+pos_x=$(printf "%.0f" "$(echo "$w * 0.3 + $x" | bc)")
+pos_y=$(printf "%.0f" "$(echo "$h * 0.023 + $y" | bc)")
 
 # Check if scratchpad is already visible on the focused workspace
 focused_workspace=$(i3-msg -t get_workspaces | jq -r '.[] | select(.focused == true) | .name')
