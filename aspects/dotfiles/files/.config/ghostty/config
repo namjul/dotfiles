@@ -2,7 +2,7 @@ shell-integration = fish
 mouse-hide-while-typing = true
 scrollback-limit = 1000000
 font-family = "JetBrainsMono Nerd Font"
-font-size = 18
+font-size = 15
 font-feature = -liga
 theme = dark:Gruvbox Dark,light:Gruvbox Light
 
