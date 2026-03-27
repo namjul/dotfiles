@@ -785,6 +785,7 @@ later(function()
   end
   add({
     source = 'wincent/shellbot',
+    checkout = 'wincent',
     hooks = {
       post_install = function(path)
         later(function() build(path) end)
@@ -793,40 +794,37 @@ later(function()
     },
   })
 
-  local has_shellbot, shellbot = pcall(require, 'shellbot.chatbot')
+  local has_shellbot, shellbot = pcall(require, 'chatbot')
 
-  if not has_shellbot then
-    local print_error = function() vim.notify('error: SHELLBOT does not appear to be executable', vim.log.levels.ERROR) end
-    vim.api.nvim_create_user_command('Chatbot', print_error, {})
-  else
-    vim.api.nvim_create_user_command('Chatbot', function() shellbot.chatbot({}) end, {})
+  print('has_shellbot', has_shellbot)
 
-    local shellbot_augroup = vim.api.nvim_create_augroup('shellbot', { clear = true })
-    vim.api.nvim_create_autocmd({ 'BufEnter' }, {
-      group = shellbot_augroup,
-      callback = function(arg)
-        local bufnr = arg.buf
-        local modes = { 'n', 'i' }
+  if has_shellbot then
+    local function get_executable()
+      local executable = vim.fn.split((vim.env['SHELLBOT'] or '/dev/null'), ' ')[1]
+      print('executable', executable)
+      if executable and vim.fn.executable(executable) == 1 then
+        return executable
+      else
+        vim.api.nvim_echo(
+          { {
+            'error: $SHELLBOT does not appear to be executable',
+            'ErrorMsg',
+          } },
+          true,
+          {}
+        )
+      end
+    end
 
-        for _, mode in ipairs(modes) do
-          vim.api.nvim_buf_set_keymap(
-            bufnr,
-            mode,
-            '<C-Enter>',
-            '<ESC>:lua ChatBotSubmit()<CR>',
-            { noremap = true, silent = true }
-          )
-          vim.api.nvim_buf_set_keymap(
-            bufnr,
-            mode,
-            '<S-Enter>',
-            '<ESC>:lua ChatBotNewBuf()<CR>',
-            { noremap = true, silent = true }
-          )
-        end
-      end,
-    })
+    vim.api.nvim_create_user_command('ChatGPT', function()
+      local executable = get_executable()
+      if executable then shellbot.chatbot({
+        OPENAI_API_KEY = vim.env.OPENAI_API_KEY,
+      }) end
+    end, {})
 
+    -- Set up an autocmd to stop me from accidentally quitting vim when shellbot is
+    -- the only thing running in it. I do this all the time, losing valuable state.
     vim.api.nvim_create_autocmd('QuitPre', {
       pattern = '*',
       callback = function()
@@ -853,6 +851,9 @@ later(function()
         end
       end,
     })
+  else
+    local print_error = function() vim.notify('error: SHELLBOT does not appear to be executable', vim.log.levels.ERROR) end
+    vim.api.nvim_create_user_command('ChatGPT', print_error, {})
   end
 end)
 

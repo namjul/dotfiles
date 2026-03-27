@@ -63,3 +63,7 @@ export GHQ_ROOT="$HOME/code/ghq"
 
 # For ubuntu
 export PKG_CONFIG_PATH="/usr/lib/x86_64-linux-gnu/pkgconfig:/usr/share/pkgconfig:$PKG_CONFIG_PATH"
+
+# Shellbot.
+# For now, requires a manual `cargo build --release`.
+export SHELLBOT="$HOME/.local/share/nvim/site/pack/deps/opt/shellbot/target/release/shellbot $HOME/.config/shellbot/prompt"
