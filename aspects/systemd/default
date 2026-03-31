@@ -52,3 +52,7 @@ await spinner("enable darkman.service", async () => {
 await spinner("enable redshift.service", async () => {
   await $`systemctl --user enable redshift.service --now`;
 });
+
+await spinner("enable txtatelier.service", async () => {
+  await $`systemctl --user enable txtatelier.service --now`;
+});
