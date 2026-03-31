@@ -796,8 +796,6 @@ later(function()
 
   local has_shellbot, shellbot = pcall(require, 'chatbot')
 
-  print('has_shellbot', has_shellbot)
-
   if has_shellbot then
     local function get_executable()
       local executable = vim.fn.split((vim.env['SHELLBOT'] or '/dev/null'), ' ')[1]
