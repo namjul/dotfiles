@@ -1,10 +1,22 @@
 {
   "$schema": "https://opencode.ai/config.json",
   "theme": "gruvbox",
-  "model": "fireworksai/kimi-2.5",
+  "model": "openrouter/qwen/qwen3-coder",
   "autoupdate": true,
   "instructions": ["CONTRIBUTING.md", "docs/guidelines.md", ".cursor/rules/*.md"],
   "provider": {
+    "fireworksai": {
+      "models": {
+        "kimi-k2p5": {}
+      }
+    },
+    "openrouter": {
+      "models": {
+        "qwen/qwen3-coder": {
+          "name": "Qwen3 Coder"
+        },
+      },
+    },
     "ollama": {
       "npm": "@ai-sdk/openai-compatible",
       "options": {
