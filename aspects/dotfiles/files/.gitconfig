@@ -102,7 +102,13 @@
 [core]
   # Use custom `.gitignore` and `.gitattributes`
   excludesfile = ~/.gitignore_global
-  # pager = "delta --diff-so-fancy"
+  pager = "delta --diff-so-fancy"
+
+[interactive]
+  diffFilter = delta --color-only
+
+[delta]
+  navigate = true  # use n and N to move between diff sections
 
 [push]
   default = simple
@@ -110,7 +116,8 @@
 [pull]
   ff = only
 [merge]
-  tool = vimdiff
+  ; tool = vimdiff
+  conflictStyle = zdiff3
 [mergetool]
   path = nvim
 [init]
