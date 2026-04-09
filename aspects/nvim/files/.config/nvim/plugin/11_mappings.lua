@@ -70,6 +70,11 @@ local nmap_leader = function(suffix, rhs, desc, opts)
   opts.desc = desc
   vim.keymap.set('n', '<Leader>' .. suffix, rhs, opts)
 end
+local nmap_local_leader = function(suffix, rhs, desc, opts)
+  opts = opts or {}
+  opts.desc = desc
+  vim.keymap.set('n', '<Localleader>' .. suffix, rhs, opts)
+end
 local xmap_leader = function(suffix, rhs, desc, opts)
   opts = opts or {}
   opts.desc = desc
@@ -120,7 +125,8 @@ nmap_leader('fV', '<Cmd>Pick visit_paths<CR>', 'Visit paths (cwd)')
 -- exception
 nmap_leader('/', '<Cmd>Pick grep_live<CR>', 'Grep live')
 nmap_leader('*', '<Cmd>Pick grep pattern="<cword>"<CR>', 'Grep current word')
-nmap_leader('c', '<Cmd>Pick commands<CR>', 'Commands')
+nmap_local_leader('c', '<Cmd>Pick commands<CR>', 'Commands')
+nmap_local_leader(',', '<Cmd>Pick buf_lines scope="current" preserve_order=true<CR>', 'Buffer lines')
 
 -- s is for 'send' (Send text to neoterm buffer)
 nmap_leader('s', '<Cmd>TREPLSendLine<CR>', 'Send to terminal')

@@ -688,7 +688,6 @@ later(function()
   local minipick = require('mini.pick')
   minipick.setup()
   vim.ui.select = minipick.ui_select
-  vim.keymap.set('n', ',', '<Cmd>Pick buf_lines scope="current" preserve_order=true<CR>', { nowait = true })
 
   local miniextra = require('mini.extra')
 
@@ -855,7 +854,23 @@ later(function()
   end
 end)
 
-later(function() add('sindrets/diffview.nvim') end)
+later(
+  function()
+    namjul.plugin.lazy('diffview.nvim', {
+      keymap = {
+        { 'n', 'yod', ':UndotreeToggle<CR>', { silent = true } },
+      },
+      commands = {
+        'DiffviewOpen',
+        'DiffviewFileHistory',
+        'DiffviewClose',
+      },
+      keymap = {
+        { 'n', 'yod', ':DiffviewOpen<CR>', { silent = true } },
+      },
+    })
+  end
+)
 
 -- add('navarasu/onedark.nvim')
 -- add('rafcamlet/nvim-luapad')
