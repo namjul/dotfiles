@@ -855,6 +855,8 @@ later(function()
   end
 end)
 
+later(function() add('sindrets/diffview.nvim') end)
+
 -- add('navarasu/onedark.nvim')
 -- add('rafcamlet/nvim-luapad')
 -- add('folke/neodev.nvim')
