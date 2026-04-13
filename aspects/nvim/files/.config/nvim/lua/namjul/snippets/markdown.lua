@@ -21,6 +21,10 @@ luasnip.add_snippets('markdown', {
 })
 
 luasnip.add_snippets('markdown', {
+  s({ trig = 'bold' }, fmt('**{}**', { i(1, 'value') })),
+})
+
+luasnip.add_snippets('markdown', {
   s({ trig = 'td' }, fmt('- [{}]', { i(1, 'value') })),
 })
 
