@@ -1,11 +1,13 @@
-#!/usr/bin/env zx
+#!/usr/bin/env -S deno run --allow-all
+
+import { $, fs, os, path, spinner } from "zx";
 
 /**
 # mise description="Manages local SSH config"
 # mise alias="ssh"
 */
 
-const aspect = __dirname
+const aspect = import.meta.dirname ?? 'ssh'
 
 await spinner('create ~/.ssh', async () => {
   await fs.ensureDir("~/.ssh")
@@ -13,14 +15,26 @@ await spinner('create ~/.ssh', async () => {
 
 await spinner('install ~/.ssh/config', async () => {
   const unit = '.ssh/config';
-  const source = path.join(aspect, 'files', unit)
+  const encryptedSource = path.join(aspect, 'files', unit + '.encrypted')
+  const plainSource = path.join(aspect, 'files', unit)
   const target = path.join(os.homedir(), unit)
 
-  if (!await fs.pathExists(target)) {
-    await fs.copy(source, target)
-  } else {
+  // Skip if target already exists
+  if (await fs.pathExists(target)) {
     console.warn(`${unit} already exists. Won't change.`)
+    return
   }
+
+  // Prefer encrypted version if it exists
+  if (await fs.pathExists(encryptedSource)) {
+    await $`sops -d --output ${target} ${encryptedSource}`
+    await $`chmod 600 ${target}`
+    console.log(`decrypted ${unit}.encrypted -> ${unit}`)
+  } else if (await fs.pathExists(plainSource)) {
+    await fs.copy(plainSource, target)
+    console.log(`copied ${unit}`)
+  }
+  // If neither exists, do nothing
 })
 
 await spinner('install keys', async () => {
