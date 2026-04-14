@@ -2,8 +2,12 @@
 SERVER="hobl.at"
 SQUARE_PATH="/home/square"
 
+[settings]
+sops.rops = false
+
 [tools]
 sops = "latest"
+age = "latest"
 ghq = "latest"
 deno = "2.4"
 

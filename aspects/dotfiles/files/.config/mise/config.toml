@@ -12,6 +12,8 @@ rust = "latest"
 zig = "latest"
 usage = "latest"
 "github:anomalyco/opencode" = "latest"
+sops = "latest"
+age = "latest"
 
 [settings]
 experimental = false

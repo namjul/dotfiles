@@ -46,7 +46,6 @@ brew install exercism
 brew install stylua
 brew install todo-txt
 brew install tig # https://github.com/jonas/tig -- Text-mode interface for git
-brew install sops # https://github.com/mozilla/sops -- Simple and flexible tool for managing secrets
 brew install fx # https://github.com/antonmedv/fx/ Command-line tool and terminal JSON viewer fire
 brew install jq # https://github.com/stedolan/jq -- https://github.com/stedolan/jq
 brew tap libsql/sqld
@@ -76,7 +75,6 @@ brew install lorem
 brew install gum
 brew install noborus/tap/trdsql # https://github.com/noborus/trdsql -- CLI tool that can execute SQL queries on CSV, LTSV, JSON and TBLN. Can output to various formats.
 brew install tig # https://jonas.github.io/tig/
-brew install age # https://github.com/FiloSottile/age
 brew install khal # https://github.com/pimutils/khal
 brew install vdirsyncer # https://github.com/pimutils/vdirsyncer
 brew install charmbracelet/tap/mods #https://github.com/charmbracelet/mods/
