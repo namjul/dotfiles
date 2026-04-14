@@ -27,6 +27,14 @@ button = "left"
 cmd = "launch-bluetooth"
 
 # [[block]]
+# block = "custom"
+# cycle = ["hotspot-mode --on", "hotspot-mode --off"]
+# interval = "once"
+# [[block.click]]
+# button = "left"
+# action = "cycle"
+
+# [[block]]
 # block = "cpu"
 # info_cpu = 20
 # warning_cpu = 50

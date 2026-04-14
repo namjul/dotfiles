@@ -1,0 +1,89 @@
+#!/usr/bin/env bash
+
+# https://github.com/guettli/bash-strict-mode
+trap 'echo "Warning: A command has failed. Exiting the script. Line was ($0:$LINENO): $(sed -n "${LINENO}p" "$0")"; exit 3' ERR
+set -Eeuo pipefail
+
+if [[ $EUID -ne 0 ]]; then
+   echo "This script requires root privileges. Run with: sudo $0 --on|--off"
+   exit 1
+fi
+
+STATE_FILE="${HOME}/.cache/hotspot-logind-state"
+LOGIND_CONF="/etc/systemd/logind.conf"
+
+get_lid_setting() {
+    # Get current HandleLidSwitch value, default to 'suspend' if not set
+    local value
+    value=$(grep "^HandleLidSwitch=" "$LOGIND_CONF" 2>/dev/null | tail -1 | cut -d'=' -f2 || true)
+    if [[ -z "$value" ]]; then
+        echo "suspend"
+    else
+        echo "$value"
+    fi
+}
+
+set_lid_setting() {
+    local value="$1"
+    if grep -q "^HandleLidSwitch=" "$LOGIND_CONF" 2>/dev/null; then
+        # Update existing line
+        sed -i "s/^HandleLidSwitch=.*/HandleLidSwitch=${value}/" "$LOGIND_CONF"
+    elif grep -q "^#HandleLidSwitch=" "$LOGIND_CONF" 2>/dev/null; then
+        # Uncomment and set
+        sed -i "s/^#HandleLidSwitch=.*/HandleLidSwitch=${value}/" "$LOGIND_CONF"
+    else
+        # Add to [Login] section or append
+        if grep -q "^\[Login\]" "$LOGIND_CONF"; then
+            sed -i "/^\[Login\]/a HandleLidSwitch=${value}" "$LOGIND_CONF"
+        else
+            echo -e "\n[Login]\nHandleLidSwitch=${value}" >> "$LOGIND_CONF"
+        fi
+    fi
+}
+
+case "${1:-}" in
+    --on)
+        # Check if already ON
+        if [[ -f "$STATE_FILE" ]]; then
+            echo "Hotspot mode already ON"
+            echo "󰤨"
+            exit 0
+        fi
+
+        # Save current setting
+        current_value=$(get_lid_setting)
+        echo "$current_value" > "$STATE_FILE"
+
+        # Set to ignore
+        set_lid_setting "ignore"
+
+        # Restart systemd-logind to apply changes
+        systemctl restart systemd-logind
+
+        notify-send "Hotspot mode ON" "Laptop will stay awake with lid closed"
+        echo "󰤨"
+        ;;
+    --off)
+        # Check if already OFF
+        if [[ ! -f "$STATE_FILE" ]]; then
+            echo "Hotspot mode already OFF"
+            echo "󰤮"
+            exit 0
+        fi
+
+        # Restore saved setting
+        saved_value=$(cat "$STATE_FILE")
+        set_lid_setting "$saved_value"
+        rm "$STATE_FILE"
+
+        # Restart systemd-logind to apply changes
+        systemctl restart systemd-logind
+
+        notify-send "Hotspot mode OFF" "Laptop will sleep when lid closed"
+        echo "󰤮"
+        ;;
+    *)
+        echo "Usage: sudo $0 --on|--off"
+        exit 1
+        ;;
+esac
