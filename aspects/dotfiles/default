@@ -7,33 +7,43 @@ set -Eeuo pipefail
 # Variables
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 FILES_DIR="$SCRIPT_DIR/files"
+TEMPLATES_DIR="$SCRIPT_DIR/templates"
 TARGET_DIR="$HOME"
 
 # Ensure base directories exist
 mkdir -p "$HOME/.config"
 
-# Process all files recursively
-while IFS= read -r -d '' source_file; do
-  # Calculate relative path from FILES_DIR
-  rel_path="${source_file#$FILES_DIR/}"
+# Unified processing function for files and templates
+process_item() {
+  local source_file="$1"
+  local source_base="$2"
+  local is_template="$3"
 
-  # Get filename and check for hard- prefix
+  # Calculate relative path from source base
+  local rel_path="${source_file#$source_base/}"
+
+  # Get filename and check for hard- prefix (only relevant for files)
+  local filename target_name target_path dir_path
   filename="$(basename "$source_file")"
 
-  if [[ "$filename" == hard-* ]]; then
+  if [[ "$is_template" == false && "$filename" == hard-* ]]; then
     # Hardlink: strip 'hard-' prefix for target
-    is_hardlink=true
+    local is_hardlink=true
     target_name="${filename#hard-}"
     dir_path="$(dirname "$rel_path")"
     target_path="$TARGET_DIR/$dir_path/$target_name"
   else
-    # Symlink: use same path
-    is_hardlink=false
+    # Regular file or template: use same path (with adjustments for templates)
+    local is_hardlink=false
     target_path="$TARGET_DIR/$rel_path"
   fi
 
-  # Ensure target directory exists (not symlinked)
-  target_dir="$(dirname "$target_path")"
+  # For templates: strip .tmpl extension from target
+  if [[ "$is_template" == true && "$target_path" == *.tmpl ]]; then
+    target_path="${target_path%.tmpl}"
+  fi
+
+  local target_dir="$(dirname "$target_path")"
 
   # CRITICAL CHECK: Detect if parent directory is a symlink
   if [ -L "$target_dir" ]; then
@@ -43,34 +53,53 @@ while IFS= read -r -d '' source_file; do
     echo "    rm '$target_dir'"
     echo "    mise run dotfiles"
     echo "  Skipping: $source_file"
-    continue
+    return
   fi
 
   mkdir -p "$target_dir"
 
-  # Skip if target already points to source (idempotent check)
-  if [ -e "$target_path" ] || [ -L "$target_path" ]; then
-    if [ "$source_file" -ef "$target_path" ]; then
-      continue
-    fi
-  fi
-
-  # Create link
-  if $is_hardlink; then
-    # Hardlink: use ln -f (force overwrite)
-    if ! ln -f "$source_file" "$target_path"; then
-      echo "ERROR: Failed to create hardlink"
-      echo "  Source: $source_file"
-      echo "  Target: $target_path"
-      echo "  Hardlinks require source and target on same filesystem"
-      exit 1
-    fi
-    echo "HARDLINK: $source_file -> $target_path"
+  # Process based on type
+  if [[ "$is_template" == true ]]; then
+    # Templates: always regenerate with gomplate via mise (for sops-decrypted env vars)
+    gomplate -f "$source_file" -o "$target_path"
+    echo "TEMPLATE: $source_file -> $target_path"
   else
-    # Symlink: use ln -sfn (force, no-dereference for dirs)
-    ln -sfn "$source_file" "$target_path"
-    echo "SOFTLINK: $source_file -> $target_path"
+    # Files: symlink/hardlink with idempotency check
+    # Skip if target already points to source
+    if [ -e "$target_path" ] || [ -L "$target_path" ]; then
+      if [ "$source_file" -ef "$target_path" ]; then
+        return
+      fi
+    fi
+
+    if $is_hardlink; then
+      # Hardlink: use ln -f (force overwrite)
+      if ! ln -f "$source_file" "$target_path"; then
+        echo "ERROR: Failed to create hardlink"
+        echo "  Source: $source_file"
+        echo "  Target: $target_path"
+        echo "  Hardlinks require source and target on same filesystem"
+        exit 1
+      fi
+      echo "HARDLINK: $source_file -> $target_path"
+    else
+      # Symlink: use ln -sfn (force, no-dereference for dirs)
+      ln -sfn "$source_file" "$target_path"
+      echo "SOFTLINK: $source_file -> $target_path"
+    fi
   fi
+}
+
+# Process files directory
+while IFS= read -r -d '' source_file; do
+  process_item "$source_file" "$FILES_DIR" false
 done < <(find "$FILES_DIR" -type f -print0)
+
+# Process templates directory if it exists
+if [ -d "$TEMPLATES_DIR" ]; then
+  while IFS= read -r -d '' source_file; do
+    process_item "$source_file" "$TEMPLATES_DIR" true
+  done < <(find "$TEMPLATES_DIR" -type f -print0)
+fi
 
 echo "Dotfiles linking complete"
