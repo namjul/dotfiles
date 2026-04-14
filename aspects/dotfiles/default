@@ -64,7 +64,17 @@ process_item() {
     gomplate -f "$source_file" -o "$target_path"
     echo "TEMPLATE: $source_file -> $target_path"
   else
-    # Files: symlink/hardlink with idempotency check
+    # Files: check if encrypted, otherwise symlink/hardlink
+    if [[ "$source_file" == *.encrypted ]]; then
+      # Decrypt sops-encrypted files and strip .encrypted extension
+      target_path="${target_path%.encrypted}"
+      sops -d "$source_file" > "$target_path"
+      chmod 600 "$target_path"
+      echo "DECRYPTED: $source_file -> $target_path"
+      return
+    fi
+
+    # Symlink/hardlink with idempotency check
     # Skip if target already points to source
     if [ -e "$target_path" ] || [ -L "$target_path" ]; then
       if [ "$source_file" -ef "$target_path" ]; then
