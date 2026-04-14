@@ -5,9 +5,15 @@ set -euxo pipefail
 
 sudo apt install wireguard -y
 
+# Enable IP forwarding by adding the setting to sysctl configuration
+# Required for routing VPN traffic between clients and the internet
 echo "net.ipv4.ip_forward=1" | sudo tee -a /etc/sysctl.conf
+
+# Apply sysctl configuration changes without reboot
 sudo sysctl -p
 
+# Generate WireGuard configuration from template with environment variable substitution
+# ${root} points to the directory containing the wg0.conf template
 envsubst < ${root}/wg0.conf | sudo tee /etc/wireguard/wg0.conf
 
 sudo systemctl daemon-reload
