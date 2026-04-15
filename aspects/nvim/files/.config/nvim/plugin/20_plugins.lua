@@ -459,17 +459,34 @@ end)
 -- Formatting ===
 later(function()
   add('stevearc/conform.nvim')
+
+  ---@param bufnr integer
+  ---@param ... string
+  ---@return string
+  local function first(bufnr, ...)
+    local conform = require('conform')
+    for i = 1, select('#', ...) do
+      local formatter = select(i, ...)
+      if conform.get_formatter_info(formatter, bufnr).available then return formatter end
+    end
+    return select(1, ...)
+  end
+
   require('conform').setup({
     notify_on_error = true,
     format_on_save = true,
     formatters_by_ft = {
       lua = { 'stylua' },
-      -- Conform will run multiple formatters sequentially
-      -- python = { 'isort', 'black' },
-      -- Use a sub-list to run only the first available formatter
-      javascript = { 'prettier' },
-      typescript = { 'prettier' },
-      vue = { 'prettier', lsp_format = 'fallback' },
+      python = function(bufnr)
+        if require('conform').get_formatter_info('ruff_format', bufnr).available then
+          return { 'ruff_format' }
+        else
+          return { 'isort', 'black' }
+        end
+      end,
+      javascript = function(bufnr) return { first(bufnr, 'biome', 'prettierd', 'prettier') } end,
+      typescript = function(bufnr) return { first(bufnr, 'biome', 'prettierd', 'prettier') } end,
+      vue = function(bufnr) return { first(bufnr, 'biome', 'prettierd', 'prettier') } end,
     },
   })
 end)
