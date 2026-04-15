@@ -29,4 +29,25 @@ includes = [
   "aspects/shell/aspect.toml",
   "aspects/ssh/aspect.toml",
   "aspects/systemd/aspect.toml",
+  "aspects/meta/aspect.toml",
 ]
+
+[tasks."fig:test"]
+description = "Run fig tests"
+run = "deno test -A fig/operations/file.test.ts"
+
+[tasks."fig:lint"]
+description = "Lint fig modules"
+run = "deno lint fig/"
+
+[tasks."fig:check"]
+description = "Type-check fig modules"
+run = "deno check --config=deno.json fig/index.ts aspects/meta/index.ts fig/operations/file.test.ts"
+
+[tasks."fig:verify"]
+description = "Run fig check, lint, and tests"
+depends = ["fig:check", "fig:lint", "fig:test"]
+
+[tasks."fig"]
+description = "Run all fig:* tasks"
+depends = ["fig:*"]

@@ -1,14 +1,12 @@
 {
-  "tasks": {
-    "dev": "deno run --watch main.ts"
-  },
   "imports": {
+    "fig": "./fig/index.ts",
+    "@std/assert": "jsr:@std/assert@^1.0.19",
+    "@gordonb/result": "jsr:@gordonb/result@^0.4.0",
+    "atomically": "npm:atomically@^1.0.0",
     "@types/fs-extra": "npm:@types/fs-extra@^11.0.4",
     "@types/node": "npm:@types/node@^24.7.0",
     "zx": "npm:zx@^8.8.4"
-  },
-  "permissions": {
-    "allow-all": true,
   },
   "compilerOptions": {
     "strict": true, // Enables all strict type-checking options.

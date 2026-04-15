@@ -1,0 +1,5 @@
+{
+  "meta": true,
+  "hardlink": true,
+  "created": "{{ now }}"
+}

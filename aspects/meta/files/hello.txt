@@ -1,0 +1,2 @@
+Hello from Fig Meta!
+This is a sample file for the meta aspect.
