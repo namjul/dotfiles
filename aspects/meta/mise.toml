@@ -1,3 +1,4 @@
-[meta]
+
+[tasks.default]
 description = "Meta aspect for @fig/ framework - global operations and verification"
-run = "deno run --config=deno.json --allow-all aspects/meta/index.ts"
+run = "deno run --allow-all index.ts"

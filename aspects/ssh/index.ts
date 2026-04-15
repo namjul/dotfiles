@@ -1,3 +1,5 @@
+#!/usr/bin/env -S deno run --allow-all
+
 import { file, init, path } from "fig";
 import { $ } from "zx";
 

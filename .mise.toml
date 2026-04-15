@@ -1,3 +1,10 @@
+experimental_monorepo_root = true
+
+[monorepo]
+config_roots = [
+  "aspects/*",
+]
+
 [env]
 SERVER="hobl.at"
 SQUARE_PATH="/home/square"
@@ -5,6 +12,7 @@ _.file = { path = "aspects/dotfiles/env.json" }
 
 [settings]
 sops.rops = false
+experimental = true
 
 [tools]
 sops = "latest"
@@ -27,9 +35,7 @@ includes = [
   "aspects/nvim/aspect.toml",
   "aspects/server/aspect.toml",
   "aspects/shell/aspect.toml",
-  "aspects/ssh/aspect.toml",
-  "aspects/systemd/aspect.toml",
-  "aspects/meta/aspect.toml",
+  "aspects/systemd/aspect.toml"
 ]
 
 [tasks."fig:test"]

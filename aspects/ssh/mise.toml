@@ -1,0 +1,16 @@
+
+[tasks."dir"]
+description = "Ensure ~/.ssh directory exists (0700)"
+run = "deno run --allow-all index.ts dir"
+
+[tasks."config"]
+description = "Install ~/.ssh/config from encrypted aspect file"
+run = "deno run --allow-all index.ts config"
+
+[tasks."keys"]
+description = "Install SSH keys from key.yml via sops extract"
+run = "deno run --allow-all index.ts keys"
+
+[tasks.default]
+description = "Manages local SSH config"
+depends = [":dir", ":config", ":keys"]
