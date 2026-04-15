@@ -2,6 +2,7 @@ import { Result } from "@gordonb/result";
 import * as Option from "@gordonb/result/option";
 import { fs, $ } from "zx";
 import { writeFile } from "atomically";
+import { path as toPath } from "../path.ts";
 import type {
   FileOptions,
   FileResult,
@@ -34,7 +35,8 @@ async function hasSops(): Promise<boolean> {
  * File operation - atomic file management
  */
 export async function file(options: FileOptions): Promise<FileResult> {
-  const targetPath = options.path;
+  const resolved = toPath(options.path).expand.resolve;
+  const targetPath = resolved.toString();
   const sudo = Option.unwrapOr(Option.from(options.sudo), false);
 
   try {
@@ -68,17 +70,17 @@ export async function file(options: FileOptions): Promise<FileResult> {
 
   switch (options.state) {
     case "file":
-      return await writeFileContent(options);
+      return await writeFileContent({ ...options, path: targetPath });
     case "link":
-      return createSymlink(options);
+      return createSymlink({ ...options, path: targetPath });
     case "hardlink":
-      return createHardlink(options);
+      return createHardlink({ ...options, path: targetPath });
     case "copy":
-      return copyFile(options);
+      return copyFile({ ...options, path: targetPath });
     case "directory":
-      return await ensureDirectory(options);
+      return await ensureDirectory({ ...options, path: targetPath });
     case "encrypted":
-      return await decryptEncrypted(options);
+      return await decryptEncrypted({ ...options, path: targetPath });
   }
 }
 
