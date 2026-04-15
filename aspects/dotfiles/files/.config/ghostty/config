@@ -27,8 +27,8 @@ shell-integration-features = cursor,sudo,no-title
 # lear all defaults
 keybind=clear
 
-keybind = ctrl+space>r=reset
-keybind = ctrl+space>e=write_screen_file:paste
+# keybind = ctrl+space>r=reset
+# keybind = ctrl+space>e=write_screen_file:paste
 keybind = ctrl+space>r=reload_config
 keybind = ctrl+shift+i=inspector:toggle
 
@@ -40,10 +40,10 @@ keybind = ctrl+insert=copy_to_clipboard
 
 keybind = ctrl+shift+a=select_all
 
-keybind = shift+up=adjust_selection:up
-keybind = shift+left=adjust_selection:left
-keybind = shift+right=adjust_selection:right
-keybind = shift+down=adjust_selection:down
+# keybind = shift+up=adjust_selection:up
+# keybind = shift+left=adjust_selection:left
+# keybind = shift+right=adjust_selection:right
+# keybind = shift+down=adjust_selection:down
 
 keybind = ctrl+0=reset_font_size
 keybind = ctrl++=increase_font_size:1
