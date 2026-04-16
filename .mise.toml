@@ -37,7 +37,7 @@ includes = [
 
 [tasks."fig:test"]
 description = "Run fig tests"
-run = "deno test -A fig/operations/file.test.ts"
+run = "deno test -A"
 
 [tasks."fig:lint"]
 description = "Lint fig modules"
@@ -45,7 +45,7 @@ run = "deno lint fig/"
 
 [tasks."fig:check"]
 description = "Type-check fig modules"
-run = "deno check --config=deno.json fig/index.ts aspects/meta/index.ts fig/operations/file.test.ts"
+run = "deno check fig"
 
 [tasks."fig:verify"]
 description = "Run fig check, lint, and tests"
@@ -54,3 +54,7 @@ depends = ["fig:check", "fig:lint", "fig:test"]
 [tasks."fig"]
 description = "Run all fig:* tasks"
 depends = ["fig:*"]
+
+[tasks."aspects:check"]
+description = "Type-check fig modules"
+run = "deno check aspects/**/*.ts"

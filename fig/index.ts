@@ -31,4 +31,7 @@ export { attributes } from "./attributes.ts";
 export { file } from "./operations/file.ts";
 export { template } from "./operations/template.ts";
 export { line } from "./operations/line.ts";
+export { command } from "./operations/command.ts";
 
+// Resouces
+export * as resource from './resource.ts';
