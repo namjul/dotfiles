@@ -26,7 +26,6 @@ export async function command(
 
   const { exitCode, stderr, stdout } = await $({
     nothrow: true,
-    verbose: true,
     ...(options.chdir ? { cwd: path(options.chdir).expand.toString() } : {}),
     ...(options.env ? { env: options.env } : {}),
   })`${command} ${args.map((arg) => (options.raw ? arg : path(arg).expand.toString()))}`;

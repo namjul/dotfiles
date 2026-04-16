@@ -1,4 +1,5 @@
 import type { Result } from "@gordonb/result/result";
+import type { Option } from "@gordonb/result/option";
 
 /**
  * Error types for file operations
@@ -50,7 +51,7 @@ export type LineResult = Result<SuccessValue, LineError>;
 export interface FileOptionsBase {
   path: string;
   force?: boolean;
-  mode?: string;
+  mode?: Option<string>;
   sudo?: boolean;
 }
 
@@ -102,7 +103,7 @@ export interface LineOptions {
   line: string;
   regexp?: RegExp | string;
   state?: "present" | "absent";
-  mode?: string;
+  mode?: Option<string>;
   sudo?: boolean;
 }
 
