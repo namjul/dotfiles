@@ -8,14 +8,9 @@ if ! command -v mise &> /dev/null; then
   exit 1
 fi
 
-# use aspects
-if ! [[ -L "$(pwd)/.mise/tasks" ]]; then
- ln -s $(pwd)/aspects $(pwd)/.mise/tasks
-fi
-
 # install global mise tools
 mise install --yes
 
 echo "The following mise tasks are available:"
-mise t
+mise t --all
 
