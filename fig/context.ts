@@ -11,7 +11,7 @@ let currentAspectDir: string | null = null;
 export function init(aspectDir: string | undefined): void {
   if (aspectDir === undefined) {
     throw new Error(
-      "Fig context not initialized. Call init(import.meta.dirname) at the start of your aspect."
+      "Fig context not initialized. Call init(import.meta.dirname) at the start of your aspect.",
     );
   }
   currentAspectDir = aspectDir;
@@ -24,7 +24,7 @@ export function init(aspectDir: string | undefined): void {
 export function getAspectDir(): string {
   if (!currentAspectDir) {
     throw new Error(
-      "Fig context not initialized. Call init(import.meta.dirname) at the start of your aspect."
+      "Fig context not initialized. Call init(import.meta.dirname) at the start of your aspect.",
     );
   }
   return currentAspectDir;

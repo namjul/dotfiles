@@ -4,13 +4,24 @@ import type { Option } from "@gordonb/result/option";
 /**
  * Error types for file operations
  */
-export type FileState = "file" | "link" | "hardlink" | "copy" | "directory" | "encrypted";
+export type FileState =
+  | "file"
+  | "link"
+  | "hardlink"
+  | "copy"
+  | "directory"
+  | "encrypted";
 
 export type FileError =
   | { type: "SOURCE_NOT_FOUND"; path: string }
   | { type: "TARGET_EXISTS"; path: string; operation: FileState }
   | { type: "SYMLINK_DETECTED"; path: string }
-  | { type: "PERMISSION_DENIED"; path: string; operation: FileState; cause: unknown }
+  | {
+    type: "PERMISSION_DENIED";
+    path: string;
+    operation: FileState;
+    cause: unknown;
+  }
   | { type: "WRITE_FAILED"; path: string; cause: unknown }
   | { type: "LINK_FAILED"; source: string; target: string; cause: unknown }
   | { type: "COPY_FAILED"; source: string; target: string; cause: unknown }

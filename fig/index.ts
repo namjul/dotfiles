@@ -11,7 +11,7 @@
 
 // Re-export Result type
 export { Result } from "@gordonb/result";
-export { fail, assert, assertNever } from "./assert.ts";
+export { assert, assertNever, fail } from "./assert.ts";
 
 // Context
 export { init } from "./context.ts";
@@ -19,7 +19,7 @@ export { init } from "./context.ts";
 // Path
 export { path } from "./path.ts";
 export type { Path } from "./types.ts";
-export { root } from "./root.ts"
+export { root } from "./root.ts";
 
 // Variables
 export * as variable from "./variables.ts";

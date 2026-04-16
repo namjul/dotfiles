@@ -45,6 +45,10 @@ run = "deno lint fig/"
 description = "Type-check fig modules"
 run = "deno check fig"
 
+[tasks."fig:format"]
+description = "Type-check fig modules"
+run = "deno fmt fig"
+
 [tasks."fig:verify"]
 description = "Run fig check, lint, and tests"
 depends = ["fig:check", "fig:lint", "fig:test"]

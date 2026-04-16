@@ -180,7 +180,8 @@ Deno.test("file(): returns TARGET_EXISTS for encrypted without force", async () 
 });
 
 Deno.test({
-  name: "file(): encrypted returns SOPS_FAILED for non-SOPS source when sops is installed",
+  name:
+    "file(): encrypted returns SOPS_FAILED for non-SOPS source when sops is installed",
   ignore: !(await sopsAvailable()),
   fn: async () => {
     const tmpDir = await Deno.makeTempDir();

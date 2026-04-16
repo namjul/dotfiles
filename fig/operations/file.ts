@@ -1,16 +1,16 @@
 import { Result } from "@gordonb/result";
 import * as Option from "@gordonb/result/option";
-import { fs, $ } from "zx";
+import { $, fs } from "zx";
 import { writeFile } from "atomically";
 import { path as toPath } from "../path.ts";
 import type {
-  FileOptions,
-  FileResult,
-  FileError,
-  FileState,
   FileDirectoryOptions,
   FileEncryptedOptions,
+  FileError,
+  FileOptions,
+  FileResult,
   FileSourceOptions,
+  FileState,
   FileWriteOptions,
 } from "../types.ts";
 
@@ -42,7 +42,9 @@ export async function file(options: FileOptions): Promise<FileResult> {
   try {
     // Check for symlink directory (safety check)
     const targetDir = targetPath.split("/").slice(0, -1).join("/") || "/";
-    if (fs.pathExistsSync(targetDir) && fs.lstatSync(targetDir).isSymbolicLink()) {
+    if (
+      fs.pathExistsSync(targetDir) && fs.lstatSync(targetDir).isSymbolicLink()
+    ) {
       return Result.err({
         type: "SYMLINK_DETECTED",
         path: targetDir,
@@ -52,7 +54,9 @@ export async function file(options: FileOptions): Promise<FileResult> {
     // Ensure parent directory exists
     fs.ensureDirSync(targetDir);
   } catch (cause) {
-    const errorType: FileError["type"] = sudo ? "PERMISSION_DENIED" : "WRITE_FAILED";
+    const errorType: FileError["type"] = sudo
+      ? "PERMISSION_DENIED"
+      : "WRITE_FAILED";
     if (errorType === "PERMISSION_DENIED") {
       return Result.err({
         type: errorType,
@@ -87,13 +91,18 @@ export async function file(options: FileOptions): Promise<FileResult> {
 /**
  * Write file contents atomically
  */
-async function writeFileContent(options: FileWriteOptions): Promise<FileResult> {
+async function writeFileContent(
+  options: FileWriteOptions,
+): Promise<FileResult> {
   const { path, contents } = options;
   const mode = Option.from(options.mode);
   const sudo = Option.unwrapOr(Option.from(options.sudo), false);
 
   // Check if target exists and force is not set
-  if (fs.pathExistsSync(path) && !Option.unwrapOr(Option.from(options.force), false)) {
+  if (
+    fs.pathExistsSync(path) &&
+    !Option.unwrapOr(Option.from(options.force), false)
+  ) {
     return Result.err({
       type: "TARGET_EXISTS",
       path,
@@ -104,7 +113,9 @@ async function writeFileContent(options: FileWriteOptions): Promise<FileResult> 
   try {
     if (sudo) {
       // Use zx with sudo for privileged paths.
-      const tmp = `/tmp/fig-${Date.now()}-${Math.random().toString(36).slice(2)}`;
+      const tmp = `/tmp/fig-${Date.now()}-${
+        Math.random().toString(36).slice(2)
+      }`;
       fs.writeFileSync(tmp, contents);
       try {
         await $`sudo cp ${tmp} ${path}`;
@@ -125,7 +136,9 @@ async function writeFileContent(options: FileWriteOptions): Promise<FileResult> 
 
     return Result.ok({ path });
   } catch (cause) {
-    const errorType: FileError["type"] = sudo ? "PERMISSION_DENIED" : "WRITE_FAILED";
+    const errorType: FileError["type"] = sudo
+      ? "PERMISSION_DENIED"
+      : "WRITE_FAILED";
     if (errorType === "PERMISSION_DENIED") {
       return Result.err({
         type: errorType,
@@ -175,7 +188,9 @@ function ensureTargetWritable(
 /**
  * Ensure directory exists and mode is correct.
  */
-async function ensureDirectory(options: FileDirectoryOptions): Promise<FileResult> {
+async function ensureDirectory(
+  options: FileDirectoryOptions,
+): Promise<FileResult> {
   const { path: targetPath } = options;
   const force = Option.unwrapOr(Option.from(options.force), false);
   const mode = Option.from(options.mode);
@@ -209,7 +224,9 @@ async function ensureDirectory(options: FileDirectoryOptions): Promise<FileResul
     }
     return Result.ok({ path: targetPath });
   } catch (cause) {
-    const errorType: FileError["type"] = sudo ? "PERMISSION_DENIED" : "WRITE_FAILED";
+    const errorType: FileError["type"] = sudo
+      ? "PERMISSION_DENIED"
+      : "WRITE_FAILED";
     if (errorType === "PERMISSION_DENIED") {
       return Result.err({
         type: errorType,
@@ -295,7 +312,9 @@ function createHardlink(options: FileSourceOptions): FileResult {
 /**
  * Decrypt SOPS-encrypted file to target path (whole file only).
  */
-async function decryptEncrypted(options: FileEncryptedOptions): Promise<FileResult> {
+async function decryptEncrypted(
+  options: FileEncryptedOptions,
+): Promise<FileResult> {
   const { src, path: targetPath } = options;
   const force = Option.unwrapOr(Option.from(options.force), false);
   const mode = Option.from(options.mode);

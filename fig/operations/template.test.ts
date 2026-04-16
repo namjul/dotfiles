@@ -1,10 +1,6 @@
-import {
-  assertEquals,
-  assertRejects,
-  assertStringIncludes,
-} from "@std/assert";
+import { assertEquals, assertRejects, assertStringIncludes } from "@std/assert";
 import { Result } from "@gordonb/result";
-import { template, renderTemplate, withTempContextFile } from "./template.ts";
+import { renderTemplate, template, withTempContextFile } from "./template.ts";
 
 Deno.test("renderTemplate(): replaces known placeholders and keeps unknown", () => {
   const output = renderTemplate(

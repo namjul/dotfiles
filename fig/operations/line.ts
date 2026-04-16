@@ -1,7 +1,7 @@
 import { Result } from "@gordonb/result";
 import { fs } from "zx";
 import { file } from "./file.ts";
-import type { LineOptions, LineResult, LineError } from "../types.ts";
+import type { LineError, LineOptions, LineResult } from "../types.ts";
 
 function createLineMatcher(regexp: RegExp | string | undefined): RegExp | null {
   if (regexp === undefined) {
@@ -19,7 +19,8 @@ function createLineMatcher(regexp: RegExp | string | undefined): RegExp | null {
  * Line operation - manage lines in files idempotently
  */
 export async function line(options: LineOptions): Promise<LineResult> {
-  const { path: filePath, line: lineContent, regexp, state = "present" } = options;
+  const { path: filePath, line: lineContent, regexp, state = "present" } =
+    options;
 
   let content: string;
   try {
@@ -43,7 +44,10 @@ export async function line(options: LineOptions): Promise<LineResult> {
     for (let i = 0; i < lines.length; i++) {
       const current = lines[i];
 
-      if (current !== undefined && (regex ? regex.test(current) : current === normalizedLine)) {
+      if (
+        current !== undefined &&
+        (regex ? regex.test(current) : current === normalizedLine)
+      ) {
         found = true;
         if (current !== normalizedLine) {
           lines[i] = normalizedLine;
@@ -66,7 +70,10 @@ export async function line(options: LineOptions): Promise<LineResult> {
     for (let i = lines.length - 1; i >= 0; i--) {
       const current = lines[i];
 
-      if (current !== undefined && (regex ? regex.test(current) : current === normalizedLine)) {
+      if (
+        current !== undefined &&
+        (regex ? regex.test(current) : current === normalizedLine)
+      ) {
         lines.splice(i, 1);
         modified = true;
       }
@@ -83,9 +90,9 @@ export async function line(options: LineOptions): Promise<LineResult> {
     path: filePath,
     contents: lines.join("\n"),
     state: "file",
-    force: true,  // Always overwrite since we're modifying
+    force: true, // Always overwrite since we're modifying
   };
-  
+
   if (options.mode !== undefined) {
     fileOptions.mode = options.mode;
   }

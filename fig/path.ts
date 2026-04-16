@@ -1,4 +1,4 @@
-import { path as zxPath, os } from "zx";
+import { os, path as zxPath } from "zx";
 import { getAspectDir } from "./context.ts";
 import type { Path } from "./types.ts";
 
@@ -50,7 +50,9 @@ function createPath(str: string): Path {
     resolve: {
       get() {
         if (normalized.startsWith("~/")) {
-          return createPath(zxPath.normalize(zxPath.join(os.homedir(), normalized.slice(2))));
+          return createPath(
+            zxPath.normalize(zxPath.join(os.homedir(), normalized.slice(2))),
+          );
         }
         return createPath(zxPath.resolve(normalized));
       },
@@ -62,7 +64,7 @@ function createPath(str: string): Path {
           typeof p === "string" ? p : p.toString()
         );
         return createPath(
-          zxPath.normalize(zxPath.join(normalized, ...partStrings))
+          zxPath.normalize(zxPath.join(normalized, ...partStrings)),
         );
       },
     },
@@ -72,8 +74,8 @@ function createPath(str: string): Path {
         return createPath(
           zxPath.join(
             zxPath.dirname(normalized),
-            zxPath.basename(normalized, extension)
-          )
+            zxPath.basename(normalized, extension),
+          ),
         );
       },
     },
@@ -104,9 +106,7 @@ function createPath(str: string): Path {
  * Path function - creates Path from components
  */
 export function makePath(...components: (string | Path)[]): Path {
-  const parts = components.map((c) =>
-    typeof c === "string" ? c : c.toString()
-  );
+  const parts = components.map((c) => typeof c === "string" ? c : c.toString());
   return createPath(zxPath.join(...parts));
 }
 
