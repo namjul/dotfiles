@@ -1,5 +1,3 @@
-#!/usr/bin/env -S deno run --allow-all
-
 import { assertNever, file, init, path, template, variable } from "fig";
 
 init(import.meta.dirname);

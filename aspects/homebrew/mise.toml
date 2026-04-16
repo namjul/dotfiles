@@ -1,0 +1,28 @@
+[tasks."install"]
+description = "install"
+run = "deno run --allow-all index.ts install"
+
+[tasks."update"]
+description = "update homebrew"
+depends = [":install"]
+run = "deno run --allow-all index.ts update"
+
+[tasks."brew:timewarrior"]
+description = "brew install timewarrior"
+depends = [":update"]
+file = "./timewarrior"
+
+[tasks."brew"]
+description = "brew install"
+depends = [":update", ":brew:timewarrior"]
+run = "deno run --allow-all index.ts brew"
+
+[tasks."cleanup"]
+description = "cleanup homebrew"
+depends = [":install"]
+run = "deno run --allow-all index.ts cleanup"
+
+[tasks.default]
+description = "Setup homebrew"
+depends = [":brew"]
+depends_post = [":cleanup"]

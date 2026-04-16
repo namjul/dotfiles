@@ -25,7 +25,6 @@ includes = [
   "aspects/darkman/aspect.toml",
   "aspects/espanso/aspect.toml",
   "aspects/fonts/aspect.toml",
-  "aspects/homebrew/aspect.toml",
   "aspects/i3status-rust/aspect.toml",
   "aspects/interception/aspect.toml",
   "aspects/nala/aspect.toml",
