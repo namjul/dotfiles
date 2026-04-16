@@ -82,7 +82,7 @@ export async function template(options: TemplateOptions): Promise<TemplateResult
     // Use gomplate with context from a secure temp file.
     try {
       await withTempContextFile(vars, async (contextFilePath) => {
-        await $`gomplate -f ${src} -o ${targetPath} --context .=${contextFilePath}`;
+        await $`gomplate --file ${src} --out ${targetPath} --context variables=${contextFilePath}`;
       });
       return Result.ok({ path: targetPath });
     } catch (error) {
