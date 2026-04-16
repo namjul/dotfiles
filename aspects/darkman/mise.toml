@@ -1,0 +1,14 @@
+
+# [tasks."download"]
+# description = "download darkman"
+# run = "deno run --allow-all index.ts download"
+
+# [tasks."install"]
+# description = "install darkman"
+# depends = [':download']
+# run = "deno run --allow-all index.ts install"
+
+[tasks.default]
+description = "copy files"
+# depends = [':install']
+run = "deno run --allow-all index.ts files"
