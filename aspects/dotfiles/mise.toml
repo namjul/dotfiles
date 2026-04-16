@@ -1,0 +1,14 @@
+[env]
+_.file = { path = "env.json" }
+
+[tasks."files"]
+description = "create symlinks"
+run = "deno run --allow-all index.ts files"
+
+[tasks."templates"]
+description = "fill templates"
+run = "deno run --allow-all index.ts templates"
+
+[tasks.default]
+description = "Creates symlinks from the $HOME directory to the dotfiles in this repo."
+depends = [":files", ":templates"]

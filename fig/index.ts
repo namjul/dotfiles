@@ -11,6 +11,7 @@
 
 // Re-export Result type
 export { Result } from "@gordonb/result";
+export { fail, assert, assertNever } from "./assert.ts";
 
 // Context
 export { init } from "./context.ts";

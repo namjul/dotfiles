@@ -8,7 +8,6 @@ config_roots = [
 [env]
 SERVER="hobl.at"
 SQUARE_PATH="/home/square"
-_.file = { path = "aspects/dotfiles/env.json" }
 
 [settings]
 sops.rops = false
@@ -23,9 +22,7 @@ gomplate = "latest"
 
 [task_config]
 includes = [
-  "aspects/dotfiles/aspect.toml",
   "aspects/darkman/aspect.toml",
-  "aspects/dotfiles/aspect.toml",
   "aspects/espanso/aspect.toml",
   "aspects/fonts/aspect.toml",
   "aspects/homebrew/aspect.toml",
