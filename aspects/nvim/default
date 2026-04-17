@@ -1,85 +1,47 @@
-#!/usr/bin/env zx
+#!/usr/bin/env -S deno run --allow-all
 
-const { Readable } = require("stream");
-const { finished } = require("stream/promises");
+import { fs } from "zx";
+import { command, fetch, file, init, path, variable } from "fig";
 
-const version = "v0.11.4";
-const location = `${os.homedir()}/opt/nvim/nvim${version}.appimage`;
-const aspect = __dirname;
-const files = path.join(aspect, "files");
+init(import.meta.dirname);
 
-await spinner("make ~/opt/nvim", async () => {
-  await $`mkdir -p ${os.homedir()}/opt/nvim`;
-  await $`mkdir -p ${os.homedir()}/.config`;
-});
+const NEOVIM_VERSION = "v0.11.4";
 
-if (!fs.existsSync(location)) {
-  await spinner("download Neovim appimage", async () => {
-    const stream = fs.createWriteStream(location);
-    const { body } = await fetch(
-      `https://github.com/neovim/neovim/releases/download/${version}/nvim-linux-x86_64.appimage`,
-    );
-    await finished(Readable.fromWeb(body).pipe(stream));
-  });
-
-  await spinner("make Neovim appimage executable", async () => {
-    await $`chmod 0755 ${location}`;
-  });
-
-  await spinner("extract Neovim appimage files", async () => {
-    cd(`${os.homedir()}/opt/nvim/`);
-    try {
-      await $`${location} --appimage-extract`;
-    } catch (err) {
-      console.log(err);
-      $`rm ${location}`;
-    }
-  });
+// make directories
+{
+  await file({ path: "~/opt/nvim", state: "directory" });
+  await file({ path: "~/.config", state: "directory" });
 }
 
-await spinner("create symlinks", async () => {
-  const targetDir = os.homedir();
-  const _files = await fs.readdir(files, {
-    recursive: true,
-    withFileTypes: true,
+// download neovim
+const location = `${path.home}/opt/nvim/nvim${NEOVIM_VERSION}.appimage`;
+if (!fs.existsSync(location)) {
+  await fetch({
+    url:
+      `https://github.com/neovim/neovim/releases/download/${NEOVIM_VERSION}/nvim-linux-x86_64.appimage`,
+    dest: location,
+    mode: "0755",
   });
 
-  const linkFiles = (
-    await Promise.all(
-      _files.flatMap(async (dirent) => {
-        if (!dirent.isFile()) {
-          return [];
-        }
+}
 
-        // Contstruct source and target paths
-        const relativePath = path.relative(
-          files,
-          path.join(dirent.parentPath, dirent.name),
-        );
-        const sourcePath = path.join(files, relativePath);
-        const targetPath = path.join(targetDir, relativePath);
+// extract
+{
+  await command(location, ['--appimage-extract'], {
+    chdir: path.home.join('/opt/nvim').toString(),
+  })
+}
 
-        // Ensure the target subdirectory exists
-        const targetSubDir = path.dirname(targetPath);
-        await fs.mkdir(targetSubDir, { recursive: true });
+// create symlinks
+{
+  const files = await variable.paths("files");
 
-        try {
-          await fs.access(targetPath);
-          // console.log(`SKIP: ${relativePath}: already exists in ${targetDir}`);
-          return [];
-        } catch (err) {
-          return { sourcePath, targetPath };
-        }
-      }),
-    )
-  ).flat();
-
-  if (!linkFiles.length) {
-    console.log("No files to link");
+  for (const src of files) {
+    await file({
+      force: true,
+      path: path.home.join(src).toString(),
+      src: path.aspect.join("files", src).toString(),
+      state: "link",
+    });
   }
-
-  for (const file of linkFiles) {
-    await $({ nothrow: true })`ln -s "${file.sourcePath}" "${file.targetPath}"`;
-    console.log(`LINK: ${file.sourcePath} -> ${file.targetPath}`);
-  }
-});
+}

@@ -27,9 +27,7 @@ includes = [
   "aspects/i3status-rust/aspect.toml",
   "aspects/interception/aspect.toml",
   "aspects/nala/aspect.toml",
-  "aspects/nvim/aspect.toml",
   "aspects/server/aspect.toml",
-  "aspects/shell/aspect.toml",
   "aspects/systemd/aspect.toml"
 ]
 

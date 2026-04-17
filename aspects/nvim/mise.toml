@@ -1,0 +1,3 @@
+[tasks.default]
+description = 'Configures Vim/Neovim'
+file = 'default'
