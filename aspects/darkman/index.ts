@@ -24,16 +24,20 @@ if (import.meta.main) {
 
     case "files": {
       const target = path.home.join(".local/share/");
+
       await file({
         state: 'copy',
-        path: target.toString(),
+        path: target.join('dark-mode.d').toString(),
         src: path.aspect.join("files", 'dark-mode.d').toString()
       })
+
+
       await file({
         state: 'copy',
-        path: target.toString(),
+        path: target.join('light-mode.d').toString(),
         src: path.aspect.join("files", 'light-mode.d').toString()
       })
+
       break;
     }
 
