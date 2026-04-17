@@ -36,10 +36,11 @@ export async function fetch({
     const stream = createWriteStream(download);
     await finished(body.pipe(stream));
 
-    const contents = await Deno.readTextFile(download);
+    const decoder = new TextDecoder("utf-8");
+    const contents = await Deno.readFile(download);
 
     const result = await file({
-      contents,
+      contents: decoder.decode(contents),
       mode,
       path: dest,
       state: "file",
