@@ -15,6 +15,7 @@ echo "set user shell to fish"
 chsh -s "$fishPath"
 
 echo "checking symlink fish history"
+mkdir -p ~/.local/share/fish
 fishHistory=~/.local/share/fish/fish_history
 timestamp=$DROPBOX_DIR/backup/fish-history.$(date +'%Y.%m.%d-%S')
 if [[ -f "$fishHistory" ]] && ! [[ -L "$fishHistory" ]]; then
