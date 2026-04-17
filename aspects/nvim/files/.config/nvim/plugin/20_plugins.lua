@@ -484,8 +484,8 @@ later(function()
           return { 'isort', 'black' }
         end
       end,
-      javascript = function(bufnr) return { first(bufnr, 'biome', 'prettierd', 'prettier') } end,
-      typescript = function(bufnr) return { first(bufnr, 'biome', 'prettierd', 'prettier') } end,
+      javascript = function(bufnr) return { first(bufnr, 'deno', 'biome', 'prettierd', 'prettier') } end,
+      typescript = function(bufnr) return { first(bufnr, 'deno', 'biome', 'prettierd', 'prettier') } end,
       vue = function(bufnr) return { first(bufnr, 'biome', 'prettierd', 'prettier') } end,
     },
   })
