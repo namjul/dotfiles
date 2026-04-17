@@ -1,16 +1,16 @@
 
-["server:init"]
+[tasks."server:init"]
 description = 'Idempotent Initialization'
-file = "aspects/server/init"
+file = "init"
 
-["server:up"]
+[tasks."server:up"]
 description = 'Idempotent Upload'
-file = "aspects/server/up"
+file = "up"
 
-["server:upinit"]
-depends=["server:init", "server:up"]
+[tasks.default]
+depends=[":init", ":up"]
 
-["server:local"]
+[tasks."remote:local"]
 description = 'Install'
 tools.sops = "latest"
 run = """
@@ -22,7 +22,7 @@ chmod 600 ~/.ssh/id_ed25519_personal-server.*
 grep -q hobl.at ~/.ssh/config > /dev/null 2>&1 || cat config/ssh_client_config >> ~/.ssh/config
 """
 
-["server:packages"]
+[tasks."remote:packages"]
 description = 'Packages'
 run = """
 #!/usr/bin/env bash
@@ -33,7 +33,7 @@ ssh root@$SERVER 'nala install -y curl vim htop ufw git unzip gnupg acl mosh ncd
 ssh root@$SERVER 'echo "unattended-upgrades unattended-upgrades/enable_auto_updates boolean true" | debconf-set-selections && apt-get install unattended-upgrades -y'
 """
 
-["server:ssh"]
+[tasks."remote:ssh"]
 description = 'Setup ssh'
 run = """
 #!/usr/bin/env bash
@@ -42,7 +42,7 @@ set -euxo pipefail
 ssh root@$SERVER "cat /etc/ssh/sshd_config" | diff  - $MISE_TASK_DIR/config/sshd_config || (scp $MISE_TASK_DIR/config/sshd_config root@$SERVER:/etc/ssh/sshd_config && ssh root@$SERVER systemctl restart ssh.service)
 """
 
-["server:firewall"]
+[tasks."remote:firewall"]
 description = 'Setup firewall'
 run = """
 #!/usr/bin/env bash
@@ -51,7 +51,7 @@ scp $MISE_TASK_DIR/config/ufw.sh root@$SERVER:/tmp/ufw.sh
 ssh root@$SERVER 'chmod +x /tmp/ufw.sh && /tmp/ufw.sh'
 """
 
-["server:aspect"]
+[tasks."remote:aspect"]
 description = 'Exec aspect'
 run = """
 #!/usr/bin/env bash
@@ -62,7 +62,7 @@ shift 2
 ssh root@$SERVER "cd $SQUARE_PATH/aspects/$aspect && mise trust && mise install && mise run $cmd $@"
 """
 
-["server:aspect:log"]
+[tasks."remote:aspect:log"]
 description = 'Log aspect'
 run = """
 #!/usr/bin/env bash

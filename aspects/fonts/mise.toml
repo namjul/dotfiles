@@ -1,4 +1,4 @@
 
-[fonts]
+[tasks.default]
 description = "Installs JetBrains Mono font files"
-file = 'aspects/fonts/default'
+file = 'default'
