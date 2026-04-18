@@ -1,0 +1,80 @@
+{
+  "providers": {
+    "openai": {
+      "baseUrl": "https://api.openai.com/v1",
+      "api": "openai-completions",
+      "apiKey": "OPENAI_API_KEY"
+    },
+    "anthropic": {
+      "api": "anthropic-messages",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": [
+        {
+          "id": "claude-sonnet-20250205",
+          "name": "Claude Sonnet (latest)",
+          "reasoning": true,
+          "input": ["text"],
+          "contextWindow": 200000,
+          "maxTokens": 8192
+        }
+      ]
+    },
+    "fireworks": {
+      "baseUrl": "https://api.fireworks.ai/inference/v1",
+      "api": "openai-completions",
+      "apiKey": "FIREWORKS_API_KEY",
+      "models": [
+        {
+          "id": "fireworks/kimi-k2.5",
+          "name": "Kimi K2.5 (Fireworks)",
+          "reasoning": true,
+          "input": ["text"],
+          "contextWindow": 262144,
+          "maxTokens": 8192
+        }
+      ]
+    },
+    "openrouter": {
+      "baseUrl": "https://openrouter.ai/api/v1",
+      "api": "openai-completions",
+      "apiKey": "OPENROUTER_API_KEY",
+      "models": [
+        {
+          "id": "openrouter/moonshotai/kimi-k2.5",
+          "name": "Moonshot Kimi K2.5",
+          "reasoning": true,
+          "input": ["text"],
+          "contextWindow": 262144,
+          "maxTokens": 8192
+        }
+      ]
+    },
+    "ollama": {
+      "baseUrl": "http://192.168.1.12:11434/v1",
+      "api": "openai-completions",
+      "apiKey": "ollama",
+      "compat": {
+        "supportsDeveloperRole": false,
+        "supportsReasoningEffort": false
+      },
+      "models": [
+        {
+          "id": "qwen3:8b",
+          "name": "Qwen3 8B (Ollama)",
+          "reasoning": true,
+          "input": ["text"],
+          "contextWindow": 32768,
+          "maxTokens": 4096
+        },
+        {
+          "id": "qwen2.5-coder:32b",
+          "name": "Qwen2.5 Coder 32B (Ollama)",
+          "reasoning": true,
+          "input": ["text"],
+          "contextWindow": 32768,
+          "maxTokens": 4096
+        }
+      ]
+    }
+  }
+}
