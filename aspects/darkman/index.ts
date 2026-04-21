@@ -28,14 +28,16 @@ if (import.meta.main) {
       await file({
         state: 'copy',
         path: target.join('dark-mode.d').toString(),
-        src: path.aspect.join("files", 'dark-mode.d').toString()
+        src: path.aspect.join("files", 'dark-mode.d').toString(),
+        force: true
       })
 
 
       await file({
         state: 'copy',
         path: target.join('light-mode.d').toString(),
-        src: path.aspect.join("files", 'light-mode.d').toString()
+        src: path.aspect.join("files", 'light-mode.d').toString(),
+        force: true
       })
 
       break;
