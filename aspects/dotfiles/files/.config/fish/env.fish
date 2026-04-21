@@ -50,7 +50,7 @@ if not string match -q -- $PNPM_HOME $PATH
 end
 # pnpm end
 
-set -x PI_CODING_AGENT_DIR "$XDG_CONFIG_HOME/pi/agent"
+export PI_CODING_AGENT_DIR=$XDG_CONFIG_HOME/pi/agent
 
 # For now, requires a manual `cargo build --release`.
 export SHELLBOT=$HOME/.local/share/nvim/site/pack/deps/opt/shellbot/target/release/shellbot
@@ -69,4 +69,3 @@ export PKG_CONFIG_PATH="/usr/lib/x86_64-linux-gnu/pkgconfig:/usr/share/pkgconfig
 # Shellbot.
 # For now, requires a manual `cargo build --release`.
 export SHELLBOT="$HOME/.local/share/nvim/site/pack/deps/opt/shellbot/target/release/shellbot $HOME/.config/shellbot/prompt"
-

@@ -33,7 +33,7 @@ if status is-interactive
   set fish_greeting # remove fish's greeting
 
   # load
-  set parts functions env path alias
+  set parts functions env path alias secrets
   for part in $parts
     set file $HOME/.config/fish/$part.fish
     if test -e $file
