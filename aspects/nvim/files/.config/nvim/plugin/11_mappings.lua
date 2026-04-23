@@ -65,17 +65,17 @@ end, { desc = 'Hover Documentation' })
 -- Leader mappings ===
 
 -- Create `<Leader>` mappings
-local nmap_leader = function(suffix, rhs, desc, opts)
+local function nmap_leader(suffix, rhs, desc, opts)
   opts = opts or {}
   opts.desc = desc
   vim.keymap.set('n', '<Leader>' .. suffix, rhs, opts)
 end
-local nmap_local_leader = function(suffix, rhs, desc, opts)
+local function nmap_local_leader(suffix, rhs, desc, opts)
   opts = opts or {}
   opts.desc = desc
   vim.keymap.set('n', '<Localleader>' .. suffix, rhs, opts)
 end
-local xmap_leader = function(suffix, rhs, desc, opts)
+local function xmap_leader(suffix, rhs, desc, opts)
   opts = opts or {}
   opts.desc = desc
   vim.keymap.set('x', '<Leader>' .. suffix, rhs, opts)
@@ -157,8 +157,20 @@ nmap_leader('LL', '<Cmd>luafile %<CR><Cmd>echo "Sourced lua"<CR>', 'Source buffe
 nmap_leader('oo', ':only<CR>', 'Make the current window the only one on the screen')
 nmap_leader('ot', '<Cmd>lua MiniTrailspace.trim()<CR>', 'Trim trailspace')
 nmap_leader('oh', '<Cmd>lua MiniNotify.show_history()<CR>', 'Notification history')
-nmap_leader('oz', '<Cmd>lua MiniMisc.zoom()<CR>', 'Zoom toggle')
 nmap_leader('or', '<Cmd>lua MiniMisc.resize_window()<CR>', 'Resize to default width')
+nmap_leader('oz', function()
+  -- source: https://github.com/wincent/wincent/blob/e104d2efaf1bbf061d91cd2549d0a9efc390aa68/aspects/nvim/files/.config/nvim/plugin/mappings/leader.lua#L89
+  local window = vim.api.nvim_get_current_win()
+  local is_zoomed = vim.w[window].is_zoomed == true
+  if is_zoomed then
+    vim.cmd('wincmd =') -- Equalize size (`: help CTRL-W_=`).
+    vim.w[window].is_zoomed = nil
+  else
+    vim.w[window].is_zoomed = true
+    vim.cmd('wincmd |') -- Maximize horizontal size (`:help CTRL-W__`).
+    vim.cmd('wincmd _') -- Maximize vertical size (`:help CTRL-W_bar`).
+  end
+end, 'Toggle maximize split')
 
 vim.keymap.set('n', '<leader>ol', function()
   local var = vim.fn.expand('<cword>')
