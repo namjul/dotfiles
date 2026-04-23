@@ -20,17 +20,6 @@ ghq = "latest"
 deno = "2.4"
 gomplate = "latest"
 
-[task_config]
-includes = [
-  "aspects/espanso/aspect.toml",
-  "aspects/fonts/aspect.toml",
-  "aspects/i3status-rust/aspect.toml",
-  "aspects/interception/aspect.toml",
-  "aspects/nala/aspect.toml",
-  "aspects/server/aspect.toml",
-  "aspects/systemd/aspect.toml"
-]
-
 [tasks."fig:test"]
 description = "Run fig tests"
 run = "deno test -A"
