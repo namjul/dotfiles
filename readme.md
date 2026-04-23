@@ -18,3 +18,4 @@ dotfiles are listed [here](https://github.com/namjul/dotfiles/tree/master/aspect
 - https://github.com/nicknisi/dotfiles
 - https://github.com/sapegin/dotfiles
 - https://github.com/mrusme/dotfiles
+- https://github.com/echasnovski/nvim
