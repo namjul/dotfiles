@@ -40,11 +40,27 @@
       "apiKey": "OPENROUTER_API_KEY",
       "models": [
         {
-          "id": "openrouter/moonshotai/kimi-k2.5",
+          "id": "moonshotai/kimi-k2.5",
           "name": "Moonshot Kimi K2.5",
           "reasoning": true,
           "input": ["text"],
           "contextWindow": 262144,
+          "maxTokens": 8192
+        },
+        {
+          "id": "deepseek/deepseek-v4-flash",
+          "name": "DeepSeek V4 Flash",
+          "reasoning": true,
+          "input": ["text"],
+          "contextWindow": 1048576,
+          "maxTokens": 8192
+        },
+        {
+          "id": "deepseek/deepseek-v4-pro",
+          "name": "DeepSeek V4 Pro",
+          "reasoning": true,
+          "input": ["text"],
+          "contextWindow": 1048576,
           "maxTokens": 8192
         }
       ]

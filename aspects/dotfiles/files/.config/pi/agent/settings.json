@@ -2,11 +2,16 @@
   "theme": "gruvbox-light-soft",
   "defaultProvider": "openrouter",
   "defaultModel": "minimax/minimax-m2.5:free",
-  "defaultThinkingLevel": "minimal",
+  "defaultThinkingLevel": "high",
   "skills": [
     "~/.claude/skills"
   ],
   "enableSkillCommands": true,
   "lastChangelogVersion": "0.70.0",
-  "enabledModels": []
+  "enabledModels": [
+    "openrouter/minimax/minimax-m2.5:free",
+    "openrouter/deepseek/deepseek-v4-flash",
+    "openrouter/deepseek/deepseek-v4-pro",
+    "openrouter/moonshotai/kimi-k2.5"
+  ]
 }
