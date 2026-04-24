@@ -456,6 +456,15 @@ later(function()
   end
 end)
 
+later(function()
+  add('wincent/shannon')
+  require('wincent.shannon').setup({
+    keymaps = true,
+    prefix = '<Localleader>s',
+    agents = { 'pi', 'claude' },
+  })
+end)
+
 -- Formatting ===
 later(function()
   add('stevearc/conform.nvim')
