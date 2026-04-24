@@ -1,11 +1,17 @@
 {
-  "theme": "gruvbox-dark-soft",
+  "theme": "gruvbox-light-soft",
+  "defaultProvider": "openrouter",
+  "defaultModel": "minimax/minimax-m2.5:free",
   "defaultThinkingLevel": "minimal",
+  "skills": [
+    "~/.claude/skills"
+  ],
   "enableSkillCommands": true,
   "packages": [],
   "retry": {
     "enabled": true,
     "maxRetries": 3
   },
-  "lastChangelogVersion": "0.67.6"
+  "lastChangelogVersion": "0.70.0",
+  "enabledModels": []
 }
