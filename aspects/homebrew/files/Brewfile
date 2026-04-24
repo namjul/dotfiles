@@ -1,3 +1,15 @@
+cargo "difftastic"
+cargo "diskonaut"
+cargo "speedtest-rs"
+cargo "porsmo"
+cargo "calc"
+cargo "impala"
+cargo "bluetui"
+cargo "wiremix"
+cargo "dysk"
+
+go "github.com/nikitavoloboev/gitupdate"
+
 brew "coreutils" # GNU core utilities (those that come with OS X are outdated)
 brew "findutils" # GNU `find`, `locate`, `updatedb`, and `xargs`, g-prefixed
 brew "wget"
