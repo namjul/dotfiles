@@ -7,11 +7,6 @@
     "~/.claude/skills"
   ],
   "enableSkillCommands": true,
-  "packages": [],
-  "retry": {
-    "enabled": true,
-    "maxRetries": 3
-  },
   "lastChangelogVersion": "0.70.0",
   "enabledModels": []
 }
