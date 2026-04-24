@@ -94,3 +94,4 @@ brew "btop" # https://github.com/aristocratos/btop
 brew "lazydocker" # https://github.com/jesseduffield/lazydocker
 brew "btop" # https://github.com/aristocratos/btop
 brew "mpv" # https://mpv.io/
+brew "hyperfine" # https://github.com/sharkdp/hyperfine
