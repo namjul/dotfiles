@@ -1,3 +1,5 @@
+[plugins]
+fnox-env = "https://github.com/jdx/mise-env-fnox"
 
 [tools]
 deno = "2.5.1"
@@ -12,8 +14,11 @@ rust = "latest"
 zig = "latest"
 usage = "latest"
 "github:anomalyco/opencode" = "latest"
-sops = "latest"
 age = "latest"
+fnox = "latest"
+
+[env]
+_.fnox-env = { tools = true }
 
 [settings]
 experimental = false

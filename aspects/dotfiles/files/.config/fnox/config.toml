@@ -1,0 +1,10 @@
+default_provider = "pass"
+
+[providers.pass]
+type = "password-store"
+prefix = "fnox/"
+
+[secrets]
+OPENROUTER_API_KEY= { provider = "pass", value = "OPENROUTER_API_KEY" }
+FIREWORKS_API_KEY= { provider = "pass", value = "FIREWORKS_API_KEY" }
+OPENAI_API_KEY= { provider = "pass", value = "OPENAI_API_KEY" }
