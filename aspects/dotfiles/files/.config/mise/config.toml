@@ -18,4 +18,4 @@ age = "latest"
 [settings]
 experimental = false
 idiomatic_version_file_enable_tools = []
-color_theme = 'base16'
+color_theme = "base16"
