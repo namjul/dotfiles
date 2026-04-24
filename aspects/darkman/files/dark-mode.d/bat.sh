@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-sed -i 's/gruvbox-light/gruvbox-dark/' ~/.config/bat/config
+sed --in-place --follow-symlinks 's/gruvbox-light/gruvbox-dark/' ~/.config/bat/config

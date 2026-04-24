@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
-sed -i 's/@theme "gruvbox-dark"/@theme "gruvbox-light"/' ~/.config/rofi/config.rasi
+sed --in-place --follow-symlinks 's/@theme "gruvbox-dark"/@theme "gruvbox-light"/' ~/.config/rofi/config.rasi
 
