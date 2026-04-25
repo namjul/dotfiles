@@ -16,7 +16,7 @@ function notify(title: string, body: string): void {
 }
 
 export default function (pi: ExtensionAPI) {
-  pi.on('turn_end', async (_event, ctx) => {
+  pi.on('agent_end', async (_event, ctx) => {
     if (!ctx.hasUI) return;
     notify('pi', 'Ready for input');
   });
