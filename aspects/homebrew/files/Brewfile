@@ -108,3 +108,4 @@ brew "btop" # https://github.com/aristocratos/btop
 brew "mpv" # https://mpv.io/
 brew "hyperfine" # https://github.com/sharkdp/hyperfine
 brew "gnuPG" # the gnu Privacy Guard https://www.gnupg.org/
+brew "openjdk@25"

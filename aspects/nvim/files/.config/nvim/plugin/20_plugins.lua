@@ -880,6 +880,29 @@ later(function()
   end
 end)
 
+later(function()
+  add({
+    source = 'apple/pkl-neovim',
+    hooks = { post_install = function() vim.cmd('TSInstall pkl') end },
+  })
+  -- Configure pkl-lsp
+  vim.g.pkl_neovim = {
+    start_command = { 'pkl-lsp' },
+  }
+
+  -- -- Pfad zum Mason-Binary ermitteln
+  -- local mason_bin = vim.fn.stdpath('data') .. '/mason/bin/pkl-lsp'
+  --
+  -- -- Globale Variable für das Plugin setzen
+  -- vim.g.pkl_neovim = {
+  --   start_command = { mason_bin },
+  --   -- Optional: Pfad zum Pkl CLI (falls ebenfalls über Mason installiert)
+  --   pkl_cli_path = vim.fn.stdpath('data') .. '/mason/bin/pkl',
+  -- }
+
+  require('pkl-neovim').init()
+end)
+
 later(
   function()
     namjul.plugin.lazy('diffview.nvim', {
