@@ -10,7 +10,7 @@ import type {ExtensionAPI} from '@mariozechner/pi-coding-agent';
 import {execFile} from 'node:child_process';
 
 function notify(title: string, body: string): void {
-  const child = execFile('notify-send', [title, body]);
+  const child = execFile('notify', ['--title', title, '--message', body]);
   // Swallow spawn errors (eg. `notify-send` not on $PATH).
   child.on('error', () => {});
 }

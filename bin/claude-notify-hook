@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# https://docs.claude.com/en/docs/claude-code/hooks#notification
+exec notify \
+    --title Claude \
+    --subtitle "Notification hook" \
+    --message "$(jq -r .message)"

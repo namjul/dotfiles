@@ -26,6 +26,7 @@ variables(() => ({
     ".config/mimeapps.list",
     // symlinked directories
     ".xmonad",
+    ".claude",
     ".config/darkman",
     ".config/shellfirm",
     ".config/environment.d",

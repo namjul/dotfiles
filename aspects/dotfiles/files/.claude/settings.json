@@ -1,0 +1,39 @@
+{
+  "cleanupPeriodDays": 99999,
+  "env": {
+    "CLAUDE_CODE_EFFORT_LEVEL": "max"
+  },
+  "enabledPlugins": {
+    "shannon@wincent-claude-plugins": true
+  },
+  "extraKnownMarketplaces": {
+    "wincent-claude-plugins": {
+      "source": {
+        "source": "github",
+        "repo": "wincent/wincent-claude-plugins"
+      }
+    }
+  },
+  "permissions": {
+    "allow": [
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(git show:*)",
+      "Bash(git status:*)"
+    ]
+  },
+  "hooks": {
+    "Notification": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "claude-notify-hook"
+          }
+        ]
+      }
+    ]
+  },
+  "alwaysThinkingEnabled": true
+}
