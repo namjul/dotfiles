@@ -16,7 +16,6 @@ variables(() => ({
     ".fxrc",
     ".todo.cfg",
     ".default-npm-packages",
-    ".gitconfig",
     ".bash_profile",
     ".stylua.toml",
     ".gitignore_global",
@@ -72,6 +71,7 @@ variables(() => ({
     ".config/wireguard/work.conf.encrypted",
   ],
   templates: [
+    ".config/git/config.tmpl",
     ".config/wireguard/tunnel.conf.tmpl",
   ],
 }));

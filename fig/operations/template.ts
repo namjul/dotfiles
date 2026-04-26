@@ -6,6 +6,7 @@ import type {
   TemplateResult,
 } from "../types.ts";
 import { getAspect } from "../context.ts";
+import toPath from "../path.ts";
 
 function getExitCode(error: unknown): number {
   if (typeof error === "object" && error !== null && "exitCode" in error) {
@@ -71,9 +72,13 @@ export async function withTempContextFile<T>(
  * Template operation - render templates using gomplate (if available) or simple JS fallback
  */
 export async function template(
-  options: TemplateOptions,
+  { src, path, context }: TemplateOptions,
 ): Promise<TemplateResult> {
-  const { src, path: targetPath, context } = options;
+
+  const targetPath = toPath(path).resolve.toString();
+  if (src) {
+    src = toPath(src).resolve.toString();
+  }
 
   // Check if template exists
   if (!fs.pathExistsSync(src)) {
