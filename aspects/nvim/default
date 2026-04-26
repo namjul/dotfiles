@@ -1,9 +1,13 @@
 #!/usr/bin/env -S deno run --allow-all
 
 import { fs } from "zx";
-import { command, fetch, file, init, path, variable } from "fig";
+import { command, fetch, file, init, path, variable, variables } from "fig";
 
 init(import.meta.dirname);
+
+variables(() => ({
+  files: [".vimrc", ".config/nvim"],
+}));
 
 const NEOVIM_VERSION = "v0.11.4";
 

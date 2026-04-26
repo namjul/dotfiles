@@ -2,7 +2,7 @@ import { Result } from "@gordonb/result";
 import type { Result as ResultType } from "@gordonb/result/result";
 import type { Option } from "@gordonb/result/option";
 import { $, ProcessOutput } from "zx";
-import { path } from "../path.ts";
+import path from "../path.ts";
 
 type CustomProcessOutput = Pick<
   ProcessOutput,

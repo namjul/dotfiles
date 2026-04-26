@@ -1,4 +1,4 @@
-import { path } from "./path.ts";
+import path from "./path.ts";
 import { Path } from "./types.ts";
 
 export function file(...components: Array<string>): Path {

@@ -5,9 +5,9 @@ type TemplateResult = Awaited<ReturnType<typeof template>>;
 type LineResult = Awaited<ReturnType<typeof line>>;
 
 console.log("=== Fig Meta ===\n");
-console.log("Platform:", variable.get("platform"));
-console.log("Hostname:", variable.get("hostname"));
-console.log("User:", variable.get("user"));
+console.log("Platform:", variable.all()["platform"]);
+console.log("Hostname:", variable.all()["hostname"]);
+console.log("User:", variable.all()["user"]);
 console.log("");
 
 const metaDir = path.home.join(".config", "fig-meta");

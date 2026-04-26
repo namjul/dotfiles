@@ -1,4 +1,4 @@
-import { assertNever, fail, init, command, resource, path } from "fig";
+import { assertNever, fail, init, command, resource } from "fig";
 import { question } from "zx";
 
 init(import.meta.dirname);

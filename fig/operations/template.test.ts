@@ -1,6 +1,7 @@
 import { assertEquals, assertRejects, assertStringIncludes } from "@std/assert";
 import { Result } from "@gordonb/result";
 import { renderTemplate, template, withTempContextFile } from "./template.ts";
+import { init } from "../context.ts";
 
 Deno.test("renderTemplate(): replaces known placeholders and keeps unknown", () => {
   const output = renderTemplate(
@@ -42,10 +43,11 @@ Deno.test("template(): returns TEMPLATE_NOT_FOUND when source is missing", async
 
 Deno.test("template(): renders variables into output", async () => {
   const tmpDir = await Deno.makeTempDir();
+  init(tmpDir)
   const src = `${tmpDir}/config.tmpl`;
   const target = `${tmpDir}/config.out`;
   try {
-    await Deno.writeTextFile(src, "user={{ .user }} shell={{ .shell }}");
+    await Deno.writeTextFile(src, "user={{ .variables.user }} shell={{ .variables.shell }}");
 
     const result = await template({
       src,

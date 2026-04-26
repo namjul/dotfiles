@@ -1,8 +1,15 @@
+import { Variables } from "./types.ts";
+
+type Aspect = {
+  dir: string;
+  variables: Variables;
+};
+
 /**
  * Global context for the current aspect
  */
 
-let currentAspectDir: string | null = null;
+let aspectContext: Aspect;
 
 /**
  * Initialize the Fig context with the current aspect directory.
@@ -14,25 +21,36 @@ export function init(aspectDir: string | undefined): void {
       "Fig context not initialized. Call init(import.meta.dirname) at the start of your aspect.",
     );
   }
-  currentAspectDir = aspectDir;
+  aspectContext = {
+    dir: aspectDir,
+    variables: {},
+  };
 }
 
 /**
  * Get the current aspect directory.
  * Throws if init() has not been called.
  */
-export function getAspectDir(): string {
-  if (!currentAspectDir) {
+export function getAspect(): Aspect {
+  if (!aspectContext.dir) {
     throw new Error(
       "Fig context not initialized. Call init(import.meta.dirname) at the start of your aspect.",
     );
   }
-  return currentAspectDir;
+  return aspectContext;
 }
 
 /**
  * Check if context has been initialized
  */
 export function isInitialized(): boolean {
-  return currentAspectDir !== null;
+  const aspect = getAspect();
+  return aspect.dir !== null;
+}
+
+export function registerVariablesCallback(
+  callback: (v: Variables) => Variables,
+) {
+  const aspect = getAspect();
+  aspect.variables = Object.assign(aspect.variables, callback(aspectContext.variables))
 }

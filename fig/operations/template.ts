@@ -1,11 +1,11 @@
 import { Result } from "@gordonb/result";
 import { $, fs } from "zx";
-import { all as getAllVariables } from "../variables.ts";
 import type {
   TemplateError,
   TemplateOptions,
   TemplateResult,
 } from "../types.ts";
+import { getAspect } from "../context.ts";
 
 function getExitCode(error: unknown): number {
   if (typeof error === "object" && error !== null && "exitCode" in error) {
@@ -84,7 +84,10 @@ export async function template(
   }
 
   // Prepare context
-  const vars = context ?? getAllVariables();
+  const variables = {
+    ...getAspect().variables,
+    ...context
+  }
 
   // Ensure parent directory exists
   const targetDir = targetPath.split("/").slice(0, -1).join("/") || "/";
@@ -96,7 +99,7 @@ export async function template(
   if (useGomplate) {
     // Use gomplate with context from a secure temp file.
     try {
-      await withTempContextFile(vars, async (contextFilePath) => {
+      await withTempContextFile(variables, async (contextFilePath) => {
         await $`gomplate --file ${src} --out ${targetPath} --context variables=${contextFilePath}`;
       });
       return Result.ok({ path: targetPath });
@@ -112,7 +115,7 @@ export async function template(
     // Fallback: simple JavaScript template renderer
     try {
       const content = fs.readFileSync(src, "utf8");
-      const rendered = renderTemplate(content, vars);
+      const rendered = renderTemplate(content, variables);
       fs.writeFileSync(targetPath, rendered);
       return Result.ok({ path: targetPath });
     } catch (error) {

@@ -1,6 +1,78 @@
-import { assertNever, file, init, path, template, variable } from "fig";
+import { assertNever, file, init, path, template, variable, variables } from "fig";
 
 init(import.meta.dirname);
+
+variables(() => ({
+  files: [
+    // root-level files
+    ".xprofile",
+    "Xresources",
+    ".xmobarrc",
+    ".togglrc",
+    ".bashrc",
+    ".tmux-cht-command",
+    ".hgrc",
+    ".tmux-cht-languages",
+    ".fxrc",
+    ".todo.cfg",
+    ".default-npm-packages",
+    ".gitconfig",
+    ".bash_profile",
+    ".stylua.toml",
+    ".gitignore_global",
+    ".tmux.conf",
+    // individual .config files
+    ".config/starship.toml",
+    ".config/mimeapps.list",
+    // symlinked directories
+    ".xmonad",
+    ".config/darkman",
+    ".config/shellfirm",
+    ".config/environment.d",
+    ".config/gtk-4.0",
+    ".config/i3",
+    ".config/nushell",
+    ".config/timewarrior",
+    ".config/octofriend",
+    ".config/spyglass",
+    ".config/xdg-desktop-portal",
+    ".config/ripgrep",
+    ".config/fish",
+    ".config/zathura",
+    ".config/opencode",
+    ".config/mise",
+    ".config/yazi",
+    ".config/wezterm",
+    ".config/i3status-rust",
+    ".config/fnox",
+    ".config/lf",
+    ".config/flameshot",
+    ".config/alacritty",
+    ".config/marksman",
+    ".config/ncspot",
+    ".config/dunst",
+    ".local/share/light-mode.d",
+    ".local/share/dark-mode.d",
+    ".local/share/applications",
+    ".config/pi",
+    ".config/ghostty",
+    ".config/imv",
+    ".config/vdirsyncer",
+    ".config/espanso",
+    ".config/notmuch",
+    ".config/todotxt",
+    // hardlinks
+    ".config/bat/config",
+    ".config/redshift/redshift.conf",
+    ".config/rofi/config.rasi",
+    ".config/btop/btop.conf",
+    // encrypted
+    ".config/wireguard/work.conf.encrypted",
+  ],
+  templates: [
+    ".config/wireguard/tunnel.conf.tmpl",
+  ],
+}));
 
 if (import.meta.main) {
   const sub = Deno.args[0] as "dir" | "files" | "templates";
@@ -11,7 +83,7 @@ if (import.meta.main) {
       break;
     }
     case "files": {
-      const files = await variable.paths("files");
+      const files = variable.paths("files");
 
       const hardlinkFiles = new Set([
         ".config/bat/config",
@@ -24,9 +96,8 @@ if (import.meta.main) {
         if (encrypted) {
           await file({
             force: true,
-            path: path.home.join(src.strip(".encrypted")).toString(),
-            src: path.aspect.join("files", src)
-              .toString(),
+            path: path.home.join(src.strip(".encrypted")),
+            src: path.aspect.join("files", src),
             state: "encrypted",
           });
           continue;
@@ -35,8 +106,8 @@ if (import.meta.main) {
         if (hardlinkFiles.has(src.toString())) {
           await file({
             force: true,
-            path: path.home.join(src).toString(),
-            src: path.aspect.join("files", src).toString(),
+            path: path.home.join(src),
+            src: path.aspect.join("files", src),
             state: "hardlink",
           });
           continue;
@@ -44,8 +115,8 @@ if (import.meta.main) {
 
         await file({
           force: true,
-          path: path.home.join(src).toString(),
-          src: path.aspect.join("files", src).toString(),
+          path: path.home.join(src),
+          src: path.aspect.join("files", src),
           state: "link",
         });
       }
@@ -53,12 +124,12 @@ if (import.meta.main) {
       break;
     }
     case "templates": {
-      const templates = await variable.paths("templates");
+      const templates = variable.paths("templates");
 
       for (const src of templates) {
         await template({
-          path: path.home.join(src.strip(".tmpl")).toString(),
-          src: path.aspect.join("templates", src).toString(),
+          path: path.home.join(src.strip(".tmpl")),
+          src: path.aspect.join("templates", src),
         });
       }
       break;

@@ -17,12 +17,13 @@ export { assert, assertNever, fail } from "./assert.ts";
 export { init } from "./context.ts";
 
 // Path
-export { path } from "./path.ts";
+export { default as path } from "./path.ts";
 export type { Path } from "./types.ts";
 export { root } from "./root.ts";
 
 // Variables
-export * as variable from "./variables.ts";
+export { variable } from "./variable.ts";
+export { variables } from "./variables.ts";
 
 // Attributes
 export { attributes } from "./attributes.ts";

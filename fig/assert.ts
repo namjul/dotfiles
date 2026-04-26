@@ -1,3 +1,5 @@
+import { type Result } from "@gordonb/result/result";
+
 export function fail(message: string | Error): never {
   const error = typeof message === "string" ? new Error(message) : message;
   Error.captureStackTrace?.(error, fail);
@@ -11,6 +13,12 @@ export function assert(
   if (!condition) {
     debugger;
     fail(message);
+  }
+}
+
+assert.result = <T extends Result<unknown, unknown>>(result: T) => {
+  if (!result.ok) {
+    return assert(result.ok, JSON.stringify(result.error))
   }
 }
 

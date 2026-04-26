@@ -2,7 +2,7 @@ import { Result } from "@gordonb/result";
 import * as Option from "@gordonb/result/option";
 import { $, fs } from "zx";
 import { writeFile } from "atomically";
-import { path as toPath } from "../path.ts";
+import toPath from "../path.ts";
 import type {
   FileDirectoryOptions,
   FileEncryptedOptions,
@@ -35,8 +35,11 @@ async function hasSops(): Promise<boolean> {
  * File operation - atomic file management
  */
 export async function file(options: FileOptions): Promise<FileResult> {
-  const resolved = toPath(options.path).expand.resolve;
-  const targetPath = resolved.toString();
+
+  const targetPath = toPath(options.path).resolve.toString();
+  if (options.src) {
+    options.src = toPath(options.src).resolve.toString();
+  }
   const sudo = Option.unwrapOr(Option.from(options.sudo), false);
 
   try {
@@ -156,14 +159,16 @@ async function writeFileContent(
   }
 }
 
-function ensureTargetWritable(
+function clearTarget(
   targetPath: string,
   operation: FileState,
   force: boolean,
-): FileResult | null {
+): FileResult {
   try {
-    if (!fs.pathExistsSync(targetPath)) {
-      return null;
+    try {
+      fs.lstatSync(targetPath);
+    } catch {
+      return Result.ok({ path: targetPath });
     }
 
     if (!force) {
@@ -175,7 +180,7 @@ function ensureTargetWritable(
     }
 
     fs.removeSync(targetPath);
-    return null;
+    return Result.ok({ path: targetPath });
   } catch (cause) {
     return Result.err({
       type: "WRITE_FAILED",
@@ -258,8 +263,8 @@ function createSymlink(options: FileSourceOptions): FileResult {
     });
   }
 
-  const targetCheck = ensureTargetWritable(targetPath, "link", force);
-  if (targetCheck !== null) {
+  const targetCheck = clearTarget(targetPath, "link", force);
+  if (!targetCheck.ok) {
     return targetCheck;
   }
 
@@ -291,8 +296,8 @@ function createHardlink(options: FileSourceOptions): FileResult {
     });
   }
 
-  const targetCheck = ensureTargetWritable(targetPath, "hardlink", force);
-  if (targetCheck !== null) {
+  const targetCheck = clearTarget(targetPath, "hardlink", force);
+  if (!targetCheck.ok) {
     return targetCheck;
   }
 
@@ -327,8 +332,8 @@ async function decryptEncrypted(
     });
   }
 
-  const targetCheck = ensureTargetWritable(targetPath, "encrypted", force);
-  if (targetCheck !== null) {
+  const targetCheck = clearTarget(targetPath, "encrypted", force);
+  if (!targetCheck.ok) {
     return targetCheck;
   }
 
@@ -389,8 +394,8 @@ function copyFile(options: FileSourceOptions): FileResult {
     });
   }
 
-  const targetCheck = ensureTargetWritable(targetPath, "copy", force);
-  if (targetCheck !== null) {
+  const targetCheck = clearTarget(targetPath, "copy", force);
+  if (!targetCheck.ok) {
     return targetCheck;
   }
 

@@ -1,6 +1,18 @@
 import type { Result } from "@gordonb/result/result";
 import type { Option } from "@gordonb/result/option";
 
+export type JSONValue =
+  | boolean
+  | null
+  | number
+  | string
+  | {[property: string]: JSONValue}
+  | Array<JSONValue>;
+
+export type Variables = {
+  [key: string]: JSONValue;
+};
+
 /**
  * Error types for file operations
  */
@@ -121,14 +133,15 @@ export interface LineOptions {
 /**
  * Path interface - string-like with methods
  */
-export interface Path {
-  toString(): string;
-  valueOf(): string;
-  strip(ext: string): Path;
-  join(...parts: (string | Path)[]): Path;
+export type Path = string & {
   basename: Path;
+  components: Array<Path>;
   dirname: Path;
-  resolve: Path;
   expand: Path;
+  join: (...components: Array<string>) => Path;
+  last: (count: number) => Array<Path>;
+  resolve: Path;
+  simplify: Path;
+  strip: (extension?: string) => Path;
   [Symbol.iterator](): Iterator<string>;
 }

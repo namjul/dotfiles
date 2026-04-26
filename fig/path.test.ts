@@ -1,5 +1,5 @@
 import { assertEquals } from "@std/assert";
-import { path } from "./path.ts";
+import path from "./path.ts";
 
 Deno.test("path(): preserves filesystem root", () => {
   const rootPath = path("/");
