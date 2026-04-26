@@ -1,0 +1,3 @@
+[tasks.default]
+description = "Creates symlinks for AI skills (claude, pi)"
+run = "deno run --allow-all index.ts"

@@ -5,6 +5,11 @@ font-family = "JetBrainsMono Nerd Font"
 font-size = 15
 font-feature = -liga
 theme = dark:Gruvbox Dark,light:Gruvbox Light
+desktop-notifications = true
+notify-on-command-finish-action = bell,notify
+
+selection-clear-on-copy = true
+mouse-shift-capture = true
 
 # Window Settings
 gtk-titlebar = false
