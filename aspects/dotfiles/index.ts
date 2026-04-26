@@ -27,6 +27,7 @@ variables(() => ({
     // symlinked directories
     ".xmonad",
     ".claude",
+    ".config/pitchfork",
     ".config/darkman",
     ".config/shellfirm",
     ".config/environment.d",

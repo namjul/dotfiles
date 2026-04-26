@@ -13,6 +13,7 @@ usage = "latest"
 "github:anomalyco/opencode" = "latest"
 age = "latest"
 fnox = "latest"
+pitchfork = "latest"
 
 [settings]
 experimental = false

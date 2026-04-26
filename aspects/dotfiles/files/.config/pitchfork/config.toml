@@ -1,0 +1,4 @@
+# Global settings
+[settings.general]
+log_level = "info"
+mise = true
