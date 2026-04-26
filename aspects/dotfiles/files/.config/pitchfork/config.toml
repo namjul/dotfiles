@@ -1,3 +1,7 @@
+[daemons.txtatelier]
+run = "fnox exec -- txtatelier"
+boot_start = true
+
 # Global settings
 [settings.general]
 log_level = "info"
