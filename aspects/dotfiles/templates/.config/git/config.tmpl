@@ -128,3 +128,10 @@
   prompt = false
 [pager]
   difftool = true
+[user]
+{{- if index .variables "vcsUserEmail" }}
+  email = {{ index .variables "vcsUserEmail" }}
+{{- end }}
+{{- if index .variables "vcsUserName" }}
+  name = {{ index .variables "vcsUserName" }}
+{{- end }}

@@ -1,3 +1,6 @@
+[env]
+SERVER="hobl.at"
+SQUARE_PATH="/home/square"
 
 [tasks."server:init"]
 description = 'Idempotent Initialization'

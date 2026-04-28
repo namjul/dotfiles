@@ -1,3 +1,5 @@
+import { attributes } from "./attributes.ts";
+import variables from "../variables.ts";
 import { Variables } from "./types.ts";
 
 type Aspect = {
@@ -23,7 +25,10 @@ export function init(aspectDir: string | undefined): void {
   }
   aspectContext = {
     dir: aspectDir,
-    variables: {},
+    variables: {
+      ...attributes,
+      ...variables
+    },
   };
 }
 

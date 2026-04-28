@@ -1,17 +1,17 @@
 experimental_monorepo_root = true
 
+[env]
+FIG_IDENTITY = "${FIG_IDENTITY:-namjul}"
+
 [monorepo]
 config_roots = [
   "aspects/*",
 ]
 
-[env]
-SERVER="hobl.at"
-SQUARE_PATH="/home/square"
-
 [settings]
 sops.rops = false
 experimental = true
+env_shell_expand = true
 
 [tools]
 sops = "latest"

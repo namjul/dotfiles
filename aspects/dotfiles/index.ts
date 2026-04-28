@@ -1,8 +1,8 @@
-import { assertNever, file, init, path, template, variable, variables } from "fig";
+import { assertNever, attributes, file, init, path, template, variable, variables } from "fig";
 
 init(import.meta.dirname);
 
-variables(() => ({
+variables(({ identity }) => console.log("identity", identity) || ({
   files: [
     // root-level files
     ".xprofile",
@@ -74,6 +74,8 @@ variables(() => ({
     ".config/git/config.tmpl",
     ".config/wireguard/tunnel.conf.tmpl",
   ],
+  vcsUserEmail: identity === "namjul" ? "samuel.hobl@gmail.com" : "",
+  vcsUserName: identity === "namjul" ? "Samuel Hobl" : "",
 }));
 
 if (import.meta.main) {
