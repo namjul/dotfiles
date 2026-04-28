@@ -17,7 +17,7 @@ env_shell_expand = true
 sops = "latest"
 age = "latest"
 ghq = "latest"
-deno = "2.4"
+deno = "latest"
 gomplate = "latest"
 
 [tasks."fig:test"]

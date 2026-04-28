@@ -27,5 +27,6 @@
     "noUncheckedIndexedAccess": true, // Adds 'undefined' to the type of any property accessed via an index signature.
     "noImplicitOverride": true, // Requires 'override' modifier for methods overriding a method in a base class.
     "noPropertyAccessFromIndexSignature": true, // Prevents accessing properties on objects via index access that don't exist in the index signature.
+    "isolatedDeclarations": true, // Every exported symbol must be self-annotatable without cross-module inference.
   }
 }

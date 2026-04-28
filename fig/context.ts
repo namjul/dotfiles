@@ -55,7 +55,7 @@ export function isInitialized(): boolean {
 
 export function registerVariablesCallback(
   callback: (v: Variables) => Variables,
-) {
+): void {
   const aspect = getAspect();
   aspect.variables = Object.assign(aspect.variables, callback(aspectContext.variables))
 }

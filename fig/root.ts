@@ -1,1 +1,1 @@
-export const root = new URL("../", import.meta.url).pathname;
+export const root: string = new URL("../", import.meta.url).pathname;

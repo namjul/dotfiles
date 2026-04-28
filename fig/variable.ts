@@ -4,12 +4,21 @@ import path from "./path.ts";
 import type { JSONValue, Path } from "./types.ts";
 import { assert } from "./assert.ts";
 
-export function variable(name: string, fallback?: JSONValue) {
-  const aspectVars = getAspect().variables
-  return Object.prototype.hasOwnProperty.call(aspectVars, name) ? aspectVars[name] : fallback || null;
+interface Variable {
+  (name: string, fallback?: JSONValue): JSONValue;
+  all(): Record<string, unknown>;
+  array(name: string, fallback?: Array<JSONValue>): Array<JSONValue>;
+  path(name: string, fallback?: string): Path;
+  paths(name: string, fallback?: Array<string>): Array<Path>;
+  string(name: string, fallback?: string): string;
 }
 
-variable.all = (): Record<string, unknown> => {
+function variableImpl(name: string, fallback?: JSONValue): JSONValue {
+  const aspectVars = getAspect().variables
+  return Object.prototype.hasOwnProperty.call(aspectVars, name) ? aspectVars[name]! : fallback || null;
+}
+
+function all(): Record<string, unknown> {
   const aspectVars = getAspect().variables
   return {
     ...attributes,
@@ -17,8 +26,8 @@ variable.all = (): Record<string, unknown> => {
   };
 }
 
-variable.string = (name: string, fallback?: string): string => {
-  const value = variable(name, fallback);
+function string(name: string, fallback?: string): string {
+  const value = variableImpl(name, fallback);
 
   assert(
     typeof value === 'string',
@@ -26,24 +35,20 @@ variable.string = (name: string, fallback?: string): string => {
   );
 
   return value;
-};
-
-variable.array = (
-  name: string,
-  fallback?: Array<JSONValue>,
-): Array<JSONValue> => {
-  const value = variable(name, fallback);
-  assert(Array.isArray(value), `Expected variable ${name} to be an array`);
-  return value;
-};
-
-variable.path = (name: string, fallback?: string): Path => {
-  const value = variable.string(name, fallback);
-  return path(value);
 }
 
-variable.paths = (name: string, fallback?: Array<string>): Array<Path> => {
-  const value = variable.array(name, fallback);
+function array(name: string, fallback?: Array<JSONValue>): Array<JSONValue> {
+  const value = variableImpl(name, fallback);
+  assert(Array.isArray(value), `Expected variable ${name} to be an array`);
+  return value;
+}
+
+function variablePath(name: string, fallback?: string): Path {
+  return path(string(name, fallback));
+}
+
+function paths(name: string, fallback?: Array<string>): Array<Path> {
+  const value = array(name, fallback);
 
   return value.map((v) => {
     assert(
@@ -52,30 +57,12 @@ variable.paths = (name: string, fallback?: Array<string>): Array<Path> => {
     );
     return path(v);
   });
-
-  // const aspectDir = getAspectDir();
-  // const searchDir = `${aspectDir}/${dir}`;
-  //
-  // // Get all files (not directories) recursively
-  // const allEntries = await glob(`${searchDir}/**/*`, {
-  //   absolute: true,
-  //   dot: true,
-  // });
-  //
-  // const result: Path[] = [];
-  // for (const entry of allEntries) {
-  //   // Check if it's a file (not directory)
-  //   try {
-  //     const stat = await fs.stat(entry);
-  //     if (stat.isFile()) {
-  //       // Get relative path from the search directory
-  //       const relativePath = entry.replace(`${searchDir}/`, "");
-  //       result.push(path(relativePath));
-  //     }
-  //   } catch {
-  //     // Skip if can't stat
-  //   }
-  // }
-  //
-  // return result;
 }
+
+export const variable: Variable = Object.assign(variableImpl, {
+  all,
+  array,
+  path: variablePath,
+  paths,
+  string,
+});

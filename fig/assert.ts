@@ -6,7 +6,12 @@ export function fail(message: string | Error): never {
   throw error;
 }
 
-export function assert(
+interface Assert {
+  (condition: any, message?: string): asserts condition;
+  result<T extends Result<unknown, unknown>>(result: T): void;
+}
+
+function assertImpl(
   condition: any,
   message: string = "Condition not met",
 ): asserts condition {
@@ -16,11 +21,13 @@ export function assert(
   }
 }
 
-assert.result = <T extends Result<unknown, unknown>>(result: T) => {
-  if (!result.ok) {
-    return assert(result.ok, JSON.stringify(result.error))
-  }
-}
+export const assert: Assert = Object.assign(assertImpl, {
+  result<T extends Result<unknown, unknown>>(result: T): void {
+    if (!result.ok) {
+      assertImpl(result.ok, JSON.stringify(result.error));
+    }
+  },
+});
 
 export function assertNever(value: never): never {
   return fail(`Expected ${value} to be unreachable`);
