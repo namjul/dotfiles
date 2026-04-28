@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Name=TXTAtelier
+Comment=Launch TXTAtelier in Chromium
+Exec=chromium --app=https://namjul.github.io/txtatelier/
+Terminal=false
+Type=Application
+Categories=Network;Productivity;
+StartupWMClass=txtatelier
