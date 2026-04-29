@@ -658,7 +658,7 @@ end)
 
 later(function()
   add('yousefakbar/notmuch.nvim')
-  namjul.plugin.lazy('notmuch', {
+  namjul.plugin.lazy('notmuch.nvim', {
     afterload = function()
       require('notmuch').setup({
         notmuch_db_path = '/home/hobl/.mail',
@@ -672,7 +672,7 @@ end)
 
 later(function()
   add({ source = 'stevearc/overseer.nvim', checkout = 'v1.6.0' })
-  namjul.plugin.lazy('overseer', {
+  namjul.plugin.lazy('overseer.nvim', {
     afterload = function() require('overseer').setup() end,
     commands = {
       'OverseerRun',
@@ -680,7 +680,7 @@ later(function()
       'OverseerToggle',
     },
     keymap = {
-      { 'n', 'yot', ':OverseerToggle<CR>', { silent = true, desc = 'Task runner' } },
+      { 'n', 'yot', 'OverseerToggle', { silent = true, desc = 'Task runner' } },
     },
   })
 end)
@@ -695,7 +695,7 @@ later(function()
       vim.g.undotree_DiffCommand = 'diff -u'
     end,
     keymap = {
-      { 'n', 'you', ':UndotreeToggle<CR>', { silent = true } },
+      { 'n', 'you', ':UndotreeToggle', { silent = true } },
     },
   })
 end)
@@ -903,23 +903,19 @@ later(function()
   require('pkl-neovim').init()
 end)
 
-later(
-  function()
-    namjul.plugin.lazy('diffview.nvim', {
-      keymap = {
-        { 'n', 'yod', ':UndotreeToggle<CR>', { silent = true } },
-      },
-      commands = {
-        'DiffviewOpen',
-        'DiffviewFileHistory',
-        'DiffviewClose',
-      },
-      keymap = {
-        { 'n', 'yod', ':DiffviewOpen<CR>', { silent = true } },
-      },
-    })
-  end
-)
+later(function()
+  add('sindrets/diffview.nvim')
+  namjul.plugin.lazy('diffview.nvim', {
+    commands = {
+      'DiffviewOpen',
+      'DiffviewFileHistory',
+      'DiffviewClose',
+    },
+    keymap = {
+      { 'n', 'yod', ':DiffviewOpen<CR>', { silent = true } },
+    },
+  })
+end)
 
 -- add('navarasu/onedark.nvim')
 -- add('rafcamlet/nvim-luapad')
