@@ -671,7 +671,7 @@ later(function()
 end)
 
 later(function()
-  add({ source = 'stevearc/overseer.nvim', checkout = 'v1.6.0' })
+  add({ source = 'stevearc/overseer.nvim' }, { bang = true })
   namjul.plugin.lazy('overseer.nvim', {
     afterload = function() require('overseer').setup() end,
     commands = {
