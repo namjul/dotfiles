@@ -1,7 +1,6 @@
 cargo "difftastic"
 cargo "diskonaut"
 cargo "speedtest-rs"
-cargo "porsmo"
 cargo "calc"
 cargo "impala"
 cargo "bluetui"
