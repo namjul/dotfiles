@@ -673,11 +673,25 @@ end)
 later(function()
   add({ source = 'stevearc/overseer.nvim' }, { bang = true })
   namjul.plugin.lazy('overseer.nvim', {
-    afterload = function() require('overseer').setup() end,
+    afterload = function()
+      local overseer = require('overseer')
+      overseer.setup()
+      overseer.register_template({
+        name = 'Pomo',
+        builder = function(params)
+          return {
+            cmd = { 'pomo', '25', 'rest' },
+          }
+        end,
+      })
+      -- vim.cmd.cnoreabbrev('OS OverseerShell')
+    end,
     commands = {
       'OverseerRun',
       'OverseerOpen',
       'OverseerToggle',
+      'OverseerShell',
+      'OverseerTaskAction',
     },
     keymap = {
       { 'n', 'yot', 'OverseerToggle', { silent = true, desc = 'Task runner' } },

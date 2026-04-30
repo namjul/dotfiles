@@ -178,17 +178,20 @@ vim.keymap.set('n', '<leader>ol', function()
   vim.api.nvim_put({ line }, 'l', true, true)
 end)
 
--- t is for 'terminal' (uses 'neoterm') and 'minitest'
+-- t stands for terminal/translate/task
 nmap_leader('tT', '<Cmd>belowright Tnew<CR>', 'Terminal (horizontal)')
 nmap_leader('tt', '<Cmd>vertical Tnew<CR>', 'Terminal (vertical)')
 nmap_leader('tl', '<Cmd>Tredo<CR>', 'Terminal (redo)')
+nmap_leader('te', '<Cmd>Trans en <CR>', 'Translate to English(word under cursor)')
+nmap_leader('tg', '<Cmd>Trans de <CR>', 'Translate to German(word under cursor)')
+nmap_leader('tr', '<Cmd>OverseerRun<CR>', 'Run task')
+nmap_leader('ta', '<Cmd>OverseerTaskAction<CR>', 'Run task action')
+nmap_leader('ts', '<Cmd>OverseerShell<CR>', 'Run shell task')
 
 -- misc
 nmap_leader('2', '<Cmd>w<CR>:! ./%<CR>', 'Execute current file')
 nmap_leader('3', '<Cmd>!chmod +x %<CR>', 'Make current file executable')
 nmap_leader('q', '<Cmd>quit<CR>', 'Quites the current window and vim if its the last')
-nmap_leader('te', '<Cmd>Trans en <CR>', 'Translate to English(word under cursor)')
-nmap_leader('tg', '<Cmd>Trans de <CR>', 'Translate to German(word under cursor)')
 nmap_leader('x', '<Cmd>exit<CR>', 'like ":wq"')
 nmap_leader('y', '"+y', 'Yank into clipboard')
 nmap_leader(
