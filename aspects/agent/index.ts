@@ -14,6 +14,9 @@ variables(function () {
       "skills/minimal-step-pair-programming",
       "skills/reflect",
       "skills/zx-markdown-scaffold",
+      "skills/codebase-walkthrough",
+      "skills/openspec-generate-tutorial",
+      "skills/sr-eng-review",
       "AGENTS.md",
     ],
   };
