@@ -71,5 +71,4 @@ export PKG_CONFIG_PATH="/usr/lib/x86_64-linux-gnu/pkgconfig:/usr/share/pkgconfig
 export SHELLBOT="$HOME/.local/share/nvim/site/pack/deps/opt/shellbot/target/release/shellbot $HOME/.config/shellbot/prompt"
 
 # age key
-export FNOX_AGE_KEY_FILE=~/.config/mise/age.txt
 export SOPS_AGE_KEY_FILE=~/.config/mise/age.txt

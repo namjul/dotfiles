@@ -1,3 +1,6 @@
+[env]
+FNOX_AGE_KEY_FILE = "~/.config/mise/age.txt"
+
 [tools]
 deno = "2.5.1"
 golang = "1.20"
