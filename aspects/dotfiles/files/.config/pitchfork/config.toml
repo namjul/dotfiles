@@ -2,6 +2,10 @@
 run = "fnox exec -- txtatelier"
 boot_start = true
 
+[daemons.memex-gitupdate]
+run = 'bash -c "cd ~/Dropbox/memex/; gitupdate ."'
+cron = { schedule = "0 0 2 * * *", retrigger = "finish" }  # Run at 2 AM daily
+
 # Global settings
 [settings.general]
 log_level = "info"
