@@ -2,7 +2,7 @@ import { assertNever, attributes, file, init, path, template, variable, variable
 
 init(import.meta.dirname);
 
-variables(({ identity }) => console.log("identity", identity) || ({
+variables(({ identity }) => ({
   files: [
     // root-level files
     ".xprofile",
