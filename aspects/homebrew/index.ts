@@ -1,23 +1,11 @@
-import { assertNever, fail, init, command, resource } from "fig";
-import { question } from "zx";
+import { assertNever, init, command, resource } from "fig";
 
 init(import.meta.dirname);
 
 if (import.meta.main) {
-  const sub = Deno.args[0] as "install" | "update" | "cleanup" | "brew"
+  const sub = Deno.args[0] as "update" | "cleanup" | "brew"
 
   switch (sub) {
-    case "install": {
-      console.log("Install $brew https://brew.sh/")
-      const answer = await question("Confirm that Homebrew is installed(y|n)", {
-        choices: ["y", "n"],
-      });
-      if (answer !== 'y') {
-        fail("User aborted");
-      }
-      break;
-    }
-
     case "update": {
       await command('brew', ['update']);
       break;

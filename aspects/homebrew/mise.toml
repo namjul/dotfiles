@@ -1,6 +1,6 @@
 [tasks."install"]
 description = "install"
-run = "deno run --allow-all index.ts install"
+confirm = { message = "Confirm that Homebrew is installed(y|n)", default = "no" }
 
 [tasks."update"]
 description = "update homebrew"
