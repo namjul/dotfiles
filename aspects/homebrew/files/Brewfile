@@ -6,6 +6,7 @@ cargo "impala"
 cargo "bluetui"
 cargo "wiremix"
 cargo "dysk"
+cargo "alacritty"
 
 go "github.com/nikitavoloboev/gitupdate"
 

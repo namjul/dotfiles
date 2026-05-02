@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+sed --in-place --follow-symlinks 's/gruvbox_dark/gruvbox_light/' ~/.config/alacritty/alacritty.toml
+
