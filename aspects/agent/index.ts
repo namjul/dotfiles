@@ -16,6 +16,8 @@ variables(function () {
       "skills/engineering/sr-eng-review",
       "skills/general/caveman",
       "skills/general/grill-me",
+      "skills/general/chat-to-skill",
+      "skills/general/skill-creator",
     ],
     rest: [
       "AGENTS.md",
