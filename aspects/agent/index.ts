@@ -5,18 +5,15 @@ init(import.meta.dirname);
 variables(function () {
   return {
     files: [
-      "skills/agency-composition-config",
-      "skills/agency-getting-started",
-      "skills/agency-primitive-extraction",
-      "skills/conversation-capture",
-      "skills/creative-guardian",
-      "skills/etymology-research",
-      "skills/minimal-step-pair-programming",
-      "skills/reflect",
-      "skills/zx-markdown-scaffold",
-      "skills/codebase-walkthrough",
-      "skills/openspec-generate-tutorial",
-      "skills/sr-eng-review",
+      "skills/general/conversation-capture",
+      "skills/general/creative-guardian",
+      "skills/general/etymology-research",
+      "skills/engineering/minimal-step-pair-programming",
+      "skills/general/reflect",
+      "skills/personal/zx-markdown-scaffold",
+      "skills/engineering/codebase-walkthrough",
+      "skills/engineering/openspec-generate-tutorial",
+      "skills/engineering/sr-eng-review",
       "AGENTS.md",
     ],
   };
@@ -24,9 +21,9 @@ variables(function () {
 
 if (import.meta.main) {
   const destinations = [
-    path.home.join(".claude"),
-    path.home.join(".config", "pi", "agent"),
-    path.home.join(".config", "opencode"),
+    path.home.join(".claude", "skills"),
+    path.home.join(".config", "pi", "agent", "skills"),
+    path.home.join(".config", "opencode", "skills"),
   ];
 
   // setup skills
@@ -37,7 +34,7 @@ if (import.meta.main) {
       for (const dest of destinations) {
         const r = await file({
           force: true,
-          path: dest.join(src),
+          path: dest.join(src.basename),
           src: path.aspect.join("files", src),
           state: "link",
         });
