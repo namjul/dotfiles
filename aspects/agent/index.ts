@@ -18,6 +18,7 @@ variables(function () {
       "skills/general/grill-me",
       "skills/general/chat-to-skill",
       "skills/general/skill-creator",
+      "skills/general/new-aspect",
     ],
     rest: [
       "AGENTS.md",
