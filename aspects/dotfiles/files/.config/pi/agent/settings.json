@@ -7,7 +7,7 @@
     "~/.claude/skills"
   ],
   "enableSkillCommands": true,
-  "lastChangelogVersion": "0.70.0",
+  "lastChangelogVersion": "0.71.1",
   "enabledModels": [
     "openrouter/minimax/minimax-m2.5:free",
     "openrouter/deepseek/deepseek-v4-flash",
