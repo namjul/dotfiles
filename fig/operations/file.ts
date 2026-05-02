@@ -1,8 +1,10 @@
+ import { dirname, relative } from "@std/path";
 import { Result } from "@gordonb/result";
 import * as Option from "@gordonb/result/option";
 import { $, fs } from "zx";
 import { writeFile } from "atomically";
 import toPath from "../path.ts";
+import { root } from "../root.ts";
 import type {
   FileDirectoryOptions,
   FileEncryptedOptions,
@@ -35,7 +37,6 @@ async function hasSops(): Promise<boolean> {
  * File operation - atomic file management
  */
 export async function file(options: FileOptions): Promise<FileResult> {
-
   const targetPath = toPath(options.path).resolve.toString();
   if (options.src) {
     options.src = toPath(options.src).resolve.toString();
@@ -43,15 +44,25 @@ export async function file(options: FileOptions): Promise<FileResult> {
   const sudo = Option.unwrapOr(Option.from(options.sudo), false);
 
   try {
-    // Check for symlink directory (safety check)
+    // Guard against a symlink (e.g. ~/.claude/skills → repo/skills) that would
+    // cause us to write back into this repo's working copy. Walk up to the
+    // first existing ancestor and bail if realpath resolves inside the repo.
     const targetDir = targetPath.split("/").slice(0, -1).join("/") || "/";
-    if (
-      fs.pathExistsSync(targetDir) && fs.lstatSync(targetDir).isSymbolicLink()
-    ) {
-      return Result.err({
-        type: "SYMLINK_DETECTED",
-        path: targetDir,
-      });
+    let checkDir = targetDir;
+    while (checkDir !== "/") {
+      if (fs.pathExistsSync(checkDir)) {
+        try {
+          const resolved = Deno.realPathSync(checkDir);
+          if (
+            !checkDir.startsWith(root) &&
+            !relative(root, resolved).startsWith("..")
+          ) {
+            return Result.err({ type: "SYMLINK_DETECTED", path: checkDir });
+          }
+        } catch { /* ignore resolution errors */ }
+        break;
+      }
+      checkDir = dirname(checkDir);
     }
 
     // Ensure parent directory exists
