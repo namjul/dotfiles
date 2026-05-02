@@ -5,7 +5,7 @@ export DISPLAY=:0
 export XAUTHORITY="$HOME/.Xauthority"
 
 # Usage: launch-or-focus APP_PATTERN LAUNCH_COMMAND
-# Example: launch-or-focus Wiremix "ghostty --class float-wiremix --command wiremix"
+# Example: launch-or-focus Wiremix "mise r term --class float-wiremix --command wiremix"
 
 if [ $# -lt 2 ]; then
   echo "Usage: $0 APP_PATTERN LAUNCH_COMMAND"

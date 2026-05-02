@@ -1,1 +1,1 @@
-launch-or-focus bluetui "ghostty --font-size=10 --class=org.namjul.float-win --title=BlueTui --command=bluetui"
+launch-or-focus bluetui "mise run term --font-size=10 --class=org.namjul.float-win --title=BlueTui --command=bluetui"
