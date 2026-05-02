@@ -14,6 +14,7 @@ variables(function () {
       "skills/engineering/codebase-walkthrough",
       "skills/engineering/openspec-generate-tutorial",
       "skills/engineering/sr-eng-review",
+      "skills/general/caveman",
     ],
     rest: [
       "AGENTS.md",
