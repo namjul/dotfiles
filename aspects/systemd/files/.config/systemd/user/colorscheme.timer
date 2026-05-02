@@ -1,9 +1,0 @@
-[Unit]
-Description=Run script periodically
-
-[Timer]
-OnCalendar=*:0/1
-Persistent=true
-
-[Install]
-WantedBy=timers.target
