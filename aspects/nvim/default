@@ -26,15 +26,14 @@ if (!fs.existsSync(location)) {
     dest: location,
     mode: "0755",
   });
-
+  // extract
+  {
+    await command(location, ['--appimage-extract'], {
+      chdir: path.home.join('/opt/nvim').toString(),
+    })
+  }
 }
 
-// extract
-{
-  await command(location, ['--appimage-extract'], {
-    chdir: path.home.join('/opt/nvim').toString(),
-  })
-}
 
 // create symlinks
 {
