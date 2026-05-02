@@ -1,4 +1,6 @@
-import { assertNever, attributes, file, init, path, template, variable, variables } from "fig";
+#!/usr/bin/env -S deno run --allow-all
+
+import { assertNever, file, init, path, template, variable, variables } from "fig";
 
 init(import.meta.dirname);
 
