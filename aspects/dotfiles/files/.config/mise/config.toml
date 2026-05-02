@@ -30,26 +30,29 @@ usage = '''
 flag "--font-size <font_size>" help="Font size override"
 flag "--class <class>" help="Window class / app-id"
 flag "--title <title>" help="Window title"
-flag "--command <command>" help="Command to run inside the terminal"
+arg "[cmd]..." help="Command to run inside the terminal"
 '''
 run = """
 #!/usr/bin/env bash
 set -euo pipefail
 TERM_BIN="${TERMINAL:-alacritty}"
 args=()
+if [[ -n "${usage_cmd:-}" ]]; then
+  read -ra _cmd <<< "${usage_cmd}"
+fi
 case "$TERM_BIN" in
   ghostty)
     [[ -n "${usage_font_size:-}" ]] && args+=("--font-size=${usage_font_size}")
     [[ -n "${usage_class:-}" ]]     && args+=("--class=${usage_class}")
     [[ -n "${usage_title:-}" ]]     && args+=("--title=${usage_title}")
-    [[ -n "${usage_command:-}" ]]   && args+=("--command=${usage_command}")
+    [[ -n "${usage_cmd:-}" ]]       && args+=("-e" "${_cmd[@]}")
     ;;
   alacritty)
     [[ -n "${usage_font_size:-}" ]] && args+=("-o" "font.size=${usage_font_size}")
     [[ -n "${usage_class:-}" ]]     && args+=("--class" "${usage_class}")
     [[ -n "${usage_title:-}" ]]     && args+=("--title" "${usage_title}")
-    [[ -n "${usage_command:-}" ]]   && args+=("-e" "${usage_command}")
+    [[ -n "${usage_cmd:-}" ]]       && args+=("-e" "${_cmd[@]}")
     ;;
 esac
-exec "$TERM_BIN" "${args[@]}" "$@"
+exec "$TERM_BIN" "${args[@]}"
 """
