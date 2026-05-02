@@ -5,21 +5,22 @@ init(import.meta.dirname);
 variables(function () {
   return {
     skills: [
+      "skills/personal/zx-markdown-scaffold",
       "skills/general/conversation-capture",
       "skills/general/creative-guardian",
       "skills/general/etymology-research",
-      "skills/engineering/minimal-step-pair-programming",
       "skills/general/reflect",
-      "skills/personal/zx-markdown-scaffold",
-      "skills/engineering/codebase-walkthrough",
-      "skills/engineering/openspec-generate-tutorial",
-      "skills/engineering/sr-eng-review",
       "skills/general/caveman",
       "skills/general/grill-me",
       "skills/general/chat-to-skill",
       "skills/general/skill-creator",
       "skills/general/new-aspect",
-      "skills/general/skill-discovery"
+      "skills/general/skill-discovery",
+      "skills/engineering/minimal-step-pair-programming",
+      "skills/engineering/commit",
+      "skills/engineering/codebase-walkthrough",
+      "skills/engineering/openspec-generate-tutorial",
+      "skills/engineering/sr-eng-review",
     ],
     rest: [
       "AGENTS.md",
