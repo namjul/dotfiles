@@ -1,5 +1,5 @@
-[daemons.txtatelier]
-run = "fnox exec -- txtatelier"
+[daemons.teich]
+run = "fnox exec -- teich"
 boot_start = true
 
 [daemons.memex-gitupdate]
