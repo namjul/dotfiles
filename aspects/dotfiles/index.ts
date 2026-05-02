@@ -1,6 +1,15 @@
 #!/usr/bin/env -S deno run --allow-all
 
-import { assertNever, file, init, path, template, variable, variables } from "fig";
+import {
+  assert,
+  assertNever,
+  file,
+  init,
+  path,
+  template,
+  variable,
+  variables,
+} from "fig";
 
 init(import.meta.dirname);
 
@@ -22,9 +31,15 @@ variables(({ identity }) => ({
     // individual .config files
     ".config/starship.toml",
     ".config/mimeapps.list",
+    ".claude/settings.json",
+    ".config/pi/agent/extensions/notify.ts",
+    ".config/pi/agent/settings.json",
+    ".config/pi/agent/models.json",
+    ".config/pi/agent/themes/gruvbox-dark-soft.json",
+    ".config/pi/agent/themes/gruvbox-light-soft.json",
     // symlinked directories
     ".xmonad",
-    ".claude/settings.json",
+    ".agents",
     ".config/pitchfork",
     ".config/darkman",
     ".config/shellfirm",
@@ -56,11 +71,6 @@ variables(({ identity }) => ({
     ".local/share/light-mode.d",
     ".local/share/dark-mode.d",
     ".local/share/applications",
-    ".config/pi/agent/extensions/notify.ts",
-    ".config/pi/agent/settings.json",
-    ".config/pi/agent/models.json",
-    ".config/pi/agent/themes/gruvbox-dark-soft.json",
-    ".config/pi/agent/themes/gruvbox-light-soft.json",
     ".config/ghostty",
     ".config/imv",
     ".config/vdirsyncer",
@@ -79,12 +89,31 @@ variables(({ identity }) => ({
     ".config/git/config.tmpl",
     ".config/wireguard/tunnel.conf.tmpl",
   ],
+  skills: [
+    ".agents/skills/personal/zx-markdown-scaffold",
+    ".agents/skills/general/conversation-capture",
+    ".agents/skills/general/creative-guardian",
+    ".agents/skills/general/etymology-research",
+    ".agents/skills/general/reflect",
+    ".agents/skills/general/caveman",
+    ".agents/skills/general/grill-me",
+    ".agents/skills/general/chat-to-skill",
+    ".agents/skills/general/skill-creator",
+    ".agents/skills/general/new-aspect",
+    ".agents/skills/general/skill-discovery",
+    ".agents/skills/engineering/minimal-step-pair-programming",
+    ".agents/skills/engineering/commit",
+    ".agents/skills/engineering/codebase-walkthrough",
+    ".agents/skills/engineering/openspec-generate-tutorial",
+    ".agents/skills/engineering/sr-eng-review",
+  ],
+  agents: ".agents/AGENTS.md",
   vcsUserEmail: identity === "namjul" ? "samuel.hobl@gmail.com" : "",
   vcsUserName: identity === "namjul" ? "Samuel Hobl" : "",
 }));
 
 if (import.meta.main) {
-  const sub = Deno.args[0] as "dir" | "files" | "templates";
+  const sub = Deno.args[0] as "dir" | "files" | "templates" | "agents";
 
   switch (sub) {
     case "dir": {
@@ -141,6 +170,39 @@ if (import.meta.main) {
           src: path.aspect.join("templates", src),
         });
       }
+      break;
+    }
+    case "agents": {
+      const destinations = [
+        path.home.join(".claude"),
+        path.home.join(".config", "pi", "agent"),
+        path.home.join(".config", "opencode"),
+      ];
+
+      const skilles = variable.paths("skills");
+      for (const src of skilles) {
+        for (const dest of destinations) {
+          const r = await file({
+            force: true,
+            path: dest.join("skills", src.basename),
+            src: path.home.join(src),
+            state: "link",
+          });
+          assert.result(r);
+        }
+      }
+
+      const agents = variable.path("agents");
+      for (const dest of destinations) {
+        const r = await file({
+          force: true,
+          path: dest.join(agents.basename),
+          src: path.home.join(agents),
+          state: "link",
+        });
+        assert.result(r);
+      }
+
       break;
     }
     default:

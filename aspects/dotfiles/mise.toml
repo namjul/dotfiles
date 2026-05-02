@@ -9,6 +9,10 @@ run = "./index.ts files"
 description = "fill templates"
 run = "./index.ts templates"
 
+[tasks."agents"]
+description = "setup agents files"
+run = "./index.ts agents"
+
 [tasks.default]
 description = "Creates symlinks from the $HOME directory to the dotfiles in this repo."
 depends = [":files", ":templates"]
