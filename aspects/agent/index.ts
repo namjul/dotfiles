@@ -19,6 +19,7 @@ variables(function () {
       "skills/general/chat-to-skill",
       "skills/general/skill-creator",
       "skills/general/new-aspect",
+      "skills/general/skill-discovery"
     ],
     rest: [
       "AGENTS.md",

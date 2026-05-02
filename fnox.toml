@@ -1,0 +1,2 @@
+[secrets]
+GITHUB_TOKEN= { provider = "pass", value = "GITHUB_TOKEN" }
