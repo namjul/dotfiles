@@ -4,7 +4,7 @@ init(import.meta.dirname);
 
 variables(function () {
   return {
-    files: [
+    skills: [
       "skills/general/conversation-capture",
       "skills/general/creative-guardian",
       "skills/general/etymology-research",
@@ -14,27 +14,45 @@ variables(function () {
       "skills/engineering/codebase-walkthrough",
       "skills/engineering/openspec-generate-tutorial",
       "skills/engineering/sr-eng-review",
-      "AGENTS.md",
     ],
+    rest: [
+      "AGENTS.md",
+    ]
   };
 });
 
 if (import.meta.main) {
   const destinations = [
-    path.home.join(".claude", "skills"),
-    path.home.join(".config", "pi", "agent", "skills"),
-    path.home.join(".config", "opencode", "skills"),
+    path.home.join(".claude"),
+    path.home.join(".config", "pi", "agent"),
+    path.home.join(".config", "opencode"),
   ];
 
   // setup skills
   {
-    const files = variable.paths("files");
+    const files = variable.paths("skills");
 
     for (const src of files) {
       for (const dest of destinations) {
         const r = await file({
           force: true,
-          path: dest.join(src.basename),
+          path: dest.join("skills", src.basename),
+          src: path.aspect.join("files", src),
+          state: "link",
+        });
+        assert.result(r)
+      }
+    }
+  }
+
+  // setup rest
+  {
+    const rest = variable.paths("rest");
+    for (const src of rest) {
+      for (const dest of destinations) {
+        const r = await file({
+          force: true,
+          path: dest.join(src),
           src: path.aspect.join("files", src),
           state: "link",
         });
