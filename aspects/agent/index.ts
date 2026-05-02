@@ -15,6 +15,7 @@ variables(function () {
       "skills/engineering/openspec-generate-tutorial",
       "skills/engineering/sr-eng-review",
       "skills/general/caveman",
+      "skills/general/grill-me",
     ],
     rest: [
       "AGENTS.md",
