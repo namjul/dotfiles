@@ -32,7 +32,7 @@ variables(({ identity }) => ({
     ".config/starship.toml",
     ".config/mimeapps.list",
     ".claude/settings.json",
-    ".config/pi/agent/extensions/notify.ts",
+    ".config/pi/agent/extensions",
     ".config/pi/agent/settings.json",
     ".config/pi/agent/models.json",
     ".config/pi/agent/themes/gruvbox-dark-soft.json",
@@ -107,6 +107,9 @@ variables(({ identity }) => ({
     ".agents/skills/engineering/openspec-generate-tutorial",
     ".agents/skills/engineering/sr-eng-review",
   ],
+  rules: [
+    ".agents/rules/caveman.md",
+  ],
   agents: ".agents/AGENTS.md",
   vcsUserEmail: identity === "namjul" ? "samuel.hobl@gmail.com" : "",
   vcsUserName: identity === "namjul" ? "Samuel Hobl" : "",
@@ -179,12 +182,25 @@ if (import.meta.main) {
         path.home.join(".config", "opencode"),
       ];
 
-      const skilles = variable.paths("skills");
-      for (const src of skilles) {
+      const skills = variable.paths("skills");
+      for (const src of skills) {
         for (const dest of destinations) {
           const r = await file({
             force: true,
             path: dest.join("skills", src.basename),
+            src: path.home.join(src),
+            state: "link",
+          });
+          assert.result(r);
+        }
+      }
+
+      const rules = variable.paths("rules");
+      for (const src of rules) {
+        for (const dest of destinations) {
+          const r = await file({
+            force: true,
+            path: dest.join("rules", src.basename),
             src: path.home.join(src),
             state: "link",
           });

@@ -3,7 +3,7 @@
   "theme": "gruvbox",
   "model": "opencode/minimax-m2.5-free",
   "autoupdate": true,
-  "instructions": ["CONTRIBUTING.md", "docs/guidelines.md", ".cursor/rules/*.md"],
+  "instructions": ["CONTRIBUTING.md", "docs/guidelines.md", "~/.config/opencode/rules/*.md"],
   "provider": {
     "fireworksai": {
       "models": {
