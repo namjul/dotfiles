@@ -5,10 +5,6 @@
 
 # quick edits
 alias e $EDITOR
-alias ev 'nvim ~/.dotfiles/dots/.config/nvim/init.lua'
-alias ed 'nvim ~/.dotfiles/dots/'
-alias ef 'nvim ~/.dotfiles/dots/.config/fish/config.fish'
-alias et 'nvim ~/Dropbox/todo'
 
 # navigation
 abbr d cd
@@ -17,6 +13,7 @@ abbr ... 'cd ../..'
 abbr .... 'cd ../../..'
 abbr ..... 'cd ../../../..'
 abbr --add -- - 'cd -'
+
 # quick switches to folders
 abbr dd 'cd $HOME/.dotfiles'
 abbr db 'cd ~/Dropbox'
@@ -26,7 +23,6 @@ abbr dls 'cd ~/.local/share'
 # shell
 abbr h 'history'
 abbr j 'jobs'
-abbr -a L --position anywhere --set-cursor "% | less -R"
 abbr x exit
 
 # git
@@ -81,8 +77,6 @@ alias pass 'gopass'
  # replicate pbcopy from macos
 alias pbcopy 'xclip -selection clipboard'
 alias pbpaste 'xclip -selection clipboard -o'
-abbr pc 'pbcopy'
-abbr pp 'pbpaste'
 
 # IP addresses
 abbr globalip "dig +short myip.opendns.com @resolver1.opendns.com"
@@ -99,3 +93,24 @@ if type -q eza
   abbr ltt 'ls --tree -D -L 3 -I $TREE_IGNORE'
   abbr lttt 'ls --tree -D -L 4 -I $TREE_IGNORE'
 end
+
+# Mnemonic: [C]lip
+abbr -a C --position anywhere --set-cursor "% | pbcopy"
+
+# Mnemonic: [D]elta (Diff viewer)
+abbr -a D --position anywhere --set-cursor "% | delta"
+
+# Mnemonic: [G]rep (Cursor steht danach direkt für den Suchbegriff bereit)
+abbr -a G --position anywhere --set-cursor "| grep %"
+
+# Mnemonic: [H]ead
+abbr -a H --position anywhere "| head"
+
+# Mnemonic: [J]SON (Pretty-print)
+abbr -a J --position anywhere "| python3 -m json.tool"
+
+# Mnemonic: [L]ess
+abbr -a L --position anywhere --set-cursor "% | less -R"
+
+# Mnemonic: [W]c (Line count)
+abbr -a W --position anywhere "| wc -l"
