@@ -88,7 +88,6 @@ brew "vdirsyncer" # https://github.com/pimutils/vdirsyncer
 brew "charmbracelet/tap/mods" # https://github.com/charmbracelet/mods/
 brew "youtube-dl" # https://github.com/ytdl-org/youtube-dl
 brew "glab" # https://gitlab.com/gitlab-org/cli
-brew "zx" # https://google.github.io/zx/setup
 brew "starship" # https://github.com/starship/starship
 brew "bat" # https://github.com/sharkdp/bat
 # brew "chafa" # https://github.com/hpjansson/chafa Terminal graphics
@@ -110,5 +109,3 @@ brew "hyperfine" # https://github.com/sharkdp/hyperfine
 brew "gnuPG" # the gnu Privacy Guard https://www.gnupg.org/
 brew "openjdk@25"
 brew "fd" # Simple, fast and user-friendly alternative to find.
-tap "getagentseal/codeburn"
-brew "codeburn" # https://github.com/getagentseal/codeburn
