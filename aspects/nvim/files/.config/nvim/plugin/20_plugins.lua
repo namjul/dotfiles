@@ -923,15 +923,16 @@ later(function()
 end)
 
 later(function()
-  add('sindrets/diffview.nvim')
+  add({ source = 'sindrets/diffview.nvim' }, { bang = true })
   namjul.plugin.lazy('diffview.nvim', {
+    afterload = function() require('diffview').setup() end,
     commands = {
       'DiffviewOpen',
       'DiffviewFileHistory',
       'DiffviewClose',
     },
     keymap = {
-      { 'n', 'yod', ':DiffviewOpen<CR>', { silent = true } },
+      { 'n', 'yod', 'DiffviewOpen', { silent = true } },
     },
   })
 end)
