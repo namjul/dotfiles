@@ -41,13 +41,6 @@ export NEOVIDE_MULTIGRID="true"
 set -q XDG_DATA_HOME; or set -x XDG_DATA_HOME $HOME/.local/share
 set -q XDG_CONFIG_HOME; or set -x XDG_CONFIG_HOME $HOME/.config
 
-# pnpm
-set -gx PNPM_HOME "/home/nam/.local/share/pnpm"
-if not string match -q -- $PNPM_HOME $PATH
-  set -gx PATH "$PNPM_HOME" $PATH
-end
-# pnpm end
-
 export PI_CODING_AGENT_DIR=$XDG_CONFIG_HOME/pi/agent
 
 # For now, requires a manual `cargo build --release`.
