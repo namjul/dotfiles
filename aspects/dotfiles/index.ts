@@ -110,7 +110,7 @@ variables(({ identity }) => ({
   rules: [
     ".agents/rules/caveman.md",
   ],
-  agents: ".agents/AGENTS.md",
+  agents: [".agents/AGENTS.md", ".agents/CLAUDE.md"],
   vcsUserEmail: identity === "namjul" ? "samuel.hobl@gmail.com" : "",
   vcsUserName: identity === "namjul" ? "Samuel Hobl" : "",
 }));
@@ -208,15 +208,17 @@ if (import.meta.main) {
         }
       }
 
-      const agents = variable.path("agents");
-      for (const dest of destinations) {
-        const r = await file({
-          force: true,
-          path: dest.join(agents.basename),
-          src: path.home.join(agents),
-          state: "link",
-        });
-        assert.result(r);
+      const agents = variable.paths("agents");
+      for (const src of agents) {
+        for (const dest of destinations) {
+          const r = await file({
+            force: true,
+            path: dest.join(src.basename),
+            src: path.home.join(src),
+            state: "link",
+          });
+          assert.result(r);
+        }
       }
 
       break;
