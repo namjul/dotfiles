@@ -51,7 +51,7 @@ if status is-interactive
   scmpuff init -s --shell=fish | source
 
   # Tmux
-  if command -v tmux > /dev/null 2>&1
+  if command -v tmux > /dev/null 2>&1; and test "$TERM_PROGRAM" != ghostty
      test -z $TMUX && tmux new-session;
   end
 
