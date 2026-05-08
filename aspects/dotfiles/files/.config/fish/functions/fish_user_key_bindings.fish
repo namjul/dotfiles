@@ -21,8 +21,12 @@ function fish_user_key_bindings
   bind --mode insert \ec 'fzf_change_directory'
   bind --mode insert \co 'fdo'
 
-  # lf file manager
+  # terminal file manager
   bind \eo 'set old_tty (stty -g); stty sane; yazicd; stty $old_tty; commandline -f repaint'
   bind --mode insert \eo 'set old_tty (stty -g); stty sane; yazicd; stty $old_tty; commandline -f repaint'
+
+  # TODO [\[Bug\] No outputs · Issue #2 · antonmedv/howto](https://github.com/antonmedv/howto/issues/2)
+  # bind \cg 'commandline -f beginning-of-line; commandline -i "howto "; commandline -f execute'
+  # bind --mode insert \cg 'commandline -f beginning-of-line; commandline -i "howto "; commandline -f execute'
 
 end
