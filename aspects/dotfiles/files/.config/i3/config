@@ -99,7 +99,6 @@ exec_always --no-startup-id sleep 2 && feh --no-fehbg --bg-scale "$HOME/.config/
 
 # Start a term instance in scratchpad mode
 for_window [class="scratch.term"] move scratchpad
-exec --no-startup-id ghostty --class=scratch.term
 exec --no-startup-id alacritty --class=scratch.term
 
 # move focused workspace between monitors
