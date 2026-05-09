@@ -3,7 +3,7 @@ run = "fnox exec -- teich"
 boot_start = true
 
 [daemons.memex-gitupdate]
-run = 'bash -c "cd ~/Dropbox/memex/; gitupdate ."'
+run = 'bash -c "cd ~/Dropbox/memex/ && { gitupdate . || true; }"'
 cron = { schedule = "0 0 2 * * *", retrigger = "finish" }  # Run at 2 AM daily
 boot_start = true
 
