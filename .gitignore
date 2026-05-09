@@ -13,3 +13,6 @@ history.txt
 
 # Sops
 secrets_decrypted
+
+# fnox
+fnox.local.toml

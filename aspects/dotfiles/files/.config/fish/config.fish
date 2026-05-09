@@ -49,6 +49,7 @@ if status is-interactive
   zoxide init fish | source
   direnv hook fish | source
   scmpuff init -s --shell=fish | source
+  fnox activate fish | source
 
   # Tmux
   if command -v tmux > /dev/null 2>&1; and test "$TERM_PROGRAM" != ghostty
