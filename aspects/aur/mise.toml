@@ -1,0 +1,3 @@
+[tasks.default]
+description = "Set up AUR environment (paru) and install packages"
+file = 'default'

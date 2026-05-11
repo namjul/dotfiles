@@ -1,0 +1,115 @@
+#!/bin/bash
+# mise description="Set up AUR environment (paru) and install packages"
+
+trap 'echo "Warning: A command has failed. Exiting the script. Line was ($0:$LINENO): $(sed -n "${LINENO}p" "$0")"; exit 3' ERR
+set -Eeuo pipefail
+
+if [[ $EUID -eq 0 ]]; then
+  sudo() { "$@"; }
+fi
+
+# refresh keyring before anything else to avoid signature verification failures
+sudo pacman -S --needed --noconfirm archlinux-keyring
+
+# pacman: enable color output and parallel downloads
+sudo sed -i 's/^#Color$/Color/' /etc/pacman.conf
+sudo sed -i 's/^#ParallelDownloads/ParallelDownloads/' /etc/pacman.conf
+
+# makepkg: use all cores when compiling AUR packages
+sudo sed -i "s/^#MAKEFLAGS=\"-j2\"/MAKEFLAGS=\"-j$(nproc)\"/" /etc/makepkg.conf
+
+# base-devel is required to build any AUR package
+sudo pacman -S --needed --noconfirm base-devel git
+
+# reflector: keep mirrorlist fresh and fast
+sudo pacman -S --needed --noconfirm reflector
+sudo reflector --country Germany --age 12 --protocol https --sort rate --download-timeout 5 --save /etc/pacman.d/mirrorlist
+sudo systemctl enable --now reflector.timer
+
+# pacman-contrib: paccache prunes the package cache to prevent unbounded growth
+sudo pacman -S --needed --noconfirm pacman-contrib
+sudo systemctl enable --now paccache.timer
+
+# install paru AUR helper (https://github.com/Morganamilo/paru)
+# TODO: uncomment on real machine — makepkg cannot run as root in test container
+# if ! command -v paru &> /dev/null; then
+#   echo "Installing paru ..."
+#   tmpdir=$(mktemp -d)
+#   git clone https://aur.archlinux.org/paru.git "$tmpdir"
+#   (cd "$tmpdir" && makepkg -si --noconfirm)
+#   rm -rf "$tmpdir"
+# else
+#   echo "paru already installed ..."
+# fi
+
+# official repo packages
+
+# system
+sudo pacman -S --needed --noconfirm cmake pkgconf # build tools (e.g. alacritty)
+sudo pacman -S --needed --noconfirm procps-ng curl file # paru essentials
+sudo pacman -S --needed --noconfirm i3-wm # window manager
+sudo pacman -S --needed --noconfirm feh # background image
+sudo pacman -S --needed --noconfirm zathura zathura-pdf-mupdf # document viewer
+sudo pacman -S --needed --noconfirm cryptsetup # used for tomb
+sudo pacman -S --needed --noconfirm pass # https://www.passwordstore.org/
+sudo pacman -S --needed --noconfirm flameshot # https://github.com/flameshot-org/flameshot
+sudo pacman -S --needed --noconfirm nsxiv # https://github.com/nsxiv/nsxiv
+sudo pacman -S --needed --noconfirm vlc # https://github.com/videolan/vlc
+sudo pacman -S --needed --noconfirm dunst # https://github.com/dunst-project/dunst
+sudo pacman -S --needed --noconfirm pipewire pipewire-pulse wireplumber # audio stack
+sudo pacman -S --needed --noconfirm interception-tools # https://gitlab.com/interception/linux/tools
+sudo pacman -S --needed --noconfirm libevdev yaml-cpp # required for dual-function-keys
+sudo pacman -S --needed --noconfirm bluez bluez-utils # bluetooth
+sudo pacman -S --needed --noconfirm lxsession # polkit authentication agent (provides lxpolkit)
+sudo pacman -S --needed --noconfirm imv # https://sr.ht/~exec64/imv/
+sudo pacman -S --needed --noconfirm iwd # https://wiki.archlinux.org/title/Iwd
+sudo pacman -S --needed --noconfirm chromium
+sudo pacman -S --needed --noconfirm brightnessctl # https://github.com/Hummer12007/brightnessctl
+
+# cli tools
+sudo pacman -S --needed --noconfirm wget zsh tmux fzf vim
+sudo pacman -S --needed --noconfirm fish # https://fishshell.com
+sudo pacman -S --needed --noconfirm nushell # https://github.com/nushell/nushell
+sudo pacman -S --needed --noconfirm yazi # https://github.com/sxyazi/yazi
+sudo pacman -S --needed --noconfirm lf # https://github.com/gokcehan/lf
+sudo pacman -S --needed --noconfirm poppler ffmpegthumbnailer # yazi file previews
+sudo pacman -S --needed --noconfirm tree xclip xsel wmctrl
+# paru -S --needed --noconfirm github-cli # https://cli.github.com
+sudo pacman -S --needed --noconfirm translate-shell # https://github.com/soimort/translate-shell
+sudo pacman -S --needed --noconfirm mise # https://mise.jdx.dev
+sudo pacman -S --needed --noconfirm tig # https://github.com/jonas/tig
+sudo pacman -S --needed --noconfirm jq # https://github.com/stedolan/jq
+sudo pacman -S --needed --noconfirm entr # https://github.com/eradman/entr
+sudo pacman -S --needed --noconfirm direnv # https://github.com/direnv/direnv
+sudo pacman -S --needed --noconfirm khal # https://github.com/pimutils/khal
+sudo pacman -S --needed --noconfirm vdirsyncer # https://github.com/pimutils/vdirsyncer
+sudo pacman -S --needed --noconfirm glab # https://gitlab.com/gitlab-org/cli
+sudo pacman -S --needed --noconfirm yt-dlp # https://github.com/yt-dlp/yt-dlp
+sudo pacman -S --needed --noconfirm fastfetch # https://github.com/fastfetch-cli/fastfetch
+sudo pacman -S --needed --noconfirm neovim # https://github.com/neovim/neovim
+sudo pacman -S --needed --noconfirm gopass # https://github.com/gopasspw/gopass
+sudo pacman -S --needed --noconfirm notmuch # https://notmuchmail.org
+sudo pacman -S --needed --noconfirm btop # https://github.com/aristocratos/btop
+sudo pacman -S --needed --noconfirm mpv # https://mpv.io/
+sudo pacman -S --needed --noconfirm gnupg # https://www.gnupg.org/
+sudo pacman -S --needed --noconfirm starship # https://starship.rs
+sudo pacman -S --needed --noconfirm zoxide # https://github.com/ajeetdsouza/zoxide
+
+# AUR packages
+# paru -S --needed --noconfirm steghide # used for tomb
+# paru -S --needed --noconfirm gromit-mpx # https://github.com/bk138/gromit-mpx
+# paru -S --needed --noconfirm dropbox # https://www.dropbox.com/
+# paru -S --needed --noconfirm autorandr # https://github.com/phillipberndt/autorandr
+# paru -S --needed --noconfirm kazam # screencast recorder
+# paru -S --needed --noconfirm peek # animated GIF recorder https://github.com/phw/peek
+# paru -S --needed --noconfirm wiremix # https://github.com/tsowell/wiremix
+# paru -S --needed --noconfirm ueberzugpp # https://github.com/jstkdng/ueberzugpp
+# paru -S --needed --noconfirm exercism # https://exercism.org/cli
+# paru -S --needed --noconfirm todotxt # https://github.com/todotxt/todo.txt-cli
+# paru -S --needed --noconfirm bash-snippets # https://github.com/alexanderepstein/Bash-Snippets
+# paru -S --needed --noconfirm wolframalpha-cli # https://github.com/yatharth/wolframalpha-cli
+# paru -S --needed --noconfirm scmpuff # https://github.com/mroth/scmpuff
+# paru -S --needed --noconfirm shellfirm # https://github.com/kaplanelad/shellfirm
+
+# brightnessctl requires suid: https://github.com/Hummer12007/brightnessctl?tab=readme-ov-file#permissions
+# sudo chmod u+s "$(which brightnessctl)"
