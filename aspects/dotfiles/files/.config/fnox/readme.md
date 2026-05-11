@@ -8,5 +8,5 @@ fnox set DATABASE_URL "postgresql://localhost/mydb" --provider pass
 # Sync keys locally for fast accces
 
 ```sh
-fnox sync --provider age --config fnox.local.toml
+fnox sync --provider age --local-file
 ```
