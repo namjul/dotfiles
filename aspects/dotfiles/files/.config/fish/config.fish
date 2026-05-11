@@ -11,20 +11,15 @@ if status is-login
   bass source ~/.profile
 end
 
-# Set Lenovo Trackpoint Speed
-if xinput list-props "TPPS/2 Synaptics TrackPoint" > /dev/null 2>&1
-  xinput set-prop "TPPS/2 Synaptics TrackPoint" "libinput Accel Speed" -0.5
-end
-
-if not type -q brew
-  # notify if brew command does not exists
-  echo "Make sure `brew` command is available."
-end
-
 if not type -q shellfirm
   # show this message to the user and don't register to terminal hook
   # we want to show the user that he not protected with `shellfirm`
   echo "`shellfirm` binary is missing. see installation guide: https://github.com/kaplanelad/shellfirm"
+end
+
+# Set Lenovo Trackpoint Speed
+if command -q xinput; and xinput list-props "TPPS/2 Synaptics TrackPoint" > /dev/null 2>&1
+  xinput set-prop "TPPS/2 Synaptics TrackPoint" "libinput Accel Speed" -0.5
 end
 
 mise activate fish | source
@@ -45,11 +40,11 @@ if status is-interactive
     set --universal fzf_fish_custom_keybindings
   end
 
-  starship init fish | source
-  zoxide init fish | source
-  direnv hook fish | source
-  scmpuff init -s --shell=fish | source
-  fnox activate fish | source
+  if command -q starship; starship init fish | source; end
+  if command -q zoxide; zoxide init fish | source; end
+  if command -q direnv; direnv hook fish | source; end
+  if command -q scmpuff; scmpuff init -s --shell=fish | source; end
+  if command -q fnox; fnox activate fish | source; end
 
   # Tmux
   if command -v tmux > /dev/null 2>&1; and test "$TERM_PROGRAM" != ghostty
