@@ -1,3 +1,17 @@
+[tasks."packages"]
+description = "Install packages via pacman and set up AUR environment (paru)"
+file = 'packages'
+
+[tasks."firewall"]
+description = "Set up ufw firewall"
+depends = [":packages"]
+file = 'firewall'
+
+[tasks."firmware"]
+description = "Update firmware via fwupd"
+depends = [":packages"]
+file = 'firmware'
+
 [tasks.default]
-description = "Set up AUR environment (paru) and install packages"
-file = 'default'
+description = "Run all aur tasks"
+depends = [":packages", ":firewall"]

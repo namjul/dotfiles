@@ -8,6 +8,19 @@ if [[ $EUID -eq 0 ]]; then
   sudo() { "$@"; }
 fi
 
+# timezone: only set if not already configured
+if [[ ! -L /etc/localtime ]]; then
+  sudo ln -sf /usr/share/zoneinfo/Europe/Vienna /etc/localtime
+  sudo hwclock --systohc
+fi
+
+# locale: only set if not already configured
+if [[ ! -f /etc/locale.conf ]]; then
+  sudo sed -i 's/^#en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen
+  sudo locale-gen
+  echo "LANG=en_US.UTF-8" | sudo tee /etc/locale.conf
+fi
+
 # refresh keyring before anything else to avoid signature verification failures
 sudo pacman -S --needed --noconfirm archlinux-keyring
 
@@ -45,7 +58,7 @@ sudo systemctl enable --now paccache.timer
 # official repo packages
 
 # system
-sudo pacman -S --needed --noconfirm cmake pkgconf # build tools (e.g. alacritty)
+sudo pacman -S --needed --noconfirm cmake pkgconf clang unzip # build tools
 sudo pacman -S --needed --noconfirm procps-ng curl file # paru essentials
 sudo pacman -S --needed --noconfirm i3-wm # window manager
 sudo pacman -S --needed --noconfirm feh # background image
@@ -56,7 +69,7 @@ sudo pacman -S --needed --noconfirm flameshot # https://github.com/flameshot-org
 sudo pacman -S --needed --noconfirm nsxiv # https://github.com/nsxiv/nsxiv
 sudo pacman -S --needed --noconfirm vlc # https://github.com/videolan/vlc
 sudo pacman -S --needed --noconfirm dunst # https://github.com/dunst-project/dunst
-sudo pacman -S --needed --noconfirm pipewire pipewire-pulse wireplumber # audio stack
+sudo pacman -S --needed --noconfirm pipewire pipewire-alsa pipewire-pulse pipewire-jack wireplumber # audio stack
 sudo pacman -S --needed --noconfirm interception-tools # https://gitlab.com/interception/linux/tools
 sudo pacman -S --needed --noconfirm libevdev yaml-cpp # required for dual-function-keys
 sudo pacman -S --needed --noconfirm bluez bluez-utils # bluetooth
@@ -74,6 +87,7 @@ sudo pacman -S --needed --noconfirm yazi # https://github.com/sxyazi/yazi
 sudo pacman -S --needed --noconfirm lf # https://github.com/gokcehan/lf
 sudo pacman -S --needed --noconfirm poppler ffmpegthumbnailer # yazi file previews
 sudo pacman -S --needed --noconfirm tree xclip xsel wmctrl
+sudo pacman -S --needed --noconfirm ripgrep # https://github.com/BurntSushi/ripgrep
 # paru -S --needed --noconfirm github-cli # https://cli.github.com
 sudo pacman -S --needed --noconfirm translate-shell # https://github.com/soimort/translate-shell
 sudo pacman -S --needed --noconfirm mise # https://mise.jdx.dev
@@ -94,6 +108,16 @@ sudo pacman -S --needed --noconfirm mpv # https://mpv.io/
 sudo pacman -S --needed --noconfirm gnupg # https://www.gnupg.org/
 sudo pacman -S --needed --noconfirm starship # https://starship.rs
 sudo pacman -S --needed --noconfirm zoxide # https://github.com/ajeetdsouza/zoxide
+sudo pacman -S --needed --noconfirm darkman # https://darkman.whynothugo.nl
+sudo pacman -S --needed --noconfirm ufw
+
+# raise file descriptor limit for dev tools
+sudo mkdir -p /etc/systemd/system.conf.d /etc/systemd/user.conf.d
+sudo tee /etc/systemd/system.conf.d/99-nofile.conf > /dev/null <<'EOF'
+[Manager]
+DefaultLimitNOFILE=65536:524288
+EOF
+sudo cp /etc/systemd/system.conf.d/99-nofile.conf /etc/systemd/user.conf.d/99-nofile.conf
 
 # AUR packages
 # paru -S --needed --noconfirm steghide # used for tomb
