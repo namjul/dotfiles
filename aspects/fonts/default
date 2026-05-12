@@ -4,8 +4,8 @@ import { $, fs, glob, os, path, spinner } from "zx";
 import { Readable } from "node:stream";
 import { finished } from "node:stream/promises";
 
-await spinner("create ~/fonts", async () => {
-  await $`mkdir -p ~/.local/share/fonts`;
+await spinner("create dirs", async () => {
+  await $`mkdir -p ~/.local/share/fonts ~/opt`;
 });
 
 await spinner("download JetbrainsMono", async () => {

@@ -11,6 +11,9 @@ init(import.meta.dirname);
 variables(() => ({
   files: ["hello.txt", "hard-state.json"],
   templates: ["config.toml.tmpl"],
+  editor: "nvim",
+  shell: "fish",
+  package_manager: "pacman",
 }));
 
 await import("./tests.ts");

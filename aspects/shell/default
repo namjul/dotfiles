@@ -4,28 +4,25 @@
 trap 'echo "Warning: A command has failed. Exiting the script. Line was ($0:$LINENO): $(sed -n "${LINENO}p" "$0")"; exit 3' ERR
 set -Eeuo pipefail
 
-echo "add fish to /etc/shell"
 fishPath="$(which fish)"
-if ! cat /etc/shells | grep --color=auto fish; then
- echo "add '$fishPath' to '/etc/shells'"
- exit 1
+
+if ! grep -q fish /etc/shells; then
+  echo "$fishPath" | sudo tee -a /etc/shells
 fi
 
-echo "set user shell to fish"
 chsh -s "$fishPath"
 
-echo "checking symlink fish history"
-mkdir -p ~/.local/share/fish
-fishHistory=~/.local/share/fish/fish_history
-timestamp=$DROPBOX_DIR/backup/fish-history.$(date +'%Y.%m.%d-%S')
-if [[ -f "$fishHistory" ]] && ! [[ -L "$fishHistory" ]]; then
-  mv $fishHistory $timestamp
-fi
-
-if ! [[ -L "$fishHistory" ]]; then
-  echo "setup fish-history symlink"
-  ln -sf $DATA_DIR/fish_history $fishHistory
-  if [[ -f "$timestamp" ]]; then
-    cat "$timestamp" > $DATA_DIR/fish_history
+if [[ -n "${DATA_DIR:-}" ]]; then
+  mkdir -p ~/.local/share/fish
+  fishHistory=~/.local/share/fish/fish_history
+  timestamp=${DROPBOX_DIR}/backup/fish-history.$(date +'%Y.%m.%d-%S')
+  if [[ -f "$fishHistory" ]] && ! [[ -L "$fishHistory" ]]; then
+    mv "$fishHistory" "$timestamp"
+  fi
+  if ! [[ -L "$fishHistory" ]]; then
+    ln -sf "$DATA_DIR/fish_history" "$fishHistory"
+    if [[ -f "$timestamp" ]]; then
+      cat "$timestamp" > "$DATA_DIR/fish_history"
+    fi
   fi
 fi

@@ -17,21 +17,21 @@ const NEOVIM_VERSION = "v0.11.4";
   await file({ path: "~/.config", state: "directory" });
 }
 
-// download neovim
+// download neovim appimage only if not already provided by system package manager
 const location = `${path.home}/opt/nvim/nvim${NEOVIM_VERSION}.appimage`;
-if (!fs.existsSync(location)) {
+const systemNeovim = Deno.env.get("PATH")?.split(":").some((p) => {
+  try { Deno.statSync(`${p}/nvim`); return true; } catch { return false; }
+});
+if (!systemNeovim && !fs.existsSync(location)) {
   await fetch({
     url:
       `https://github.com/neovim/neovim/releases/download/${NEOVIM_VERSION}/nvim-linux-x86_64.appimage`,
     dest: location,
     mode: "0755",
   });
-  // extract
-  {
-    await command(location, ['--appimage-extract'], {
-      chdir: path.home.join('/opt/nvim').toString(),
-    })
-  }
+  await command(location, ['--appimage-extract'], {
+    chdir: path.home.join('/opt/nvim').toString(),
+  });
 }
 
 
