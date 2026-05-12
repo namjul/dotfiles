@@ -39,13 +39,17 @@ if (true) {
 
 **NEVER** hard-wrap Markdown. That is, a paragraph or a list item should be a single long line rather than many 80-character lines broken with newlines.
 
-# Comments
+# Comment Policy
+## Unacceptable Comments
+- Comments that repeat what code does
+- Commented-out code (delete it)
+- Obvious comments ("increment counter")
+- Comments instead of good naming
+## Principle
+Code should be self-documenting. If you need a comment to explain WHAT the code does, consider refactoring to make it clearer.
 
-**NEVER** make descriptive comments that redundantly encode what can trivially be understood by reading well-named variables and functions. For example, the following is an example of a bad comment that has no value and should not exist:
+# Commits
 
-```js
-// Check if this record type is supported by the data store.
-const isDataStoreSupported = isRecordTypeSupportedByDataStore(
-  record.recordType,
-);
-```
+- Follow the existing repo commit style (check git log first)
+- Never mention that code is generated with Claude Code unless asked
+- Outputs only the message. Does not stage, commit, or amend.
