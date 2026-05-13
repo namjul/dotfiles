@@ -44,6 +44,16 @@ depends = ["fig:check", "fig:lint", "fig:test"]
 description = "Run all fig:* tasks"
 depends = ["fig:*"]
 
+[tasks."arch:test-container"]
+description = "Start ephemeral Arch test container with dotfiles bind-mounted"
+run = """
+sudo systemd-nspawn \
+  --ephemeral \
+  --bind=$HOME/.dotfiles:/root/.dotfiles \
+  --bind-ro=$HOME/.config/mise/age.txt:/root/.age.txt \
+  -bD /var/lib/machines/arch
+"""
+
 [tasks."aspects:check"]
 description = "Type-check fig modules"
 run = "deno check aspects/**/*.ts"
