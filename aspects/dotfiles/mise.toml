@@ -16,3 +16,8 @@ run = "./index.ts agents"
 [tasks.default]
 description = "Creates symlinks from the $HOME directory to the dotfiles in this repo."
 depends = [":files", ":templates"]
+depends_post = [":tools"]
+
+[tasks."tools"]
+description = "Install mise tools defined in ~/.config/mise/config.toml"
+run = "mise install"
