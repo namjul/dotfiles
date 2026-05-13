@@ -19,5 +19,9 @@ depends = [":files", ":templates"]
 depends_post = [":tools"]
 
 [tasks."tools"]
-description = "Install mise tools defined in ~/.config/mise/config.toml"
-run = "mise install"
+description = "Install mise tools and generate shell completions"
+run = """
+mise install
+mkdir -p ~/.config/fish/completions
+mise completion fish > ~/.config/fish/completions/mise.fish
+"""
