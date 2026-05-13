@@ -1,5 +1,10 @@
+[tasks."preflight"]
+description = "Verify environment and prepare pacman"
+file = 'preflight'
+
 [tasks."packages"]
 description = "Install packages via pacman and set up AUR environment (paru)"
+depends = [":preflight"]
 file = 'packages'
 
 [tasks."firewall"]

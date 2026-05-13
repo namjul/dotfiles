@@ -8,29 +8,6 @@ if [[ $EUID -eq 0 ]]; then
   sudo() { "$@"; }
 fi
 
-# timezone: only set if not already configured
-if [[ ! -L /etc/localtime ]]; then
-  sudo ln -sf /usr/share/zoneinfo/Europe/Vienna /etc/localtime
-  sudo hwclock --systohc
-fi
-
-# locale: only set if not already configured
-if [[ ! -f /etc/locale.conf ]]; then
-  sudo sed -i 's/^#en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen
-  sudo locale-gen
-  echo "LANG=en_US.UTF-8" | sudo tee /etc/locale.conf
-fi
-
-# refresh keyring before anything else to avoid signature verification failures
-sudo pacman -S --needed --noconfirm archlinux-keyring
-
-# pacman: enable color output and parallel downloads
-sudo sed -i 's/^#Color$/Color/' /etc/pacman.conf
-sudo sed -i 's/^#ParallelDownloads/ParallelDownloads/' /etc/pacman.conf
-
-# makepkg: use all cores when compiling AUR packages
-sudo sed -i "s/^#MAKEFLAGS=\"-j2\"/MAKEFLAGS=\"-j$(nproc)\"/" /etc/makepkg.conf
-
 # base-devel is required to build any AUR package
 sudo pacman -S --needed --noconfirm base-devel git
 

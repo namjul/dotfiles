@@ -1,0 +1,46 @@
+#!/bin/bash
+# mise description="Verify environment and prepare pacman before installation"
+
+trap 'echo "Warning: A command has failed. Exiting the script. Line was ($0:$LINENO): $(sed -n "${LINENO}p" "$0")"; exit 3' ERR
+set -Eeuo pipefail
+
+if [[ $EUID -eq 0 ]]; then
+  sudo() { "$@"; }
+fi
+
+# guards
+if [[ ! -f /etc/arch-release ]]; then
+  echo "error: this aspect requires Arch Linux"
+  exit 1
+fi
+
+if [[ $EUID -ne 0 ]] && ! command -v sudo &> /dev/null; then
+  echo "error: sudo is required"
+  exit 1
+fi
+
+echo "Guards: OK"
+
+# timezone: only set if not already configured
+if [[ ! -L /etc/localtime ]]; then
+  sudo ln -sf /usr/share/zoneinfo/Europe/Vienna /etc/localtime
+  sudo hwclock --systohc
+fi
+
+# locale: only set if not already configured
+if [[ ! -f /etc/locale.conf ]]; then
+  sudo sed -i 's/^#en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen
+  sudo locale-gen
+  echo "LANG=en_US.UTF-8" | sudo tee /etc/locale.conf
+fi
+
+# pacman: enable color output and parallel downloads
+sudo sed -i 's/^#Color$/Color/' /etc/pacman.conf
+sudo sed -i 's/^#ParallelDownloads/ParallelDownloads/' /etc/pacman.conf
+
+# makepkg: use all cores when compiling AUR packages
+sudo sed -i "s/^#MAKEFLAGS=\"-j2\"/MAKEFLAGS=\"-j$(nproc)\"/" /etc/makepkg.conf
+
+# refresh keyring and force full database sync
+sudo pacman -S --needed --noconfirm archlinux-keyring
+sudo pacman -Syy
