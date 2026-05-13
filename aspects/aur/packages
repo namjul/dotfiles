@@ -60,9 +60,8 @@ sudo pacman -S --needed --noconfirm brightnessctl # https://github.com/Hummer120
 sudo pacman -S --needed --noconfirm wget zsh tmux fzf vim
 sudo pacman -S --needed --noconfirm fish # https://fishshell.com
 sudo pacman -S --needed --noconfirm nushell # https://github.com/nushell/nushell
-sudo pacman -S --needed --noconfirm yazi # https://github.com/sxyazi/yazi
+sudo pacman -S --needed --noconfirm ffmpeg 7zip fd poppler ffmpegthumbnailer resvg imagemagick # yazi runtime deps
 sudo pacman -S --needed --noconfirm lf # https://github.com/gokcehan/lf
-sudo pacman -S --needed --noconfirm poppler ffmpegthumbnailer # yazi file previews
 sudo pacman -S --needed --noconfirm tree xclip xsel wmctrl
 sudo pacman -S --needed --noconfirm ripgrep # https://github.com/BurntSushi/ripgrep
 # paru -S --needed --noconfirm github-cli # https://cli.github.com
