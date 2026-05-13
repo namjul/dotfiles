@@ -76,6 +76,7 @@ java = "openjdk-25"
 "github:antonmedv/fx" = "latest"
 "github:antonmedv/walk" = "latest"
 "github:antonmedv/howto" = "latest"
+"cargo:shellfirm" = "latest"
 
 [settings]
 experimental = false

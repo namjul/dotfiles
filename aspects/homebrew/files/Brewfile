@@ -27,8 +27,6 @@ brew "jq" # https://github.com/stedolan/jq
 tap "libsql/sqld"
 
 # brew "harelba/q/q" # http://harelba.github.io/q/ -- q - Run SQL directly on CSV or TSV files
-# tap "kaplanelad/tap"
-# brew "shellfirm"
 
 brew "yatharth/misc/wolframalpha-cli" # https://github.com/yatharth/wolframalpha-cli -- query wolframalpha from cli `wa`
 brew "entr" # https://github.com/eradman/entr
