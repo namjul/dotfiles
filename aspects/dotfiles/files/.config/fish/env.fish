@@ -1,5 +1,6 @@
 export DROPBOX_DIR="$HOME/Dropbox"
 export DATA_DIR="$HOME/Dropbox/data"
+export DATA_BACKUP="$DROPBOX_DIR/backup"
 
 export HOMEBREW_NO_ANALYTICS=1 # https://docs.brew.sh/Analytics
 export HOMEBREW_NO_AUTO_UPDATE=1

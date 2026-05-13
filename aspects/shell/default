@@ -13,9 +13,9 @@ fi
 chsh -s "$fishPath"
 
 if [[ -n "${DATA_DIR:-}" ]]; then
-  mkdir -p ~/.local/share/fish
+  mkdir -p ~/.local/share/fish "${DATA_BACKUP}"
   fishHistory=~/.local/share/fish/fish_history
-  timestamp=${DROPBOX_DIR}/backup/fish-history.$(date +'%Y.%m.%d-%S')
+  timestamp=${DATA_BACKUP}/fish-history.$(date +'%Y.%m.%d-%S')
   if [[ -f "$fishHistory" ]] && ! [[ -L "$fishHistory" ]]; then
     mv "$fishHistory" "$timestamp"
   fi
