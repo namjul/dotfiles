@@ -3,24 +3,6 @@
   "env": {
     "CLAUDE_CODE_EFFORT_LEVEL": "max"
   },
-  "enabledPlugins": {
-    "shannon@wincent-claude-plugins": true,
-    "frontend-design@claude-plugins-official": true
-  },
-  "extraKnownMarketplaces": {
-    "wincent-claude-plugins": {
-      "source": {
-        "source": "github",
-        "repo": "wincent/wincent-claude-plugins"
-      }
-    },
-    "claude-plugins-official": {
-      "source": {
-        "source": "github",
-        "repo": "anthropics/claude-plugins-official"
-      }
-    }
-  },
   "permissions": {
     "allow": [
       "Bash(git diff:*)",
@@ -41,6 +23,24 @@
         ]
       }
     ]
+  },
+  "enabledPlugins": {
+    "shannon@wincent-claude-plugins": true,
+    "frontend-design@claude-plugins-official": true
+  },
+  "extraKnownMarketplaces": {
+    "claude-plugins-official": {
+      "source": {
+        "source": "github",
+        "repo": "anthropics/claude-plugins-official"
+      }
+    },
+    "wincent-agent-plugins": {
+      "source": {
+        "source": "github",
+        "repo": "wincent/wincent-agent-plugins"
+      }
+    }
   },
   "alwaysThinkingEnabled": true
 }
