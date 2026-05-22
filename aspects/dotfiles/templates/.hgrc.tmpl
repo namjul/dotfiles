@@ -1,5 +1,7 @@
 [ui]
-username = ${MERCURIAL_USERNAME}
+{{- if index .variables "vcsUserName" }}
+username = {{ index .variables "vcsUserName" }}{{- if index .variables "vcsUserEmail" }} <{{ index .variables "vcsUserEmail" }}>{{- end }}
+{{- end }}
 tweakdefaults = True
 
 [extensions]

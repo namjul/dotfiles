@@ -21,7 +21,6 @@ variables(({ identity }) => ({
     ".xmobarrc",
     ".togglrc",
     ".bashrc",
-    ".hgrc",
     ".fxrc",
     ".todo.cfg",
     ".default-npm-packages",
@@ -87,6 +86,7 @@ variables(({ identity }) => ({
   ],
   templates: [
     ".config/git/config.tmpl",
+    ".hgrc.tmpl",
     ".config/wireguard/tunnel.conf.tmpl",
   ],
   skills: [
