@@ -72,6 +72,8 @@ export function getSudoPassphrase(): Promise<string> {
 }
 
 async function resolveSudoPassphrase(): Promise<string> {
+  // Already root — sudo unavailable and unnecessary.
+  if (Deno.uid() === 0) return "";
   const check = await $({ nothrow: true, quiet: true })`sudo -n true`;
   if (check.exitCode === 0) return "";
   return promptSecret("sudo passphrase: ") ?? "";

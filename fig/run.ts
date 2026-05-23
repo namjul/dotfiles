@@ -31,7 +31,9 @@ export async function run(
   // matching legitimate command output.
   const prompt = `sudo[${randomBytes(16).toString("hex")}]:`;
 
-  const final = passphrase !== undefined
+  // Already root — sudo is unnecessary and may not be available.
+  const isRoot = Deno.uid() === 0;
+  const final = passphrase !== undefined && !isRoot
     ? ["sudo", "-S", "-k", "-p", prompt, "--", command, ...args]
     : [command, ...args];
 
