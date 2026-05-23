@@ -48,7 +48,8 @@ if status is-interactive
 
   # Tmux
   if command -v tmux > /dev/null 2>&1; and test "$TERM_PROGRAM" != ghostty
-     test -z $TMUX && tmux new-session;
+    set -gx SHELL (status fish-path)
+    test -z $TMUX && tmux new-session;
   end
 
   if type -q shellfirm
