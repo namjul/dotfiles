@@ -25,8 +25,9 @@
     ]
   },
   "enabledPlugins": {
-    "shannon@wincent-claude-plugins": true,
-    "frontend-design@claude-plugins-official": true
+    "shannon@wincent-agent-plugins": true,
+    "frontend-design@claude-plugins-official": true,
+    "andrej-karpathy-skills@karpathy-skills": true
   },
   "extraKnownMarketplaces": {
     "claude-plugins-official": {
@@ -39,6 +40,12 @@
       "source": {
         "source": "github",
         "repo": "wincent/wincent-agent-plugins"
+      }
+    },
+    "karpathy-skills": {
+      "source": {
+        "source": "github",
+        "repo": "forrestchang/andrej-karpathy-skills"
       }
     }
   },
