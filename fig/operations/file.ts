@@ -35,7 +35,11 @@ async function sudoExec(command: string, args: string[]): Promise<void> {
   const passphrase = await getSudoPassphrase();
   const r = await run(command, args, { passphrase });
   if (r.exitCode !== 0) {
-    throw Object.assign(new Error(r.stderr), { exitCode: r.exitCode });
+    throw Object.assign(new Error(r.stderr), {
+      exitCode: r.exitCode,
+      stderr: r.stderr,
+      command: r.command,
+    });
   }
 }
 
@@ -418,6 +422,9 @@ async function copyFile(options: FileSourceOptions): Promise<FileResult> {
         fs.removeSync(targetPath);
       }
     } catch (cause) {
+      if (sudo) {
+        return Result.err({ type: "PERMISSION_DENIED", path: targetPath, operation: "copy" as const, cause });
+      }
       return Result.err({ type: "WRITE_FAILED", path: targetPath, cause });
     }
   }

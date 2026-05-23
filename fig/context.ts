@@ -72,7 +72,7 @@ export function getSudoPassphrase(): Promise<string> {
 }
 
 async function resolveSudoPassphrase(): Promise<string> {
-  const check = await $({ nothrow: true })`sudo -n true`;
+  const check = await $({ nothrow: true, quiet: true })`sudo -n true`;
   if (check.exitCode === 0) return "";
   return promptSecret("sudo passphrase: ") ?? "";
 }
