@@ -44,13 +44,26 @@ depends = ["fig:check", "fig:lint", "fig:test"]
 description = "Run all fig:* tasks"
 depends = ["fig:*"]
 
+[tasks."aspects:setup"]
+description = "One-time machine bootstrap: wire age key to sops default location"
+run = """
+#!/usr/bin/env bash
+if [[ -f "${HOME}/.config/mise/age.txt" ]]; then
+  mkdir -p "${HOME}/.config/sops/age"
+  ln -sf "${HOME}/.config/mise/age.txt" "${HOME}/.config/sops/age/keys.txt"
+  echo "sops age key linked"
+else
+  echo "skipping: ${HOME}/.config/mise/age.txt not found"
+fi
+"""
+
 [tasks."arch:test-container"]
 description = "Start ephemeral Arch test container with dotfiles bind-mounted"
 run = """
 sudo systemd-nspawn \
   --ephemeral \
   --bind=$HOME/.dotfiles:/root/.dotfiles \
-  --bind-ro=$HOME/.config/mise/age.txt:/root/.age.txt \
+  --bind-ro=$HOME/.config/mise/age.txt:/root/.config/mise/age.txt \
   -bD /var/lib/machines/arch
 """
 

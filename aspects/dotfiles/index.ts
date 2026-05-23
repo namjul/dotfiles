@@ -135,12 +135,13 @@ if (import.meta.main) {
       for (const src of files) {
         const encrypted = src.toString().endsWith(".encrypted");
         if (encrypted) {
-          await file({
+          const r = await file({
             force: true,
             path: path.home.join(src.strip(".encrypted")),
             src: path.aspect.join("files", src),
             state: "encrypted",
           });
+          assert.result(r);
           continue;
         }
 
