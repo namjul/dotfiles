@@ -4,17 +4,18 @@
 trap 'echo "Warning: A command has failed. Exiting the script. Line was ($0:$LINENO): $(sed -n "${LINENO}p" "$0")"; exit 3' ERR
 set -Eeuo pipefail
 
+# guards
 if [[ $EUID -eq 0 ]]; then
-  sudo() { "$@"; }
+  echo "error: must not run as root"
+  exit 1
 fi
 
-# guards
 if [[ ! -f /etc/arch-release ]]; then
   echo "error: this aspect requires Arch Linux"
   exit 1
 fi
 
-if [[ $EUID -ne 0 ]] && ! command -v sudo &> /dev/null; then
+if ! command -v sudo &> /dev/null; then
   echo "error: sudo is required"
   exit 1
 fi
