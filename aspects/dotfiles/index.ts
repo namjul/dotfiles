@@ -36,6 +36,7 @@ variables(({ identity }) => ({
     ".config/pi/agent/models.json",
     ".config/pi/agent/themes/gruvbox-dark-soft.json",
     ".config/pi/agent/themes/gruvbox-light-soft.json",
+    ".config/mise/config.toml",
     // symlinked directories
     ".xmonad",
     ".agents",
@@ -56,7 +57,6 @@ variables(({ identity }) => ({
     ".config/zathura",
     ".config/opencode/opencode.json",
     ".config/opencode/tui.json",
-    ".config/mise",
     ".config/yazi",
     ".config/wezterm",
     ".config/i3status-rust",
