@@ -17,12 +17,6 @@ for (const config of configs) {
   assert.result(r);
 }
 
-const systemd = await stat("/run/systemd/system");
-if (systemd === null || systemd instanceof Error) {
-  console.warn("systemd not available, skipping service management");
-  Deno.exit(0);
-}
-
 const enable = await command("systemctl", ["enable", "--now", "udevmon"], { sudo: true });
 assert.result(enable);
 
