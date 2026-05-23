@@ -25,12 +25,8 @@ function getExitCode(error: unknown): number {
 }
 
 async function hasSops(): Promise<boolean> {
-  try {
-    await $`which sops`;
-    return true;
-  } catch {
-    return false;
-  }
+  const result = await $`command -v sops`.nothrow();;
+  return result.exitCode !== 0 ? false : true
 }
 
 /**

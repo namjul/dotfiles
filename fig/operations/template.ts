@@ -21,7 +21,7 @@ function getExitCode(error: unknown): number {
  */
 async function hasGomplate(): Promise<boolean> {
   try {
-    await $`which gomplate`;
+    await $`command -v gomplate`;
     return true;
   } catch {
     return false;

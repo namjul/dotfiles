@@ -4,7 +4,7 @@ import type { FileOptions } from "../types.ts";
 import { file } from "./file.ts";
 
 async function sopsAvailable(): Promise<boolean> {
-  const cmd = new Deno.Command("which", { args: ["sops"] });
+  const cmd = new Deno.Command("bash", { args: ["-c", "command -v sops"] });
   const { success } = await cmd.output();
   return success;
 }
