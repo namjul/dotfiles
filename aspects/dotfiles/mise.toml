@@ -21,6 +21,8 @@ depends_post = [":tools"]
 [tasks."tools"]
 description = "Install mise tools and generate shell completions"
 run = """
+#!/usr/bin/env bash
+eval "$(fnox activate bash)"
 mise install
 mkdir -p ~/.config/fish/completions
 mise completion fish > ~/.config/fish/completions/mise.fish
