@@ -23,8 +23,11 @@ for (const src of userServices) {
 const reload = await command("systemctl", ["--user", "daemon-reload"]);
 assert.result(reload);
 
+const now = Deno.env.get("usage_now") === "true";
+
 for (const service of ["ssh-agent.service", "darkman.service", "redshift.service"]) {
-  const r = await command("systemctl", ["--user", "enable", "--now", service]);
+  const args = ["--user", "enable", ...(now ? ["--now"] : []), service];
+  const r = await command("systemctl", args);
   assert.result(r);
 }
 

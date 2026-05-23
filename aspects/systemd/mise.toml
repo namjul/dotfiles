@@ -1,3 +1,6 @@
 
 [tasks.default]
+usage = '''
+flag "--now" help="Enable and immediately start services"
+'''
 run = "./index.ts"
