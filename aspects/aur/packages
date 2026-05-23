@@ -21,16 +21,18 @@ sudo pacman -S --needed --noconfirm pacman-contrib
 sudo systemctl enable --now paccache.timer
 
 # install paru AUR helper (https://github.com/Morganamilo/paru)
-# TODO: uncomment on real machine — makepkg cannot run as root in test container
-# if ! command -v paru &> /dev/null; then
-#   echo "Installing paru ..."
-#   tmpdir=$(mktemp -d)
-#   git clone https://aur.archlinux.org/paru.git "$tmpdir"
-#   (cd "$tmpdir" && makepkg -si --noconfirm)
-#   rm -rf "$tmpdir"
-# else
-#   echo "paru already installed ..."
-# fi
+# makepkg refuses to run as root — skip in test container
+if [[ ! -e /run/fig-test-container ]]; then
+  if ! command -v paru &> /dev/null; then
+    echo "Installing paru ..."
+    tmpdir=$(mktemp -d)
+    git clone https://aur.archlinux.org/paru.git "$tmpdir"
+    (cd "$tmpdir" && makepkg -si --noconfirm)
+    rm -rf "$tmpdir"
+  else
+    echo "paru already installed ..."
+  fi
+fi
 
 # official repo packages
 
@@ -102,14 +104,12 @@ sudo cp /etc/systemd/system.conf.d/99-nofile.conf /etc/systemd/user.conf.d/99-no
 # paru -S --needed --noconfirm autorandr # https://github.com/phillipberndt/autorandr
 # paru -S --needed --noconfirm kazam # screencast recorder
 # paru -S --needed --noconfirm peek # animated GIF recorder https://github.com/phw/peek
-# paru -S --needed --noconfirm wiremix # https://github.com/tsowell/wiremix
 # paru -S --needed --noconfirm ueberzugpp # https://github.com/jstkdng/ueberzugpp
 # paru -S --needed --noconfirm exercism # https://exercism.org/cli
 # paru -S --needed --noconfirm todotxt # https://github.com/todotxt/todo.txt-cli
 # paru -S --needed --noconfirm bash-snippets # https://github.com/alexanderepstein/Bash-Snippets
 # paru -S --needed --noconfirm wolframalpha-cli # https://github.com/yatharth/wolframalpha-cli
 # paru -S --needed --noconfirm scmpuff # https://github.com/mroth/scmpuff
-# paru -S --needed --noconfirm shellfirm # https://github.com/kaplanelad/shellfirm
 
 # brightnessctl requires suid: https://github.com/Hummer12007/brightnessctl?tab=readme-ov-file#permissions
 # sudo chmod u+s "$(which brightnessctl)"

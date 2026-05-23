@@ -5,7 +5,8 @@ trap 'echo "Warning: A command has failed. Exiting the script. Line was ($0:$LIN
 set -Eeuo pipefail
 
 if [[ -e /run/fig-test-container ]]; then
-  sudo() { "$@"; }
+  echo "skipping: ufw requires CAP_NET_ADMIN, unavailable in container"
+  exit 0
 fi
 
 sudo ufw default deny incoming
