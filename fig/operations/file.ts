@@ -5,8 +5,10 @@ import { $, fs } from "zx";
 import { writeFile } from "atomically";
 import toPath from "../path.ts";
 import { root } from "../root.ts";
-import { getSudoPassphrase } from "../context.ts";
-import { run } from "../run.ts";
+import { chmod } from "../posix/chmod.ts";
+import { cp } from "../posix/cp.ts";
+import { mkdir } from "../posix/mkdir.ts";
+import { rm } from "../posix/rm.ts";
 import type {
   FileDirectoryOptions,
   FileEncryptedOptions,
@@ -29,18 +31,6 @@ function getExitCode(error: unknown): number {
 async function hasSops(): Promise<boolean> {
   const result = await $`command -v sops`.nothrow();;
   return result.exitCode !== 0 ? false : true
-}
-
-async function sudoExec(command: string, args: string[]): Promise<void> {
-  const passphrase = await getSudoPassphrase();
-  const r = await run(command, args, { passphrase });
-  if (r.exitCode !== 0) {
-    throw Object.assign(new Error(r.stderr), {
-      exitCode: r.exitCode,
-      stderr: r.stderr,
-      command: r.command,
-    });
-  }
 }
 
 /**
@@ -141,9 +131,11 @@ async function writeFileContent(
       }`;
       fs.writeFileSync(tmp, contents);
       try {
-        await sudoExec("cp", [tmp, path]);
+        const cpErr = await cp(tmp, path, { sudo: true });
+        if (cpErr) throw cpErr;
         if (Option.isSome(mode)) {
-          await sudoExec("chmod", [mode, path]);
+          const err = await chmod(mode, path, { sudo: true });
+          if (err) throw err;
         }
       } finally {
         fs.removeSync(tmp);
@@ -237,14 +229,17 @@ async function ensureDirectory(
     }
 
     if (sudo) {
-      await sudoExec("mkdir", ["-p", targetPath]);
+      const mkdirErr = await mkdir(targetPath, { parents: true, sudo: true });
+      if (mkdirErr) throw mkdirErr;
       if (Option.isSome(mode)) {
-        await sudoExec("chmod", [mode, targetPath]);
+        const err = await chmod(mode, targetPath, { sudo: true });
+        if (err) throw err;
       }
     } else {
       fs.ensureDirSync(targetPath);
       if (Option.isSome(mode)) {
-        fs.chmodSync(targetPath, mode);
+        const err = await chmod(mode, targetPath);
+        if (err) throw err;
       }
     }
     return Result.ok({ path: targetPath });
@@ -369,9 +364,11 @@ async function decryptEncrypted(
       const tmp = await Deno.makeTempFile({ prefix: "fig-encrypted-" });
       try {
         await $`sops -d --output ${tmp} ${src}`;
-        await sudoExec("cp", [tmp, targetPath]);
+        const cpErr = await cp(tmp, targetPath, { sudo: true });
+        if (cpErr) throw cpErr;
         if (Option.isSome(mode)) {
-          await sudoExec("chmod", [mode, targetPath]);
+          const err = await chmod(mode, targetPath, { sudo: true });
+          if (err) throw err;
         }
       } finally {
         try {
@@ -383,7 +380,8 @@ async function decryptEncrypted(
     } else {
       await $`sops -d --output ${targetPath} ${src}`;
       if (Option.isSome(mode)) {
-        fs.chmodSync(targetPath, mode);
+        const err = await chmod(mode, targetPath);
+        if (err) throw err;
       }
     }
 
@@ -416,11 +414,8 @@ async function copyFile(options: FileSourceOptions): Promise<FileResult> {
       return Result.err({ type: "TARGET_EXISTS", path: targetPath, operation: "copy" });
     }
     try {
-      if (sudo) {
-        await sudoExec("rm", ["-f", targetPath]);
-      } else {
-        fs.removeSync(targetPath);
-      }
+      const err = await rm(targetPath, { sudo });
+      if (err) throw err;
     } catch (cause) {
       if (sudo) {
         return Result.err({ type: "PERMISSION_DENIED", path: targetPath, operation: "copy" as const, cause });
@@ -430,12 +425,11 @@ async function copyFile(options: FileSourceOptions): Promise<FileResult> {
   }
 
   try {
-    if (sudo) {
-      await sudoExec("cp", [src, targetPath]);
-      if (Option.isSome(mode)) await sudoExec("chmod", [mode, targetPath]);
-    } else {
-      fs.copySync(src, targetPath);
-      if (Option.isSome(mode)) fs.chmodSync(targetPath, mode);
+    const err = await cp(src, targetPath, { sudo });
+    if (err) throw err;
+    if (Option.isSome(mode)) {
+      const err = await chmod(mode, targetPath, { sudo });
+      if (err) throw err;
     }
     return Result.ok({ path: targetPath });
   } catch (cause) {
