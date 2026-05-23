@@ -4,7 +4,12 @@
 trap 'echo "Warning: A command has failed. Exiting the script. Line was ($0:$LINENO): $(sed -n "${LINENO}p" "$0")"; exit 3' ERR
 set -Eeuo pipefail
 
-fishPath="$(which fish)"
+fishPath="$(command -v fish || true)"
+
+if [[ -z "$fishPath" ]]; then
+  echo "warn: fish not found in PATH, skipping"
+  exit 0
+fi
 
 if ! grep -q fish /etc/shells; then
   echo "$fishPath" | sudo tee -a /etc/shells
