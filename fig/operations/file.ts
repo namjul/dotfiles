@@ -1,10 +1,12 @@
- import { dirname, relative } from "@std/path";
+import { dirname, relative } from "@std/path";
 import { Result } from "@gordonb/result";
 import * as Option from "@gordonb/result/option";
 import { $, fs } from "zx";
 import { writeFile } from "atomically";
 import toPath from "../path.ts";
 import { root } from "../root.ts";
+import { getSudoPassphrase } from "../context.ts";
+import { run } from "../run.ts";
 import type {
   FileDirectoryOptions,
   FileEncryptedOptions,
@@ -27,6 +29,14 @@ function getExitCode(error: unknown): number {
 async function hasSops(): Promise<boolean> {
   const result = await $`command -v sops`.nothrow();;
   return result.exitCode !== 0 ? false : true
+}
+
+async function sudoExec(command: string, args: string[]): Promise<void> {
+  const passphrase = await getSudoPassphrase();
+  const r = await run(command, args, { passphrase });
+  if (r.exitCode !== 0) {
+    throw Object.assign(new Error(r.stderr), { exitCode: r.exitCode });
+  }
 }
 
 /**
@@ -90,7 +100,7 @@ export async function file(options: FileOptions): Promise<FileResult> {
     case "hardlink":
       return createHardlink({ ...options, path: targetPath });
     case "copy":
-      return copyFile({ ...options, path: targetPath });
+      return await copyFile({ ...options, path: targetPath });
     case "directory":
       return await ensureDirectory({ ...options, path: targetPath });
     case "encrypted":
@@ -122,15 +132,14 @@ async function writeFileContent(
 
   try {
     if (sudo) {
-      // Use zx with sudo for privileged paths.
       const tmp = `/tmp/fig-${Date.now()}-${
         Math.random().toString(36).slice(2)
       }`;
       fs.writeFileSync(tmp, contents);
       try {
-        await $`sudo cp ${tmp} ${path}`;
+        await sudoExec("cp", [tmp, path]);
         if (Option.isSome(mode)) {
-          await $`sudo chmod ${mode} ${path}`;
+          await sudoExec("chmod", [mode, path]);
         }
       } finally {
         fs.removeSync(tmp);
@@ -224,9 +233,9 @@ async function ensureDirectory(
     }
 
     if (sudo) {
-      await $`sudo mkdir -p ${targetPath}`;
+      await sudoExec("mkdir", ["-p", targetPath]);
       if (Option.isSome(mode)) {
-        await $`sudo chmod ${mode} ${targetPath}`;
+        await sudoExec("chmod", [mode, targetPath]);
       }
     } else {
       fs.ensureDirSync(targetPath);
@@ -356,9 +365,9 @@ async function decryptEncrypted(
       const tmp = await Deno.makeTempFile({ prefix: "fig-encrypted-" });
       try {
         await $`sops -d --output ${tmp} ${src}`;
-        await $`sudo cp ${tmp} ${targetPath}`;
+        await sudoExec("cp", [tmp, targetPath]);
         if (Option.isSome(mode)) {
-          await $`sudo chmod ${mode} ${targetPath}`;
+          await sudoExec("chmod", [mode, targetPath]);
         }
       } finally {
         try {
@@ -388,38 +397,44 @@ async function decryptEncrypted(
 /**
  * Copy file
  */
-function copyFile(options: FileSourceOptions): FileResult {
+async function copyFile(options: FileSourceOptions): Promise<FileResult> {
   const { src, path: targetPath } = options;
   const force = Option.unwrapOr(Option.from(options.force), false);
   const mode = Option.from(options.mode);
+  const sudo = Option.unwrapOr(Option.from(options.sudo), false);
 
-  // Check if source exists
   if (!fs.pathExistsSync(src)) {
-    return Result.err({
-      type: "SOURCE_NOT_FOUND",
-      path: src,
-    });
+    return Result.err({ type: "SOURCE_NOT_FOUND", path: src });
   }
 
-  const targetCheck = clearTarget(targetPath, "copy", force);
-  if (!targetCheck.ok) {
-    return targetCheck;
+  if (fs.pathExistsSync(targetPath)) {
+    if (!force) {
+      return Result.err({ type: "TARGET_EXISTS", path: targetPath, operation: "copy" });
+    }
+    try {
+      if (sudo) {
+        await sudoExec("rm", ["-f", targetPath]);
+      } else {
+        fs.removeSync(targetPath);
+      }
+    } catch (cause) {
+      return Result.err({ type: "WRITE_FAILED", path: targetPath, cause });
+    }
   }
 
   try {
-    fs.copySync(src, targetPath);
-
-    if (Option.isSome(mode)) {
-      fs.chmodSync(targetPath, mode);
+    if (sudo) {
+      await sudoExec("cp", [src, targetPath]);
+      if (Option.isSome(mode)) await sudoExec("chmod", [mode, targetPath]);
+    } else {
+      fs.copySync(src, targetPath);
+      if (Option.isSome(mode)) fs.chmodSync(targetPath, mode);
     }
-
     return Result.ok({ path: targetPath });
   } catch (cause) {
-    return Result.err({
-      type: "COPY_FAILED",
-      source: src,
-      target: targetPath,
-      cause,
-    });
+    if (sudo) {
+      return Result.err({ type: "PERMISSION_DENIED", path: targetPath, operation: "copy" as const, cause });
+    }
+    return Result.err({ type: "COPY_FAILED", source: src, target: targetPath, cause });
   }
 }

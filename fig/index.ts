@@ -30,6 +30,7 @@ export { attributes } from "./attributes.ts";
 
 // Operations
 export { file } from "./operations/file.ts";
+export { stat } from "./operations/stat.ts";
 export { template } from "./operations/template.ts";
 export { line } from "./operations/line.ts";
 export { command } from "./operations/command.ts";

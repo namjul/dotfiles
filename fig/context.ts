@@ -1,6 +1,8 @@
 import { attributes } from "./attributes.ts";
 import variables from "../variables.ts";
 import { Variables } from "./types.ts";
+import { $ } from "zx";
+import { promptSecret } from "@std/cli/prompt-secret";
 
 type Aspect = {
   dir: string;
@@ -58,4 +60,19 @@ export function registerVariablesCallback(
 ): void {
   const aspect = getAspect();
   aspect.variables = Object.assign(aspect.variables, callback(aspectContext.variables))
+}
+
+let _sudoPassphrase: Promise<string> | undefined;
+
+export function getSudoPassphrase(): Promise<string> {
+  if (_sudoPassphrase === undefined) {
+    _sudoPassphrase = resolveSudoPassphrase();
+  }
+  return _sudoPassphrase;
+}
+
+async function resolveSudoPassphrase(): Promise<string> {
+  const check = await $({ nothrow: true })`sudo -n true`;
+  if (check.exitCode === 0) return "";
+  return promptSecret("sudo passphrase: ") ?? "";
 }
