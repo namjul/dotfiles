@@ -5,7 +5,7 @@ trap 'echo "Warning: A command has failed. Exiting the script. Line was ($0:$LIN
 set -Eeuo pipefail
 
 # guards
-if [[ $EUID -eq 0 ]]; then
+if [[ $EUID -eq 0 ]] && [[ ! -e /run/fig-test-container ]]; then
   echo "error: must not run as root"
   exit 1
 fi
@@ -15,7 +15,9 @@ if [[ ! -f /etc/arch-release ]]; then
   exit 1
 fi
 
-if ! command -v sudo &> /dev/null; then
+if [[ -e /run/fig-test-container ]]; then
+  sudo() { "$@"; }
+elif ! command -v sudo &> /dev/null; then
   echo "error: sudo is required"
   exit 1
 fi

@@ -4,6 +4,10 @@
 trap 'echo "Warning: A command has failed. Exiting the script. Line was ($0:$LINENO): $(sed -n "${LINENO}p" "$0")"; exit 3' ERR
 set -Eeuo pipefail
 
+if [[ -e /run/fig-test-container ]]; then
+  sudo() { "$@"; }
+fi
+
 sudo ufw default deny incoming
 sudo ufw default allow outgoing
 sudo ufw --force enable

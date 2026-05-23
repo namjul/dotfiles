@@ -64,6 +64,7 @@ sudo systemd-nspawn \
   --ephemeral \
   --bind=$HOME/.dotfiles:/root/.dotfiles \
   --bind-ro=$HOME/.config/mise/age.txt:/root/.config/mise/age.txt \
+  --bind-ro=/dev/null:/run/fig-test-container \
   -bD /var/lib/machines/arch
 """
 

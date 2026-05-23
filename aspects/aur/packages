@@ -4,6 +4,10 @@
 trap 'echo "Warning: A command has failed. Exiting the script. Line was ($0:$LINENO): $(sed -n "${LINENO}p" "$0")"; exit 3' ERR
 set -Eeuo pipefail
 
+if [[ -e /run/fig-test-container ]]; then
+  sudo() { "$@"; }
+fi
+
 # base-devel is required to build any AUR package
 sudo pacman -S --needed --noconfirm base-devel git
 
