@@ -39,7 +39,6 @@ variables(({ identity }) => ({
     ".config/mise/config.toml",
     // symlinked directories
     ".xmonad",
-    ".agents",
     ".config/pitchfork",
     ".config/darkman",
     ".config/shellfirm",
@@ -189,7 +188,7 @@ if (import.meta.main) {
           const r = await file({
             force: true,
             path: dest.join("skills", src.basename),
-            src: path.home.join(src),
+            src: path.aspect.join("files", src),
             state: "link",
           });
           assert.result(r);
@@ -202,7 +201,7 @@ if (import.meta.main) {
           const r = await file({
             force: true,
             path: dest.join("rules", src.basename),
-            src: path.home.join(src),
+            src: path.aspect.join("files", src),
             state: "link",
           });
           assert.result(r);
@@ -215,7 +214,7 @@ if (import.meta.main) {
           const r = await file({
             force: true,
             path: dest.join(src.basename),
-            src: path.home.join(src),
+            src: path.aspect.join("files", src),
             state: "link",
           });
           assert.result(r);
