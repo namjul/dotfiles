@@ -20,7 +20,7 @@ export interface Attributes {
   distribution: "arch" | "debian" | "";
   hostname: string;
   home: string;
-  user: string;
+  username: string;
 }
 
 export const attributes: Attributes = {
@@ -28,5 +28,5 @@ export const attributes: Attributes = {
   distribution: detectDistribution(),
   hostname: os.hostname(),
   home: os.homedir(),
-  user: os.userInfo().username,
+  username: os.userInfo().username,
 };

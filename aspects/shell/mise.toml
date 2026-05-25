@@ -1,4 +1,4 @@
 
 [tasks.default]
 description = 'Sets the use shell to fish'
-file = 'default'
+file = './index.ts'
