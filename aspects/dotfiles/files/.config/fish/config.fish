@@ -7,6 +7,7 @@
 #  ╚═════╝ ╚═════╝ ╚═╝  ╚═══╝╚═╝     ╚═╝ ╚═════╝ ╚═╝╚═╝     ╚═╝╚══════╝╚═╝  ╚═╝
 #
 
+# TODO: [omacom-io/omarchy-fish](https://github.com/omacom-io/omarchy-fish)
 if status is-login
   bass source ~/.profile
 end
