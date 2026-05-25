@@ -13,15 +13,19 @@ fi
 
 mise install --yes
 
+mise run //aspects/nala:default
+mise run //aspects/homebrew:default
+mise run //aspects/aur:default
 mise run //aspects/dotfiles:default
 mise run //aspects/shell:default
-mise run //aspects/aur:default
 mise run //aspects/nvim:default
 mise run //aspects/fonts:default
 mise run //aspects/interception:default
 mise run //aspects/systemd:default
 
 touch /var/tmp/dotfiles-install-completed
+
+# mise doctor
 
 echo "The following mise tasks are available:"
 mise t --all

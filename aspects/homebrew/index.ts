@@ -7,6 +7,12 @@ if (import.meta.main) {
     Deno.exit(0);
   }
 
+  const which = await command("which", ["brew"]);
+  if (!which.ok) {
+    console.warn("warn: brew not found in PATH, skipping");
+    Deno.exit(0);
+  }
+
   const sub = Deno.args[0] as "update" | "cleanup" | "brew"
 
   switch (sub) {

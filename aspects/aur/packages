@@ -20,25 +20,25 @@ sudo systemctl enable --now reflector.timer
 sudo pacman -S --needed --noconfirm pacman-contrib
 sudo systemctl enable --now paccache.timer
 
-# install paru AUR helper (https://github.com/Morganamilo/paru)
-# makepkg refuses to run as root — skip in test container
-if [[ ! -e /run/fig-test-container ]]; then
-  if ! command -v paru &> /dev/null; then
-    echo "Installing paru ..."
-    tmpdir=$(mktemp -d)
-    git clone https://aur.archlinux.org/paru.git "$tmpdir"
-    (cd "$tmpdir" && makepkg -si --noconfirm)
-    rm -rf "$tmpdir"
-  else
-    echo "paru already installed ..."
-  fi
-fi
+# # install paru AUR helper (https://github.com/Morganamilo/paru)
+# # makepkg refuses to run as root — skip in test container
+# if [[ ! -e /run/fig-test-container ]]; then
+#   if ! command -v paru &> /dev/null; then
+#     echo "Installing paru ..."
+#     tmpdir=$(mktemp -d)
+#     git clone https://aur.archlinux.org/paru.git "$tmpdir"
+#     (cd "$tmpdir" && makepkg -si --noconfirm)
+#     rm -rf "$tmpdir"
+#   else
+#     echo "paru already installed ..."
+#   fi
+# fi
 
 # official repo packages
 
 # system
 sudo pacman -S --needed --noconfirm cmake pkgconf clang unzip # build tools
-sudo pacman -S --needed --noconfirm procps-ng curl file # paru essentials
+sudo pacman -S --needed --noconfirm procps-ng curl file # runtime essentials
 sudo pacman -S --needed --noconfirm i3-wm # window manager
 sudo pacman -S --needed --noconfirm feh # background image
 sudo pacman -S --needed --noconfirm zathura zathura-pdf-mupdf # document viewer
@@ -88,6 +88,7 @@ sudo pacman -S --needed --noconfirm starship # https://starship.rs
 sudo pacman -S --needed --noconfirm zoxide # https://github.com/ajeetdsouza/zoxide
 sudo pacman -S --needed --noconfirm darkman # https://darkman.whynothugo.nl
 sudo pacman -S --needed --noconfirm ufw
+sudo pacman -S --needed --noconfirm less
 
 # raise file descriptor limit for dev tools
 sudo mkdir -p /etc/systemd/system.conf.d /etc/systemd/user.conf.d

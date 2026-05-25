@@ -1,10 +1,5 @@
-[tasks."install"]
-description = "install"
-confirm = { message = "Confirm that Homebrew is installed(y|n)", default = "no" }
-
 [tasks."update"]
 description = "update homebrew"
-depends = [":install"]
 run = "deno run --allow-all index.ts update"
 
 [tasks."brew:timewarrior"]
@@ -19,7 +14,6 @@ run = "deno run --allow-all index.ts brew"
 
 [tasks."cleanup"]
 description = "cleanup homebrew"
-depends = [":install"]
 run = "deno run --allow-all index.ts cleanup"
 
 [tasks.default]
