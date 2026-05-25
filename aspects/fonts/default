@@ -1,33 +1,38 @@
 #!/usr/bin/env -S deno run --allow-all
 
-import { $, fs, glob, os, path, spinner } from "zx";
-import { Readable } from "node:stream";
-import { finished } from "node:stream/promises";
+import { assert, command, fetch, init, path } from "fig";
 
-await spinner("create dirs", async () => {
-  await $`mkdir -p ~/.local/share/fonts ~/opt`;
-});
+init(import.meta.dirname);
 
-await spinner("download JetbrainsMono", async () => {
-  const stream = fs.createWriteStream(`${os.homedir()}/opt/JetBrainsMono.zip`);
-  const { body } = await fetch(
-    "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/JetBrainsMono.zip",
-  );
-  if (body) {
-    // @ts-ignore -- some strange conflict i don't care now
-    await finished(Readable.fromWeb(body).pipe(stream));
-    await $`unzip -o ${os.homedir()}/opt/JetBrainsMono.zip -d ${os.homedir()}/opt/JetBrainsMono/`;
-    await $`rm ${os.homedir()}/opt/JetBrainsMono.zip`;
-  }
-});
+const home = path.home.toString();
+const zip = `${home}/opt/JetBrainsMono.zip`;
+const extractDir = `${home}/opt/JetBrainsMono`;
+const fontsDir = `${home}/.local/share/fonts`;
 
-await spinner("install", async () => {
-  const files = await glob(`${os.homedir()}/opt/JetBrainsMono/*.ttf`);
-  const target = path.join(os.homedir(), ".local/share/fonts");
+const dirs = await command("mkdir", ["-p", fontsDir, `${home}/opt`]);
+assert.result(dirs);
 
-  for (const ttf of files) {
-    await $`cp ${ttf} ${target}`;
-  }
+const installed = [...Deno.readDirSync(fontsDir)].some((e) =>
+  e.name.startsWith("JetBrainsMono")
+);
 
-  await $`fc-cache -f -v`;
-});
+if (!installed) {
+  const dl = await fetch({
+    url: "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/JetBrainsMono.zip",
+    dest: zip,
+    encoding: null,
+  });
+  assert.result(dl);
+
+  const unzip = await command("unzip", ["-o", zip, "-d", extractDir]);
+  assert.result(unzip);
+
+  const rm = await command("rm", [zip]);
+  assert.result(rm);
+
+  const cp = await command("bash", ["-c", `cp ${extractDir}/*.ttf ${fontsDir}/`]);
+  assert.result(cp);
+
+  const cache = await command("fc-cache", ["-f", "-v"]);
+  assert.result(cache);
+}

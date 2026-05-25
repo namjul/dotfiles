@@ -16,10 +16,14 @@ export type FetchResult = ResultType<undefined, FetchError>;
 
 export async function fetch({
   dest,
+  encoding,
+  force,
   mode,
   url,
 }: {
   dest: string;
+  encoding?: null;
+  force?: boolean;
   url: string;
   mode?: Option<string>;
 }): Promise<FetchResult> {
@@ -36,11 +40,12 @@ export async function fetch({
     const stream = createWriteStream(download);
     await finished(body.pipe(stream));
 
-    const decoder = new TextDecoder("utf-8");
-    const contents = await Deno.readFile(download);
+    const raw = await Deno.readFile(download);
+    const contents = encoding === null ? raw : new TextDecoder("utf-8").decode(raw);
 
     const result = await file({
-      contents: decoder.decode(contents),
+      contents,
+      force,
       mode,
       path: dest,
       state: "file",

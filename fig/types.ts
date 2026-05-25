@@ -80,7 +80,7 @@ export interface FileOptionsBase {
 
 export interface FileWriteOptions extends FileOptionsBase {
   state: "file";
-  contents: string;
+  contents: string | Uint8Array;
   src?: never;
 }
 
