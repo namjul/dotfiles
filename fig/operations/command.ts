@@ -3,7 +3,7 @@ import type { Result as ResultType } from "@gordonb/result/result";
 import path from "../path.ts";
 import { getSudoPassphrase } from "../context.ts";
 import { run } from "../run.ts";
-import { stat } from "./stat.ts";
+import { stat } from "../stat.ts";
 
 type CommandError = {
   type: "COMMAND_FAILED";

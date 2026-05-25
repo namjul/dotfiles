@@ -10,11 +10,6 @@ if [[ $EUID -eq 0 ]] && [[ ! -e /run/fig-test-container ]]; then
   exit 1
 fi
 
-if [[ ! -f /etc/arch-release ]]; then
-  echo "error: this aspect requires Arch Linux"
-  exit 1
-fi
-
 if [[ -e /run/fig-test-container ]]; then
   sudo() { "$@"; }
 elif ! command -v sudo &> /dev/null; then

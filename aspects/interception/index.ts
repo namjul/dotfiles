@@ -1,8 +1,10 @@
 #!/usr/bin/env -S deno run --allow-all
 
-import { assert, command, file, init, path, stat } from "fig";
+import { assert, command, file, init, when, path } from "fig";
 
 init(import.meta.dirname);
+
+if (!when("linux")) Deno.exit(0);
 
 const configs = ["dual-function-keys.yaml", "udevmon.yaml"];
 

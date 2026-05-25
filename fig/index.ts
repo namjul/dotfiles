@@ -27,10 +27,11 @@ export { variables } from "./variables.ts";
 
 // Attributes
 export { attributes } from "./attributes.ts";
+export { is, when } from "./helpers.ts";
 
 // Operations
 export { file } from "./operations/file.ts";
-export { stat } from "./operations/stat.ts";
+export { stat } from "./stat.ts";
 export { template } from "./operations/template.ts";
 export { line } from "./operations/line.ts";
 export { command } from "./operations/command.ts";

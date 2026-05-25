@@ -1,3 +1,4 @@
 
 [tasks.default]
-file = 'aspects/nala/default'
+description = "Install and update packages via nala"
+run = 'deno run --allow-all index.ts'

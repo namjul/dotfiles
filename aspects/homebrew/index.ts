@@ -1,8 +1,12 @@
-import { assertNever, init, command, resource } from "fig";
+import { assertNever, command, init, when, resource } from "fig";
 
 init(import.meta.dirname);
 
 if (import.meta.main) {
+  if (!when(["darwin", "debian"])) {
+    Deno.exit(0);
+  }
+
   const sub = Deno.args[0] as "update" | "cleanup" | "brew"
 
   switch (sub) {

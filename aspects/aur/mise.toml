@@ -19,4 +19,4 @@ file = 'firmware'
 
 [tasks.default]
 description = "Run all aur tasks"
-depends = [":packages", ":firewall"]
+run = 'deno run --allow-all index.ts'
