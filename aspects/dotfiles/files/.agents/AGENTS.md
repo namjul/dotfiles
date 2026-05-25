@@ -48,6 +48,9 @@ if (true) {
 ## Principle
 Code should be self-documenting. If you need a comment to explain WHAT the code does, consider refactoring to make it clearer.
 
+# Plans are useless but planning is invincible
+*Festina lente.* For vague requests or changes spanning multiple files, present the full scope and open questions — no file changes until confirmed. Then execute without hesitation: focused, one step at a time. The deliberate pause before acting is what makes the execution smooth.
+
 # Commits
 
 - Follow the existing repo commit style (check git log first)
