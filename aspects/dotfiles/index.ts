@@ -69,6 +69,7 @@ variables(({ identity }) => ({
     ".local/share/light-mode.d",
     ".local/share/dark-mode.d",
     ".local/share/applications",
+    ".local/bin/mount-shares.encrypted",
     ".config/ghostty",
     ".config/imv",
     ".config/vdirsyncer",
@@ -133,9 +134,12 @@ if (import.meta.main) {
       ]);
       for (const src of files) {
         const encrypted = src.toString().endsWith(".encrypted");
+        const isLocalBin = src.toString().includes(".local/bin/");
+
         if (encrypted) {
           const r = await file({
             force: true,
+            ...(isLocalBin ? { mode: "0755" } : {}),
             path: path.home.join(src.strip(".encrypted")),
             src: path.aspect.join("files", src),
             state: "encrypted",
@@ -156,6 +160,7 @@ if (import.meta.main) {
 
         await file({
           force: true,
+          ...(isLocalBin ? { mode: "0755" } : {}),
           path: path.home.join(src),
           src: path.aspect.join("files", src),
           state: "link",

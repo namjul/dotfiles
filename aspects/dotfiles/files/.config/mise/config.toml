@@ -1,5 +1,7 @@
 [env]
-FNOX_AGE_KEY_FILE = "{{env.HOME}}/.config/mise/age.txt"
+FNOX_AGE_KEY_FILE = "{{env.HOME}}/.config/age/key.txt"
+SOPS_AGE_KEY_FILE = "{{env.HOME}}/.config/age/key.txt"
+MISE_AGE_KEY_FILE = "{{env.HOME}}/.config/age/key.txt"
 
 [tools]
 deno = "2.8.0"

@@ -2,6 +2,8 @@ experimental_monorepo_root = true
 
 [env]
 FIG_IDENTITY = "${FIG_IDENTITY:-namjul}"
+SOPS_AGE_KEY_FILE = "{{env.HOME}}/.config/age/key.txt"
+MISE_AGE_KEY_FILE = "{{env.HOME}}/.config/age/key.txt"
 
 [monorepo]
 config_roots = [
@@ -45,15 +47,15 @@ description = "Run all fig:* tasks"
 depends = ["fig:*"]
 
 [tasks."aspects:setup"]
-description = "One-time machine bootstrap: wire age key to sops default location"
+description = "One-time machine bootstrap: verify age key exists at canonical location"
 run = """
 #!/usr/bin/env bash
-if [[ -f "${HOME}/.config/mise/age.txt" ]]; then
-  mkdir -p "${HOME}/.config/sops/age"
-  ln -sf "${HOME}/.config/mise/age.txt" "${HOME}/.config/sops/age/keys.txt"
-  echo "sops age key linked"
+AGE_KEY="${HOME}/.config/age/key.txt"
+if [[ -f "$AGE_KEY" ]]; then
+  echo "age key found: $AGE_KEY"
 else
-  echo "skipping: ${HOME}/.config/mise/age.txt not found"
+  echo "missing: $AGE_KEY — place your age identity file there"
+  exit 1
 fi
 """
 
@@ -72,3 +74,25 @@ sudo systemd-nspawn \
 [tasks."aspects:check"]
 description = "Type-check fig modules"
 run = "deno check aspects/**/*.ts"
+
+[tasks."encrypt"]
+description = "Encrypt a file with sops+age, writing <file>.encrypted"
+usage = 'arg "<file>" help="Plaintext file to encrypt"'
+run = """
+#!/usr/bin/env bash
+set -euo pipefail
+PLAINTEXT="${usage_file?}"
+CIPHERTEXT="${PLAINTEXT}.encrypted"
+sops --encrypt --output "$CIPHERTEXT" "$PLAINTEXT"
+"""
+
+[tasks."decrypt"]
+description = "Decrypt a <file>.encrypted sops file to its plaintext path"
+usage = 'arg "<file>" help="Encrypted .encrypted file to decrypt"'
+run = """
+#!/usr/bin/env bash
+set -euo pipefail
+CIPHERTEXT="${usage_file?}"
+PLAINTEXT="${CIPHERTEXT%.encrypted}"
+sops --decrypt --output "$PLAINTEXT" "$CIPHERTEXT"
+"""
