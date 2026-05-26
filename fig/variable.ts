@@ -14,12 +14,14 @@ interface Variable {
 }
 
 function variableImpl(name: string, fallback?: JSONValue): JSONValue {
-  const aspectVars = getAspect().variables
-  return Object.prototype.hasOwnProperty.call(aspectVars, name) ? aspectVars[name]! : fallback || null;
+  const aspectVars = getAspect().variables;
+  return Object.prototype.hasOwnProperty.call(aspectVars, name)
+    ? aspectVars[name]!
+    : fallback || null;
 }
 
 function all(): Record<string, unknown> {
-  const aspectVars = getAspect().variables
+  const aspectVars = getAspect().variables;
   return {
     ...attributes,
     ...aspectVars,
@@ -30,7 +32,7 @@ function string(name: string, fallback?: string): string {
   const value = variableImpl(name, fallback);
 
   assert(
-    typeof value === 'string',
+    typeof value === "string",
     `Expected variable ${name} to have type string but it was ${typeof value}`,
   );
 
@@ -52,7 +54,7 @@ function paths(name: string, fallback?: Array<string>): Array<Path> {
 
   return value.map((v) => {
     assert(
-      typeof v === 'string',
+      typeof v === "string",
       `Expected variable ${name} to be an array of strings but it contained a ${typeof v}`,
     );
     return path(v);

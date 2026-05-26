@@ -29,7 +29,7 @@ export function init(aspectDir: string | undefined): void {
     dir: aspectDir,
     variables: {
       ...attributes,
-      ...variables
+      ...variables,
     },
   };
 }
@@ -59,7 +59,10 @@ export function registerVariablesCallback(
   callback: (v: Variables) => Variables,
 ): void {
   const aspect = getAspect();
-  aspect.variables = Object.assign(aspect.variables, callback(aspectContext.variables))
+  aspect.variables = Object.assign(
+    aspect.variables,
+    callback(aspectContext.variables),
+  );
 }
 
 let _sudoPassphrase: Promise<string> | undefined;

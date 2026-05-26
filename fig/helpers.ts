@@ -4,7 +4,9 @@ type Condition = "arch" | "darwin" | "debian" | "linux";
 
 // Top-level conditions use AND semantics; nested arrays use OR semantics.
 // e.g. when(['arch', 'debian'], 'linux') means "(arch OR debian) AND linux"
-export function when(...conditions: Array<Array<Condition> | Condition>): boolean {
+export function when(
+  ...conditions: Array<Array<Condition> | Condition>
+): boolean {
   return conditions.every((condition) =>
     Array.isArray(condition)
       ? condition.some(checkCondition)
@@ -12,7 +14,9 @@ export function when(...conditions: Array<Array<Condition> | Condition>): boolea
   );
 }
 
-export function is(...conditions: Array<Array<Condition> | Condition>): boolean {
+export function is(
+  ...conditions: Array<Array<Condition> | Condition>
+): boolean {
   return when(...conditions);
 }
 

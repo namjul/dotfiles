@@ -41,11 +41,13 @@ export async function fetch({
     await finished(body.pipe(stream));
 
     const raw = await Deno.readFile(download);
-    const contents = encoding === null ? raw : new TextDecoder("utf-8").decode(raw);
+    const contents = encoding === null
+      ? raw
+      : new TextDecoder("utf-8").decode(raw);
 
     const result = await file({
       contents,
-      force,
+      ...(force !== undefined ? { force } : {}),
       mode,
       path: dest,
       state: "file",

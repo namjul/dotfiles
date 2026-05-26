@@ -6,7 +6,7 @@ export type JSONValue =
   | null
   | number
   | string
-  | {[property: string]: JSONValue}
+  | { [property: string]: JSONValue }
   | Array<JSONValue>;
 
 export type Variables = {
@@ -144,4 +144,4 @@ export type Path = string & {
   simplify: Path;
   strip: (extension?: string) => Path;
   [Symbol.iterator](): Iterator<string>;
-}
+};

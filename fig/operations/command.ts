@@ -35,7 +35,9 @@ export async function command(
   if (options.creates) {
     const s = await stat(options.creates);
     if (s !== null && !(s instanceof Error)) {
-      console.debug(`Skip command \`${description}\` (${options.creates} exists)`);
+      console.debug(
+        `Skip command \`${description}\` (${options.creates} exists)`,
+      );
       return Result.ok({ command: cmd, exitCode: 0, stderr: "", stdout: "" });
     }
   }
@@ -55,7 +57,12 @@ export async function command(
   });
 
   if (r.exitCode === 0) {
-    return Result.ok({ command: cmd, exitCode: r.exitCode, stderr: r.stderr, stdout: r.stdout });
+    return Result.ok({
+      command: cmd,
+      exitCode: r.exitCode,
+      stderr: r.stderr,
+      stdout: r.stdout,
+    });
   }
   return Result.err({
     type: "COMMAND_FAILED",

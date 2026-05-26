@@ -29,8 +29,8 @@ function getExitCode(error: unknown): number {
 }
 
 async function hasSops(): Promise<boolean> {
-  const result = await $`command -v sops`.nothrow();;
-  return result.exitCode !== 0 ? false : true
+  const result = await $`command -v sops`.nothrow();
+  return result.exitCode !== 0 ? false : true;
 }
 
 /**
@@ -142,10 +142,13 @@ async function writeFileContent(
       }
     } else {
       // Use atomically for non-sudo writes.
+      const data: string | Buffer = typeof contents === "string"
+        ? contents
+        : Buffer.from(contents);
       if (Option.isSome(mode)) {
-        await writeFile(path, contents, { mode });
+        await writeFile(path, data, { mode });
       } else {
-        await writeFile(path, contents);
+        await writeFile(path, data);
       }
     }
 
@@ -411,14 +414,23 @@ async function copyFile(options: FileSourceOptions): Promise<FileResult> {
 
   if (fs.pathExistsSync(targetPath)) {
     if (!force) {
-      return Result.err({ type: "TARGET_EXISTS", path: targetPath, operation: "copy" });
+      return Result.err({
+        type: "TARGET_EXISTS",
+        path: targetPath,
+        operation: "copy",
+      });
     }
     try {
       const err = await rm(targetPath, { sudo });
       if (err) throw err;
     } catch (cause) {
       if (sudo) {
-        return Result.err({ type: "PERMISSION_DENIED", path: targetPath, operation: "copy" as const, cause });
+        return Result.err({
+          type: "PERMISSION_DENIED",
+          path: targetPath,
+          operation: "copy" as const,
+          cause,
+        });
       }
       return Result.err({ type: "WRITE_FAILED", path: targetPath, cause });
     }
@@ -434,8 +446,18 @@ async function copyFile(options: FileSourceOptions): Promise<FileResult> {
     return Result.ok({ path: targetPath });
   } catch (cause) {
     if (sudo) {
-      return Result.err({ type: "PERMISSION_DENIED", path: targetPath, operation: "copy" as const, cause });
+      return Result.err({
+        type: "PERMISSION_DENIED",
+        path: targetPath,
+        operation: "copy" as const,
+        cause,
+      });
     }
-    return Result.err({ type: "COPY_FAILED", source: src, target: targetPath, cause });
+    return Result.err({
+      type: "COPY_FAILED",
+      source: src,
+      target: targetPath,
+      cause,
+    });
   }
 }

@@ -6,7 +6,10 @@ type Options = {
   sudo?: boolean;
 };
 
-export async function rm(path: string, options: Options = {}): Promise<Error | null> {
+export async function rm(
+  path: string,
+  options: Options = {},
+): Promise<Error | null> {
   const args = ["-f", path];
 
   if (options.recurse) {
@@ -15,11 +18,17 @@ export async function rm(path: string, options: Options = {}): Promise<Error | n
 
   const passphrase = options.sudo ? await getSudoPassphrase() : undefined;
 
-  const r = await run("rm", args, passphrase !== undefined ? { passphrase } : {});
+  const r = await run(
+    "rm",
+    args,
+    passphrase !== undefined ? { passphrase } : {},
+  );
 
   if (r.exitCode === 0) {
     return null;
   }
 
-  return new Error(r.stderr || `rm ${args.join(" ")} failed with exit code ${r.exitCode}`);
+  return new Error(
+    r.stderr || `rm ${args.join(" ")} failed with exit code ${r.exitCode}`,
+  );
 }

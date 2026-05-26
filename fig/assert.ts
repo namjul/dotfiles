@@ -7,12 +7,12 @@ export function fail(message: string | Error): never {
 }
 
 interface Assert {
-  (condition: any, message?: string): asserts condition;
+  (condition: unknown, message?: string): asserts condition;
   result<T extends Result<unknown, unknown>>(result: T): void;
 }
 
 function assertImpl(
-  condition: any,
+  condition: unknown,
   message: string = "Condition not met",
 ): asserts condition {
   if (!condition) {

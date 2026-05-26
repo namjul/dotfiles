@@ -6,15 +6,24 @@ type Options = {
   sudo?: boolean;
 };
 
-export async function mkdir(path: string, options: Options = {}): Promise<Error | null> {
+export async function mkdir(
+  path: string,
+  options: Options = {},
+): Promise<Error | null> {
   const args = options.parents ? ["-p", path] : [path];
   const passphrase = options.sudo ? await getSudoPassphrase() : undefined;
 
-  const r = await run("mkdir", args, passphrase !== undefined ? { passphrase } : {});
+  const r = await run(
+    "mkdir",
+    args,
+    passphrase !== undefined ? { passphrase } : {},
+  );
 
   if (r.exitCode === 0) {
     return null;
   }
 
-  return new Error(r.stderr || `mkdir ${args.join(" ")} failed with exit code ${r.exitCode}`);
+  return new Error(
+    r.stderr || `mkdir ${args.join(" ")} failed with exit code ${r.exitCode}`,
+  );
 }

@@ -74,7 +74,6 @@ export async function withTempContextFile<T>(
 export async function template(
   { src, path, context }: TemplateOptions,
 ): Promise<TemplateResult> {
-
   const targetPath = toPath(path).resolve.toString();
   if (src) {
     src = toPath(src).resolve.toString();
@@ -91,8 +90,8 @@ export async function template(
   // Prepare context
   const variables = {
     ...getAspect().variables,
-    ...context
-  }
+    ...context,
+  };
 
   // Ensure parent directory exists
   const targetDir = targetPath.split("/").slice(0, -1).join("/") || "/";
