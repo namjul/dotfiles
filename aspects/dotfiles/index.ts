@@ -82,12 +82,12 @@ variables(({ identity }) => ({
     ".config/rofi/config.rasi",
     ".config/btop/btop.conf",
     // encrypted
-    ".config/wireguard/work.conf.encrypted",
+    // ".config/wireguard/work.conf.encrypted",
   ],
   templates: [
     ".config/git/config.tmpl",
     ".hgrc.tmpl",
-    ".config/wireguard/tunnel.conf.tmpl",
+    // ".config/wireguard/tunnel.conf.tmpl",
   ],
   skills: [
     ".agents/skills/personal/zx-markdown-scaffold",
