@@ -19,6 +19,16 @@ This project uses **Living Systems Commits** - a protocol that treats software a
 - Optionally scope the prefix (e.g., `refactor(fig):`, `repair(nvim):`); if the changes affect a single aspect, use the aspect name as the scope.
 
 
+## Mise tasks
+
+Mise tasks that accept arguments MUST declare them with the `usage` field using mise's task argument syntax (https://mise.jdx.dev/tasks/task-arguments.html). Never use bare `$1`/`$2` positional parameters. Arguments are accessed as `${usage_<name>?}` in the run script.
+
+```toml
+[tasks.example]
+usage = 'arg "<file>" help="File to process"'
+run = 'process "${usage_file?}"'
+```
+
 ## Markdown
 
 When writing Markdown, do not hard-wrap long lines.
