@@ -67,8 +67,9 @@ ssh root@$SERVER "cd $SQUARE_PATH/aspects/$aspect && mise trust && mise install 
 
 [tasks."remote:aspect:log"]
 description = 'Log aspect'
+usage = 'arg "<aspect>" help="Systemd service name to follow"'
 run = """
 #!/usr/bin/env bash
 set -euxo pipefail
-ssh root@$SERVER "journalctl -u {{arg(name="aspect")}}.service -f"
+ssh root@$SERVER "journalctl -u ${usage_aspect?}.service -f"
 """
