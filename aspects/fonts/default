@@ -1,24 +1,29 @@
 #!/usr/bin/env -S deno run --allow-all
 
-import { assert, command, fetch, init, path } from "fig";
+import { assert, command, fetch, file, init, path } from "fig";
 
 init(import.meta.dirname);
 
+const NERD_FONTS_VERSION = "v3.4.0";
+
 const home = path.home.toString();
-const zip = `${home}/opt/JetBrainsMono.zip`;
-const extractDir = `${home}/opt/JetBrainsMono`;
 const fontsDir = `${home}/.local/share/fonts`;
 
 const dirs = await command("mkdir", ["-p", fontsDir, `${home}/opt`]);
 assert.result(dirs);
 
-const installed = [...Deno.readDirSync(fontsDir)].some((e) =>
-  e.name.startsWith("JetBrainsMono")
-);
+async function installNerdFont(name: string) {
+  const marker = `${fontsDir}/.${name}-${NERD_FONTS_VERSION}`;
+  if (await Deno.stat(marker).then(() => true).catch(() => false)) return;
 
-if (!installed) {
+  await command("bash", ["-c", `rm -f ${fontsDir}/${name}*.ttf ${fontsDir}/.${name}-v*`]);
+
+  const zip = `${home}/opt/${name}.zip`;
+  const extractDir = `${home}/opt/${name}`;
+
   const dl = await fetch({
-    url: "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/JetBrainsMono.zip",
+    url:
+      `https://github.com/ryanoasis/nerd-fonts/releases/download/${NERD_FONTS_VERSION}/${name}.zip`,
     dest: zip,
     encoding: null,
   });
@@ -30,9 +35,25 @@ if (!installed) {
   const rm = await command("rm", [zip]);
   assert.result(rm);
 
-  const cp = await command("bash", ["-c", `cp ${extractDir}/*.ttf ${fontsDir}/`]);
+  const cp = await command("bash", [
+    "-c",
+    `cp ${extractDir}/*.ttf ${fontsDir}/`,
+  ]);
   assert.result(cp);
 
-  const cache = await command("fc-cache", ["-f", "-v"]);
-  assert.result(cache);
+  await command("fc-cache", ["-f"]);
+
+  await Deno.writeTextFile(marker, "");
 }
+
+await installNerdFont("JetBrainsMono");
+await installNerdFont("Noto");
+
+const fontconfig = await file({
+  force: true,
+  path: `${home}/.config/fontconfig/fonts.conf`,
+  src: path.aspect.join("files", ".config", "fontconfig", "fonts.conf")
+    .toString(),
+  state: "link",
+});
+assert.result(fontconfig);
