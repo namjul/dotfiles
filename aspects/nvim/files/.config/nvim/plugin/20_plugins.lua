@@ -735,6 +735,7 @@ later(function()
     mappings = {
       refine = '<C-g>',
       refine_marked = '<M-g>',
+      move_start = '<C-j>',
     },
   })
   vim.ui.select = minipick.ui_select
