@@ -731,7 +731,12 @@ end)
 
 later(function()
   local minipick = require('mini.pick')
-  minipick.setup()
+  minipick.setup({
+    mappings = {
+      refine = '<C-g>',
+      refine_marked = '<M-g>',
+    },
+  })
   vim.ui.select = minipick.ui_select
 
   local miniextra = require('mini.extra')
