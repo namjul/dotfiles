@@ -655,8 +655,8 @@ later(function()
       'NvimTreeOpen',
     },
     keymap = {
-      { 'n', '<LocalLeader>f', ':NvimTreeFindFile<CR>', { silent = true } },
-      { 'n', '<LocalLeader>t', ':NvimTreeToggle<CR>', { silent = true } },
+      { 'n', '<LocalLeader>f', ':NvimTreeFindFile', { silent = true } },
+      { 'n', '<LocalLeader>t', ':NvimTreeToggle', { silent = true } },
     },
   })
 end)
