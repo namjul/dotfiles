@@ -281,6 +281,17 @@ const buildApkg = async (notes: Note[]): Promise<void> => {
   await Deno.writeFile(OUTPUT_PATH, await zip.generateAsync({ type: "uint8array" }));
 };
 
+const ankiConnect = async (action: string, params?: Record<string, unknown>): Promise<unknown> => {
+  const res = await fetch("http://localhost:8765", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ action, version: 6, ...(params ? { params } : {}) }),
+  });
+  const { error, result } = await res.json();
+  if (error) throw new Error(error);
+  return result;
+};
+
 const main = async (): Promise<void> => {
   const debug = Deno.args.includes("--debug");
   const notes: Note[] = [];
@@ -298,6 +309,15 @@ const main = async (): Promise<void> => {
   }
   await buildApkg(notes);
   console.log(`${notes.length} notes -> ${OUTPUT_PATH}`);
+
+  try {
+    await ankiConnect("importPackage", { path: OUTPUT_PATH });
+    console.log("imported via AnkiConnect");
+    await ankiConnect("sync");
+    console.log("synced");
+  } catch {
+    console.log("AnkiConnect unavailable — import manually");
+  }
 };
 
 main();
