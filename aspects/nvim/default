@@ -48,3 +48,6 @@ if (!systemNeovim && !fs.existsSync(location)) {
     });
   }
 }
+
+// index help tags so :help writing-session (and any future doc/ files) work
+await command("nvim", ["--headless", "-c", "helptags ~/.config/nvim/doc", "-c", "quit"]);

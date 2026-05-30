@@ -1,0 +1,119 @@
+*750words.txt*  *750words*  A focused daily writing practice for Neovim
+
+==============================================================================
+CONTENTS                                        *750words-contents*
+
+  1. Introduction .............................. |750words-intro|
+  2. Usage ..................................... |750words-usage|
+  3. States .................................... |750words-states|
+  4. Highlights ................................ |750words-hl|
+  5. Philosophy ................................ |750words-philosophy|
+
+==============================================================================
+INTRODUCTION                                     *750words-intro*
+
+750 words is the online translation of Morning Pages — a daily writing
+practice of three longhand pages (~750 words) described by Julia Cameron in
+The Artist's Way.
+
+The goal is not to write well. The goal is to write without censoring,
+editing, or perfecting: get everything out of your head every morning, and
+the rest of the day opens up.
+
+This plugin brings that practice into Neovim:
+
+  - One command. One dated scratch buffer.
+  - Timer and word counter stay out of the way.
+  - Hit the goal — the winbar pulses warm yellow and orange.
+  - Close the buffer — prompted to save into your memex.
+
+==============================================================================
+USAGE                                            *750words-usage*
+
+                                                 *:Write750*
+:Write750 [{opts}]
+    Open a dated scratch buffer and start a writing session.
+
+    {opts} are optional space-separated key=value pairs:
+      max_words={n}   Word goal.   Default: 750
+      max_time={n}    Seconds.     Default: 600
+
+    Examples: >
+      :Write750
+      :Write750 max_words=500
+      :Write750 max_words=750 max_time=900
+<
+    Keymap: <Leader>bj
+
+The winbar shows the live word count and elapsed time: >
+
+  42 words • 01:23
+<
+The timer starts on the first keystroke, not when the buffer opens.
+
+:w saves directly to: >
+
+  ~/Dropbox/memex/daily.journal.YYYY.MM.DD.md
+<
+If that file already exists the session is appended after a `---` separator.
+If the buffer has no content beyond the date header, the save is skipped.
+
+Override the save directory: >
+
+  vim.g.write750_save_dir = '~/notes/'
+<
+
+==============================================================================
+STATES                                           *750words-states*
+
+Running~
+  Timer ticking, word goal not yet met.
+  Winbar highlight: |Write750Running| (muted gray).
+
+Goal reached~
+  Word goal hit before time expires.
+  The winbar pulses yellow → orange → cream × 3, then settles on |Write750GoalMet|.
+  Timer keeps running.
+
+Done~
+  Both word goal AND time limit are reached.
+  Winbar highlight: |Write750Done| (green). Timer keeps running.
+
+Over time~
+  Time limit reached, word goal NOT yet met.
+  Timer keeps running. Winbar highlight: |Write750Over| (bright green).
+  Keep writing — there is no failure here.
+
+==============================================================================
+HIGHLIGHTS                                       *750words-hl*
+
+Highlight groups defined by this plugin. Override them after the colorscheme
+loads (e.g. in an after/plugin/ file): >
+
+  vim.api.nvim_set_hl(0, 'Write750Running', { fg = '#555555' })
+<
+  *Write750Running*   Timer running, goal not met.        Default: muted gray.
+  *Write750GoalMet*   Word goal reached.                  Default: warm yellow.
+  *Write750Done*      Both thresholds met.                Default: green.
+  *Write750Over*      Time expired, goal not met.         Default: bright green.
+  *Write750Pulse*     Animated during the celebration.    Cycles internally.
+
+==============================================================================
+PHILOSOPHY                                       *750words-philosophy*
+
+  "Morning pages are three pages of longhand, stream-of-consciousness
+  writing, done first thing in the morning. There is no wrong way to do
+  morning pages."
+                                     — Julia Cameron, The Artist's Way
+
+750 words = 3 pages × 250 words per page.
+
+Writing every day clears mental clutter. It is not about producing good
+writing. It is about the daily act of emptying your head so that creative
+work can follow. The timer is a gentle nudge, not a deadline. The goal is a
+minimum, not a ceiling.
+
+See also: https://750words.com
+
+==============================================================================
+vim:tw=78:ts=8:ft=help:norl:

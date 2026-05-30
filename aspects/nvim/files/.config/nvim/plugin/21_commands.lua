@@ -21,6 +21,15 @@ vim.api.nvim_create_user_command('PasteMDLink', function()
   end
 end, {})
 
+vim.api.nvim_create_user_command('Write750', function(args)
+  local opts = {}
+  for _, arg in ipairs(args.fargs) do
+    local k, v = arg:match('^(%a[%a_]*)=(%d+)$')
+    if k and v then opts[k] = tonumber(v) end
+  end
+  require('namjul.750words').start(opts)
+end, { nargs = '*', desc = 'timed writing session (default 750 words / 10 min, inspired by 750words.com)' })
+
 local has_rest_nvim = pcall(require, 'rest-nvim')
 
 if has_rest_nvim then
