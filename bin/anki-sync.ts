@@ -20,7 +20,6 @@ const SKIP: readonly string[] = [
   "assets",
   "anki-decks",
   "template.",
-  "llm-capture",
 ];
 const ALIASES: Record<string, string> = {
   lang: "language",
@@ -581,10 +580,11 @@ const main = async (): Promise<void> => {
   }
   if (debug) {
     for (const note of notes) {
+      const deck = decks.get(note.deckId) ?? DECK_NAME;
       if (note.type === "basic") {
-        console.error(`[${note.tag}] Q. ${note.question} / A. ${note.answer}`);
+        console.error(`[${deck}][${note.tag}] Q. ${note.question} / A. ${note.answer}`);
       } else {
-        console.error(`[${note.tag}] ${note.text}`);
+        console.error(`[${deck}][${note.tag}] ${note.text}`);
       }
     }
   }
