@@ -67,7 +67,7 @@ Without the PAM patch, GNOME keyring creates an encrypted keyring on first login
 - Platform: `when("arch")` — Ubuntu ships GDM; enabling SDDM there would create two competing display managers
 - Configure SDDM for wayland: `/etc/sddm.conf.d/10-wayland.conf`
 - Configure autologin: `/etc/sddm.conf.d/autologin.conf`
-- Patch `/etc/pam.d/sddm` to remove pam_gnome_keyring lines
+- Patch `/etc/pam.d/sddm`: remove `-auth` and `-password` pam_gnome_keyring lines only — keep `-session`. The session line starts gnome-keyring-daemon at login and sets `SSH_AUTH_SOCK` automatically. Removing it would require manually propagating `SSH_AUTH_SOCK` via the UWSM env file.
 - `sudo systemctl enable sddm.service`
 
 ### kernel

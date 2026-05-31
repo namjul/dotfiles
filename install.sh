@@ -23,7 +23,7 @@ mise run //aspects/fonts:default
 mise run //aspects/interception:default
 mise run //aspects/systemd:default
 
-touch /var/tmp/dotfiles-install-completed
+touch /var/tmp/omarchy-install-completed
 
 # mise doctor
 

@@ -4,18 +4,22 @@
 trap 'echo "Warning: A command has failed. Exiting the script. Line was ($0:$LINENO): $(sed -n "${LINENO}p" "$0")"; exit 3' ERR
 set -Eeuo pipefail
 
+abort() {
+  echo -e "\e[31mInstall requires: $1\e[0m"
+  echo
+  gum confirm "Proceed anyway on your own accord and without assistance?" || exit 1
+}
+
 # guards
-if [[ $EUID -eq 0 ]] && [[ ! -e /run/fig-test-container ]]; then
-  echo "error: must not run as root"
-  exit 1
-fi
+[[ $EUID -ne 0 ]] || [[ -e /run/fig-test-container ]] || abort "non-root user"
 
 if [[ -e /run/fig-test-container ]]; then
   sudo() { "$@"; }
-elif ! command -v sudo &> /dev/null; then
-  echo "error: sudo is required"
-  exit 1
+else
+  command -v sudo &>/dev/null || abort "sudo"
 fi
+
+lsblk -rno TYPE | grep -q '^crypt$' || abort "disk encryption"
 
 echo "Guards: OK"
 

@@ -6,10 +6,12 @@ Tracks optional package concerns — tools and stacks where package installation
 
 Arch-only additions. Each step is implemented, committed, and tested before moving to the next. X11 packages (`i3-wm`, `feh`, `xclip`, `xsel`, `wmctrl`) are kept — they remain valid for Ubuntu installations.
 
+**Before marking a step complete:** diff the implementation against the corresponding script in the omarchy repo (`~/code/ghq/github.com/basecamp/omarchy/`). Surface any differences that affect behavior — missing packages, different service configurations, skipped setup steps, etc. Omit cosmetic differences (formatting, comments, ordering). Report findings before marking done.
+
 | # | What | Concern / Purpose | Test in VM | Notes |
 |---|---|---|---|---|
 | ~~1~~ | ~~`noto-fonts`, `noto-fonts-emoji`, `man-db`~~ | ~~Typography — system-wide font coverage including emoji and docs~~ | ~~`fc-list \| grep Noto`~~ | ~~No compositor needed~~ |
-| 2 | `gnome-keyring`, `libsecret` | Credentials — secure storage for WiFi passwords, SSH keys, app secrets | `gnome-keyring-daemon --version` | No compositor needed |
+| ~~2~~ | ~~`gnome-keyring`, `libsecret`~~ | ~~Credentials — secure storage for WiFi passwords, SSH keys, app secrets~~ | ~~`gnome-keyring-daemon --version`~~ | ~~No compositor needed~~ |
 | 3 | `xdg-desktop-portal-hyprland`, `xdg-desktop-portal-gtk`, `uwsm`, `qt5-wayland`, `qt6-wayland` | Wayland integration — file pickers, screenshare, Qt app compat, proper systemd session | `pacman -Q xdg-desktop-portal-hyprland uwsm` | Prerequisites before Hyprland starts |
 | 4 | `hyprland` | Compositor — Wayland window manager; everything graphical depends on this | `hyprland --version`; run `WLR_RENDERER=pixman hyprland` in a TTY | Software rendering works in VM with pixman |
 | 5 | `polkit-gnome` | Authorization agent — presents GUI dialog when apps request privileged actions | Trigger privilege escalation inside Hyprland (e.g., mount a drive) | Started via `exec-once` in Hyprland config; replaces `lxpolkit` from i3 |
@@ -27,67 +29,36 @@ Arch-only additions. Each step is implemented, committed, and tested before movi
 
 Provides a D-Bus Secret Service. Apps (Chromium, NetworkManager, vdirsyncer, gopass) query it via libsecret to store and retrieve credentials. Without it, each app either prompts on every access or stores secrets in plaintext.
 
-### 1 — Package addition
+### 1 — Package addition (`aspects/aur/packages`)
 
-In `aspects/aur/packages`, add a block after the bluetooth line (both are connectivity-layer system packages):
+Added after the bluetooth line:
 
 ```bash
 sudo pacman -S --needed --noconfirm gnome-keyring libsecret
 ```
 
-### 2 — Systemd user service
+### 2 — Default passwordless keyring (`aspects/systemd/index.ts`)
 
-gnome-keyring ships `gnome-keyring-daemon.socket` + `gnome-keyring-daemon.service`. Use socket activation (daemon starts on first D-Bus request):
+gnome-keyring looks for a default keyring on startup. If none exists, the first app to request a secret triggers a "create keyring" dialog asking for a password — blocking silently in the background. Pre-creating a passwordless keyring (`lock-on-idle=false`, `lock-after=false`) means gnome-keyring finds it immediately and auto-unlocks it without prompting.
 
-In `aspects/systemd/index.ts`, enable the socket alongside the other user services:
+Two files written to `~/.local/share/keyrings/` (700), created only if absent:
+- `Default_keyring.keyring` (600) — the keyring definition
+- `default` (644) — tells gnome-keyring which keyring to use as the default
 
-```bash
-systemctl --user enable gnome-keyring-daemon.socket
-```
+### 3 — Socket activation + SSH handled by gnome-keyring
 
-**SSH component conflict**: `ssh-agent.service` in the systemd aspect already owns `SSH_AUTH_SOCK`. gnome-keyring's default components include `ssh`, which would try to bind the same socket. Disable it with a drop-in at `aspects/systemd/files/.config/systemd/user/gnome-keyring-daemon.service.d/no-ssh.conf`:
+gnome-keyring ships `gnome-keyring-daemon.socket` + `gnome-keyring-daemon.service`. Socket activation is used — the daemon starts on the first D-Bus secret request rather than at session start. With a passwordless keyring this is equivalent to PAM session-line startup (omarchy's approach): the keyring auto-unlocks either way.
 
-```ini
-[Service]
-ExecStart=
-ExecStart=/usr/bin/gnome-keyring-daemon --foreground --components=pkcs11,secrets --control-directory=%t/keyring
-```
+The separate `ssh-agent.service` was removed. gnome-keyring handles SSH with its built-in `ssh` component — passphrases are stored in the keyring, which is simpler and consistent.
 
-Alternative: replace `ssh-agent.service` with gnome-keyring's ssh component entirely (stores passphrases in the keyring, simpler). Defer this decision; the drop-in is the lower-risk first step.
-
-### 3 — PAM and auto-unlock
-
-With SDDM autologin (no password typed), `pam_gnome_keyring.so` cannot unlock the keyring — the systemd `display` concern (step 6 in `aspects/systemd/PLAN.md`) already patches `/etc/pam.d/sddm` to remove those lines, preventing the stale prompt.
-
-**Consequence**: the "Login" keyring starts locked on first boot. First app to request a secret prompts for a keyring password. To make it silent (plaintext storage, acceptable on a single-user machine), set an empty password on the "Login" keyring after the first boot:
-
-```bash
-secret-tool store --label='init' _init_ 1  # triggers keyring creation
-# then use seahorse to clear the password, or:
-python3 -c "
-import secretstorage
-bus = secretstorage.dbus_init()
-col = secretstorage.get_default_collection(bus)
-col.unlock()
-col.change_password()  # enter empty password when prompted
-"
-```
-
-This step is manual; document it in the systemd/display concern as a post-install note.
-
-### 4 — Environment propagation
-
-gnome-keyring sets `GNOME_KEYRING_CONTROL` on daemon start. With socket activation under systemd user session, the socket path (`$XDG_RUNTIME_DIR/keyring/control`) is stable and libsecret finds it via D-Bus — no explicit env var propagation needed for Wayland sessions started via UWSM.
-
-### Dependency ordering
-
-Implement after the package install (this step) but enable the socket unit only after `aspects/systemd` is applied. The PAM patch in `systemd/display` must land before the first SDDM-managed login or the keyring password prompt will appear.
+PAM: the `systemd/display` concern removes only the `-auth` and `-password` pam_gnome_keyring lines from `/etc/pam.d/sddm`, keeping `-session`. The session line starts gnome-keyring-daemon at login and sets `SSH_AUTH_SOCK` automatically — matching omarchy's approach.
 
 ### Tests
 
 ```bash
 gnome-keyring-daemon --version
 systemctl --user is-enabled gnome-keyring-daemon.socket
+ls -la ~/.local/share/keyrings/
 ```
 
 Inside a running session (Hyprland or plain TTY with dbus-run-session):

@@ -52,6 +52,7 @@ sudo pacman -S --needed --noconfirm pipewire pipewire-alsa pipewire-pulse pipewi
 sudo pacman -S --needed --noconfirm interception-tools # https://gitlab.com/interception/linux/tools
 sudo pacman -S --needed --noconfirm libevdev yaml-cpp # required for dual-function-keys
 sudo pacman -S --needed --noconfirm bluez bluez-utils # bluetooth
+sudo pacman -S --needed --noconfirm gnome-keyring libsecret # D-Bus Secret Service
 sudo pacman -S --needed --noconfirm lxsession # polkit authentication agent (provides lxpolkit)
 sudo pacman -S --needed --noconfirm imv # https://sr.ht/~exec64/imv/
 sudo pacman -S --needed --noconfirm iwd # https://wiki.archlinux.org/title/Iwd
@@ -89,6 +90,7 @@ sudo pacman -S --needed --noconfirm zoxide # https://github.com/ajeetdsouza/zoxi
 sudo pacman -S --needed --noconfirm darkman # https://darkman.whynothugo.nl
 sudo pacman -S --needed --noconfirm ufw
 sudo pacman -S --needed --noconfirm less
+sudo pacman -S --needed --noconfirm gum # https://github.com/charmbracelet/gum
 
 # raise file descriptor limit for dev tools
 sudo mkdir -p /etc/systemd/system.conf.d /etc/systemd/user.conf.d

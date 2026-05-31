@@ -1,4 +1,4 @@
-import { init, when } from "fig";
+import { assert, file, init, path, when } from "fig";
 
 init(import.meta.dirname);
 
@@ -20,4 +20,20 @@ if (import.meta.main) {
   await run("preflight");
   await run("packages");
   await run("firewall");
+
+  const keyringsDir = path.home.join(".local/share/keyrings");
+  assert.result(await file({ path: keyringsDir, state: "directory", mode: "0700" }));
+
+  for (const [name, mode] of [
+    ["Default_keyring.keyring", "0600"],
+    ["default", "0644"],
+  ] as const) {
+    const r = await file({
+      path: keyringsDir.join(name),
+      src: path.aspect.join("files/.local/share/keyrings", name),
+      state: "copy",
+      mode,
+    });
+    if (!r.ok && r.error.type !== "TARGET_EXISTS") assert.result(r);
+  }
 }

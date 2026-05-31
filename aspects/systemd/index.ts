@@ -5,7 +5,6 @@ import { assert, command, file, init, path } from "fig";
 init(import.meta.dirname);
 
 const userServices = [
-  ".config/systemd/user/ssh-agent.service",
   ".config/systemd/user/darkman.service",
   ".config/systemd/user/redshift.service",
 ];
@@ -25,9 +24,8 @@ assert.result(reload);
 
 const now = Deno.env.get("usage_now") === "true";
 
-for (const service of ["ssh-agent.service", "darkman.service", "redshift.service"]) {
+for (const service of ["darkman.service", "redshift.service", "gnome-keyring-daemon.socket"]) {
   const args = ["--user", "enable", ...(now ? ["--now"] : []), service];
   const r = await command("systemctl", args);
   assert.result(r);
 }
-
