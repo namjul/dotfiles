@@ -561,7 +561,8 @@ const ankiConnect = async (
 };
 
 const main = async (): Promise<void> => {
-  const debug = Deno.args.includes("--debug");
+  const dry = Deno.args.includes("--dry");
+  const debug = dry || Deno.args.includes("--debug");
   const notes: Note[] = [];
   const decks = new Map<number, string>([[DECK_ID, DECK_NAME]]);
   for await (const path of walkMdFiles()) {
@@ -587,8 +588,10 @@ const main = async (): Promise<void> => {
       }
     }
   }
-  await buildApkg(notes, decks);
   console.log(`${notes.length} notes -> ${OUTPUT_PATH}`);
+  if (dry) return;
+
+  await buildApkg(notes, decks);
 
   try {
     await ankiConnect("importPackage", { path: OUTPUT_PATH });
