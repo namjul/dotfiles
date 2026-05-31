@@ -35,6 +35,7 @@ interface BasicNote {
   readonly guid: string;
   readonly tag: string;
   readonly deckId: number;
+  readonly createdMs: number;
 }
 
 interface ClozeNote {
@@ -43,6 +44,7 @@ interface ClozeNote {
   readonly guid: string;
   readonly tag: string;
   readonly deckId: number;
+  readonly createdMs: number;
 }
 
 type Note = BasicNote | ClozeNote;
@@ -113,7 +115,12 @@ const toClozeText = (full: string, masked: string): string | undefined => {
   return out + full.slice(cur);
 };
 
-const parseFile = (content: string, tag: string, deckId: number): Note[] => {
+const parseFile = (
+  content: string,
+  tag: string,
+  deckId: number,
+  baseMs: number,
+): Note[] => {
   const tree = unified().use(remarkParse).parse(content) as MdastRoot;
   const kids = tree.children;
   const consumed = new Set<number>();
@@ -139,6 +146,7 @@ const parseFile = (content: string, tag: string, deckId: number): Note[] => {
           guid: makeGuid(qm[1]! + "\x1f" + am[1]!),
           tag,
           deckId,
+          createdMs: baseMs + notes.length,
         });
         consumed.add(i);
         done = true;
@@ -161,6 +169,7 @@ const parseFile = (content: string, tag: string, deckId: number): Note[] => {
           guid: makeGuid(qm[1]! + "\x1f" + am[1]!),
           tag,
           deckId,
+          createdMs: baseMs + notes.length,
         });
         consumed.add(i);
         consumed.add(j);
@@ -181,6 +190,7 @@ const parseFile = (content: string, tag: string, deckId: number): Note[] => {
       guid: makeGuid(full),
       tag,
       deckId,
+      createdMs: baseMs + notes.length,
     });
   }
 
@@ -428,18 +438,18 @@ const buildDatabase = (
   const cardStmt = db.prepare(
     "INSERT INTO cards VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
   );
-  let nid = 1;
-  let cid = 1;
+  let due = 1;
 
   for (const note of notes) {
-    const noteId = nid++;
+    const noteId = note.createdMs;
+    const noteMod = Math.floor(note.createdMs / 1000);
     const tagStr = ` ${note.tag} `;
     if (note.type === "basic") {
       noteStmt.run(
         noteId,
         note.guid,
         BASIC_MODEL_ID,
-        now,
+        noteMod,
         -1,
         tagStr,
         `${note.question}\x1f${note.answer}`,
@@ -448,17 +458,16 @@ const buildDatabase = (
         0,
         "",
       );
-      const cardId = cid++;
       cardStmt.run(
-        cardId,
+        note.createdMs * 10,
         noteId,
         note.deckId,
         0,
-        now,
+        noteMod,
         -1,
         0,
         0,
-        cardId,
+        due++,
         0,
         0,
         0,
@@ -474,7 +483,7 @@ const buildDatabase = (
         noteId,
         note.guid,
         CLOZE_MODEL_ID,
-        now,
+        noteMod,
         -1,
         tagStr,
         `${note.text}\x1f`,
@@ -490,18 +499,17 @@ const buildDatabase = (
           ),
         ),
       ];
-      for (const ord of ords) {
-        const cardId = cid++;
+      for (const [i, ord] of ords.entries()) {
         cardStmt.run(
-          cardId,
+          note.createdMs * 10 + i,
           noteId,
           note.deckId,
           ord,
-          now,
+          noteMod,
           -1,
           0,
           0,
-          cardId,
+          due++,
           0,
           0,
           0,
@@ -557,14 +565,18 @@ const main = async (): Promise<void> => {
   const notes: Note[] = [];
   const decks = new Map<number, string>([[DECK_ID, DECK_NAME]]);
   for await (const path of walkMdFiles()) {
-    const raw = await Deno.readTextFile(path);
+    const [raw, stat] = await Promise.all([
+      Deno.readTextFile(path),
+      Deno.stat(path),
+    ]);
+    const baseMs = stat.mtime?.getTime() ?? Date.now();
     const { deck, body } = parseFrontmatter(raw);
     let deckId = DECK_ID;
     if (deck) {
       deckId = makeDeckId(deck);
       decks.set(deckId, deck);
     }
-    notes.push(...parseFile(body, pathToTag(path), deckId));
+    notes.push(...parseFile(body, pathToTag(path), deckId, baseMs));
   }
   if (debug) {
     for (const note of notes) {
