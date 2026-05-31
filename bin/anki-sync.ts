@@ -14,7 +14,14 @@ const DECK_NAME = basename(Deno.cwd());
 const BASIC_MODEL_ID = 1342697561;
 const CLOZE_MODEL_ID = 1045689296;
 const DECK_ID = 1;
-const SKIP: readonly string[] = ["node_modules", "scripts", "assets", "anki-decks", "template.", "llm-capture"];
+const SKIP: readonly string[] = [
+  "node_modules",
+  "scripts",
+  "assets",
+  "anki-decks",
+  "template.",
+  "llm-capture",
+];
 const ALIASES: Record<string, string> = {
   lang: "language",
   proj: "project",
@@ -27,6 +34,7 @@ interface BasicNote {
   readonly answer: string;
   readonly guid: string;
   readonly tag: string;
+  readonly deckId: number;
 }
 
 interface ClozeNote {
@@ -34,6 +42,7 @@ interface ClozeNote {
   readonly text: string;
   readonly guid: string;
   readonly tag: string;
+  readonly deckId: number;
 }
 
 type Note = BasicNote | ClozeNote;
@@ -51,6 +60,18 @@ const makeGuid = (s: string): string => sha256hex(s).slice(0, 16);
 
 const makeCsum = (sfld: string): number =>
   parseInt(sha1hex(sfld.toLowerCase()).slice(0, 8), 16);
+
+const makeDeckId = (name: string): number =>
+  (parseInt(sha1hex(name).slice(0, 8), 16) % 2_000_000_000) + 1_000_000;
+
+const parseFrontmatter = (content: string): { deck?: string; body: string } => {
+  if (!content.startsWith("---\n")) return { body: content };
+  const end = content.indexOf("\n---\n", 4);
+  if (end === -1) return { body: content };
+  const fm = content.slice(4, end);
+  const m = fm.match(/^deck:\s*(.+)$/m);
+  return { deck: m?.[1]?.trim(), body: content.slice(end + 5) };
+};
 
 const pathToTag = (filePath: string): string =>
   relative(ROOT, filePath)
@@ -76,20 +97,23 @@ const toClozeText = (full: string, masked: string): string | undefined => {
   const re = /(?<![${])\{([^{}\n]+)\}(?!\})/g;
   const hits: Array<{ i: number; len: number }> = [];
   let m: RegExpExecArray | null;
-  while ((m = re.exec(masked)) !== null) hits.push({ i: m.index, len: m[0].length });
+  while ((m = re.exec(masked)) !== null) {
+    hits.push({ i: m.index, len: m[0].length });
+  }
   if (!hits.length) return undefined;
 
   let out = "";
   let cur = 0;
   for (let n = 0; n < hits.length; n++) {
     const { i, len } = hits[n]!;
-    out += full.slice(cur, i) + `{{c${n + 1}::${full.slice(i + 1, i + len - 1)}}}`;
+    out += full.slice(cur, i) +
+      `{{c${n + 1}::${full.slice(i + 1, i + len - 1)}}}`;
     cur = i + len;
   }
   return out + full.slice(cur);
 };
 
-const parseFile = (content: string, tag: string): Note[] => {
+const parseFile = (content: string, tag: string, deckId: number): Note[] => {
   const tree = unified().use(remarkParse).parse(content) as MdastRoot;
   const kids = tree.children;
   const consumed = new Set<number>();
@@ -108,7 +132,14 @@ const parseFile = (content: string, tag: string): Note[] => {
       if (!lines[j]!.trim()) continue;
       const am = lines[j]!.match(/^A\. (.+)/);
       if (am) {
-        notes.push({ type: "basic", question: qm[1]!, answer: am[1]!, guid: makeGuid(qm[1]! + "\x1f" + am[1]!), tag });
+        notes.push({
+          type: "basic",
+          question: qm[1]!,
+          answer: am[1]!,
+          guid: makeGuid(qm[1]! + "\x1f" + am[1]!),
+          tag,
+          deckId,
+        });
         consumed.add(i);
         done = true;
       } else {
@@ -123,7 +154,14 @@ const parseFile = (content: string, tag: string): Note[] => {
       const [nf] = extractNodeTexts(kids[j]!);
       const am = nf.match(/^A\. (.+)/);
       if (am) {
-        notes.push({ type: "basic", question: qm[1]!, answer: am[1]!, guid: makeGuid(qm[1]! + "\x1f" + am[1]!), tag });
+        notes.push({
+          type: "basic",
+          question: qm[1]!,
+          answer: am[1]!,
+          guid: makeGuid(qm[1]! + "\x1f" + am[1]!),
+          tag,
+          deckId,
+        });
         consumed.add(i);
         consumed.add(j);
       }
@@ -137,14 +175,25 @@ const parseFile = (content: string, tag: string): Note[] => {
     if (/^[QA]\. /.test(full)) continue;
     const clozeText = toClozeText(full, masked);
     if (!clozeText) continue;
-    notes.push({ type: "cloze", text: clozeText, guid: makeGuid(full), tag });
+    notes.push({
+      type: "cloze",
+      text: clozeText,
+      guid: makeGuid(full),
+      tag,
+      deckId,
+    });
   }
 
   return notes;
 };
 
 const isPlainText = async (path: string): Promise<boolean> => {
-  const file = await Deno.open(path);
+  let file: Deno.FsFile;
+  try {
+    file = await Deno.open(path);
+  } catch {
+    return false;
+  }
   const buf = new Uint8Array(512);
   const n = await file.read(buf);
   file.close();
@@ -157,7 +206,9 @@ async function* walkMdFiles(): AsyncGenerator<string> {
     cwd: ROOT,
     stdout: "piped",
   }).output();
-  for (const rel of new TextDecoder().decode(stdout).split("\n").filter(Boolean)) {
+  for (
+    const rel of new TextDecoder().decode(stdout).split("\n").filter(Boolean)
+  ) {
     if (!rel.endsWith(".md")) continue;
     if (SKIP.some((s) => rel.startsWith(s))) continue;
     const fullPath = join(ROOT, rel);
@@ -167,46 +218,149 @@ async function* walkMdFiles(): AsyncGenerator<string> {
 
 const buildModels = (now: number) => ({
   [BASIC_MODEL_ID]: {
-    id: BASIC_MODEL_ID, name: "Basic", type: 0, mod: now, usn: -1, sortf: 0, did: DECK_ID,
+    id: BASIC_MODEL_ID,
+    name: "Basic",
+    type: 0,
+    mod: now,
+    usn: -1,
+    sortf: 0,
+    did: DECK_ID,
     flds: [
-      { name: "Front", ord: 0, sticky: false, rtl: false, font: "Arial", size: 20 },
-      { name: "Back", ord: 1, sticky: false, rtl: false, font: "Arial", size: 20 },
+      {
+        name: "Front",
+        ord: 0,
+        sticky: false,
+        rtl: false,
+        font: "Arial",
+        size: 20,
+      },
+      {
+        name: "Back",
+        ord: 1,
+        sticky: false,
+        rtl: false,
+        font: "Arial",
+        size: 20,
+      },
     ],
-    tmpls: [{ name: "Card 1", ord: 0, qfmt: "{{Front}}", afmt: "{{FrontSide}}<hr id=answer>{{Back}}", did: null, bqfmt: "", bafmt: "" }],
-    css: ".card { font-family: arial; font-size: 20px; text-align: center; color: black; background-color: white; }",
-    latexPre: "\\documentclass[12pt]{article}\n\\special{papersize=3in,5in}\n\\usepackage[utf8]{inputenc}\n\\usepackage{amssymb,amsmath}\n\\pagestyle{empty}\n\\setlength{\\parindent}{0in}\n\\begin{document}\n",
+    tmpls: [{
+      name: "Card 1",
+      ord: 0,
+      qfmt: "{{Front}}",
+      afmt: "{{FrontSide}}<hr id=answer>{{Back}}",
+      did: null,
+      bqfmt: "",
+      bafmt: "",
+    }],
+    css:
+      ".card { font-family: arial; font-size: 20px; text-align: center; color: black; background-color: white; }",
+    latexPre:
+      "\\documentclass[12pt]{article}\n\\special{papersize=3in,5in}\n\\usepackage[utf8]{inputenc}\n\\usepackage{amssymb,amsmath}\n\\pagestyle{empty}\n\\setlength{\\parindent}{0in}\n\\begin{document}\n",
     latexPost: "\\end{document}",
-    req: [[0, "any", [0]]], tags: [], vers: [],
+    req: [[0, "any", [0]]],
+    tags: [],
+    vers: [],
   },
   [CLOZE_MODEL_ID]: {
-    id: CLOZE_MODEL_ID, name: "Cloze", type: 1, mod: now, usn: -1, sortf: 0, did: DECK_ID,
+    id: CLOZE_MODEL_ID,
+    name: "Cloze",
+    type: 1,
+    mod: now,
+    usn: -1,
+    sortf: 0,
+    did: DECK_ID,
     flds: [
-      { name: "Text", ord: 0, sticky: false, rtl: false, font: "Arial", size: 20 },
-      { name: "Extra", ord: 1, sticky: false, rtl: false, font: "Arial", size: 20 },
+      {
+        name: "Text",
+        ord: 0,
+        sticky: false,
+        rtl: false,
+        font: "Arial",
+        size: 20,
+      },
+      {
+        name: "Extra",
+        ord: 1,
+        sticky: false,
+        rtl: false,
+        font: "Arial",
+        size: 20,
+      },
     ],
-    tmpls: [{ name: "Cloze", ord: 0, qfmt: "{{cloze:Text}}", afmt: "{{cloze:Text}}<br>{{Extra}}", did: null, bqfmt: "", bafmt: "" }],
-    css: ".card { font-family: arial; font-size: 20px; text-align: center; color: black; background-color: white; }\n.cloze { font-weight: bold; color: blue; }",
-    latexPre: "\\documentclass[12pt]{article}\n\\special{papersize=3in,5in}\n\\usepackage[utf8]{inputenc}\n\\usepackage{amssymb,amsmath}\n\\pagestyle{empty}\n\\setlength{\\parindent}{0in}\n\\begin{document}\n",
+    tmpls: [{
+      name: "Cloze",
+      ord: 0,
+      qfmt: "{{cloze:Text}}",
+      afmt: "{{cloze:Text}}<br>{{Extra}}",
+      did: null,
+      bqfmt: "",
+      bafmt: "",
+    }],
+    css:
+      ".card { font-family: arial; font-size: 20px; text-align: center; color: black; background-color: white; }\n.cloze { font-weight: bold; color: blue; }",
+    latexPre:
+      "\\documentclass[12pt]{article}\n\\special{papersize=3in,5in}\n\\usepackage[utf8]{inputenc}\n\\usepackage{amssymb,amsmath}\n\\pagestyle{empty}\n\\setlength{\\parindent}{0in}\n\\begin{document}\n",
     latexPost: "\\end{document}",
-    req: [[0, "any", [0]]], tags: [], vers: [],
+    req: [[0, "any", [0]]],
+    tags: [],
+    vers: [],
   },
 });
 
-const buildDecks = (now: number) => ({
-  [DECK_ID]: {
-    id: DECK_ID, name: DECK_NAME, desc: "", mod: now, usn: -1,
-    collapsed: false, browserCollapsed: false, extendNew: 0, extendRev: 0, conf: 1,
-    newToday: [0, 0], timeToday: [0, 0], revToday: [0, 0], lrnToday: [0, 0], dyn: 0,
-  },
-});
+const buildDecks = (decks: Map<number, string>, now: number) => {
+  const result: Record<number, unknown> = {};
+  for (const [id, name] of decks) {
+    result[id] = {
+      id,
+      name,
+      desc: "",
+      mod: now,
+      usn: -1,
+      collapsed: false,
+      browserCollapsed: false,
+      extendNew: 0,
+      extendRev: 0,
+      conf: 1,
+      newToday: [0, 0],
+      timeToday: [0, 0],
+      revToday: [0, 0],
+      lrnToday: [0, 0],
+      dyn: 0,
+    };
+  }
+  return result;
+};
 
 const buildDconf = (now: number) => ({
   1: {
-    id: 1, name: "Default", replayq: true,
+    id: 1,
+    name: "Default",
+    replayq: true,
     lapse: { delays: [10], mult: 0, minInt: 1, leechFails: 8, leechAction: 0 },
-    rev: { perDay: 200, ease4: 1.3, fuzz: 0.05, minSpace: 1, ivlFct: 1, maxIvl: 36500, bury: true },
-    new: { delays: [1, 10], separate: true, perDay: 20, ints: [1, 4, 7], initialFactor: 2500, bury: true, order: 1 },
-    maxTaken: 60, timer: 0, autoplay: true, mod: now, usn: -1, dynamic: 0,
+    rev: {
+      perDay: 200,
+      ease4: 1.3,
+      fuzz: 0.05,
+      minSpace: 1,
+      ivlFct: 1,
+      maxIvl: 36500,
+      bury: true,
+    },
+    new: {
+      delays: [1, 10],
+      separate: true,
+      perDay: 20,
+      ints: [1, 4, 7],
+      initialFactor: 2500,
+      bury: true,
+      order: 1,
+    },
+    maxTaken: 60,
+    timer: 0,
+    autoplay: true,
+    mod: now,
+    usn: -1,
+    dynamic: 0,
   },
 });
 
@@ -216,7 +370,11 @@ const buildTagsJson = (notes: Note[]): string => {
   return JSON.stringify(tags);
 };
 
-const buildDatabase = (notes: Note[], now: number): Uint8Array => {
+const buildDatabase = (
+  notes: Note[],
+  decks: Map<number, string>,
+  now: number,
+): Uint8Array => {
   const tmp = Deno.makeTempFileSync({ suffix: ".anki2" });
   const db = new Database(tmp);
 
@@ -235,16 +393,41 @@ const buildDatabase = (notes: Note[], now: number): Uint8Array => {
   `);
 
   db.prepare("INSERT INTO col VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)").run(
-    1, now, now, now, 11, 0, -1, 0,
-    JSON.stringify({ nextPos: 1, estTimes: true, activeDecks: [DECK_ID], sortType: "noteFld", timeLim: 0, sortBackwards: false, addToCur: true, curDeck: DECK_ID, newBury: true, newSpread: 0, dueCounts: true, curModel: String(BASIC_MODEL_ID), collapseTime: 1200 }),
+    1,
+    now,
+    now,
+    now,
+    11,
+    0,
+    -1,
+    0,
+    JSON.stringify({
+      nextPos: 1,
+      estTimes: true,
+      activeDecks: [DECK_ID],
+      sortType: "noteFld",
+      timeLim: 0,
+      sortBackwards: false,
+      addToCur: true,
+      curDeck: DECK_ID,
+      newBury: true,
+      newSpread: 0,
+      dueCounts: true,
+      curModel: String(BASIC_MODEL_ID),
+      collapseTime: 1200,
+    }),
     JSON.stringify(buildModels(now)),
-    JSON.stringify(buildDecks(now)),
+    JSON.stringify(buildDecks(decks, now)),
     JSON.stringify(buildDconf(now)),
     buildTagsJson(notes),
   );
 
-  const noteStmt = db.prepare("INSERT INTO notes VALUES (?,?,?,?,?,?,?,?,?,?,?)");
-  const cardStmt = db.prepare("INSERT INTO cards VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+  const noteStmt = db.prepare(
+    "INSERT INTO notes VALUES (?,?,?,?,?,?,?,?,?,?,?)",
+  );
+  const cardStmt = db.prepare(
+    "INSERT INTO cards VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+  );
   let nid = 1;
   let cid = 1;
 
@@ -252,15 +435,83 @@ const buildDatabase = (notes: Note[], now: number): Uint8Array => {
     const noteId = nid++;
     const tagStr = ` ${note.tag} `;
     if (note.type === "basic") {
-      noteStmt.run(noteId, note.guid, BASIC_MODEL_ID, now, -1, tagStr, `${note.question}\x1f${note.answer}`, note.question, makeCsum(note.question), 0, "");
+      noteStmt.run(
+        noteId,
+        note.guid,
+        BASIC_MODEL_ID,
+        now,
+        -1,
+        tagStr,
+        `${note.question}\x1f${note.answer}`,
+        note.question,
+        makeCsum(note.question),
+        0,
+        "",
+      );
       const cardId = cid++;
-      cardStmt.run(cardId, noteId, DECK_ID, 0, now, -1, 0, 0, cardId, 0, 0, 0, 0, 0, 0, 0, 0, "");
+      cardStmt.run(
+        cardId,
+        noteId,
+        note.deckId,
+        0,
+        now,
+        -1,
+        0,
+        0,
+        cardId,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        "",
+      );
     } else {
-      noteStmt.run(noteId, note.guid, CLOZE_MODEL_ID, now, -1, tagStr, `${note.text}\x1f`, note.text, makeCsum(note.text), 0, "");
-      const ords = [...new Set([...note.text.matchAll(/\{\{c(\d+)::/g)].map((m) => parseInt(m[1]!) - 1))];
+      noteStmt.run(
+        noteId,
+        note.guid,
+        CLOZE_MODEL_ID,
+        now,
+        -1,
+        tagStr,
+        `${note.text}\x1f`,
+        note.text,
+        makeCsum(note.text),
+        0,
+        "",
+      );
+      const ords = [
+        ...new Set(
+          [...note.text.matchAll(/\{\{c(\d+)::/g)].map((m) =>
+            parseInt(m[1]!) - 1
+          ),
+        ),
+      ];
       for (const ord of ords) {
         const cardId = cid++;
-        cardStmt.run(cardId, noteId, DECK_ID, ord, now, -1, 0, 0, cardId, 0, 0, 0, 0, 0, 0, 0, 0, "");
+        cardStmt.run(
+          cardId,
+          noteId,
+          note.deckId,
+          ord,
+          now,
+          -1,
+          0,
+          0,
+          cardId,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          "",
+        );
       }
     }
   }
@@ -271,17 +522,26 @@ const buildDatabase = (notes: Note[], now: number): Uint8Array => {
   return bytes;
 };
 
-const buildApkg = async (notes: Note[]): Promise<void> => {
+const buildApkg = async (
+  notes: Note[],
+  decks: Map<number, string>,
+): Promise<void> => {
   const now = Math.floor(Date.now() / 1000);
-  const dbBytes = buildDatabase(notes, now);
+  const dbBytes = buildDatabase(notes, decks, now);
   await Deno.mkdir(join(ROOT, "anki-decks"), { recursive: true });
   const zip = new JSZip();
   zip.file("collection.anki2", dbBytes);
   zip.file("media", "{}");
-  await Deno.writeFile(OUTPUT_PATH, await zip.generateAsync({ type: "uint8array" }));
+  await Deno.writeFile(
+    OUTPUT_PATH,
+    await zip.generateAsync({ type: "uint8array" }),
+  );
 };
 
-const ankiConnect = async (action: string, params?: Record<string, unknown>): Promise<unknown> => {
+const ankiConnect = async (
+  action: string,
+  params?: Record<string, unknown>,
+): Promise<unknown> => {
   const res = await fetch("http://localhost:8765", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -295,8 +555,16 @@ const ankiConnect = async (action: string, params?: Record<string, unknown>): Pr
 const main = async (): Promise<void> => {
   const debug = Deno.args.includes("--debug");
   const notes: Note[] = [];
+  const decks = new Map<number, string>([[DECK_ID, DECK_NAME]]);
   for await (const path of walkMdFiles()) {
-    notes.push(...parseFile(await Deno.readTextFile(path), pathToTag(path)));
+    const raw = await Deno.readTextFile(path);
+    const { deck, body } = parseFrontmatter(raw);
+    let deckId = DECK_ID;
+    if (deck) {
+      deckId = makeDeckId(deck);
+      decks.set(deckId, deck);
+    }
+    notes.push(...parseFile(body, pathToTag(path), deckId));
   }
   if (debug) {
     for (const note of notes) {
@@ -307,7 +575,7 @@ const main = async (): Promise<void> => {
       }
     }
   }
-  await buildApkg(notes);
+  await buildApkg(notes, decks);
   console.log(`${notes.length} notes -> ${OUTPUT_PATH}`);
 
   try {
