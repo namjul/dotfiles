@@ -953,6 +953,18 @@ later(function()
   })
 end)
 
+later(function()
+  add('folke/zen-mode.nvim')
+  namjul.plugin.lazy('zen-mode.nvim', {
+    commands = {
+      'ZenMode',
+    },
+    keymap = {
+      { 'n', '<Leader>oz', ':ZenMode', { silent = true } },
+    },
+  })
+end)
+
 -- add('navarasu/onedark.nvim')
 -- add('rafcamlet/nvim-luapad')
 -- add('folke/neodev.nvim')

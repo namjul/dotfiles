@@ -159,7 +159,7 @@ nmap_leader('oo', ':only<CR>', 'Make the current window the only one on the scre
 nmap_leader('ot', '<Cmd>lua MiniTrailspace.trim()<CR>', 'Trim trailspace')
 nmap_leader('oh', '<Cmd>lua MiniNotify.show_history()<CR>', 'Notification history')
 nmap_leader('or', '<Cmd>lua MiniMisc.resize_window()<CR>', 'Resize to default width')
-nmap_leader('oz', function()
+nmap_leader('om', function()
   -- source: https://github.com/wincent/wincent/blob/e104d2efaf1bbf061d91cd2549d0a9efc390aa68/aspects/nvim/files/.config/nvim/plugin/mappings/leader.lua#L89
   local window = vim.api.nvim_get_current_win()
   local is_zoomed = vim.w[window].is_zoomed == true
