@@ -6,24 +6,30 @@ Tracks optional package concerns — tools and stacks where package installation
 
 Arch-only additions. Each step is implemented, committed, and tested before moving to the next. X11 packages (`i3-wm`, `feh`, `xclip`, `xsel`, `wmctrl`) are kept — they remain valid for Ubuntu installations.
 
-**Before marking a step complete:** diff the implementation against the corresponding script in the omarchy repo (`~/code/ghq/github.com/basecamp/omarchy/`). Surface any differences that affect behavior — missing packages, different service configurations, skipped setup steps, etc. Omit cosmetic differences (formatting, comments, ordering). Report findings before marking done.
+**Before marking a step complete:**
+
+1. **Omarchy diff** — compare against the corresponding script in `~/code/ghq/github.com/basecamp/omarchy/`. Surface differences that affect behavior: missing packages, different service configurations, skipped setup steps. Omit cosmetic differences (formatting, comments, ordering). Report findings before marking done.
+2. **VM test** — run the step's verification commands inside a clean Arch VM. Each step lists its own commands in a Tests section below. Mark done only after the VM tests pass.
+
+Sequence follows boot order: sddm → PAM → uwsm → hyprland → runtime components. sddm is installed early (step 3) so PAM is complete, but `systemctl enable sddm` is deferred to step 14 so all preceding steps can be tested via TTY.
 
 | # | What | Concern / Purpose | Test in VM | Notes |
 |---|---|---|---|---|
 | ~~1~~ | ~~`noto-fonts`, `noto-fonts-emoji`, `man-db`~~ | ~~Typography — system-wide font coverage including emoji and docs~~ | ~~`fc-list \| grep Noto`~~ | ~~No compositor needed~~ |
 | ~~2~~ | ~~`gnome-keyring`, `libsecret`~~ | ~~Credentials — secure storage for WiFi passwords, SSH keys, app secrets~~ | ~~`gnome-keyring-daemon --version`~~ | ~~No compositor needed~~ |
-| 3 | `xdg-desktop-portal-hyprland`, `xdg-desktop-portal-gtk`, `uwsm`, `qt5-wayland`, `qt6-wayland` | Wayland integration — file pickers, screenshare, Qt app compat, proper systemd session | `pacman -Q xdg-desktop-portal-hyprland uwsm` | Prerequisites before Hyprland starts |
-| 4 | `hyprland` | Compositor — Wayland window manager; everything graphical depends on this | `hyprland --version`; run `WLR_RENDERER=pixman hyprland` in a TTY | Software rendering works in VM with pixman |
-| 5 | `polkit-gnome` | Authorization agent — presents GUI dialog when apps request privileged actions | Trigger privilege escalation inside Hyprland (e.g., mount a drive) | Started via `exec-once` in Hyprland config; replaces `lxpolkit` from i3 |
-| 6 | `waybar` | Status bar — workspaces, clock, system tray, resource indicators | `waybar --version`; launch inside Hyprland session | First thing to verify inside compositor |
-| 7 | `mako` (alongside `dunst`) | Notifications — desktop notification daemon for alerts and system events | `makoctl mode` inside Hyprland; `notify-send test` | dunst stays for Ubuntu |
-| 8 | `wofi` or `walker` | App launcher — keyboard-driven application and command launching | Launch via keybind inside Hyprland | Needs compositor running |
-| 9 | `grim`, `slurp`, `satty` | Screenshots — capture full screen or region, annotate | `grim /tmp/test.png` inside Hyprland | Needs compositor for screen capture |
-| 10 | `wl-clipboard` | Clipboard — Wayland-native copy/paste between apps | `echo test \| wl-copy && wl-paste` inside Hyprland | Needs Wayland session |
-| 11 | `pamixer`, `swayosd` (AUR) | Audio OSD — CLI volume control with visual on-screen feedback on key press | `pamixer --get-volume`; trigger volume key | swayosd blocked until paru available |
-| 12 | `hypridle`, `hyprlock`, `hyprsunset` | Idle & lock — screen blank on idle, lock screen, color temperature at night | `hypridle -c ~/.config/hypr/hypridle.conf`; manually trigger lock | Needs Hyprland running |
-| 13 | `sddm` + display systemd concern | Login — graphical session manager; presents login screen on boot | Files + `systemctl is-enabled sddm` | Full login flow only on real hardware |
-| 14 | `power-profiles-daemon` + power systemd concern | Power — auto-switch performance/power-saver profile on AC plug/unplug | Skip guard fires (no battery in VM) | Real hardware for actual profile switching |
+| 3 | `sddm` + PAM config | Login manager — installed now so PAM `-session` line completes gnome-keyring SSH_AUTH_SOCK; not enabled yet | `pacman -Q sddm`; confirm PAM line present; `systemctl is-enabled sddm` → disabled | Enable deferred to step 14 |
+| 4 | `hyprland`, `uwsm` | Compositor + session launcher — uwsm wraps hyprland as a proper systemd user session | `hyprland --version`; `WLR_RENDERER=pixman uwsm start hyprland` from TTY | Software rendering works in VM with pixman |
+| 5 | `xdg-desktop-portal-hyprland`, `xdg-desktop-portal-gtk`, `qt5-wayland`, `qt6-wayland` | Wayland integration — file pickers, screenshare, Qt app native Wayland | Open file picker inside Hyprland session; `pacman -Q qt6-wayland` | Test inside step 4 session |
+| 6 | `polkit-gnome` | Authorization agent — presents GUI dialog when apps request privileged actions | Trigger privilege escalation inside Hyprland (e.g., mount a drive) | Started via `exec-once` in Hyprland config; replaces `lxpolkit` from i3 |
+| 7 | `waybar` | Status bar — workspaces, clock, system tray, resource indicators | `waybar --version`; launch inside Hyprland session | First thing to verify inside compositor |
+| 8 | `mako` (alongside `dunst`) | Notifications — desktop notification daemon for alerts and system events | `makoctl mode` inside Hyprland; `notify-send test` | dunst stays for Ubuntu |
+| 9 | `wofi` or `walker` | App launcher — keyboard-driven application and command launching | Launch via keybind inside Hyprland | Needs compositor running |
+| 10 | `grim`, `slurp`, `satty` | Screenshots — capture full screen or region, annotate | `grim /tmp/test.png` inside Hyprland | Needs compositor for screen capture |
+| 11 | `wl-clipboard` | Clipboard — Wayland-native copy/paste between apps | `echo test \| wl-copy && wl-paste` inside Hyprland | Needs Wayland session |
+| 12 | `pamixer`, `swayosd` (AUR) | Audio OSD — CLI volume control with visual on-screen feedback on key press | `pamixer --get-volume`; trigger volume key | swayosd blocked until paru available |
+| 13 | `hypridle`, `hyprlock`, `hyprsunset` | Idle & lock — screen blank on idle, lock screen, color temperature at night | `hypridle -c ~/.config/hypr/hypridle.conf`; manually trigger lock | Needs Hyprland running |
+| 14 | `systemctl enable --now sddm` | Login manager activation — sddm takes over boot; full login flow via PAM session | Reboot; verify sddm login screen; log in and confirm gnome-keyring SSH_AUTH_SOCK is set | Full login flow only on real hardware |
+| 15 | `power-profiles-daemon` + power systemd concern | Power — auto-switch performance/power-saver profile on AC plug/unplug | Skip guard fires (no battery in VM) | Real hardware for actual profile switching |
 
 ## Step 2 implementation — gnome-keyring, libsecret
 
@@ -89,6 +95,59 @@ Omarchy source: `install/config/hardware/printer.sh`
 - Install `cups`, `avahi`, `cups-pdf`
 - Enable `cups.service`, `avahi-daemon.service`, `cups-browsed.service`
 - No additional config beyond package installation
+
+## omarchy-iso contract
+
+### How the ISO uses this repo
+
+omarchy-iso builds a bootable Arch ISO. After archinstall finishes, the configurator runs `arch-chroot` and then calls `install.sh` from a repo specified by two env vars:
+
+```
+OMARCHY_INSTALLER_REPO=https://github.com/<user>/dotfiles
+OMARCHY_INSTALLER_REF=main
+```
+
+The ISO clones that repo, enters the chroot, and runs `bash install.sh`. At the end of `install.sh`, touch `/var/tmp/omarchy-install-completed` — the ISO reboot check looks for exactly that file at `/mnt/var/tmp/omarchy-install-completed`.
+
+### Required file tree
+
+```
+install.sh                          # entry point, executed by ISO inside arch-chroot
+install/omarchy-base.packages       # packages installed directly by install.sh
+install/omarchy-other.packages      # packages for offline mirror (transitive / hardware deps)
+default/plymouth/                   # directory must exist (splash screen assets)
+bin/omarchy-upload-log              # script ISO calls to upload install logs
+```
+
+`install/helpers/all.sh` — referenced by omarchy-base install scripts but **optional**: the omarchy-iso configurator stubs it out automatically if absent.
+
+### Three package lists
+
+| List | Who uses it | Purpose |
+|---|---|---|
+| archinstall `packages` array | archinstall itself, before `install.sh` runs | Bootstrap minimum: `base-devel`, `git`, `omarchy-keyring`, `snapper`. These are on the live ISO and installed via pacstrap. |
+| `install/omarchy-base.packages` | `install.sh` via `pacman -S` | All packages your install script pulls from the internet. This is the primary list. |
+| `install/omarchy-other.packages` | Offline mirror build (`pacman -Syw`) | Catch-all for the mirror: transitive deps, hardware-specific packages (nvidia, `linux-firmware-*`), bootstrap packages already installed by pacstrap. The mirror has to have them even if install.sh never explicitly requests them. |
+
+`--needed` in `pacman -S` silently skips already-installed packages, so overlap between lists is harmless at install time. The other-list matters at mirror-build time only.
+
+### What goes in other vs base
+
+- **base**: everything `install.sh` explicitly installs (the content of `aspects/aur/packages` minus paru-commented lines)
+- **other**: packages that are pulled in as transitive deps but you want on the offline mirror; hardware variants (`linux-firmware-ath*`, `linux-firmware-rtl*`); packages installed by pacstrap before install.sh runs
+
+Most packages in `aspects/aur/packages` belong in **base**. A transitive dep only needs to be in **other** if it's not already a dep of something in base (i.e., pacman wouldn't pull it automatically). `--needed` makes explicit listing of already-installed transitive deps safe but wasteful; omit them from base unless you want the intent documented.
+
+### install.sh lifecycle
+
+1. archinstall runs, installs the archinstall `packages` array, sets up partitions, bootloader, user
+2. ISO arch-chroots into the new system
+3. `install.sh` runs as the created user with passwordless sudo
+4. Internet is available (live ISO environment has network)
+5. `install.sh` finishes → `touch /var/tmp/omarchy-install-completed`
+6. ISO detects the file, triggers reboot
+
+`mise install --yes` inside install.sh still requires internet (tool downloads). `curl https://mise.run | sh` can be eliminated since `mise` is in the official Arch repo and can be in the archinstall packages array or `omarchy-base.packages`.
 
 # Lookup
 
