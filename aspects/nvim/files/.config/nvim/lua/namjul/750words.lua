@@ -48,11 +48,11 @@ local function save_directory() return vim.fn.expand(vim.g.write750_save_dir or 
 local function do_save(lines, path)
   local content = table.concat(lines, '\n') .. '\n'
   local dir = vim.fn.fnamemodify(path, ':h')
-  vim.fn.mkdir(dir, 'p')
-  if vim.fn.isdirectory(dir) == 0 then
+  if vim.fn.mkdir(dir, 'p') == 0 then
     vim.notify('750words: cannot create directory ' .. dir, vim.log.levels.ERROR)
     return
   end
+  -- check existence before open so the separator is correct (open with 'a' always creates)
   local exists = vim.uv.fs_stat(path) ~= nil
   local out, err = io.open(path, 'a')
   if not out then
@@ -102,6 +102,13 @@ function M.start(opts)
 
   local augroup = vim.api.nvim_create_augroup('Write750_' .. buf, { clear = true })
 
+  local function get_win()
+    local cur = vim.api.nvim_get_current_win()
+    if vim.api.nvim_win_get_buf(cur) == buf then return cur end
+    local w = vim.fn.bufwinid(buf)
+    return w ~= -1 and w or nil
+  end
+
   local function start_pulse()
     state.pulsing = true
     local step = 0
@@ -111,7 +118,8 @@ function M.start(opts)
       120,
       vim.schedule_wrap(function()
         step = step + 1
-        if step > #PULSE_SEQUENCE or not vim.api.nvim_win_is_valid(win) then
+        local target_win = get_win()
+        if step > #PULSE_SEQUENCE or not target_win then
           state.pulse_timer:stop()
           state.pulse_timer:close()
           state.pulse_timer = nil
@@ -120,14 +128,15 @@ function M.start(opts)
         end
         vim.api.nvim_set_hl(0, 'Write750Pulse', PULSE_SEQUENCE[step])
         local elapsed = (vim.uv.now() - state.start_time) / 1000
-        vim.wo[win].winbar =
+        vim.wo[target_win].winbar =
           string.format('%%=%%#Write750Pulse# %d words • %s ', state.word_count, format_time(math.floor(elapsed)))
       end)
     )
   end
 
   local function tick()
-    if not vim.api.nvim_buf_is_valid(buf) or not vim.api.nvim_win_is_valid(win) then
+    local current_win = get_win()
+    if not vim.api.nvim_buf_is_valid(buf) or not current_win then
       if state.timer then
         state.timer:stop()
         state.timer:close()
@@ -145,7 +154,7 @@ function M.start(opts)
     local time_limit_met = elapsed >= max_time
 
     if word_goal_met and time_limit_met then
-      set_winbar(win, words, seconds, 'Write750Done')
+      set_winbar(current_win, words, seconds, 'Write750Done')
       return
     end
 
@@ -153,11 +162,11 @@ function M.start(opts)
     state.prev_word_goal_met = word_goal_met
 
     if time_limit_met and not word_goal_met then
-      set_winbar(win, words, seconds, 'Write750Over')
+      set_winbar(current_win, words, seconds, 'Write750Over')
       return
     end
 
-    set_winbar(win, words, seconds, word_goal_met and 'Write750GoalMet' or 'Write750Running')
+    set_winbar(current_win, words, seconds, word_goal_met and 'Write750GoalMet' or 'Write750Running')
   end
 
   -- Defer so buf_set_lines/startinsert events don't fire the timer
