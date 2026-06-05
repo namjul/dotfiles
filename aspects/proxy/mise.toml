@@ -1,0 +1,31 @@
+[tasks.create]
+description = 'Create Deno Deploy app (one-time)'
+usage = '''
+flag "--app <app>" default="proxy" help="App name"
+flag "--org <org>" default="namjul" help="Organization name"
+'''
+run = """
+#!/usr/bin/env bash
+set -euxo pipefail
+cd $MISE_TASK_DIR
+deno deploy create \
+  --app ${usage_app?} \
+  --org ${usage_org?} \
+  --source local \
+  --region eu
+"""
+
+[tasks.default]
+description = 'Deploy CORS proxy to Deno Deploy'
+usage = '''
+flag "--app <app>" default="proxy" help="App name"
+flag "--org <org>" default="namjul" help="Organization name"
+'''
+run = """
+#!/usr/bin/env bash
+set -euxo pipefail
+deno deploy \
+  --app ${usage_app?} \
+  --org ${usage_org?} \
+  $MISE_TASK_DIR
+"""
