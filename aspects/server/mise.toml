@@ -2,11 +2,11 @@
 SERVER="hobl.at"
 SQUARE_PATH="/home/square"
 
-[tasks."server:init"]
+[tasks."init"]
 description = 'Idempotent Initialization'
 file = "init"
 
-[tasks."server:up"]
+[tasks."up"]
 description = 'Idempotent Upload'
 file = "up"
 

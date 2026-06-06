@@ -1,4 +1,4 @@
-samho.xyz, memex.samho.xyz, samuel.hobl.at {
+samho.xyz, memex.samho.xyz, samuel.hobl.at, tools.samho.xyz {
   handle_path /site-assets* {
     root * {$SQUARE_PATH}/aspects/memex/assets
     try_files {path} {path}
@@ -26,6 +26,16 @@ samho.xyz, memex.samho.xyz, samuel.hobl.at {
 
   handle @samho {
     redir https://memex.samho.xyz
+  }
+
+  @tools {
+    host tools.samho.xyz
+  }
+
+  handle @tools {
+    rewrite / /tool.llm.index.html
+    @toolpath path_regexp tool ^/(.+)$
+    rewrite @toolpath /tool.llm.{re.tool.1}
   }
 
   reverse_proxy localhost:8088
