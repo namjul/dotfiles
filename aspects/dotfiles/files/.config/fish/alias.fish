@@ -73,7 +73,7 @@ abbr mr 'mise run' # run mise tasks
 abbr dspace 'du -cha --max-depth=1 . | grep -E "M|G"'
 abbr pi 'fnox exec -- pi'
 alias pass 'gopass'
-abbr sb sandboxed
+abbr sb sandbox
 
  # replicate pbcopy from macos
 alias pbcopy 'xclip -selection clipboard'

@@ -125,7 +125,7 @@ function s
     end
 end
 
-function sandboxed
+function sandbox
     if not set -q SANDBOX_BLOCKED_FOLDERS
         echo "⚠️  SANDBOX_BLOCKED_FOLDERS is not set"
         return 1
