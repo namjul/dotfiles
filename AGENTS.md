@@ -9,6 +9,30 @@ Key features:
 - **Encryption**: Sensitive files (SSH configs, keys, environment variables) encrypted with age
 - **Server provisioning**: Remote server setup via mise tasks in the `server` aspect
 
+## Aspects
+- `aur` — Verify environment and prepare pacman (Arch)
+- `dotfiles` — Symlink dotfiles from repo into $HOME
+- `fonts` — Install JetBrains Mono font files
+- `homebrew` — Update Homebrew packages
+- `i3status-rust` — i3status-rust bar configuration
+- `interception` — Interception Tools key remapping
+- `meta` — @fig/ framework global operations and verification
+- `nala` — Install and update packages via nala (Ubuntu)
+- `nvim` — Neovim configuration
+- `proxy` — Deno Deploy CORS proxy
+- `server` — Remote VPS provisioning (hobl.at)
+- `shell` — Set user shell to fish
+- `ssh` — SSH config and key management (encrypted)
+- `systemd` — systemd user unit management
+
+## Routing
+| Task | Aspect | Read |
+|------|--------|------|
+| Dotfiles symlinks, $HOME structure | `dotfiles` | aspects/dotfiles/CONTEXT.md |
+| Neovim config | `nvim` | aspects/nvim/CONTEXT.md |
+| Remote VPS / server services | `server` | aspects/server/CONTEXT.md |
+
+
 ## Making commits
 
 This project uses **Living Systems Commits** - a protocol that treats software as living structure, not mechanical assembly.
@@ -95,142 +119,3 @@ When writing Markdown, do not hard-wrap long lines.
 - https://www.evolu.dev/docs/conventions
 
 *Category and pattern names are in Christopher Alexander style.*
-
-
-# Improvements
-
-```json
-{
-   "assessment": "request changes",
-   "files_reviewed": [
-     {
-       "location": "AGENTS.md",
-       "issues": [
-         {
-           "location": "AGENTS.md:missing section",
-           "category": "completeness",
-           "severity": "high",
-           "description": "Missing async/await patterns - no guidance on Promise handling,
- error handling in async functions, or concurrent operations (Promise.all, Promise.race)",
-           "suggested_fix": "Add pattern for 'An Async Flow' or similar - When handling
- async operations → Promise chains vs async/await → Use async/await with proper error
- handling"
-         },
-         {
-           "location": "AGENTS.md:missing section",
-           "category": "completeness",
-           "severity": "high",
-           "description": "Missing error handling patterns - no guidance on typed errors,
- Result/Either patterns, or error boundary strategies",
-           "suggested_fix": "Add pattern for 'A Caught Problem' - When handling errors →
- generic errors vs typed errors → Use typed error unions for better error handling"
-         },
-         {
-           "location": "AGENTS.md:missing section",
-           "category": "completeness",
-           "severity": "high",
-           "description": "Missing generics guidance - no patterns for generic type
- parameters, constraints, or default types",
-           "suggested_fix": "Add pattern for 'A Flexible Shape' - When creating reusable
- components → concrete types vs generics → Use generics with constraints for flexibility"
-         },
-         {
-           "location": "AGENTS.md:missing section",
-           "category": "completeness",
-           "severity": "medium",
-           "description": "Missing enum vs const vs literal types guidance - important
- TypeScript decision not covered",
-           "suggested_fix": "Add pattern for 'A Chosen Value' - When defining constants →
- enums vs const assertions vs literal types → Use const assertions for type safety without
- runtime overhead"
-         },
-         {
-           "location": "AGENTS.md:missing section",
-           "category": "completeness",
-           "severity": "medium",
-           "description": "Missing type guards and narrowing patterns - no guidance on
- discriminating unions or type narrowing",
-           "suggested_fix": "Add pattern for 'A Narrow Path' - When narrowing types → type
- assertions vs type guards → Use type guards for safe narrowing"
-         },
-         {
-           "location": "AGENTS.md:missing section",
-           "category": "completeness",
-           "severity": "medium",
-           "description": "Missing exhaustive switch checking - no guidance on ensuring all
- cases are handled",
-           "suggested_fix": "Add pattern for 'A Complete Match' - When handling unions →
- partial vs exhaustive → Use exhaustiveness checking with never type"
-         },
-         {
-           "location": "AGENTS.md:missing section",
-           "category": "completeness",
-           "severity": "medium",
-           "description": "Missing module organization patterns - no guidance on barrel
- files, re-exports, or import ordering",
-           "suggested_fix": "Add pattern for 'A Shared Entry' - When organizing modules →
- scattered imports vs barrel files → Use index.ts files for clean public APIs"
-         },
-         {
-           "location": "AGENTS.md:missing section",
-           "category": "completeness",
-           "severity": "medium",
-           "description": "Missing early return / guard clause patterns",
-           "suggested_fix": "Add pattern for 'An Early Exit' - When validating inputs →
- nested conditions vs guard clauses → Use early returns to reduce nesting"
-         },
-         {
-           "location": "AGENTS.md:missing section",
-           "category": "completeness",
-           "severity": "low",
-           "description": "Missing branded types / nominal typing patterns",
-           "suggested_fix": "Add pattern for 'A Marked Type' - When needing nominal typing →
- structural vs branded types → Use branding for semantic type distinction"
-         },
-         {
-           "location": "AGENTS.md:missing section",
-           "category": "completeness",
-           "severity": "low",
-           "description": "Missing utility types guidance (Partial, Required, Pick, Omit,
- etc.)",
-           "suggested_fix": "Add pattern for 'A Transformed Type' - When modifying types →
- manual vs utility types → Use built-in utility types for common transformations"
-         },
-         {
-           "location": "AGENTS.md:missing section",
-           "category": "completeness",
-           "severity": "low",
-           "description": "Missing config object pattern - no guidance on many arguments vs
- options object",
-           "suggested_fix": "Add pattern for 'A Gathered Option' - When passing multiple
- parameters → many arguments vs config object → Use config objects for 3+ optional
- parameters"
-         }
-       ]
-     }
-   ],
-   "task_categories_found": [
-     "Functional programming style",
-     "Type definitions (interfaces vs types)",
-     "Import/export patterns",
-     "Array operations",
-     "Class patterns",
-     "Module organization",
-     "Naming conventions"
-   ],
-   "task_categories_missing": [
-     "Async/await patterns",
-     "Error handling strategies",
-     "Generic types",
-     "Enum/const/literal decisions",
-     "Type guards and narrowing",
-     "Exhaustive checking",
-     "Barrel files and re-exports",
-     "Guard clauses",
-     "Branded types",
-     "Utility types",
-     "Config objects"
-   ],
-   "summary": "The AGENTS.md covers foundational patterns well (functional style, type system basics, imports/exports, naming). However, it is missing several important TypeScript categories: async programming, error handling, generics, and practical patterns for real-world TypeScript development. The guide would benefit from adding patterns for these areas to be comprehensive."
- }
-```
