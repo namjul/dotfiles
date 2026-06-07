@@ -16,6 +16,7 @@ Manages the remote VPS at `hobl.at`. Structured as a monorepo of aspects — the
 - `meta` — Smoke tests
 - `pdfding` — PDF management (Docker Compose)
 - `soft-serve` — Self-hosted git server
+- `rss-bridge` — RSS/Atom feed generator (Docker Compose, rss.samho.xyz, port 5010)
 - `webhook` — Git push webhook handler (Go)
 - `website` — Static site builder
 - `wireguard` — VPN

@@ -1,0 +1,9 @@
+services:
+  rss-bridge:
+    container_name: rss-bridge
+    image: docker.io/rssbridge/rss-bridge:latest
+    ports:
+      - "5010:80"
+    volumes:
+      - /home/square/data/share/rss-bridge:/config
+    restart: unless-stopped

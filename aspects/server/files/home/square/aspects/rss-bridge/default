@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+trap 'echo "Warning: A command has failed. Exiting the script. Line was ($0:$LINENO): $(sed -n "${LINENO}p" "$0")"; exit 3' ERR
+set -Eeuo pipefail
+
+mkdir -p /home/square/data/share/rss-bridge
+
+cp "${root}/config.ini.php" /home/square/data/share/rss-bridge/config.ini.php
+
+docker compose pull
+docker compose up -d
