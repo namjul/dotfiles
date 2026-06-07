@@ -1,4 +1,5 @@
 [env]
+SANDBOX_BLOCKED_FOLDERS = "{{env.HOME}}/Dropbox/memex/area"
 FNOX_AGE_KEY_FILE = "{{env.HOME}}/.config/age/key.txt"
 SOPS_AGE_KEY_FILE = "{{env.HOME}}/.config/age/key.txt"
 MISE_AGE_KEY_FILE = "{{env.HOME}}/.config/age/key.txt"

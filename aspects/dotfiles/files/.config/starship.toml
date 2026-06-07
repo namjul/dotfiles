@@ -11,3 +11,8 @@ vicmd_symbol = "[🆅](bold #a89984)"
 
 [nodejs]
 # disabled = true
+
+[custom.sandbox]
+when = "env | grep -E '^IN_SANDBOX=1$'"
+format = "[sandboxed](bold red) "
+disabled = false
