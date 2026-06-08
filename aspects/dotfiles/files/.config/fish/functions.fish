@@ -157,3 +157,15 @@ function sandbox
           --setenv IN_SANDBOX 1 \
           $target_cmd
 end
+
+function claude
+    sandbox (command -v claude) $argv
+end
+
+function codex
+    sandbox (command -v codex) $argv
+end
+
+function pi
+    sandbox (command -v pi) $argv
+end
