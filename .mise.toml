@@ -94,5 +94,5 @@ run = """
 set -euo pipefail
 CIPHERTEXT="${usage_file?}"
 PLAINTEXT="${CIPHERTEXT%.encrypted}"
-sops --decrypt --output "$PLAINTEXT" "$CIPHERTEXT"
+sops --decrypt --filename-override "$PLAINTEXT" --output "$PLAINTEXT" "$CIPHERTEXT"
 """
