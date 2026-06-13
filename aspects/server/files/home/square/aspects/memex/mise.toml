@@ -12,7 +12,11 @@ python = "3.11"
 file = './default'
 
 [tasks.start]
-file = './start'
+run = '''
+#!/usr/bin/env bash
 
-[tasks."generate:anki"]
-file = './generate-anki'
+set -e
+
+cd $SITE_PATH/repo
+mise r serve --port 8088
+'''

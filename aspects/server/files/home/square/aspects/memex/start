@@ -1,6 +1,0 @@
-#!/usr/bin/env bash
-
-set -e
-
-cd $SQUARE_PATH/data/share/ghq/github.com/namjul/rhizomi
-bun run src/main.tsx --dir "$SITE_PATH/repo"
