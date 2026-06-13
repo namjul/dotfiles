@@ -135,8 +135,7 @@ function M.start(opts)
   end
 
   local function tick()
-    local current_win = get_win()
-    if not vim.api.nvim_buf_is_valid(buf) or not current_win then
+    if not vim.api.nvim_buf_is_valid(buf) then
       if state.timer then
         state.timer:stop()
         state.timer:close()
@@ -144,6 +143,9 @@ function M.start(opts)
       end
       return
     end
+    local current_win = get_win()
+    -- buffer alive but hidden in another tab: keep the timer running, skip the redraw
+    if not current_win then return end
     if state.pulsing then return end
 
     local words = count_words(buf)
@@ -190,6 +192,8 @@ function M.start(opts)
     callback = function()
       if vim.api.nvim_get_current_buf() ~= buf then return end
       if not vim.bo[buf].modified then return end
+      -- other windows still hold the buffer: closing this one won't abandon it, so don't warn
+      if #vim.fn.win_findbuf(buf) > 1 then return end
       vim.notify('Writing session unsaved — :w to save, :q! to discard', vim.log.levels.WARN)
     end,
   })
