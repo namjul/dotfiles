@@ -3,6 +3,8 @@ SANDBOX_BLOCKED_FOLDERS = "{{env.HOME}}/Dropbox/memex/area"
 FNOX_AGE_KEY_FILE = "{{env.HOME}}/.config/age/key.txt"
 SOPS_AGE_KEY_FILE = "{{env.HOME}}/.config/age/key.txt"
 MISE_AGE_KEY_FILE = "{{env.HOME}}/.config/age/key.txt"
+TINTED_TMUX_OPTION_ACTIVE = "1"
+TINTED_TMUX_OPTION_STATUSBAR = "1"
 
 [tools]
 deno = "2.8.0"
