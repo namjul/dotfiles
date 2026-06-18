@@ -140,7 +140,7 @@ if (import.meta.main) {
         if (encrypted) {
           const r = await file({
             force: true,
-            ...(isLocalBin ? { mode: "0755" } : {}),
+            mode: isLocalBin ? "0755" : "0600",
             path: path.home.join(src.strip(".encrypted")),
             src: path.aspect.join("files", src),
             state: "encrypted",

@@ -1,4 +1,4 @@
-import { dirname, relative } from "@std/path";
+import { dirname, extname, relative } from "@std/path";
 import { Result } from "@gordonb/result";
 import * as Option from "@gordonb/result/option";
 import { $, fs } from "zx";
@@ -362,11 +362,25 @@ async function decryptEncrypted(
     });
   }
 
+  const inputTypeMap: Record<string, string> = {
+    yml: "yaml",
+    yaml: "yaml",
+    json: "json",
+    env: "dotenv",
+    ini: "ini",
+  };
+  const strippedExt = extname(src.replace(/\.encrypted$/, "")).slice(1).toLowerCase();
+  const inputType = inputTypeMap[strippedExt];
+
   try {
     if (sudo) {
       const tmp = await Deno.makeTempFile({ prefix: "fig-encrypted-" });
       try {
-        await $`sops -d --output ${tmp} ${src}`;
+        if (inputType) {
+          await $`sops -d --input-type ${inputType} --output-type ${inputType} --output ${tmp} ${src}`;
+        } else {
+          await $`sops -d --output ${tmp} ${src}`;
+        }
         const cpErr = await cp(tmp, targetPath, { sudo: true });
         if (cpErr) throw cpErr;
         if (Option.isSome(mode)) {
@@ -381,7 +395,11 @@ async function decryptEncrypted(
         }
       }
     } else {
-      await $`sops -d --output ${targetPath} ${src}`;
+      if (inputType) {
+        await $`sops -d --input-type ${inputType} --output-type ${inputType} --output ${targetPath} ${src}`;
+      } else {
+        await $`sops -d --output ${targetPath} ${src}`;
+      }
       if (Option.isSome(mode)) {
         const err = await chmod(mode, targetPath);
         if (err) throw err;
