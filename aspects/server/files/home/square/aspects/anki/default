@@ -9,7 +9,7 @@ if ! [ -x "$(command -v anki-sync-server)" ]; then
   cargo install --git https://github.com/ankitects/anki.git --tag 24.06.3 anki-sync-server
 fi
 
-cp ${root}/anki.service /etc/systemd/system/anki.service
+cp ${MISE_CONFIG_ROOT}/anki.service /etc/systemd/system/anki.service
 
 sudo systemctl daemon-reload
 sudo systemctl enable anki.service

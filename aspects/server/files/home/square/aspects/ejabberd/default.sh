@@ -6,7 +6,7 @@ set -Eeuo pipefail
 
 sudo nala install -y ejabberd
 
-sudo cp ${root}/ejabberd.yml /etc/ejabberd/ejabberd.yml
+sudo cp ${MISE_CONFIG_ROOT}/ejabberd.yml /etc/ejabberd/ejabberd.yml
 
 sudo systemctl daemon-reload
 sudo systemctl enable ejabberd.service

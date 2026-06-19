@@ -6,7 +6,7 @@ mkdir -m 770 -p "$RELAY_DATA"
 echo "Installing dependencies..."
 mise exec -- npm install
 
-cp ${root}/evolu-relay.service /etc/systemd/system/evolu-relay.service
+cp ${MISE_CONFIG_ROOT}/evolu-relay.service /etc/systemd/system/evolu-relay.service
 
 sudo systemctl daemon-reload
 sudo systemctl enable evolu-relay.service

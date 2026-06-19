@@ -5,7 +5,7 @@ set -euxo pipefail
 
 go install github.com/adnanh/webhook@latest
 
-cp ${root}/webhook.service /etc/systemd/system/webhook.service
+cp "$MISE_CONFIG_ROOT/webhook.service" /etc/systemd/system/webhook.service
 
 sudo systemctl daemon-reload
 sudo systemctl enable webhook.service

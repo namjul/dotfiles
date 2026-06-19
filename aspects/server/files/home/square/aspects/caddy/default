@@ -14,12 +14,12 @@ if ! [ -x "$(command -v caddy)" ]; then
   # TODO add https://caddyserver.com/docs/modules/crowdsec
   go install github.com/caddyserver/xcaddy/cmd/xcaddy@latest
   xcaddy build
-  mkdir -p ${root}/bin
-  cp ./caddy ${root}/bin/caddy
+  mkdir -p ${MISE_CONFIG_ROOT}/bin
+  cp ./caddy ${MISE_CONFIG_ROOT}/bin/caddy
 fi
 
-# mkdir -p /etc/caddy && cp ${root}/Caddyfile /etc/caddy/Caddyfile
-cp ${root}/caddy.service /etc/systemd/system/caddy.service
+# mkdir -p /etc/caddy && cp ${MISE_CONFIG_ROOT}/Caddyfile /etc/caddy/Caddyfile
+cp ${MISE_CONFIG_ROOT}/caddy.service /etc/systemd/system/caddy.service
 
 systemctl daemon-reload
 systemctl enable caddy.service

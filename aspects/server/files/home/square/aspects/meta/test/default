@@ -6,7 +6,7 @@ set -Eeuo pipefail
 # go version
 echo "root: $root"
 
-cp ${root}/test/test.service /etc/systemd/system/test.service
+cp ${MISE_CONFIG_ROOT}/test/test.service /etc/systemd/system/test.service
 
 systemctl daemon-reload
 systemctl enable test.service

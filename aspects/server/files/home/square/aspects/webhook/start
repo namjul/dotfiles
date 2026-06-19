@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Look for hooks.json files
-hooks_files=$(find "${root}/../" -maxdepth 3 -type f -name "hooks.json")
+hooks_files=$(find "${MISE_CONFIG_ROOT}/../" -maxdepth 3 -type f -name "hooks.json")
 
 # Initialize hooks arguments
 hooks_args=""

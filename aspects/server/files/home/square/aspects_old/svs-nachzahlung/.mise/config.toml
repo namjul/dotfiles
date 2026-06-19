@@ -8,5 +8,5 @@ run = """
 #!/usr/bin/env bash
 set -euxo pipefail
 mkdir -p /var/www/svs-nachzahlung
-cp -r ${root}/files/* /var/www/svs-nachzahlung/
+cp -r ${MISE_CONFIG_ROOT}/files/* /var/www/svs-nachzahlung/
 """

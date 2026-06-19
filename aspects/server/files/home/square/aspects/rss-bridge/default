@@ -5,7 +5,7 @@ set -Eeuo pipefail
 
 mkdir -p /home/square/data/share/rss-bridge
 
-cp "${root}/config.ini.php" /home/square/data/share/rss-bridge/config.ini.php
+cp "${MISE_CONFIG_ROOT}/config.ini.php" /home/square/data/share/rss-bridge/config.ini.php
 
 docker compose pull
 docker compose up -d

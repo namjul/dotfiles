@@ -80,7 +80,7 @@ sudo apt install wireguard -y
 echo "net.ipv4.ip_forward=1" | sudo tee -a /etc/sysctl.conf
 sudo sysctl -p
 
-envsubst < ${root}/wg0.conf | sudo tee /etc/wireguard/wg0.conf
+envsubst < ${MISE_CONFIG_ROOT}/wg0.conf | sudo tee /etc/wireguard/wg0.conf
 
 sudo systemctl daemon-reload
 sudo systemctl enable --now wg-quick@wg0
