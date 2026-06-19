@@ -1,11 +1,15 @@
 
-
 ["soft-serve:webhooks:create"]
+usage = """
+flag "--repo <repo>" help="Repository name"
+flag "--id <id>" help="Webhook ID"
+"""
 run = """
-ssh localhost -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i $KEY_DIR/$KEY_NAME -p 23231 repo webhooks create {{option(name="repo")}} http://0.0.0.0:9000/hooks/{{option(name="id")}} -e push
+ssh localhost -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i $KEY_DIR/$KEY_NAME -p 23231 repo webhooks create "${usage_repo?}" "http://0.0.0.0:9000/hooks/${usage_id?}" -e push
 """
 
 ["soft-serve:webhooks:list"]
+usage = 'flag "--repo <repo>" help="Repository name"'
 run = """
-ssh localhost -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i $KEY_DIR/$KEY_NAME -p 23231 repo webhooks list {{option(name="repo")}}
+ssh localhost -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i $KEY_DIR/$KEY_NAME -p 23231 repo webhooks list "${usage_repo?}"
 """
