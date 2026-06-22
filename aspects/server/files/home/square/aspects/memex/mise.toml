@@ -18,5 +18,6 @@ run = '''
 set -e
 
 cd $SITE_PATH/repo
+mise r build-index
 mise r serve --port 8088
 '''
