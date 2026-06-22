@@ -6,7 +6,7 @@ Requires=network.target
 
 [Service]
 EnvironmentFile=/etc/environment
-DynamicUser=yes
+User=square
 Group=square
 ReadWritePaths=/home/square
 WorkingDirectory=/home/square/aspects/memex

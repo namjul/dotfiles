@@ -23,12 +23,22 @@ fi
 # create dirs
 mkdir -p $SQUARE_PATH/data/{cache,share,state}
 
-# set group
-chgrp square $SQUARE_PATH
-#chgrp -R square $SQUARE_PATH* || true
+# --- permission structure (governs new entries going forward) ---
 
-# inherit group id of parent
+# group ownership so setgid inheritance works correctly
+chgrp -R square $SQUARE_PATH
+
+# setgid on all dirs: new entries inherit the square group
 find $SQUARE_PATH -type d -exec chmod g+s {} +
+
+# default ACLs: new files/dirs under data/ automatically get group rwx
+# so aspects never need to chmod their own directories
+setfacl -R -d -m g::rwx $SQUARE_PATH/data
+
+# --- fix existing entries that predate the above ---
+
+# access ACLs bring existing entries in line with the default ACLs
+setfacl -R -m g::rwx $SQUARE_PATH/data
 
 # setup mise envars
 # echo -e \"ENV_VARS\" | sudo tee \"ENV_FILE\"
