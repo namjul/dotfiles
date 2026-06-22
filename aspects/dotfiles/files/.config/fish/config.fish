@@ -41,7 +41,7 @@ if status is-interactive
     set --universal fzf_fish_custom_keybindings
   end
 
-  if command -q starship; starship init fish | source; end
+  # if command -q starship; starship init fish | source; end
   if command -q zoxide; zoxide init fish | source; end
   if command -q direnv; direnv hook fish | source; end
   if command -q scmpuff; scmpuff init -s --shell=fish | source; end

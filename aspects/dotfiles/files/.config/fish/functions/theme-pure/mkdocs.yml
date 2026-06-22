@@ -1,0 +1,116 @@
+---
+site_name: "Pure.fish Documentation"
+site_description: " Pretty, minimal and fast Fish 🐟 prompt"
+site_author: "Édouard Lopez"
+docs_dir: docs/
+repo_name: "pure-fish/pure"
+repo_url: "https://github.com/pure-fish/pure/"
+site_url: "https://pure-fish.github.io/pure/"
+
+theme:
+  name: "material"
+  custom_dir: docs/overrides
+  include_sidebar: true
+  features:
+    - content.action.edit
+    - content.code.copy
+    - navigation.expand
+    - navigation.footer
+    - navigation.indexes
+    - navigation.instant
+    - navigation.instant.progress
+    - navigation.path
+    - navigation.sections
+    - navigation.tabs
+    - navigation.top
+    - navigation.tracking
+    - search.suggest
+    - search.highlight
+
+  logo: ./assets/favicon.png
+  favicon: ./assets/favicon.png
+  # copy all images in the assets directory to the site
+  static_templates:
+    - assets/screenshots/
+
+  icon:
+    repo: fontawesome/brands/github
+    admonition:
+      note: octicons/tag-16
+      abstract: octicons/checklist-16
+      info: octicons/info-16
+      tip: octicons/light-bulb-16
+      success: octicons/check-16
+      question: octicons/question-16
+      warning: octicons/alert-16
+      failure: octicons/x-circle-16
+      danger: octicons/zap-16
+      bug: octicons/bug-16
+      example: octicons/beaker-16
+      quote: octicons/quote-16
+
+  palette:
+    # Palette toggle for light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: deep purple
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+
+    # Palette toggle for dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: purple
+      toggle:
+        icon: material/brightness-2
+        name: Switch to light mode
+
+  font:
+    text: Roboto
+    code: Roboto Mono
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.highlight
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - toc:
+      permalink: true
+      toc_depth: 3
+  - mdx_gh_links
+  - pymdownx.magiclink:
+      repo_url_shortener: true
+      repo_url_shorthand: true
+  
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/pure-fish/pure
+    - icon: fontawesome/brands/mastodon
+      link: https://piaille.fr/@edouard_lopez
+    - icon: fontawesome/brands/bluesky
+      link: https://bsky.app/profile/edouard-lopez.com
+    - icon: fontawesome/brands/twitter
+      link: https://twitter.com/edouard_lopez
+  pure:
+    fish_version: "4.0.2"
+
+extra_css:
+  - stylesheets/extra.css
+
+plugins:
+  - search
+  - awesome-nav
+  - include-markdown
+  - git-authors
+  - macros
+  - mkdocs_github_changelog

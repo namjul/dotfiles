@@ -1,0 +1,32 @@
+<!-- markdownlint-disable MD041 -->
+!!! success "Requirements"
+
+    Pure is written in `fish` language, this requires **[Fish shell](https://fishshell.com/) `≥3.x`**.
+
+=== "using [Fisher](https://github.com/jorgebucaran/fisher)"
+
+    Install [Fisher](https://github.com/jorgebucaran/fisher) plugin manager, then you can install `pure` latest version with:
+
+    ```shell
+    fisher install pure-fish/pure
+    ```
+
+=== "Manually"
+
+    1. Download the installer to `/tmp`
+        ```shell
+        curl git.io/pure-fish --output /tmp/pure_installer.fish --location --silent
+        ```
+
+    2. Source and trigger the installer
+        ```
+        source /tmp/pure_installer.fish; and install_pure
+        ```
+
+=== "Test a Pull Request"
+
+    Wanna preview a pull-request before it gets merged? Just append `@` symbol, followed by a tag, branch, or commit.
+
+    ```shell
+    fisher install pure-fish/pure@v4.13.0
+    ```

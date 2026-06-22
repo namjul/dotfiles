@@ -1,0 +1,1 @@
+/home/hobl/.config/fish/functions/theme-pure/functions/_pure_k8s_namespace.fish

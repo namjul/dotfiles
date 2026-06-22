@@ -1,0 +1,24 @@
+name: Add version tag
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - conf.d/pure.fish
+  workflow_dispatch:
+
+jobs:
+  add-version-tag:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v4
+
+      - uses: butlerlogic/action-autotag@1.1.2 # 1.1.4 is buggy https://github.com/ButlerLogic/action-autotag/issues/49
+        with:
+          root: "./conf.d/pure.fish"
+          regex_pattern: "pure_version\\s(?<version>(\\d+(\\.)?){3})"
+          tag_prefix: "v"
+        env:
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
