@@ -47,6 +47,12 @@ if status is-interactive
   if command -q scmpuff; scmpuff init -s --shell=fish | source; end
   if command -q fnox; fnox activate fish | source; end
 
+  # pure.fish
+  set --universal pure_show_jobs true
+  set --universal pure_separate_prompt_on_error false
+  set --universal pure_show_exit_status true
+  set --universal pure_convert_exit_status_to_signal true
+
   # Tmux
   if command -v tmux > /dev/null 2>&1; and test "$TERM_PROGRAM" != ghostty
     set -gx SHELL (status fish-path)
