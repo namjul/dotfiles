@@ -1,14 +1,12 @@
 {
   "theme": "gruvbox-light-soft",
   "defaultProvider": "openrouter",
-  "defaultModel": "deepseek/deepseek-v4-pro",
+  "defaultModel": "z-ai/glm-5.1",
   "defaultThinkingLevel": "high",
-  "skills": [
-    "~/.claude/skills"
-  ],
   "enableSkillCommands": true,
-  "lastChangelogVersion": "0.71.1",
+  "lastChangelogVersion": "0.79.10",
   "enabledModels": [
+    "openrouter/z-ai/glm-5.1",
     "openrouter/minimax/minimax-m2.5:free",
     "openrouter/deepseek/deepseek-v4-flash",
     "openrouter/deepseek/deepseek-v4-pro",
