@@ -82,7 +82,7 @@ variables(({ identity }) => ({
     ".config/rofi/config.rasi",
     ".config/btop/btop.conf",
     // encrypted
-    ".config/glab-cli/config.yml.encrypted",
+    // ".config/glab-cli/config.yml.encrypted",
     // ".config/wireguard/work.conf.encrypted",
   ],
   templates: [
