@@ -6,8 +6,8 @@
   "enableSkillCommands": true,
   "lastChangelogVersion": "0.79.10",
   "enabledModels": [
+    "openrouter/free",
     "openrouter/z-ai/glm-5.1",
-    "openrouter/minimax/minimax-m2.5:free",
     "openrouter/deepseek/deepseek-v4-flash",
     "openrouter/deepseek/deepseek-v4-pro",
     "openrouter/moonshotai/kimi-k2.5"
