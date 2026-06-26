@@ -91,7 +91,9 @@ variables(({ identity }) => ({
     // ".config/wireguard/tunnel.conf.tmpl",
   ],
   skills: [
-    ".agents/skills/personal/zx-markdown-scaffold",
+    ".agents/skills/seed/explore-writing-reviewer",
+    ".agents/skills/seed/hegelian-dialectic-skill",
+    ".agents/skills/seed/untangle-concept",
     ".agents/skills/general/conversation-capture",
     ".agents/skills/general/creative-guardian",
     ".agents/skills/general/etymology-research",
@@ -103,6 +105,7 @@ variables(({ identity }) => ({
     ".agents/skills/general/new-aspect",
     ".agents/skills/general/skill-discovery",
     ".agents/skills/general/youtube-transcript",
+    ".agents/skills/engineering/zx-markdown-scaffold",
     ".agents/skills/engineering/minimal-step-pair-programming",
     ".agents/skills/engineering/commit",
     ".agents/skills/engineering/codebase-walkthrough",
