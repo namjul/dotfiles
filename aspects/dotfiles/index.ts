@@ -102,6 +102,7 @@ variables(({ identity }) => ({
     ".agents/skills/general/skill-creator",
     ".agents/skills/general/new-aspect",
     ".agents/skills/general/skill-discovery",
+    ".agents/skills/general/youtube-transcript",
     ".agents/skills/engineering/minimal-step-pair-programming",
     ".agents/skills/engineering/commit",
     ".agents/skills/engineering/codebase-walkthrough",
