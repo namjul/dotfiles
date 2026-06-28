@@ -95,6 +95,7 @@ variables(({ identity }) => ({
     ".agents/skills/seed/hegelian-dialectic-skill",
     ".agents/skills/seed/untangle-concept",
     ".agents/skills/general/conversation-capture",
+    ".agents/skills/general/browser-tools",
     ".agents/skills/general/creative-guardian",
     ".agents/skills/general/etymology-research",
     ".agents/skills/general/reflect",
