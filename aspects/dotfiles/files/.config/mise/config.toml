@@ -9,7 +9,7 @@ TINTED_TMUX_OPTION_STATUSBAR = "1"
 [tools]
 deno = "2.8.0"
 golang = "1.20"
-node = "22.19.0"
+node = "24"
 "npm:zx" = "8.8.5"
 "npm:codeburn" = "0.9.6"
 lua = "5.5.0"
