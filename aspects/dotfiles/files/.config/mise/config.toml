@@ -83,6 +83,7 @@ ghq = "latest"
 "github:antonmedv/walk" = "1.13.0"
 "github:antonmedv/howto" = "latest"
 "github:kaplanelad/shellfirm" = "0.3.10"
+aube = "latest"
 
 [settings]
 experimental = false
