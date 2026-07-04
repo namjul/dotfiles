@@ -692,10 +692,18 @@ later(function()
       local overseer = require('overseer')
       overseer.setup()
       overseer.register_template({
-        name = 'Pomo',
+        name = 'Pomo25',
         builder = function(params)
           return {
             cmd = { 'pomo', '25', 'rest' },
+          }
+        end,
+      })
+      overseer.register_template({
+        name = 'Pomo45',
+        builder = function(params)
+          return {
+            cmd = { 'pomo', '45', 'rest' },
           }
         end,
       })
