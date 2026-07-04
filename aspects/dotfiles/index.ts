@@ -113,6 +113,9 @@ variables(({ identity }) => ({
     ".agents/skills/engineering/openspec-generate-tutorial",
     ".agents/skills/engineering/sr-eng-review",
   ],
+  prompts: [
+    ".agents/prompts/commit.md",
+  ],
   rules: [
     ".agents/rules/caveman.md",
   ],
@@ -187,9 +190,10 @@ if (import.meta.main) {
       break;
     }
     case "agents": {
+      const piDestination = path.home.join(".pi", "agent");
       const destinations = [
+        piDestination,
         path.home.join(".claude"),
-        path.home.join(".pi", "agent"),
         path.home.join(".config", "opencode"),
       ];
 
@@ -206,8 +210,19 @@ if (import.meta.main) {
         }
       }
 
+      const prompts = variable.paths("prompts");
+      for (const src of prompts) {
+        const r = await file({
+          force: true,
+          path: piDestination.join("prompts", src.basename),
+          src: path.aspect.join("files", src),
+          state: "link",
+        });
+        assert.result(r);
+      }
+
       const rules = variable.paths("rules");
-      for (const src of rules) {
+      for (const src of prompts) {
         for (const dest of destinations) {
           const r = await file({
             force: true,
