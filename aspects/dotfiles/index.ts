@@ -31,11 +31,11 @@ variables(({ identity }) => ({
     ".config/starship.toml",
     ".config/mimeapps.list",
     ".claude/settings.json",
-    ".config/pi/agent/extensions",
-    ".config/pi/agent/settings.json",
-    ".config/pi/agent/models.json",
-    ".config/pi/agent/themes/gruvbox-dark-soft.json",
-    ".config/pi/agent/themes/gruvbox-light-soft.json",
+    ".pi/agent/extensions",
+    ".pi/agent/settings.json",
+    ".pi/agent/models.json",
+    ".pi/agent/themes/gruvbox-dark-soft.json",
+    ".pi/agent/themes/gruvbox-light-soft.json",
     ".config/mise/config.toml",
     // symlinked directories
     ".xmonad",
@@ -189,7 +189,7 @@ if (import.meta.main) {
     case "agents": {
       const destinations = [
         path.home.join(".claude"),
-        path.home.join(".config", "pi", "agent"),
+        path.home.join(".pi", "agent"),
         path.home.join(".config", "opencode"),
       ];
 

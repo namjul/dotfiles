@@ -1,7 +1,7 @@
 {
   "theme": "gruvbox-light-soft",
   "defaultProvider": "openrouter",
-  "defaultModel": "z-ai/glm-5.1",
+  "defaultModel": "openrouter/free",
   "defaultThinkingLevel": "high",
   "enableSkillCommands": true,
   "lastChangelogVersion": "0.79.10",

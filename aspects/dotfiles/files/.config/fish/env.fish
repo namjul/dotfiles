@@ -42,8 +42,6 @@ export NEOVIDE_MULTIGRID="true"
 set -q XDG_DATA_HOME; or set -x XDG_DATA_HOME $HOME/.local/share
 set -q XDG_CONFIG_HOME; or set -x XDG_CONFIG_HOME $HOME/.config
 
-export PI_CODING_AGENT_DIR=$XDG_CONFIG_HOME/pi/agent
-
 # For now, requires a manual `cargo build --release`.
 export SHELLBOT=$HOME/.local/share/nvim/site/pack/deps/opt/shellbot/target/release/shellbot
 export SHELLBOT_PROMPT='
