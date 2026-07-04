@@ -4,7 +4,7 @@
   "defaultModel": "openrouter/free",
   "defaultThinkingLevel": "high",
   "enableSkillCommands": true,
-  "lastChangelogVersion": "0.79.10",
+  "lastChangelogVersion": "0.80.3",
   "enabledModels": [
     "openrouter/free",
     "openrouter/z-ai/glm-5.1",
