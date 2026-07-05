@@ -67,6 +67,7 @@ sudo pacman -S --needed --noconfirm libevdev yaml-cpp # required for dual-functi
 sudo pacman -S --needed --noconfirm bluez bluez-utils # bluetooth
 sudo pacman -S --needed --noconfirm gnome-keyring libsecret # D-Bus Secret Service
 sudo pacman -S --needed --noconfirm sddm # login manager — config in aspects/aur/login
+sudo pacman -S --needed --noconfirm hyprland uwsm # compositor + session launcher (PLAN step 4)
 sudo pacman -S --needed --noconfirm lxsession # polkit authentication agent (provides lxpolkit)
 sudo pacman -S --needed --noconfirm imv # https://sr.ht/~exec64/imv/
 sudo pacman -S --needed --noconfirm iwd # https://wiki.archlinux.org/title/Iwd
