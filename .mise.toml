@@ -65,7 +65,7 @@ run = """
 sudo systemd-nspawn \
   --ephemeral \
   --bind=$HOME/.dotfiles:/root/.dotfiles \
-  --bind-ro=$HOME/.config/mise/age.txt:/root/.config/mise/age.txt \
+  --bind-ro=$HOME/.config/age/key.txt:/root/.config/age/key.txt \
   --bind-ro=$HOME/fnox.local.toml:/root/fnox.local.toml \
   --bind-ro=/dev/null:/run/fig-test-container \
   -bD /var/lib/machines/arch

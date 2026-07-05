@@ -10,8 +10,14 @@ abort() {
   gum confirm "Proceed anyway on your own accord and without assistance?" || exit 1
 }
 
+in_test_or_vm() {
+  [[ -e /run/fig-test-container ]] && return 0
+  systemd-detect-virt --vm -q && return 0
+  return 1
+}
+
 # guards
-[[ $EUID -ne 0 ]] || [[ -e /run/fig-test-container ]] || abort "non-root user"
+[[ $EUID -ne 0 ]] || in_test_or_vm || abort "non-root user"
 
 if [[ -e /run/fig-test-container ]]; then
   sudo() { "$@"; }
@@ -19,7 +25,7 @@ else
   command -v sudo &>/dev/null || abort "sudo"
 fi
 
-lsblk -rno TYPE | grep -q '^crypt$' || abort "disk encryption"
+in_test_or_vm || lsblk -rno TYPE | grep -q '^crypt$' || abort "disk encryption"
 
 echo "Guards: OK"
 
