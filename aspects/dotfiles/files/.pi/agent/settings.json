@@ -6,11 +6,19 @@
   "enableSkillCommands": true,
   "lastChangelogVersion": "0.80.3",
   "enabledModels": [
-    "openrouter/free",
+    "openrouter/openrouter/free",
     "openrouter/z-ai/glm-5.1",
     "openrouter/deepseek/deepseek-v4-flash",
     "openrouter/deepseek/deepseek-v4-pro",
-    "openrouter/moonshotai/kimi-k2.5"
+    "openrouter/moonshotai/kimi-k2.5",
+    "cursor/composer-2.5"
   ],
-  "packages": []
+  "packages": [
+    "npm:pi-mcp-adapter",
+    "npm:pi-cursor-sdk"
+  ],
+  "skills": [
+    "~/.claude/skills",
+    "~/.codex/skills"
+  ]
 }
