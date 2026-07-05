@@ -11,10 +11,24 @@ fi
 # base-devel is required to build any AUR package
 sudo pacman -S --needed --noconfirm base-devel git
 
-# reflector: keep mirrorlist fresh and fast
+# reflector: keep mirrorlist fresh and fast (timer handles weekly refresh)
 sudo pacman -S --needed --noconfirm reflector
-sudo reflector --country Germany --age 12 --protocol https --sort rate --download-timeout 5 --save /etc/pacman.d/mirrorlist
 sudo systemctl enable --now reflector.timer
+if [[ ! -s /etc/pacman.d/mirrorlist ]] || ! find /etc/pacman.d/mirrorlist -mtime -1 -print -quit | grep -q .; then
+  echo "Updating pacman mirrorlist (rating up to 15 German HTTPS mirrors)..."
+  sudo reflector \
+    --country Germany \
+    --age 12 \
+    --protocol https \
+    --latest 15 \
+    --number 10 \
+    --sort rate \
+    --download-timeout 5 \
+    --verbose \
+    --save /etc/pacman.d/mirrorlist
+else
+  echo "mirrorlist is recent — skipping reflector"
+fi
 
 # pacman-contrib: paccache prunes the package cache to prevent unbounded growth
 sudo pacman -S --needed --noconfirm pacman-contrib
