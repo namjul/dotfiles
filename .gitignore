@@ -16,3 +16,7 @@ secrets_decrypted
 
 # fnox
 fnox.local.toml
+
+# Agency
+.agency-project
+
