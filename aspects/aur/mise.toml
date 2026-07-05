@@ -7,6 +7,14 @@ description = "Install packages via pacman and set up AUR environment (paru)"
 depends = [":preflight"]
 file = 'packages'
 
+[tasks."login"]
+description = "Boot/login stack (omarchy install/login/)"
+depends = [":packages"]
+run = [
+  { task = "default-keyring" },
+  { task = "sddm" },
+]
+
 [tasks."firewall"]
 description = "Set up ufw firewall"
 depends = [":packages"]
@@ -19,4 +27,7 @@ file = 'firmware'
 
 [tasks.default]
 description = "Run all aur tasks"
-run = 'deno run --allow-all index.ts'
+depends = [":packages", ":login", ":firewall"]
+
+[task_config]
+includes = ["login"]

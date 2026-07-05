@@ -1,7 +1,5 @@
 # aspects/aur plan
 
-Tracks optional package concerns — tools and stacks where package installation is the primary concern, not service configuration.
-
 ## Wayland desktop implementation sequence
 
 Arch-only additions. Each step is implemented, committed, and tested before moving to the next. X11 packages (`i3-wm`, `feh`, `xclip`, `xsel`, `wmctrl`) are kept — they remain valid for Ubuntu installations.
@@ -9,6 +7,7 @@ Arch-only additions. Each step is implemented, committed, and tested before movi
 **Before marking a step complete:**
 
 1. **Omarchy diff** — compare against the corresponding script in `~/code/ghq/github.com/basecamp/omarchy/`. Surface differences that affect behavior: missing packages, different service configurations, skipped setup steps. Omit cosmetic differences (formatting, comments, ordering). Report findings before marking done.
+  - use the `engineering/neovim` skill to mark **Omarchy files only** (`~/code/ghq/github.com/basecamp/omarchy/`): `open` each reference at the compared line, `annotate` MATCH / SKIPPED / DIFF and cite the dotfiles counterpart as text (e.g. `aspects/aur/packages:71`) — do **not** place Shannon marks in this repo; the user reviews Omarchy in Neovim and jumps between marks with `:ShannonNextMark` / `:ShannonPreviousMark` (clear stale marks in each Omarchy buffer first).
 2. **VM test** — run the step's verification commands inside a clean Arch VM. Each step lists its own commands in a Tests section below. Mark done only after the VM tests pass.
 
 Sequence follows boot order: sddm → PAM → uwsm → hyprland → runtime components. sddm is installed early (step 3) so PAM is complete, but `systemctl enable sddm` is deferred to step 14 so all preceding steps can be tested via TTY.
@@ -17,7 +16,7 @@ Sequence follows boot order: sddm → PAM → uwsm → hyprland → runtime comp
 |---|---|---|---|---|
 | ~~1~~ | ~~`noto-fonts`, `noto-fonts-emoji`, `man-db`~~ | ~~Typography — system-wide font coverage including emoji and docs~~ | ~~`fc-list \| grep Noto`~~ | ~~No compositor needed~~ |
 | ~~2~~ | ~~`gnome-keyring`, `libsecret`~~ | ~~Credentials — secure storage for WiFi passwords, SSH keys, app secrets~~ | ~~`gnome-keyring-daemon --version`~~ | ~~No compositor needed~~ |
-| 3 | `sddm` + PAM config | Login manager — installed now so PAM `-session` line completes gnome-keyring SSH_AUTH_SOCK; not enabled yet | `pacman -Q sddm`; confirm PAM line present; `systemctl is-enabled sddm` → disabled | Enable deferred to step 14 |
+| 3 | `sddm` package + `login` script | Package in `packages`; PAM + SDDM config in `aspects/aur/login` (omarchy `install/login/`) | `pacman -Q sddm`; `grep pam_gnome_keyring /etc/pam.d/sddm` (session only); `systemctl is-enabled sddm` → disabled | Enable deferred to step 14 |
 | 4 | `hyprland`, `uwsm` | Compositor + session launcher — uwsm wraps hyprland as a proper systemd user session | `hyprland --version`; `WLR_RENDERER=pixman uwsm start hyprland` from TTY | Software rendering works in VM with pixman |
 | 5 | `xdg-desktop-portal-hyprland`, `xdg-desktop-portal-gtk`, `qt5-wayland`, `qt6-wayland` | Wayland integration — file pickers, screenshare, Qt app native Wayland | Open file picker inside Hyprland session; `pacman -Q qt6-wayland` | Test inside step 4 session |
 | 6 | `polkit-gnome` | Authorization agent — presents GUI dialog when apps request privileged actions | Trigger privilege escalation inside Hyprland (e.g., mount a drive) | Started via `exec-once` in Hyprland config; replaces `lxpolkit` from i3 |
@@ -43,11 +42,11 @@ Added after the bluetooth line:
 sudo pacman -S --needed --noconfirm gnome-keyring libsecret
 ```
 
-### 2 — Default passwordless keyring (`aspects/systemd/index.ts`)
+### 2 — Default passwordless keyring (`aspects/aur/login`)
 
 gnome-keyring looks for a default keyring on startup. If none exists, the first app to request a secret triggers a "create keyring" dialog asking for a password — blocking silently in the background. Pre-creating a passwordless keyring (`lock-on-idle=false`, `lock-after=false`) means gnome-keyring finds it immediately and auto-unlocks it without prompting.
 
-Two files written to `~/.local/share/keyrings/` (700), created only if absent:
+Two files written to `~/.local/share/keyrings/` (700), overwritten each run (omarchy `default-keyring.sh`):
 - `Default_keyring.keyring` (600) — the keyring definition
 - `default` (644) — tells gnome-keyring which keyring to use as the default
 
@@ -57,7 +56,7 @@ gnome-keyring ships `gnome-keyring-daemon.socket` + `gnome-keyring-daemon.servic
 
 The separate `ssh-agent.service` was removed. gnome-keyring handles SSH with its built-in `ssh` component — passphrases are stored in the keyring, which is simpler and consistent.
 
-PAM: the `systemd/display` concern removes only the `-auth` and `-password` pam_gnome_keyring lines from `/etc/pam.d/sddm`, keeping `-session`. The session line starts gnome-keyring-daemon at login and sets `SSH_AUTH_SOCK` automatically — matching omarchy's approach.
+PAM: `aspects/aur/login` removes only the `-auth` and `-password` pam_gnome_keyring lines from `/etc/pam.d/sddm`, keeping `-session`. The session line starts gnome-keyring-daemon at login and sets `SSH_AUTH_SOCK` automatically — matching omarchy's approach.
 
 ### Tests
 
