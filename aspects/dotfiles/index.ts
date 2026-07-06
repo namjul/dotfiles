@@ -9,6 +9,7 @@ import {
   template,
   variable,
   variables,
+  when,
 } from "fig";
 
 init(import.meta.dirname);
@@ -143,8 +144,21 @@ if (import.meta.main) {
         ".config/rofi/config.rasi",
         ".config/btop/btop.conf",
       ]);
+      const skipOnArch = new Set([
+        ".config/dunst",
+        ".config/i3",
+        ".config/xdg-desktop-portal",
+      ]);
+      const skipOnDebian = new Set([
+        ".config/mako",
+        ".config/sway",
+      ]);
       for (const src of files) {
-        const encrypted = src.toString().endsWith(".encrypted");
+        const rel = src.toString();
+        if (when("arch") && skipOnArch.has(rel)) continue;
+        if (when("debian") && skipOnDebian.has(rel)) continue;
+
+        const encrypted = rel.endsWith(".encrypted");
         const isLocalBin = src.toString().includes(".local/bin/");
 
         if (encrypted) {
