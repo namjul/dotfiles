@@ -67,6 +67,7 @@ variables(({ identity }) => ({
     ".config/marksman",
     ".config/ncspot",
     ".config/dunst",
+    ".config/mako",
     ".local/share/light-mode.d",
     ".local/share/dark-mode.d",
     ".local/share/applications",

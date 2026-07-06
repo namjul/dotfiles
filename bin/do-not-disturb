@@ -1,16 +1,27 @@
 #!/usr/bin/env bash
 
-current=$(dunstctl is-paused);
+if command -v dunstctl >/dev/null 2>&1; then
+  current=$(dunstctl is-paused)
 
-if [ "$current" = "true" ]; then
-  notify-send "Do not disturb is OFF"
-  dunstctl set-paused "false"
-  printf "\u2717\n"
+  if [ "$current" = "true" ]; then
+    notify-send "Do not disturb is OFF"
+    dunstctl set-paused "false"
+    printf "\u2717\n"
+  else
+    dunstctl set-paused "true"
+    printf "\u2713\n"
+  fi
+elif command -v makoctl >/dev/null 2>&1; then
+  makoctl mode -t do-not-disturb
+
+  if makoctl mode | grep -q do-not-disturb; then
+    notify-send "Do not disturb is ON"
+    printf "\u2713\n"
+  else
+    notify-send "Do not disturb is OFF"
+    printf "\u2717\n"
+  fi
 else
-  dunstctl set-paused "true"
-  printf "\u2713\n"
+  echo "No notification daemon (dunst/mako) found" >&2
+  exit 1
 fi
-
-
-
-

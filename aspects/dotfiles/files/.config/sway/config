@@ -82,6 +82,8 @@ exec nm-applet
 
 exec notify-battery -n
 
+exec mako
+
 # Start xdg-desktop-portal: provides a standard interface for apps (like Ghostty) to access
 # system features such as file dialogs, notifications, and theme changes in a desktop-independent way
 # exec $portal_env /usr/libexec/xdg-desktop-portal  # sway: portal-wlr via user session

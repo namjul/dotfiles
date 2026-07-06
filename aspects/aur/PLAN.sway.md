@@ -21,10 +21,10 @@ Sequence: sddm → PAM → sway → runtime components. SDDM installed early (st
 | ~~2~~ | ~~`gnome-keyring`, `libsecret` + `login/default-keyring.sh`~~ | ~~Credentials~~ | ~~`gnome-keyring-daemon --version`~~ | ~~Done~~ |
 | ~~3~~ | ~~`sddm` + `login/sddm.sh` (PAM)~~ | ~~Login manager (not enabled yet)~~ | ~~`pacman -Q sddm`; PAM session line; `systemctl is-enabled sddm` → disabled~~ | ~~SDDM session → sway added in step 4~~ |
 | ~~4~~ | ~~`sway` (+ swap compositor packages)~~ | ~~Wayland compositor — i3-compatible; port `i3/config` → `sway/config`~~ | ~~`sway --version`; `WLR_RENDERER=pixman sway` from TTY~~ | ~~**Replace** `hyprland`/`uwsm`/`portal-hyprland` in `packages` with `sway`; remove `aspects/dotfiles/.../hypr/` or leave unused~~ |
-| 5 | `xdg-desktop-portal-wlr`, `xdg-desktop-portal-gtk`, `qt5-wayland`, `qt6-wayland` | Wayland portals + Qt Wayland | `pacman -Q xdg-desktop-portal-wlr`; portals active inside sway | Swap `portal-hyprland` → `portal-wlr` |
-| 6 | `polkit-gnome` | Auth agent for privileged actions | Mount drive / polkit prompt in sway | `exec` in `sway/config`; replaces `lxpolkit` |
-| 7 | `waybar` + config | Status bar — migrate from built-in swaybar + `i3status-rs` | `waybar` shows workspaces in sway session | **Now:** sway `bar {}` (same as i3); waybar deferred |
-| 8 | `mako` | Notifications | `notify-send test` in sway | `dunst` stays on Ubuntu |
+| ~~5~~ | ~~`mako`~~ | ~~Notifications~~ | ~~`notify-send test` in sway~~ | ~~`dunst` stays on Ubuntu~~ |
+| 6 | `xdg-desktop-portal-wlr`, `xdg-desktop-portal-gtk`, `qt5-wayland`, `qt6-wayland` | Wayland portals + Qt Wayland | `pacman -Q xdg-desktop-portal-wlr`; portals active inside sway | Swap `portal-hyprland` → `portal-wlr` |
+| 7 | `polkit-gnome` | Auth agent for privileged actions | Mount drive / polkit prompt in sway | `exec` in `sway/config`; replaces `lxpolkit` |
+| 8 | `waybar` + config | Status bar — migrate from built-in swaybar + `i3status-rs` | `waybar` shows workspaces in sway session | **Now:** sway `bar {}` (same as i3); waybar deferred |
 | 9 | `wofi` or `rofi-wayland` | App launcher | Launch via `$mod+space` equivalent | Replace X11 `rofi` bind |
 | 10 | `grim`, `slurp`, `satty` | Screenshots | `grim /tmp/test.png` in sway | Replaces `flameshot` on Arch Wayland |
 | 11 | `wl-clipboard` | Wayland clipboard | `wl-copy` / `wl-paste` | Replaces `xclip`/`xsel` on Arch |
