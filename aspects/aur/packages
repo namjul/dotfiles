@@ -60,15 +60,14 @@ sudo pacman -S --needed --noconfirm cryptsetup # used for tomb
 sudo pacman -S --needed --noconfirm pass # https://www.passwordstore.org/
 sudo pacman -S --needed --noconfirm flameshot # https://github.com/flameshot-org/flameshot
 sudo pacman -S --needed --noconfirm nsxiv # https://github.com/nsxiv/nsxiv
-sudo pacman -S --needed --noconfirm dunst # https://github.com/dunst-project/dunst
 sudo pacman -S --needed --noconfirm pipewire pipewire-alsa pipewire-pulse pipewire-jack wireplumber gst-plugin-pipewire # audio stack
 sudo pacman -S --needed --noconfirm interception-tools # https://gitlab.com/interception/linux/tools
 sudo pacman -S --needed --noconfirm libevdev yaml-cpp # required for dual-function-keys
 sudo pacman -S --needed --noconfirm bluez bluez-utils # bluetooth
 sudo pacman -S --needed --noconfirm gnome-keyring libsecret # D-Bus Secret Service
 sudo pacman -S --needed --noconfirm sddm # login manager — config in aspects/aur/login
-sudo pacman -S --needed --noconfirm hyprland uwsm # compositor + session launcher (PLAN step 4)
-sudo pacman -S --needed --noconfirm xdg-desktop-portal-hyprland xdg-desktop-portal-gtk qt5-wayland qt6-wayland # Wayland integration (PLAN step 5)
+sudo pacman -S --needed --noconfirm sway swaybg i3status-rust alacritty # Wayland compositor (PLAN.sway step 4)
+sudo pacman -S --needed --noconfirm xdg-desktop-portal-wlr xdg-desktop-portal-gtk qt5-wayland qt6-wayland # Wayland integration (PLAN.sway step 5)
 sudo pacman -S --needed --noconfirm lxsession # polkit authentication agent (provides lxpolkit)
 sudo pacman -S --needed --noconfirm imv # https://sr.ht/~exec64/imv/
 sudo pacman -S --needed --noconfirm iwd # https://wiki.archlinux.org/title/Iwd

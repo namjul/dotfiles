@@ -45,7 +45,7 @@ variables(({ identity }) => ({
     ".config/environment.d",
     ".config/gtk-4.0",
     ".config/i3",
-    ".config/hypr",
+    ".config/sway",
     ".config/tmux",
     ".config/nushell",
     ".config/timewarrior",

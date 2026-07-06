@@ -71,6 +71,7 @@ cmd = "launch-audio"
 [[block]]
 block = "notify"
 format = " $icon "
+# driver = "swaync"
 
 # [[block]]
 # block = "docker"
