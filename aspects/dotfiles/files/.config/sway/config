@@ -65,6 +65,9 @@ smart_gaps on
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
 #font pango:DejaVu Sans Mono 8
 
+# systemd/dbus activation environment (sway wiki)
+exec systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP DISPLAY  SWAYSOCK I3SOCK XCURSOR_SIZE XCURSOR_THEME
+
 # Start XDG autostart .desktop files using dex. See also
 # https://wiki.archlinux.org/index.php/XDG_Autostart
 exec dex --autostart --environment sway
@@ -83,10 +86,6 @@ exec nm-applet
 exec notify-battery -n
 
 exec mako
-
-# Start xdg-desktop-portal: provides a standard interface for apps (like Ghostty) to access
-# system features such as file dialogs, notifications, and theme changes in a desktop-independent way
-# exec $portal_env /usr/libexec/xdg-desktop-portal  # sway: portal-wlr via user session
 
 # Start authentication agents (see https://wiki.archlinux.org/title/Polkit#Authentication_agents)
 exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1  # sway: polkit-gnome (was lxpolkit)

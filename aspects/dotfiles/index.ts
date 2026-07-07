@@ -147,7 +147,6 @@ if (import.meta.main) {
       const skipOnArch = new Set([
         ".config/dunst",
         ".config/i3",
-        ".config/xdg-desktop-portal",
       ]);
       const skipOnDebian = new Set([
         ".config/mako",
