@@ -19,7 +19,7 @@ full_format = " $icon  "
 
 [[block]]
 block = "bluetooth"
-mac = "E4:58:BC:64:1D:19"
+mac = "18:9C:2C:D8:5A:D9"
 disconnected_format = " \uf293 "
 format = " \uf293 "
 [[block.click]]
