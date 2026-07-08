@@ -62,3 +62,7 @@ export SHELLBOT="$HOME/.local/share/nvim/site/pack/deps/opt/shellbot/target/rele
 
 # Fnox
 export FNOX_SHELL_OUTPUT=none
+
+export MERCURIAL_USERNAME="$GIT_AUTHOR_NAME $GIT_AUTHOR_EMAIL"
+export GIT_HOSTS="gitlab.tools.wienfluss.net|git-dev.rz.babiel.com"
+export PASSWORD_STORE_DIR="$DROPBOX_DIR/.password-store"
