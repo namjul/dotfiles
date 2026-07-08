@@ -1,4 +1,0 @@
-venv
-.env*
-.cache
-docs/assets/screenshots/*.png

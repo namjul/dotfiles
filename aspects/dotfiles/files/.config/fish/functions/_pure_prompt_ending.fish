@@ -1,1 +1,3 @@
-/home/hobl/.config/fish/functions/theme-pure/functions/_pure_prompt_ending.fish
+function _pure_prompt_ending
+    echo (set_color normal)" "
+end

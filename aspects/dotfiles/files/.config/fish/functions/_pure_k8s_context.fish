@@ -1,1 +1,3 @@
-/home/hobl/.config/fish/functions/theme-pure/functions/_pure_k8s_context.fish
+function _pure_k8s_context
+    kubectl config current-context 2>/dev/null
+end
