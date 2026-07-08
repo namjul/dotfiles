@@ -1,0 +1,9 @@
+# Intentional bash only — fish is the default shell (see ~/.bashrc).
+
+shopt -s histappend checkwinsize
+HISTCONTROL=ignoredups:ignorespace
+
+PS1='\[\033[01;32m\]\u\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+
+alias ls='ls --color=auto'
+alias grep='grep --color=auto'

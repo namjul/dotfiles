@@ -30,6 +30,7 @@ variables(({ identity }) => ({
     ".gitignore_global",
     // individual .config files
     ".config/starship.toml",
+    ".config/bash/rc",
     ".config/mimeapps.list",
     ".claude/settings.json",
     ".pi/agent/extensions",
