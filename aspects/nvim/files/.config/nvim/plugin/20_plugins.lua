@@ -973,6 +973,11 @@ later(function()
   })
 end)
 
+later(function()
+  add('pteroctopus/faster.nvim')
+  require('faster').setup()
+end)
+
 -- add('navarasu/onedark.nvim')
 -- add('rafcamlet/nvim-luapad')
 -- add('folke/neodev.nvim')
