@@ -1,3 +1,6 @@
+[alias]
+s = status
+
 [ui]
 {{- if index .variables "vcsUserName" }}
 username = {{ index .variables "vcsUserName" }}{{- if index .variables "vcsUserEmail" }} <{{ index .variables "vcsUserEmail" }}>{{- end }}
