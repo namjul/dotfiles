@@ -1,7 +1,4 @@
-
-##############################################################################
-# 02. ALIASES                                                                #
-##############################################################################
+if status is-interactive
 
 # quick edits
 alias e $EDITOR
@@ -74,7 +71,7 @@ abbr dspace 'du -cha --max-depth=1 . | grep -E "M|G"'
 alias pass 'gopass'
 abbr sb sandbox
 
- # replicate pbcopy from macos
+# replicate pbcopy from macos
 alias pbcopy 'xclip -selection clipboard'
 alias pbpaste 'xclip -selection clipboard -o'
 
@@ -114,3 +111,5 @@ abbr -a L --position anywhere --set-cursor "% | less -R"
 
 # Mnemonic: [W]c (Line count)
 abbr -a W --position anywhere "| wc -l"
+
+end

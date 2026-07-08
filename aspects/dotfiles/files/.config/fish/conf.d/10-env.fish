@@ -19,22 +19,16 @@ end
 export LANG="en_US"
 export LC_ALL="en_US.UTF-8"
 
-# Don’t clear the screen after quitting a manual page
+# Don't clear the screen after quitting a manual page
 export MANPAGER="less -X"
 
 # todo.text-cli
 export TODOTXT_CFG_FILE="$HOME/.todo.cfg"
 
-# fzf
-export FZF_DEFAULT_COMMAND='rg --files --follow --no-ignore-vcs 2> /dev/null'
-export FZF_DEFAULT_OPTS='--cycle --layout=reverse --border --height 75% --preview-window=wrap'
-export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-export FZF_ALT_C_COMMAND="$FZF_DEFAULT_COMMAND --null | xargs -0 dirname | sort | uniq"
-
 # ripgrep
 export RIPGREP_CONFIG_PATH="$HOME/.config/ripgrep/.ripgreprc"
 
-#neovide
+# neovide
 export NEOVIDE_MULTIGRID="true"
 
 # Set env variable with fallback
@@ -43,7 +37,7 @@ set -q XDG_DATA_HOME; or set -x XDG_DATA_HOME $HOME/.local/share
 set -q XDG_CONFIG_HOME; or set -x XDG_CONFIG_HOME $HOME/.config
 
 # For now, requires a manual `cargo build --release`.
-export SHELLBOT=$HOME/.local/share/nvim/site/pack/deps/opt/shellbot/target/release/shellbot
+export SHELLBOT="$HOME/.local/share/nvim/site/pack/deps/opt/shellbot/target/release/shellbot $HOME/.config/shellbot/prompt"
 export SHELLBOT_PROMPT='
   You are a helpful assistant who provides brief explanations and short code
   snippets for technologies like TypeScript, JavaScript, Rust, HTML, CSS, Bash, Go and Lua. Your user is an expert programmer,
@@ -55,10 +49,6 @@ export GHQ_ROOT="$HOME/code/ghq"
 
 # For ubuntu
 export PKG_CONFIG_PATH="/usr/lib/x86_64-linux-gnu/pkgconfig:/usr/share/pkgconfig:$PKG_CONFIG_PATH"
-
-# Shellbot.
-# For now, requires a manual `cargo build --release`.
-export SHELLBOT="$HOME/.local/share/nvim/site/pack/deps/opt/shellbot/target/release/shellbot $HOME/.config/shellbot/prompt"
 
 # Fnox
 export FNOX_SHELL_OUTPUT=none
