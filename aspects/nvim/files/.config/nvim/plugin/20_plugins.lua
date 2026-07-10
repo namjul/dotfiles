@@ -707,7 +707,7 @@ later(function()
           }
         end,
       })
-      -- vim.cmd.cnoreabbrev('OS OverseerShell')
+      vim.cmd.cnoreabbrev('OS OverseerShell')
     end,
     commands = {
       'OverseerRun',
