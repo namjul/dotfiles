@@ -34,3 +34,18 @@ Config.log_clear = function()
   start_hrtime = vim.loop.hrtime()
   vim.cmd('echo "Cleared log"')
 end
+
+local is_enabled = nil
+Config.toggle_auto_rooter = function()
+  local minimisc = require('mini.misc')
+
+  if is_enabled then
+    vim.api.nvim_clear_autocmds({ group = 'MiniMiscAutoRoot' })
+    vim.notify('AutoRoot DISABLED', vim.log.levels.WARN)
+    is_enabled = false
+  else
+    minimisc.setup_auto_root({ '.git', 'Makefile', '.hg' }) -- creates autocmd with group 'MiniMiscAutoRoot'
+    if is_enabled ~= nil then vim.notify('AutoRoot ENABLED', vim.log.levels.INFO) end
+    is_enabled = true
+  end
+end

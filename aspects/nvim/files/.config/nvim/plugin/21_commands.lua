@@ -41,3 +41,7 @@ if has_rest_nvim then
 
   vim.api.nvim_create_user_command('RestNvimLast', function() restNvim.last() end, {})
 end
+
+vim.api.nvim_create_user_command('Rooter', Config.toggle_auto_rooter, {
+  desc = 'Toggle MiniMisc AutoRoot',
+})

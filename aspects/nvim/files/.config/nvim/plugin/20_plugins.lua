@@ -301,7 +301,7 @@ end)
 later(function()
   local minimisc = require('mini.misc')
   minimisc.setup()
-  minimisc.setup_auto_root({ '.git', 'Makefile', '.hg' })
+  Config.toggle_auto_rooter() -- init
 end)
 
 later(function()
