@@ -23,6 +23,9 @@ end, {})
 
 vim.api.nvim_create_user_command('Write750', function(args)
   local opts = {}
+  -- :Write750
+  -- :Write750 max_words=500
+  -- :Write750 max_words=750 max_time=900
   for _, arg in ipairs(args.fargs) do
     local k, v = arg:match('^(%a[%a_]*)=(%d+)$')
     if k and v then opts[k] = tonumber(v) end
