@@ -45,52 +45,21 @@ local function date_string() return os.date('%Y.%m.%d') end
 
 local function save_directory() return vim.fn.expand(vim.g.write750_save_dir or '~/Dropbox/memex/') end
 
--- The entry lives between these markers so a save can find and replace exactly
--- it — this session or a future one — leaving the rest of the file untouched.
--- One entry, always current, never a stacked log.
-local SECTION_START = '<!-- 750words:start -->'
-local SECTION_END = '<!-- 750words:end -->'
-
--- Pure splice, isolated from IO: replace the region between the markers when it
--- exists, otherwise append the block (or make it the whole file when empty).
-local function splice_section(existing, block)
-  local start_at = existing:find(SECTION_START, 1, true)
-  local end_at = existing:find(SECTION_END, 1, true)
-  if start_at and end_at and end_at > start_at then
-    local before = existing:sub(1, start_at - 1)
-    -- drop the newline that followed the old end marker; block supplies its own
-    local after = existing:sub(end_at + #SECTION_END):gsub('^\n', '')
-    return before .. block .. after
-  end
-  if existing == '' then return block end
-  return existing .. (existing:sub(-1) == '\n' and '\n' or '\n\n') .. block
-end
-
 local function do_save(lines, path)
-  local block = SECTION_START .. '\n' .. table.concat(lines, '\n') .. '\n' .. SECTION_END .. '\n'
+  local content = table.concat(lines, '\n') .. '\n'
   local dir = vim.fn.fnamemodify(path, ':h')
   if vim.fn.mkdir(dir, 'p') == 0 then
     vim.notify('750words: cannot create directory ' .. dir, vim.log.levels.ERROR)
     return
   end
-
-  local existing = ''
-  if vim.uv.fs_stat(path) then
-    local current, read_err = io.open(path, 'r')
-    if not current then
-      vim.notify('750words: cannot read file — ' .. (read_err or path), vim.log.levels.ERROR)
-      return
-    end
-    existing = current:read('*a') or ''
-    current:close()
-  end
-
-  local out, err = io.open(path, 'w')
+  -- check existence before open so the separator is correct (open with 'a' always creates)
+  local exists = vim.uv.fs_stat(path) ~= nil
+  local out, err = io.open(path, 'a')
   if not out then
     vim.notify('750words: cannot open file — ' .. (err or path), vim.log.levels.ERROR)
     return
   end
-  out:write(splice_section(existing, block))
+  out:write((exists and '\n---\n\n' or '') .. content)
   out:close()
   vim.notify('Saved → ' .. path)
 end
@@ -246,7 +215,7 @@ function M.start(opts)
         vim.bo[buf].modified = false
         return
       end
-      do_save(lines, save_directory() .. 'daily.journal.md')
+      do_save(lines, save_directory() .. 'daily.journal.' .. date_string() .. '.md')
       vim.bo[buf].modified = false
     end,
   })
