@@ -497,10 +497,10 @@ later(function()
       -- Disable autoformat for files in a certain path
       local bufname = vim.api.nvim_buf_get_name(bufnr)
       if bufname:match('/node_modules/') then return end
-      return { timeout_ms = 500, lsp_format = 'fallback' }
+      return { timeout_ms = 500, lsp_format = 'never' }
     end,
     formatters_by_ft = {
-      lua = { 'stylua' },
+      lua = { 'stylua', lsp_format = 'fallback' },
       python = function(bufnr)
         if require('conform').get_formatter_info('ruff_format', bufnr).available then
           return { 'ruff_format' }
@@ -508,9 +508,14 @@ later(function()
           return { 'isort', 'black' }
         end
       end,
-      javascript = function(bufnr) return { first(bufnr, 'deno', 'biome', 'prettierd', 'prettier') } end,
-      typescript = function(bufnr) return { first(bufnr, 'deno', 'biome', 'prettierd', 'prettier') } end,
-      vue = function(bufnr) return { first(bufnr, 'biome', 'prettierd', 'prettier') } end,
+      javascript = function(bufnr)
+        return { first(bufnr, 'deno', 'biome', 'prettierd', 'prettier'), lsp_format = 'fallback' }
+      end,
+      typescript = function(bufnr)
+        return { first(bufnr, 'deno', 'biome', 'prettierd', 'prettier'), lsp_format = 'fallback' }
+      end,
+      vue = function(bufnr) return { first(bufnr, 'biome', 'prettierd', 'prettier'), lsp_format = 'fallback' } end,
+      html = { 'superhtml' },
     },
   })
 end)
