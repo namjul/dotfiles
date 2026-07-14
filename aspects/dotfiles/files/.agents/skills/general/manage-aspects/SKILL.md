@@ -1,13 +1,10 @@
 ---
-name: new-aspect
-description: Scaffold a new aspect (configuration unit) in a mise-based dotfiles monorepo with the fig/Deno framework. Use when user wants to create a new aspect, add a config unit, or scaffold a new dotfiles module.
+name: manage-aspects
+description: Use when adding, strengthening, dissolving, or managing aspects in this dotfiles repo with the fig framework. Triggers on "add aspect", "new aspect", "strengthen aspect", "manage aspects" or any aspect management task.
 ---
 
-# New Aspect
 
-## Quick start
-
-Minimal structure:
+# Minimal aspect structure
 
 ```
 aspects/<name>/
@@ -19,13 +16,7 @@ aspects/<name>/
 run = ""
 ```
 
-## Workflow
-
-1. Create `aspects/<name>/` folder
-2. Add `mise.toml` with at least `[tasks.default]`
-3. If aspect manages files via fig: add Deno script, mark executable
-
-## Fig script
+# Fig framework
 
 ```ts
 #!/usr/bin/env -S deno run --allow-all
