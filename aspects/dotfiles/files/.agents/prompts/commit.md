@@ -2,4 +2,6 @@
 description: Commit
 ---
 
-Check status. Commit in repo style.
+Use the `commit` skill.
+
+$ARGUMENTS
