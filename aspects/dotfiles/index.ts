@@ -116,6 +116,7 @@ variables(({ identity }) => ({
     ".agents/skills/engineering/codebase-walkthrough",
     ".agents/skills/engineering/openspec-generate-tutorial",
     ".agents/skills/engineering/sr-eng-review",
+    ".agents/skills/engineering/spec-planner",
   ],
   prompts: [
     ".agents/prompts/commit.md",

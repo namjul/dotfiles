@@ -1,3 +1,8 @@
+---
+name: spec-planner
+description: Turn an underspecified requirement into an implementation-ready Markdown spec with concrete repo facts, incremental delivery slices, and verifiable outcomes. Use when planning a feature, drafting an opencode-style spec, or before starting multi-file implementation.
+---
+
 # Requirements To Spec
 
 ## Overview
