@@ -7,6 +7,22 @@ description: Guidance on writing high-quality skills and prompt templates. Use w
 
 Guidance for writing skills and prompt templates that are concise, intent-focused, and effective.
 
+## Where to Save Skills
+
+**Canonical path:** `../../<category>/<skill-name>/SKILL.md`
+
+Categories:
+
+- `seed/` — thinking, inquiry, concept work (e.g. `untangle-concept`, `cognitive-motion`)
+- `general/` — cross-domain utilities (e.g. `agent-authoring`, `conversation-capture`)
+- `engineering/` — code and repo workflows (e.g. `plan`, `explore-design-space`)
+
+After creating a skill, register it in `aspects/dotfiles/index.ts` under the `skills` array so fig deploys it.
+
+**Prompt templates:** `~/.dotfiles/aspects/dotfiles/files/.agents/prompts/<name>.md` — thin wrappers that invoke a skill. Register in `index.ts` under `prompts`. Use `$ARGUMENTS` for user input passed after the slash command.
+
+Do not save skills to `~/.claude/skills/` directly — that path is deployed from dotfiles.
+
 ## Core Principle
 
 State *what* to achieve and *why*, not *how* to execute. Trust the agent to figure out mechanics.
