@@ -95,6 +95,7 @@ variables(({ identity }) => ({
     // ".config/wireguard/tunnel.conf.tmpl",
   ],
   skills: [
+    ".agents/skills/seed/cognitive-motion",
     ".agents/skills/seed/explore-writing-reviewer",
     ".agents/skills/seed/hegelian-dialectic-skill",
     ".agents/skills/seed/untangle-concept",
@@ -114,11 +115,13 @@ variables(({ identity }) => ({
     ".agents/skills/engineering/git-commit",
     ".agents/skills/engineering/codebase-walkthrough",
     ".agents/skills/engineering/openspec-generate-tutorial",
+    ".agents/skills/engineering/plan",
     ".agents/skills/engineering/sr-eng-review",
-    ".agents/skills/engineering/spec-planner",
   ],
   prompts: [
     ".agents/prompts/commit.md",
+    ".agents/prompts/plan.md",
+    ".agents/prompts/sense.md",
   ],
   rules: [
     ".agents/rules/caveman.md",
