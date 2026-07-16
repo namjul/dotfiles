@@ -1,6 +1,6 @@
 ---
 name: etymology-research
-description: Research the etymology (origin and historical development) of words, phrases, and concepts with structured analysis and sources
+description: Research the etymology (origin and historical development) of words, phrases, and concepts with structured analysis and sources. Triggers on "what is the meaning of", "what are the origins of".
 license: MIT
 compatibility: pi
 metadata:
