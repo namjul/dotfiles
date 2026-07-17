@@ -117,11 +117,14 @@ variables(({ identity }) => ({
     ".agents/skills/engineering/codebase-walkthrough",
     ".agents/skills/engineering/openspec-generate-tutorial",
     ".agents/skills/engineering/plan",
+    ".agents/skills/engineering/code",
     ".agents/skills/engineering/sr-eng-review",
   ],
   prompts: [
     ".agents/prompts/commit.md",
     ".agents/prompts/plan.md",
+    ".agents/prompts/wn.md",
+    ".agents/prompts/code.md",
     ".agents/prompts/sense.md",
   ],
   rules: [
