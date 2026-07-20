@@ -122,6 +122,7 @@ variables(({ identity }) => ({
   ],
   prompts: [
     ".agents/prompts/commit.md",
+    ".agents/prompts/commit-plan.md",
     ".agents/prompts/plan.md",
     ".agents/prompts/wn.md",
     ".agents/prompts/code.md",
