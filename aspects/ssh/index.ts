@@ -45,6 +45,7 @@ async function installConfig(): Promise<void> {
     path: configTarget,
     src: encryptedConfigSource,
     state: "encrypted",
+    force: true,
   });
 
   if (result.ok) {
