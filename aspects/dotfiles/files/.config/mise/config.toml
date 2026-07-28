@@ -9,7 +9,7 @@ TINTED_TMUX_OPTION_STATUSBAR = "1"
 [tools]
 deno = "2.8.0"
 golang = "1.20"
-node = "24"
+node = { version = "24", postinstall = "npm install -g http-server @earendil-works/pi-coding-agent" }
 "npm:zx" = "8.8.5"
 "npm:codeburn" = "0.9.15"
 lua = "5.5.0"
