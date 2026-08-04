@@ -119,6 +119,9 @@ variables(({ identity }) => ({
     ".agents/skills/engineering/openspec-generate-tutorial",
     ".agents/skills/engineering/plan",
     ".agents/skills/engineering/code",
+    ".agents/skills/engineering/deep-modules",
+    ".agents/skills/engineering/vocabulary",
+    ".agents/skills/engineering/review-architecture",
     ".agents/skills/engineering/sr-eng-review",
   ],
   prompts: [

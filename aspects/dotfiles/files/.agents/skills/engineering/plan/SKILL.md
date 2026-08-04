@@ -19,6 +19,7 @@ A plan must be self-contained. Assume the reader has only the plan, with no acce
 
 Before planning, explore what exists:
 
+- Load the vocabulary skill so the plan uses consistent software-design terms
 - Read project documentation (READMEs, docs) for conventions
 - Explore relevant files, adjacent files that may need to change, and existing patterns
 - Check prior art and related implementations in the repo
