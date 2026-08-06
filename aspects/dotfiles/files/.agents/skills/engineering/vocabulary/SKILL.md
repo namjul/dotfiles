@@ -3,6 +3,10 @@ name: vocabulary
 description: Use when writing code plans, architecture, or generally discussing code
 ---
 
+> Source: https://github.com/juanibiapina/dotfiles/tree/fabe977472d17819ab3ca613de4740efe0524509/agents/skills/plan/SKILL.md
+> Imported from commit: `fabe977472d17819ab3ca613de4740efe0524509`
+> License: MIT, Copyright (c) 2026 Juan Ibiapina
+
 # Language
 
 Shared vocabulary for software design. Use these terms exactly — don't substitute "component," "service," "API," or "boundary." Consistent language is the whole point.

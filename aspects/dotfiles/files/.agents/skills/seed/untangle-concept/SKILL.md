@@ -3,6 +3,10 @@ name: untangle-concept
 description: Decompose a tangled concept into its overlapping senses and the dimensions that distinguish them. Use when someone is confused because a single word means several different-but-related things (not homonyms like "bat"), when a debate is stuck because participants use the same term differently, when a user asks "what do people actually mean by X?", asks to "untangle" or "disambiguate" a concept, says "people use X to mean different things", or wants to clarify which sense of a concept matters in their context. Also use when user invokes "untangle-concepts", "conceptual variance decomposition", or "explicative regression" by name.
 ---
 
+> Source: https://github.com/anielsen108/claude-skills-public/tree/a6eaf271d0bbf6cbb7f2e6e4c63e4bf3431a1ace/untangle-concept/SKILL.md
+> Imported from commit: `a6eaf271d0bbf6cbb7f2e6e4c63e4bf3431a1ace`
+> License: MIT, Copyright (c) 2026 Ari Neilson
+
 # Untangle Concepts
 
 ## Overview

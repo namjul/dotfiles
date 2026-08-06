@@ -3,6 +3,10 @@ name: git-commit
 description: Create a commit (or draft a commit message) in a Git repository
 ---
 
+> Source: https://github.com/juanibiapina/dotfiles/tree/be634998a40adb2a4e399af4fcdb1bcaac2f9304/agents/skills/git-commit/SKILL.md
+> Imported from commit: `be634998a40adb2a4e399af4fcdb1bcaac2f9304`
+> License: MIT, Copyright (c) 2026 Juan Ibiapina
+
 Commit only when the user explicitly asks.
 
 Review staged, unstaged, and untracked changes plus recent commit style. Draft a concise message that explains why. Stage the right files, commit, then verify with `git status`.

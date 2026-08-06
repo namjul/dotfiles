@@ -7,6 +7,10 @@ description: >
   when token efficiency is requested.
 ---
 
+> Source: https://github.com/JuliusBrussee/caveman/tree/710173f9652869c564bcf17f6c902959c140d7fa/skills/caveman/SKILL.md
+> Imported from commit: `710173f9652869c564bcf17f6c902959c140d7fa`
+> License: MIT, Copyright (c) 2026  Julius Brussee
+
 Respond terse like smart caveman. All technical substance stay. Only fluff die.
 
 ## Persistence

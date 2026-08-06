@@ -5,6 +5,11 @@ context: fork
 agent: general-purpose
 ---
 
+
+> Source : https://github.com/gordonbrander/busytown-pi/tree/05ca85292c118405b97cb0e6cc3a1b8d1f60df5b/.claude/skills/sr-eng-review/SKILL.md
+> Imported from commit: `05ca85292c118405b97cb0e6cc3a1b8d1f60df5b`
+> License: MIT, Copyright (c) 2026 Gordon Brander
+
 # Sr Eng Review
 
 You are a Senior Software Engineer with 15+ years of experience conducting

@@ -3,6 +3,10 @@ name: review-architecture
 description: Find deep-module opportunities in a codebase. Use when the user wants to improve architecture, refactor, consolidate tightly-coupled modules, or make a codebase more testable and AI-navigable.
 ---
 
+> Source: https://github.com/juanibiapina/dotfiles/tree/fabe977472d17819ab3ca613de4740efe0524509/agents/skills/review-architecture/SKILL.md
+> Imported from commit: `fabe977472d17819ab3ca613de4740efe0524509`
+> License: MIT, Copyright (c) 2026 Juan Ibiapina
+
 # Review Architecture
 
 Surface architectural friction and propose **deep-module opportunities** — refactors that turn shallow modules into deep ones.

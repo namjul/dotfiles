@@ -5,6 +5,10 @@ description: >
   characteristic of LLM-generated text. Avoid these when writing any text.
 ---
 
+> Source: https://github.com/juanibiapina/dotfiles/tree/3774e453711440f0e0e74044ddaf7236a023c200/agents/skills/ai-writing-signs/SKILL.md
+> Imported from commit: `3774e453711440f0e0e74044ddaf7236a023c200`
+> License: MIT, Copyright (c) 2026 Juan Ibiapina
+
 # Signs of AI writing
 
 AI writing is detectable because LLMs regress to statistical means, replacing specific facts with generic, inflated language. The subject becomes simultaneously less specific and more exaggerated.

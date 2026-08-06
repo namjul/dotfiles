@@ -3,6 +3,10 @@ name: plan
 description: Research the codebase and produce a written implementation plan for a code change. Use when asked to plan, spec, or prepare implementation — after exploration is done or when the requirement is already clear. Produces minimal or comprehensive plans with verifiable outcomes. Makes no source-code changes.
 ---
 
+> Source: https://github.com/juanibiapina/dotfiles/tree/6ebf41489c7228716e7a7d79fb5449e5583283c8/agents/skills/plan/SKILL.md
+> Imported from commit: `6ebf41489c7228716e7a7d79fb5449e5583283c8`
+> License: MIT, Copyright (c) 2026 Juan Ibiapina
+
 # Plan
 
 Research the codebase and produce an implementation plan. **Make no source-code changes.**

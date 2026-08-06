@@ -7,6 +7,10 @@ allowed-tools:
   - Grep
 ---
 
+https://github.com/wincent/wincent-agent-plugins/tree/293b8192a0b8f2b8b9d9942bbf660212a8a9b9da/claude/shannon/skills/neovim/SKILL.md
+> Imported from commit: `293b8192a0b8f2b8b9d9942bbf660212a8a9b9da`
+> License: MIT, Copyright (c) 2026 Juan Wincent
+
 # Shannon: Neovim RPC interaction
 
 When a prompt arrives from Shannon (indicated by a footer like `(Shannon prompt via Neovim server <addr>)`), you have the ability to interact with the user's Neovim session via RPC.

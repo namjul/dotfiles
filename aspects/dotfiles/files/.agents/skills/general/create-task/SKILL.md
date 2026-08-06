@@ -3,6 +3,10 @@ name: create-task
 description: Create tracked tasks or issues with session context on GitHub or GitLab. Use when creating a task, filing an issue, or when the user mentions creating a task, opening an issue, or tracking work.
 ---
 
+> Source: https://github.com/kevinslin/agstack/tree/1c2829e234070040a20c1b790223a8ab5fc885b2/active/create-task/SKILL.md
+> Imported from commit: `1c2829e234070040a20c1b790223a8ab5fc885b2`
+> License: MIT, Copyright (c) 2026 Kevin Lin
+
 # Create Task
 
 Create tasks on target platforms with a consistent workflow and metadata.

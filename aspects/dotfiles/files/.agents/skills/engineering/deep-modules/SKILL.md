@@ -3,6 +3,10 @@ name: deep-modules
 description: Use when refactoring into deep modules, choosing seams, classifying dependencies, deciding adapter strategy, or planning tests around a refactor.
 ---
 
+> Source: https://github.com/juanibiapina/dotfiles/tree/fabe977472d17819ab3ca613de4740efe0524509/agents/skills/deep-modules/SKILL.md
+> Imported from commit: `fabe977472d17819ab3ca613de4740efe0524509`
+> License: MIT, Copyright (c) 2026 Juan Ibiapina
+
 # Deep Modules
 
 How to deepen a cluster of shallow modules safely, given its dependencies. The aim is testability and AI-navigability.

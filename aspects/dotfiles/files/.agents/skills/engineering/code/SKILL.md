@@ -1,7 +1,11 @@
 ---
 name: code
-description: Use when executing a plan or implementing a coding task. Turns a plan or clear request into working code, tests, and verification.
+description: Use when executing or implementing a plan, or implementing a coding task. Triggers on "implement plan", "implement the plan", "execute the plan". Turns a plan or clear request into working code, tests, and verification.
 ---
+
+> Source: https://github.com/juanibiapina/dotfiles/tree/4417e56718e1429830503037755a5c3dc02d2d50/agents/skills/code/SKILL.md
+> Imported from commit: `4417e56718e1429830503037755a5c3dc02d2d50`
+> License: MIT, Copyright (c) 2026 Juan Ibiapina
 
 # Code
 
@@ -14,6 +18,7 @@ Execute the plan from the conversation. If no plan is clear, ask what to build.
 - Load relevant skills
 - Review the plan from the conversation
 - Ask if anything important is unclear
+- Before concluding a pattern or file is missing, confirm the checkout is current (`git fetch`, fast-forward if behind upstream). A search miss on a stale checkout is a false negative.
 - Do not skip this. Better to ask now than build the wrong thing.
 
 ### 2. Execute
