@@ -47,9 +47,9 @@ Conventions:
 
 ## Bootstrap paths
 
-**Greenfield** — the glossary is born from the authoring loop: the Example Mapping stage (acceptance-testing A2) surfaces the story's nouns and verbs; each one enters through the protocol as it is first used. Small, accurate, and growing — never a big up-front vocabulary exercise.
+**Greenfield** — bootstrap the glossary from specification examples and domain conversations. Their nouns and verbs become candidate terms, and each enters through the protocol when first used. Keep the glossary small, accurate, and growing rather than defining all vocabulary up front.
 
-**From a working conversation** — mine a design session, grill-me transcript, or story-splitting output for candidate terms: recurring nouns and verbs, anything two people used differently, anything that needed explaining. Each candidate goes through PROPOSE individually — extraction gathers candidates; only the protocol admits them.
+**From a working conversation** — mine a design session, explore-design-space transcript, or story-splitting output for candidate terms: recurring nouns and verbs, anything two people used differently, anything that needed explaining. Each candidate goes through PROPOSE individually — extraction gathers candidates; only the protocol admits them.
 
 **Brownfield** — harvest candidates from the code that already speaks the language: exported domain identifiers, event names, database entities. Expect collisions and near-duplicates — surfacing them is the value (each collision is a DETECT trigger). Admit terms as slices touch them, matching the protected-core ratchet: the glossary grows with the strangled core, not ahead of it.
 
@@ -57,4 +57,4 @@ Conventions:
 
 - Technical vocabulary (`map`, `parse`, `index`, `id`) — that's the lint layer's stopword list, not the domain language.
 - Framework and library names.
-- Terms from *other* bounded contexts — if Ordering keeps talking about Shipping's concepts, that's a context-mapping conversation (domain-driven-design skill), not a glossary entry.
+- Terms from *other* bounded contexts — if Ordering keeps talking about Shipping's concepts, resolve the context relationship rather than adding them to this glossary.

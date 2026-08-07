@@ -1,13 +1,15 @@
 ---
 name: improve-codebase-architecture
-description: "Audit an existing repository or multi-module subsystem for evidence-backed architecture improvements, rank bounded candidates, and present them in a visual HTML report with before-and-after diagrams and a top recommendation. Use when the user asks where architecture investment would pay off across a codebase, wants multiple architecture candidates ranked, or needs systemic coupling, shotgun-change, testability, or AI-navigability problems diagnosed. For one named module's responsibility, deepening, splitting, or contract use codebase-design; for a source-tree or package audit use structure-codebase; for an already-selected path whose success is an evidence-backed net-mechanism-reduction claim use reduce-system-complexity. This is audit-and-selection by default."
+description: "Audit an existing repository or multi-module subsystem for evidence-backed architecture improvements, rank bounded candidates, and recommend the best next investment. Use when the user asks where architecture work would pay off, wants multiple candidates ranked, or needs coupling, shotgun-change, testability, or AI-navigability problems diagnosed. For one named module's responsibility or contract use codebase-design; for a source-tree audit use structure-codebase; for an already-selected net-mechanism-reduction use reduce-system-complexity. This is audit-and-selection by default."
 ---
 
-> Source: https://github.com/citypaul/.dotfiles/tree/6220d843058ff33bb7d3dd3af175fd82b1c7965d/claude/.claude/skills/improve-codebase-architecture
+> Adapted from: https://github.com/citypaul/.dotfiles/tree/6220d843058ff33bb7d3dd3af175fd82b1c7965d/claude/.claude/skills/improve-codebase-architecture
 > Imported from commit: `6220d843058ff33bb7d3dd3af175fd82b1c7965d`
-> License: MIT, Copyright (c) 2024 Paul Hammond
+> License: MIT, Copyright (c) 2026 Matt Pocock
 
 # Improve Codebase Architecture
+
+Load [`vocabulary`](../vocabulary/SKILL.md). Use [`codebase-design`](../codebase-design/SKILL.md) as the logical module-design lens.
 
 Find the highest-value **bounded** architecture improvement rather than producing a generic cleanup list. Combine change pressure, caller burden, locality, dependency direction, testability, ownership, runtime risk, and project intent. Use deep-module design as one lens, not as a mandate to consolidate everything.
 
@@ -25,7 +27,7 @@ Read [`references/html-report.md`](references/html-report.md) before creating th
 
 ## Operating Contract
 
-- Treat the repository under review as read-only. The report is the only default write; do not change production code, tests, architecture decisions, or glossaries.
+- Treat the repository under review as read-only. Do not change production code, tests, architecture decisions, or glossaries. Write a report only when the user requests one.
 - Preserve the requested scope. If the user names a subsystem or pain point, do not widen the review target.
 - Separate evidence from inference and confidence. A visually persuasive diagram does not make a speculative candidate true.
 - Respect dirty worktrees and existing user changes. Use history and diffs as evidence, never as permission to overwrite.
@@ -87,7 +89,7 @@ Look for more than consolidation:
 - **Restore locality** — reunite behavior, tests, schemas, and mappers that change as one unit.
 - **Make a contract honest** — expose required errors, effects, lifecycle, or performance while hiding collaborator mechanics.
 
-Consult `codebase-design` in lens-only mode for depth, leverage, locality, interface burden, seams, and thin-edge safeguards. Do not run its contract workflow or propose an exact interface before selection. Load `structure-codebase`, `hexagonal-architecture`, or `domain-driven-design` only when the candidate actually involves their concerns.
+Consult `codebase-design` in lens-only mode for depth, leverage, locality, interface burden, seams, and thin-edge safeguards. Do not run its contract workflow or propose an exact interface before selection. Load `structure-codebase` only when the candidate involves physical layout or dependency direction.
 
 Reject candidates based only on file length, folder aesthetics, a single adapter, one duplicated code shape, or speculative future flexibility.
 
@@ -115,11 +117,11 @@ Do not use a numeric score that implies false precision. Give a confidence level
 
 If no candidate rises above speculative, recommend **no architecture investment now**. State what evidence or change pressure would justify revisiting the area rather than manufacturing a top refactor.
 
-### 6. Produce the HTML architecture report
+### 6. Present the ranked audit
 
-Create the visual report as a first-class deliverable using [`references/html-report.md`](references/html-report.md).
+Present the evidence, counterevidence, ranking, and top recommendation in chat by default. When the user requests a visual report, use [`references/html-report.md`](references/html-report.md) and create it as a first-class deliverable.
 
-- Default to a fresh timestamped file under the OS temp directory so an exploratory audit does not dirty the repository.
+- Default requested reports to a fresh timestamped file under the OS temp directory so an exploratory audit does not dirty the repository.
 - Use a durable project path only when the user requests it or the project already defines an architecture-review artifact location.
 - Make the report self-contained and offline-readable by default: inline CSS and static HTML/SVG, with no remote scripts or fonts.
 - Give every candidate an evidence-backed before/after visual, recommendation strength, confidence, risks, and downstream route.
@@ -135,7 +137,7 @@ Stop after the audit unless the user already authorized a specific candidate. As
 
 For the selected candidate:
 
-1. Use `grill-me` when constraints or trade-offs remain decision-heavy.
+1. Use `explore-design-space` when constraints or trade-offs remain decision-heavy.
 2. Load `codebase-design` and its Design It Twice process for a consequential contract.
 3. Load `ubiquitous-language` if the design needs a new or changed domain term.
 4. Use `structure-codebase` if placement, packages, exports, or dependency enforcement change.
@@ -146,16 +148,14 @@ For the selected candidate:
 
 Only implement when requested:
 
-- Untested or untestable existing behavior: `finding-seams` as needed, then `characterisation-tests`; run `mutation-testing` over the accumulated change area at the end-of-phase PR-readiness gate.
+- Untested or untestable existing behavior: `finding-seams` as needed, then `characterisation-tests`.
 - Behavior-preserving restructuring with a trustworthy safety net: `refactoring`, keeping observable behavior stable.
 - Selected whole-path subtraction with a trustworthy safety net: `reduce-system-complexity`, preserving behavior while applying the behavior gate on every slice and the mechanism gate at terminal reduction.
-- New or changed behavior: `tdd`, `testing`, and `refactoring` during implementation, then `mutation-testing` once for the accumulated change at PR readiness.
+- New or changed behavior: `tdd`, `testing`, and `refactoring` during implementation, followed by proof through `reproducible-locally`.
 - Public compatibility: `api-design`.
 - Package and import migration: `structure-codebase` and its migration gates.
-- Explicit ports-and-adapters design: `hexagonal-architecture`.
 - Significant multi-slice delivery: `planning` after the candidate and contract are selected.
 - Consequential library, tool, application, service, framework, or platform choice: `evaluate-existing-solutions` after candidate selection and before implementation planning.
-- Finished high-stakes work: `double-check` for an adversarial second opinion.
 
 Keep moves, dependency inversion, behavior changes, and compatibility removal in separate verifiable slices wherever possible.
 

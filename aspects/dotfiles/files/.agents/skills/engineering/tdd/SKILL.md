@@ -1,9 +1,9 @@
 ---
 name: tdd
-description: RED-GREEN-REFACTOR for production behavior changes, followed by mutation testing or alternate evidence once at the end-of-phase PR-readiness gate. Use before implementing new features, bug fixes, or any changed observable behavior, and as the governing workflow for mixed implementation work. Do not use for pure behavior-preserving refactoring or mechanism reduction; those start from passing proportionate evidence via refactoring or reduce-system-complexity, never fabricated RED or structural mutants. Not for plan-only requests; use planning first for significant multi-slice work.
+description: RED-GREEN-REFACTOR for production behavior changes, followed by proportionate automated evidence at PR readiness. Use before implementing new features, bug fixes, or any changed observable behavior, and as the governing workflow for mixed implementation work. Do not use for pure behavior-preserving refactoring or mechanism reduction; those start from passing preservation evidence via refactoring or reduce-system-complexity. Not for plan-only requests; use planning first for significant multi-slice work.
 ---
 
-> Source: https://github.com/citypaul/.dotfiles/tree/6220d843058ff33bb7d3dd3af175fd82b1c7965d/claude/.claude/skills/tdd
+> Adapted from: https://github.com/citypaul/.dotfiles/tree/6220d843058ff33bb7d3dd3af175fd82b1c7965d/claude/.claude/skills/tdd
 > Imported from commit: `6220d843058ff33bb7d3dd3af175fd82b1c7965d`
 > License: MIT, Copyright (c) 2024 Paul Hammond
 
@@ -11,11 +11,11 @@ description: RED-GREEN-REFACTOR for production behavior changes, followed by mut
 
 TDD is the fundamental practice for new or changed observable behavior: every such production change must be written in response to a failing behavior test.
 
-Pure behavior-preserving work is different. `refactoring` and `reduce-system-complexity` begin from passing proportionate preservation evidence and stay behaviorally green while internal structure changes. At the end-of-phase PR-readiness gate, use mutation testing where meaningful; otherwise record reachability, configuration, contract, integration, or operational evidence and mark mutation `N/A`. Do not manufacture a failing test or structural mutant merely to make a REFACTOR slice look RED. If the work changes behavior or fixes a disputed bug, return to RED.
+Pure behavior-preserving work is different. `refactoring` and `reduce-system-complexity` begin from passing proportionate preservation evidence and stay behaviorally green while internal structure changes. At PR readiness, use `reproducible-locally` to record proportionate behavioral, reachability, configuration, contract, integration, or operational evidence. Do not manufacture a failing test merely to make a REFACTOR slice look RED. If the work changes behavior or fixes a disputed bug, return to RED.
 
 In this skill, a **phase** means one PR-sized, independently mergeable slice: the accumulated scope of one branch and PR. It does not mean a multi-PR feature or the numbered lifecycle phases in `README.md`.
 
-**For how to write good tests**, load the `testing` skill. This skill focuses on the TDD workflow/process. For mutation-aware test planning, load the `mutation-testing` skill and use its `resources/mutator-rules.md` resource as the source of truth.
+**For how to write good tests**, load the `testing` skill. This skill focuses on the TDD workflow. Load `codebase-design` when the lasting module interface or responsibility needs design.
 
 ---
 
@@ -31,7 +31,7 @@ Before RED, inspect package scripts, test configuration, and runner help. Reposi
 4. **GREEN/REFACTOR** — keep one watcher in a dedicated reusable terminal/session. Let the runner or repository graph choose affected tests; do not hand-pick a smaller ongoing GREEN scope.
 5. **AI/non-interactive fallback** — when a persistent watcher cannot be owned reliably, run the equivalent affected one-shot after each edit.
 6. **Repair the right boundary** — restart or reseed for stale or newly graph-visible relationships. For non-import/dynamic dependencies, configuration, global setup, public contracts, or shared-package uncertainty, add repository-owned triggers or widen to the owning suite/tier; restart alone cannot create an absent graph edge.
-7. **PR readiness** — stop every watcher, then follow the repository's mutation/alternate-evidence policy and complete non-watch PR gate. In a monorepo, that final gate includes every configured project and required integration/E2E suite, not only the development subset.
+7. **PR readiness** — stop every watcher, run the repository-defined non-watch PR gate, and capture proportionate automated evidence with `reproducible-locally`. In a monorepo, that final gate includes every configured project and required integration/E2E suite, not only the development subset.
 
 Read [resources/vitest-watch-feedback.md](resources/vitest-watch-feedback.md) before selecting, adding, or changing a reusable Vitest watcher. It is the canonical detail for seed strategies, native discovery, blind spots, and the required live process proof.
 
@@ -97,7 +97,7 @@ Watch mode is an inner-loop accelerator, not PR evidence. The pre-PR record must
 
 ### Repository Authority
 
-Repository-specific test and mutation rules override this global guidance when stricter. Use this distribution's `commands/pr.md` freshness model only when the target repository has not defined a stricter invalidation rule. A global instruction to reuse current mutation evidence must never weaken a repository rule that invalidates it after later production or applicable test changes.
+Repository-specific test and evidence rules override this global guidance when stricter. Keep the complete non-watch verification and automated proof current after later production or applicable test changes.
 
 ---
 
@@ -108,7 +108,7 @@ Repository-specific test and mutation rules override this global guidance when s
 - Test describes desired behavior, not implementation
 - Test should fail for the right reason
 - Run the narrowest test selector that demonstrates this RED; do not spend the inner loop running unrelated tests
-- Before finalizing the test, scan the intended behavior against the mutator rules: boundaries, boolean combinations, equality, arithmetic identities, array/string operations, optional chaining, and side effects
+- Before finalizing the test, scan the intended behavior for boundaries, boolean combinations, equality, arithmetic identities, array/string operations, optional chaining, and side effects
 - Add obvious missing cases immediately; use the harness's ask-question facility when the expected behavior is a product/domain judgment
 
 ### GREEN: Minimum Code to Pass
@@ -123,16 +123,16 @@ Repository-specific test and mutation rules override this global guidance when s
 - Obtain approval for the working-baseline commit before refactoring when the workflow uses commits as safety checkpoints
 - Keep focused and affected tests green after each small refactor; run the full suite at the pre-PR gate
 
-Repeat RED-GREEN-REFACTOR as needed until the phase's PR scope is complete. Do not run the automated mutation harness after each increment, refactor, or commit.
+Repeat RED-GREEN-REFACTOR as needed until the phase's PR scope is complete.
 
 ## End-of-Phase PR-Readiness Gate
 
-Run this gate once the implementation and refactoring phase is complete and the work is otherwise ready to become a PR:
+Run this gate once implementation and refactoring are complete and the work is otherwise ready for a PR:
 
-1. **MUTATE OR ALTERNATE EVIDENCE**: Run `mutation-testing` against the accumulated branch/PR scope where meaningful and produce a killed/survived/score report. Otherwise record an explicit `N/A` rationale plus proportionate reachability, configuration, contract, integration, or operational evidence.
-2. **KILL MUTANTS WHEN APPLICABLE**: Add or strengthen behavior tests for valuable survivors, fix obvious gaps directly, and ask the human when a survivor's value is ambiguous.
-3. **RE-RUN WITHIN THE GATE**: Use focused mutation runs while addressing survivors, then re-run the branch diff command. These reruns belong to the same PR gate; they do not put mutation testing back into every TDD increment.
-4. **VERIFY**: Finish the remaining PR checks with all tests passing. Never invent structural mutants merely to fill the workflow.
+1. **STOP WATCHERS**: terminate every watcher and its child processes.
+2. **VERIFY**: run the repository-defined complete non-watch checks against the final tree.
+3. **PROVE**: use `reproducible-locally` to exercise the changed behavior and assert an observable postcondition, or report why automated proof is unavailable.
+4. **REPORT**: state the commands, scenarios, assertions, and results without inflating what they prove.
 
 ---
 
@@ -140,7 +140,7 @@ Run this gate once the implementation and refactoring phase is complete and the 
 
 ### Default Expectation
 
-Commit history should show clear RED → GREEN → REFACTOR when applicable. Mutation testing is PR-readiness evidence for the completed phase, not a required commit after every TDD increment.
+Commit history should show clear RED → GREEN → REFACTOR when applicable. Final automated proof is PR-readiness evidence for the completed phase, not a required commit after every TDD increment.
 
 **Ideal progression:**
 ```
@@ -148,9 +148,8 @@ commit abc123: test: add failing test for user authentication
 commit def456: feat: implement user authentication to pass test
 commit ghi789: refactor: extract validation logic for clarity
 
-Pre-PR gate: run mutation testing for the accumulated branch scope. If valuable
-survivors require stronger tests, add those tests and include their commit before
-creating the PR.
+Pre-PR gate: stop watchers, run the complete repository checks, and capture
+repeatable automated proof of the changed behavior before creating the PR.
 ```
 
 ### Rare Exceptions
@@ -185,7 +184,7 @@ When exception applies, document in PR description:
 RED phase: commit c925187 (added failing tests for shopping cart)
 GREEN phase: commits 5e0055b, 9a246d0 (implementation + bug fixes)
 REFACTOR: commit 11dbd1a (test isolation improvements)
-PRE-PR MUTATION GATE: 96% mutation score; commit 7b8c9d0 strengthened boundary tests
+PRE-PR PROOF: checkout scenario verified by `pnpm test:e2e`; 4/4 assertions passed
 
 Test Evidence:
 ✅ 4/4 tests passing (7.7s with 4 workers)
@@ -297,9 +296,9 @@ Explain:
 
 From project maintainer or team lead
 
-**Step 3: Document in CLAUDE.md**
+**Step 3: Document in project guidance**
 
-Under "Test Coverage: 100% Required" section, list the exception
+Record the exception in the package README or the nearest applicable `AGENTS.md`, following the project's convention.
 
 **Example Exception:**
 
@@ -330,8 +329,8 @@ The burden of proof is on the requester. 100% is the default expectation.
 6. **Refactor if applicable and valuable** - improve code structure while focused and affected tests stay green
 7. **STOP and wait for commit approval** - present the increment and ordinary verification; never commit without explicit user approval
 8. **Commit** - with conventional commit message, once approved
-9. **Repeat RED-GREEN-REFACTOR** - continue with further increments and commits without running the mutation harness until the planned PR scope is complete
-10. **At PR readiness, run the mutation gate once** - stop watchers, run mutation testing where meaningful (or record explicit `N/A` plus proportionate alternate evidence), address valuable survivors within that gate, and complete the repository-defined non-watch PR checks. Apply the target repository's evidence-invalidation rule; use this distribution's `commands/pr.md` freshness model only when no stricter repository rule exists
+9. **Repeat RED-GREEN-REFACTOR** - continue with further increments and approved commits until the planned PR scope is complete
+10. **At PR readiness, prove the final tree** - stop watchers, complete the repository-defined non-watch PR checks, and use `reproducible-locally` for proportionate automated proof
 
 ### Workflow Example
 
@@ -368,19 +367,12 @@ if (user.name === '') {
 git add .
 git commit -m "feat: reject empty user names"
 
-# 8. Repeat RED-GREEN-REFACTOR increments without running the mutation harness
+# 8. Repeat RED-GREEN-REFACTOR increments.
 
-# 9. After the final edit, stop the watcher with Ctrl+C. When the accumulated work
-#    is otherwise ready to create the PR, run the
-#    end-of-phase mutation gate once and address valuable survivors within it.
+# 9. After the final edit, stop the watcher with Ctrl+C.
 
-# 10. Exit watch mode and finish the remaining PR verification, including the
-#    inspected repository-defined complete non-watch test gate.
-
-#     If later verification changes mutation-relevant production or applicable
-#     tests/evidence, apply the target repository's invalidation rule. Use this
-#     distribution's commands/pr.md freshness model only when no stricter rule exists.
-#     Keep the complete non-watch project verification current for the final tree.
+# 10. Finish the repository-defined complete non-watch checks and use
+#     reproducible-locally to capture automated proof for the final tree.
 ```
 
 ---
@@ -413,8 +405,8 @@ Before submitting PR:
 - [ ] All tests must pass
 - [ ] All linting and type checks must pass
 - [ ] **Coverage verification REQUIRED** - claims must be verified before review/approval
-- [ ] **End-of-phase mutation gate REQUIRED where meaningful** - run once for the accumulated PR scope, address valuable survivors, or document explicit `N/A` plus proportionate alternate evidence
-- [ ] Mutation or alternate evidence satisfies the target repository's invalidation rule; global reuse guidance did not weaken a stricter repository policy
+- [ ] **Automated proof recorded** - the changed behavior has repeatable evidence, or the report states why that proof is unavailable
+- [ ] Evidence is current for the final tree and satisfies the target repository's stricter rules
 - [ ] Watchers are stopped and the repository-defined complete non-watch PR test gate passes; in monorepos it includes all configured projects and required integration/E2E suites
 - [ ] PRs focused on single feature or fix
 - [ ] Include behavior description (not implementation details)
@@ -488,7 +480,7 @@ Before marking work complete:
 - [ ] The watcher was stopped and no watcher process or temporary fixture was left behind
 - [ ] A completed non-watch full-suite run passes before PR
 - [ ] Coverage verified at 100% (or exception documented)
-- [ ] If the work is ready for a PR, the end-of-phase mutation gate ran once for the accumulated scope and valuable survivors were addressed where meaningful, or explicit `N/A` plus proportionate alternate evidence was reviewed
+- [ ] If the work is ready for a PR, the changed behavior has repeatable automated proof or an explicit explanation of what prevents it
 - [ ] Test factories used (no `let`/`beforeEach`)
 - [ ] Tests verify behavior (not implementation details)
 - [ ] Refactoring assessed when applicable and applied if valuable, or explicitly `N/A`

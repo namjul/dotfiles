@@ -1,76 +1,39 @@
 ---
 name: expectations
-description: Capture learnings, gotchas, and architectural decisions into the right project documentation while context is fresh. Use when capturing learnings, documenting gotchas, recording architectural decisions, or deciding where a piece of knowledge should live. Triggers on "document this", "remember this pattern", "what should I know about", or after completing significant features.
+description: Capture learnings, gotchas, and architectural decisions in the right project documentation while context is fresh. Use when the user says "document this", "remember this pattern", or asks what future work should know, and after significant changes when durable knowledge was discovered.
 ---
 
-> Source: https://github.com/citypaul/.dotfiles/tree/6220d843058ff33bb7d3dd3af175fd82b1c7965d/claude/.claude/skills/expectations
+> Adapted from: https://github.com/citypaul/.dotfiles/tree/6220d843058ff33bb7d3dd3af175fd82b1c7965d/claude/.claude/skills/expectations
 > Imported from commit: `6220d843058ff33bb7d3dd3af175fd82b1c7965d`
 > License: MIT, Copyright (c) 2024 Paul Hammond
 
-# Expectations: Capturing Learnings
+# Expectations
 
-Core philosophy (TDD, refactoring discipline, commit approval) lives in CLAUDE.md and is always loaded — this skill covers what CLAUDE.md does not: deciding **what** to document, **where** it goes, and **in what format**.
+Ask after significant work: **What do I wish I had known at the start?**
 
-One workflow rule bears repeating because it gates documentation work too: **never commit without explicit user approval.** After refactoring, verify all tests and static analysis pass, then STOP and wait for commit approval.
+Capture knowledge when it prevents a repeated mistake, saves meaningful investigation, explains a non-obvious constraint, or records a decision and its trade-offs. Do not document code structure, git history, or facts that are clear from the source.
 
-## Documentation Framework
+## Choose the destination
 
-**At the end of every significant change, ask: "What do I wish I'd known at the start?"**
+| Knowledge | Destination |
+|---|---|
+| Repository-specific gotcha, tool rule, or agent workflow | The nearest applicable `AGENTS.md` |
+| Durable architecture or dependency decision | The project's existing ADR convention |
+| Discovery affecting active planned work | The active plan file or durable plan artifact |
+| User-facing behavior, setup, or usage | README or the project's documentation |
+| Personal cross-project knowledge, when requested | The `notes` skill |
 
-Document if ANY of these are true:
-- Would save future developers significant time
-- Prevents a class of bugs or errors
-- Reveals non-obvious behavior or constraints
-- Captures architectural rationale or trade-offs
-- Documents domain-specific knowledge
-- Identifies effective patterns or anti-patterns
-- Clarifies tool setup or configuration gotchas
+Follow the project's existing convention. Do not invent an ADR directory, memory file, or parallel documentation tree.
 
-Do NOT document what the repo already records: code structure, git history, anything derivable by reading the code.
+## Write the useful fact
 
-## Types of Learnings to Capture
+State:
 
-- **Gotchas**: Unexpected behavior discovered (e.g., "API returns null instead of empty array")
-- **Patterns**: Approaches that worked particularly well
-- **Anti-patterns**: Approaches that seemed good but caused problems
-- **Decisions**: Architectural choices with rationale and trade-offs
-- **Edge cases**: Non-obvious scenarios that required special handling
-- **Tool knowledge**: Setup, configuration, or usage insights
+1. the context in which it applies;
+2. the unexpected constraint or decision;
+3. the action future work should take;
+4. evidence or rationale when the claim is not self-evident.
 
-## Where Each Learning Goes
+Keep the entry short enough to scan. Update existing guidance instead of appending a duplicate. Verify commands, paths, and behavior against the source or running system before recording them.
 
-| Learning | Destination | Why |
-|----------|-------------|-----|
-| Gotcha, pattern, anti-pattern, tool knowledge that affects how Claude works in this repo | Project `CLAUDE.md` | Loaded every session for this project |
-| Architectural, dependency, platform, or build-versus-adopt decision with rationale and rejected alternatives | ADR (`docs/adr/` or project convention) — use the `adr` agent | Durable technology decisions need permanence, evidence, and context beyond a config file |
-| In-flight discoveries during planned work (blockers, scope changes) | The active plan file in `plans/` | Travels with the work; merged or discarded when the plan completes |
-| Cross-project user preferences and corrections | Auto-memory (`MEMORY.md`) | Persists across projects and sessions |
-| User-facing behavior, setup steps, API usage | README / docs — use the `docs-guardian` agent | Humans read these, not CLAUDE.md |
-
-When several learnings accumulate at the end of a feature, launch the `learn` agent to sweep the session for documentation-worthy insights rather than relying on recall.
-
-## Documentation Format
-
-```markdown
-#### Gotcha: [Descriptive Title]
-
-**Context**: When this occurs
-**Issue**: What goes wrong
-**Solution**: How to handle it
-
-// CORRECT - Solution
-const example = "correct approach";
-
-// WRONG - What causes the problem
-const wrong = "incorrect approach";
-```
-
-Keep entries scannable: a future reader should grasp context, issue, and solution in under ten seconds.
-
-## Communication
-
-- Be explicit about trade-offs in different approaches
-- Explain the reasoning behind significant design decisions
-- Flag any deviations from guidelines with justification
-- Suggest improvements that align with these principles
-- When unsure, ask for clarification rather than assuming
+Wait for explicit user approval before committing documentation changes.

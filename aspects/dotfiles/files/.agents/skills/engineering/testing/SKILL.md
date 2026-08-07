@@ -3,13 +3,13 @@ name: testing
 description: Testing patterns for behavior-driven tests. Use when writing tests, creating test factories, structuring test files, or deciding what to test. Do NOT use for UI-specific testing (see front-end-testing or react-testing skills).
 ---
 
-> Source: https://github.com/citypaul/.dotfiles/tree/6220d843058ff33bb7d3dd3af175fd82b1c7965d/claude/.claude/skills/testing
+> Adapted from: https://github.com/citypaul/.dotfiles/tree/6220d843058ff33bb7d3dd3af175fd82b1c7965d/claude/.claude/skills/testing
 > Imported from commit: `6220d843058ff33bb7d3dd3af175fd82b1c7965d`
 > License: MIT, Copyright (c) 2024 Paul Hammond
 
 # Testing Patterns
 
-For verifying test effectiveness through mutation analysis, load the `mutation-testing` skill. Use its mutator rules while planning and writing tests, but defer the automated mutation harness until the end-of-phase PR-readiness gate. For evaluating test quality against Dave Farley's properties, load the `test-design-reviewer` skill.
+For evaluating test quality against Dave Farley's properties, load the `test-design-reviewer` skill. Use `reproducible-locally` when defining the final automated proof for changed behavior.
 
 ## Core Principle
 
@@ -49,25 +49,9 @@ Vitest `related` implicitly permits an empty result to pass. Require at least on
 
 ---
 
-## Mutation-Aware Test Planning
+## Edge-Case Test Planning
 
-When planning or writing tests, automatically scan the intended behavior and changed production code against the mutator rules from the `mutation-testing` skill's `resources/mutator-rules.md` resource. A good test should fail if a realistic mutant changes the behavior.
-
-Load that resource when the code under test includes conditionals, arithmetic, equality, boolean logic, array/string operations, optional chaining, or meaningful side effects. Use it to identify likely surviving mutants before the Stryker run.
-
-When the scan finds an obvious gap, add or strengthen a behavior test immediately. When the gap depends on product or domain judgment, use the harness's ask-question facility before choosing a test. Ask one concise question with concrete choices, explain the potential mutant, and state the tradeoff.
-
-Example ask-question prompt:
-
-```markdown
-The discount rule uses `subtotal >= 100`, but current tests only cover `150`.
-Should the exact `100` boundary receive the discount?
-- Yes: add a boundary test for `100`
-- No: change/confirm the rule as `subtotal > 100`
-- Unspecified: document the behavior as intentionally not guaranteed
-```
-
-Do not ask when the gap is plainly a missing assertion, missing boundary, missing branch, or missing side-effect check. Fix those directly.
+Scan the intended behavior and changed production code for boundaries, boolean combinations, equality, arithmetic identities, array and string operations, optional chaining, and meaningful side effects. Add behavior tests for obvious gaps. Ask one concise question when the expected boundary behavior is a product or domain decision.
 
 ---
 
@@ -539,4 +523,4 @@ When writing tests, verify:
 - [ ] TDD inner-loop runs use focused watch or related/affected selectors rather than repeated full suites
 - [ ] GREEN/REFACTOR uses the complete affected scope derived by the runner, workspace orchestrator, or repository mapping; when no reliable graph exists, use the documented owning-suite-plus-known-consumers fallback and widen on uncertainty, never hand-picked test files
 - [ ] When using a watcher, new tests join it; otherwise the affected one-shot is rerun after test creation. Every claimed result executed at least one expected test without `--passWithNoTests`
-- [ ] The watcher and its child processes were stopped; a completed non-watch full-suite run is current for the final tree, and mutation or alternate evidence satisfies the target repository's policy
+- [ ] The watcher and its child processes were stopped; a completed non-watch full-suite run and automated behavioral proof are current for the final tree

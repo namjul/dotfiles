@@ -1,9 +1,9 @@
 ---
 name: specification
-description: Turn fuzzy intent into shared understanding and acceptance criteria — specification as a conversation, run one question at a time, before any story is split or planned. Use when an idea, feature request, or problem statement has no agreed rules or examples yet ("let's spec this out", "what should this actually do?", "we need acceptance criteria"). Produces an example map and acceptance criteria written back into the team's own story artifact, plus candidate glossary terms and parked questions. The agent-facilitated round is a first draft for a real conversation between humans — recommended, not optional. For decision trees with no artifact, see grill-me; for tightening an existing artifact, see find-gaps; for slicing agreed work, see story-splitting.
+description: Turn fuzzy intent into shared understanding and acceptance criteria — specification as a conversation, run one question at a time, before any story is split or planned. Use when an idea, feature request, or problem statement has no agreed rules or examples yet ("let's spec this out", "what should this actually do?", "we need acceptance criteria"). Produces an example map and acceptance criteria written back into the team's own story artifact, plus candidate glossary terms and parked questions. The agent-facilitated round is a first draft for a real conversation between humans — recommended, not optional. For decision trees with no artifact, see explore-design-space; for tightening an existing artifact, see find-gaps; for slicing agreed work, see story-splitting.
 ---
 
-> Source: https://github.com/citypaul/.dotfiles/tree/6220d843058ff33bb7d3dd3af175fd82b1c7965d/claude/.claude/skills/specification
+> Adapted from: https://github.com/citypaul/.dotfiles/tree/6220d843058ff33bb7d3dd3af175fd82b1c7965d/claude/.claude/skills/specification
 > Imported from commit: `6220d843058ff33bb7d3dd3af175fd82b1c7965d`
 > License: MIT, Copyright (c) 2024 Paul Hammond
 
@@ -51,7 +51,7 @@ The agent-facilitated conversation above produces a **first draft** of shared un
 1. **Round 1 (agent-facilitated)**: run the contract above with whoever brought the idea. Write the map back to the story artifact. Generate the review page (below) from it.
 2. **Round 2 (humans, three-amigos style)**: the review page goes to the real conversation — business, development, testing perspectives together (Dinwiddie's three amigos). They talk; they annotate the page (every card takes comments); disagreements become new questions, not silent edits.
 3. **Round 3+ (reconcile)**: their feedback returns to the agent round as answers and new red cards. Update the map and the artifact; regenerate the page. Repeat until a round produces no new rules, no changed examples, and no new questions.
-4. **Then split**: the stabilised map goes to `story-splitting`; each child story carries its rules and examples onward — per-rule questions flatten into the single questions list that downstream mapping expects — and where an acceptance-test outer loop is installed, those examples become the seed of its per-slice mapping.
+4. **Then split**: the stabilised map goes to `story-splitting`; each child story carries its rules and examples onward, and per-rule questions flatten into the single questions list that downstream mapping expects.
 
 Reality still gets the final vote: acceptance criteria written here are hypotheses until the shipped slice confirms them. When reality disagrees, the conversation reopens — that is a feature of the method, not a failure of the spec.
 
@@ -67,12 +67,11 @@ Specification conversations coin vocabulary constantly — that is half their va
 
 | Situation | Skill |
 |-----------|-------|
-| A fuzzy decision tree, no artifact yet, resolving choices | `grill-me` |
+| A fuzzy decision tree, no artifact yet, resolving choices | `explore-design-space` |
 | An existing story/plan/spec that needs holes poked | `find-gaps` |
 | The agreed map is too big; slicing into child stories | `story-splitting` |
 | Turning a child story into PR-sized plans | `planning` |
 | Comparing libraries, tools, applications, services, platform primitives, or bespoke implementation after behavior and constraints stabilize | `evaluate-existing-solutions` |
-| Per-slice executable specification (where installed) | `acceptance-testing` |
 | Naming the vocabulary the conversation surfaced (where installed) | `ubiquitous-language` |
 
 ## Verification Checklist

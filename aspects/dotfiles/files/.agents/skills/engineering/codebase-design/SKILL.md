@@ -3,9 +3,9 @@ name: codebase-design
 description: "Design and evaluate deep modules: cohesive responsibility behind a small, stable caller-facing contract, with information hiding, justified seams, explicit effects, dependency strategy, and behavior-focused tests. Use when designing or changing an in-process module or package contract, consolidating shallow pass-through modules, deciding what to hide, comparing alternative interfaces, or asking whether code should be combined or split for leverage and locality. For physical layout use structure-codebase; for public compatibility use api-design; for a repository-wide scan use improve-codebase-architecture. For an already-selected whole-path requirement to support a calibrated net-mechanism-reduction claim, use reduce-system-complexity."
 ---
 
-> Source: https://github.com/citypaul/.dotfiles/tree/6220d843058ff33bb7d3dd3af175fd82b1c7965d/claude/.claude/skills/codebase-design
+> Adapted from: https://github.com/citypaul/.dotfiles/tree/6220d843058ff33bb7d3dd3af175fd82b1c7965d/claude/.claude/skills/codebase-design
 > Imported from commit: `6220d843058ff33bb7d3dd3af175fd82b1c7965d`
-> License: MIT, Copyright (c) 2024 Paul Hammond
+> License: MIT, Copyright (c) 2026 Matt Pocock
 
 # Codebase Design
 
@@ -23,18 +23,7 @@ Read the relevant reference before proposing a consequential design:
 
 ## Vocabulary
 
-| Term | Meaning |
-|------|---------|
-| **Module** | A cohesive unit with an implementation and one or more role-shaped caller contracts: a function, object, package, or capability. Scale alone does not make it a module. |
-| **Interface / public contract** | Everything a caller must know to use the module correctly: operations, types, invariants, errors, ordering, configuration, lifecycle, effects, and relevant performance characteristics. This is broader than a TypeScript `interface` or a type signature. |
-| **Implementation** | The decisions and behavior hidden behind the caller-facing contract. Private functions may be small and numerous without becoming public modules. |
-| **Depth** | How much coherent capability and decision-making a caller gains for the contract burden it must learn. Do not measure depth by lines of code. |
-| **Leverage** | The caller benefit of depth: one learned contract applies useful behavior consistently across many scenarios. |
-| **Locality** | The maintainer benefit of depth: related knowledge, changes, bugs, and verification concentrate in one owner. |
-| **Seam** | Per Michael Feathers, a place where behavior can be changed without editing at that place; every seam has an enabling point. Not every module contract is a seam. |
-| **Adapter** | A concrete translator or implementation selected at a seam. In hexagonal architecture, retain that skill's driving, driven, and test-interactor distinctions. |
-
-Use these terms to disambiguate, not to erase useful established vocabulary. `API`, `component`, `service`, `signature`, `boundary`, `port`, and `bounded context` remain valid when they name those specific concepts.
+Load [`vocabulary`](../vocabulary/SKILL.md) and use its terms as the canonical design language. In this skill, an interface includes operations, types, invariants, errors, ordering, configuration, lifecycle, effects, and relevant performance characteristics. Do not measure depth by lines of code.
 
 ## Design Principles
 
@@ -123,10 +112,9 @@ Ask:
 - Use `structure-codebase` for file/package placement and mechanical dependency enforcement.
 - Use `reduce-system-complexity` when the accepted outcome must remove total branches, states, dependencies, layers, or operational moving parts rather than only improve caller leverage.
 - Use `evaluate-existing-solutions` when a material generic implementation choice remains unresolved after the responsibility and constraints are known.
-- Use `hexagonal-architecture` only for an opted-in ports-and-adapters system with purposeful actor conversations.
 - Use `finding-seams` when existing hard-coded dependencies block a test harness.
 - Use `characterisation-tests` before restructuring untested behavior.
-- Use `tdd`, `testing`, and `refactoring` during implementation according to whether behavior changes and whether the safety net is trustworthy; use `mutation-testing` once for the accumulated change at the end-of-phase PR-readiness gate.
+- Use `tdd`, `testing`, and `refactoring` during implementation according to whether behavior changes and whether the safety net is trustworthy; use `reproducible-locally` for proportionate automated proof.
 - Use `ubiquitous-language` when a domain term must be proposed or changed; never coin it silently.
 
 ## Design Output

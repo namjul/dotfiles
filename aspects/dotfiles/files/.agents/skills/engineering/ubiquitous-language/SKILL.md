@@ -1,13 +1,15 @@
 ---
 name: ubiquitous-language
-description: "One ubiquitous language per bounded context — mechanically enforced, evolving only by decision. Per-context Contextive-format glossaries reconciled against code by lint; the five-step language protocol (detect, propose, decide, record, rename) for every new or changed domain term; glossary-driven identifier and test-title checking. Use when naming domain concepts, when a term is missing from or fights the glossary, when spotting synonyms or near-duplicates, when bootstrapping a glossary, or when renaming across a bounded context. For DDD building blocks see domain-driven-design; for acceptance-DSL vocabulary see acceptance-testing."
+description: "One ubiquitous language per bounded context, evolving only by decision. Use when naming domain concepts, when a term is missing from or conflicts with the glossary, when spotting synonyms or near-duplicates, when bootstrapping a glossary, or when renaming across a bounded context. Covers Contextive-format glossaries, the five-step language protocol, and optional mechanical reconciliation with code."
 ---
 
-> Source: https://github.com/citypaul/.dotfiles/tree/6220d843058ff33bb7d3dd3af175fd82b1c7965d/claude/.claude/skills/ubiquitous-language
+> Adapted from: https://github.com/citypaul/.dotfiles/tree/6220d843058ff33bb7d3dd3af175fd82b1c7965d/claude/.claude/skills/ubiquitous-language
 > Imported from commit: `6220d843058ff33bb7d3dd3af175fd82b1c7965d`
 > License: MIT, Copyright (c) 2024 Paul Hammond
 
 # Ubiquitous Language: Evolution by Decision, Never Drift
+
+Load [`vocabulary`](../vocabulary/SKILL.md) for canonical software-design terms. This skill governs domain language within each bounded context.
 
 A change in the language **is** a change to the model (Evans). One ubiquitous language per bounded context — apply a single language to a whole enterprise and you will fail (Vernon). This skill makes the language a first-class, mechanically-enforced artifact that is *expected* to evolve — but only ever through an explicit, recorded decision.
 
@@ -60,13 +62,10 @@ Where a mechanical enforcement layer is installed (lint rules generated from the
 
 ## Boundaries
 
-| Situation | Skill |
+| Situation | Route |
 |-----------|-------|
-| Value objects, entities, aggregates, bounded contexts | `domain-driven-design` |
-| Ports/adapters structure the arch rules enforce | `hexagonal-architecture` |
-| DSL and test-title vocabulary in the outer loop | `acceptance-testing` |
-| Recording a model-changing rename | `adr` agent (Y-statement template) |
-| Naming questions during authoring-loop interrogation | `grill-me` (A3) |
+| Recording a model-changing rename | The project's existing ADR mechanism |
+| Naming questions during authoring-loop interrogation | `explore-design-space` (A3) |
 
 ## Verification Checklist
 

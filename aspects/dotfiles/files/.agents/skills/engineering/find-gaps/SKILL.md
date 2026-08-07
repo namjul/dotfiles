@@ -1,9 +1,9 @@
 ---
 name: find-gaps
-description: Adversarially review an existing written artifact — stories, plans, acceptance criteria, specs, or design mocks — to surface missing states, unhandled edge cases, unstated assumptions, unverifiable criteria, and slices still too broad or horizontal. Works interactively, one question at a time, writing each answer back into the artifact as a new acceptance criterion, plan update, or mock-state spec. Use when an artifact needs tightening before planning or coding ("what's missing?", "poke holes in this", "tighten this up"). Requires an artifact to inspect — for resolving a fuzzy decision tree with no artifact yet, see grill-me; for splitting oversized work, see story-splitting.
+description: Adversarially review an existing written artifact — stories, plans, acceptance criteria, specs, or design mocks — to surface missing states, unhandled edge cases, unstated assumptions, unverifiable criteria, and slices still too broad or horizontal. Works interactively, one question at a time, writing each answer back into the artifact as a new acceptance criterion, plan update, or mock-state spec. Use when an artifact needs tightening before planning or coding ("what's missing?", "poke holes in this", "tighten this up"). Requires an artifact to inspect — for resolving a fuzzy decision tree with no artifact yet, see explore-design-space; for splitting oversized work, see story-splitting.
 ---
 
-> Source: https://github.com/citypaul/.dotfiles/tree/6220d843058ff33bb7d3dd3af175fd82b1c7965d/claude/.claude/skills/find-gaps
+> Adapted from: https://github.com/citypaul/.dotfiles/tree/6220d843058ff33bb7d3dd3af175fd82b1c7965d/claude/.claude/skills/find-gaps
 > Imported from commit: `6220d843058ff33bb7d3dd3af175fd82b1c7965d`
 > License: MIT, Copyright (c) 2024 Paul Hammond
 
@@ -33,12 +33,12 @@ Pair with `characterisation-tests` when the "gap" is behavior of existing code t
 
 | Need | Use | Why |
 |------|-----|-----|
-| Pressure-test unresolved product or design decisions | `grill-me` | It interviews the decision tree and recommends answers |
+| Pressure-test unresolved product or design decisions | `explore-design-space` | It interviews the decision tree and recommends answers |
 | Break broad work into independently valuable child stories | `story-splitting` | It creates product/backlog stories, not implementation tasks |
 | Tighten a written story, plan, AC set, or mock spec | `find-gaps` | It finds missing states, edge cases, roles, constraints, and unverifiable wording, then writes confirmed decisions back |
 | Sequence a selected child story into PR-sized work | `planning` | It owns implementation slices and the TDD execution plan |
 
-If the artifact is not yet written down, first use `grill-me` or `story-splitting`. If this review discovers the artifact is actually multiple stories tangled together, stop and route back to `story-splitting`. If the artifact is clear enough to implement, route forward to `planning`.
+If the artifact is not yet written down, first use `explore-design-space` or `story-splitting`. If this review discovers the artifact is actually multiple stories tangled together, stop and route back to `story-splitting`. If the artifact is clear enough to implement, route forward to `planning`.
 
 ## Core Principles
 
@@ -96,10 +96,10 @@ Get explicit agreement to proceed ("shall we start with the payment errors?" or 
 For each gap:
 
 1. **State the gap** in one sentence. No preamble, no justification.
-2. **Ask the concrete question.** Never bundle unrelated questions. When the answer space is enumerable — failure strategies, severity classifications, state-variance scoping, parking decisions — ask via the `AskUserQuestion` tool with structured options rather than free text. See **Asking with Structure** below for the heuristic and worked examples.
-3. **If the answer is vague, ask the follow-up that makes it testable.** "The user sees an error" → "What message, and can they retry?" Follow-ups on microcopy stay free-text; follow-ups that narrow between a small set of behaviours become structured.
+2. **Ask the concrete question.** Never bundle unrelated questions. When the answer space is enumerable, present concise options and a recommended answer in the ordinary conversation.
+3. **If the answer is vague, ask the follow-up that makes it testable.** "The user sees an error" → "What message, and can they retry?"
 4. **Convert the refined answer into an artifact update** using the patterns below.
-5. **Show the proposed update** verbatim, then offer *write as-is / edit inline / discard and redo* via `AskUserQuestion`. If you have two phrasings worth comparing, put them in option `preview` fields for side-by-side review.
+5. **Show the proposed update** verbatim, then ask whether to write it as-is, edit it, or discard it.
 6. **Write it** to the source of truth once confirmed.
 7. **Move on.** Don't linger.
 
@@ -210,7 +210,7 @@ For every missed state, capture **name / trigger / visual / behaviour / exit** s
 
 **Ask only what the user can answer.** "What's the error-handling strategy?" is a design spike. "When the payment declines, what message should the user see?" is a decision.
 
-**One question per turn** — unless two are tightly coupled ("what's the error, and can the user retry from it?"). A structured `AskUserQuestion` call with 2–4 tightly-related sub-questions counts as one turn; batching *unrelated* gaps into a single call reverts to a gap dump. If you find yourself typing "Also," stop and pick the most important one.
+**One question per turn** — unless two are inseparable, such as "what is the error, and can the user retry from it?" If you find yourself typing "Also," stop and pick the most important gap.
 
 **Mirror the user's vocabulary.** If they say "buyer," the AC says "buyer." Do not silently promote it to "user" or "customer." Domain language is a feature.
 
@@ -226,74 +226,15 @@ For every missed state, capture **name / trigger / visual / behaviour / exit** s
 
 ## Asking with Structure
 
-Every question you put to the user is either free-text or structured via the `AskUserQuestion` tool. Pick based on where the value lives:
+When the answer space is known, present two to four concise options with their trade-offs and put the recommended option first. Use free text when the user's exact words are the value, including domain terminology, microcopy, and novel decisions.
 
-- **The options are the value** → `AskUserQuestion`. Picking is faster than generating, the user benefits from seeing the choice space, and the common answers are knowable.
-- **The user's specific words are the value** → free text. Domain vocabulary, microcopy, novel decisions, anything that will be copied verbatim into the artifact.
-
-### Good fits
-
-Use `AskUserQuestion` when the answer space is genuinely enumerable and recurs across projects:
-
-| Situation                  | Why a structured question helps                                                                       |
-| -------------------------- | ----------------------------------------------------------------------------------------------------- |
-| Failure strategy           | Retry / fail fast / queue / fail-over — each has a named trade-off worth surfacing                    |
-| Severity re-triage         | Blocker / Should / Nice — useful when your triage and the user's disagree                             |
-| State-variance scoping     | Which states matter for v1 — `multiSelect: true` fits perfectly                                       |
-| Parking decisions          | Park with owner / escalate now / keep working — closes the gap-handling loop                          |
-| Write-back confirmation    | Write as-is / edit inline / discard — classic 3-option close after you've drafted the update          |
-| Variant comparison         | Two G/W/T drafts or two state specs in `preview` fields — side-by-side review beats prose walkthrough |
-
-### Bad fits
-
-Don't force structure where it doesn't belong:
-
-- **Microcopy** — "what error message should appear?" needs the user's exact words.
-- **Truly open questions** — "what are you trying to achieve here?" You'd be inventing the options.
-- **Domain-expert questions** — "what does 'confirmed' mean in our pricing flow?" The user knows things you don't; structured options anchor them to your guesses.
-- **Performative prompts** — if the right answer is already obvious, don't ask. Just propose it.
-
-### Structural rules
-
-- Batch **tightly-related** sub-questions in one call (up to 4). Batching unrelated gaps is a gap dump wearing a hat.
-- Option labels 1–5 words. Put the trade-off in the `description`.
-- If one option is the recommendation, put it first, add *"(Recommended)"* to the label, and name the reason in the description.
-- *"Other"* is added automatically — trust it. Don't add a synthetic "Custom…" option.
-- Use `preview` only for comparable artifacts (AC drafts, state specs, code snippets). Simple preferences don't need side-by-side layout.
-
-### Worked example — payment decline, structured
-
-**Gap:** "No spec for payment decline behaviour."
-
-Instead of free-text back-and-forth, issue one `AskUserQuestion` call with two tightly-coupled sub-questions:
-
-```
-Q1 — header: "On decline"
-  question: "What should happen when the payment provider returns a decline?"
-  options:
-    - label: "Keep card field populated (Recommended)"
-      description: "User can edit digits and retry without re-entering everything. Matches Stripe / Shopify default."
-    - label: "Clear card field"
-      description: "Forces re-entry; lower risk of accidentally retrying a stolen card but worse UX."
-    - label: "Silent retry once, then error"
-      description: "Can mask transient failures but adds ~1s latency to every decline."
-
-Q2 — header: "Telemetry"
-  question: "Should we emit a telemetry event on decline?"
-  options:
-    - label: "Emit payment.declined (Recommended)"
-      description: "With provider reason code. Supports fraud dashboards and funnel analysis."
-    - label: "No event"
-      description: "Reduces data volume; only fine if decline rate isn't a tracked metric."
-```
-
-After the user picks, draft the AC using the chosen options (plus any "Other" text verbatim for the user's own language). Then issue a second `AskUserQuestion` offering *write as-is / edit inline / discard* on the proposed G/W/T — with two drafts in `preview` fields if the scoping or event shape was worth comparing.
+Do not invent options for an open question. Do not batch unrelated gaps. After the user answers, draft the exact artifact update and ask whether to write it as-is, edit it, or discard it.
 
 ---
 
 ## Output
 
-The **primary output is the updated artifact**, written to wherever the source of truth lives:
+The **primary output is the updated artifact**, written to wherever the source of truth lives. If it is a durable pi artifact, use `artifact_list` to locate it and edit the returned path. Use `artifact_save` only for a new artifact or a full rewrite.
 
 - Acceptance criteria → the AC list, with new/revised criteria appended or inserted in place
 - Plan → the plan document, with new paragraphs or sections
@@ -331,9 +272,9 @@ The log goes in the PR description, release notes, or wherever the work is being
 - **Stopping at three gaps.** If three surfaced in five minutes, there are probably thirty. Finish the checklist.
 - **Treating taste as a gap.** Stylistic preferences aren't gaps. Absence of decision is.
 - **Reviewing the artifact in isolation.** Cross-check plan ↔ AC ↔ mocks — gaps often appear as contradictions between two of them, not as absences in one.
-- **Inventing options just to use `AskUserQuestion`.** If you don't know the real choice space, ask free-text instead — fabricated options anchor the user to your guesses and hide their actual answer.
-- **Using `AskUserQuestion` for microcopy.** "What error message should appear?" must stay free-text. The user's exact words are the value; structured options destroy them.
-- **Batching unrelated gaps into one `AskUserQuestion` call.** Four sub-questions about the same gap is one turn. Four sub-questions about four different gaps is a gap dump in disguise.
+- **Inventing options for an open question.** Fabricated options anchor the user to guesses and hide their actual answer.
+- **Offering canned microcopy.** Ask for the user's exact words when those words become part of the artifact.
+- **Batching unrelated gaps.** Ask the highest-priority gap, capture its answer, then move to the next.
 
 ## Quick reference
 

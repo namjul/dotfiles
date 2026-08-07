@@ -3,11 +3,13 @@ name: ci-debugging
 description: Systematic CI/CD failure diagnosis using hypothesis-first investigation, local reproduction, and environment delta analysis. Use when a CI pipeline, GitHub Actions workflow, or build job fails; when tests pass locally but fail in CI; when diagnosing flaky tests, timeouts, or red pipelines; or when the user says "CI is failing", "the build is broken", or "works on my machine".
 ---
 
-> Source: https://github.com/citypaul/.dotfiles/tree/6220d843058ff33bb7d3dd3af175fd82b1c7965d/claude/.claude/skills/ci-debugging
+> Adapted from: https://github.com/citypaul/.dotfiles/tree/6220d843058ff33bb7d3dd3af175fd82b1c7965d/claude/.claude/skills/ci-debugging
 > Imported from commit: `6220d843058ff33bb7d3dd3af175fd82b1c7965d`
 > License: MIT, Copyright (c) 2024 Paul Hammond
 
 # CI Debugging
+
+Load [`investigate`](../investigate/SKILL.md) as the governing root-cause workflow. Load [`reproducible-locally`](../reproducible-locally/SKILL.md) when defining or running repeatable local proof.
 
 Every CI failure is real until proven otherwise. Never assume flakiness.
 
@@ -29,7 +31,7 @@ If the system under test emits structured telemetry (canonical events, traces, i
 
 ## Hypothesis-First Diagnosis
 
-Before investigating, list at least 3 possible root causes. Investigate each systematically rather than jumping to the first guess.
+After capturing the concrete failure, list plausible root causes supported by the available facts. Use each hypothesis to choose a discriminating probe, then revise or discard it as evidence arrives.
 
 **Example hypotheses for a test timeout:**
 1. Test relies on network access unavailable in CI
@@ -38,11 +40,11 @@ Before investigating, list at least 3 possible root causes. Investigate each sys
 
 ## Local Reproduction
 
-Always reproduce the failure locally before pushing fixes.
+Use `reproducible-locally` to turn the failure into repeatable automated evidence before pushing fixes.
 
 - Run the **exact** failing command, not a close equivalent
 - Match the CI environment as closely as possible (Node version, env vars)
-- If it passes locally, the delta between environments IS the bug
+- If it passes locally, investigate the delta between environments
 
 ## Environment Delta Analysis
 
@@ -94,4 +96,4 @@ Without this evidence, treat every failure as a real bug.
 
 ## Handoff
 
-Once the root cause is identified, write a failing test that reproduces it **before** fixing — load the `tdd` skill (or `characterisation-tests` if the broken code has no tests). A CI fix without a pinning test is a recurrence waiting to happen.
+Report the cause and evidence before changing code. If the user authorizes a fix, write a failing test that reproduces it first and load `tdd` (or `characterisation-tests` when the broken code has no tests). Use `reproducible-locally` for the final proof.
