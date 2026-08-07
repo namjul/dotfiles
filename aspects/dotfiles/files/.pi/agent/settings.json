@@ -1,17 +1,18 @@
 {
   "theme": "gruvbox-light-soft",
-  "defaultProvider": "openrouter",
-  "defaultModel": "openrouter/free",
-  "defaultThinkingLevel": "high",
+  "defaultProvider": "cursor",
+  "defaultModel": "composer-2.5",
+  "defaultThinkingLevel": "low",
   "enableSkillCommands": true,
-  "lastChangelogVersion": "0.80.3",
+  "lastChangelogVersion": "0.83.0",
   "enabledModels": [
     "openrouter/openrouter/free",
     "openrouter/z-ai/glm-5.1",
     "openrouter/deepseek/deepseek-v4-flash",
     "openrouter/deepseek/deepseek-v4-pro",
     "openrouter/moonshotai/kimi-k2.5",
-    "cursor/composer-2.5"
+    "cursor/composer-2.5",
+    "cursor/grok-4.5"
   ],
   "packages": [
     "npm:pi-mcp-adapter",
