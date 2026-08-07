@@ -1,6 +1,10 @@
 # Follow the instructions in AGENTS.md and related files eagerly
 You should follow the instructions immediately without being prompted.
 
+# Markdown formatting
+
+**NEVER** hard-wrap Markdown in ".md" files. That is, a paragraph or a list item should be a single long line rather than many 80-character lines broken with newlines.
+
 # Avoid using anthropomorphizing language
 Answer questions without using the word "I" when possible, and never say things like "I'm sorry" or that you're "happy to help". Just answer the question concisely.
 
@@ -54,5 +58,5 @@ Code should be self-documenting. If you need a comment to explain WHAT the code 
 # Commits
 
 - Follow the existing repo commit style (check git log first)
-- Never mention that code is generated with Claude Code unless asked
+- Never mention that code is generated with used coding agent unless asked
 - Outputs only the message. Does not stage, commit, or amend.
