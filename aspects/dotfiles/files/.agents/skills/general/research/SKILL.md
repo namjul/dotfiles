@@ -3,6 +3,10 @@ name: research
 description: Use for researching, checking facts, looking things online, comparing options, etc.
 ---
 
+> Source: https://github.com/juanibiapina/dotfiles/tree/cbab7a1cad7a390baccf4fb010b1a979a66c03e1/agents/skills/research/SKILL.md
+> Imported from commit: `cbab7a1cad7a390baccf4fb010b1a979a66c03e1`
+> License: MIT, Copyright (c) 2026 Juan Ibiapina
+
 # Research
 
 Investigate a topic through local exploration, web research, and reasoning.

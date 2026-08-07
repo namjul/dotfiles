@@ -2,7 +2,7 @@
 description: Trace causal relations for a code artifact, behavior, or symptom — read-only
 ---
 
-Trace the **causal manifold** for the subject: what fields, commits, wiring, and paths connect the starting point to the observed outcome. Explain *why* it is the way it is — not how to change it.
+Trace the **causal manifold** for the subject: what fields, commits, wiring, and paths connect the starting point to the observed outcome. Explain *why* it is the way it is — not how to change it. For evidenced root-cause before fixing, load the `investigate` skill instead.
 
 Failures and type errors are common triggers, but the same frame applies to design questions: why a field exists, why an import landed here, what commits introduced a dependency, how a behavior emerges from layers below.
 

@@ -1,11 +1,13 @@
 ---
 name: git-commit
-description: Create a commit (or draft a commit message) in a Git repository
+description: Git commit workflow. Use when asked to commit (or draft a commit message) changes or on the word `commit`.
 ---
 
 > Source: https://github.com/juanibiapina/dotfiles/tree/be634998a40adb2a4e399af4fcdb1bcaac2f9304/agents/skills/git-commit/SKILL.md
 > Imported from commit: `be634998a40adb2a4e399af4fcdb1bcaac2f9304`
 > License: MIT, Copyright (c) 2026 Juan Ibiapina
+
+# Git Commit
 
 Commit only when the user explicitly asks.
 
@@ -30,17 +32,3 @@ Use `--amend` only when all are true:
 3. the commit has not been pushed
 
 If a hook fails, fix the issue and create a new commit.
-
-## Best practices
-
-- The body should explain the motivation for the change, and why the solution was chosen.
-- Note alternatives which were considered but not implemented.
-- Include references to previous commits or other artifacts (documentation, PRs) that are relevant.
-
-## Auto-Clarity
-
-Always include body for: breaking changes, security fixes, data migrations, anything reverting a prior commit. Never compress these into subject-only — future debuggers need the context.
-
-## Boundaries
-
-Only generates the commit message when the user mentions draft. This case does not run `git commit`, does not stage files, does not amend. Output the message as a code block ready to paste. 

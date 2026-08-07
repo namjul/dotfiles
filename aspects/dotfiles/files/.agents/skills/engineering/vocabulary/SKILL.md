@@ -3,7 +3,7 @@ name: vocabulary
 description: Use when writing code plans, architecture, or generally discussing code
 ---
 
-> Source: https://github.com/juanibiapina/dotfiles/tree/fabe977472d17819ab3ca613de4740efe0524509/agents/skills/plan/SKILL.md
+> Source: https://github.com/juanibiapina/dotfiles/tree/fabe977472d17819ab3ca613de4740efe0524509/agents/skills/vocabulary/SKILL.md
 > Imported from commit: `fabe977472d17819ab3ca613de4740efe0524509`
 > License: MIT, Copyright (c) 2026 Juan Ibiapina
 

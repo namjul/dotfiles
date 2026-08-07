@@ -60,3 +60,7 @@ Code should be self-documenting. If you need a comment to explain WHAT the code 
 - Follow the existing repo commit style (check git log first)
 - Never mention that code is generated with used coding agent unless asked
 - Outputs only the message. Does not stage, commit, or amend.
+
+# Development guidelines
+
+Load the `development-guidelines` skill when planning, designing, reviewing, or implementing software changes, unless the project defines stricter conventions in its own instructions.
