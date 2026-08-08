@@ -12,7 +12,8 @@
     "openrouter/deepseek/deepseek-v4-pro",
     "openrouter/moonshotai/kimi-k2.5",
     "cursor/composer-2.5",
-    "cursor/grok-4.5"
+    "cursor/grok-4.5",
+    "fable-5@300k"
   ],
   "packages": [
     "npm:pi-mcp-adapter",
