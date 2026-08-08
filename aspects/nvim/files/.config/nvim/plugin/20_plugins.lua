@@ -528,16 +528,12 @@ later(function()
 end)
 
 later(function()
-  local build = function() vim.fn['mkdp#util#install']() end
   add({
-    source = 'iamcco/markdown-preview.nvim',
-    hooks = {
-      post_install = function() later(build) end,
-      post_checkout = build,
-    },
+    source = 'brianhuster/live-preview.nvim',
   })
-  -- Do not close the preview tab when switching to other buffers
-  vim.g.mkdp_auto_close = 0
+  require('livepreview.config').set({
+    picker = 'mini.pick',
+  })
 end)
 
 now(function()
