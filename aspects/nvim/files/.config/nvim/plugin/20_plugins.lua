@@ -522,8 +522,11 @@ end)
 
 -- Git: fugitive ===
 later(function()
-  add('tpope/vim-fugitive')
-  add('shumphrey/fugitive-gitlab.vim') -- open files on gitlab
+  add({
+    source = 'tpope/vim-fugitive',
+    depends = { 'tpope/vim-rhubarb', 'shumphrey/fugitive-gitlab.vim' },
+  })
+  add('shumphrey/fugitive-gitlab.vim')
   vim.g.fugitive_gitlab_domains = { 'https://gitlab.tools.wienfluss.net/' }
 end)
 
