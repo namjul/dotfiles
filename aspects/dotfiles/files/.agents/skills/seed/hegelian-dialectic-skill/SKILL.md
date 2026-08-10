@@ -3,6 +3,10 @@ name: dialectic
 description: An Electric Monk engine — two subagents believe fully committed positions on the user's behalf while the orchestrator performs structural contradiction analysis and synthesis. By outsourcing belief work to agents, the user operates from a belief-free position where they can analyze the structure of the contradiction rather than being inside either side. Use when the user wants to stress-test an idea, resolve a genuine tension, build a deeper mental model, or make a high-stakes decision where the tradeoffs are unclear. Works across any domain — technical architecture, product strategy, philosophy, personal decisions, risk analysis, policy, creative direction.
 ---
 
+> Source: https://github.com/KyleAMathews/hegelian-dialectic-skill/tree/72df88b0d78aae8f698b59b96c8d9c3bf1dceba3/SKILL.md
+> Imported from commit: `72df88b0d78aae8f698b59b96c8d9c3bf1dceba3`
+> License: MIT, Copyright (c) 2026 Kyle Mathews
+
 # The Electric Monks — Dialectic Skill
 
 An **artificial belief system** for building deeper understanding through productive contradiction.
@@ -505,4 +509,4 @@ Write these as markdown files in the dialectic's output directory (see file orga
 
 # Source
 
-- https://github.com/KyleAMathews/hegelian-dialectic-skill/tree/main
+- https://github.com/KyleAMathews/hegelian-dialectic-skill/blob/main/SKILL.md
