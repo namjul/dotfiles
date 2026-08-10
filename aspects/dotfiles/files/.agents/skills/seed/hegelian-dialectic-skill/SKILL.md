@@ -3,7 +3,7 @@ name: dialectic
 description: An Electric Monk engine — two subagents believe fully committed positions on the user's behalf while the orchestrator performs structural contradiction analysis and synthesis. By outsourcing belief work to agents, the user operates from a belief-free position where they can analyze the structure of the contradiction rather than being inside either side. Use when the user wants to stress-test an idea, resolve a genuine tension, build a deeper mental model, or make a high-stakes decision where the tradeoffs are unclear. Works across any domain — technical architecture, product strategy, philosophy, personal decisions, risk analysis, policy, creative direction.
 ---
 
-> Source: https://github.com/KyleAMathews/hegelian-dialectic-skill/tree/72df88b0d78aae8f698b59b96c8d9c3bf1dceba3/SKILL.md
+> Adapted from: https://github.com/KyleAMathews/hegelian-dialectic-skill/tree/72df88b0d78aae8f698b59b96c8d9c3bf1dceba3/SKILL.md
 > Imported from commit: `72df88b0d78aae8f698b59b96c8d9c3bf1dceba3`
 > License: MIT, Copyright (c) 2026 Kyle Mathews
 
@@ -52,7 +52,7 @@ Three frameworks drive every phase of this skill. Internalize them before procee
 
 ## How It Works: Overview
 
-You are the **orchestrator**. You conduct the elenctic interview, identify the user's belief burden, generate the monk prompts, spawn the Electric Monks, perform the structural analysis, and produce the synthesis. You use subagent sessions (via `claude -p` or your environment's equivalent) for the monks so each gets a fresh, fully committed belief context.
+You are the **orchestrator**. You conduct the elenctic interview, identify the user's belief burden, generate the monk prompts, spawn the Electric Monks, perform the structural analysis, and produce the synthesis. You use subagent sessions (via `pi -p` in pi; `claude -p` or Task elsewhere) for the monks so each gets a fresh, fully committed belief context.
 
 ```
 You (Orchestrator)
@@ -235,22 +235,26 @@ Based on three test runs across different domains (normative/institutional, busi
 
 **Key insight:** For external domains, Phase 1 research is the highest-value spend. For personal domains, Phase 1 *interview depth* is the highest-value spend — the monks can only believe as specifically as the briefing allows.
 
-## Environment Mapping: Claude Code / Task Tool
+## Environment Mapping: pi (primary) / Claude Code / Task
 
-This skill is written around `claude -p` (pipe mode) for spawning subagents. If you're running in Claude Code using the Task tool, here are the key differences:
+Spawn Electric Monks as isolated subagent sessions. **In pi, `pi -p` (print mode) is the primary spawn path.** Claude Code (`claude -p` / Task) remains a supported fallback.
 
-| Skill instruction | `claude -p` | Claude Code Task tool |
-|-------------------|-------------|----------------------|
-| Spawn subagent | `echo "[PROMPT]" \| claude -p > output.md` | `Task(prompt, subagent_type="general-purpose")` |
-| Parallel execution | Background shell jobs | `run_in_background=true` |
-| Output to file | Shell redirect (`> file.md`) | Agent returns text; orchestrator writes files |
-| Session resumption (Phase 6) | Resume same `claude -p` session | `resume` parameter with `agentId` — but persona may not persist without reinforcement. Include a summary of the agent's original argument as fallback. |
-| Model selection | `--model` flag | `model` parameter (defaults to inheriting from parent) |
-| Tool access | `--allowedTools web_search,web_fetch` | Inherits from parent or configure per-task |
+| Skill instruction | pi (primary) | `claude -p` | Claude Code / Cursor Task |
+|-------------------|--------------|-------------|---------------------------|
+| Spawn subagent | `echo "[PROMPT]" \| pi -p > output.md` (or `pi -p @briefing.md "[PROMPT]"`) | `echo "[PROMPT]" \| claude -p > output.md` | `Task(prompt, subagent_type="generalPurpose")` (or environment's general-purpose subagent) |
+| Parallel execution | Background shell jobs; optional installed `subagent` extension with `tasks: [...]` | Background shell jobs | `run_in_background=true` (or parallel Task calls) |
+| Output to file | Shell redirect (`> file.md`); with `subagent` extension, parent writes returned text | Shell redirect | Agent returns text; orchestrator writes files |
+| Session resumption (Phase 6) | `pi --session <id\|path> -p "..."` — persona may need reinforcement; include a summary of the original argument as fallback | Resume same `claude -p` session | `resume` + `agentId` with the same fallback |
+| Model selection | `--model` / `--provider` | `--model` | `model` parameter (defaults to inheriting from parent) |
+| Tool access | `--tools read,bash,edit,write,grep,find,ls` (pi builtins). No built-in `web_search`/`web_fetch` — use bash, MCP, or an installed search extension for research. | `--allowedTools web_search,web_fetch` | Inherits from parent or configure per-task |
 
-**Key difference:** With `claude -p`, agents write output directly to files via shell redirect. With the Task tool, agents return text to the orchestrator, who writes files. This adds a step but gives the orchestrator control over file naming and structure. Either approach works — just be aware that the file I/O pattern differs.
+**File I/O:** With `pi -p` / `claude -p`, shell redirect writes the essay. With Task or pi's optional `subagent` extension, the agent returns text and the orchestrator writes the file.
 
-**Session resumption for validation:** The skill prefers resuming original agent sessions so validators retain their full conviction context. In Claude Code, this works via `resume` + `agentId`, but test runs found the persona sometimes needs reinforcement. The fallback — a fresh validation prompt that includes a summary of the agent's original argument — works well in practice.
+**Optional pi `subagent` extension:** Pi core has no built-in subagents. If the example extension is installed under `~/.pi/agent/extensions/subagent` (with a general-purpose agent such as `worker`), prefer its parallel `tasks` mode for monks. Otherwise shell out to `pi -p`.
+
+**Session resumption for validation:** Prefer resuming original sessions so validators keep conviction context. In pi use `--session`; elsewhere use the table above. Fallback: a fresh validation prompt that includes a summary of the agent's original argument.
+
+**Cursor + pi bridge:** If running under Cursor without a pi subagent tool, use Cursor `Task` the same way as the Task column — do not invent pi history/replay tool names.
 
 ## Domain Adaptation
 
