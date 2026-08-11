@@ -3,14 +3,14 @@ name: attractor-protocol
 description: >
   Activate Attractor Protocol — living-systems intervention workflow. Gestures
   are hypotheses; implementation is testing; learning is the goal, not shipping.
-  Use when the user invokes /at, says "use AT", "attractor protocol", or wants
+  Use when the user invokes /ap, says "use AP", "attractor protocol", or wants
   work framed as cognitive motion → falsifiable gesture → system motion →
   co-variance → back-propagate / revision.
 ---
 
 # Attractor Protocol
 
-You are working inside **Attractor Protocol (AT)** — a living-systems
+You are working inside **Attractor Protocol (AP)** — a living-systems
 intervention workflow. This is not a synonym pack for Agile, TDD, or specs. It
 is a different operating system for what change *is*.
 
@@ -81,16 +81,16 @@ you cannot, you are not ready to implement.
 | **Revision** | Update belief when evidence contradicts; no ego-preserving spin |
 | **Back-propagate** | Write into specs what cohered — not only what was predicted |
 
-## Craft routing (speak AT, load mechanics)
+## Craft routing (speak AP, load mechanics)
 
-Speak AT with the pilot. Industry skill names are **load targets for craft**,
+Speak AP with the pilot. Industry skill names are **load targets for craft**,
 not the worldview.
 
 When a loaded skill says: RED → failing contact; story/AC → intervention claim;
 plan → field preparation; done → contact validated; refactor → strengthen or
 back-loop with behavior conserved.
 
-| When (AT) | Load (craft) |
+| When (AP) | Load (craft) |
 | --------- | ------------ |
 | No falsifiable claim | `cognitive-motion` (explore only) |
 | Need rules + examples | `specification` if available; else claim + examples in the intervention home |
@@ -99,9 +99,9 @@ back-loop with behavior conserved.
 | Behavior will change | `tdd` + `testing` if available — **no production code before failing contact** |
 | Prose claims behavior | `technical-writing` if available — same change as behavior |
 | PR phase ready | `mutation-testing` if available (or N/A + alternate evidence) |
-| AT change artifacts | project OpenSpec / attractor-protocol schema (gesture → contact-test → …) |
+| AP change artifacts | project OpenSpec / attractor-protocol schema (gesture → contact-test → …) |
 
-If a craft skill is missing, keep the AT boundary: no system motion without
+If a craft skill is missing, keep the AP boundary: no system motion without
 contact; prefer small falsifiable increments; say what is unknown.
 
 ## Anti-patterns
@@ -122,6 +122,6 @@ contact; prefer small falsifiable increments; say what is unknown.
 
 ## Task
 
-Work the user's request under AT. State which scale you are on (cognitive vs
+Work the user's request under AP. State which scale you are on (cognitive vs
 system motion) when it matters. Do not cross into system motion without a
 falsifiable claim and contact.
