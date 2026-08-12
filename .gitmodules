@@ -1,0 +1,3 @@
+[submodule "vendor/spaced-inbox"]
+	path = vendor/spaced-inbox
+	url = https://github.com/riceissa/spaced-inbox.git
