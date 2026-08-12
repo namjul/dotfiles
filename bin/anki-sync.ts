@@ -14,13 +14,25 @@ const DECK_NAME = basename(Deno.cwd());
 const BASIC_MODEL_ID = 1342697561;
 const CLOZE_MODEL_ID = 1045689296;
 const DECK_ID = 1;
-const SKIP: readonly string[] = [
-  "node_modules",
-  "scripts",
-  "assets",
-  "anki-decks",
-  "template.",
+type SkipRule =
+  | { kind: "prefix"; pattern: string; reason: string }
+  | { kind: "suffix"; pattern: string; reason: string };
+
+const SKIP_RULES: readonly SkipRule[] = [
+  { kind: "prefix", pattern: "node_modules", reason: "dependency tree" },
+  { kind: "prefix", pattern: "scripts", reason: "build/tooling" },
+  { kind: "prefix", pattern: "assets", reason: "non-text assets" },
+  { kind: "prefix", pattern: "anki-decks", reason: "sync output" },
+  { kind: "prefix", pattern: "template", reason: "memex /template folder (template.*)" },
+  { kind: "suffix", pattern: ".template.md", reason: "co-located entry templates" },
 ];
+
+const shouldSkipPath = (rel: string): boolean =>
+  SKIP_RULES.some((rule) =>
+    rule.kind === "prefix"
+      ? rel.startsWith(rule.pattern)
+      : rel.endsWith(rule.pattern)
+  );
 const ALIASES: Record<string, string> = {
   lang: "language",
   proj: "project",
@@ -218,8 +230,7 @@ async function* walkMdFiles(): AsyncGenerator<string> {
   for (
     const rel of new TextDecoder().decode(stdout).split("\n").filter(Boolean)
   ) {
-    if (!rel.endsWith(".md")) continue;
-    if (SKIP.some((s) => rel.startsWith(s))) continue;
+    if (!rel.endsWith(".md") || shouldSkipPath(rel)) continue;
     const fullPath = join(ROOT, rel);
     if (await isPlainText(fullPath)) yield fullPath;
   }
