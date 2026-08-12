@@ -711,6 +711,24 @@ later(function()
           }
         end,
       })
+      overseer.register_template({
+        name = 'Roll',
+        builder = function()
+          return {
+            cmd = { 'spaced_inbox.py', '-r' },
+            components = {
+              {
+                'on_output_quickfix',
+                errorformat = '%f:%l:%c:%m',
+                open = false,
+                tail = false,
+              },
+              'jump_first_quickfix',
+              'default',
+            },
+          }
+        end,
+      })
       vim.cmd.cnoreabbrev('OS OverseerShell')
     end,
     commands = {
