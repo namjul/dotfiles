@@ -68,7 +68,8 @@ sudo pacman -S --needed --noconfirm gnome-keyring libsecret # D-Bus Secret Servi
 sudo pacman -S --needed --noconfirm sddm # login manager — config in aspects/aur/login
 sudo pacman -S --needed --noconfirm sway swaybg mako libnotify i3status-rust alacritty # Wayland compositor (PLAN.sway step 4)
 sudo pacman -S --needed --noconfirm xdg-desktop-portal-wlr xdg-desktop-portal-gtk qt5-wayland qt6-wayland # Wayland integration (PLAN.sway step 5)
-sudo pacman -S --needed --noconfirm lxsession # polkit authentication agent (provides lxpolkit)
+sudo pacman -S --needed --noconfirm lxsession # polkit auth agent for i3/X11 fallback (lxpolkit)
+sudo pacman -S --needed --noconfirm polkit-gnome # polkit auth agent for sway/Wayland (PLAN.sway step 8)
 sudo pacman -S --needed --noconfirm imv # https://sr.ht/~exec64/imv/
 sudo pacman -S --needed --noconfirm iwd # https://wiki.archlinux.org/title/Iwd
 sudo pacman -S --needed --noconfirm chromium
