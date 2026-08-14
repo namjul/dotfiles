@@ -109,6 +109,7 @@ variables(({ identity }) => ({
     ".agents/skills/general/create-task",
     ".agents/skills/general/creative-guardian",
     ".agents/skills/general/etymology-research",
+    ".agents/skills/general/flashcards",
     ".agents/skills/general/find-skills",
     ".agents/skills/general/manage-aspects",
     ".agents/skills/general/reflect",
