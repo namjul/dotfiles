@@ -30,7 +30,7 @@ Sequence: sddm → PAM → sway → runtime components. SDDM installed early (st
 | ~~11~~ | ~~`grim`, `slurp`, `satty`~~ | ~~Screenshots~~ | ~~`capture-screenshot`; region + fullscreen in sway~~ | ~~Done — `942d10b5`; `bin/capture-screenshot`; i3 keeps flameshot~~ |
 | ~~12~~ | ~~`wl-clipboard`~~ | ~~Wayland clipboard~~ | ~~`wl-copy` / `wl-paste`~~ | ~~Done — `942d10b5` (installed with step 11); prerequisite for step 13~~ |
 | 13 | `passmenu` → wofi dmenu | gopass password picker | `passmenu` → wofi → `wl-paste`; wofi drun via `.desktop` | Needs steps 7, 10, 12; spec: [SPEC.sway-step-12-passmenu.md](SPEC.sway-step-12-passmenu.md) |
-| 14 | `pamixer`, `swayosd` | Volume OSD | Volume keys show OSD | Both official repos (`extra`); paru not required |
+| ~~14~~ | ~~`pamixer`, `swayosd`~~ | ~~Volume OSD~~ | ~~Volume keys show OSD~~ | ~~Done — `f747f33f`; mic mute deferred (VM key forwarding); i3 keeps pactl~~ |
 | 15 | `swayidle`, `swaylock` | Idle lock | `swaylock` manually; idle blank | Replaces `xss-lock` + `i3lock` |
 | 16 | `systemctl enable --now sddm` + sway session | Full login flow | Pre-enable: `test -f /usr/share/wayland-sessions/sway.desktop`; reboot → SDDM → pick Sway → `SSH_AUTH_SOCK` set | Session file ships with `sway` package (`login/sddm.sh` is PAM only); see Step 16 recovery |
 | 17 | `power-profiles-daemon` + systemd concern | Power profiles | Skip in VM (no battery) | Real hardware |

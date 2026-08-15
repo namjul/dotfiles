@@ -72,6 +72,7 @@ variables(({ identity }) => ({
     ".config/mako",
     ".config/wofi",
     ".config/swayosd",
+    ".config/swaylock",
     ".local/share/light-mode.d",
     ".local/share/dark-mode.d",
     ".local/share/applications",
@@ -210,6 +211,7 @@ if (import.meta.main) {
         ".config/sway",
         ".config/wofi",
         ".config/swayosd",
+        ".config/swaylock",
       ]);
       for (const src of files) {
         const rel = src.toString();

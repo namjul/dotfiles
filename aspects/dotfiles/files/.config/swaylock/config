@@ -1,0 +1,6 @@
+# gruvbox-dark-soft — matches sway bar / swayosd palette
+ignore-empty-password
+color=282828
+text-color=ebdbb2
+ring-color=458588
+inside-color=282828
