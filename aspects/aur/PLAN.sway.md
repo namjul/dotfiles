@@ -19,7 +19,7 @@ Sequence: sddm → PAM → sway → runtime components. SDDM installed early (st
 |---|---|---|---|---|
 | ~~1~~ | ~~`noto-fonts`, `noto-fonts-emoji`, `man-db`~~ | ~~Typography~~ | ~~`fc-list \| grep Noto`~~ | ~~Shared with hyprland plan~~ |
 | ~~2~~ | ~~`gnome-keyring`, `libsecret` + `login/default-keyring.sh`~~ | ~~Credentials~~ | ~~`gnome-keyring-daemon --version`~~ | ~~Done~~ |
-| ~~3~~ | ~~`sddm` + `login/sddm.sh` (PAM)~~ | ~~Login manager (not enabled yet)~~ | ~~`pacman -Q sddm`; PAM session line; `systemctl is-enabled sddm` → disabled~~ | ~~PAM only; sway session file comes with `sway` package — verify at step 16~~ |
+| ~~3~~ | ~~`sddm` + `login/sddm.sh`~~ | ~~Login manager (PAM + enable)~~ | ~~`pacman -Q sddm`; PAM session line; `systemctl is-enabled sddm` → enabled~~ | ~~In `login` task; `enable` only (no `--now`) — omarchy pattern; reboot for greeter (step 16)~~ |
 | ~~4~~ | ~~`sway` (+ swap compositor packages)~~ | ~~Wayland compositor — i3-compatible; port `i3/config` → `sway/config`~~ | ~~`sway --version`; `WLR_RENDERER=pixman sway` from TTY~~ | ~~**Replace** `hyprland`/`uwsm`/`portal-hyprland` in `packages` with `sway`; remove `aspects/dotfiles/.../hypr/` or leave unused~~ |
 | ~~5~~ | ~~`mako`~~ | ~~Notifications~~ | ~~`notify-send test` in sway~~ | ~~`dunst` stays on Ubuntu~~ |
 | ~~6~~ | ~~`xdg-desktop-portal-wlr`, `xdg-desktop-portal-gtk`, `qt5-wayland`, `qt6-wayland`~~ | ~~Wayland portals + Qt Wayland~~ | ~~`pacman -Q …`; Chromium `Ctrl+O` file dialog in sway~~ | ~~Done — portal-wlr activation deferred to step 11; see Step 6 done rule~~ |
@@ -31,8 +31,8 @@ Sequence: sddm → PAM → sway → runtime components. SDDM installed early (st
 | ~~12~~ | ~~`wl-clipboard`~~ | ~~Wayland clipboard~~ | ~~`wl-copy` / `wl-paste`~~ | ~~Done — `942d10b5` (installed with step 11); prerequisite for step 13~~ |
 | 13 | `passmenu` → wofi dmenu | gopass password picker | `passmenu` → wofi → `wl-paste`; wofi drun via `.desktop` | Needs steps 7, 10, 12; spec: [SPEC.sway-step-12-passmenu.md](SPEC.sway-step-12-passmenu.md) |
 | ~~14~~ | ~~`pamixer`, `swayosd`~~ | ~~Volume OSD~~ | ~~Volume keys show OSD~~ | ~~Done — `f747f33f`; mic mute deferred (VM key forwarding); i3 keeps pactl~~ |
-| 15 | `swayidle`, `swaylock` | Idle lock | `swaylock` manually; idle blank | Replaces `xss-lock` + `i3lock` |
-| 16 | `systemctl enable --now sddm` + sway session | Full login flow | Pre-enable: `test -f /usr/share/wayland-sessions/sway.desktop`; reboot → SDDM → pick Sway → `SSH_AUTH_SOCK` set | Session file ships with `sway` package (`login/sddm.sh` is PAM only); see Step 16 recovery |
+| ~~15~~ | ~~`swayidle`, `swaylock`~~ | ~~Idle lock~~ | ~~`swaylock` manually; idle blank~~ | ~~Done — `c80d3b65`; replaces `xss-lock` + `i3lock`~~ |
+| ~~16~~ | ~~Reboot + sway session via SDDM~~ | ~~Full login flow~~ | ~~`systemctl is-enabled sddm`; reboot → SDDM → pick Sway → `SSH_AUTH_SOCK` set~~ | ~~Done — reboot verified; `login/sddm.sh` in login task~~ |
 | 17 | `power-profiles-daemon` + systemd concern | Power profiles | Skip in VM (no battery) | Real hardware |
 
 ### Step 16 — recovery
