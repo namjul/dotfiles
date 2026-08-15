@@ -26,9 +26,9 @@ Sequence: sddm → PAM → sway → runtime components. SDDM installed early (st
 | 7 | gopass store import | Password store from GitHub — decrypt secrets | `gopass ls`; `fnox exec -- env \| rg GITHUB_TOKEN` | SSH via `aspects/ssh/key.yml`; GPG separate; spec: [SPEC.gopass-store.md](SPEC.gopass-store.md) |
 | ~~8~~ | ~~`polkit-gnome`~~ | ~~Auth agent for privileged actions~~ | ~~`pkexec true` → polkit dialog in sway; auth succeeds~~ | ~~`exec` in `sway/config`; replaces `lxpolkit`; package in `aspects/aur/packages`~~ |
 | ~~9~~ | ~~sway `bar {}` + `i3status-rust`~~ | ~~Status bar (status quo)~~ | ~~Bar shows workspaces/status in sway~~ | ~~Done as shipped in step 4; **waybar deferred** (optional later, not blocking)~~ |
-| 10 | `wofi` | App launcher | Launch via `$mod+space` in sway | Replaces X11 `rofi` bind; spec: [SPEC.sway-step-9-wofi.md](SPEC.sway-step-9-wofi.md) |
-| 11 | `grim`, `slurp`, `satty` | Screenshots | `grim /tmp/test.png` in sway | Replaces `flameshot` on Arch Wayland |
-| 12 | `wl-clipboard` | Wayland clipboard | `wl-copy` / `wl-paste` | Prerequisite for step 13 |
+| ~~10~~ | ~~`wofi`~~ | ~~App launcher~~ | ~~Launch via `$mod+space` in sway~~ | ~~Done — `78ef905f`; replaces X11 `rofi` bind; spec: [SPEC.sway-step-9-wofi.md](SPEC.sway-step-9-wofi.md)~~ |
+| ~~11~~ | ~~`grim`, `slurp`, `satty`~~ | ~~Screenshots~~ | ~~`capture-screenshot`; region + fullscreen in sway~~ | ~~Done — `942d10b5`; `bin/capture-screenshot`; i3 keeps flameshot~~ |
+| ~~12~~ | ~~`wl-clipboard`~~ | ~~Wayland clipboard~~ | ~~`wl-copy` / `wl-paste`~~ | ~~Done — `942d10b5` (installed with step 11); prerequisite for step 13~~ |
 | 13 | `passmenu` → wofi dmenu | gopass password picker | `passmenu` → wofi → `wl-paste`; wofi drun via `.desktop` | Needs steps 7, 10, 12; spec: [SPEC.sway-step-12-passmenu.md](SPEC.sway-step-12-passmenu.md) |
 | 14 | `pamixer`, `swayosd` | Volume OSD | Volume keys show OSD | Both official repos (`extra`); paru not required |
 | 15 | `swayidle`, `swaylock` | Idle lock | `swaylock` manually; idle blank | Replaces `xss-lock` + `i3lock` |

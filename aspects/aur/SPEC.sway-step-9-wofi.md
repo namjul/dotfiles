@@ -1,7 +1,7 @@
 # Step 9 — wofi (app launcher)
 
 **Parent plan:** [PLAN.sway.md](PLAN.sway.md) step 10  
-**Status:** draft (agent-facilitated round 1 — needs human review before implementation)
+**Status:** done — `78ef905f` (VM verified)
 
 ## Story
 
