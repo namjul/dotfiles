@@ -125,9 +125,10 @@ bindsym $mod+Shift+Tab move scratchpad
 # Show the first scratchpad window
 bindsym $mod+Tab scratchpad show  # sway: was scratchpad_focused.sh (i3-msg)
 
-# Print
-# bindsym Print exec grim -g "$(slurp)" /tmp/screenshot.png  # was flameshot gui
-# bindsym $mod+Shift+s exec grim -g "$(slurp)" /tmp/screenshot.png  # was flameshot gui
+# Screenshot (grim + slurp + satty; i3 keeps flameshot)
+bindsym Print exec capture-screenshot
+bindsym $mod+Shift+s exec capture-screenshot
+bindsym $mod+Shift+Ctrl+s exec capture-screenshot fullscreen
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod

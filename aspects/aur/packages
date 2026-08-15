@@ -72,6 +72,7 @@ sudo pacman -S --needed --noconfirm lxsession # polkit auth agent for i3/X11 fal
 sudo pacman -S --needed --noconfirm polkit-gnome # polkit auth agent for sway/Wayland (PLAN.sway step 8)
 sudo pacman -S --needed --noconfirm wofi # app launcher for sway (PLAN.sway step 10)
 sudo pacman -S --needed --noconfirm darkman # theme toggle for wofi/rofi/alacritty (PLAN.sway step 10)
+sudo pacman -S --needed --noconfirm grim slurp satty wl-clipboard # screenshots for sway (PLAN.sway step 11)
 sudo pacman -S --needed --noconfirm imv # https://sr.ht/~exec64/imv/
 sudo pacman -S --needed --noconfirm iwd # https://wiki.archlinux.org/title/Iwd
 sudo pacman -S --needed --noconfirm chromium

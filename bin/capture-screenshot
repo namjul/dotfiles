@@ -1,0 +1,94 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Wayland screenshot: grim + slurp + satty (Sway). i3 keeps flameshot.
+
+[[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/user-dirs.dirs" ]] && \
+  source "${XDG_CONFIG_HOME:-$HOME/.config}/user-dirs.dirs"
+
+OUTPUT_DIR="${SCREENSHOT_DIR:-${XDG_PICTURES_DIR:-$HOME/Pictures}}"
+SCREENSHOT_EDITOR="${SCREENSHOT_EDITOR:-satty}"
+
+if ! command -v grim >/dev/null || ! command -v slurp >/dev/null; then
+  notify-send "Screenshot failed" "grim and slurp are required (mise r aur:packages)" -u critical
+  exit 1
+fi
+
+# Second keypress cancels an in-progress region selection (omarchy pattern).
+pkill -x slurp 2>/dev/null && exit 0
+
+mkdir -p "$OUTPUT_DIR"
+
+MODE="${1:-region}"
+
+open_editor() {
+  local filepath="$1"
+  if [[ $SCREENSHOT_EDITOR == "satty" ]]; then
+    if ! command -v satty >/dev/null; then
+      notify-send "Screenshot edit failed" "satty not installed (mise r aur:packages)" -u critical
+      return 1
+    fi
+    satty --filename "$filepath" \
+      --output-filename "$filepath" \
+      --actions-on-enter save-to-clipboard \
+      --save-after-copy \
+      --copy-command 'wl-copy'
+  else
+    "$SCREENSHOT_EDITOR" "$filepath"
+  fi
+}
+
+wait_for_edit_action() {
+  local filepath="$1"
+  local action
+  action=$(notify-send \
+    "Screenshot saved" \
+    "Saved to $(basename "$filepath") — click to edit" \
+    -t 10000 \
+    -i "$filepath" \
+    -A "default=Edit" \
+    -h string:x-canonical-private-synchronous:screenshot)
+  if [[ $action == "default" ]]; then
+    open_editor "$filepath" || true
+  fi
+}
+
+case "$MODE" in
+  fullscreen)
+    SELECTION=""
+    ;;
+  region | *)
+    SELECTION=$(slurp 2>/dev/null || true)
+    [[ -z $SELECTION ]] && exit 0
+    ;;
+esac
+
+FILENAME="screenshot-$(date +'%Y-%m-%d_%H-%M-%S').png"
+FILEPATH="$OUTPUT_DIR/$FILENAME"
+
+if [[ -n $SELECTION ]]; then
+  grim -g "$SELECTION" "$FILEPATH"
+else
+  grim "$FILEPATH"
+fi
+
+if command -v wl-copy >/dev/null; then
+  wl-copy <"$FILEPATH"
+fi
+
+# Open editor immediately (flameshot-style). Notification "Edit" is a fallback if
+# satty was closed; must survive after this script exits (disown).
+case "${SCREENSHOT_EDIT:-notify}" in
+  immediate)
+    open_editor "$FILEPATH" &
+    disown
+    notify-send "Screenshot saved" "Saved to $(basename "$FILEPATH")" -t 5000 -i "$FILEPATH"
+    ;;
+  notify)
+    wait_for_edit_action "$FILEPATH" &
+    disown
+    ;;
+  never)
+    notify-send "Screenshot saved" "Saved to $(basename "$FILEPATH")" -t 5000 -i "$FILEPATH"
+    ;;
+esac
