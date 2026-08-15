@@ -1,0 +1,27 @@
+/* gruvbox-dark-soft — vars from .pi/agent/themes/gruvbox-dark-soft.json */
+@define-color bg #32302f;
+@define-color fg #ebdbb2;
+@define-color accent #83a598;
+@define-color border #7c6f64;
+
+window#osd {
+  border-radius: 0;
+  border: 2px solid @border;
+  background-color: @bg;
+  opacity: 0.97;
+}
+
+window#osd image,
+window#osd label {
+  color: @fg;
+}
+
+window#osd progressbar trough,
+window#osd segmentedprogress segment {
+  background: @alpha(@fg, 0.35);
+}
+
+window#osd progressbar progress,
+window#osd segmentedprogress segment.active {
+  background: @accent;
+}
