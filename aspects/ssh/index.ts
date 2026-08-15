@@ -9,8 +9,8 @@ const sshDir = path.home.join(".ssh").toString();
 const configTarget = path.home.join(".ssh", "config").toString();
 const encryptedConfigSource = path.aspect.join("files", ".ssh", "config.encrypted").toString();
 const keyFile = path.aspect.join("key.yml").toString();
-const publicKeyPath = path.home.join(".ssh", "id_rsa.pub").toString();
-const privateKeyPath = path.home.join(".ssh", "id_rsa").toString();
+const publicKeyPath = path.home.join(".ssh", "id_ed25519.pub").toString();
+const privateKeyPath = path.home.join(".ssh", "id_ed25519").toString();
 
 if (import.meta.main) {
   const sub = Deno.args[0];
