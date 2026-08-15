@@ -70,6 +70,7 @@ variables(({ identity }) => ({
     ".config/ncspot",
     ".config/dunst",
     ".config/mako",
+    ".config/wofi",
     ".local/share/light-mode.d",
     ".local/share/dark-mode.d",
     ".local/share/applications",
@@ -206,6 +207,7 @@ if (import.meta.main) {
       const skipOnDebian = new Set([
         ".config/mako",
         ".config/sway",
+        ".config/wofi",
       ]);
       for (const src of files) {
         const rel = src.toString();

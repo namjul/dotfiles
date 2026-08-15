@@ -1,0 +1,49 @@
+@define-color bg #32302f;
+@define-color panel #3c3836;
+@define-color selected #665c54;
+@define-color border #7c6f64;
+@define-color text #ebdbb2;
+
+window {
+  margin: 0px;
+  border: 2px solid @border;
+  background-color: @bg;
+}
+
+#input {
+  margin: 5px;
+  border: none;
+  color: @text;
+  background-color: @panel;
+}
+
+#inner-box {
+  margin: 5px;
+  border: none;
+  background-color: @bg;
+}
+
+#outer-box {
+  margin: 5px;
+  border: none;
+  background-color: @bg;
+}
+
+#scroll {
+  margin: 0px;
+  border: none;
+}
+
+#text {
+  margin: 5px;
+  border: none;
+  color: @text;
+}
+
+#entry:selected {
+  background-color: @selected;
+}
+
+#entry:selected #text {
+  color: @text;
+}

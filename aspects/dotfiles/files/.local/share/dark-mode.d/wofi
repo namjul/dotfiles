@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+sed --in-place --follow-symlinks 's|^stylesheet=.*|stylesheet=style-dark.css|' ~/.config/wofi/config

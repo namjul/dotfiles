@@ -1,0 +1,6 @@
+stylesheet=style.css
+location=center
+width=600
+height=400
+prompt=Search
+hide_scroll=true

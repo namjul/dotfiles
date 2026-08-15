@@ -70,6 +70,8 @@ sudo pacman -S --needed --noconfirm sway swaybg mako libnotify i3status-rust ala
 sudo pacman -S --needed --noconfirm xdg-desktop-portal-wlr xdg-desktop-portal-gtk qt5-wayland qt6-wayland # Wayland integration (PLAN.sway step 5)
 sudo pacman -S --needed --noconfirm lxsession # polkit auth agent for i3/X11 fallback (lxpolkit)
 sudo pacman -S --needed --noconfirm polkit-gnome # polkit auth agent for sway/Wayland (PLAN.sway step 8)
+sudo pacman -S --needed --noconfirm wofi # app launcher for sway (PLAN.sway step 10)
+sudo pacman -S --needed --noconfirm darkman # theme toggle for wofi/rofi/alacritty (PLAN.sway step 10)
 sudo pacman -S --needed --noconfirm imv # https://sr.ht/~exec64/imv/
 sudo pacman -S --needed --noconfirm iwd # https://wiki.archlinux.org/title/Iwd
 sudo pacman -S --needed --noconfirm chromium
@@ -103,7 +105,6 @@ sudo pacman -S --needed --noconfirm mpv # https://mpv.io/
 sudo pacman -S --needed --noconfirm gnupg # https://www.gnupg.org/
 sudo pacman -S --needed --noconfirm starship # https://starship.rs
 sudo pacman -S --needed --noconfirm zoxide # https://github.com/ajeetdsouza/zoxide
-sudo pacman -S --needed --noconfirm darkman # https://darkman.whynothugo.nl
 sudo pacman -S --needed --noconfirm ufw
 sudo pacman -S --needed --noconfirm less
 sudo pacman -S --needed --noconfirm gum # https://github.com/charmbracelet/gum
