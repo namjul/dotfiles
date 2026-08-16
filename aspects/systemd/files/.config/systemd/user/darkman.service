@@ -6,7 +6,7 @@ Documentation=man:darkman(1)
 Type=dbus
 BusName=nl.whynothugo.darkman
 Environment=PATH=%h/.local/bin:/home/linuxbrew/.linuxbrew/bin:%h/.dotfiles/bin:%h/opt/nvim/squashfs-root/usr/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
-ExecStart=darkman run --verbose
+ExecStart=/bin/sh -c 'exec darkman run --verbose'
 Restart=on-failure
 TimeoutStopSec=15
 Slice=background.slice
