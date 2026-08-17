@@ -100,6 +100,7 @@ variables(({ identity }) => ({
   skills: [
     ".agents/skills/seed/attractor-protocol",
     ".agents/skills/seed/cognitive-motion",
+    ".agents/skills/seed/unfold",
     ".agents/skills/seed/explore-writing-reviewer",
     ".agents/skills/seed/hegelian-dialectic-skill",
     ".agents/skills/seed/pivot-card",
@@ -174,6 +175,7 @@ variables(({ identity }) => ({
     ".agents/prompts/code.md",
     ".agents/prompts/sense.md",
     ".agents/prompts/ap.md",
+    ".agents/prompts/unfold.md",
     ".agents/prompts/variants.md",
     ".agents/prompts/causal.md",
   ],
