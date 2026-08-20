@@ -178,6 +178,7 @@ variables(({ identity }) => ({
     ".agents/prompts/unfold.md",
     ".agents/prompts/variants.md",
     ".agents/prompts/causal.md",
+    ".agents/prompts/ssw.md",
   ],
   rules: [
     ".agents/rules/caveman.md",
