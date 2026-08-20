@@ -9,8 +9,8 @@ import { Database } from "jsr:@db/sqlite";
 import JSZip from "npm:jszip";
 
 const ROOT = Deno.args.find((a) => !a.startsWith("--")) ?? Deno.cwd();
-const OUTPUT_PATH = join(Deno.cwd(), "anki-decks.apkg");
-const DECK_NAME = basename(Deno.cwd());
+const OUTPUT_PATH = join(ROOT, "anki-decks.apkg");
+const DECK_NAME = basename(ROOT);
 const BASIC_MODEL_ID = 1342697561;
 const CLOZE_MODEL_ID = 1045689296;
 const DECK_ID = 1;
@@ -83,7 +83,9 @@ const parseFrontmatter = (content: string): { deck?: string; body: string } => {
   if (end === -1) return { body: content };
   const fm = content.slice(4, end);
   const m = fm.match(/^deck:\s*(.+)$/m);
-  return { deck: m?.[1]?.trim(), body: content.slice(end + 5) };
+  const deckName = m?.[1]?.trim();
+  const body = content.slice(end + 5);
+  return deckName ? { deck: deckName, body } : { body };
 };
 
 const pathToTag = (filePath: string): string =>
@@ -570,6 +572,74 @@ const ankiConnect = async (
   return result;
 };
 
+/** Reverse `{{cN::text}}` → `{text}` so cloze GUID matches scan hashing. */
+const fromClozeText = (clozeText: string): string =>
+  clozeText.replace(/\{\{c\d+::([^}]+)\}\}/g, "{$1}");
+
+interface AnkiNoteSnapshot {
+  readonly noteId: number;
+  readonly modelName: string;
+  readonly fields: Record<string, { value: string }>;
+}
+
+const fieldValue = (
+  fields: Record<string, { value: string }>,
+  name: string,
+): string | undefined => fields[name]?.value;
+
+/** Recompute content GUID from notesInfo fields; model name is ignored (Anki renames on conflict). */
+const guidFromAnkiFields = (
+  _modelName: string,
+  fields: Record<string, { value: string }>,
+): string | undefined => {
+  const front = fieldValue(fields, "Front");
+  const back = fieldValue(fields, "Back");
+  if (front !== undefined && back !== undefined) {
+    return makeGuid(front + "\x1f" + back);
+  }
+  const text = fieldValue(fields, "Text");
+  if (text !== undefined) {
+    return makeGuid(fromClozeText(text));
+  }
+  return undefined;
+};
+
+const orphanNoteIds = (
+  ankiNotes: ReadonlyArray<AnkiNoteSnapshot>,
+  scanGuids: ReadonlySet<string>,
+): number[] => {
+  const orphans: number[] = [];
+  for (const note of ankiNotes) {
+    const guid = guidFromAnkiFields(note.modelName, note.fields);
+    if (guid === undefined || !scanGuids.has(guid)) orphans.push(note.noteId);
+  }
+  return orphans;
+};
+
+const deckSearchQuery = (name: string): string => {
+  const escaped = name.replaceAll("\\", "\\\\").replaceAll('"', '\\"');
+  return `deck:"${escaped}" -deck:"${escaped}::*"`;
+};
+
+const listOrphansViaConnect = async (
+  deckNames: ReadonlyArray<string>,
+  scanGuids: ReadonlySet<string>,
+): Promise<AnkiNoteSnapshot[]> => {
+  const noteIds = new Set<number>();
+  for (const name of deckNames) {
+    const found = await ankiConnect("findNotes", {
+      query: deckSearchQuery(name),
+    }) as number[];
+    for (const id of found) noteIds.add(id);
+  }
+  if (noteIds.size === 0) return [];
+  const infos = (await ankiConnect("notesInfo", {
+    notes: [...noteIds],
+  }) as AnkiNoteSnapshot[]).filter((n) => typeof n.noteId === "number");
+  const orphanIds = new Set(orphanNoteIds(infos, scanGuids));
+  return infos.filter((n) => orphanIds.has(n.noteId));
+};
+
 const main = async (): Promise<void> => {
   const dry = Deno.args.includes("--dry");
   const debug = dry || Deno.args.includes("--debug");
@@ -600,13 +670,42 @@ const main = async (): Promise<void> => {
     }
   }
   console.log(`${notes.length} notes -> ${OUTPUT_PATH}`);
-  if (dry) return;
+
+  const scanGuids = new Set(notes.map((n) => n.guid));
+  const deckNames = [...decks.values()];
+
+  if (dry) {
+    try {
+      const orphans = await listOrphansViaConnect(deckNames, scanGuids);
+      console.log(`would delete ${orphans.length} orphan note(s)`);
+      if (debug) {
+        for (const o of orphans) {
+          const front = fieldValue(o.fields, "Front") ??
+            fieldValue(o.fields, "Text") ??
+            "";
+          console.error(`[orphan][${o.modelName}] #${o.noteId} ${front}`);
+        }
+      }
+    } catch {
+      console.log("AnkiConnect unavailable — orphan preview skipped");
+    }
+    return;
+  }
 
   await buildApkg(notes, decks);
 
   try {
     await ankiConnect("importPackage", { path: OUTPUT_PATH });
     console.log("imported via AnkiConnect");
+    const orphans = await listOrphansViaConnect(deckNames, scanGuids);
+    if (orphans.length > 0) {
+      await ankiConnect("deleteNotes", {
+        notes: orphans.map((o) => o.noteId),
+      });
+      console.log(`deleted ${orphans.length} orphan note(s)`);
+    } else {
+      console.log("no orphan notes");
+    }
     await ankiConnect("sync");
     console.log("synced");
   } catch {
@@ -614,4 +713,92 @@ const main = async (): Promise<void> => {
   }
 };
 
-main();
+Deno.test("guidFromAnkiFields: basic matches makeGuid", () => {
+  const q = "What is the default HTTP port?";
+  const a = "80.";
+  const guid = makeGuid(q + "\x1f" + a);
+  const got = guidFromAnkiFields("Basic", {
+    Front: { value: q },
+    Back: { value: a },
+  });
+  if (got !== guid) throw new Error(`expected ${guid}, got ${got}`);
+});
+
+Deno.test("guidFromAnkiFields: cloze round-trips toClozeText guid", () => {
+  const full = "The mitochondria is the {powerhouse of the cell}.";
+  const masked = full;
+  const cloze = toClozeText(full, masked)!;
+  const expected = makeGuid(full);
+  const got = guidFromAnkiFields("Cloze", {
+    Text: { value: cloze },
+    Extra: { value: "" },
+  });
+  if (got !== expected) throw new Error(`expected ${expected}, got ${got}`);
+});
+
+Deno.test("guidFromAnkiFields: renamed Basic-* model still matches", () => {
+  const q = "What is the default HTTP port?";
+  const a = "80.";
+  const guid = makeGuid(q + "\x1f" + a);
+  const got = guidFromAnkiFields("Basic-e35f9", {
+    Front: { value: q },
+    Back: { value: a },
+  });
+  if (got !== guid) throw new Error(`expected ${guid}, got ${got}`);
+});
+
+Deno.test("orphanNoteIds: missing from scan is orphan", () => {
+  const keep = makeGuid("keep\x1fA");
+  const drop = makeGuid("drop\x1fA");
+  const ids = orphanNoteIds(
+    [
+      {
+        noteId: 1,
+        modelName: "Basic-e35f9",
+        fields: { Front: { value: "keep" }, Back: { value: "A" } },
+      },
+      {
+        noteId: 2,
+        modelName: "Basic-e35f9",
+        fields: { Front: { value: "drop" }, Back: { value: "A" } },
+      },
+    ],
+    new Set([keep]),
+  );
+  if (ids.length !== 1 || ids[0] !== 2) {
+    throw new Error(`expected [2], got ${JSON.stringify(ids)}`);
+  }
+  if (drop === keep) throw new Error("fixture guids collided");
+});
+
+Deno.test("orphanNoteIds: no Front/Back/Text fields is orphan", () => {
+  const ids = orphanNoteIds(
+    [{
+      noteId: 9,
+      modelName: "Image Occlusion",
+      fields: { Image: { value: "x.png" } },
+    }],
+    new Set([makeGuid("anything")]),
+  );
+  if (ids.length !== 1 || ids[0] !== 9) {
+    throw new Error(`expected [9], got ${JSON.stringify(ids)}`);
+  }
+});
+
+Deno.test("orphanNoteIds: empty scan orphans all", () => {
+  const ids = orphanNoteIds(
+    [{
+      noteId: 3,
+      modelName: "Basic",
+      fields: { Front: { value: "a" }, Back: { value: "b" } },
+    }],
+    new Set(),
+  );
+  if (ids.length !== 1 || ids[0] !== 3) {
+    throw new Error(`expected [3], got ${JSON.stringify(ids)}`);
+  }
+});
+
+if (import.meta.main) {
+  main();
+}

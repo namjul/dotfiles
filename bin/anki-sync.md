@@ -1,6 +1,6 @@
 # anki-sync
 
-Scans markdown files in the memex for embedded prompts and generates an Anki deck (`anki-decks/memex.apkg`) that can be manually imported.
+Scans markdown files in a given root (default: cwd) for embedded prompts and writes `anki-decks.apkg` under that root. The default Anki deck name is `basename` of the scan root (not the process cwd). Notes with frontmatter `deck:` go into that deck instead.
 
 The implementation is a single `.ts` file beginning with `#!/usr/bin/env -S deno run --allow-all`.
 
@@ -175,4 +175,17 @@ If identical cloze text appears in more than one file, both produce the same GUI
 
 ## Idempotency
 
-GUID is the note's stable identity across imports. An unchanged note is skipped entirely by Anki on reimport — manually applied tags (`needs-review`, `mastered`) are preserved. Editing a prompt's text produces a new GUID and a new note; the old note remains in Anki untouched. **Known tradeoff:** this is a structural consequence of content-addressed identity — there is no mechanism to signal deletion or rename to Anki. Over time, edited prompts accumulate ghost cards that count toward review load and clutter search results. This is accepted as the cost of a stateless, append-only sync model.
+GUID is the note's stable identity across imports. An unchanged note is skipped entirely by Anki on reimport — manually applied tags (`needs-review`, `mastered`) are preserved. Editing a prompt's text produces a new GUID and a new note.
+
+When AnkiConnect is reachable, sync is projectional for **this run's managed decks** (default deck = `basename` of the scan root, plus every `deck:` name seen in frontmatter):
+
+1. Write a clean `.apkg` and `importPackage`.
+2. Find notes in those decks, recompute each note's content GUID from fields (`Front` + `\x1f` + `Back`, or cloze `Text` with `{{cN::…}}` → `{…}` then hash). Note-type **name** is ignored — Anki often renames imported `Basic`/`Cloze` when those names already exist (`Basic-e35f9`, etc.).
+3. `deleteNotes` for any note whose GUID is absent from the current scan (deleted prompts, edit-ghosts, and manual notes in managed decks).
+4. AnkiWeb `sync`.
+
+Edit therefore resets scheduling on that note (old GUID deleted). The `.apkg` alone still only merges — it cannot delete; without AnkiConnect the script writes the package and says to import manually, with no claim that Anki was pruned.
+
+`--dry` skips package write/import/delete. If AnkiConnect is up, it prints how many orphan notes would be deleted (and lists them when `--debug` / dry debug output is on). If Connect is down: `AnkiConnect unavailable — orphan preview skipped`.
+
+**Limitation:** decks no longer named by any file in this scan are not pruned (no remembered prior deck set).
