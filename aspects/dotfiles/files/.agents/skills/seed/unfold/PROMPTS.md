@@ -43,9 +43,3 @@ A biomarker is a little movement in the body-mind that indicates a phenomenal st
 > find expamples that generalize better. you used terms from the references examples. try finding some that are more common generally
 
 (Resulted in replacing drawing-app vocabulary — `Place`, `addPlace`, commit/reject — with widely known domains: sessions/auth for the "centers, not procedures" bullet and a note-taking app for the worked fragment.)
-
-## Sources
-
-- Generative sequence primer: [LLM Coding: Unfolding Wholeness & Living Structures](https://iamronen.com/blog/2026/08/14/llm-coding-unfolding-wholeness-living-structures/) (iamronen)
-- Pockets of reducibility primer: [Grok conversation on Wolfram's pockets of reducibility and "Claudable" tasks](https://x.com/i/grok/share/6d7e3a7a648843e6ba16dadd4cff40f5) (via Ryan Singer)
-- Biomarkers primer: [New Theory of the Body](https://thepopupschool.org/course/new-theory-of-the-body/) (The Pop-Up School)
