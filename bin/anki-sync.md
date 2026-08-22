@@ -186,6 +186,6 @@ When AnkiConnect is reachable, sync is projectional for **this run's managed dec
 
 Edit therefore resets scheduling on that note (old GUID deleted). The `.apkg` alone still only merges — it cannot delete; without AnkiConnect the script writes the package and says to import manually, with no claim that Anki was pruned.
 
-`--dry` skips package write/import/delete. If AnkiConnect is up, it prints how many orphan notes would be deleted (and lists them when `--debug` / dry debug output is on). If Connect is down: `AnkiConnect unavailable — orphan preview skipped`.
+`--dry` skips package write/import/delete. If AnkiConnect is up, it classifies scan notes against Anki by content GUID and prints `N new, M same, K orphan`, then lists **new** and **orphan** notes (same notes are count-only unless `--debug`). There is no separate “changed” bucket: a content edit is one orphan (old GUID) plus one new (new GUID). If Connect is down: `AnkiConnect unavailable — orphan preview skipped` (no fake new/same split). `--debug` alone still dumps every scanned note on a non-dry run.
 
 **Limitation:** decks no longer named by any file in this scan are not pruned (no remembered prior deck set).

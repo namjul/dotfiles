@@ -616,14 +616,49 @@ const orphanNoteIds = (
   return orphans;
 };
 
+/** Partition scan notes against Anki content GUIDs: new = scan-only, same = in both. */
+const partitionScanAgainstAnki = (
+  scanNotes: ReadonlyArray<Note>,
+  ankiGuids: ReadonlySet<string>,
+): { newNotes: Note[]; sameNotes: Note[] } => {
+  const newNotes: Note[] = [];
+  const sameNotes: Note[] = [];
+  for (const note of scanNotes) {
+    if (ankiGuids.has(note.guid)) sameNotes.push(note);
+    else newNotes.push(note);
+  }
+  return { newNotes, sameNotes };
+};
+
+const ankiGuidsFromSnapshots = (
+  ankiNotes: ReadonlyArray<AnkiNoteSnapshot>,
+): Set<string> => {
+  const guids = new Set<string>();
+  for (const note of ankiNotes) {
+    const guid = guidFromAnkiFields(note.modelName, note.fields);
+    if (guid !== undefined) guids.add(guid);
+  }
+  return guids;
+};
+
+const formatScanNote = (
+  note: Note,
+  decks: Map<number, string>,
+): string => {
+  const deck = decks.get(note.deckId) ?? DECK_NAME;
+  if (note.type === "basic") {
+    return `[${deck}][${note.tag}] Q. ${note.question} / A. ${note.answer}`;
+  }
+  return `[${deck}][${note.tag}] ${note.text}`;
+};
+
 const deckSearchQuery = (name: string): string => {
   const escaped = name.replaceAll("\\", "\\\\").replaceAll('"', '\\"');
   return `deck:"${escaped}" -deck:"${escaped}::*"`;
 };
 
-const listOrphansViaConnect = async (
+const listManagedNotesViaConnect = async (
   deckNames: ReadonlyArray<string>,
-  scanGuids: ReadonlySet<string>,
 ): Promise<AnkiNoteSnapshot[]> => {
   const noteIds = new Set<number>();
   for (const name of deckNames) {
@@ -633,16 +668,23 @@ const listOrphansViaConnect = async (
     for (const id of found) noteIds.add(id);
   }
   if (noteIds.size === 0) return [];
-  const infos = (await ankiConnect("notesInfo", {
+  return (await ankiConnect("notesInfo", {
     notes: [...noteIds],
   }) as AnkiNoteSnapshot[]).filter((n) => typeof n.noteId === "number");
+};
+
+const listOrphansViaConnect = async (
+  deckNames: ReadonlyArray<string>,
+  scanGuids: ReadonlySet<string>,
+): Promise<AnkiNoteSnapshot[]> => {
+  const infos = await listManagedNotesViaConnect(deckNames);
   const orphanIds = new Set(orphanNoteIds(infos, scanGuids));
   return infos.filter((n) => orphanIds.has(n.noteId));
 };
 
 const main = async (): Promise<void> => {
   const dry = Deno.args.includes("--dry");
-  const debug = dry || Deno.args.includes("--debug");
+  const debug = Deno.args.includes("--debug");
   const notes: Note[] = [];
   const decks = new Map<number, string>([[DECK_ID, DECK_NAME]]);
   for await (const path of walkMdFiles()) {
@@ -659,14 +701,9 @@ const main = async (): Promise<void> => {
     }
     notes.push(...parseFile(body, pathToTag(path), deckId, baseMs));
   }
-  if (debug) {
+  if (debug && !dry) {
     for (const note of notes) {
-      const deck = decks.get(note.deckId) ?? DECK_NAME;
-      if (note.type === "basic") {
-        console.error(`[${deck}][${note.tag}] Q. ${note.question} / A. ${note.answer}`);
-      } else {
-        console.error(`[${deck}][${note.tag}] ${note.text}`);
-      }
+      console.error(formatScanNote(note, decks));
     }
   }
   console.log(`${notes.length} notes -> ${OUTPUT_PATH}`);
@@ -676,15 +713,28 @@ const main = async (): Promise<void> => {
 
   if (dry) {
     try {
-      const orphans = await listOrphansViaConnect(deckNames, scanGuids);
-      console.log(`would delete ${orphans.length} orphan note(s)`);
+      const ankiNotes = await listManagedNotesViaConnect(deckNames);
+      const ankiGuids = ankiGuidsFromSnapshots(ankiNotes);
+      const { newNotes, sameNotes } = partitionScanAgainstAnki(notes, ankiGuids);
+      const orphanIds = new Set(orphanNoteIds(ankiNotes, scanGuids));
+      const orphans = ankiNotes.filter((n) => orphanIds.has(n.noteId));
+
+      console.log(
+        `${newNotes.length} new, ${sameNotes.length} same, ${orphans.length} orphan`,
+      );
+      for (const note of newNotes) {
+        console.error(`[new] ${formatScanNote(note, decks)}`);
+      }
       if (debug) {
-        for (const o of orphans) {
-          const front = fieldValue(o.fields, "Front") ??
-            fieldValue(o.fields, "Text") ??
-            "";
-          console.error(`[orphan][${o.modelName}] #${o.noteId} ${front}`);
+        for (const note of sameNotes) {
+          console.error(`[same] ${formatScanNote(note, decks)}`);
         }
+      }
+      for (const o of orphans) {
+        const front = fieldValue(o.fields, "Front") ??
+          fieldValue(o.fields, "Text") ??
+          "";
+        console.error(`[orphan][${o.modelName}] #${o.noteId} ${front}`);
       }
     } catch {
       console.log("AnkiConnect unavailable — orphan preview skipped");
@@ -796,6 +846,60 @@ Deno.test("orphanNoteIds: empty scan orphans all", () => {
   );
   if (ids.length !== 1 || ids[0] !== 3) {
     throw new Error(`expected [3], got ${JSON.stringify(ids)}`);
+  }
+});
+
+Deno.test("partitionScanAgainstAnki: new vs same by content GUID", () => {
+  const keepGuid = makeGuid("keep\x1fA");
+  const newGuid = makeGuid("fresh\x1fA");
+  const scan: Note[] = [
+    {
+      type: "basic",
+      question: "keep",
+      answer: "A",
+      guid: keepGuid,
+      tag: "t",
+      deckId: DECK_ID,
+      createdMs: 1,
+    },
+    {
+      type: "basic",
+      question: "fresh",
+      answer: "A",
+      guid: newGuid,
+      tag: "t",
+      deckId: DECK_ID,
+      createdMs: 2,
+    },
+  ];
+  const { newNotes, sameNotes } = partitionScanAgainstAnki(
+    scan,
+    new Set([keepGuid]),
+  );
+  if (sameNotes.length !== 1 || sameNotes[0]!.guid !== keepGuid) {
+    throw new Error(`same expected [keep], got ${JSON.stringify(sameNotes)}`);
+  }
+  if (newNotes.length !== 1 || newNotes[0]!.guid !== newGuid) {
+    throw new Error(`new expected [fresh], got ${JSON.stringify(newNotes)}`);
+  }
+});
+
+Deno.test("ankiGuidsFromSnapshots: skips notes without Front/Back/Text", () => {
+  const keep = makeGuid("keep\x1fA");
+  const guids = ankiGuidsFromSnapshots([
+    {
+      noteId: 1,
+      modelName: "Basic",
+      fields: { Front: { value: "keep" }, Back: { value: "A" } },
+    },
+    {
+      noteId: 2,
+      modelName: "Image Occlusion",
+      fields: { Image: { value: "x.png" } },
+    },
+  ]);
+  if (guids.size !== 1 || !guids.has(keep)) {
+    throw new Error(`expected {${keep}}, got ${JSON.stringify([...guids])}`);
   }
 });
 
