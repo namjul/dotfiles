@@ -1,0 +1,13 @@
+{
+  "manifest_version": 3,
+  "name": "Dotfiles Site Search",
+  "version": "1.0.0",
+  "description": "Custom site search engines for dotfiles (omnibox keyword s)",
+  "background": {
+    "service_worker": "background.js"
+  },
+  "omnibox": {
+    "keyword": "s"
+  },
+  "permissions": ["tabs"]
+}
