@@ -1,6 +1,6 @@
 ---
 name: code
-description: Use when executing or implementing a plan, or implementing a coding task. Triggers on "implement plan", "implement the plan", "execute the plan". Turns a plan or clear request into working code, tests, and verification.
+description: Use when turning a plan, request, or agreed change into working code. Triggers on "implement", "implement the plan", "build this", "code this", "execute the plan". Turns clear intent into working code, tests, and verification.
 ---
 
 > Source: https://github.com/juanibiapina/dotfiles/tree/4417e56718e1429830503037755a5c3dc02d2d50/agents/skills/code/SKILL.md
