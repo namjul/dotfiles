@@ -77,6 +77,7 @@ variables(({ identity }) => ({
     ".local/share/dark-mode.d",
     ".local/share/applications",
     ".local/bin/mount-shares.encrypted",
+    ".local/bin/keepassxc-wf.encrypted",
     ".config/ghostty",
     ".config/imv",
     ".config/vdirsyncer",
