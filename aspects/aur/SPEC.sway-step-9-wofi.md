@@ -15,7 +15,7 @@ On Arch + Sway, replace the X11 `rofi` launcher bind with native Wayland `wofi`,
 | Command | `rofi -show combi` |
 | Config | `aspects/dotfiles/files/.config/rofi/config.rasi` — modes `drun`+`run`, combi searches `drun` only, `@theme "gruvbox-dark"` |
 | Theme toggle | `~/.local/share/dark-mode.d/rofi` and `light-mode.d/rofi` sed `@theme` in `config.rasi` |
-| Other rofi use | `bin/passmenu` pipes gopass entries through `rofi -dmenu` — step 13: [SPEC.sway-step-12-passmenu.md](SPEC.sway-step-12-passmenu.md) |
+| Other rofi use | `bin/passmenu` still pipes through `rofi -dmenu` — step 13 in [PLAN.sway.md](PLAN.sway.md) |
 
 Sway config already exists and is Arch-only (`skipOnDebian` in `aspects/dotfiles/index.ts`). i3 config is Ubuntu-only (`skipOnArch`).
 
@@ -106,7 +106,7 @@ Package install alone is not completion (same discipline as step 6 done rule).
 
 ## Out of scope (step 9)
 
-- `bin/passmenu` — see [SPEC.sway-step-12-passmenu.md](SPEC.sway-step-12-passmenu.md) (step 13; after store + `wl-clipboard`).
+- `bin/passmenu` — step 13 in [PLAN.sway.md](PLAN.sway.md) (after store + `wl-clipboard`).
 - Removing rofi system-wide on Arch.
 - Hyprland / walker launcher choice (archived in [PLAN.hyprland.md](PLAN.hyprland.md)).
 - Keybind changes other than `$mod+space`.
