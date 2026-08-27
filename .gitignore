@@ -20,3 +20,7 @@ fnox.local.toml
 # Agency
 .agency-project
 
+# archinstall (written by bin/arch-install/configure.sh)
+bin/arch-install/user_configuration.json
+bin/arch-install/user_credentials.json
+
