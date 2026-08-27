@@ -13,4 +13,12 @@ sed -i \
   -e "s|(limine_path / 'limine-bios.sys')\.copy(boot_limine_path)|(limine_path / 'limine-bios.sys').copy(boot_limine_path / 'limine-bios.sys')|" \
   /usr/lib/python3.14/site-packages/archinstall/lib/installer.py 2>/dev/null || true
 
-archinstall --config "$DIR/user_configuration.json" --creds "$DIR/user_credentials.json"
+args=(
+  --config "$DIR/user_configuration.json"
+  --creds "$DIR/user_credentials.json"
+)
+if [[ "${INTERACTIVE:-}" != 1 ]]; then
+  args+=(--silent)
+fi
+
+archinstall "${args[@]}"

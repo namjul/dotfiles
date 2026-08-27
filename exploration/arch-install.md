@@ -21,12 +21,10 @@ UI taken from Omarchy’s `configurator`: `gum input` / `choose` / `filter` / `c
 Then it patches two archinstall 4.2 / Python 3.14 bugs in `/usr/lib/python3.14/site-packages/archinstall/lib/installer.py` (logfile `Path` join, Limine `Path.copy` target), then:
 
 ```bash
-archinstall --config "$DIR/user_configuration.json" --creds "$DIR/user_credentials.json"
+archinstall --config "$DIR/user_configuration.json" --creds "$DIR/user_credentials.json" --silent
 ```
 
-Omarchy’s `.automated_script.sh` uses the same two `sed` lines and the same `--config` / `--creds` pair, plus `--silent --skip-ntp --skip-wkd --skip-wifi-check`. Those extra flags belong to an offline custom ISO (pre-populated keyring, no NTP/WKD/Wi‑Fi probe). Official monthly ISO stays online; we do not pass them.
-
-Fallback if you do not want `--creds`: `archinstall --config /path/to/user_configuration.json` and type passwords in the TUI.
+`--silent` skips the archinstall TUI; gum already wrote a full config. Omarchy also passes `--skip-ntp --skip-wkd --skip-wifi-check` for an offline ISO. Official monthly ISO stays online; we do not pass those. `INTERACTIVE=1` drops `--silent` if you want the TUI after gum.
 
 4. Reboot into the installed system (or `arch-chroot /mnt` as the new user). The clone must land on the **installed** disk, not only live RAM.
 5. Network still works (`ip -br a`, `ping -c 1 archlinux.org`).
@@ -100,7 +98,7 @@ context: [stack]
 intent: Arch on the target, with your user, before any aspects.
 context: [stack]
 
-1. `/root/dotfiles/bin/arch-install/arch-install.sh` (configure writes JSON, patches installer.py, then `--config` + `--creds`). Fallback: `SKIP_CONFIGURE=1` after a prior generate, or bare `archinstall --config` and type passwords in the TUI.
+1. `/root/dotfiles/bin/arch-install/arch-install.sh` (configure writes JSON, patches installer.py, then `--config` + `--creds` + `--silent`). `INTERACTIVE=1` keeps the archinstall TUI.
 2. human: pick disk and LUKS in the gum confirm (Ctrl+C toggles encryption)
 3. Let archinstall wipe the chosen disk, pacstrap, Limine, `git` + `base-devel`.
 4. Reboot into the installed system (not the live RAM disk).
@@ -121,6 +119,31 @@ context: [domain]
 
 1. Restore `~/.config/age/key.txt` (USB, YubiKey, paper) only after login.
 2. Then password-store / sops / fnox — not during archinstall.
+```
+
+## Sequence: official ISO in a VM
+
+Reducibility: pocket found — a QEMU disk plus the official ISO is the same Path as metal; passwords and LUKS stay taste.
+
+`format-drive.fish` is a host USB wipe to GPT+exFAT. It does not write an Arch ISO and must not run against the VM install disk (archinstall owns that layout). The only useful fragment is `wipefs` + a short zero of the start of the disk, and only when a previous VM run left LUKS/LVM signatures. A new `qemu-img` qcow2 is the usual reset.
+
+```markdown
+# Official ISO in a VM
+
+intent: The same official-ISO Path, on a throwaway virtio disk, so configure.sh + archinstall can be run without touching metal.
+context: [stack]
+
+1. A raw or qcow2 file exists as the only install target (20G is enough for Path through reboot).
+2. QEMU boots the official Arch ISO, with that file as `/dev/vda` and a working nic.
+3. The live session has a link (`ping archlinux.org`); then `git clone` this repo on the live root.
+4. `bin/arch-install/arch-install.sh` runs configure against `/dev/vda` (the picker already lists `vd*`).
+5. human: LUKS or plain; passwords stay in the generated creds (gitignored)
+6. archinstall wipes `/dev/vda`, pacstraps, Limine; then reboot the VM from the disk, not the ISO.
+7. A dirty rerun starts from a new qcow2 (or live-ISO `wipefs -a /dev/vda`), not from `format-drive`.
+
+## Sibling: From official ISO to Sway
+
+After login on the installed VM, Stage 3 and Stage 4 of that sequence apply unchanged.
 ```
 
 ## Lookup
