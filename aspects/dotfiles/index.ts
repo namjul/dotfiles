@@ -119,6 +119,7 @@ variables(({ identity }) => ({
     ".agents/skills/general/manage-aspects",
     ".agents/skills/general/reflect",
     ".agents/skills/general/research",
+    ".agents/skills/general/ssw",
     ".agents/skills/general/website-rebuild-workflow",
     ".agents/skills/general/youtube-transcript",
     ".agents/skills/engineering/api-design",
