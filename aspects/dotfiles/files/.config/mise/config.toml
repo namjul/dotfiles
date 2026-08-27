@@ -8,6 +8,12 @@ TINTED_TMUX_OPTION_ACTIVE = "1"
 TINTED_TMUX_OPTION_STATUSBAR = "1"
 TRY_PATH = "{{env.HOME}}/code/tries"
 
+[hooks]
+postinstall = '''
+mkdir -p ~/.config/fish/completions
+mise completion fish > ~/.config/fish/completions/mise.fish
+'''
+
 [tools]
 deno = "2.8.0"
 golang = "1.20"
