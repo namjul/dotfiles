@@ -1,4 +1,4 @@
-experimental_monorepo_root = true
+monorepo_root = true
 
 [env]
 FIG_IDENTITY = "${FIG_IDENTITY:-namjul}"
