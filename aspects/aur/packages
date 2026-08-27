@@ -50,6 +50,9 @@ sudo systemctl enable --now paccache.timer
 
 # official repo packages
 
+# typography (PLAN.sway step 1)
+sudo pacman -S --needed --noconfirm noto-fonts noto-fonts-emoji man-db
+
 # system
 sudo pacman -S --needed --noconfirm cmake pkgconf clang unzip # build tools
 sudo pacman -S --needed --noconfirm procps-ng curl file # runtime essentials
