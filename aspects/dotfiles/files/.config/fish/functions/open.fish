@@ -1,3 +1,3 @@
-function open --description 'Open file from terminal'
-  xdg-open $argv[1]
+function open --description 'Open files with xdg-open'
+  xdg-open $argv >/dev/null 2>&1 &
 end
