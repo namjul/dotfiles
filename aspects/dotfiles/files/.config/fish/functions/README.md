@@ -71,6 +71,7 @@ This page is a 1:1 index of the functions you own here. Extra functions defined 
 | `tm.fish` | `tm` | fzf existing tmux sessions, attach or switch |
 | `transcode-video-1080p.fish` | `transcode-video-1080p` | ffmpeg scale 1920×1080, H.264, copy audio |
 | `transcode-video-4K.fish` | `transcode-video-4K` | ffmpeg HEVC re-encode + AAC; does not scale to 4K |
+| `try.fish` | `try` | Autoload wrapper: `command try exec` then `eval` so `cd` happens in this shell (no `try init` at startup) |
 | `tsl.fish` | `tsl` | Tiled tmux panes all running the same command |
 | `y.fish` | `y` | `yazi` and `cd` to the last directory |
 | `yazicd.fish` | `yazicd` | Same as `y` (bound to Alt-O) |

@@ -5,10 +5,12 @@ SOPS_AGE_KEY_FILE = "{{env.HOME}}/.config/age/key.txt"
 MISE_AGE_KEY_FILE = "{{env.HOME}}/.config/age/key.txt"
 TINTED_TMUX_OPTION_ACTIVE = "1"
 TINTED_TMUX_OPTION_STATUSBAR = "1"
+TRY_PATH = "{{env.HOME}}/code/tries"
 
 [tools]
 deno = "2.8.0"
 golang = "1.20"
+ruby = "3.4"
 node = { version = "24", postinstall = "npm install -g http-server @earendil-works/pi-coding-agent" }
 "npm:zx" = "8.8.5"
 "npm:codeburn" = "0.9.15"
@@ -84,6 +86,7 @@ ghq = "latest"
 "github:antonmedv/howto" = "latest"
 "github:kaplanelad/shellfirm" = "0.3.10"
 aube = "latest"
+"gem:try-cli" = "1.10.1"
 
 [settings]
 experimental = false
