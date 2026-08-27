@@ -13,6 +13,10 @@ fi
 
 mise install --yes
 
+# sudo -v caches on this TTY; MISE_RAW keeps a later prompt usable after the timestamp expires
+sudo -v
+export MISE_RAW=1
+
 mise run //aspects/nala:default
 mise run //aspects/homebrew:default
 mise run //aspects/aur:default

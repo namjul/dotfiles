@@ -15,14 +15,19 @@ run = "./index.ts agents"
 
 [tasks.default]
 description = "Creates symlinks from the $HOME directory to the dotfiles in this repo."
-depends = ["//:aspects:setup", ":files", ":templates", ":agents"]
+depends = [":files", ":templates", ":agents"]
 depends_post = [":tools"]
 
 [tasks."tools"]
 description = "Install mise tools and generate shell completions"
 run = """
 #!/usr/bin/env bash
-eval "$(fnox activate bash)"
+AGE_KEY="${AGE_KEY_FILE:-$HOME/.config/age/key.txt}"
+if [[ -f "$AGE_KEY" ]]; then
+  eval "$(fnox activate bash)"
+else
+  echo "skip fnox activate: missing $AGE_KEY"
+fi
 mise install
 mkdir -p ~/.config/fish/completions
 mise completion fish > ~/.config/fish/completions/mise.fish

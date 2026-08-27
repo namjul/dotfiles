@@ -2,8 +2,6 @@ monorepo_root = true
 
 [env]
 FIG_IDENTITY = "${FIG_IDENTITY:-namjul}"
-SOPS_AGE_KEY_FILE = "{{env.HOME}}/.config/age/key.txt"
-MISE_AGE_KEY_FILE = "{{env.HOME}}/.config/age/key.txt"
 
 [monorepo]
 config_roots = [
@@ -47,10 +45,10 @@ description = "Run all fig:* tasks"
 depends = ["fig:*"]
 
 [tasks."aspects:setup"]
-description = "One-time machine bootstrap: verify age key exists at canonical location"
+description = "Verify age key (secrets; not required for install.sh)"
 run = """
 #!/usr/bin/env bash
-AGE_KEY="${HOME}/.config/age/key.txt"
+AGE_KEY="${AGE_KEY_FILE:-$HOME/.config/age/key.txt}"
 if [[ -f "$AGE_KEY" ]]; then
   echo "age key found: $AGE_KEY"
 else
@@ -65,7 +63,7 @@ run = """
 sudo systemd-nspawn \
   --ephemeral \
   --bind=$HOME/.dotfiles:/root/.dotfiles \
-  --bind-ro=$HOME/.config/age/key.txt:/root/.config/age/key.txt \
+  --bind-ro=${AGE_KEY_FILE:-$HOME/.config/age/key.txt}:/root/.config/age/key.txt \
   --bind-ro=$HOME/fnox.local.toml:/root/fnox.local.toml \
   --bind-ro=/dev/null:/run/fig-test-container \
   -bD /var/lib/machines/arch

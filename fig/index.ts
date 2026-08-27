@@ -27,7 +27,7 @@ export { variables } from "./variables.ts";
 
 // Attributes
 export { attributes } from "./attributes.ts";
-export { is, when } from "./helpers.ts";
+export { is, tryCatch, when } from "./helpers.ts";
 
 // Operations
 export { file } from "./operations/file.ts";
