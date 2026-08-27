@@ -1,7 +1,7 @@
 {
   "theme": "gruvbox-light-soft",
   "defaultProvider": "cursor",
-  "defaultModel": "composer-2.5",
+  "defaultModel": "grok-4.6",
   "defaultThinkingLevel": "low",
   "enableSkillCommands": true,
   "lastChangelogVersion": "0.83.0",
@@ -13,6 +13,7 @@
     "openrouter/moonshotai/kimi-k2.5",
     "cursor/composer-2.5",
     "cursor/grok-4.5",
+    "cursor/grok-4.6",
     "fable-5@300k"
   ],
   "packages": [
