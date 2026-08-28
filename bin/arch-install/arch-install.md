@@ -31,7 +31,7 @@ ping -c 1 archlinux.org
 
 `wlan0` may be `wlan1`.
 
-The custom ISO (`bin/arch-install/mkiso.sh`) runs `network.sh` on tty1 (gum picks the SSID) before the curl below. Official monthly ISO does not ship `gum`; use Ethernet or `iwctl` first. If `network.sh` cannot get a link, it exits and install does not start.
+The custom ISO (`bin/arch-install/mkiso.sh`) runs `keyboard.sh` then `network.sh` on tty1 (gum picks the layout, then the SSID) before the curl below. Layout first so a German keyboard can type the Wi-Fi password. Official monthly ISO does not ship `gum`; `loadkeys de` (or Ethernet / `iwctl`) first. If `network.sh` cannot get a link, it exits and install does not start.
 
 ## Custom ISO
 
@@ -43,9 +43,9 @@ cd ~/.dotfiles && bin/arch-install/mkiso.sh
 
 The image is `bin/arch-install/out/*.iso`. Write that file to the USB (same memex note as the official ISO). Rebuild when you next install, not on a calendar.
 
-`--prepare-only` copies `releng`, applies the overlay (`gum`, `network.sh`, `iso/start.sh`), prints the profile path, and does not run `mkarchiso`.
+`--prepare-only` copies `releng`, applies the overlay (`gum`, `keyboard.sh`, `network.sh`, `iso/start.sh`), prints the profile path, and does not run `mkarchiso`.
 
-tty1 auto-starts `network.sh` then fetches `boot.sh` to a file and runs it with the TTY as stdin. `/run/arch-install-started` is written only after that succeeds, so a wrong password or Ctrl+C can retry (`arch-install`). After a successful run, delete the stamp to start again on the same boot.
+tty1 auto-starts `keyboard.sh` then `network.sh`, then fetches `boot.sh` to a file and runs it with the TTY as stdin. `/run/arch-install-started` is written only after that succeeds, so a wrong password or Ctrl+C can retry (`arch-install`). Keyboard is stamped at `/run/arch-install-keyboard` so a retry does not ask again. After a successful run, delete the start stamp to start again on the same boot.
 
 ## Install (ISO and after reboot)
 

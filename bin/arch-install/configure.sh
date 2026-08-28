@@ -65,7 +65,11 @@ keyboard_form() {
   step "Keyboard"
   local maps
   maps=$(list_keymaps)
-  keyboard=$(printf '%s\n' "$maps" | gum filter --height 12 --header "Keyboard layout" --value "$DEFAULT_KEYBOARD") || abort
+  local default="$DEFAULT_KEYBOARD"
+  if [[ -f /run/arch-install-keyboard ]]; then
+    default=$(< /run/arch-install-keyboard)
+  fi
+  keyboard=$(printf '%s\n' "$maps" | gum filter --height 12 --header "Keyboard layout" --value "$default") || abort
   if [[ $(tty 2>/dev/null) == /dev/tty* ]]; then
     loadkeys "$keyboard" 2>/dev/null || true
   fi

@@ -51,6 +51,7 @@ prepare() {
   cp -a "$src" "$PROFILE"
   printf '\n' >>"$PROFILE/packages.x86_64"
   cat "$DIR/iso/packages.append" >>"$PROFILE/packages.x86_64"
+  install -Dm755 "$DIR/keyboard.sh" "$PROFILE/airootfs/usr/local/bin/arch-install-keyboard"
   install -Dm755 "$DIR/network.sh" "$PROFILE/airootfs/usr/local/bin/arch-install-network"
   install -Dm755 "$DIR/iso/start.sh" "$PROFILE/airootfs/usr/local/bin/arch-install"
   cat "$DIR/iso/zlogin.append" >>"$PROFILE/airootfs/root/.zlogin"
@@ -59,6 +60,7 @@ prepare() {
   sed -i 's/iso_label="ARCH_/iso_label="NAMJL_/' "$PROFILE/profiledef.sh"
   # archiso copies airootfs files as root:root 644 unless listed here.
   sed -i '/^file_permissions=(/a\
+  ["/usr/local/bin/arch-install-keyboard"]="0:0:755"\
   ["/usr/local/bin/arch-install-network"]="0:0:755"\
   ["/usr/local/bin/arch-install"]="0:0:755"
 ' "$PROFILE/profiledef.sh"

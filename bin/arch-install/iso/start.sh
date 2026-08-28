@@ -18,6 +18,10 @@ on_exit() {
 }
 trap on_exit EXIT
 
+keyboard=/usr/local/bin/arch-install-keyboard
+[[ -x "$keyboard" ]] || keyboard="$DIR/../keyboard.sh"
+"$keyboard"
+
 network=/usr/local/bin/arch-install-network
 [[ -x "$network" ]] || network="$DIR/../network.sh"
 "$network"
