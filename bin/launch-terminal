@@ -1,0 +1,46 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+font_size=""
+class=""
+title=""
+cmd=()
+
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --font-size=*) font_size="${1#*=}"; shift ;;
+    --font-size) font_size="${2:?--font-size needs a value}"; shift 2 ;;
+    --class=*) class="${1#*=}"; shift ;;
+    --class) class="${2:?--class needs a value}"; shift 2 ;;
+    --title=*) title="${1#*=}"; shift ;;
+    --title) title="${2:?--title needs a value}"; shift 2 ;;
+    -h|--help)
+      echo "Usage: launch-terminal [--font-size SIZE] [--class CLASS] [--title TITLE] [cmd...]"
+      exit 0
+      ;;
+    --) shift; cmd+=("$@"); break ;;
+    -*)
+      echo "unknown option: $1" >&2
+      exit 1
+      ;;
+    *) cmd+=("$@"); break ;;
+  esac
+done
+
+TERM_BIN="${TERMINAL:-alacritty}"
+args=()
+case "$TERM_BIN" in
+  ghostty)
+    [[ -n "$font_size" ]] && args+=("--font-size=${font_size}")
+    [[ -n "$class" ]]     && args+=("--class=${class}")
+    [[ -n "$title" ]]     && args+=("--title=${title}")
+    [[ ${#cmd[@]} -gt 0 ]] && args+=("-e" "${cmd[@]}")
+    ;;
+  alacritty)
+    [[ -n "$font_size" ]] && args+=("-o" "font.size=${font_size}")
+    [[ -n "$class" ]]     && args+=("--class" "${class}")
+    [[ -n "$title" ]]     && args+=("--title" "${title}")
+    [[ ${#cmd[@]} -gt 0 ]] && args+=("-e" "${cmd[@]}")
+    ;;
+esac
+exec "$TERM_BIN" "${args[@]}"

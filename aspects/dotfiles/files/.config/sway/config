@@ -141,7 +141,7 @@ bindsym $mod+Shift+Ctrl+s exec capture-screenshot fullscreen
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec mise r term
+bindsym $mod+Return exec launch-terminal
 
 # kill focused window
 bindsym $mod+w kill
@@ -304,9 +304,9 @@ bindsym $mod+Escape mode "$mode_system"
 bindsym $mod+z exec do-not-disturb
 bindsym $mod+Shift+t exec darkman toggle
 
-bindsym $mod+Shift+d exec mise r term --title=Lazydocker lazydocker
-bindsym $mod+v exec mise r term --title=Btop btop
-bindsym $mod+n exec mise r term --title=Neovim nvim
+bindsym $mod+Shift+d exec launch-terminal --title=Lazydocker lazydocker
+bindsym $mod+v exec launch-terminal --title=Btop btop
+bindsym $mod+n exec launch-terminal --title=Neovim nvim
 
 bindsym $mod+b exec chromium
 
