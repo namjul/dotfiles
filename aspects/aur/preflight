@@ -7,7 +7,8 @@ set -Eeuo pipefail
 abort() {
   echo -e "\e[31mInstall requires: $1\e[0m"
   echo
-  gum confirm "Proceed anyway on your own accord and without assistance?" || exit 1
+  read -r -p "Proceed anyway on your own accord and without assistance? [y/N] " ans
+  [[ "${ans:-}" == [yY] ]] || exit 1
 }
 
 in_test_or_vm() {
