@@ -132,7 +132,7 @@ bindsym XF86MonBrightnessDown exec brightnessctl set 5%-
 bindsym $mod+Shift+Tab move scratchpad
 
 # Toggle dedicated scratch terminal (spawn if missing). --to-code keeps Tab on de layout.
-bindsym --to-code $mod+Tab exec ~/.config/sway/scratchpad-term.sh
+bindsym --to-code $mod+Tab exec ~/.config/sway/scratchpad-focused.sh
 
 # Screenshot (grim + slurp + satty; i3 keeps flameshot)
 bindsym Print exec capture-screenshot
