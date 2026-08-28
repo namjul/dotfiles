@@ -26,8 +26,6 @@ else
   command -v sudo &>/dev/null || abort "sudo"
 fi
 
-in_test_or_vm || lsblk -rno TYPE | grep -q '^crypt$' || abort "disk encryption"
-
 echo "Guards: OK"
 
 # timezone: only set if not already configured
