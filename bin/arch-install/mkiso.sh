@@ -88,5 +88,20 @@ if ! command -v mkarchiso >/dev/null 2>&1; then
   pacman -Sy --noconfirm --needed archiso
 fi
 
+# A leftover -w tree makes mkarchiso skip or fail; same-day ISO names hide a stale out/*.iso.
+if [[ -d "$WORK" || -n "$(shopt -s nullglob; printf '%s' "$OUT"/*.iso)" ]]; then
+  if [[ ! -t 0 ]]; then
+    echo "Stale $WORK or $OUT/*.iso — rerun on a TTY to confirm wipe." >&2
+    exit 1
+  fi
+  read -r -p "Wipe previous ISO work and $OUT/*.iso, then rebuild? [y/N] " ans
+  [[ "$ans" == [yY] ]] || {
+    echo "Aborted." >&2
+    exit 1
+  }
+  rm -rf "$WORK"
+  rm -f "$OUT"/*.iso
+fi
+
 mkdir -p "$OUT" "$WORK"
 mkarchiso -v -w "$WORK" -o "$OUT" "$PROFILE"
