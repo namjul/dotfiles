@@ -45,7 +45,7 @@ The image is `bin/arch-install/out/*.iso`. Write that file to the USB (same meme
 
 `--prepare-only` copies `releng`, applies the overlay (`gum`, `network.sh`, `iso/start.sh`), prints the profile path, and does not run `mkarchiso`.
 
-tty1 auto-starts `network.sh` then the curl one-liner. `/run/arch-install-started` prevents a respawned getty from curling again; delete that file to retry on the same boot.
+tty1 auto-starts `network.sh` then fetches `boot.sh` to a file and runs it with the TTY as stdin. `/run/arch-install-started` is written only after that succeeds, so a wrong password or Ctrl+C can retry. After a successful run, delete the stamp to start again on the same boot.
 
 ## Install (ISO and after reboot)
 
