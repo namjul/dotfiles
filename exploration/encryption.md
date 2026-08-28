@@ -2,7 +2,7 @@
 
 Resume note: age-backed secrets across public dotfiles and a private password store. Store CLI (`gopass` / `passage`) is an implementation choice, not the architecture.
 
-**Sway plan:** [PLAN.sway.md](../aspects/aur/PLAN.sway.md) step 7 — path configured; crypto migration + clone remain **manual**. No new aspect, no mise task.
+**Desktop plan:** [PLAN.md](../aspects/aur/PLAN.md) slice 2 depends on this — path configured; crypto migration + clone remain **manual**. No new aspect, no mise task.
 
 ## Aim
 
@@ -227,4 +227,4 @@ git clone git@github.com:USER/STORE.git ~/.password-store
 - Wire passage (or gopass) + `age-plugin-yubikey` and local identities
 - Inject blind recipient file via env so recipients never leave the machine
 - Multi-recipient SOPS/fnox for PGP private keys in the public repo
-- Mark PLAN.sway step 7 done after real-machine proof
+- After real-machine store proof, `passmenu` on Wayland is [PLAN.md](../aspects/aur/PLAN.md) slice 2

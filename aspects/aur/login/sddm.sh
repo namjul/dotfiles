@@ -35,4 +35,4 @@ sudo sed -i '/-password.*pam_gnome_keyring\.so/d' /etc/pam.d/sddm
 sudo systemctl enable sddm.service
 
 echo "SDDM enabled (starts on next boot). Reboot, pick Sway at the greeter, then check SSH_AUTH_SOCK."
-echo "Recovery: Ctrl+Alt+F2 → sudo systemctl disable --now sddm (see PLAN.sway.md step 16)"
+echo "Recovery: Ctrl+Alt+F2 → sudo systemctl disable --now sddm (see aspects/aur/PLAN.md)"

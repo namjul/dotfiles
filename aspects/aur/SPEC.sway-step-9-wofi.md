@@ -1,6 +1,6 @@
 # Step 9 — wofi (app launcher)
 
-**Parent plan:** [PLAN.sway.md](PLAN.sway.md) step 10  
+**Parent plan:** [PLAN.md](PLAN.md) (wofi is done; this spec is historical)  
 **Status:** done — `78ef905f` (VM verified)
 
 ## Story
@@ -15,7 +15,7 @@ On Arch + Sway, replace the X11 `rofi` launcher bind with native Wayland `wofi`,
 | Command | `rofi -show combi` |
 | Config | `aspects/dotfiles/files/.config/rofi/config.rasi` — modes `drun`+`run`, combi searches `drun` only, `@theme "gruvbox-dark"` |
 | Theme toggle | `~/.local/share/dark-mode.d/rofi` and `light-mode.d/rofi` sed `@theme` in `config.rasi` |
-| Other rofi use | `bin/passmenu` still pipes through `rofi -dmenu` — step 13 in [PLAN.sway.md](PLAN.sway.md) |
+| Other rofi use | `bin/passmenu` still pipes through `rofi -dmenu` — [PLAN.md](PLAN.md) slice 2 |
 
 Sway config already exists and is Arch-only (`skipOnDebian` in `aspects/dotfiles/index.ts`). i3 config is Ubuntu-only (`skipOnArch`).
 
@@ -77,7 +77,7 @@ Wofi appearance matches rofi parity: gruvbox-dark by default, gruvbox-light when
 
 ### R6 — Dual-stack: rofi remains on Arch for i3 fallback
 
-Per [PLAN.sway.md](PLAN.sway.md) dual-stack policy, do not remove `rofi` or its dotfiles as part of step 9. Only the Sway session switches to wofi.
+Per [PLAN.md](PLAN.md) dual-stack policy, do not remove `rofi` or its dotfiles as part of step 9. Only the Sway session switches to wofi.
 
 **Examples:**
 - Arch i3 fallback session: `$mod+space` still runs rofi (if user logs into i3).
@@ -102,13 +102,13 @@ Package install alone is not completion (same discipline as step 6 done rule).
 4. VM verification checklist (R7) passes in Sway.
 5. Ubuntu/i3 path unchanged (no wofi bind in i3 config; rofi config and rofi dark-mode scripts untouched).
 6. darkman light/dark toggle switches wofi theme (manual test in VM or on hardware).
-7. PLAN.sway.md step 10 row marked done with commit reference after tests pass.
+7. Historical: parent plan step 10 row marked done with commit reference after tests pass.
 
 ## Out of scope (step 9)
 
-- `bin/passmenu` — step 13 in [PLAN.sway.md](PLAN.sway.md) (after store + `wl-clipboard`).
+- `bin/passmenu` — [PLAN.md](PLAN.md) slice 2 (after store + `wl-clipboard`).
 - Removing rofi system-wide on Arch.
-- Hyprland / walker launcher choice (archived in [PLAN.hyprland.md](PLAN.hyprland.md)).
+- Hyprland / walker launcher choice (dropped; Sway + wofi is the path).
 - Keybind changes other than `$mod+space`.
 
 ## Parked questions
@@ -143,7 +143,7 @@ aspects/dotfiles/files/.local/share/light-mode.d/wofi  → sed → style-light.c
 aspects/dotfiles/index.ts     → add wofi paths to files list
 ```
 
-Reference diff: compare omarchy sway/i3 launcher setup if present; primary source remains local i3/sway config port table in PLAN.sway.md.
+Reference diff: compare omarchy sway/i3 launcher setup if present; primary source remains local i3/sway config.
 
 ## Review notes
 
