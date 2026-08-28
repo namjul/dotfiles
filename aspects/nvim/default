@@ -49,5 +49,8 @@ if (!systemNeovim && !fs.existsSync(location)) {
   }
 }
 
+// Python host for :python3 / provider-python
+await command("python3", ["-m", "pip", "install", "pynvim", "pillow"]);
+
 // index help tags so :help writing-session (and any future doc/ files) work
 await command("nvim", ["--headless", "-c", "helptags ~/.config/nvim/doc", "-c", "quit"]);

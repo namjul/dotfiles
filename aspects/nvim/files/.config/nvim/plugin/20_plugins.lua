@@ -24,18 +24,10 @@ now(function() require('mini.statusline').setup() end)
 now(function() require('mini.tabline').setup({ tabpage_section = 'right' }) end)
 
 now_if_args(function()
-  -- TODO
-  -- if vim.fn.filereadable('/usr/local/bin/python3') == 1 then
-  --   -- Avoid search, speeding up start-up.
-  --   vim.g.python3_host_prog = '/usr/local/bin/python3'
-  -- end
-
   add({
     source = 'nvim-treesitter/nvim-treesitter',
-    -- Use 'master' while monitoring updates in 'main'
+    -- `main` is a rewrite (no nvim-treesitter.configs, needs Neovim 0.12). Stay on master for 0.11.
     checkout = 'master',
-    monitor = 'main',
-    -- Perform action after every checkout
     hooks = { post_checkout = function() vim.cmd('TSUpdate') end },
   })
   -- add('nvim-treesitter/nvim-treesitter-textobjects')
