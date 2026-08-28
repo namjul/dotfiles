@@ -31,7 +31,8 @@ set $white #ffffff
 bar {
     position top
     font pango: JetBrainsMono Nerd Font
-    status_command i3status-rs
+    # Bar is not a fish login; launch-* and mise tools (wiremix, impala) live off PATH otherwise
+    status_command env PATH="$HOME/.dotfiles/bin:$HOME/.local/share/mise/shims:$HOME/.local/bin:$PATH" i3status-rs
     colors {
         # bar background color
         background $bg
