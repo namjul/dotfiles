@@ -24,15 +24,13 @@ assert.result(reload);
 
 const now = Deno.env.get("usage_now") === "true";
 
-const darkman = await command("which", ["darkman"]);
-if (darkman.ok) {
-  const args = ["--user", "enable", "--now", "darkman.service"];
-  assert.result(await command("systemctl", args));
-} else {
-  console.warn("warn: darkman not found in PATH, skipping darkman.service enable");
-}
-
-for (const service of ["redshift.service", "gnome-keyring-daemon.socket"]) {
+for (
+  const service of [
+    "darkman.service",
+    "redshift.service",
+    "gnome-keyring-daemon.socket",
+  ]
+) {
   const args = ["--user", "enable", ...(now ? ["--now"] : []), service];
   const r = await command("systemctl", args);
   assert.result(r);
