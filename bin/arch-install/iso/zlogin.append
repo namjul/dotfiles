@@ -1,2 +1,2 @@
 # After official script= handling, start the install (gated by /run/arch-install-started).
-[[ -x /usr/local/bin/arch-install-start ]] && /usr/local/bin/arch-install-start
+[[ -x /usr/local/bin/arch-install ]] && /usr/local/bin/arch-install
