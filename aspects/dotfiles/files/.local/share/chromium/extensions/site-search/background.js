@@ -5,6 +5,7 @@ const SEARCH_ENGINES = {
   yt: "https://www.youtube.com/results?search_query=",
   mdn: "https://developer.mozilla.org/en-US/search?q=",
   r: "https://www.reddit.com/search/?q=",
+  emt: "https://gitlab.tools.wienfluss.net/eea/emt-app/-/work_items/"
 };
 
 const DEFAULT_ENGINE = "https://duckduckgo.com/?q=";
