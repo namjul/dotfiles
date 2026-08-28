@@ -92,7 +92,7 @@ packages=(
   wget zsh tmux fzf vim
   fish # https://fishshell.com
   nushell # https://github.com/nushell/nushell
-  fd ffmpegthumbnailer imagemagick ueberzugpp # yazi runtime deps (ueberzugpp: image preview in Alacritty)
+  fd ffmpegthumbnailer imagemagick # yazi runtime deps
   lf # https://github.com/gokcehan/lf
   tree xclip xsel wmctrl
   ripgrep # https://github.com/BurntSushi/ripgrep
