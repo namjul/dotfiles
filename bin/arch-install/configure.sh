@@ -4,6 +4,10 @@ set -euo pipefail
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 BOOT_OBJ="07ad4e87-5f4a-4110-a401-2ffa8e8603b6"
 ROOT_OBJ="036761c7-d363-4391-9ec3-f8d3815c6523"
+DEFAULT_KEYBOARD=de
+DEFAULT_USERNAME=nam
+DEFAULT_HOSTNAME=namarchy
+DEFAULT_TIMEZONE=Europe/Vienna
 
 abort() {
   gum style "${1:-Aborted}"
@@ -55,7 +59,7 @@ keyboard_form() {
   step "Keyboard"
   local maps
   maps=$(list_keymaps)
-  keyboard=$(printf '%s\n' "$maps" | gum filter --height 12 --header "Keyboard layout" --value de) || abort
+  keyboard=$(printf '%s\n' "$maps" | gum filter --height 12 --header "Keyboard layout" --value "$DEFAULT_KEYBOARD") || abort
   if [[ $(tty 2>/dev/null) == /dev/tty* ]]; then
     loadkeys "$keyboard" 2>/dev/null || true
   fi
@@ -64,7 +68,7 @@ keyboard_form() {
 user_form() {
   step "User"
   while true; do
-    username=$(gum input --placeholder "like samho" --prompt "Username> " --value "${username:-samho}") || abort
+    username=$(gum input --placeholder "like $DEFAULT_USERNAME" --prompt "Username> " --value "${username:-$DEFAULT_USERNAME}") || abort
     if [[ "$username" =~ ^[a-z_][a-z0-9_-]*$ ]]; then
       break
     fi
@@ -80,9 +84,9 @@ user_form() {
     gum style "Password empty or mismatch"
   done
 
-  hostname=$(gum input --placeholder "namarchy" --prompt "Hostname> " --value "${hostname:-namarchy}") || abort
+  hostname=$(gum input --placeholder "$DEFAULT_HOSTNAME" --prompt "Hostname> " --value "${hostname:-$DEFAULT_HOSTNAME}") || abort
   if [[ -z "$hostname" ]]; then
-    hostname=namarchy
+    hostname=$DEFAULT_HOSTNAME
   fi
   if [[ ! "$hostname" =~ ^[A-Za-z0-9]([A-Za-z0-9-]{0,61}[A-Za-z0-9])?$ ]]; then
     abort "Bad hostname"
@@ -90,7 +94,7 @@ user_form() {
 
   local guess
   guess=$(timedatectl show -p Timezone --value 2>/dev/null || true)
-  [[ -n "$guess" ]] || guess=Europe/Vienna
+  [[ -n "$guess" ]] || guess=$DEFAULT_TIMEZONE
   timezone=$(timedatectl list-timezones | gum filter --height 12 --header "Timezone" --value "$guess") || abort
 }
 
