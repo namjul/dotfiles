@@ -16,7 +16,7 @@ Omarchy ISO `main` used to clone a git repo and `source install.sh`. Quattro dro
 
 That script is the current live-ISO entry. It runs `configure.sh` first (gum forms: keyboard, user, hostname, timezone, disk, LUKS confirm). Official ISO does not ship `gum`; configure installs `gum`/`jq`/`openssl` via pacman if missing. Forms write `user_configuration.json` and `user_credentials.json` next to the script (ext4 + Limine + 4.3, not Omarchy btrfs). Those files are gitignored. `SKIP_CONFIGURE=1` reuses JSON from a prior run.
 
-UI taken from Omarchy’s `configurator`: `gum input` / `choose` / `filter` / `confirm` / `table`, hide the live USB disk, Ctrl+C toggles LUKS vs plain wipe. Not taken: Tokyo Night TTY palette, `clear_logo` helpers, offline flags, chroot desktop install.
+UI taken from Omarchy’s `configurator`: `gum input` / `choose` / `filter` / `confirm` / `table`, hide the live USB disk. Erase always writes LUKS. TUI does not; you enable LUKS there. Not taken: Tokyo Night TTY palette, `clear_logo` helpers, offline flags, chroot desktop install, Ctrl+C to skip LUKS.
 
 Then it patches two archinstall 4.2 / Python 3.14 bugs in `/usr/lib/python3.14/site-packages/archinstall/lib/installer.py` (logfile `Path` join, Limine `Path.copy` target), then:
 
@@ -72,7 +72,7 @@ cd ~/.dotfiles && bin/arch-install/mkiso.sh
 
 ## Sequence: official ISO to Sway
 
-Reducibility: pocket found — boot medium, then archinstall, then this repo’s `install.sh` is a fixed order; passwords and LUKS are taste, not structure.
+Reducibility: pocket found — boot medium, then archinstall, then this repo’s `install.sh` is a fixed order; passwords stay taste; LUKS is required on erase and expected in the TUI.
 
 ```markdown
 # From official ISO to Sway
@@ -80,7 +80,7 @@ Reducibility: pocket found — boot medium, then archinstall, then this repo’s
 intent: A machine that boots the stock Arch live medium, becomes your installed disk, then becomes this checkout’s desktop.
 context: [domain]
 
-human: which disk; LUKS or plain root; passwords stay in the generated creds file (not committed)
+human: which disk; passwords stay in the generated creds file (not committed); TUI LUKS is on you
 
 ## Genesis
 
@@ -105,7 +105,7 @@ intent: Arch on the target, with your user, before any aspects.
 context: [stack]
 
 1. `/root/dotfiles/bin/arch-install/arch-install.sh` (configure writes JSON, patches installer.py, then `--config` + `--creds` + `--silent`). `INTERACTIVE=1` keeps the archinstall TUI.
-2. human: pick disk and LUKS in the gum confirm (Ctrl+C toggles encryption)
+2. human: pick disk; erase confirm is LUKS-only; TUI must enable LUKS
 3. Let archinstall wipe the chosen disk, pacstrap, Limine, `git` + `base-devel`.
 4. Reboot into the installed system (not the live RAM disk).
 5. If LUKS: unlock at initramfs, then TTY login as `samho`.
@@ -129,7 +129,7 @@ context: [domain]
 
 ## Sequence: official ISO in a VM
 
-Reducibility: pocket found — a QEMU disk plus the official ISO is the same Path as metal; passwords and LUKS stay taste.
+Reducibility: pocket found — a QEMU disk plus the official ISO is the same Path as metal; passwords stay taste; LUKS is required on erase.
 
 `format-drive.fish` is a host USB wipe to GPT+exFAT. It does not write an Arch ISO and must not run against the VM install disk (archinstall owns that layout). The only useful fragment is `wipefs` + a short zero of the start of the disk, and only when a previous VM run left LUKS/LVM signatures. A new `qemu-img` qcow2 is the usual reset.
 
@@ -143,7 +143,7 @@ context: [stack]
 2. QEMU boots the official Arch ISO, with that file as `/dev/vda` and a working nic.
 3. The live session has a link (`ping archlinux.org`); then `git clone` this repo on the live root.
 4. `bin/arch-install/arch-install.sh` runs configure against `/dev/vda` (the picker already lists `vd*`).
-5. human: LUKS or plain; passwords stay in the generated creds (gitignored)
+5. human: passwords stay in the generated creds (gitignored); LUKS is required on erase
 6. archinstall wipes `/dev/vda`, pacstraps, Limine; then reboot the VM from the disk, not the ISO.
 7. A dirty rerun starts from a new qcow2 (or live-ISO `wipefs -a /dev/vda`), not from `format-drive`.
 

@@ -312,49 +312,34 @@ collect_disk() {
 }
 
 confirm_disk() {
-  local mode=encrypted
-  local affirmative status
-  while true; do
-    step "Overwrite ${disk}"
-    gum style "Everything on ${disk} will be wiped."
-    if [[ $mode == encrypted ]]; then
-      gum style --foreground 8 "Ctrl+C: install without LUKS"
-      affirmative="Yes, LUKS"
-    else
-      affirmative="Yes, no LUKS"
-    fi
-    echo
-    set +e
-    gum confirm --affirmative "$affirmative" --negative "Change disk" "Confirm overwrite"
-    status=$?
-    set -e
-    case $status in
-      0)
-        [[ $mode == encrypted ]] && encrypt=true || encrypt=false
-        return 0
-        ;;
-      1)
-        return 1
-        ;;
-      130)
-        if [[ $mode == encrypted ]]; then
-          mode=unencrypted
-        else
-          mode=encrypted
-        fi
-        ;;
-      *)
-        abort
-        ;;
-    esac
-  done
+  local status
+  step "Overwrite ${disk}"
+  gum style "Everything on ${disk} will be wiped."
+  gum style "LUKS is required."
+  echo
+  set +e
+  gum confirm --affirmative "Yes, LUKS" --negative "Change disk" "Confirm overwrite"
+  status=$?
+  set -e
+  case $status in
+    0)
+      encrypt=true
+      return 0
+      ;;
+    1)
+      return 1
+      ;;
+    *)
+      abort
+      ;;
+  esac
 }
 
 review() {
   local disk_review luks_review
   if [[ $disk_mode == tui ]]; then
     disk_review="archinstall TUI (${disk})"
-    luks_review="set in TUI"
+    luks_review="LUKS + password + apply to the partition"
   else
     disk_review=$disk
     luks_review=$encrypt
@@ -370,7 +355,8 @@ review() {
     gum table -s "," -p
   echo
   if [[ $disk_mode == tui ]]; then
-    gum style "In the TUI set Disk (existing EFI as /boot, hole as /) before Install."
+    gum style "In the TUI set Disk (existing EFI as /boot, hole as /)."
+    gum style "Disk encryption: pick LUKS, set the password, then apply it to the partition. Skip apply and nothing is encrypted."
     echo
   fi
   gum confirm "Does this look right?" || return 1

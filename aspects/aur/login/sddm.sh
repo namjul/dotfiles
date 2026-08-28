@@ -31,8 +31,20 @@ fi
 # the passwordless Default_keyring (omarchy sddm.sh:32-35).
 sudo sed -i '/-auth.*pam_gnome_keyring\.so/d' /etc/pam.d/sddm
 sudo sed -i '/-password.*pam_gnome_keyring\.so/d' /etc/pam.d/sddm
+if [[ -f /etc/pam.d/sddm-autologin ]]; then
+  sudo sed -i '/-auth.*pam_gnome_keyring\.so/d' /etc/pam.d/sddm-autologin
+  sudo sed -i '/-password.*pam_gnome_keyring\.so/d' /etc/pam.d/sddm-autologin
+fi
+
+# LUKS is the boot gate; after unlock, SDDM starts Sway as this user.
+sudo mkdir -p /etc/sddm.conf.d
+cat <<EOF | sudo tee /etc/sddm.conf.d/autologin.conf >/dev/null
+[Autologin]
+User=${USER}
+Session=sway
+EOF
 
 sudo systemctl enable sddm.service
 
-echo "SDDM enabled (starts on next boot). Reboot, pick Sway at the greeter, then check SSH_AUTH_SOCK."
+echo "SDDM autologin to Sway as ${USER} (starts on next boot). Check SSH_AUTH_SOCK."
 echo "Recovery: Ctrl+Alt+F2 → sudo systemctl disable --now sddm (see aspects/aur/PLAN.md)"

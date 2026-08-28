@@ -28,7 +28,7 @@ Done in `aspects/aur/packages` and `aspects/aur/login/`, VM-tested unless noted:
 |---|---|
 | Fonts, man | `noto-fonts`, `noto-fonts-emoji`, `man-db` |
 | Keyring | `gnome-keyring`, `libsecret`; `login/default-keyring.sh` (passwordless Default_keyring; socket activation; PAM session line keeps `SSH_AUTH_SOCK`) |
-| Login | `sddm`; `login/sddm.sh` (drop PAM `-auth`/`-password` gnome-keyring; `systemctl enable sddm`; reboot verified on hardware) |
+| Login | `sddm`; `login/sddm.sh` (drop PAM `-auth`/`-password` gnome-keyring; `/etc/sddm.conf.d/autologin.conf` → Sway as `$USER`; `systemctl enable sddm`) |
 | Compositor | `sway`, `swaybg`, `mako`, `libnotify`, `i3status-rust`, `alacritty` — Hyprland/uwsm/portal-hyprland removed |
 | Portals / Qt | `xdg-desktop-portal-wlr`, `xdg-desktop-portal-gtk`, `qt5-wayland`, `qt6-wayland` |
 | Polkit | `polkit-gnome` + `exec` in sway config; `lxsession` kept for i3 fallback |

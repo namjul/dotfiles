@@ -59,11 +59,11 @@ curl -fsSL https://raw.githubusercontent.com/namjul/dotfiles/master/bin/arch-ins
 
 ISO: clone → `/root/dotfiles`, run `arch-install.sh` (not bare `archinstall`). In gum: pick the install disk (not the live USB), then **Erase entire disk** or **Leave disk to archinstall TUI**.
 
-Erase: confirm overwrite. Ctrl+C toggles LUKS. The chosen disk is wiped.
+Erase: confirm overwrite. LUKS is required. The chosen disk is wiped.
 
-TUI (Windows + Ubuntu): shrink Windows in Disk Management first if you want a hole without deleting Ubuntu. Otherwise delete only **linux**-labeled partitions (typed name confirm; EFI / NTFS / MSR are not offered). Then in the TUI set Disk — existing EFI as `/boot`, the hole as `/` — before Install. Do not pick default layout on the whole NVMe. LUKS + a reused ESP can still fail in archinstall.
+TUI (Windows + Ubuntu): shrink Windows in Disk Management first if you want a hole without deleting Ubuntu. Otherwise delete only **linux**-labeled partitions (typed name confirm; EFI / NTFS / MSR are not offered). Then in the TUI set Disk — existing EFI as `/boot`, the hole as `/`. Disk encryption: pick LUKS, set the password, then apply it to the partition (skip apply and nothing is encrypted). Then Install. Do not pick default layout on the whole NVMe. LUKS + a reused ESP can still fail in archinstall. This path does not write `disk_encryption` for you.
 
-After reboot: unlock LUKS if you set it, TTY login as the user you typed. archinstall already cloned this repo into `~/.dotfiles` (`custom_commands`, username from the gum form) and printed the next command. Start with `boot.sh` so you get the banner, then `install.sh`:
+After reboot: unlock LUKS, TTY login as the user you typed. archinstall already cloned this repo into `~/.dotfiles` (`custom_commands`, username from the gum form) and printed the next command. Start with `boot.sh` so you get the banner, then `install.sh`. After that, later boots go LUKS prompt → SDDM autologin → Sway.
 
 ```bash
 ~/.dotfiles/bin/arch-install/boot.sh
