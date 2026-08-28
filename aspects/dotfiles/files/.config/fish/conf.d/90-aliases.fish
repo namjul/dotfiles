@@ -71,9 +71,14 @@ abbr dspace 'du -cha --max-depth=1 . | grep -E "M|G"'
 alias pass 'gopass'
 abbr sb sandbox
 
-# replicate pbcopy from macos
-alias pbcopy 'xclip -selection clipboard'
-alias pbpaste 'xclip -selection clipboard -o'
+# replicate pbcopy from macos (wl-clipboard on Wayland, xclip on X11)
+if set -q WAYLAND_DISPLAY
+  alias pbcopy wl-copy
+  alias pbpaste wl-paste
+else
+  alias pbcopy 'xclip -selection clipboard'
+  alias pbpaste 'xclip -selection clipboard -o'
+end
 
 # IP addresses
 abbr globalip "dig +short myip.opendns.com @resolver1.opendns.com"
