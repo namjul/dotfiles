@@ -1,6 +1,10 @@
-
-[tasks.default]
+[tasks.enable-services]
+description = "Link and enable systemd user units"
 usage = '''
-flag "--now" help="Enable and immediately start services"
+flag "--now" help="Enable and immediately start user services"
 '''
 run = "./index.ts"
+
+[tasks.default]
+description = "Enable systemd user units"
+depends = [":enable-services"]
