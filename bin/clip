@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# Copy stdin to the session clipboard. Wayland needs a living wl-copy; setsid
+# keeps the offer after tmux copy-pipe closes the pipe's process group.
+
+if [[ -n ${WAYLAND_DISPLAY-} ]] && command -v wl-copy >/dev/null; then
+  exec setsid wl-copy
+fi
+
+if command -v xclip >/dev/null; then
+  exec xclip -selection clipboard
+fi
+
+echo "clip: need wl-copy (Wayland) or xclip (X11)" >&2
+exit 1
