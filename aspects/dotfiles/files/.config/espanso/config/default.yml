@@ -7,3 +7,5 @@ search_shortcut: ALT+SHIFT+SPACE
 disable_x11_fast_inject: true
 # Inject sends US Shift+2 for @; on de that key is "
 backend: clipboard
+# Wayland default is Shift+Insert (primary in many terminals).
+paste_shortcut: CTRL+V
