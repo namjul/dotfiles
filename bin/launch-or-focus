@@ -1,9 +1,5 @@
 #!/usr/bin/env bash
 
-# Ensure i3-msg can connect
-export DISPLAY=:0
-export XAUTHORITY="$HOME/.Xauthority"
-
 # Usage: launch-or-focus APP_PATTERN LAUNCH_COMMAND
 # Example: launch-or-focus Wiremix "launch-terminal --class float-wiremix wiremix"
 
@@ -16,12 +12,36 @@ APP_PATTERN="$1"
 shift
 LAUNCH_COMMAND="$*"
 
-# Find the first matching window by title, class, or instance
-WINDOW_ID=$(i3-msg -t get_tree | jq -r --arg pattern "$APP_PATTERN" '.. | objects | select(.window_properties? != null and ( (.window_properties.title // "" | test($pattern;"i")) or (.window_properties.class // "" | test($pattern;"i")) or (.window_properties.instance // "" | test($pattern;"i")))) | .id' | head -n1)
+if [[ -n ${WAYLAND_DISPLAY-} ]] && command -v swaymsg >/dev/null; then
+  # tmux update-environment refreshes SWAYSOCK on attach; this pane may predate that
+  if [[ -z ${SWAYSOCK-} || ! -S ${SWAYSOCK} ]]; then
+    sock=$(find /run/user/"${UID}" -maxdepth 1 -name 'sway-ipc.*.sock' -print -quit)
+    [[ -n ${sock} ]] && export SWAYSOCK="${sock}"
+  fi
+  MSG=swaymsg
+else
+  export DISPLAY="${DISPLAY:-:0}"
+  export XAUTHORITY="${XAUTHORITY:-$HOME/.Xauthority}"
+  MSG=i3-msg
+fi
+
+# Wayland clients expose app_id / name; X11 clients use window_properties.
+WINDOW_ID=$($MSG -t get_tree | jq -r --arg pattern "$APP_PATTERN" '
+  .. | objects
+  | select(.type? == "con" or .type? == "floating_con")
+  | select(
+      ((.name // "") | test($pattern; "i"))
+      or ((.app_id // "") | test($pattern; "i"))
+      or ((.window_properties.title // "") | test($pattern; "i"))
+      or ((.window_properties.class // "") | test($pattern; "i"))
+      or ((.window_properties.instance // "") | test($pattern; "i"))
+    )
+  | .id
+' | head -n1)
 
 if [[ -n "$WINDOW_ID" ]]; then
   # Focus existing window
-  i3-msg "[con_id=$WINDOW_ID] focus"
+  $MSG "[con_id=$WINDOW_ID] focus"
 else
   # Launch new window in background
   setsid $LAUNCH_COMMAND >/dev/null 2>&1 &
