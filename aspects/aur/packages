@@ -66,6 +66,7 @@ packages=(
   nsxiv # https://github.com/nsxiv/nsxiv
   pipewire pipewire-alsa pipewire-pulse pipewire-jack wireplumber gst-plugin-pipewire # audio stack
   interception-tools # https://gitlab.com/interception/linux/tools
+  interception-dual-function-keys # tap Caps → Esc, hold → Ctrl
   libevdev yaml-cpp # required for dual-function-keys
   bluez bluez-utils # bluetooth
   gnome-keyring libsecret # D-Bus Secret Service

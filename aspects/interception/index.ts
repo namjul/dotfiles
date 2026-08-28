@@ -22,5 +22,8 @@ for (const config of configs) {
 const enable = await command("systemctl", ["enable", "--now", "udevmon"], { sudo: true });
 assert.result(enable);
 
+const restart = await command("systemctl", ["restart", "udevmon"], { sudo: true });
+assert.result(restart);
+
 const reload = await command("udevadm", ["control", "--reload"], { sudo: true });
 assert.result(reload);
