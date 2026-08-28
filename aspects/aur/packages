@@ -48,72 +48,74 @@ sudo systemctl enable --now paccache.timer
 #   fi
 # fi
 
-# official repo packages
-
-# typography (PLAN.sway step 1)
-sudo pacman -S --needed --noconfirm noto-fonts noto-fonts-emoji man-db
-
-# system
-sudo pacman -S --needed --noconfirm cmake pkgconf clang unzip # build tools
-sudo pacman -S --needed --noconfirm procps-ng curl file # runtime essentials
-sudo pacman -S --needed --noconfirm i3-wm # window manager
-sudo pacman -S --needed --noconfirm feh # background image
-sudo pacman -S --needed --noconfirm zathura zathura-pdf-mupdf # document viewer
-sudo pacman -S --needed --noconfirm cryptsetup # used for tomb
-sudo pacman -S --needed --noconfirm pass # https://www.passwordstore.org/
-sudo pacman -S --needed --noconfirm flameshot # https://github.com/flameshot-org/flameshot
-sudo pacman -S --needed --noconfirm nsxiv # https://github.com/nsxiv/nsxiv
-sudo pacman -S --needed --noconfirm pipewire pipewire-alsa pipewire-pulse pipewire-jack wireplumber gst-plugin-pipewire # audio stack
-sudo pacman -S --needed --noconfirm interception-tools # https://gitlab.com/interception/linux/tools
-sudo pacman -S --needed --noconfirm libevdev yaml-cpp # required for dual-function-keys
-sudo pacman -S --needed --noconfirm bluez bluez-utils # bluetooth
-sudo pacman -S --needed --noconfirm gnome-keyring libsecret # D-Bus Secret Service
-sudo pacman -S --needed --noconfirm sddm # login manager — config in aspects/aur/login
-sudo pacman -S --needed --noconfirm sway swaybg mako libnotify i3status-rust alacritty # Wayland compositor (PLAN.sway step 4)
-sudo pacman -S --needed --noconfirm xdg-desktop-portal-wlr xdg-desktop-portal-gtk qt5-wayland qt6-wayland # Wayland integration (PLAN.sway step 5)
-sudo pacman -S --needed --noconfirm lxsession # polkit auth agent for i3/X11 fallback (lxpolkit)
-sudo pacman -S --needed --noconfirm polkit-gnome # polkit auth agent for sway/Wayland (PLAN.sway step 8)
-sudo pacman -S --needed --noconfirm wofi # app launcher for sway (PLAN.sway step 10)
-sudo pacman -S --needed --noconfirm darkman # theme toggle for wofi/rofi/alacritty (PLAN.sway step 10)
-sudo pacman -S --needed --noconfirm grim slurp satty wl-clipboard # screenshots for sway (PLAN.sway step 11)
-sudo pacman -S --needed --noconfirm pamixer swayosd # volume OSD for sway (PLAN.sway step 14)
-sudo pacman -S --needed --noconfirm swayidle swaylock # idle lock for sway (PLAN.sway step 15)
-sudo pacman -S --needed --noconfirm imv # https://sr.ht/~exec64/imv/
-sudo pacman -S --needed --noconfirm iwd # https://wiki.archlinux.org/title/Iwd
-sudo pacman -S --needed --noconfirm chromium
-sudo pacman -S --needed --noconfirm brightnessctl # https://github.com/Hummer12007/brightnessctl
-
-# cli tools
-sudo pacman -S --needed --noconfirm wget zsh tmux fzf vim
-sudo pacman -S --needed --noconfirm fish # https://fishshell.com
-sudo pacman -S --needed --noconfirm nushell # https://github.com/nushell/nushell
-sudo pacman -S --needed --noconfirm fd ffmpegthumbnailer imagemagick # yazi runtime deps
-sudo pacman -S --needed --noconfirm lf # https://github.com/gokcehan/lf
-sudo pacman -S --needed --noconfirm tree xclip xsel wmctrl
-sudo pacman -S --needed --noconfirm ripgrep # https://github.com/BurntSushi/ripgrep
+# official repo packages — one transaction so a long download does not expire sudo
 # paru -S --needed --noconfirm github-cli # https://cli.github.com
-sudo pacman -S --needed --noconfirm translate-shell # https://github.com/soimort/translate-shell
-sudo pacman -S --needed --noconfirm mise # https://mise.jdx.dev
-sudo pacman -S --needed --noconfirm tig # https://github.com/jonas/tig
-sudo pacman -S --needed --noconfirm jq # https://github.com/stedolan/jq
-sudo pacman -S --needed --noconfirm entr # https://github.com/eradman/entr
-sudo pacman -S --needed --noconfirm direnv # https://github.com/direnv/direnv
-sudo pacman -S --needed --noconfirm khal # https://github.com/pimutils/khal
-sudo pacman -S --needed --noconfirm vdirsyncer # https://github.com/pimutils/vdirsyncer
-sudo pacman -S --needed --noconfirm glab # https://gitlab.com/gitlab-org/cli
-sudo pacman -S --needed --noconfirm yt-dlp # https://github.com/yt-dlp/yt-dlp
-sudo pacman -S --needed --noconfirm fastfetch # https://github.com/fastfetch-cli/fastfetch
-sudo pacman -S --needed --noconfirm neovim # https://github.com/neovim/neovim
-sudo pacman -S --needed --noconfirm gopass # https://github.com/gopasspw/gopass
-sudo pacman -S --needed --noconfirm notmuch # https://notmuchmail.org
-sudo pacman -S --needed --noconfirm btop # https://github.com/aristocratos/btop
-sudo pacman -S --needed --noconfirm mpv # https://mpv.io/
-sudo pacman -S --needed --noconfirm gnupg # https://www.gnupg.org/
-sudo pacman -S --needed --noconfirm starship # https://starship.rs
-sudo pacman -S --needed --noconfirm zoxide # https://github.com/ajeetdsouza/zoxide
-sudo pacman -S --needed --noconfirm ufw
-sudo pacman -S --needed --noconfirm less
-sudo pacman -S --needed --noconfirm gum # https://github.com/charmbracelet/gum
+packages=(
+  # typography (PLAN.sway step 1)
+  noto-fonts noto-fonts-emoji man-db
+
+  # system
+  cmake pkgconf clang unzip # build tools
+  procps-ng curl file # runtime essentials
+  i3-wm # window manager
+  feh # background image
+  zathura zathura-pdf-mupdf # document viewer
+  cryptsetup # used for tomb
+  pass # https://www.passwordstore.org/
+  flameshot # https://github.com/flameshot-org/flameshot
+  nsxiv # https://github.com/nsxiv/nsxiv
+  pipewire pipewire-alsa pipewire-pulse pipewire-jack wireplumber gst-plugin-pipewire # audio stack
+  interception-tools # https://gitlab.com/interception/linux/tools
+  libevdev yaml-cpp # required for dual-function-keys
+  bluez bluez-utils # bluetooth
+  gnome-keyring libsecret # D-Bus Secret Service
+  sddm # login manager — config in aspects/aur/login
+  sway swaybg mako libnotify i3status-rust alacritty # Wayland compositor (PLAN.sway step 4)
+  xdg-desktop-portal-wlr xdg-desktop-portal-gtk qt5-wayland qt6-wayland # Wayland integration (PLAN.sway step 5)
+  lxsession # polkit auth agent for i3/X11 fallback (lxpolkit)
+  polkit-gnome # polkit auth agent for sway/Wayland (PLAN.sway step 8)
+  wofi # app launcher for sway (PLAN.sway step 10)
+  darkman # theme toggle for wofi/rofi/alacritty (PLAN.sway step 10)
+  grim slurp satty wl-clipboard # screenshots for sway (PLAN.sway step 11)
+  pamixer swayosd # volume OSD for sway (PLAN.sway step 14)
+  swayidle swaylock # idle lock for sway (PLAN.sway step 15)
+  imv # https://sr.ht/~exec64/imv/
+  iwd # https://wiki.archlinux.org/title/Iwd
+  chromium
+  brightnessctl # https://github.com/Hummer12007/brightnessctl
+
+  # cli tools
+  wget zsh tmux fzf vim
+  fish # https://fishshell.com
+  nushell # https://github.com/nushell/nushell
+  fd ffmpegthumbnailer imagemagick # yazi runtime deps
+  lf # https://github.com/gokcehan/lf
+  tree xclip xsel wmctrl
+  ripgrep # https://github.com/BurntSushi/ripgrep
+  translate-shell # https://github.com/soimort/translate-shell
+  mise # https://mise.jdx.dev
+  tig # https://github.com/jonas/tig
+  jq # https://github.com/stedolan/jq
+  entr # https://github.com/eradman/entr
+  direnv # https://github.com/direnv/direnv
+  khal # https://github.com/pimutils/khal
+  vdirsyncer # https://github.com/pimutils/vdirsyncer
+  glab # https://gitlab.com/gitlab-org/cli
+  yt-dlp # https://github.com/yt-dlp/yt-dlp
+  fastfetch # https://github.com/fastfetch-cli/fastfetch
+  neovim # https://github.com/neovim/neovim
+  gopass # https://github.com/gopasspw/gopass
+  notmuch # https://notmuchmail.org
+  btop # https://github.com/aristocratos/btop
+  mpv # https://mpv.io/
+  gnupg # https://www.gnupg.org/
+  starship # https://starship.rs
+  zoxide # https://github.com/ajeetdsouza/zoxide
+  ufw
+  less
+  gum # https://github.com/charmbracelet/gum
+)
+sudo pacman -S --needed --noconfirm "${packages[@]}"
 
 # raise file descriptor limit for dev tools
 sudo mkdir -p /etc/systemd/system.conf.d /etc/systemd/user.conf.d
