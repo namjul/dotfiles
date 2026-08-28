@@ -77,6 +77,7 @@ variables(({ identity }) => ({
     ".config/lf",
     ".config/flameshot",
     ".config/alacritty",
+    ".config/foot",
     ".config/marksman",
     ".config/ncspot",
     ".config/dunst",

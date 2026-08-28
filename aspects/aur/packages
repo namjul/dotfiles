@@ -71,12 +71,12 @@ packages=(
   bluez bluez-utils # bluetooth
   gnome-keyring libsecret # D-Bus Secret Service
   sddm # login manager — config in aspects/aur/login
-  sway swaybg mako libnotify i3status-rust alacritty # Wayland compositor (PLAN.sway step 4)
+  sway swaybg mako libnotify i3status-rust alacritty foot # Wayland compositor (PLAN.sway step 4)
   xdg-desktop-portal-wlr xdg-desktop-portal-gtk qt5-wayland qt6-wayland # Wayland integration (PLAN.sway step 5)
   lxsession # polkit auth agent for i3/X11 fallback (lxpolkit)
   polkit-gnome # polkit auth agent for sway/Wayland (PLAN.sway step 8)
   wofi # app launcher for sway (PLAN.sway step 10)
-  darkman # theme toggle for wofi/rofi/alacritty (PLAN.sway step 10)
+  darkman # theme toggle for wofi/rofi/alacritty/foot (PLAN.sway step 10)
   grim slurp satty wl-clipboard # screenshots for sway (PLAN.sway step 11)
   pamixer swayosd # volume OSD for sway (PLAN.sway step 14)
   swayidle swaylock # idle lock for sway (PLAN.sway step 15)
