@@ -86,6 +86,7 @@ variables(({ identity }) => ({
     ".local/share/light-mode.d",
     ".local/share/dark-mode.d",
     ".local/share/applications",
+    ".local/share/chromium/extensions",
     ".local/bin/mount-shares.encrypted",
     ".local/bin/keepassxc-wf.encrypted",
     ".config/ghostty",
@@ -105,6 +106,7 @@ variables(({ identity }) => ({
   ],
   templates: [
     ".config/git/config.tmpl",
+    ".config/chromium-flags.conf.tmpl",
     ".hgrc.tmpl",
     // ".config/wireguard/tunnel.conf.tmpl",
   ],
