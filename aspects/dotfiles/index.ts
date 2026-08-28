@@ -186,6 +186,7 @@ variables(({ identity }) => ({
     ".agents/prompts/wn.md",
     ".agents/prompts/code.md",
     ".agents/prompts/sense.md",
+    ".agents/prompts/ask.md",
     ".agents/prompts/enact.md",
     ".agents/prompts/ap.md",
     ".agents/prompts/unfold.md",
