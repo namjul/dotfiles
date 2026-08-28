@@ -4,6 +4,7 @@
 matches:
   - trigger: e..
     replace: samuel.hobl@gmail.com
+    force_clipboard: true
   - trigger: mfg
     replace: Mit freundlichen Grüßen
   - triggers:

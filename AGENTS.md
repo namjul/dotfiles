@@ -12,6 +12,7 @@ Key features:
 ## Aspects
 - `aur` — Verify environment and prepare pacman (Arch)
 - `dotfiles` — Symlink dotfiles from repo into $HOME
+- `espanso` — Optional Wayland compile + setcap (not on install.sh)
 - `fonts` — Install JetBrains Mono font files
 - `homebrew` — Update Homebrew packages
 - `i3status-rust` — i3status-rust bar configuration

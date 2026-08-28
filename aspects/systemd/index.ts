@@ -6,6 +6,7 @@ init(import.meta.dirname);
 
 const userServices = [
   ".config/systemd/user/darkman.service",
+  ".config/systemd/user/espanso.service",
   ".config/systemd/user/redshift.service",
 ];
 
@@ -27,6 +28,7 @@ const now = Deno.env.get("usage_now") === "true";
 for (
   const service of [
     "darkman.service",
+    "espanso.service",
     "redshift.service",
     "gnome-keyring-daemon.socket",
   ]

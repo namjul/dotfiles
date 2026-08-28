@@ -1,0 +1,6 @@
+[tasks.default]
+description = "Compile Espanso for Wayland (official docs; not on install.sh)"
+usage = '''
+flag "--force" help="Rebuild even if this version is already installed"
+'''
+file = "default"

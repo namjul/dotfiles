@@ -1,0 +1,57 @@
+#!/bin/bash
+# Official Wayland compile: https://espanso.org/docs/install/linux/#wayland-compile
+# Optional: mise run //aspects/espanso:default
+# Do not add to install.sh.
+
+trap 'echo "Warning: A command has failed. Exiting the script. Line was ($0:$LINENO): ${BASH_COMMAND}"; exit 3' ERR
+set -euo pipefail
+
+# pacman + official Wayland compile — same Arch test as fig `when("arch")`
+if [[ ! -e /etc/arch-release ]]; then
+  echo "espanso aspect: skip (not Arch)"
+  exit 0
+fi
+
+if [[ -e /run/fig-test-container ]]; then
+  sudo() { "$@"; }
+fi
+
+VERSION="v2.4.0"
+DEST="/usr/local/bin/espanso"
+SRC="${XDG_CACHE_HOME:-$HOME/.cache}/espanso-src"
+
+already_installed() {
+  [[ -x $DEST ]] || return 1
+  "$DEST" --version 2>/dev/null | grep -Fq "${VERSION#v}" || return 1
+  getcap "$DEST" 2>/dev/null | grep -Fq cap_dac_override || return 1
+}
+
+if [[ "${usage_force:-}" != "true" ]] && already_installed; then
+  echo "Espanso ${VERSION} already at ${DEST} with cap_dac_override — skip"
+  exit 0
+fi
+
+sudo pacman -S --needed --noconfirm \
+  git \
+  dbus \
+  base-devel \
+  wl-clipboard \
+  wxwidgets-gtk3 \
+  libxkbcommon
+
+if [[ ! -d "$SRC/.git" ]]; then
+  if [[ -e "$SRC" ]]; then
+    rm -rf "$SRC"
+  fi
+  command git clone --depth 1 --branch "$VERSION" https://github.com/espanso/espanso "$SRC"
+fi
+command git -C "$SRC" fetch --depth 1 origin "refs/tags/${VERSION}:refs/tags/${VERSION}"
+command git -C "$SRC" checkout --detach "$VERSION"
+
+cargo build -p espanso --release --no-default-features --features modulo,vendored-tls,wayland \
+  --manifest-path "$SRC/Cargo.toml"
+
+sudo install -m 755 "$SRC/target/release/espanso" "$DEST"
+sudo setcap "cap_dac_override+p" "$DEST"
+
+echo "Installed ${DEST} (${VERSION}). Enable the user unit via //aspects/systemd:default."
