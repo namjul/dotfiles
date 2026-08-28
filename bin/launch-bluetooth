@@ -1,1 +1,4 @@
-launch-or-focus bluetui "launch-terminal --font-size=10 --class=org.namjul.float-win --title=BlueTui bluetui"
+#!/usr/bin/env bash
+set -euo pipefail
+bluetooth-power on
+exec launch-or-focus bluetui "launch-terminal --font-size=10 --class=org.namjul.float-win --title=BlueTui bluetui"

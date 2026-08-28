@@ -5,6 +5,10 @@ flag "--now" help="Enable and immediately start user services"
 '''
 run = "./index.ts"
 
+[tasks.bluetooth]
+description = "Enable bluetooth.service on Arch (radio state is rfkill, not AutoEnable)"
+run = "./bluetooth.ts"
+
 [tasks.default]
-description = "Enable systemd user units"
-depends = [":enable-services"]
+description = "User units plus Arch bluetooth enable"
+depends = [":enable-services", ":bluetooth"]
