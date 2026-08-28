@@ -17,7 +17,8 @@ args=(
   --config "$DIR/user_configuration.json"
   --creds "$DIR/user_credentials.json"
 )
-if [[ "${INTERACTIVE:-}" != 1 ]]; then
+if [[ "${INTERACTIVE:-}" != 1 ]] &&
+  jq -e '.disk_config.config_type == "default_layout"' "$DIR/user_configuration.json" >/dev/null; then
   args+=(--silent)
 fi
 
