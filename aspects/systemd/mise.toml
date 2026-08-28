@@ -9,6 +9,14 @@ run = "./index.ts"
 description = "Enable bluetooth.service on Arch (radio state is rfkill, not AutoEnable)"
 run = "./bluetooth.ts"
 
+[tasks.power]
+description = "Enable power-profiles-daemon and AC/battery udev rule (Arch, battery only)"
+run = "./power.ts"
+
 [tasks.default]
-description = "User units plus Arch bluetooth enable"
-depends = [":enable-services", ":bluetooth"]
+description = "User units plus Arch bluetooth and power"
+depends = [":enable-services"]
+run = [
+  { task = "bluetooth" },
+  { task = "power" },
+]

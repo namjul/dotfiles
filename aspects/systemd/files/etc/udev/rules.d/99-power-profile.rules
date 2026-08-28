@@ -1,0 +1,3 @@
+# Switch power-profiles-daemon on AC plug/unplug. systemd-run so udev does not block.
+SUBSYSTEM=="power_supply", ATTR{type}=="Mains", ATTR{online}=="1", RUN+="/usr/bin/systemd-run --no-block --collect --unit=dotfiles-power-profile-ac --property=After=power-profiles-daemon.service /usr/bin/powerprofilesctl set balanced"
+SUBSYSTEM=="power_supply", ATTR{type}=="Mains", ATTR{online}=="0", RUN+="/usr/bin/systemd-run --no-block --collect --unit=dotfiles-power-profile-bat --property=After=power-profiles-daemon.service /usr/bin/powerprofilesctl set power-saver"

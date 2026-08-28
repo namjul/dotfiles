@@ -92,7 +92,7 @@ Packages that must be present before each concern runs. Add missing ones to `asp
 | Concern | Package | Repo | In `aur/packages` |
 |---|---|---|---|
 | kernel | `linux-modules-cleanup` | AUR | No — blocked until paru is available |
-| power | `power-profiles-daemon` | official | No — add with pacman |
+| power | `power-profiles-daemon` | official | Yes |
 | bluetooth | `bluez`, `bluez-utils`, `wireplumber` | official | Yes |
 | network | `iwd` | official | Yes |
 | user services | `swayosd` | AUR | No — blocked until paru is available |
