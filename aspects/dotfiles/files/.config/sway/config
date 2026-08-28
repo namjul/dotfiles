@@ -107,6 +107,8 @@ exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1  # sway: polkit-g
 exec_always swaybg -i "$HOME/.config/i3/Albert_Bierstadt,_Among_the_Sierra_Nevada_Mountains.jpg" -m fill
 
 # Start a term instance in scratchpad mode
+# Wayland Alacritty sets app_id from --class; class= only matches X11 WM_CLASS
+for_window [app_id="scratch.term"] move scratchpad
 for_window [class="scratch.term"] move scratchpad
 exec alacritty --class=scratch.term
 
@@ -129,8 +131,8 @@ bindsym XF86MonBrightnessDown exec brightnessctl set 5%-
 # Make the currently focused window a scratchpad
 bindsym $mod+Shift+Tab move scratchpad
 
-# Show the first scratchpad window
-bindsym $mod+Tab scratchpad show  # sway: was scratchpad_focused.sh (i3-msg)
+# Toggle dedicated scratch terminal (spawn if missing). --to-code keeps Tab on de layout.
+bindsym --to-code $mod+Tab exec ~/.config/sway/scratchpad-term.sh
 
 # Screenshot (grim + slurp + satty; i3 keeps flameshot)
 bindsym Print exec capture-screenshot
