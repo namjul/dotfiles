@@ -51,7 +51,7 @@ tty1 auto-starts `keyboard.sh` then `network.sh`, then fetches `boot.sh` to a fi
 
 ## Install (ISO and after reboot)
 
-Same command on the live ISO and after reboot. It installs `git` if needed, clones the repo, then picks the step from `/run/archiso` (present only on the official ISO).
+On the live ISO:
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/namjul/dotfiles/master/bin/arch-install/boot.sh | bash
@@ -63,8 +63,12 @@ Erase: confirm overwrite. Ctrl+C toggles LUKS. The chosen disk is wiped.
 
 TUI (Windows + Ubuntu): shrink Windows in Disk Management first if you want a hole without deleting Ubuntu. Otherwise delete only **linux**-labeled partitions (typed name confirm; EFI / NTFS / MSR are not offered). Then in the TUI set Disk — existing EFI as `/boot`, the hole as `/` — before Install. Do not pick default layout on the whole NVMe. LUKS + a reused ESP can still fail in archinstall.
 
-After reboot: unlock LUKS if you set it, TTY login as the user you typed, paste the same command. Clone → `~/.dotfiles`, run `install.sh`.
+After reboot: unlock LUKS if you set it, TTY login as the user you typed. archinstall already cloned this repo into `~/.dotfiles` (`custom_commands`, username from the gum form) and printed the next command. Start with `boot.sh` so you get the banner, then `install.sh`:
 
-Branch override: `DOTFILES_REF=dev curl -fsSL … | bash`.
+```bash
+~/.dotfiles/bin/arch-install/boot.sh
+```
+
+If that directory is missing (clone failed, or an old ISO), the live-ISO curl still works as a fallback. Branch override on the ISO: `DOTFILES_REF=dev curl -fsSL … | bash` (same vars apply to the clone command).
 
 Mount the age stick yourself (`lsblk`, then `sudo mount /dev/sdX1 /mnt/usb`). Restore `~/.config/age/key.txt`, then the store / sops / fnox. The store copy of the identity is not a bootstrap.

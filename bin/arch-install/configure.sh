@@ -391,15 +391,23 @@ write_creds() {
     >"$DIR/user_credentials.json"
 }
 
+dotfiles_clone_cmd() {
+  local repo="${DOTFILES_REPO:-namjul/dotfiles}"
+  local ref="${DOTFILES_REF:-master}"
+  printf '%s\n' "git clone --branch ${ref} https://github.com/${repo}.git /home/${username}/.dotfiles && chown -R ${username}:${username} /home/${username}/.dotfiles && printf '%s\\n' '~/.dotfiles/bin/arch-install/boot.sh'"
+}
+
 write_json() {
-  local disk_size mib gib boot_start boot_size root_start root_size
+  local disk_size mib gib boot_start boot_size root_start root_size clone
   write_creds
+  clone=$(dotfiles_clone_cmd)
 
   if [[ $disk_mode == tui ]]; then
     jq -n \
       --arg hostname "$hostname" \
       --arg timezone "$timezone" \
       --arg keyboard "$keyboard" \
+      --arg clone "$clone" \
       --arg m1 'https://mirror.rackspace.com/archlinux/$repo/os/$arch' \
       --arg m2 'https://geo.mirror.pkgbuild.com/$repo/os/$arch' \
       '{
@@ -407,7 +415,7 @@ write_json() {
         "archinstall-language": "English",
         auth_config: {},
         bootloader_config: { bootloader: "Limine", removable: false, uki: false },
-        custom_commands: [],
+        custom_commands: [$clone],
         hostname: $hostname,
         kernels: ["linux"],
         locale_config: { kb_layout: $keyboard, sys_enc: "UTF-8", sys_lang: "en_US.UTF-8" },
@@ -457,6 +465,7 @@ write_json() {
     --argjson root_size "$root_size" \
     --argjson encrypt "$encrypt" \
     --arg pass "$password" \
+    --arg clone "$clone" \
     --arg m1 'https://mirror.rackspace.com/archlinux/$repo/os/$arch' \
     --arg m2 'https://geo.mirror.pkgbuild.com/$repo/os/$arch' \
     '{
@@ -464,7 +473,7 @@ write_json() {
       "archinstall-language": "English",
       auth_config: {},
       bootloader_config: { bootloader: "Limine", removable: true, uki: false },
-      custom_commands: [],
+      custom_commands: [$clone],
       disk_config: {
         btrfs_options: { snapshot_config: null },
         config_type: "default_layout",
