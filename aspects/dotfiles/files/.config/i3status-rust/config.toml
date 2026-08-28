@@ -68,10 +68,10 @@ format = " $icon "
 button = "left"
 cmd = "launch-audio"
 
-[[block]]
-block = "notify"
-format = " $icon "
-# driver = "swaync"
+# [[block]]
+# block = "notify"
+# format = " $icon "
+# driver = "dunst"
 
 # [[block]]
 # block = "docker"
