@@ -1,0 +1,49 @@
+# Output ids from `swaymsg -t get_outputs` (make model serial).
+# Docked profiles all match the same pair; kanshi applies the first (dockedhome).
+# Super+x then 1/2/o runs kanshictl switch.
+
+profile mobile {
+	output "AU Optronics 0x2036 Unknown" {
+		enable
+		scale 2
+		position 0,0
+	}
+}
+
+profile dockedhome {
+	output "AU Optronics 0x2036 Unknown" {
+		enable
+		scale 2
+		position 0,0
+	}
+	output "Dell Inc. DELL U2719DC 56645R2" {
+		enable
+		scale 1
+		mode 2560x1440
+		position 0,720
+	}
+}
+
+profile dockedhomeup {
+	output "Dell Inc. DELL U2719DC 56645R2" {
+		enable
+		scale 1
+		mode 2560x1440
+		position 0,0
+	}
+	output "AU Optronics 0x2036 Unknown" {
+		enable
+		scale 2
+		position 0,1440
+	}
+}
+
+profile dockedoffice {
+	output "Dell Inc. DELL U2719DC 56645R2" {
+		enable
+		scale 1
+		mode 2560x1440
+		position 0,0
+	}
+	output "AU Optronics 0x2036 Unknown" disable
+}

@@ -93,6 +93,8 @@ exec notify-battery -n
 
 exec mako
 
+exec kanshi
+
 exec swayosd-server
 
 # Start authentication agents (see https://wiki.archlinux.org/title/Polkit#Authentication_agents)
@@ -273,17 +275,13 @@ bindsym $mod+r mode "resize"
 
 ## Manual management of external displays
 # Set the shortcuts and what they do
-set $mode_display Ext Screen (m) mobile, (d) docked home, (Shift+d) docked office
+set $mode_display Ext Screen (m) mobile, (1) docked home down, (2) docked home up, (o) docked office
 mode "$mode_display" {
 
-    # bindsym m exec autorandr mobile, mode "default"  # sway: kanshi / sway output
-    # bindsym d exec autorandr dockedhome, mode "default"
-    # bindsym Shift+d exec autorandr dockedoffice, mode "default"
-
-    # bindsym v exec xrandr --output DP1 --auto --above eDP1, mode "default"
-    # bindsym h exec xrandr --output DP1-2 --auto --above eDP1, mode "default"
-    # bindsym x exec xrandr --output DP1 --auto --off, mode "default"
-    # bindsym y exec xrandr --output DP1-2 --auto --off, mode "default"
+    bindsym m exec kanshictl switch mobile, mode "default"
+    bindsym 1 exec kanshictl switch dockedhome, mode "default"
+    bindsym 2 exec kanshictl switch dockedhomeup, mode "default"
+    bindsym o exec kanshictl switch dockedoffice, mode "default"
 
     # back to normal: Enter or Escape
     bindsym Return mode "default"

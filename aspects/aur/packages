@@ -80,6 +80,7 @@ packages=(
   grim slurp satty wl-clipboard # screenshots for sway (PLAN.sway step 11)
   pamixer swayosd # volume OSD for sway (PLAN.sway step 14)
   swayidle swaylock # idle lock for sway (PLAN.sway step 15)
+  kanshi # output profiles on dock/undock (PLAN.md slice 4)
   imv # https://sr.ht/~exec64/imv/
   iwd # https://wiki.archlinux.org/title/Iwd
   chromium

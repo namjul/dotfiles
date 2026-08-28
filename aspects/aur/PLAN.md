@@ -51,7 +51,7 @@ Sway recovery if SDDM loops: `Ctrl+Alt+F2` → `sudo systemctl disable --now sdd
 - Do not reintroduce Hyprland, uwsm, or the omarchy-iso package-list contract.
 - Power-profile *enablement* belongs in `aspects/systemd` (`aspects/systemd/PLAN.md`). `aur` only adds the package.
 
-Out of first pass: docker, CUPS, waybar, kanshi (until docking), gromit-mpx, paru/AUR-only packages, NetworkManager (`nm-applet` in sway config is an i3 leftover; Arch uses `iwd`).
+Out of first pass: docker, CUPS, waybar, gromit-mpx, paru/AUR-only packages, NetworkManager (`nm-applet` in sway config is an i3 leftover; Arch uses `iwd`).
 
 ## Technical Approach
 
@@ -131,14 +131,12 @@ Verification:
 
 ### Slice 4: kanshi (when docking)
 
-Not needed for single-monitor VM. When multi-monitor matters:
-
-- Install `kanshi`; `exec kanshi` from sway config.
-- Port named profiles from the old autorandr binds in i3/sway config.
+Done. `kanshi` in `aspects/aur/packages`; `exec kanshi` in sway; profiles in `aspects/dotfiles/files/.config/kanshi/config` (mobile, dockedhome, dockedhomeup, dockedoffice). Super+x still switches via `kanshictl`.
 
 Verification:
 
-- Dock/undock changes outputs without manual `swaymsg output`
+- `pacman -Q kanshi`
+- Undock → lid-only (mobile). Dock Dell U2719DC → dockedhome (external below). Super+x `2` / `o` for the other two.
 
 ## Test Strategy
 
