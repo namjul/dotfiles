@@ -32,6 +32,7 @@ url="https://raw.githubusercontent.com/${repo}/${ref}/bin/arch-install/boot.sh"
 
 boot=$(mktemp)
 # File, not a pipe: `curl | bash </dev/tty` starves curl (EPIPE).
+printf '%s\n' "Fetching boot.sh..." >&2
 "${ARCH_INSTALL_CURL:-curl}" -fsSL "$url" -o "$boot"
 
 # `[[ -r /dev/tty ]]` can pass when opening it as stdin still fails.

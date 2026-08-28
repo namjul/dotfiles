@@ -31,7 +31,9 @@ ping -c 1 archlinux.org
 
 `wlan0` may be `wlan1`.
 
-The custom ISO (`bin/arch-install/mkiso.sh`) runs `keyboard.sh` then `network.sh` on tty1 (gum picks the layout, then the SSID) before the curl below. Layout first so a German keyboard can type the Wi-Fi password. Official monthly ISO does not ship `gum`; `loadkeys de` (or Ethernet / `iwctl`) first. If `network.sh` cannot get a link, it exits and install does not start.
+The custom ISO (`bin/arch-install/mkiso.sh`) runs `keyboard.sh` then `network.sh` on tty1 (gum picks the layout, then the SSID) before the curl below. Layout first so a German keyboard can type the Wi-Fi password. Official monthly ISO does not ship `gum`; `loadkeys de` (or Ethernet / `iwctl`) first.
+
+`network.sh` pings first. No link and no iwd station (a typical VM): it prints `Waiting for Ethernet...` and retries DHCP instead of aborting on Wi-Fi. No link and a station: gum picks the SSID. If it still cannot get a link, it exits and install does not start. `start.sh` prints `Fetching boot.sh...` so a working retry is not a blank TTY.
 
 ## Custom ISO
 

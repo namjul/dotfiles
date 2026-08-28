@@ -4,6 +4,9 @@ set -euo pipefail
 PING_CMD="${NETWORK_PING:-ping}"
 IWCTL_CMD="${NETWORK_IWCTL:-iwctl}"
 GUM_CMD="${NETWORK_GUM:-gum}"
+SLEEP_CMD="${NETWORK_SLEEP:-sleep}"
+WAIT_TRIES="${NETWORK_WAIT_TRIES:-8}"
+WAIT_SLEEP="${NETWORK_WAIT_SLEEP:-2}"
 
 abort() {
   printf '%s\n' "$1" >&2
@@ -24,25 +27,18 @@ have_cmd() {
   fi
 }
 
-if have_link; then
-  exit 0
-fi
-
-if ! have_cmd "$GUM_CMD"; then
-  cat >&2 <<'EOF'
-No network, and gum is not installed. On the official ISO, connect first:
-
-  iwctl
-  # device list
-  # station wlan0 scan
-  # station wlan0 get-networks
-  # station wlan0 connect SSID
-  ping -c 1 archlinux.org
-
-Then re-run.
-EOF
-  exit 1
-fi
+wait_for_link() {
+  local n=0
+  printf '%s\n' "Waiting for Ethernet..." >&2
+  while ((n < WAIT_TRIES)); do
+    n=$((n + 1))
+    if have_link; then
+      return 0
+    fi
+    "$SLEEP_CMD" "$WAIT_SLEEP"
+  done
+  return 1
+}
 
 strip_ansi() {
   sed 's/\x1b\[[0-9;]*m//g'
@@ -61,9 +57,7 @@ list_stations() {
 }
 
 pick_device() {
-  local devices
-  devices=$(list_stations)
-  [[ -n "$devices" ]] || abort "No iwd station (no Wi-Fi radio)."
+  local devices="$1"
   if [[ $(printf '%s\n' "$devices" | wc -l) -eq 1 ]]; then
     printf '%s\n' "$devices"
     return
@@ -93,11 +87,43 @@ network_rows() {
   done < <("$IWCTL_CMD" station "$device" get-networks)
 }
 
-device=$(pick_device) || abort "No iwd station (no Wi-Fi radio)."
+printf '%s\n' "Checking network..." >&2
+if have_link; then
+  exit 0
+fi
+
+stations=""
+if have_cmd "$IWCTL_CMD"; then
+  stations=$(list_stations)
+fi
+
+if [[ -z "$stations" ]]; then
+  if wait_for_link; then
+    exit 0
+  fi
+  abort "No network and no Wi-Fi radio. Wait for Ethernet DHCP, then re-run."
+fi
+
+if ! have_cmd "$GUM_CMD"; then
+  cat >&2 <<'EOF'
+No network, and gum is not installed. On the official ISO, connect first:
+
+  iwctl
+  # device list
+  # station wlan0 scan
+  # station wlan0 get-networks
+  # station wlan0 connect SSID
+  ping -c 1 archlinux.org
+
+Then re-run.
+EOF
+  exit 1
+fi
+
+device=$(pick_device "$stations") || abort "Aborted."
 "$IWCTL_CMD" station "$device" scan >/dev/null
-sleep_cmd="${NETWORK_SLEEP:-sleep}"
 # iwd scan results are not instant; a short wait is enough on real hardware.
-"$sleep_cmd" 2
+"$SLEEP_CMD" 2
 
 rows=$(network_rows "$device")
 [[ -n "$rows" ]] || abort "No Wi-Fi networks."
