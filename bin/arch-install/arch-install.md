@@ -31,6 +31,22 @@ ping -c 1 archlinux.org
 
 `wlan0` may be `wlan1`.
 
+The custom ISO (`bin/arch-install/mkiso.sh`) runs `network.sh` on tty1 (gum picks the SSID) before the curl below. Official monthly ISO does not ship `gum`; use Ethernet or `iwctl` first. If `network.sh` cannot get a link, it exits and install does not start.
+
+## Custom ISO
+
+Build from the repo root. On Arch this runs `mkarchiso` on the host. On Ubuntu it re-enters the same script inside a privileged `archlinux` container (`docker` or `podman`).
+
+```bash
+cd ~/.dotfiles && bin/arch-install/mkiso.sh
+```
+
+The image is `bin/arch-install/out/*.iso`. Write that file to the USB (same memex note as the official ISO). Rebuild when you next install, not on a calendar.
+
+`--prepare-only` copies `releng`, applies the overlay (`gum`, `network.sh`, `iso/start.sh`), prints the profile path, and does not run `mkarchiso`.
+
+tty1 auto-starts `network.sh` then the curl one-liner. `/run/arch-install-started` prevents a respawned getty from curling again; delete that file to retry on the same boot.
+
 ## Install (ISO and after reboot)
 
 Same command on the live ISO and after reboot. It installs `git` if needed, clones the repo, then picks the step from `/run/archiso` (present only on the official ISO).
