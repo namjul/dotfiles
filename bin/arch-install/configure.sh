@@ -33,8 +33,8 @@ need_pkgs() {
 
 step() {
   clear
-  if [[ -f "$DIR/../../logo.txt" ]]; then
-    cat "$DIR/../../logo.txt"
+  if [[ -f "$DIR/logo.txt" ]]; then
+    cat "$DIR/logo.txt"
     echo
   fi
   gum style "$1"
