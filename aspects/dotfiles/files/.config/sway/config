@@ -116,7 +116,7 @@ exec_always swaybg -i "$HOME/.config/i3/Albert_Bierstadt,_Among_the_Sierra_Nevad
 # Wayland Alacritty sets app_id from --class; class= only matches X11 WM_CLASS
 for_window [app_id="scratch.term"] move scratchpad
 for_window [class="scratch.term"] move scratchpad
-exec alacritty --class=scratch.term
+exec launch-terminal --class=scratch.term
 
 # move focused workspace between monitors
 bindsym $mod+Ctrl+Up move workspace to output up

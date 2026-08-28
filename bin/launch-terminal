@@ -27,9 +27,9 @@ while [[ $# -gt 0 ]]; do
   esac
 done
 
-TERM_BIN="${TERMINAL:-alacritty}"
+TERM_BIN="${TERMINAL:-foot}"
 args=()
-case "$TERM_BIN" in
+case "$(basename "$TERM_BIN")" in
   ghostty)
     [[ -n "$font_size" ]] && args+=("--font-size=${font_size}")
     [[ -n "$class" ]]     && args+=("--class=${class}")
@@ -41,6 +41,12 @@ case "$TERM_BIN" in
     [[ -n "$class" ]]     && args+=("--class" "${class}")
     [[ -n "$title" ]]     && args+=("--title" "${title}")
     [[ ${#cmd[@]} -gt 0 ]] && args+=("-e" "${cmd[@]}")
+    ;;
+  foot)
+    [[ -n "$font_size" ]] && args+=("-o" "main.font=JetBrainsMonoNerdFont:style=Medium:size=${font_size}")
+    [[ -n "$class" ]]     && args+=("--app-id" "${class}")
+    [[ -n "$title" ]]     && args+=("--title" "${title}")
+    [[ ${#cmd[@]} -gt 0 ]] && args+=("${cmd[@]}")
     ;;
 esac
 exec "$TERM_BIN" "${args[@]}"

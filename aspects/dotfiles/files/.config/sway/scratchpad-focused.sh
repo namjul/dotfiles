@@ -21,7 +21,7 @@ fi
 
 count=$(scratch_json | jq 'length')
 if [[ "${count}" -eq 0 ]]; then
-  alacritty --class=scratch.term >/dev/null 2>&1 &
+  launch-terminal --class=scratch.term >/dev/null 2>&1 &
   for _ in $(seq 1 40); do
     count=$(scratch_json | jq 'length')
     [[ "${count}" -gt 0 ]] && break
