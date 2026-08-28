@@ -26,7 +26,7 @@ const now = Deno.env.get("usage_now") === "true";
 
 const darkman = await command("which", ["darkman"]);
 if (darkman.ok) {
-  const args = ["--user", "enable", ...(now ? ["--now"] : []), "darkman.service"];
+  const args = ["--user", "enable", "--now", "darkman.service"];
   assert.result(await command("systemctl", args));
 } else {
   console.warn("warn: darkman not found in PATH, skipping darkman.service enable");
