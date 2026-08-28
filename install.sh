@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+cd "$(dirname -- "${BASH_SOURCE[0]}")"
+
 if ! command -v mise &>/dev/null; then
   curl https://mise.run | sh
   export PATH="$HOME/.local/bin:$PATH"
