@@ -81,6 +81,7 @@ packages=(
   pamixer swayosd # volume OSD for sway (PLAN.sway step 14)
   swayidle swaylock # idle lock for sway (PLAN.sway step 15)
   kanshi # output profiles on dock/undock (PLAN.md slice 4)
+  udiskie nautilus gvfs gvfs-mtp exfatprogs ntfs-3g # removable media automount (PLAN.md slice 1)
   imv # https://sr.ht/~exec64/imv/
   iwd # https://wiki.archlinux.org/title/Iwd
   chromium

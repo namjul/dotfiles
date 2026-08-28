@@ -101,6 +101,7 @@ exec swayosd-server
 
 # Start authentication agents (see https://wiki.archlinux.org/title/Polkit#Authentication_agents)
 exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1  # sway: polkit-gnome (was lxpolkit)
+exec udiskie --automount --no-notify --no-tray
 
 # Set keyboard rate
 # exec_always xset r rate 200 30  # sway: input type:keyboard at end of file
