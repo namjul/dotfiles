@@ -380,7 +380,7 @@ write_creds() {
 dotfiles_clone_cmd() {
   local repo="${DOTFILES_REPO:-namjul/dotfiles}"
   local ref="${DOTFILES_REF:-master}"
-  printf '%s\n' "git clone --branch ${ref} https://github.com/${repo}.git /home/${username}/.dotfiles && chown -R ${username}:${username} /home/${username}/.dotfiles && printf '%s\\n' '~/.dotfiles/bin/arch-install/boot.sh'"
+  printf '%s\n' "git clone --branch ${ref} git@github.com:${repo}.git /home/${username}/.dotfiles && chown -R ${username}:${username} /home/${username}/.dotfiles && printf '%s\\n' '~/.dotfiles/bin/arch-install/boot.sh'"
 }
 
 write_json() {
