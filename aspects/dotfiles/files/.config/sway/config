@@ -294,7 +294,7 @@ set $mode_system System (l) lock, (e) logout, (s) suspend, (r) reboot, (Shift+s)
 mode "$mode_system" {
     bindsym l exec $Locker, mode "default"
     bindsym e exec swaymsg exit, mode "default"
-    bindsym s exec $Locker && systemctl suspend, mode "default"
+    bindsym s exec $Locker, exec systemctl suspend, mode "default"
     bindsym r exec systemctl reboot, mode "default"
     bindsym Shift+s exec systemctl poweroff -i, mode "default"
 
