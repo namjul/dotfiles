@@ -11,15 +11,32 @@ fi
 
 fullscreen_file=/tmp/sway_scratchpad_fullscreen
 
-scratch_json() {
-  swaymsg -t get_tree | jq '[.. | objects | select(.app_id == "scratch.term")]'
+# Shown scratch windows: "fresh" (just moved) or "changed" (shown/resized).
+visible_scratches() {
+  swaymsg -t get_tree | jq '[
+    .. | objects
+    | select((.scratchpad_state == "fresh" or .scratchpad_state == "changed") and .visible == true)
+  ]'
 }
 
-floating_id() {
-  swaymsg -t get_tree | jq '[.. | objects | select(.type == "floating_con") | select(any(.nodes[]; .app_id == "scratch.term") or .app_id == "scratch.term") | .id] | first'
+visible_float_id() {
+  swaymsg -t get_tree | jq -r '[
+    .. | objects
+    | select(.type == "floating_con")
+    | select(
+        (.scratchpad_state == "fresh" or .scratchpad_state == "changed")
+        or any(.nodes[]; .scratchpad_state == "fresh" or .scratchpad_state == "changed")
+      )
+    | select(.visible == true or any(.nodes[]; .visible == true))
+    | .id
+  ] | first // empty'
 }
 
 place_scratch() {
+  local id
+  id=$(visible_float_id)
+  [[ -n ${id} ]] || return 0
+
   # get_workspaces marks the focused workspace; the tree marks the focused pane.
   # Workspace rect is the tiling area (below the bar, inside inner gaps).
   focused_workspace=$(swaymsg -t get_workspaces | jq -r '.[] | select(.focused == true) | .name')
@@ -35,11 +52,23 @@ place_scratch() {
   width=$(awk -v w="${w}" -v x="${x}" -v px="${pos_x}" 'BEGIN { printf "%.0f", w - (px - x) }')
   height="${h}"
 
-  swaymsg "[con_id=$(floating_id)] resize set ${width}px ${height}px, move absolute position ${pos_x} ${pos_y}"
+  swaymsg "[con_id=${id}] resize set ${width}px ${height}px, move absolute position ${pos_x} ${pos_y}"
 }
 
 scratch_fullscreen() {
-  scratch_json | jq '[.[].fullscreen_mode] | first // 0'
+  swaymsg -t get_tree | jq '
+    [
+      .. | objects
+      | select(.type == "floating_con")
+      | select(
+          (.scratchpad_state == "fresh" or .scratchpad_state == "changed")
+          or any(.nodes[]; .scratchpad_state == "fresh" or .scratchpad_state == "changed")
+        )
+      | select(.visible == true or any(.nodes[]; .visible == true))
+      | .fullscreen_mode,
+        (.nodes[]? | .fullscreen_mode)
+    ] | max // 0
+  '
 }
 
 save_fullscreen() {
@@ -49,16 +78,14 @@ save_fullscreen() {
 # Super+F: a visible fullscreen scratch is often not the focused container,
 # so `fullscreen toggle` flips something else and the scratch stays full.
 if [[ ${1-} == toggle-fullscreen ]]; then
-  focused_app=$(swaymsg -t get_tree | jq -r '.. | objects | select(.focused == true) | .app_id // empty' | head -1)
-  scratch_fs=$(scratch_fullscreen)
-  scratch_vis=$(scratch_json | jq '[.[] | select(.visible == true)] | length')
-  if [[ ${scratch_vis} -gt 0 && ( ${focused_app} == scratch.term || ${scratch_fs} -ne 0 ) ]]; then
-    if [[ ${scratch_fs} -ne 0 ]]; then
-      swaymsg '[app_id="scratch.term"] fullscreen disable'
+  id=$(visible_float_id)
+  if [[ -n ${id} ]]; then
+    if [[ $(scratch_fullscreen) -ne 0 ]]; then
+      swaymsg "[con_id=${id}] fullscreen disable"
       place_scratch
       save_fullscreen 0
     else
-      swaymsg '[app_id="scratch.term"] fullscreen enable'
+      swaymsg "[con_id=${id}] fullscreen enable"
       save_fullscreen 1
     fi
   else
@@ -72,27 +99,24 @@ if [[ -f ${fullscreen_file} ]]; then
   last_fullscreen=$(cat "${fullscreen_file}")
 fi
 
-count=$(scratch_json | jq 'length')
-if [[ ${count} -eq 0 ]]; then
-  launch-terminal --class=scratch.term >/dev/null 2>&1 &
-  for _ in $(seq 1 40); do
-    count=$(scratch_json | jq 'length')
-    [[ ${count} -gt 0 ]] && break
-    sleep 0.05
-  done
-fi
-
-visible=$(scratch_json | jq '[.[] | select(.visible == true)] | length')
-
-if [[ ${visible} -eq 0 ]]; then
-  swaymsg '[app_id="scratch.term"] scratchpad show'
+after_show() {
+  local id
+  id=$(visible_float_id)
+  [[ -n ${id} ]] || return 0
   if [[ ${last_fullscreen} -ne 0 ]]; then
-    swaymsg '[app_id="scratch.term"] fullscreen enable'
-    swaymsg '[app_id="scratch.term"] focus'
+    swaymsg "[con_id=${id}] fullscreen enable"
+    swaymsg "[con_id=${id}] focus"
   else
     place_scratch
   fi
-else
+}
+
+# Unscoped scratchpad show: hide the visible scratch window or cycle the stack.
+# Empty scratchpad is a no-op (do not spawn).
+if [[ $(visible_scratches | jq 'length') -gt 0 ]]; then
   save_fullscreen "$(scratch_fullscreen)"
-  swaymsg '[app_id="scratch.term"] scratchpad show'
 fi
+if ! swaymsg scratchpad show >/dev/null; then
+  exit 0
+fi
+after_show
