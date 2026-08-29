@@ -4,5 +4,13 @@
 trap 'echo "Warning: A command has failed. Exiting the script. Line was ($0:$LINENO): $(sed -n "${LINENO}p" "$0")"; exit 3' ERR
 set -Eeuo pipefail
 
-sudo fwupdmgr refresh
+if ! command -v fwupdmgr >/dev/null; then
+  sudo pacman -S --needed --noconfirm fwupd
+fi
+
+if [[ -d /sys/firmware/efi ]] && [[ -f /usr/lib/fwupd/efi/fwupdx64.efi ]]; then
+  sudo install -D /usr/lib/fwupd/efi/fwupdx64.efi /boot/EFI/arch/fwupdx64.efi
+fi
+
+fwupdmgr refresh --force
 sudo fwupdmgr update
