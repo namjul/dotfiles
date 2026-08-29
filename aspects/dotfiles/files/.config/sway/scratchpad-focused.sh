@@ -21,18 +21,19 @@ floating_id() {
 
 place_scratch() {
   # get_workspaces marks the focused workspace; the tree marks the focused pane.
-  # Workspace rect starts at the bar's bottom. i3 used 2.3% of the output to
-  # clear the bar; here that inset would leave a gap, so y is used as-is.
+  # Workspace rect is the tiling area (below the bar, inside inner gaps).
   focused_workspace=$(swaymsg -t get_workspaces | jq -r '.[] | select(.focused == true) | .name')
   read -r x y w h <<<"$(swaymsg -t get_tree | jq -r --arg n "${focused_workspace}" '
     .. | objects | select(.type == "workspace" and .name == $n)
     | "\(.rect.x) \(.rect.y) \(.rect.width) \(.rect.height)"
   ')"
 
-  width=$(awk -v w="${w}" 'BEGIN { printf "%.0f", w * 0.69 }')
-  height=$(awk -v h="${h}" 'BEGIN { printf "%.0f", h * 0.96 }')
+  # Workspace rect is already the tiling area (bar + inner gaps). Keep the
+  # left inset; pin top to that base and use the same 0 inset on right/bottom.
   pos_x=$(awk -v w="${w}" -v x="${x}" 'BEGIN { printf "%.0f", w * 0.3 + x }')
   pos_y="${y}"
+  width=$(awk -v w="${w}" -v x="${x}" -v px="${pos_x}" 'BEGIN { printf "%.0f", w - (px - x) }')
+  height="${h}"
 
   swaymsg "[con_id=$(floating_id)] resize set ${width}px ${height}px, move absolute position ${pos_x} ${pos_y}"
 }
