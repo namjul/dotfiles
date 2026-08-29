@@ -4,10 +4,6 @@
 trap 'echo "Warning: A command has failed. Exiting the script. Line was ($0:$LINENO): $(sed -n "${LINENO}p" "$0")"; exit 3' ERR
 set -Eeuo pipefail
 
-if [[ -e /run/fig-test-container ]]; then
-  sudo() { "$@"; }
-fi
-
 # base-devel is required to build any AUR package
 sudo pacman -S --needed --noconfirm base-devel git
 
@@ -35,17 +31,14 @@ sudo pacman -S --needed --noconfirm pacman-contrib
 sudo systemctl enable --now paccache.timer
 
 # # install paru AUR helper (https://github.com/Morganamilo/paru)
-# # makepkg refuses to run as root — skip in test container
-# if [[ ! -e /run/fig-test-container ]]; then
-#   if ! command -v paru &> /dev/null; then
-#     echo "Installing paru ..."
-#     tmpdir=$(mktemp -d)
-#     git clone https://aur.archlinux.org/paru.git "$tmpdir"
-#     (cd "$tmpdir" && makepkg -si --noconfirm)
-#     rm -rf "$tmpdir"
-#   else
-#     echo "paru already installed ..."
-#   fi
+# if ! command -v paru &> /dev/null; then
+#   echo "Installing paru ..."
+#   tmpdir=$(mktemp -d)
+#   git clone https://aur.archlinux.org/paru.git "$tmpdir"
+#   (cd "$tmpdir" && makepkg -si --noconfirm)
+#   rm -rf "$tmpdir"
+# else
+#   echo "paru already installed ..."
 # fi
 
 # official repo packages — one transaction so a long download does not expire sudo

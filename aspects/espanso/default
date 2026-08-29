@@ -12,10 +12,6 @@ if [[ ! -e /etc/arch-release ]]; then
   exit 0
 fi
 
-if [[ -e /run/fig-test-container ]]; then
-  sudo() { "$@"; }
-fi
-
 VERSION="v2.4.0"
 DEST="/usr/local/bin/espanso"
 SRC="${XDG_CACHE_HOME:-$HOME/.cache}/espanso-src"
