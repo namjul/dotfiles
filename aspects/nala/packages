@@ -13,6 +13,7 @@ fi
 
 sudo nala install -y cmake pkg-config # to build tools (alacritty)
 sudo nala install -y build-essential procps curl file git # homebrew essentials
+sudo nala install -y tree-sitter-cli # nvim-treesitter main: parser compile (`tree-sitter build`)
 sudo nala install -y stow # to symlink dotfiles
 sudo nala install -y i3 # window manager
 sudo nala install -y feh # to manage background image
