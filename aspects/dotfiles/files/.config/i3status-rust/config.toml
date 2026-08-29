@@ -12,6 +12,13 @@ notify_cmd = "notify-send --app-name='Pomodoro' --expire-time='10000' '{msg}'"
 blocking_cmd = false
 
 [[block]]
+block = "custom"
+command = "dropbox-sync-indicator"
+interval = 5
+json = true
+hide_when_empty = true
+
+[[block]]
 block = "battery"
 interval = 5
 format = " $icon $percentage "
@@ -87,7 +94,6 @@ format = " $icon "
 [[block.click]]
 button = "left"
 cmd = "launch-wifi"
-
 
 [[block]]
 block = "custom"

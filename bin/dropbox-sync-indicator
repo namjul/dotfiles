@@ -1,0 +1,11 @@
+#!/bin/bash
+set -euo pipefail
+
+cache="${DROPBOX_DIR:-$HOME/Dropbox}/.dropbox.cache"
+# Official client stages transfers in .dropbox.cache (e.g. new_files/<hash>); mtime within 20s means sync in progress.
+# -maxdepth 2 is those staging files. It does not add false positives; a leftover recent file still can. Too shallow would miss sync (false negative).
+if [[ -d $cache ]] && [[ -n $(find "$cache" -maxdepth 2 -type f -newermt '-20 seconds' -print -quit) ]]; then
+  printf '%s\n' '{"text":"\uf16b","state":"Info"}'
+else
+  printf '%s\n' '{"text":""}'
+fi
