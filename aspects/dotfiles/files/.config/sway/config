@@ -115,7 +115,6 @@ exec_always swaybg -i "$HOME/.config/i3/Albert_Bierstadt,_Among_the_Sierra_Nevad
 # Start a term instance in scratchpad mode
 # Wayland Alacritty sets app_id from --class; class= only matches X11 WM_CLASS
 for_window [app_id="scratch.term"] move scratchpad
-for_window [class="scratch.term"] move scratchpad
 exec launch-terminal --class=scratch.term
 
 # move focused workspace between monitors
@@ -191,7 +190,8 @@ bindsym Ctrl+Shift+h split h
 bindsym Ctrl+Shift+v split v
 
 # enter fullscreen mode for the focused container
-bindsym $mod+f fullscreen toggle
+# scratch.term: target by app_id; focused toggle misses a visible fullscreen scratch
+bindsym $mod+f exec ~/.config/sway/scratchpad-focused.sh toggle-fullscreen
 
 # change container layout (stacked, tabbed, toggle split)
 bindsym $mod+s layout toggle tabbed splith
