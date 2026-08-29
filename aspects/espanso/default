@@ -23,31 +23,39 @@ already_installed() {
 }
 
 if [[ "${usage_force:-}" != "true" ]] && already_installed; then
-  echo "Espanso ${VERSION} already at ${DEST} with cap_dac_override — skip"
-  exit 0
-fi
+  echo "Espanso ${VERSION} already at ${DEST} with cap_dac_override — skip compile (pass --force to rebuild)"
+else
+  sudo pacman -S --needed --noconfirm \
+    git \
+    dbus \
+    base-devel \
+    wl-clipboard \
+    wxwidgets-gtk3 \
+    libxkbcommon
 
-sudo pacman -S --needed --noconfirm \
-  git \
-  dbus \
-  base-devel \
-  wl-clipboard \
-  wxwidgets-gtk3 \
-  libxkbcommon
-
-if [[ ! -d "$SRC/.git" ]]; then
-  if [[ -e "$SRC" ]]; then
-    rm -rf "$SRC"
+  if [[ ! -d "$SRC/.git" ]]; then
+    if [[ -e "$SRC" ]]; then
+      rm -rf "$SRC"
+    fi
+    command git clone --depth 1 --branch "$VERSION" https://github.com/espanso/espanso "$SRC"
   fi
-  command git clone --depth 1 --branch "$VERSION" https://github.com/espanso/espanso "$SRC"
+  command git -C "$SRC" fetch --depth 1 origin "refs/tags/${VERSION}:refs/tags/${VERSION}"
+  command git -C "$SRC" checkout --detach "$VERSION"
+
+  cargo build -p espanso --release --no-default-features --features modulo,vendored-tls,wayland \
+    --manifest-path "$SRC/Cargo.toml"
+
+  sudo install -m 755 "$SRC/target/release/espanso" "$DEST"
+  sudo setcap "cap_dac_override+p" "$DEST"
+
+  echo "Installed ${DEST} (${VERSION})."
 fi
-command git -C "$SRC" fetch --depth 1 origin "refs/tags/${VERSION}:refs/tags/${VERSION}"
-command git -C "$SRC" checkout --detach "$VERSION"
 
-cargo build -p espanso --release --no-default-features --features modulo,vendored-tls,wayland \
-  --manifest-path "$SRC/Cargo.toml"
-
-sudo install -m 755 "$SRC/target/release/espanso" "$DEST"
-sudo setcap "cap_dac_override+p" "$DEST"
-
-echo "Installed ${DEST} (${VERSION}). Enable the user unit via //aspects/systemd:default."
+aspect_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+unit_src="$aspect_dir/files/.config/systemd/user/espanso.service"
+unit_dst="$HOME/.config/systemd/user/espanso.service"
+mkdir -p "$(dirname -- "$unit_dst")"
+ln -sfn "$unit_src" "$unit_dst"
+systemctl --user daemon-reload
+systemctl --user enable --now espanso.service
+echo "Enabled and started user unit espanso.service"
