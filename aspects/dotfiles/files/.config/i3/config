@@ -30,7 +30,7 @@ set $lightgray #bdae93
 bar {
     position top
     font pango: JetBrainsMono Nerd Font
-    status_command i3status-rs
+    status_command env PATH="$HOME/.dotfiles/bin:$HOME/.local/share/mise/shims:$HOME/.local/bin:$PATH" i3status-rs
     colors {
         # bar background color
         background $bg

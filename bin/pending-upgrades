@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Print a refresh icon when official-repo upgrades are pending. Always exit 0
+# so i3status-rust can hide an empty block on hosts without a checker.
+
+if command -v checkupdates >/dev/null; then
+  if pending=$(checkupdates 2>/dev/null) && [[ -n ${pending} ]]; then
+    echo ""
+  fi
+  exit 0
+fi
+
+if command -v apt >/dev/null; then
+  if apt list --upgradable 2>/dev/null | grep -q '/.*\[upgradable'; then
+    echo ""
+  fi
+fi

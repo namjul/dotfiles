@@ -103,6 +103,15 @@ button = "left"
 cmd = "launch-btop"
 
 [[block]]
+block = "custom"
+command = "pending-upgrades"
+hide_when_empty = true
+interval = 21600
+[[block.click]]
+button = "left"
+cmd = "launch-terminal --class=org.namjul.float-win --title=Upgrade launch-upgrade"
+
+[[block]]
 block = "time"
 interval = 5
 format = " $timestamp.datetime(f:'%d %H:%M' ) "

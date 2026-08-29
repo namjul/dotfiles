@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+cd "$(dirname -- "$(readlink -f "${BASH_SOURCE[0]}")")/.."
+
+if command -v pacman >/dev/null; then
+  mise run //aspects/aur:upgrade
+elif command -v nala >/dev/null; then
+  mise run //aspects/nala:upgrade
+else
+  echo "no package upgrader (need pacman or nala)" >&2
+  exit 1
+fi
+
+# i3status-rs SIGUSR1 re-runs custom blocks so the icon drops without a 6h wait
+pkill -USR1 -x i3status-rs 2>/dev/null || true

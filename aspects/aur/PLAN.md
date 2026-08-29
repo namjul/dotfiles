@@ -38,7 +38,7 @@ Done in `aspects/aur/packages` and `aspects/aur/login/`, VM-tested unless noted:
 | Idle lock | `swayidle`, `swaylock` (`c80d3b65`) |
 | Dual-stack | `i3-wm` + X11 tools stay installed on Arch as fallback |
 
-`mise.toml` default: `packages` + `login` + `firewall`. Firmware is a separate task (`fwupd` in `packages`; `aspects/aur/firmware` installs the package if missing, stages `fwupdx64.efi` on UEFI, `refresh --force`, then `fwupdmgr update`).
+`mise.toml` default: `packages` + `login` + `firewall`. Firmware is a separate task (`fwupd` in `packages`; `aspects/aur/firmware` installs the package if missing, stages `fwupdx64.efi` on UEFI, `refresh --force`, then `fwupdmgr update`). Package upgrades are a separate task (`//aspects/aur:upgrade` → `pacman -Syu --noconfirm`; Ubuntu is `//aspects/nala:upgrade` → `nala update` + `nala upgrade -y`). The shared i3status-rust icon runs `pending-upgrades` and clicks `launch-upgrade`.
 
 Sway recovery if SDDM loops: `Ctrl+Alt+F2` → `sudo systemctl disable --now sddm` → start sway from TTY (`WLR_RENDERER=pixman sway` in VM).
 

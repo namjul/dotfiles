@@ -1,3 +1,6 @@
+[tasks.upgrade]
+description = "Upgrade packages via nala"
+file = 'upgrade'
 
 [tasks.default]
 description = "Install and update packages via nala"

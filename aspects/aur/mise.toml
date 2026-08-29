@@ -25,6 +25,10 @@ description = "Update firmware via fwupd"
 depends = [":packages"]
 file = 'firmware'
 
+[tasks."upgrade"]
+description = "Upgrade official-repo packages via pacman"
+file = 'upgrade'
+
 [tasks.default]
 description = "Run all aur tasks"
 depends = [":packages", ":login", ":firewall"]

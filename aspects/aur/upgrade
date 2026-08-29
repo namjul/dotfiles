@@ -1,0 +1,12 @@
+#!/bin/bash
+# mise description="Upgrade official-repo packages via pacman"
+
+trap 'echo "Warning: A command has failed. Exiting the script. Line was ($0:$LINENO): $(sed -n "${LINENO}p" "$0")"; exit 3' ERR
+set -Eeuo pipefail
+
+if ! command -v pacman >/dev/null; then
+  echo "pacman is required" >&2
+  exit 1
+fi
+
+sudo pacman -Syu --noconfirm
