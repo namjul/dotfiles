@@ -307,7 +307,8 @@ end)
 
 later(function() require('mini.indentscope').setup() end)
 
-later(function() require('mini.ai').setup() end)
+-- conflicts with neovim visual selections
+-- later(function() require('mini.ai').setup() end)
 
 later(function() require('mini.pairs').setup() end)
 
