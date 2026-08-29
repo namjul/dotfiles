@@ -1,0 +1,17 @@
+[tasks.default]
+description = "Install Dropbox from AUR via makepkg, lock ~/.dropbox-dist, enable user unit (not on install.sh)"
+usage = '''
+flag "--upgrade" help="Rebuild and pacman -U even if dropbox is already installed"
+'''
+run = "./index.ts"
+depends_post = [":link"]
+
+[tasks.link]
+description = "Print the latest Dropbox CLI-link URL from the user journal (empty if already linked)"
+quiet = true
+run = '''
+url="$(journalctl --user -u dropbox.service -g cli_link_nonce -n 20 --no-pager -o cat 2>/dev/null | grep -Eo 'https://www.dropbox.com/cli_link_nonce[?]nonce=[A-Fa-f0-9]+' | tail -n 1)"
+if [[ -n "${url}" ]]; then
+  printf 'Open this URL while logged into Dropbox to link this machine:\n%s\n' "${url}"
+fi
+'''

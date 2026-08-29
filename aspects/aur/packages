@@ -125,7 +125,6 @@ sudo cp /etc/systemd/system.conf.d/99-nofile.conf /etc/systemd/user.conf.d/99-no
 # AUR packages
 # paru -S --needed --noconfirm steghide # used for tomb
 # paru -S --needed --noconfirm gromit-mpx # https://github.com/bk138/gromit-mpx
-# paru -S --needed --noconfirm dropbox # https://www.dropbox.com/
 # paru -S --needed --noconfirm autorandr # https://github.com/phillipberndt/autorandr
 # paru -S --needed --noconfirm kazam # screencast recorder
 # paru -S --needed --noconfirm peek # animated GIF recorder https://github.com/phw/peek

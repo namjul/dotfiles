@@ -12,6 +12,7 @@ Key features:
 ## Aspects
 - `aur` — Verify environment and prepare pacman (Arch)
 - `dotfiles` — Symlink dotfiles from repo into $HOME
+- `dropbox` — Official client, update lock, user unit (not on install.sh)
 - `espanso` — Optional Wayland compile, setcap, user unit (not on install.sh)
 - `fonts` — Install JetBrains Mono font files
 - `homebrew` — Update Homebrew packages
