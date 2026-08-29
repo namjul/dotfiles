@@ -26,73 +26,52 @@ now(function() require('mini.tabline').setup({ tabpage_section = 'right' }) end)
 now_if_args(function()
   add({
     source = 'nvim-treesitter/nvim-treesitter',
-    -- `main` is a rewrite (no nvim-treesitter.configs, needs Neovim 0.12). Stay on master for 0.11.
-    checkout = 'master',
+    checkout = 'main',
     hooks = { post_checkout = function() vim.cmd('TSUpdate') end },
   })
   -- add('nvim-treesitter/nvim-treesitter-textobjects')
   add('nvim-treesitter/nvim-treesitter-context')
 
-  require('nvim-treesitter.configs').setup({
+  -- `main` has no nvim-treesitter.configs: install parsers, enable Neovim highlight/indent yourself.
+  require('nvim-treesitter').install({
+    'tsx',
+    'typescript',
+    'javascript',
+    'toml',
+    'fish',
+    'markdown',
+    'markdown_inline',
+    'bash',
+    'rust',
+    'php',
+    'json',
+    'http',
+    'graphql',
+    'yaml',
+    'html',
+    'lua',
+    'scss',
+    'css',
+    'glimmer',
+    'mermaid',
+  })
 
-    modules = {},
+  vim.api.nvim_create_autocmd('FileType', {
+    group = vim.api.nvim_create_augroup('namjul.treesitter', { clear = true }),
+    callback = function(ev)
+      if vim.fn.getcmdwintype() ~= '' then return end
 
-    ignore_install = {},
+      local lang = vim.treesitter.language.get_lang(ev.match)
+      if not lang then return end
 
-    -- Automatically install missing parsers when entering buffer
-    -- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
-    auto_install = true,
+      local ok = pcall(vim.treesitter.start, ev.buf, lang)
+      if not ok then return end
 
-    -- Install parsers synchronously (only applied to `ensure_installed`)
-    sync_install = false,
+      if ev.match ~= 'python' then vim.bo[ev.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()" end
 
-    highlight = {
-      enable = true,
-      -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
-      -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
-      -- Using this option may slow down your editor, and you may see some duplicate highlights.
-      -- Instead of true it can also be a list of languages
-      additional_vim_regex_highlighting = { 'markdown' },
-    },
-    -- Indentation based on treesitter for the = operator. NOTE: This is an experimental feature.
-    indent = { enable = true, disable = { 'python' } },
-    ensure_installed = {
-      'tsx',
-      'typescript',
-      'javascript',
-      'toml',
-      'fish',
-      'markdown',
-      'bash',
-      'rust',
-      'php',
-      'json',
-      'http',
-      'graphql',
-      'yaml',
-      'html',
-      'lua',
-      'scss',
-      'css',
-      'glimmer',
-      'mermaid',
-    },
-
-    incremental_selection = {
-      enable = true,
-      keymaps = {
-        init_selection = '<c-m>',
-        node_incremental = '<c-m>',
-        scope_incremental = '<c-s>',
-        node_decremental = '<c-n>',
-      },
-      -- fix from https://github.com/nvim-treesitter/nvim-treesitter/issues/2634#issuecomment-1362479800
-      is_supported = function()
-        local ct = vim.fn.getcmdwintype()
-        if ct ~= '' then return false end
-        return true
-      end,
-    },
+      -- old additional_vim_regex_highlighting = { 'markdown' }
+      if ev.match == 'markdown' or ev.match == 'mdx' then vim.bo[ev.buf].syntax = 'ON' end
+    end,
   })
 
   vim.treesitter.language.register('markdown', 'mdx') -- the someft filetype will use the python parser and queries.
