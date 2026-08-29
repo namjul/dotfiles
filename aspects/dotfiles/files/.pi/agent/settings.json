@@ -4,7 +4,7 @@
   "defaultModel": "grok-4.6",
   "defaultThinkingLevel": "low",
   "enableSkillCommands": true,
-  "lastChangelogVersion": "0.83.0",
+  "lastChangelogVersion": "0.84.3",
   "enabledModels": [
     "openrouter/openrouter/free",
     "openrouter/z-ai/glm-5.1",

@@ -1,12 +1,22 @@
 export DROPBOX_DIR="$HOME/Dropbox"
-export DATA_DIR="$HOME/Dropbox/data"
 export DATA_BACKUP="$DROPBOX_DIR/backup"
+
+# https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html
+set -q XDG_DATA_HOME; or set -x XDG_DATA_HOME $HOME/.local/share
+set -q XDG_CONFIG_HOME; or set -x XDG_CONFIG_HOME $HOME/.config
+if not set -q DATA_DIR
+  if test -d "$DROPBOX_DIR/data"
+    set -x DATA_DIR "$DROPBOX_DIR/data"
+  else
+    set -x DATA_DIR $XDG_DATA_HOME
+  end
+end
+# Local only: Dropbox conflicted copies empty zoxide's db.zo
+set -x _ZO_DATA_DIR "$DATA_DIR/zoxide"
 
 export HOMEBREW_NO_ANALYTICS=1 # https://docs.brew.sh/Analytics
 export HOMEBREW_NO_AUTO_UPDATE=1
 export HOMEBREW_AUTO_UPDATE_SECS="86400"
-
-export _ZO_DATA_DIR="$DATA_DIR/zoxide"
 
 # Make vim the default editor
 if command -v nvim &> /dev/null
@@ -30,11 +40,6 @@ export RIPGREP_CONFIG_PATH="$HOME/.config/ripgrep/.ripgreprc"
 
 # neovide
 export NEOVIDE_MULTIGRID="true"
-
-# Set env variable with fallback
-# https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html
-set -q XDG_DATA_HOME; or set -x XDG_DATA_HOME $HOME/.local/share
-set -q XDG_CONFIG_HOME; or set -x XDG_CONFIG_HOME $HOME/.config
 
 # For now, requires a manual `cargo build --release`.
 export SHELLBOT="$HOME/.local/share/nvim/site/pack/deps/opt/shellbot/target/release/shellbot $HOME/.config/shellbot/prompt"
