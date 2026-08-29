@@ -1,3 +1,4 @@
 #!/usr/bin/env bash
 
-sed --in-place --follow-symlinks 's/gruvbox-dark/gruvbox-light/' ~/.config/foot/foot.ini
+sed --in-place --follow-symlinks 's/initial-color-theme=dark/initial-color-theme=light/' ~/.config/foot/foot.ini
+pkill -USR2 foot || true
