@@ -100,9 +100,15 @@ lsp.init = function()
         'vue',
       },
     },
+    superhtml = {},
+    zls = {},
   }
 
   local ensure_installed = vim.tbl_keys(servers or {})
+  vim.list_extend(ensure_installed, {
+    'pkl-lsp', -- started by pkl-neovim, not lspconfig
+    'vue_ls', -- binary for the vtsls Vue plugin; not enabled as its own server
+  })
 
   local has_mason, mason = pcall(require, 'mason')
   if has_mason then mason.setup() end
@@ -119,7 +125,9 @@ lsp.init = function()
 
     mason_lspconfig.setup({
       ensure_installed = {}, -- explicitly set to an empty table (populated installs via mason-tool-installer)
-      automatic_enable = true,
+      automatic_enable = {
+        exclude = { 'vue_ls' }, -- Vue is handled via the vtsls typescript plugin
+      },
     })
   end
 end
