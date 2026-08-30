@@ -2,7 +2,7 @@ import { getSudoPassphrase } from "../context.ts";
 import { run } from "../run.ts";
 
 type Options = {
-  parents?: boolean;
+  intermediate?: boolean;
   sudo?: boolean;
 };
 
@@ -10,7 +10,7 @@ export async function mkdir(
   path: string,
   options: Options = {},
 ): Promise<Error | null> {
-  const args = options.parents ? ["-p", path] : [path];
+  const args = options.intermediate ? ["-p", path] : [path];
   const passphrase = options.sudo ? await getSudoPassphrase() : undefined;
 
   const r = await run(

@@ -232,7 +232,7 @@ async function ensureDirectory(
     }
 
     if (sudo) {
-      const mkdirErr = await mkdir(targetPath, { parents: true, sudo: true });
+      const mkdirErr = await mkdir(targetPath, { intermediate: true, sudo: true });
       if (mkdirErr) throw mkdirErr;
       if (Option.isSome(mode)) {
         const err = await chmod(mode, targetPath, { sudo: true });
