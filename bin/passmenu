@@ -1,3 +1,9 @@
 #!/usr/bin/env bash
 
-gopass ls --flat | rofi -dmenu | xargs --no-run-if-empty gopass show -c
+if [[ -n "${WAYLAND_DISPLAY:-}" ]]; then
+  picker=(wofi --dmenu --prompt pass: -i -M fuzzy -L 15)
+else
+  picker=(rofi -dmenu)
+fi
+
+gopass ls --flat | "${picker[@]}" | xargs --no-run-if-empty gopass show -c

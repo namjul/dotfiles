@@ -1,0 +1,8 @@
+[Desktop Entry]
+Version=1.0
+Name=passmenu
+Comment=Pick a gopass entry and copy the secret
+Exec=sh -c 'PATH="$HOME/.dotfiles/bin:$PATH" exec passmenu'
+Terminal=false
+Type=Application
+Categories=Utility;Security;

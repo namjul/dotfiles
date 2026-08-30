@@ -103,11 +103,7 @@ Review:
 
 ### Slice 2: `passmenu` on Wayland
 
-Needs slice-independent store work first: clone/decrypt `~/.password-store` per `exploration/encryption.md`. Then:
-
-- Branch `bin/passmenu` on `WAYLAND_DISPLAY`: `wofi --dmenu --prompt pass: -i -M fuzzy -L 15` vs existing rofi.
-- Add `passmenu.desktop` so wofi drun can launch it.
-- Keep the X11/rofi path.
+Done. `bin/passmenu` uses `wofi --dmenu --prompt pass: -i -M fuzzy -L 15` when `WAYLAND_DISPLAY` is set, else `rofi -dmenu`. `passmenu.desktop` is in `.local/share/applications` for wofi drun. Store clone/decrypt stays manual (`exploration/encryption.md`).
 
 Verification:
 
