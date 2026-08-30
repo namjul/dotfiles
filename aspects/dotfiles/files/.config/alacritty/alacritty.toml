@@ -29,7 +29,7 @@ decorations = "None"
 
 [keyboard]
 bindings = [
-{ key = "V", mods = "Control", action = "Paste" },
+{ key = "V", mods = "Control|Shift", action = "Paste" },
 { key = "Insert", mods = "Shift", action = "Paste" },
 { key = "Insert", mods = "Control", action = "Copy" },
 { key = "Return", mods = "Shift", chars = "\u001B[13;2u" },  # CSI-u Shift+Enter for tmux/pi
