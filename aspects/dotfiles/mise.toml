@@ -13,6 +13,17 @@ run = "./index.ts templates"
 description = "setup agents files"
 run = "./index.ts agents"
 
+[tasks."gopass:private"]
+description = "Extract gopass GPG private key from gopass.yml via sops"
+run = """
+#!/usr/bin/env bash
+set -euo pipefail
+umask 077
+sops -d --extract '["private_key"]' --output /tmp/pass-private.asc gopass.yml
+gpg --import /tmp/pass-private.asc
+shred -u /tmp/pass-private.asc
+"""
+
 [tasks.default]
 description = "Creates symlinks from the $HOME directory to the dotfiles in this repo."
 depends = [":files", ":templates", ":agents"]
