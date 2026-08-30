@@ -94,7 +94,6 @@ variables(({ identity }) => ({
     ".config/btop/btop.conf",
     // encrypted
     // ".config/glab-cli/config.yml.encrypted",
-    // ".config/wireguard/work.conf.encrypted",
   ],
   templates: [
     ".config/git/config.tmpl",
@@ -192,6 +191,9 @@ variables(({ identity }) => ({
     ".agents/rules/caveman.md",
   ],
   agents: [".agents/AGENTS.md", ".agents/CLAUDE.md"],
+  wireguard: [
+    ".config/wireguard/work.conf.encrypted",
+  ],
   vcsUserEmail: identity === "namjul" ? "samuel.hobl@gmail.com" : "",
   vcsUserName: identity === "namjul" ? "Samuel Hobl" : "",
 }));
@@ -262,6 +264,23 @@ if (import.meta.main) {
           src: path.aspect.join("files", src),
           state: "link",
         });
+      }
+
+      const wireguard = variable.paths("wireguard");
+      for (const rel of wireguard) {
+        const encrypted = rel.toString().endsWith(".encrypted");
+        const destName = encrypted
+          ? rel.basename.strip(".encrypted").toString()
+          : rel.basename.toString();
+        const r = await file({
+          force: true,
+          mode: "0600",
+          path: path("/etc/wireguard", destName),
+          src: path.aspect.join("files", rel),
+          state: encrypted ? "encrypted" : "copy",
+          sudo: true,
+        });
+        assert.result(r);
       }
 
       break;
