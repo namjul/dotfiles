@@ -1,7 +1,9 @@
-stylesheet=style.css
+stylesheet=style-dark.css
 location=center
 width=600
 height=400
 prompt=Search
 hide_scroll=true
 layer=overlay
+insensitive=true
+no_actions=true
