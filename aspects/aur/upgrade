@@ -9,4 +9,5 @@ if ! command -v pacman >/dev/null; then
   exit 1
 fi
 
+checkupdates || true
 sudo pacman -Syu --noconfirm
