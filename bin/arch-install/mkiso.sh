@@ -21,6 +21,14 @@ releng_src() {
   return 1
 }
 
+install_archiso() {
+  if [[ $(id -u) -eq 0 ]]; then
+    pacman -Sy --noconfirm --needed archiso
+  else
+    sudo pacman -Sy --noconfirm --needed archiso
+  fi
+}
+
 enter_container() {
   local engine
   if command -v docker >/dev/null 2>&1; then
@@ -69,10 +77,13 @@ prepare() {
 src=""
 if src=$(releng_src); then
   :
+elif command -v pacman >/dev/null 2>&1; then
+  install_archiso
+  src=/usr/share/archiso/configs/releng
 elif [[ -z "${ARCHISO_IN_CONTAINER:-}" ]]; then
   enter_container "$@"
 else
-  pacman -Sy --noconfirm --needed archiso
+  install_archiso
   src=/usr/share/archiso/configs/releng
 fi
 
@@ -84,10 +95,13 @@ if ((prepare_only)); then
 fi
 
 if ! command -v mkarchiso >/dev/null 2>&1; then
-  if [[ -z "${ARCHISO_IN_CONTAINER:-}" ]]; then
+  if command -v pacman >/dev/null 2>&1; then
+    install_archiso
+  elif [[ -z "${ARCHISO_IN_CONTAINER:-}" ]]; then
     enter_container "$@"
+  else
+    install_archiso
   fi
-  pacman -Sy --noconfirm --needed archiso
 fi
 
 # A leftover -w tree makes mkarchiso skip or fail; same-day ISO names hide a stale out/*.iso.
