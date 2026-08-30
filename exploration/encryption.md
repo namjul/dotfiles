@@ -2,7 +2,7 @@
 
 Resume note: age-backed secrets across public dotfiles and a private password store. Store CLI (`gopass` / `passage`) is an implementation choice, not the architecture.
 
-**Desktop plan:** [PLAN.md](../aspects/aur/PLAN.md) slice 2 depends on this — path configured; crypto migration + clone remain **manual**. No new aspect, no mise task.
+**Desktop plan:** [PLAN.md](../aspects/aur/PLAN.md) slice 2 depends on this — path policy is in `10-env.fish`; clone is `mise run //aspects/dotfiles:store` (remote still operator-supplied). Crypto migration remains **manual**. No new aspect.
 
 ## Aim
 
@@ -81,18 +81,18 @@ flowchart LR
 
 | Piece | Today | Target |
 |---|---|---|
-| Store path (Ubuntu) | `~/Dropbox/.password-store` (old `10-env.fish`) | `~/.password-store` (already in dotfiles) |
-| Crypto | GPG (`.gpg`) | age (CLI TBD) |
-| Decrypt key | GPG secret key (not in dotfiles) | `~/.config/age/key.txt` (+ YubiKey recipients later) |
+| Store path | Prefer `~/.password-store` if `.gpg-id` exists; else `~/Dropbox/.password-store` if that exists; else `~/.password-store` as the empty target | Same rule. New machines land on `~/.password-store`. Dropbox is fallback only. |
+| Crypto | GPG (`.gpg`) via **gopass** (`gpgcli`) | age (CLI still Q0) |
+| Decrypt key | GPG encrypt subkey (`aspects/dotfiles/gpg.yml` + `mise run //aspects/dotfiles:gpg`) | `~/.config/age/key.txt` (+ YubiKey recipients later). After Phase 1, skip GPG import. |
 | fnox API keys | `provider = "pass"` | unchanged while store is the source |
 | fnox `TEICH_*` | already `provider = "age"` | unchanged |
-| Git remote | unknown / Dropbox-sync only | GitHub private repo (manual clone) |
+| Git remote | Exists on the live trees; **URL stays out of this public repo** | Operator passes the URL to `mise run //aspects/dotfiles:store <remote>` |
 
 ### Context in this repo
 
 | Piece | Location |
 |---|---|
-| Store path | `PASSWORD_STORE_DIR="$HOME/.password-store"` in `aspects/dotfiles/files/.config/fish/conf.d/10-env.fish` |
+| Store path | `PASSWORD_STORE_DIR` resolver in `aspects/dotfiles/files/.config/fish/conf.d/10-env.fish`. `//aspects/dotfiles:store` requires that env and fails if it is empty. |
 | Packages (today) | `gopass` + `pass` in `aspects/aur/packages`; `pass` in `aspects/nala/packages`; `gopass` in Brewfile — revisit if switching to passage |
 | GitHub git auth | `aspects/ssh/key.yml` → `mise r //aspects/ssh:keys` |
 | fnox | `aspects/dotfiles/files/.config/fnox/config.toml` — prefix `fnox/` |
@@ -107,7 +107,7 @@ Change only crypto. Stay at the current store location. Commands below use **gop
 ### 1.1 Preflight and backup
 
 ```bash
-echo "$PASSWORD_STORE_DIR"    # likely ~/Dropbox/.password-store today
+echo "$PASSWORD_STORE_DIR"    # ~/.password-store if that store exists; else Dropbox
 # list / decrypt check with current CLI
 gpg --list-secret-keys        # note GPG id used by store
 
@@ -160,24 +160,23 @@ Only after Phase 1 is stable.
 ```bash
 cd "$PASSWORD_STORE_DIR"
 git remote -v
-# if missing: git remote add origin git@github.com:USER/STORE.git
+# if missing: git remote add origin <the private GitHub URL>
 git push -u origin main    # or master — match branch name
 ```
 
-Resolve Q1 (exact repo URL) when adding the remote.
+Do not write that URL into this public repo.
 
 ### 2.2 Move to canonical path
 
+If Dropbox is still the only store, copy or move it to `~/.password-store` (keeps git history). New machines do not copy Dropbox:
+
 ```bash
-# option A: move (keeps git history)
-mv "$PASSWORD_STORE_DIR" ~/.password-store
-
-# option B: fresh clone
-git clone git@github.com:USER/STORE.git ~/.password-store
-# or: gopass clone / passage clone equivalent
-
-source ~/.config/fish/conf.d/10-env.fish
+mise r //aspects/dotfiles:store git@github.com:USER/password-store.git
 ```
+
+`store` is a no-op when `.gpg-id` is already at the resolved path. The remote is never committed here.
+
+Then open a new shell (or `source ~/.config/fish/conf.d/10-env.fish`) so `PASSWORD_STORE_DIR` prefers `~/.password-store`.
 
 Re-run Phase 1.4 at the new path.
 
@@ -188,9 +187,8 @@ After GitHub push verified and new path works for a few days: archive `~/Dropbox
 ### 2.4 Other machines (Arch Sway, VM)
 
 ```bash
-mise r //aspects/ssh:keys
-git clone git@github.com:USER/STORE.git ~/.password-store
-# register age identity for chosen CLI
+mise r //aspects/dotfiles:store git@github.com:USER/password-store.git
+# after Phase 1: skip GPG import (store is age); register age identity for chosen CLI
 # list + show fnox/GITHUB_TOKEN — do not echo
 ```
 
@@ -200,15 +198,15 @@ git clone git@github.com:USER/STORE.git ~/.password-store
 - Store at `~/.password-store` with GitHub remote; Dropbox copy retired
 - Store list works on real Arch machine
 - `fnox exec -- env | rg '^GITHUB_TOKEN='` prints a value (do not log)
-- Q1 resolved; age identity registered per machine (Q2)
+- Age identity registered per machine (Q2); store remote known to you, not committed here
 - Store CLI chosen (Q0) and packages/docs match
 
 ## Parked
 
 | ID | Question |
 |---|---|
-| Q0 | Store CLI: passage (age/YubiKey) vs gopass (QR / status quo) |
-| Q1 | GitHub URL (`git@github.com:USER/STORE.git`) |
+| Q0 | Store CLI after Phase 1: passage vs gopass age. **Until then: gopass + GPG (`gpgcli`).** |
+| Q1 | Exact GitHub URL — keep it off this repo; pass it to `//aspects/dotfiles:store`. Repo name is `password-store`. |
 | Q2 | Age identity on each machine (`key.txt` + CLI registration / YubiKey) |
 | Q3 | VM: bind-mount host store vs manual clone vs skip |
 

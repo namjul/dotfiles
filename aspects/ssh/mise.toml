@@ -9,6 +9,7 @@ run = "deno run --allow-all index.ts config"
 
 [tasks."keys"]
 description = "Install SSH keys from key.yml via sops extract"
+depends = [":dir"]
 run = "deno run --allow-all index.ts keys"
 
 [tasks.default]

@@ -15,6 +15,7 @@ run = "./index.ts agents"
 
 [tasks.gpg]
 description = "Extract GPG private key from gpg.yml via sops"
+depends = ["//:aspects:setup"]
 run = """
 #!/usr/bin/env bash
 set -euo pipefail
@@ -22,6 +23,29 @@ umask 077
 sops -d --extract '["private_key"]' --output /tmp/pass-private.asc gpg.yml
 gpg --import /tmp/pass-private.asc
 shred -u /tmp/pass-private.asc
+"""
+
+[tasks.store]
+description = "Attach an existing gopass/pass git store; no-op if one is already present"
+usage = 'arg "<remote>" help="Git URL of the private password-store repo" default=""'
+depends = [":gpg", "//aspects/ssh:keys"]
+run = """
+#!/usr/bin/env bash
+set -euo pipefail
+if [[ -z "${PASSWORD_STORE_DIR:-}" ]]; then
+  echo "PASSWORD_STORE_DIR is empty" >&2
+  exit 1
+fi
+if [[ -f "${PASSWORD_STORE_DIR}/.gpg-id" ]]; then
+  echo "password store already at ${PASSWORD_STORE_DIR}" >&2
+  exit 0
+fi
+remote="${usage_remote:-}"
+if [[ -z "${remote}" ]]; then
+  echo "no store at ${PASSWORD_STORE_DIR}; pass the git remote: mise run //aspects/dotfiles:store git@github.com:USER/password-store.git" >&2
+  exit 1
+fi
+gopass clone --crypto gpgcli --check-keys=false --path "${PASSWORD_STORE_DIR}" "${remote}"
 """
 
 [tasks.default]

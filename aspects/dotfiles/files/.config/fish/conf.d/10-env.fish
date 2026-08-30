@@ -60,4 +60,13 @@ export FNOX_SHELL_OUTPUT=none
 
 export MERCURIAL_USERNAME="$GIT_AUTHOR_NAME $GIT_AUTHOR_EMAIL"
 export GIT_HOSTS="gitlab.tools.wienfluss.net|git-dev.rz.babiel.com"
-export PASSWORD_STORE_DIR="$DROPBOX_DIR/.password-store"
+# Canonical store is ~/.password-store. Dropbox is fallback until that tree exists. Override with PASSWORD_STORE_DIR.
+if not set -q PASSWORD_STORE_DIR
+  if test -f "$HOME/.password-store/.gpg-id"
+    set -x PASSWORD_STORE_DIR "$HOME/.password-store"
+  else if test -f "$DROPBOX_DIR/.password-store/.gpg-id"
+    set -x PASSWORD_STORE_DIR "$DROPBOX_DIR/.password-store"
+  else
+    set -x PASSWORD_STORE_DIR "$HOME/.password-store"
+  end
+end
