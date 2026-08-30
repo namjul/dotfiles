@@ -121,14 +121,6 @@ packages=(
 )
 sudo pacman -S --needed --noconfirm "${packages[@]}"
 
-# raise file descriptor limit for dev tools
-sudo mkdir -p /etc/systemd/system.conf.d /etc/systemd/user.conf.d
-sudo tee /etc/systemd/system.conf.d/99-nofile.conf > /dev/null <<'EOF'
-[Manager]
-DefaultLimitNOFILE=65536:524288
-EOF
-sudo cp /etc/systemd/system.conf.d/99-nofile.conf /etc/systemd/user.conf.d/99-nofile.conf
-
 # AUR packages
 # paru -S --needed --noconfirm steghide # used for tomb
 # paru -S --needed --noconfirm gromit-mpx # https://github.com/bk138/gromit-mpx

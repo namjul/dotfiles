@@ -1,5 +1,6 @@
 [tasks.enable-services]
 description = "Link and enable systemd user units"
+interactive = true
 usage = '''
 flag "--now" help="Enable and immediately start user services"
 '''
@@ -7,16 +8,24 @@ run = "./index.ts"
 
 [tasks.bluetooth]
 description = "Enable bluetooth.service on Arch (radio state is rfkill, not AutoEnable)"
+interactive = true
 run = "./bluetooth.ts"
 
 [tasks.power]
 description = "Enable power-profiles-daemon and AC/battery udev rule (Arch, battery only)"
+interactive = true
 run = "./power.ts"
 
+[tasks.limits]
+description = "Give Arch services and user sessions enough file descriptors for editors, watchers, and containers"
+interactive = true
+run = "./limits.ts"
+
 [tasks.default]
-description = "User units plus Arch bluetooth and power"
+description = "User units plus Arch bluetooth, power, and nofile limits"
 depends = [":enable-services"]
 run = [
   { task = "bluetooth" },
   { task = "power" },
+  { task = "limits" },
 ]
