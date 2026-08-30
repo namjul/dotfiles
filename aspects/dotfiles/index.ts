@@ -7,22 +7,12 @@ import {
   init,
   path,
   template,
-  tryCatch,
   variable,
   variables,
   when,
 } from "fig";
 
 init(import.meta.dirname);
-
-const ageKeyPath = (): string =>
-  Deno.env.get("AGE_KEY_FILE") ??
-    path.home.join(".config/age/key.txt").toString();
-
-const ageKeyExists = async (): Promise<boolean> => {
-  const { data } = await tryCatch(Deno.stat(ageKeyPath()));
-  return data?.isFile === true;
-};
 
 variables(({ identity }) => ({
   files: [
@@ -244,10 +234,6 @@ if (import.meta.main) {
         const isLocalBin = src.toString().includes(".local/bin/");
 
         if (encrypted) {
-          if (!(await ageKeyExists())) {
-            console.warn(`skip encrypted ${rel}: missing ${ageKeyPath()}`);
-            continue;
-          }
           const r = await file({
             force: true,
             mode: isLocalBin ? "0755" : "0600",
