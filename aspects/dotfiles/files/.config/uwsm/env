@@ -1,0 +1,6 @@
+# Sourced by UWSM before Sway. Graphical session PATH for all children.
+# Same job as Omarchy's uwsm/env, without Hyprland.
+export PATH="${HOME}/.local/bin:${PATH}"
+if command -v mise >/dev/null 2>&1; then
+  eval "$(mise activate bash --shims)"
+fi

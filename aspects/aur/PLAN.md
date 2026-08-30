@@ -28,8 +28,9 @@ Done in `aspects/aur/packages` and `aspects/aur/login/`, VM-tested unless noted:
 |---|---|
 | Fonts, man | `noto-fonts`, `noto-fonts-emoji`, `man-db` |
 | Keyring | `gnome-keyring`, `libsecret`; `login/default-keyring.sh` (passwordless Default_keyring; socket activation; PAM session line keeps `SSH_AUTH_SOCK`) |
-| Login | `sddm`; `login/sddm.sh` (drop PAM `-auth`/`-password` gnome-keyring; `/etc/sddm.conf.d/autologin.conf` → Sway as `$USER`; `systemctl enable sddm`) |
-| Compositor | `sway`, `swaybg`, `mako`, `libnotify`, `i3status-rust`, `alacritty` — Hyprland/uwsm/portal-hyprland removed |
+| Login | `sddm`; `login/sddm.sh` (drop PAM `-auth`/`-password` gnome-keyring; `/etc/sddm.conf.d/autologin.conf` → `Session=sway`; local desktop `Exec=uwsm start -- sway`) |
+| Session | `uwsm` — `~/.config/uwsm/env` prepends mise shims; Sway is the compositor, not Hyprland |
+| Compositor | `sway`, `swaybg`, `mako`, `libnotify`, `i3status-rust`, `alacritty` — Hyprland / portal-hyprland stay gone |
 | Portals / Qt | `xdg-desktop-portal-wlr`, `xdg-desktop-portal-gtk`, `qt5-wayland`, `qt6-wayland` |
 | Polkit | `polkit-gnome` + `exec` in sway config; `lxsession` kept for i3 fallback |
 | Launcher | `wofi` + `$mod+space`; spec: `SPEC.sway-step-9-wofi.md` (`78ef905f`) |
@@ -49,7 +50,7 @@ Sway recovery if SDDM loops: `Ctrl+Alt+F2` → `sudo systemctl disable --now sdd
 - Keep `i3-wm` on Arch.
 - One step committed and VM-tested before the next.
 - Password-store clone/decrypt stays manual (`exploration/encryption.md`). No mise task for that.
-- Do not reintroduce Hyprland, uwsm, or the omarchy-iso package-list contract.
+- Do not reintroduce Hyprland or the omarchy-iso package-list contract. UWSM is allowed as the Sway session wrapper (PATH / units / XDG autostart), not as a Hyprland dependency.
 - Power-profile *enablement* belongs in `aspects/systemd` (`aspects/systemd/PLAN.md`). `aur` only adds the package.
 
 Out of first pass: docker, CUPS, waybar, gromit-mpx, paru/AUR-only packages, NetworkManager (`nm-applet` in sway config is an i3 leftover; Arch uses `iwd`).

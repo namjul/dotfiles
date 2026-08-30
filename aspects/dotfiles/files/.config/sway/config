@@ -31,8 +31,7 @@ set $white #ffffff
 bar {
     position top
     font pango: JetBrainsMono Nerd Font
-    # Bar is not a fish login; launch-* and mise tools (wiremix, impala) live off PATH otherwise
-    status_command env PATH="$HOME/.dotfiles/bin:$HOME/.local/share/mise/shims:$HOME/.local/bin:$PATH" i3status-rs
+    status_command i3status-rs
     colors {
         # bar background color
         background $bg
@@ -66,12 +65,9 @@ smart_gaps on
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
 #font pango:DejaVu Sans Mono 8
 
-# systemd/dbus activation environment (sway wiki)
-exec systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP DISPLAY  SWAYSOCK I3SOCK XCURSOR_SIZE XCURSOR_THEME
-
-# Start XDG autostart .desktop files using dex. See also
-# https://wiki.archlinux.org/index.php/XDG_Autostart
-exec dex --autostart --environment sway
+# UWSM already imported session env (including PATH from ~/.config/uwsm/env).
+# Finalize compositor-set vars; UWSM also runs XDG autostart (no dex).
+exec uwsm finalize SWAYSOCK I3SOCK XCURSOR_SIZE XCURSOR_THEME
 
 # The combination of xss-lock, nm-applet and pactl is a popular choice, so
 # they are included here as an example. Modify as you see fit.

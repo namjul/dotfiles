@@ -49,6 +49,7 @@ variables(({ identity }) => ({
     ".config/gtk-4.0",
     ".config/i3",
     ".config/sway",
+    ".config/uwsm",
     ".config/kanshi",
     ".config/tmux",
     ".config/nushell",
@@ -223,6 +224,7 @@ if (import.meta.main) {
       const skipOnDebian = new Set([
         ".config/mako",
         ".config/sway",
+        ".config/uwsm",
         ".config/kanshi",
         ".config/wofi",
         ".config/swayosd",

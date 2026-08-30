@@ -64,6 +64,7 @@ packages=(
   bluez bluez-utils # bluetooth
   gnome-keyring libsecret # D-Bus Secret Service
   sddm # login manager — config in aspects/aur/login
+  uwsm # Wayland session manager — sources ~/.config/uwsm/env, then starts sway
   sway swaybg mako libnotify i3status-rust alacritty foot # Wayland compositor (PLAN.sway step 4)
   xdg-desktop-portal-wlr xdg-desktop-portal-gtk qt5-wayland qt6-wayland # Wayland integration (PLAN.sway step 5)
   lxsession # polkit auth agent for i3/X11 fallback (lxpolkit)
@@ -106,7 +107,6 @@ packages=(
   yt-dlp # https://github.com/yt-dlp/yt-dlp
   fastfetch # https://github.com/fastfetch-cli/fastfetch
   neovim # https://github.com/neovim/neovim
-  xdg-terminal-exec # https://github.com/Vladimir-csp/xdg-terminal-exec
   tree-sitter-cli # nvim-treesitter main: parser compile (`tree-sitter build`)
   gopass # https://github.com/gopasspw/gopass
   notmuch # https://notmuchmail.org
