@@ -469,7 +469,7 @@ write_json() {
             {
               btrfs: [],
               dev_path: null,
-              flags: ["boot"],
+              flags: ["boot", "esp"],
               fs_type: "fat32",
               mount_options: [],
               mountpoint: "/boot",
