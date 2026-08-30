@@ -10,4 +10,4 @@ Restart=always
 RestartSec=10
 
 [Install]
-WantedBy=graphical-session.target
+WantedBy=default.target

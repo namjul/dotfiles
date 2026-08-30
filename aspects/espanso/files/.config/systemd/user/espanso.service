@@ -2,7 +2,6 @@
 Description=Espanso: cross platform text expander in Rust
 Documentation=https://espanso.org
 After=graphical-session.target
-PartOf=graphical-session.target
 
 [Service]
 ExecStart=/usr/local/bin/espanso launcher
@@ -10,4 +9,4 @@ Restart=on-failure
 RestartSec=3
 
 [Install]
-WantedBy=graphical-session.target
+WantedBy=default.target
