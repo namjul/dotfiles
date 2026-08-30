@@ -2,10 +2,10 @@
 Name=Neovim
 GenericName=Text Editor
 Comment=Edit text files
-Exec=ghostty --class=nvim -e fish -c 'nvim $argv' -- %F
+Exec=xdg-terminal-exec --app-id=nvim -e nvim %F
 Terminal=false
 Type=Application
-Keywords=Text;editor;
+Keywords=Text;editor;nvim;neovim;
 Icon=nvim
 Categories=Utility;TextEditor;
 StartupNotify=false

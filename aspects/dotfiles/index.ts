@@ -32,6 +32,7 @@ variables(({ identity }) => ({
     ".config/starship.toml",
     ".config/bash/rc",
     ".config/mimeapps.list",
+    ".config/xdg-terminals.list",
     ".claude/settings.json",
     ".pi/agent/extensions",
     ".pi/agent/settings.json",
