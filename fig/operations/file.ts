@@ -65,8 +65,10 @@ export async function file(options: FileOptions): Promise<FileResult> {
       checkDir = dirname(checkDir);
     }
 
-    // Ensure parent directory exists
-    fs.ensureDirSync(targetDir);
+    if (targetDir !== "/") {
+      const mkdirErr = await mkdir(targetDir, { intermediate: true, sudo });
+      if (mkdirErr) throw mkdirErr;
+    }
   } catch (cause) {
     const errorType: FileError["type"] = sudo
       ? "PERMISSION_DENIED"
@@ -217,7 +219,7 @@ async function ensureDirectory(
   const sudo = Option.unwrapOr(Option.from(options.sudo), false);
 
   try {
-    if (fs.pathExistsSync(targetPath)) {
+    if (!sudo && fs.pathExistsSync(targetPath)) {
       const stat = fs.lstatSync(targetPath);
       if (!stat.isDirectory()) {
         if (!force) {
@@ -231,19 +233,11 @@ async function ensureDirectory(
       }
     }
 
-    if (sudo) {
-      const mkdirErr = await mkdir(targetPath, { intermediate: true, sudo: true });
-      if (mkdirErr) throw mkdirErr;
-      if (Option.isSome(mode)) {
-        const err = await chmod(mode, targetPath, { sudo: true });
-        if (err) throw err;
-      }
-    } else {
-      fs.ensureDirSync(targetPath);
-      if (Option.isSome(mode)) {
-        const err = await chmod(mode, targetPath);
-        if (err) throw err;
-      }
+    const mkdirErr = await mkdir(targetPath, { intermediate: true, sudo });
+    if (mkdirErr) throw mkdirErr;
+    if (Option.isSome(mode)) {
+      const err = await chmod(mode, targetPath, { sudo });
+      if (err) throw err;
     }
     return Result.ok({ path: targetPath });
   } catch (cause) {
@@ -350,9 +344,12 @@ async function decryptEncrypted(
     });
   }
 
-  const targetCheck = clearTarget(targetPath, "encrypted", force);
-  if (!targetCheck.ok) {
-    return targetCheck;
+  // User lstat/remove cannot touch root-owned /etc files. sudo cp overwrites.
+  if (!sudo) {
+    const targetCheck = clearTarget(targetPath, "encrypted", force);
+    if (!targetCheck.ok) {
+      return targetCheck;
+    }
   }
 
   if (!(await hasSops())) {
