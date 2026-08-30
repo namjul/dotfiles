@@ -77,6 +77,8 @@ packages=(
   udiskie nautilus gvfs gvfs-mtp exfatprogs ntfs-3g # removable media automount (PLAN.md slice 1)
   imv # https://sr.ht/~exec64/imv/
   iwd # https://wiki.archlinux.org/title/Iwd
+  wireguard-tools # wg / wg-quick — kernel module is in linux
+  openresolv # resolvconf(8) so wg-quick can apply Interface DNS=
   chromium
   brightnessctl # https://github.com/Hummer12007/brightnessctl
   power-profiles-daemon # AC/battery profiles — enablement in aspects/systemd
@@ -84,6 +86,8 @@ packages=(
 
   # cli tools
   wget zsh tmux fzf vim
+  sshfs # FUSE SSH mounts (mount-shares)
+  openbsd-netcat # nc — TCP probe / swiss army knife
   fish # https://fishshell.com
   nushell # https://github.com/nushell/nushell
   fd ffmpegthumbnailer imagemagick # yazi runtime deps
