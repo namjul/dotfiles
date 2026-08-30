@@ -1,4 +1,5 @@
 anchor=top-right
+layer=overlay
 default-timeout=5000
 font=JetBrainsMono 10
 padding=10,15
