@@ -87,10 +87,10 @@ abbr localip 'ip -o route get to 8.8.8.8 | sed -n "s/.*src \([0-9.]\+\).*/\1/p"'
 # ls
 if type -q eza
   set TREE_IGNORE 'cache|log|logs|node_modules|vendor|.git'
-  alias ls 'eza --icons'
+  alias ls 'eza --icons --header --group --smart-group'
   abbr la 'ls -a'
-  abbr ll 'ls -l'
-  abbr lla 'ls -l -a'
+  abbr ll 'ls -l --sort newest'
+  abbr lla 'ls -l --sort newest -a'
   abbr lt 'ls --tree -D -L 2 -I $TREE_IGNORE'
   abbr ltt 'ls --tree -D -L 3 -I $TREE_IGNORE'
   abbr lttt 'ls --tree -D -L 4 -I $TREE_IGNORE'
