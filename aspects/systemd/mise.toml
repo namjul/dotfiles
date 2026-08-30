@@ -16,16 +16,22 @@ description = "Enable power-profiles-daemon and AC/battery udev rule (Arch, batt
 interactive = true
 run = "./power.ts"
 
+[tasks.docker]
+description = "Enable docker.socket on Arch (package in aspects/aur)"
+interactive = true
+run = "./docker.ts"
+
 [tasks.limits]
 description = "Give Arch services and user sessions enough file descriptors for editors, watchers, and containers"
 interactive = true
 run = "./limits.ts"
 
 [tasks.default]
-description = "User units plus Arch bluetooth, power, and nofile limits"
+description = "User units plus Arch bluetooth, power, docker, and nofile limits"
 depends = [":enable-services"]
 run = [
   { task = "bluetooth" },
   { task = "power" },
+  { task = "docker" },
   { task = "limits" },
 ]

@@ -118,6 +118,7 @@ packages=(
   ufw
   less
   gum # https://github.com/charmbracelet/gum
+  docker docker-compose # enablement in aspects/systemd
 )
 sudo pacman -S --needed --noconfirm "${packages[@]}"
 
