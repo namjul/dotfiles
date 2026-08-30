@@ -82,7 +82,7 @@ Omarchy sources: `install/first-run/swayosd.sh`, `install/first-run/battery-moni
 
 Extend the existing user service block alongside ssh-agent/darkman/redshift:
 - `swayosd-server.service` — volume/brightness OSD for Hyprland; requires `swayosd` package
-- `omarchy-battery-monitor.timer` — fires low-battery alerts on a timer; requires the service unit files in `files/`
+- `battery-monitor.timer` — fires `bin/battery-low-warn` every 30s (Omarchy: notify once at ≤10% while discharging); units in `files/`
 - `omarchy-recover-internal-monitor.service` — recovers internal display after external monitor disconnect; requires the service unit file in `files/`
 
 ## Package prerequisites

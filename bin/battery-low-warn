@@ -1,0 +1,62 @@
+#!/usr/bin/env bash
+# One-shot low-battery toast. Same rules as Omarchy quattro's battery service:
+# discharging and at or below the threshold (default 10%), notify once until recovered.
+set -euo pipefail
+
+THRESHOLD="${BATTERY_LOW_THRESHOLD:-10}"
+POWER_SUPPLY="${BATTERY_POWER_SUPPLY:-/sys/class/power_supply}"
+STATE_FILE="${BATTERY_LOW_STATE:-${XDG_RUNTIME_DIR:-/tmp}/battery-low-notified}"
+
+level=-1
+discharging=0
+
+for bat in "$POWER_SUPPLY"/BAT* "$POWER_SUPPLY"/CMB*; do
+  [[ -r $bat/type && -r $bat/present ]] || continue
+  [[ $(<"$bat/type") == Battery ]] || continue
+  [[ $(<"$bat/present") == 1 ]] || continue
+
+  if [[ -r $bat/capacity ]]; then
+    perc=$(<"$bat/capacity")
+  elif [[ -r $bat/energy_now && -r $bat/energy_full ]]; then
+    perc=$(($(<"$bat/energy_now") * 100 / $(<"$bat/energy_full")))
+  else
+    continue
+  fi
+
+  if ((level < 0 || perc < level)); then
+    level=$perc
+  fi
+
+  if [[ -r $bat/status && $(<"$bat/status") == Discharging ]]; then
+    discharging=1
+  fi
+done
+
+if ((level < 0)); then
+  rm -f "$STATE_FILE"
+  exit 0
+fi
+
+low=0
+if ((discharging == 1 && level <= THRESHOLD)); then
+  low=1
+fi
+
+if ((low == 0)); then
+  rm -f "$STATE_FILE"
+  exit 0
+fi
+
+if [[ -f $STATE_FILE ]]; then
+  exit 0
+fi
+
+notify-send \
+  --app-name=battery-low \
+  -u critical \
+  -t 30000 \
+  -i battery-caution \
+  "Time to recharge!" \
+  "Battery is down to ${level}%"
+
+: >"$STATE_FILE"

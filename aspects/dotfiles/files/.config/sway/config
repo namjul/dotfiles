@@ -89,8 +89,6 @@ exec swayidle -w \
 # and nm-applet is a desktop environment-independent system tray GUI for it.
 exec nm-applet
 
-exec notify-battery -n
-
 exec mako
 
 exec kanshi

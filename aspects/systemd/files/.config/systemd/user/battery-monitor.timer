@@ -1,0 +1,12 @@
+[Unit]
+Description=Check battery level every 30 seconds
+After=graphical-session.target
+
+[Timer]
+OnBootSec=30s
+OnUnitActiveSec=30s
+AccuracySec=5s
+Persistent=false
+
+[Install]
+WantedBy=timers.target

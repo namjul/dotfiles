@@ -36,6 +36,7 @@ Done in `aspects/aur/packages` and `aspects/aur/login/`, VM-tested unless noted:
 | Screenshots / clipboard | `grim`, `slurp`, `satty`, `wl-clipboard`; `bin/capture-screenshot` (`942d10b5`) |
 | Volume OSD | `pamixer`, `swayosd` (`f747f33f`) |
 | Idle lock | `swayidle`, `swaylock` (`c80d3b65`) |
+| Low battery toast | `libnotify` + `mako` here; user timer in `aspects/systemd` (`battery-monitor.timer` → `bin/battery-low-warn`, Omarchy 10% / once-until-recovered) |
 | Dual-stack | `i3-wm` + X11 tools stay installed on Arch as fallback |
 
 `mise.toml` default: `packages` + `login` + `firewall`. Firmware is a separate task (`fwupd` in `packages`; `aspects/aur/firmware` installs the package if missing, stages `fwupdx64.efi` on UEFI, `refresh --force`, then `fwupdmgr update`). Package upgrades are a separate task (`//aspects/aur:upgrade` → `pacman -Syu --noconfirm`; Ubuntu is `//aspects/nala:upgrade` → `nala update` + `nala upgrade -y`). The shared i3status-rust icon runs `pending-upgrades` and clicks `launch-upgrade`.
