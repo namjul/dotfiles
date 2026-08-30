@@ -97,6 +97,15 @@ cmd = "launch-wifi"
 
 [[block]]
 block = "custom"
+command = "omarchy-vpn-i3status"
+json = true
+interval = 5
+[[block.click]]
+button = "left"
+cmd = "launch-terminal --class=org.namjul.float-win --title=VPN omarchy-vpn"
+
+[[block]]
+block = "custom"
 command = "echo 󰍛"
 [[block.click]]
 button = "left"

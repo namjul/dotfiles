@@ -1,0 +1,23 @@
+#!/bin/bash
+set -euo pipefail
+
+# omarchy-vpn --waybar emits Waybar JSON (text=icon, tooltip, class).
+# i3status-rust custom json reads icon/state/text; tooltip and class are ignored.
+python3 -c '
+import json, subprocess, sys
+
+raw = subprocess.check_output(["omarchy-vpn", "--waybar"], text=True)
+w = json.loads(raw)
+glyph = w.get("text", "")
+cls = w.get("class", "")
+first = (w.get("tooltip") or "").split("\n", 1)[0]
+name = first.removeprefix("VPN: ").strip()
+if cls == "connected":
+    text = f"{glyph} {name}" if name else glyph
+    state = "Good"
+else:
+    text = glyph
+    state = "Idle"
+json.dump({"text": text, "state": state}, sys.stdout, ensure_ascii=False)
+print()
+'
