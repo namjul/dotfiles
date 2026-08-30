@@ -181,11 +181,9 @@ bindsym $mod+Shift+Down move down
 bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
-# split in horizontal orientation
-bindsym Ctrl+Shift+h split h
-
-# split in vertical orientation
-bindsym Ctrl+Shift+v split v
+# split (leave Ctrl+Shift+v for terminal paste)
+bindsym $mod+Ctrl+h split h
+bindsym $mod+Ctrl+v split v
 
 # enter fullscreen mode for the focused container
 # scratch.term: target by app_id; focused toggle misses a visible fullscreen scratch
