@@ -29,6 +29,13 @@ file = 'firmware'
 description = "Upgrade official-repo packages via pacman"
 file = 'upgrade'
 
+[tasks."omarchy-vpn"]
+description = "Build omarchy-vpn from a pinned tag and install sudoers (not on install.sh)"
+usage = '''
+flag "--force" help="Rebuild even if this version is already installed"
+'''
+file = "omarchy-vpn"
+
 [tasks.default]
 description = "Run all aur tasks"
 depends = [":packages", ":login", ":firewall"]

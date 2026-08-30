@@ -1,0 +1,53 @@
+#!/bin/bash
+# https://github.com/limehawk/omarchy-vpn
+# Optional: mise run //aspects/aur:omarchy-vpn
+# Do not add to aur:default or install.sh.
+
+trap 'echo "Warning: A command has failed. Exiting the script. Line was ($0:$LINENO): ${BASH_COMMAND}"; exit 3' ERR
+set -euo pipefail
+
+if [[ ! -e /etc/arch-release ]]; then
+  echo "omarchy-vpn: skip (not Arch)"
+  exit 0
+fi
+
+VERSION="v0.4.5"
+DEST="$HOME/.local/bin/omarchy-vpn"
+SRC="${XDG_CACHE_HOME:-$HOME/.cache}/omarchy-vpn-src"
+aspect_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+sudoers_src="$aspect_dir/files/etc/sudoers.d/omarchy-vpn"
+sudoers_dst="/etc/sudoers.d/omarchy-vpn"
+
+already_installed() {
+  [[ -x $DEST ]] || return 1
+  "$DEST" --version 2>/dev/null | grep -Fq "${VERSION#v}" || return 1
+}
+
+if [[ "${usage_force:-}" != "true" ]] && already_installed; then
+  echo "omarchy-vpn ${VERSION} already at ${DEST} — skip compile (pass --force to rebuild)"
+else
+  if ! command -v wg-quick >/dev/null; then
+    sudo pacman -S --needed --noconfirm wireguard-tools
+  fi
+
+  if [[ ! -d "$SRC/.git" ]]; then
+    if [[ -e "$SRC" ]]; then
+      rm -rf "$SRC"
+    fi
+    command git clone --depth 1 --branch "$VERSION" https://github.com/limehawk/omarchy-vpn.git "$SRC"
+  fi
+  command git -C "$SRC" fetch --depth 1 origin "refs/tags/${VERSION}:refs/tags/${VERSION}"
+  command git -C "$SRC" checkout --detach "$VERSION"
+
+  mise exec go@1.25 -- go build -C "$SRC" -ldflags "-X main.version=${VERSION#v}" -o "$SRC/omarchy-vpn" .
+  install -Dm755 "$SRC/omarchy-vpn" "$DEST"
+  echo "Installed ${DEST} (${VERSION})."
+fi
+
+if [[ -f "$sudoers_dst" ]] && cmp -s "$sudoers_src" "$sudoers_dst"; then
+  echo "${sudoers_dst} already matches"
+else
+  sudo visudo -cf "$sudoers_src"
+  sudo install -Dm440 "$sudoers_src" "$sudoers_dst"
+  echo "Installed ${sudoers_dst}"
+fi

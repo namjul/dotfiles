@@ -1,0 +1,5 @@
+%wheel ALL=(ALL) NOPASSWD: /usr/bin/wg-quick up *
+%wheel ALL=(ALL) NOPASSWD: /usr/bin/wg-quick down *
+%wheel ALL=(ALL) NOPASSWD: /usr/bin/wg show *
+%wheel ALL=(ALL) NOPASSWD: /usr/bin/ls /etc/wireguard
+%wheel ALL=(ALL) NOPASSWD: /usr/bin/cat /etc/wireguard/*.conf
