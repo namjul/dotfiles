@@ -13,13 +13,13 @@ run = "./index.ts templates"
 description = "setup agents files"
 run = "./index.ts agents"
 
-[tasks."gopass:private"]
-description = "Extract gopass GPG private key from gopass.yml via sops"
+[tasks.gpg]
+description = "Extract GPG private key from gpg.yml via sops"
 run = """
 #!/usr/bin/env bash
 set -euo pipefail
 umask 077
-sops -d --extract '["private_key"]' --output /tmp/pass-private.asc gopass.yml
+sops -d --extract '["private_key"]' --output /tmp/pass-private.asc gpg.yml
 gpg --import /tmp/pass-private.asc
 shred -u /tmp/pass-private.asc
 """
