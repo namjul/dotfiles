@@ -1,7 +1,7 @@
 #!/usr/bin/env -S deno run --allow-all
 
 import { fs } from "zx";
-import { command, fetch, file, init, path, variable, variables } from "fig";
+import { assert, command, fetch, file, init, path, variable, variables } from "fig";
 
 init(import.meta.dirname);
 
@@ -9,7 +9,7 @@ variables(() => ({
   files: [".vimrc", ".config/nvim"],
 }));
 
-const NEOVIM_VERSION = "v0.11.4";
+const NEOVIM_VERSION = "v0.12.5";
 
 // make directories
 {
@@ -17,21 +17,55 @@ const NEOVIM_VERSION = "v0.11.4";
   await file({ path: "~/.config", state: "directory" });
 }
 
-// download neovim appimage only if not already provided by system package manager
-const location = `${path.home}/opt/nvim/nvim${NEOVIM_VERSION}.appimage`;
-const systemNeovim = Deno.env.get("PATH")?.split(":").some((p) => {
-  try { Deno.statSync(`${p}/nvim`); return true; } catch { return false; }
-});
-if (!systemNeovim && !fs.existsSync(location)) {
-  await fetch({
-    url:
-      `https://github.com/neovim/neovim/releases/download/${NEOVIM_VERSION}/nvim-linux-x86_64.appimage`,
+// Keep ~/opt/nvim AppImage + squashfs-root at NEOVIM_VERSION (PATH prefers that tree).
+const nvimRoot = path.home.join("opt/nvim").toString();
+const location = `${nvimRoot}/nvim${NEOVIM_VERSION}.appimage`;
+const extractedNvim = `${nvimRoot}/squashfs-root/usr/bin/nvim`;
+const squashfsRoot = `${nvimRoot}/squashfs-root`;
+
+const appimageUrl =
+  `https://github.com/neovim/neovim/releases/download/${NEOVIM_VERSION}/nvim-linux-x86_64.appimage`;
+
+const downloadAppimage = async (force = false): Promise<void> => {
+  const dl = await fetch({
+    url: appimageUrl,
     dest: location,
+    encoding: null,
     mode: "0755",
+    ...(force ? { force: true } : {}),
   });
-  await command(location, ['--appimage-extract'], {
-    chdir: path.home.join('/opt/nvim').toString(),
+  assert.result(dl);
+};
+
+if (!fs.existsSync(location)) {
+  await downloadAppimage();
+}
+
+const extractedMatchesPin = async (): Promise<boolean> => {
+  if (!fs.existsSync(extractedNvim)) return false;
+  const ver = await command(extractedNvim, ["--version"]);
+  if (!ver.ok) return false;
+  const firstLine = ver.value.stdout.split("\n")[0] ?? "";
+  return firstLine.includes(NEOVIM_VERSION);
+};
+
+if (!(await extractedMatchesPin())) {
+  if (fs.existsSync(squashfsRoot)) {
+    const removed = await command("rm", ["-rf", squashfsRoot]);
+    assert.result(removed);
+  }
+  let extract = await command(location, ["--appimage-extract"], {
+    chdir: nvimRoot,
+    raw: true,
   });
+  if (!extract.ok) {
+    await downloadAppimage(true);
+    extract = await command(location, ["--appimage-extract"], {
+      chdir: nvimRoot,
+      raw: true,
+    });
+  }
+  assert.result(extract);
 }
 
 
