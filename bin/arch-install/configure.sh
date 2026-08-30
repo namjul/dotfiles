@@ -380,13 +380,31 @@ write_creds() {
 dotfiles_clone_cmd() {
   local repo="${DOTFILES_REPO:-namjul/dotfiles}"
   local ref="${DOTFILES_REF:-master}"
-  printf '%s\n' "git clone --branch ${ref} git@github.com:${repo}.git /home/${username}/.dotfiles && chown -R ${username}:${username} /home/${username}/.dotfiles && printf '%s\\n' '~/.dotfiles/bin/arch-install/boot.sh'"
+  printf '%s\n' "git clone --branch ${ref} https://github.com/${repo}.git /home/${username}/.dotfiles && chown -R ${username}:${username} /home/${username}/.dotfiles && printf '%s\\n' '~/.dotfiles/bin/arch-install/boot.sh'"
+}
+
+# archinstall pacstraps from custom_servers, not from the live /etc/pacman.d/mirrorlist.
+mirror_servers_json() {
+  local urls=()
+  local line
+  while IFS= read -r line; do
+    [[ "$line" == Server\ =\ * ]] || continue
+    urls+=("${line#Server = }")
+  done < /etc/pacman.d/mirrorlist
+  if ((${#urls[@]} == 0)); then
+    urls=(
+      'https://mirror.rackspace.com/archlinux/$repo/os/$arch'
+      'https://geo.mirror.pkgbuild.com/$repo/os/$arch'
+    )
+  fi
+  jq -n --args '$ARGS.positional | map({url: .})' -- "${urls[@]}"
 }
 
 write_json() {
-  local disk_size mib gib boot_start boot_size root_start root_size clone
+  local disk_size mib gib boot_start boot_size root_start root_size clone servers
   write_creds
   clone=$(dotfiles_clone_cmd)
+  servers=$(mirror_servers_json)
 
   if [[ $disk_mode == tui ]]; then
     jq -n \
@@ -394,8 +412,7 @@ write_json() {
       --arg timezone "$timezone" \
       --arg keyboard "$keyboard" \
       --arg clone "$clone" \
-      --arg m1 'https://mirror.rackspace.com/archlinux/$repo/os/$arch' \
-      --arg m2 'https://geo.mirror.pkgbuild.com/$repo/os/$arch' \
+      --argjson servers "$servers" \
       '{
         app_config: { audio_config: { audio: "pipewire" } },
         "archinstall-language": "English",
@@ -407,10 +424,7 @@ write_json() {
         locale_config: { kb_layout: $keyboard, sys_enc: "UTF-8", sys_lang: "en_US.UTF-8" },
         mirror_config: {
           custom_repositories: [],
-          custom_servers: [
-            { url: $m1 },
-            { url: $m2 }
-          ],
+          custom_servers: $servers,
           mirror_regions: {},
           optional_repositories: []
         },
@@ -452,8 +466,7 @@ write_json() {
     --argjson encrypt "$encrypt" \
     --arg pass "$password" \
     --arg clone "$clone" \
-    --arg m1 'https://mirror.rackspace.com/archlinux/$repo/os/$arch' \
-    --arg m2 'https://geo.mirror.pkgbuild.com/$repo/os/$arch' \
+    --argjson servers "$servers" \
     '{
       app_config: { audio_config: { audio: "pipewire" } },
       "archinstall-language": "English",
@@ -501,10 +514,7 @@ write_json() {
       locale_config: { kb_layout: $keyboard, sys_enc: "UTF-8", sys_lang: "en_US.UTF-8" },
       mirror_config: {
         custom_repositories: [],
-        custom_servers: [
-          { url: $m1 },
-          { url: $m2 }
-        ],
+        custom_servers: $servers,
         mirror_regions: {},
         optional_repositories: []
       },

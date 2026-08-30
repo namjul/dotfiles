@@ -4,6 +4,7 @@ set -euo pipefail
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 "$DIR/network.sh"
+"$DIR/mirrors.sh"
 
 if [[ "${SKIP_CONFIGURE:-}" != 1 ]]; then
   "$DIR/configure.sh"
