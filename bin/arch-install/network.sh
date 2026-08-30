@@ -29,7 +29,7 @@ have_cmd() {
 
 wait_for_link() {
   local n=0
-  printf '%s\n' "Waiting for Ethernet..." >&2
+  printf '%s\n' "${1:-Waiting for Ethernet...}" >&2
   while ((n < WAIT_TRIES)); do
     n=$((n + 1))
     if have_link; then
@@ -140,4 +140,5 @@ else
   "$IWCTL_CMD" --passphrase="$pass" station "$device" connect "$ssid"
 fi
 
-have_link || abort "Still no network after connect."
+# iwd returns after association; DHCP/DNS often lag a few seconds.
+wait_for_link "Waiting for network..." || abort "Still no network after connect."
