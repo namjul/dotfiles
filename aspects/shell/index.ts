@@ -28,11 +28,8 @@ const dataBackup = Deno.env.get("DATA_BACKUP");
 
 if (dataDir && dataBackup) {
   for (const dir of [dataDir, dataBackup]) {
-    const exists = await Deno.stat(dir).then(() => true).catch(() => false);
-    if (!exists) {
-      console.error(`error: required data directory not found: ${dir}`);
-      Deno.exit(1);
-    }
+    const r = await file({ path: dir, state: "directory" });
+    assert.result(r);
   }
   const fishHistory = `${Deno.env.get("HOME")}/.local/share/fish/fish_history`;
   const timestamp = `${dataBackup}/fish-history.${new Date().toISOString().replace(/[:.]/g, "-")}`;
