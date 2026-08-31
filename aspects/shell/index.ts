@@ -32,6 +32,7 @@ if (dataDir && dataBackup) {
     assert.result(r);
   }
   const fishHistory = `${Deno.env.get("HOME")}/.local/share/fish/fish_history`;
+  const src = `${dataDir}/fish_history`;
   const timestamp = `${dataBackup}/fish-history.${new Date().toISOString().replace(/[:.]/g, "-")}`;
 
   await command("mkdir", ["-p", `${Deno.env.get("HOME")}/.local/share/fish`, dataBackup]);
@@ -47,17 +48,18 @@ if (dataDir && dataBackup) {
   let linkStat: Deno.FileInfo | null = null;
   try { linkStat = await Deno.lstat(fishHistory); } catch { /* not found */ }
 
-  if (!linkStat?.isSymlink) {
+  const srcExists = await Deno.stat(src).then(() => true).catch(() => false);
+  if (srcExists && !linkStat?.isSymlink) {
     const r = await file({
       force: true,
       path: fishHistory,
-      src: `${dataDir}/fish_history`,
+      src,
       state: "link",
     });
     assert.result(r);
 
     if (stat) {
-      const cat = await command("bash", ["-c", `cat '${timestamp}' > '${dataDir}/fish_history'`]);
+      const cat = await command("bash", ["-c", `cat '${timestamp}' > '${src}'`]);
       assert.result(cat);
     }
   }
