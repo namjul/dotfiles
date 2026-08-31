@@ -1,3 +1,5 @@
+import { Result } from "@gordonb/result";
+import type { Result as ResultType } from "@gordonb/result/result";
 import { assertNever, attributes } from "fig";
 
 type Condition = "arch" | "darwin" | "debian" | "linux";
@@ -35,25 +37,12 @@ function checkCondition(condition: Condition): boolean {
   }
 }
 
-type Success<T> = {
-  data: T;
-  error: null;
-};
-
-type Failure<E> = {
-  data: null;
-  error: E;
-};
-
-type Result<T, E = Error> = Success<T> | Failure<E>;
-
-export async function tryCatch<T, E = Error>(
+export async function tryCatch<T, E = unknown>(
   promise: Promise<T>,
-): Promise<Result<T, E>> {
+): Promise<ResultType<T, E>> {
   try {
-    const data = await promise;
-    return { data, error: null };
+    return Result.ok(await promise);
   } catch (error) {
-    return { data: null, error: error as E };
+    return Result.err(error as E);
   }
 }
