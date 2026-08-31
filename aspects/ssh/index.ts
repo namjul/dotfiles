@@ -51,9 +51,9 @@ async function installKeys(): Promise<void> {
   await $`chmod 600 ${publicKeyPath} ${privateKeyPath}`;
 }
 
-/** boot.sh clones HTTPS; push needs SSH. Only rewrite ~/.dotfiles origin. */
+/** boot.sh clones HTTPS; push needs SSH. Rewrite origin of this checkout. */
 async function rewriteDotfilesGithubOrigin(): Promise<void> {
-  const dest = path.home.join(".dotfiles").toString();
+  const dest = path.root.toString();
   const got = await $`git -C ${dest} remote get-url origin`.nothrow();
   const current = got.stdout.trim();
   const match = /^https:\/\/github\.com\/([^/]+)\/([^/]+?)(?:\.git)?\/?$/.exec(current);

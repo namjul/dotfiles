@@ -9,6 +9,10 @@ Key features:
 - **Encryption**: Sensitive files (SSH configs, keys, environment variables) encrypted with age
 - **Server provisioning**: Remote server setup via mise tasks in the `server` aspect
 
+## Clone location
+
+Do not assume this repository lives at `~/.dotfiles` (or any other fixed home path). A checkout can be anywhere. Discover the tree from `path.root` / `git rev-parse --show-toplevel` / `import.meta` / the running script. `boot.sh` and archinstall may *place* a clone at `~/.dotfiles` as a default destination; that is not a license for the rest of the repo to hardcode that path.
+
 ## Aspects
 - `aur` — Verify environment and prepare pacman (Arch)
 - `dotfiles` — Symlink dotfiles from repo into $HOME

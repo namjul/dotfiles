@@ -13,7 +13,7 @@ depends = [":dir"]
 run = "deno run --allow-all index.ts keys"
 
 [tasks."github-origin"]
-description = "Point ~/.dotfiles origin at git@github.com if it is still HTTPS"
+description = "Point this checkout's origin at git@github.com if it is still HTTPS"
 depends = [":keys"]
 run = "deno run --allow-all index.ts github-origin"
 
