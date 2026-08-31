@@ -14,6 +14,23 @@ import {
 
 init(import.meta.dirname);
 
+const isMissingAgeKey = (error: { type: string; stderr?: string }): boolean =>
+  error.type === "SOPS_FAILED" &&
+  typeof error.stderr === "string" &&
+  (error.stderr.includes("failed to open SOPS_AGE_KEY_FILE") ||
+    error.stderr.includes("Did not find keys in locations"));
+
+const assertFileOrWarnMissingAgeKey = (
+  result: Awaited<ReturnType<typeof file>>,
+  src: string,
+): void => {
+  if (!result.ok && isMissingAgeKey(result.error)) {
+    console.warn(`warn: skipped decrypt ${src} (missing age key)`);
+    return;
+  }
+  assert.result(result);
+};
+
 variables(({ identity }) => ({
   files: [
     // root-level files
@@ -246,7 +263,7 @@ if (import.meta.main) {
             src: path.aspect.join("files", src),
             state: "encrypted",
           });
-          assert.result(r);
+          assertFileOrWarnMissingAgeKey(r, path.aspect.join("files", src).toString());
           continue;
         }
 
@@ -283,7 +300,7 @@ if (import.meta.main) {
           state: encrypted ? "encrypted" : "copy",
           sudo: true,
         });
-        assert.result(r);
+        assertFileOrWarnMissingAgeKey(r, path.aspect.join("files", rel).toString());
       }
 
       break;
