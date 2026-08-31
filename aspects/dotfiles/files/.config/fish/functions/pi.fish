@@ -1,3 +1,3 @@
 function pi
-  sandbox (command -v pi) $argv
+  sandbox (mise -C $HOME which pi) $argv
 end
