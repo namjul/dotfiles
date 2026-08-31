@@ -48,13 +48,17 @@ depends = ["fig:*"]
 description = "Verify age key (secrets; not required for install.sh)"
 run = """
 #!/usr/bin/env bash
+set -euo pipefail
 AGE_KEY="${AGE_KEY_FILE:-$HOME/.config/age/key.txt}"
-if [[ -f "$AGE_KEY" ]]; then
-  echo "age key found: $AGE_KEY"
-else
+if [[ ! -f "$AGE_KEY" ]]; then
   echo "missing: $AGE_KEY — place your age identity file there"
   exit 1
 fi
+if ! recipient="$(age-keygen -y "$AGE_KEY")"; then
+  echo "invalid age identity: $AGE_KEY"
+  exit 1
+fi
+echo "age key found: $AGE_KEY ($recipient)"
 """
 
 [tasks."aspects:check"]
