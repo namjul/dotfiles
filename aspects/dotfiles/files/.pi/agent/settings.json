@@ -1,5 +1,5 @@
 {
-  "theme": "gruvbox-light-soft",
+  "theme": "gruvbox-dark-soft",
   "defaultProvider": "cursor",
   "defaultModel": "grok-4.6",
   "defaultThinkingLevel": "low",
