@@ -300,7 +300,7 @@ bindsym $mod+Escape mode "$mode_system"
 bindsym $mod+z exec do-not-disturb
 bindsym $mod+Shift+t exec darkman toggle
 
-bindsym $mod+Shift+d exec launch-terminal --title=Lazydocker lazydocker
+bindsym $mod+Shift+d exec launch-terminal --title=Lazydocker launch-lazydocker
 bindsym $mod+v exec launch-terminal --title=Btop btop
 bindsym $mod+n exec launch-terminal --title=Neovim nvim
 

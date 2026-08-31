@@ -52,9 +52,9 @@ abbr t todo
 # tmux
 abbr tb "tmux new -s (pwd | sed 's/.*\///g')" # begin tmux session
 
-# docker
-abbr dcu "docker compose up"
-abbr dsa "docker stop (docker ps -a -q)"
+# docker — stay out of the docker group; sudo for CLI, launch-lazydocker for TUI
+abbr dcu "sudo docker compose up"
+abbr dsa "sudo docker stop (sudo docker ps -a -q)"
 
 # misc
 abbr mv 'mv -i'

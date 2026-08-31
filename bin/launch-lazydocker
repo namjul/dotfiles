@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Stay out of the docker group (root-equivalent). If this session cannot write
+# the socket, elevate with polkit instead of `sudo lazydocker` — sudo drops the
+# user PATH, and lazydocker lives in mise.
+# Same idea as omarchy-launch-docker-tui / omarchy-sudo-docker.
+
+socket="${DOCKER_SOCKET:-/var/run/docker.sock}"
+
+# Interactive PATH often hits the mise shim (symlink to mise). Elevating that
+# runs mise as root, which exits immediately — password prompt, then close.
+if command -v mise >/dev/null 2>&1; then
+  bin="$(mise which lazydocker)" || {
+    echo "launch-lazydocker: mise which lazydocker failed" >&2
+    exit 127
+  }
+else
+  bin="$(command -v lazydocker)" || {
+    echo "launch-lazydocker: lazydocker not on PATH" >&2
+    exit 127
+  }
+fi
+if [[ -L "$bin" && $(basename "$(readlink -f -- "$bin")") == mise ]]; then
+  echo "launch-lazydocker: refusing mise shim at $bin" >&2
+  exit 127
+fi
+
+if [[ -w "$socket" ]]; then
+  exec "$bin" "$@"
+fi
+
+exec pkexec /usr/bin/env TERM="${TERM:-xterm-256color}" "$bin" "$@"
