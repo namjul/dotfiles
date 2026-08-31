@@ -130,7 +130,6 @@ bindsym $mod+Shift+Tab move scratchpad
 
 # Cycle scratchpad stack (vanilla show).
 bindsym --to-code $mod+Tab exec ~/.config/sway/scratchpad-focused.sh
-exec_always ~/.config/sway/scratchpad-focused.sh watch-focus
 
 # Screenshot (grim + slurp + satty; i3 keeps flameshot)
 bindsym Print exec capture-screenshot

@@ -55,26 +55,6 @@ place_scratch() {
   swaymsg "[con_id=${id}] resize set ${width}px ${height}px, move absolute position ${pos_x} ${pos_y}"
 }
 
-scratch_float_has_focus() {
-  local id="${1}"
-  swaymsg -t get_tree | jq -e --argjson id "${id}" '
-    .. | objects
-    | select(.id == $id)
-    | (.focused == true) or any(.. | objects | .focused == true)
-  ' >/dev/null
-}
-
-hide_if_focus_left() {
-  local id
-  id=$(visible_float_id)
-  [[ -n ${id} ]] || return 0
-  if scratch_float_has_focus "${id}"; then
-    return 0
-  fi
-  save_fullscreen "$(scratch_fullscreen)"
-  swaymsg "[con_id=${id}] move scratchpad"
-}
-
 scratch_fullscreen() {
   swaymsg -t get_tree | jq '
     [
@@ -94,22 +74,6 @@ scratch_fullscreen() {
 save_fullscreen() {
   echo "${1}" >"${fullscreen_file}"
 }
-
-# Hide the shown scratch when focus moves to a tiled window, another float, or another workspace.
-if [[ ${1-} == watch-focus ]]; then
-  pidfile=/tmp/sway_scratchpad_watch.pid
-  if [[ -f ${pidfile} ]]; then
-    old=$(cat "${pidfile}" || true)
-    if [[ -n ${old} && ${old} != $$ ]] && kill -0 "${old}" 2>/dev/null; then
-      kill "${old}" 2>/dev/null || true
-    fi
-  fi
-  echo $$ >"${pidfile}"
-  while read -r _; do
-    hide_if_focus_left
-  done < <(swaymsg -t subscribe -m '["window","workspace"]')
-  exit 0
-fi
 
 # Super+F: a visible fullscreen scratch is often not the focused container,
 # so `fullscreen toggle` flips something else and the scratch stays full.
