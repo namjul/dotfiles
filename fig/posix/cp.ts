@@ -11,12 +11,9 @@ export async function cp(
   options: Options = {},
 ): Promise<Error | null> {
   const passphrase = options.sudo ? await getSudoPassphrase() : undefined;
-
-  const r = await run(
-    "cp",
-    [src, dest],
-    passphrase !== undefined ? { passphrase } : {},
-  );
+  const r = await run("cp", [src, dest], {
+    ...(passphrase !== undefined ? { passphrase } : {}),
+  });
 
   if (r.exitCode === 0) {
     return null;

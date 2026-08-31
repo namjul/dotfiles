@@ -11,12 +11,9 @@ export async function chmod(
   options: Options = {},
 ): Promise<Error | null> {
   const passphrase = options.sudo ? await getSudoPassphrase() : undefined;
-
-  const r = await run(
-    "chmod",
-    [mode, path],
-    passphrase !== undefined ? { passphrase } : {},
-  );
+  const r = await run("chmod", [mode, path], {
+    ...(passphrase !== undefined ? { passphrase } : {}),
+  });
 
   if (r.exitCode === 0) {
     return null;

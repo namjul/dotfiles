@@ -17,12 +17,9 @@ export async function rm(
   }
 
   const passphrase = options.sudo ? await getSudoPassphrase() : undefined;
-
-  const r = await run(
-    "rm",
-    args,
-    passphrase !== undefined ? { passphrase } : {},
-  );
+  const r = await run("rm", args, {
+    ...(passphrase !== undefined ? { passphrase } : {}),
+  });
 
   if (r.exitCode === 0) {
     return null;

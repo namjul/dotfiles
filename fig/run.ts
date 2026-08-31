@@ -2,10 +2,14 @@ import { randomBytes } from "node:crypto";
 import type { Readable, Writable } from "node:stream";
 import { $ } from "zx";
 
+export const SUDO_TICKET: unique symbol = Symbol("sudo-ticket");
+
+export type Passphrase = string | typeof SUDO_TICKET;
+
 type RunOptions = {
   chdir?: string;
   env?: NodeJS.ProcessEnv;
-  passphrase?: string;
+  passphrase?: Passphrase;
 };
 
 export type RunResult = {
@@ -15,10 +19,31 @@ export type RunResult = {
   stderr: string;
 };
 
+export function sudoCommandLine(
+  command: string,
+  args: ReadonlyArray<string>,
+  options: {
+    readonly isRoot: boolean;
+    readonly passphrase?: Passphrase;
+    readonly prompt: string;
+  },
+): Array<string> {
+  if (options.isRoot) {
+    return [command, ...args];
+  }
+  if (options.passphrase === SUDO_TICKET) {
+    return ["sudo", "--", command, ...args];
+  }
+  if (typeof options.passphrase === "string") {
+    return ["sudo", "-S", "-k", "-p", options.prompt, "--", command, ...args];
+  }
+  return [command, ...args];
+}
+
 /**
- * Run a command, optionally escalating with sudo when a passphrase is provided.
- * Passphrase is injected via stdin only when sudo emits the prompt on stderr,
- * matching wincent's event-driven approach.
+ * Run a command, optionally escalating with sudo.
+ * A string passphrase uses `sudo -S -k` and is injected when sudo emits the prompt.
+ * `SUDO_TICKET` uses the cached timestamp (`sudo --`).
  */
 export async function run(
   command: string,
@@ -31,11 +56,11 @@ export async function run(
   // matching legitimate command output.
   const prompt = `sudo[${randomBytes(16).toString("hex")}]:`;
 
-  // Already root — sudo is unnecessary and may not be available.
-  const isRoot = Deno.uid() === 0;
-  const final = passphrase !== undefined && !isRoot
-    ? ["sudo", "-S", "-k", "-p", prompt, "--", command, ...args]
-    : [command, ...args];
+  const final = sudoCommandLine(command, args, {
+    isRoot: Deno.uid() === 0,
+    ...(passphrase !== undefined ? { passphrase } : {}),
+    prompt,
+  });
 
   const zxOpts = {
     nothrow: true,
@@ -48,7 +73,7 @@ export async function run(
 
   let stderrText = "";
 
-  if (passphrase !== undefined) {
+  if (typeof passphrase === "string") {
     // Attach before awaiting so we catch every stderr chunk as it arrives.
     // sudo -S reads stdin synchronously, so a timing race is unlikely, but
     // writing only in response to the prompt is more correct than stuffing

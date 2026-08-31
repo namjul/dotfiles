@@ -12,12 +12,9 @@ export async function mkdir(
 ): Promise<Error | null> {
   const args = options.intermediate ? ["-p", path] : [path];
   const passphrase = options.sudo ? await getSudoPassphrase() : undefined;
-
-  const r = await run(
-    "mkdir",
-    args,
-    passphrase !== undefined ? { passphrase } : {},
-  );
+  const r = await run("mkdir", args, {
+    ...(passphrase !== undefined ? { passphrase } : {}),
+  });
 
   if (r.exitCode === 0) {
     return null;

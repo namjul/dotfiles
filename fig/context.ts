@@ -1,7 +1,8 @@
+import { promptSecret } from "@std/cli/prompt-secret";
 import { attributes } from "./attributes.ts";
 import variables from "../variables.ts";
+import { type Passphrase, SUDO_TICKET } from "./run.ts";
 import { Variables } from "./types.ts";
-import { promptSecret } from "@std/cli/prompt-secret";
 
 type Aspect = {
   dir: string;
@@ -64,17 +65,24 @@ export function registerVariablesCallback(
   );
 }
 
-let _sudoPassphrase: Promise<string> | undefined;
+let _sudoPassphrase: Promise<Passphrase | undefined> | undefined;
 
-export function getSudoPassphrase(): Promise<string> {
+export function getSudoPassphrase(): Promise<Passphrase | undefined> {
   if (_sudoPassphrase === undefined) {
     _sudoPassphrase = resolveSudoPassphrase();
   }
   return _sudoPassphrase;
 }
 
-async function resolveSudoPassphrase(): Promise<string> {
-  // Already root — sudo unavailable and unnecessary.
-  if (Deno.uid() === 0) return "";
+async function sudoIsCached(): Promise<boolean> {
+  const { success } = await new Deno.Command("sudo", {
+    args: ["-n", "true"],
+  }).output();
+  return success;
+}
+
+async function resolveSudoPassphrase(): Promise<Passphrase | undefined> {
+  if (Deno.uid() === 0) return undefined;
+  if (await sudoIsCached()) return SUDO_TICKET;
   return promptSecret("sudo passphrase: ") ?? "";
 }

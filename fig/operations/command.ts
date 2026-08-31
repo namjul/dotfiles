@@ -50,10 +50,11 @@ export async function command(
     options.raw ? arg : path(arg).expand.toString()
   );
 
+  const passphrase = options.sudo ? await getSudoPassphrase() : undefined;
   const r = await run(cmd, resolvedArgs, {
     ...(options.chdir ? { chdir: path(options.chdir).expand.toString() } : {}),
     ...(options.env ? { env: options.env } : {}),
-    ...(options.sudo ? { passphrase: await getSudoPassphrase() } : {}),
+    ...(passphrase !== undefined ? { passphrase } : {}),
   });
 
   if (r.exitCode === 0) {
