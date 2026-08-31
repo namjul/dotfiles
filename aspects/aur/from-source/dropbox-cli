@@ -1,0 +1,57 @@
+#!/bin/bash
+# mise description="Install pinned official dropbox.py CLI (not on install.sh)"
+# mise interactive=true
+#USAGE flag "--force" help="Reinstall even if this version is already installed"
+# https://github.com/dropbox/nautilus-dropbox
+# Optional: mise run //aspects/aur:dropbox-cli  or  //aspects/aur:from-source
+# Do not add to aur:default or install.sh.
+
+trap 'echo "Warning: A command has failed. Exiting the script. Line was ($0:$LINENO): ${BASH_COMMAND}"; exit 3' ERR
+set -euo pipefail
+
+if [[ ! -e /etc/arch-release ]]; then
+  echo "dropbox-cli: skip (not Arch)"
+  exit 0
+fi
+
+VERSION="v2026.05.06"
+DEST="$HOME/.local/bin/dropbox"
+SRC="${XDG_CACHE_HOME:-$HOME/.cache}/nautilus-dropbox-src"
+
+already_installed() {
+  [[ -x $DEST ]] || return 1
+  grep -Fq "Dropbox command-line interface version: ${VERSION#v}" "$DEST"
+}
+
+need_install() {
+  [[ "${usage_force:-}" == "true" ]] || ! already_installed
+}
+
+need_gobject() {
+  need_install && ! pacman -Q python-gobject >/dev/null 2>&1
+}
+
+if need_gobject; then
+  echo "sudo: cache credentials before python-gobject"
+  sudo -v
+  sudo pacman -S --needed --noconfirm python-gobject
+fi
+
+if [[ "${usage_force:-}" != "true" ]] && already_installed; then
+  echo "dropbox-cli ${VERSION} already at ${DEST} — skip install (pass --force to reinstall)"
+  exit 0
+fi
+
+if [[ ! -d "$SRC/.git" ]]; then
+  if [[ -e "$SRC" ]]; then
+    rm -rf "$SRC"
+  fi
+  command git clone --depth 1 --branch "$VERSION" https://github.com/dropbox/nautilus-dropbox.git "$SRC"
+fi
+command git -C "$SRC" fetch --depth 1 origin "refs/tags/${VERSION}:refs/tags/${VERSION}"
+command git -C "$SRC" checkout --detach "$VERSION"
+
+sed "s/@PACKAGE_VERSION@/${VERSION#v}/g" "$SRC/dropbox.in" >"$SRC/dropbox"
+chmod 755 "$SRC/dropbox"
+install -Dm755 "$SRC/dropbox" "$DEST"
+echo "Installed ${DEST} (${VERSION})."

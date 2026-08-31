@@ -34,12 +34,18 @@ description = "Build all pinned-from-source installs (not on install.sh)"
 interactive = true
 run = [
   { task = "omarchy-vpn" },
+  { task = "dropbox-cli" },
 ]
 
 [tasks."omarchy-vpn"]
 description = "Build omarchy-vpn from a pinned tag and install sudoers (not on install.sh)"
 interactive = true
 file = "from-source/omarchy-vpn"
+
+[tasks."dropbox-cli"]
+description = "Install pinned official dropbox.py CLI (not on install.sh)"
+interactive = true
+file = "from-source/dropbox-cli"
 
 [tasks.default]
 description = "Run all aur tasks"
