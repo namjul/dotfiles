@@ -6,24 +6,13 @@ export const SUDO_TICKET: unique symbol = Symbol("sudo-ticket");
 
 export type Passphrase = string | typeof SUDO_TICKET;
 
-export function resolveSudoAskpass(options: {
-  readonly sudoAskpass: string | undefined;
-  readonly waylandDisplay: string | undefined;
-  readonly display: string | undefined;
-  readonly helperOnPath: boolean;
-  readonly defaultHelper: string;
-}): string | undefined {
-  if (options.sudoAskpass !== undefined && options.sudoAskpass !== "") {
-    return options.sudoAskpass;
-  }
-  if (!options.helperOnPath) return undefined;
-  if (
-    (options.waylandDisplay === undefined || options.waylandDisplay === "") &&
-    (options.display === undefined || options.display === "")
-  ) {
+export function resolveSudoAskpass(
+  sudoAskpass: string | undefined,
+): string | undefined {
+  if (sudoAskpass === undefined || sudoAskpass === "") {
     return undefined;
   }
-  return options.defaultHelper;
+  return sudoAskpass;
 }
 
 type RunOptions = {

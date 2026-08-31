@@ -1,6 +1,0 @@
-#!/usr/bin/env bash
-# SUDO_ASKPASS helper — print a password on stdout for `sudo -A`.
-# systemd/mise do not need a TTY; wofi is the session prompt.
-set -euo pipefail
-
-exec wofi --dmenu --password --prompt "sudo"

@@ -1,7 +1,7 @@
 import { promptSecret } from "@std/cli/prompt-secret";
 import { attributes } from "./attributes.ts";
 import variables from "../variables.ts";
-import { resolveSudoAskpass, run, SUDO_TICKET, type Passphrase } from "./run.ts";
+import { resolveSudoAskpass, SUDO_TICKET, type Passphrase } from "./run.ts";
 import { Variables } from "./types.ts";
 
 type Aspect = {
@@ -71,13 +71,7 @@ export async function getSudoPassphrase(): Promise<Passphrase | undefined> {
   if (Deno.uid() === 0) return undefined;
   if (await sudoIsCached()) return SUDO_TICKET;
 
-  const helper = resolveSudoAskpass({
-    sudoAskpass: Deno.env.get("SUDO_ASKPASS"),
-    waylandDisplay: Deno.env.get("WAYLAND_DISPLAY"),
-    display: Deno.env.get("DISPLAY"),
-    helperOnPath: helperOnPath("wofi"),
-    defaultHelper: new URL("../bin/fig-sudo-askpass", import.meta.url).pathname,
-  });
+  const helper = resolveSudoAskpass(Deno.env.get("SUDO_ASKPASS"));
 
   if (_promptedPassphrase === undefined) {
     _promptedPassphrase = helper !== undefined
@@ -88,11 +82,18 @@ export async function getSudoPassphrase(): Promise<Passphrase | undefined> {
 }
 
 async function obtainAskpass(helper: string): Promise<string> {
-  const result = await run(helper, []);
-  if (result.exitCode !== 0) {
-    throw new Error(`sudo askpass failed: ${result.stderr}`);
+  const result = await new Deno.Command(helper, {
+    args: [],
+    stdin: "null",
+    stdout: "piped",
+    stderr: "piped",
+  }).output();
+  if (!result.success) {
+    throw new Error(
+      `sudo askpass failed: ${new TextDecoder().decode(result.stderr)}`,
+    );
   }
-  return result.stdout.replace(/\r?\n$/, "");
+  return new TextDecoder().decode(result.stdout).replace(/\r?\n$/, "");
 }
 
 async function sudoIsCached(): Promise<boolean> {
@@ -102,16 +103,3 @@ async function sudoIsCached(): Promise<boolean> {
   return success;
 }
 
-function helperOnPath(name: string): boolean {
-  const path = Deno.env.get("PATH") ?? "";
-  for (const dir of path.split(":")) {
-    if (dir === "") continue;
-    try {
-      Deno.statSync(`${dir}/${name}`);
-      return true;
-    } catch {
-      // keep looking
-    }
-  }
-  return false;
-}

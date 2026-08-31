@@ -32,39 +32,11 @@ Deno.test("sudoCommandLine: cached sudo uses the timestamp", () => {
   }), ["sudo", "--", "chsh", "-s", "/bin/fish"]);
 });
 
-Deno.test("resolveSudoAskpass: keeps an explicit SUDO_ASKPASS", () => {
-  assertEquals(resolveSudoAskpass({
-    sudoAskpass: "/custom/askpass",
-    waylandDisplay: undefined,
-    display: undefined,
-    helperOnPath: false,
-    defaultHelper: "/repo/bin/fig-sudo-askpass",
-  }), "/custom/askpass");
+Deno.test("resolveSudoAskpass: keeps a non-empty SUDO_ASKPASS", () => {
+  assertEquals(resolveSudoAskpass("/custom/askpass"), "/custom/askpass");
 });
 
-Deno.test("resolveSudoAskpass: default helper when wofi and a display exist", () => {
-  assertEquals(resolveSudoAskpass({
-    sudoAskpass: undefined,
-    waylandDisplay: "wayland-1",
-    display: undefined,
-    helperOnPath: true,
-    defaultHelper: "/repo/bin/fig-sudo-askpass",
-  }), "/repo/bin/fig-sudo-askpass");
-});
-
-Deno.test("resolveSudoAskpass: unset without display or helper", () => {
-  assertEquals(resolveSudoAskpass({
-    sudoAskpass: undefined,
-    waylandDisplay: undefined,
-    display: undefined,
-    helperOnPath: true,
-    defaultHelper: "/repo/bin/fig-sudo-askpass",
-  }), undefined);
-  assertEquals(resolveSudoAskpass({
-    sudoAskpass: undefined,
-    waylandDisplay: "wayland-1",
-    display: undefined,
-    helperOnPath: false,
-    defaultHelper: "/repo/bin/fig-sudo-askpass",
-  }), undefined);
+Deno.test("resolveSudoAskpass: unset or empty is undefined", () => {
+  assertEquals(resolveSudoAskpass(undefined), undefined);
+  assertEquals(resolveSudoAskpass(""), undefined);
 });
