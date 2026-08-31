@@ -27,7 +27,7 @@ export async function fetch({
   url: string;
   mode?: Option<string>;
 }): Promise<FetchResult> {
-  console.debug(`Download \`${url}\` to \`${dest}\``);
+  console.error(`Downloading ${url} to ${dest}`);
 
   const dir = await Deno.makeTempDir();
   const download = path.join(dir, "download");
@@ -38,7 +38,18 @@ export async function fetch({
     // @ts-ignore Argument of type 'Writable
     const body = Readable.fromWeb(responseResult.value.body!);
     const stream = createWriteStream(download);
+    let bytes = 0;
+    let lastReport = 0;
+    body.on("data", (chunk: Uint8Array) => {
+      bytes += chunk.byteLength;
+      const now = Date.now();
+      if (now - lastReport >= 2000) {
+        lastReport = now;
+        console.error(`Downloading ${url}: ${bytes} bytes`);
+      }
+    });
     await finished(body.pipe(stream));
+    console.error(`Downloaded ${url}: ${bytes} bytes`);
 
     const raw = await Deno.readFile(download);
     const contents = encoding === null
