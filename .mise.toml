@@ -54,10 +54,7 @@ if [[ ! -f "$AGE_KEY" ]]; then
   echo "missing: $AGE_KEY — place your age identity file there"
   exit 1
 fi
-if ! recipient="$(age-keygen -y "$AGE_KEY")"; then
-  echo "invalid age identity: $AGE_KEY"
-  exit 1
-fi
+recipient="$(age-keygen -y "$AGE_KEY")"
 echo "age key found: $AGE_KEY ($recipient)"
 """
 
