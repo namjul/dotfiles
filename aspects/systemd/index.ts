@@ -4,28 +4,19 @@ import { assert, command, file, init, path } from "fig";
 
 init(import.meta.dirname);
 
-const userServices = [
+const userFiles = [
   ".config/systemd/user/darkman.service",
   ".config/systemd/user/redshift.service",
   ".config/systemd/user/battery-monitor.service",
   ".config/systemd/user/battery-monitor.timer",
+  ".local/bin/battery-low-warn",
 ];
 
-for (const src of userServices) {
+for (const src of userFiles) {
   const r = await file({
     force: true,
     path: path.home.join(src),
     src: path.aspect.join("files", src),
-    state: "link",
-  });
-  assert.result(r);
-}
-
-{
-  const r = await file({
-    force: true,
-    path: path.home.join(".local/bin/battery-low-warn"),
-    src: path.root.join("bin/battery-low-warn"),
     state: "link",
   });
   assert.result(r);
