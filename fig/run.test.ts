@@ -1,5 +1,10 @@
 import { assertEquals } from "@std/assert";
-import { resolveSudoAskpass, SUDO_TICKET, sudoCommandLine } from "./run.ts";
+import {
+  resolveSudoAskpass,
+  stripSudoPrompt,
+  SUDO_TICKET,
+  sudoCommandLine,
+} from "./run.ts";
 
 Deno.test("sudoCommandLine: no passphrase leaves the command unchanged", () => {
   assertEquals(sudoCommandLine("mkdir", ["-p", "/tmp/x"], {
@@ -39,4 +44,19 @@ Deno.test("resolveSudoAskpass: keeps a non-empty SUDO_ASKPASS", () => {
 Deno.test("resolveSudoAskpass: unset or empty is undefined", () => {
   assertEquals(resolveSudoAskpass(undefined), undefined);
   assertEquals(resolveSudoAskpass(""), undefined);
+});
+
+Deno.test("stripSudoPrompt: exact chunk is dropped", () => {
+  assertEquals(stripSudoPrompt("sudo[x]:", "sudo[x]:"), "");
+});
+
+Deno.test("stripSudoPrompt: prompt plus newline is dropped", () => {
+  assertEquals(stripSudoPrompt("sudo[x]:\n", "sudo[x]:"), "\n");
+});
+
+Deno.test("stripSudoPrompt: marker inside Sorry, try again is dropped", () => {
+  assertEquals(
+    stripSudoPrompt("Sorry, try again.\nsudo[x]:\n", "sudo[x]:"),
+    "Sorry, try again.\n\n",
+  );
 });

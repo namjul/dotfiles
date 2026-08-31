@@ -21,10 +21,20 @@ function assertImpl(
   }
 }
 
+export const serializeAssertError = (value: unknown): unknown => {
+  if (value instanceof Error) {
+    return { name: value.name, message: value.message };
+  }
+  return value;
+};
+
 export const assert: Assert = Object.assign(assertImpl, {
   result<T extends Result<unknown, unknown>>(result: T): void {
     if (!result.ok) {
-      assertImpl(result.ok, JSON.stringify(result.error));
+      assertImpl(
+        result.ok,
+        JSON.stringify(result.error, (_key, nested) => serializeAssertError(nested)),
+      );
     }
   },
 });

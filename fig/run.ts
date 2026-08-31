@@ -49,11 +49,29 @@ export function sudoCommandLine(
   return [command, ...args];
 }
 
+export const stripSudoPrompt = (chunk: string, prompt: string): string => {
+  return chunk.includes(prompt) ? chunk.replaceAll(prompt, "") : chunk;
+};
+
+export const writeSudoPassphrase = (
+  stdin: Writable,
+  passphrase: string,
+): Promise<void> =>
+  new Promise((resolve, reject) => {
+    stdin.write(`${passphrase}\n`, (err) => {
+      if (err !== undefined && err !== null) {
+        reject(err);
+        return;
+      }
+      stdin.end();
+      resolve();
+    });
+  });
+
 /**
  * Run a command, optionally escalating with sudo.
- * A string passphrase uses `sudo -S -k` and is injected when sudo emits the prompt.
+ * A string passphrase is written to stdin immediately for `sudo -S -k`.
  * `SUDO_TICKET` uses the cached timestamp (`sudo --`).
- * A string passphrase uses `sudo -S -k` (helper stdout or promptSecret).
  */
 export async function run(
   command: string,
@@ -84,21 +102,10 @@ export async function run(
   let stderrText = "";
 
   if (typeof passphrase === "string") {
-    // Attach before awaiting so we catch every stderr chunk as it arrives.
-    // sudo -S reads stdin synchronously, so a timing race is unlikely, but
-    // writing only in response to the prompt is more correct than stuffing
-    // stdin unconditionally upfront.
     (p.stderr as Readable).on("data", (data: Uint8Array) => {
-      const chunk = data.toString();
-      if (chunk === prompt) {
-        // sudo is asking for the password — write once and close. Closing
-        // stdin prevents sudo from retrying on a wrong passphrase.
-        (p.stdin as Writable).write(`${passphrase}\n`);
-        (p.stdin as Writable).end();
-      } else {
-        stderrText += chunk;
-      }
+      stderrText += stripSudoPrompt(data.toString(), prompt);
     });
+    await writeSudoPassphrase(p.stdin as Writable, passphrase);
   } else {
     (p.stderr as Readable).on("data", (data: Uint8Array) => {
       stderrText += data.toString();
