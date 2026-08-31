@@ -1,12 +1,13 @@
 [tasks.default]
 description = "Install Dropbox from AUR via makepkg, lock ~/.dropbox-dist, enable user unit (not on install.sh)"
+interactive = true
 usage = '''
 flag "--upgrade" help="Rebuild and pacman -U even if dropbox is already installed"
 '''
 run = "./index.ts"
-depends_post = [":link"]
+depends_post = ["//aspects/aur:dropbox-cli", ":dropbox-link"]
 
-[tasks.link]
+[tasks.dropbox-link]
 description = "Print the latest Dropbox CLI-link URL from the user journal (empty if already linked)"
 quiet = true
 run = '''
