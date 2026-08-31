@@ -1,14 +1,7 @@
 import { promptSecret } from "@std/cli/prompt-secret";
 import { attributes } from "./attributes.ts";
 import variables from "../variables.ts";
-import {
-  resolveSudoAskpass,
-  run,
-  SUDO_ASKPASS,
-  SUDO_TICKET,
-  sudoAuthKind,
-  type Passphrase,
-} from "./run.ts";
+import { resolveSudoAskpass, run, SUDO_TICKET, type Passphrase } from "./run.ts";
 import { Variables } from "./types.ts";
 
 type Aspect = {
@@ -86,29 +79,20 @@ export async function getSudoPassphrase(): Promise<Passphrase | undefined> {
     defaultHelper: new URL("../bin/fig-sudo-askpass", import.meta.url).pathname,
   });
 
-  const kind = sudoAuthKind({
-    isRoot: false,
-    ticketCached: false,
-    sudoAskpass: helper,
-  });
-
-  if (kind === "askpass" && helper !== undefined) {
-    const planted = await run("true", [], {
-      env: { ...Deno.env.toObject(), SUDO_ASKPASS: helper },
-      passphrase: SUDO_ASKPASS,
-    });
-    if (planted.exitCode !== 0) {
-      throw new Error(`sudo askpass failed: ${planted.stderr}`);
-    }
-    return SUDO_TICKET;
-  }
-
   if (_promptedPassphrase === undefined) {
-    _promptedPassphrase = Promise.resolve(
-      promptSecret("sudo passphrase: ") ?? "",
-    );
+    _promptedPassphrase = helper !== undefined
+      ? obtainAskpass(helper)
+      : Promise.resolve(promptSecret("sudo passphrase: ") ?? "");
   }
   return _promptedPassphrase;
+}
+
+async function obtainAskpass(helper: string): Promise<string> {
+  const result = await run(helper, []);
+  if (result.exitCode !== 0) {
+    throw new Error(`sudo askpass failed: ${result.stderr}`);
+  }
+  return result.stdout.replace(/\r?\n$/, "");
 }
 
 async function sudoIsCached(): Promise<boolean> {

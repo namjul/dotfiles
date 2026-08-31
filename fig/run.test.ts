@@ -1,11 +1,5 @@
 import { assertEquals } from "@std/assert";
-import {
-  resolveSudoAskpass,
-  SUDO_ASKPASS,
-  SUDO_TICKET,
-  sudoAuthKind,
-  sudoCommandLine,
-} from "./run.ts";
+import { resolveSudoAskpass, SUDO_TICKET, sudoCommandLine } from "./run.ts";
 
 Deno.test("sudoCommandLine: no passphrase leaves the command unchanged", () => {
   assertEquals(sudoCommandLine("mkdir", ["-p", "/tmp/x"], {
@@ -36,46 +30,6 @@ Deno.test("sudoCommandLine: cached sudo uses the timestamp", () => {
     passphrase: SUDO_TICKET,
     prompt: "sudo[x]:",
   }), ["sudo", "--", "chsh", "-s", "/bin/fish"]);
-});
-
-Deno.test("sudoCommandLine: askpass uses sudo -A", () => {
-  assertEquals(sudoCommandLine("true", [], {
-    isRoot: false,
-    passphrase: SUDO_ASKPASS,
-    prompt: "sudo[x]:",
-  }), ["sudo", "-A", "--", "true"]);
-});
-
-Deno.test("sudoAuthKind: root needs no sudo", () => {
-  assertEquals(sudoAuthKind({
-    isRoot: true,
-    ticketCached: false,
-    sudoAskpass: "/bin/fig-sudo-askpass",
-  }), "none");
-});
-
-Deno.test("sudoAuthKind: cached ticket wins over askpass", () => {
-  assertEquals(sudoAuthKind({
-    isRoot: false,
-    ticketCached: true,
-    sudoAskpass: "/bin/fig-sudo-askpass",
-  }), "ticket");
-});
-
-Deno.test("sudoAuthKind: askpass when SUDO_ASKPASS is set", () => {
-  assertEquals(sudoAuthKind({
-    isRoot: false,
-    ticketCached: false,
-    sudoAskpass: "/bin/fig-sudo-askpass",
-  }), "askpass");
-});
-
-Deno.test("sudoAuthKind: promptSecret when askpass is unset", () => {
-  assertEquals(sudoAuthKind({
-    isRoot: false,
-    ticketCached: false,
-    sudoAskpass: undefined,
-  }), "prompt");
 });
 
 Deno.test("resolveSudoAskpass: keeps an explicit SUDO_ASKPASS", () => {
