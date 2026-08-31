@@ -71,6 +71,7 @@ packages=(
   polkit-gnome # polkit auth agent for sway/Wayland (PLAN.sway step 8)
   wofi # app launcher for sway (PLAN.sway step 10)
   darkman # theme toggle for wofi/rofi/alacritty/foot (PLAN.sway step 10)
+  redshift # night color — user unit in aspects/systemd
   grim slurp satty wl-clipboard # screenshots for sway (PLAN.sway step 11)
   pamixer swayosd # volume OSD for sway (PLAN.sway step 14)
   swayidle swaylock # idle lock for sway (PLAN.sway step 15)

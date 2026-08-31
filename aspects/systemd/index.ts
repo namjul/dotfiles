@@ -9,6 +9,7 @@ const userFiles = [
   ".config/systemd/user/redshift.service",
   ".config/systemd/user/battery-monitor.service",
   ".config/systemd/user/battery-monitor.timer",
+  ".local/bin/redshift-session",
   ".local/bin/battery-low-warn",
 ];
 
