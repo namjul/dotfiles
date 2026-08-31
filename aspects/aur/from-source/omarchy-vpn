@@ -1,6 +1,9 @@
 #!/bin/bash
+# mise description="Build omarchy-vpn from a pinned tag and install sudoers (not on install.sh)"
+# mise interactive=true
+#USAGE flag "--force" help="Rebuild even if this version is already installed"
 # https://github.com/limehawk/omarchy-vpn
-# Optional: mise run //aspects/aur:omarchy-vpn
+# Optional: mise run //aspects/aur:omarchy-vpn  or  //aspects/aur:from-source
 # Do not add to aur:default or install.sh.
 
 trap 'echo "Warning: A command has failed. Exiting the script. Line was ($0:$LINENO): ${BASH_COMMAND}"; exit 3' ERR
@@ -14,7 +17,7 @@ fi
 VERSION="v0.4.5"
 DEST="$HOME/.local/bin/omarchy-vpn"
 SRC="${XDG_CACHE_HOME:-$HOME/.cache}/omarchy-vpn-src"
-aspect_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+aspect_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
 sudoers_src="$aspect_dir/files/etc/sudoers.d/omarchy-vpn"
 sudoers_dst="/etc/sudoers.d/omarchy-vpn"
 
@@ -22,6 +25,23 @@ already_installed() {
   [[ -x $DEST ]] || return 1
   "$DEST" --version 2>/dev/null | grep -Fq "${VERSION#v}" || return 1
 }
+
+sudoers_stale() {
+  [[ ! -f $sudoers_dst ]] || ! cmp -s "$sudoers_src" "$sudoers_dst"
+}
+
+need_compile() {
+  [[ "${usage_force:-}" == "true" ]] || ! already_installed
+}
+
+need_wg_pkg() {
+  need_compile && ! command -v wg-quick >/dev/null
+}
+
+if sudoers_stale || need_wg_pkg; then
+  echo "sudo: cache credentials before compile (sudoers and/or wireguard-tools)"
+  sudo -v
+fi
 
 if [[ "${usage_force:-}" != "true" ]] && already_installed; then
   echo "omarchy-vpn ${VERSION} already at ${DEST} — skip compile (pass --force to rebuild)"

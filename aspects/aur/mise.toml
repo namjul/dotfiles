@@ -29,16 +29,21 @@ file = 'firmware'
 description = "Upgrade official-repo packages via pacman"
 file = 'upgrade'
 
+[tasks."from-source"]
+description = "Build all pinned-from-source installs (not on install.sh)"
+interactive = true
+run = [
+  { task = "omarchy-vpn" },
+]
+
 [tasks."omarchy-vpn"]
 description = "Build omarchy-vpn from a pinned tag and install sudoers (not on install.sh)"
-usage = '''
-flag "--force" help="Rebuild even if this version is already installed"
-'''
-file = "omarchy-vpn"
+interactive = true
+file = "from-source/omarchy-vpn"
 
 [tasks.default]
 description = "Run all aur tasks"
 depends = [":packages", ":login", ":firewall"]
 
 [task_config]
-includes = ["login"]
+includes = ["login", "from-source"]
