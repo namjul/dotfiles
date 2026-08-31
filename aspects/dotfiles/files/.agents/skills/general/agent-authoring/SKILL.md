@@ -19,7 +19,7 @@ Categories:
 
 After creating a skill, register it in `aspects/dotfiles/index.ts` under the `skills` array so fig deploys it.
 
-**Prompt templates:** `~/.dotfiles/aspects/dotfiles/files/.agents/prompts/<name>.md` — thin wrappers that invoke a skill. Register in `index.ts` under `prompts`. Use `$ARGUMENTS` for user input passed after the slash command.
+**Prompt templates:** `aspects/dotfiles/files/.agents/prompts/<name>.md` — thin wrappers that invoke a skill. Register in `index.ts` under `prompts`. Use `$ARGUMENTS` for user input passed after the slash command.
 
 Do not save skills to `~/.claude/skills/` directly — that path is deployed from dotfiles.
 

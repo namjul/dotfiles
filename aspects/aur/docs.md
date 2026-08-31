@@ -11,8 +11,8 @@
 # load german keyboard layout
 loadkeys de
 
-# virtiofs mount in VM guest
+# virtiofs mount in VM guest (any dest; default shown)
 sudo mount -t virtiofs dotfiles /mnt
-ln -sfn /mnt ~/.dotfiles
+ln -sfn /mnt "${DOTFILES_DIR:-$HOME/.dotfiles}"
 
 ```

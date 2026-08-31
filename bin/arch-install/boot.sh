@@ -71,7 +71,7 @@ if [[ $(id -u) -eq 0 ]]; then
   exit 1
 fi
 
-dest="$HOME/.dotfiles"
+dest="${DOTFILES_DIR:-$HOME/.dotfiles}"
 ensure_repo "$dest"
 echo "Installed system → install.sh"
 run_next "$dest/install.sh"

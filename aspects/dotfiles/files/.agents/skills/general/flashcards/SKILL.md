@@ -40,7 +40,7 @@ Hard constraints the parser enforces:
 - Braces inside `` `inline code` `` are not cloze — avoid accidental `{…}` there.
 - Identical card text across files shares a GUID and overwrites on import; do not duplicate the same prompt.
 
-Full sync rules live in `~/.dotfiles/bin/anki-sync.md` if a format edge case is unclear.
+Full sync rules live in `bin/anki-sync.md` (this repo) if a format edge case is unclear.
 
 ## Card quality
 

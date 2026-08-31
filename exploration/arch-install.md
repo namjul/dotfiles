@@ -31,14 +31,14 @@ archinstall --config "$DIR/user_configuration.json" --creds "$DIR/user_credentia
 6. Clone and install:
 
 ```bash
-git clone <this-repo-url> ~/.dotfiles
-cd ~/.dotfiles
+git clone <this-repo-url> "${DOTFILES_DIR:-$HOME/.dotfiles}"
+cd "${DOTFILES_DIR:-$HOME/.dotfiles}"
 ./install.sh
 ```
 
 `user_configuration.json` already installs `git` and `base-devel`. Stock archinstall writes a normal online `pacman.conf` (core/extra/multilib). There is no ISO leftover `offline.db`.
 
-`install.sh` links `~/.dotfiles`, bootstraps mise (`curl https://mise.run` if needed), then runs the aspect defaults (`nala` / `homebrew` skip or no-op on Arch; `aur` is the Arch desktop path).
+`install.sh` runs from the repo root (wherever the clone is), bootstraps mise (`curl https://mise.run` if needed), then runs the aspect defaults (`nala` / `homebrew` skip or no-op on Arch; `aur` is the Arch desktop path).
 
 ## What lives where
 
@@ -65,7 +65,8 @@ configure writes ext4 root, Limine, hostname/timezone/keyboard from the forms, a
 `bin/arch-install/mkiso.sh` copies archiso `releng` at build time (do not vendor it), appends `gum`, installs `network.sh` / `iso/start.sh`, then runs `mkarchiso`. On Ubuntu the same script re-enters itself in a privileged `archlinux` container. Do not bake the checkout, creds, or age keys — after a link, tty1 curls `boot.sh` as on the official ISO.
 
 ```bash
-cd ~/.dotfiles && bin/arch-install/mkiso.sh
+# from the repo root (any clone path)
+bin/arch-install/mkiso.sh
 ```
 
 `--prepare-only` stops after the overlay. Rebuild when you next install. Same install-time story: LUKS and users stay in configure.sh → archinstall. Do not fork `omarchy-iso`.
@@ -116,7 +117,7 @@ intent: The installed user home grows into the dotfiles monorepo and a greeter.
 context: [stack]
 
 1. Confirm the link again on the installed OS.
-2. `git clone <this-repo> ~/.dotfiles && cd ~/.dotfiles && ./install.sh`
+2. `git clone <this-repo> "${DOTFILES_DIR:-$HOME/.dotfiles}" && cd "${DOTFILES_DIR:-$HOME/.dotfiles}" && ./install.sh`
 
 ## Stage 4: Secrets after the user exists
 

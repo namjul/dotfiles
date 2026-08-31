@@ -40,7 +40,8 @@ The custom ISO (`bin/arch-install/mkiso.sh`) runs `keyboard.sh` then `network.sh
 Build from the repo root. On Arch this runs `mkarchiso` on the host. On Ubuntu it re-enters the same script inside a privileged `archlinux` container (`docker` or `podman`).
 
 ```bash
-cd ~/.dotfiles && bin/arch-install/mkiso.sh
+# from the repo root (any clone path)
+bin/arch-install/mkiso.sh
 ```
 
 The image is `bin/arch-install/out/*.iso`. Write that file to the USB (same memex note as the official ISO). Rebuild when you next install, not on a calendar.
@@ -63,12 +64,13 @@ Erase: confirm overwrite. LUKS is required. The chosen disk is wiped.
 
 TUI (Windows + Ubuntu): shrink Windows in Disk Management first if you want a hole without deleting Ubuntu. Otherwise delete only **linux**-labeled partitions (typed name confirm; EFI / NTFS / MSR are not offered). Then in the TUI set Disk — existing EFI as `/boot`, the hole as `/`. Disk encryption: pick LUKS, set the password, then apply it to the partition (skip apply and nothing is encrypted). Then Install. Do not pick default layout on the whole NVMe. LUKS + a reused ESP can still fail in archinstall. This path does not write `disk_encryption` for you.
 
-After reboot: unlock LUKS, TTY login as the user you typed. archinstall already cloned this repo over HTTPS into `~/.dotfiles` (`custom_commands`, username from the gum form) and printed the next command. Start with `boot.sh` so you get the banner, then `install.sh`. After that, later boots go LUKS prompt → SDDM autologin → Sway.
+After reboot: unlock LUKS, TTY login as the user you typed. archinstall already cloned this repo over HTTPS (`custom_commands`; default dest `$HOME/.dotfiles`, override `DOTFILES_DIR`) and printed the next command. Start with `boot.sh` so you get the banner, then `install.sh`. After that, later boots go LUKS prompt → SDDM autologin → Sway.
 
 ```bash
+# default dest; or $DOTFILES_DIR/bin/arch-install/boot.sh
 ~/.dotfiles/bin/arch-install/boot.sh
 ```
 
-If that directory is missing (clone failed, or an old ISO), the live-ISO curl still works as a fallback. Branch override on the ISO: `DOTFILES_REF=dev curl -fsSL … | bash` (same vars apply to the clone command).
+If that directory is missing (clone failed, or an old ISO), the live-ISO curl still works as a fallback. Branch override on the ISO: `DOTFILES_REF=dev curl -fsSL … | bash` (same vars apply to the clone command). `DOTFILES_DIR` sets the installed-system clone path.
 
 Mount the age stick yourself (`lsblk`, then `sudo mount /dev/sdX1 /mnt/usb`). Restore `~/.config/age/key.txt`, then the store / sops / fnox. The store copy of the identity is not a bootstrap.

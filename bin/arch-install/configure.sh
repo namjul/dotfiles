@@ -380,7 +380,8 @@ write_creds() {
 dotfiles_clone_cmd() {
   local repo="${DOTFILES_REPO:-namjul/dotfiles}"
   local ref="${DOTFILES_REF:-master}"
-  printf '%s\n' "git clone --branch ${ref} https://github.com/${repo}.git /home/${username}/.dotfiles && chown -R ${username}:${username} /home/${username}/.dotfiles && printf '%s\\n' '~/.dotfiles/bin/arch-install/boot.sh'"
+  local dest="${DOTFILES_DIR:-/home/${username}/.dotfiles}"
+  printf '%s\n' "git clone --branch ${ref} https://github.com/${repo}.git ${dest} && chown -R ${username}:${username} ${dest} && printf '%s\\n' '${dest}/bin/arch-install/boot.sh'"
 }
 
 # archinstall pacstraps from custom_servers, not from the live /etc/pacman.d/mirrorlist.
