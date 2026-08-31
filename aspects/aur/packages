@@ -55,6 +55,7 @@ packages=(
   zathura zathura-pdf-mupdf # document viewer
   cryptsetup # used for tomb
   pass # https://www.passwordstore.org/
+  keepassxc # https://archlinux.org/packages/extra/x86_64/keepassxc/
   flameshot # https://github.com/flameshot-org/flameshot
   nsxiv # https://github.com/nsxiv/nsxiv
   pipewire pipewire-alsa pipewire-pulse pipewire-jack wireplumber gst-plugin-pipewire # audio stack
