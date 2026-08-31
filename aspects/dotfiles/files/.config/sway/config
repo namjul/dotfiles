@@ -102,7 +102,7 @@ exec udiskie --automount --no-notify --no-tray
 # exec /usr/libexec/geoclue-2.0/demos/agent
 
 # Set wallpaper
-exec_always swaybg -i "$HOME/.config/i3/Albert_Bierstadt,_Among_the_Sierra_Nevada_Mountains.jpg" -m fill
+exec_always swaybg -i "$HOME/.config/sway/Albert_Bierstadt,_Among_the_Sierra_Nevada_Mountains.jpg" -m fill
 
 # Start a term instance in scratchpad mode
 # Wayland Alacritty sets app_id from --class; class= only matches X11 WM_CLASS
