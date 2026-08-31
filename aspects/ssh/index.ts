@@ -51,38 +51,18 @@ async function installKeys(): Promise<void> {
   await $`chmod 600 ${publicKeyPath} ${privateKeyPath}`;
 }
 
-/** Map a GitHub HTTPS remote to SSH. Other URLs stay unchanged (undefined). */
-export const githubHttpsToSsh = (url: string): string | undefined => {
-  const match = /^https:\/\/github\.com\/([^/]+)\/([^/]+?)(?:\.git)?\/?$/.exec(url.trim());
-  if (!match) {
-    return undefined;
-  }
-  return `git@github.com:${match[1]}/${match[2]}.git`;
-};
-
 /** boot.sh clones HTTPS; push needs SSH. Only rewrite ~/.dotfiles origin. */
 async function rewriteDotfilesGithubOrigin(): Promise<void> {
   const dest = path.home.join(".dotfiles").toString();
-  const gitDir = path.home.join(".dotfiles", ".git").toString();
-  try {
-    await Deno.stat(gitDir);
-  } catch {
-    console.log(`skip github-origin: ${dest} is not a git clone`);
+  const got = await $`git -C ${dest} remote get-url origin`.nothrow();
+  const current = got.stdout.trim();
+  const match = /^https:\/\/github\.com\/([^/]+)\/([^/]+?)(?:\.git)?\/?$/.exec(current);
+  if (got.exitCode !== 0 || !match) {
+    console.log(`skip github-origin: origin is ${current || "missing"}`);
     return;
   }
 
-  const current = (await $`git -C ${dest} remote get-url origin`.nothrow()).stdout.trim();
-  if (current === "") {
-    console.log(`skip github-origin: no origin in ${dest}`);
-    return;
-  }
-
-  const next = githubHttpsToSsh(current);
-  if (!next) {
-    console.log(`skip github-origin: origin is already ${current}`);
-    return;
-  }
-
+  const next = `git@github.com:${match[1]}/${match[2]}.git`;
   await $`git -C ${dest} remote set-url origin ${next}`;
   console.log(`origin ${current} → ${next}`);
 }
