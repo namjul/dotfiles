@@ -3,8 +3,44 @@ import type { Readable, Writable } from "node:stream";
 import { $ } from "zx";
 
 export const SUDO_TICKET: unique symbol = Symbol("sudo-ticket");
+export const SUDO_ASKPASS: unique symbol = Symbol("sudo-askpass");
 
-export type Passphrase = string | typeof SUDO_TICKET;
+export type Passphrase = string | typeof SUDO_TICKET | typeof SUDO_ASKPASS;
+
+export type SudoAuthKind = "none" | "ticket" | "askpass" | "prompt";
+
+export function sudoAuthKind(options: {
+  readonly isRoot: boolean;
+  readonly ticketCached: boolean;
+  readonly sudoAskpass: string | undefined;
+}): SudoAuthKind {
+  if (options.isRoot) return "none";
+  if (options.ticketCached) return "ticket";
+  if (options.sudoAskpass !== undefined && options.sudoAskpass !== "") {
+    return "askpass";
+  }
+  return "prompt";
+}
+
+export function resolveSudoAskpass(options: {
+  readonly sudoAskpass: string | undefined;
+  readonly waylandDisplay: string | undefined;
+  readonly display: string | undefined;
+  readonly helperOnPath: boolean;
+  readonly defaultHelper: string;
+}): string | undefined {
+  if (options.sudoAskpass !== undefined && options.sudoAskpass !== "") {
+    return options.sudoAskpass;
+  }
+  if (!options.helperOnPath) return undefined;
+  if (
+    (options.waylandDisplay === undefined || options.waylandDisplay === "") &&
+    (options.display === undefined || options.display === "")
+  ) {
+    return undefined;
+  }
+  return options.defaultHelper;
+}
 
 type RunOptions = {
   chdir?: string;
@@ -34,6 +70,9 @@ export function sudoCommandLine(
   if (options.passphrase === SUDO_TICKET) {
     return ["sudo", "--", command, ...args];
   }
+  if (options.passphrase === SUDO_ASKPASS) {
+    return ["sudo", "-A", "--", command, ...args];
+  }
   if (typeof options.passphrase === "string") {
     return ["sudo", "-S", "-k", "-p", options.prompt, "--", command, ...args];
   }
@@ -44,6 +83,7 @@ export function sudoCommandLine(
  * Run a command, optionally escalating with sudo.
  * A string passphrase uses `sudo -S -k` and is injected when sudo emits the prompt.
  * `SUDO_TICKET` uses the cached timestamp (`sudo --`).
+ * `SUDO_ASKPASS` uses `sudo -A` (helper from the SUDO_ASKPASS env).
  */
 export async function run(
   command: string,

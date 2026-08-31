@@ -1,7 +1,14 @@
 import { promptSecret } from "@std/cli/prompt-secret";
 import { attributes } from "./attributes.ts";
 import variables from "../variables.ts";
-import { type Passphrase, SUDO_TICKET } from "./run.ts";
+import {
+  resolveSudoAskpass,
+  run,
+  SUDO_ASKPASS,
+  SUDO_TICKET,
+  sudoAuthKind,
+  type Passphrase,
+} from "./run.ts";
 import { Variables } from "./types.ts";
 
 type Aspect = {
@@ -65,13 +72,43 @@ export function registerVariablesCallback(
   );
 }
 
-let _sudoPassphrase: Promise<Passphrase | undefined> | undefined;
+let _promptedPassphrase: Promise<string> | undefined;
 
-export function getSudoPassphrase(): Promise<Passphrase | undefined> {
-  if (_sudoPassphrase === undefined) {
-    _sudoPassphrase = resolveSudoPassphrase();
+export async function getSudoPassphrase(): Promise<Passphrase | undefined> {
+  if (Deno.uid() === 0) return undefined;
+  if (await sudoIsCached()) return SUDO_TICKET;
+
+  const helper = resolveSudoAskpass({
+    sudoAskpass: Deno.env.get("SUDO_ASKPASS"),
+    waylandDisplay: Deno.env.get("WAYLAND_DISPLAY"),
+    display: Deno.env.get("DISPLAY"),
+    helperOnPath: helperOnPath("wofi"),
+    defaultHelper: new URL("../bin/fig-sudo-askpass", import.meta.url).pathname,
+  });
+
+  const kind = sudoAuthKind({
+    isRoot: false,
+    ticketCached: false,
+    sudoAskpass: helper,
+  });
+
+  if (kind === "askpass" && helper !== undefined) {
+    const planted = await run("true", [], {
+      env: { ...Deno.env.toObject(), SUDO_ASKPASS: helper },
+      passphrase: SUDO_ASKPASS,
+    });
+    if (planted.exitCode !== 0) {
+      throw new Error(`sudo askpass failed: ${planted.stderr}`);
+    }
+    return SUDO_TICKET;
   }
-  return _sudoPassphrase;
+
+  if (_promptedPassphrase === undefined) {
+    _promptedPassphrase = Promise.resolve(
+      promptSecret("sudo passphrase: ") ?? "",
+    );
+  }
+  return _promptedPassphrase;
 }
 
 async function sudoIsCached(): Promise<boolean> {
@@ -81,8 +118,16 @@ async function sudoIsCached(): Promise<boolean> {
   return success;
 }
 
-async function resolveSudoPassphrase(): Promise<Passphrase | undefined> {
-  if (Deno.uid() === 0) return undefined;
-  if (await sudoIsCached()) return SUDO_TICKET;
-  return promptSecret("sudo passphrase: ") ?? "";
+function helperOnPath(name: string): boolean {
+  const path = Deno.env.get("PATH") ?? "";
+  for (const dir of path.split(":")) {
+    if (dir === "") continue;
+    try {
+      Deno.statSync(`${dir}/${name}`);
+      return true;
+    } catch {
+      // keep looking
+    }
+  }
+  return false;
 }
