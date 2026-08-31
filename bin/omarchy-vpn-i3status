@@ -3,6 +3,14 @@ set -euo pipefail
 
 # omarchy-vpn --waybar emits Waybar JSON (text=icon, tooltip, class).
 # i3status-rust custom json reads icon/state/text; tooltip and class are ignored.
+#
+# --waybar always runs `sudo wg` / `sudo ls /etc/wireguard`. A bar poll has no TTY,
+# so a password sudo records pam_faillock. Only call it when NOPASSWD already works.
+if ! command -v omarchy-vpn >/dev/null || ! sudo -n /usr/bin/wg show interfaces >/dev/null 2>&1; then
+  printf '%s\n' '{"text":"󰦞","state":"Idle"}'
+  exit 0
+fi
+
 python3 -c '
 import json, subprocess, sys
 
