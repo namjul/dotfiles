@@ -12,6 +12,11 @@ description = "Install SSH keys from key.yml via sops extract"
 depends = [":dir"]
 run = "deno run --allow-all index.ts keys"
 
+[tasks."github-origin"]
+description = "Point ~/.dotfiles origin at git@github.com if it is still HTTPS"
+depends = [":keys"]
+run = "deno run --allow-all index.ts github-origin"
+
 [tasks.default]
 description = "Manages local SSH config"
-depends = [":dir", ":config", ":keys"]
+depends = [":dir", ":config", ":keys", ":github-origin"]
