@@ -9,7 +9,6 @@ if (import.meta.main) {
 
   const which = await command("which", ["brew"]);
   if (!which.ok) {
-    console.warn("warn: brew not found in PATH, skipping");
     Deno.exit(0);
   }
 
