@@ -119,7 +119,7 @@ bindsym $mod+Ctrl+Right move workspace to output right
 bindsym XF86AudioRaiseVolume exec swayosd-client --output-volume raise
 bindsym XF86AudioLowerVolume exec swayosd-client --output-volume lower
 bindsym XF86AudioMute exec swayosd-client --output-volume mute-toggle
-bindsym XF86AudioMicMute exec swayosd-client --input-volume mute-toggle
+bindsym XF86AudioMicMute exec toggle-mic-mute
 
 # Brightness OSD (swayosd)
 bindsym XF86MonBrightnessUp exec swayosd-client --brightness raise
