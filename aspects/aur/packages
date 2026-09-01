@@ -83,6 +83,7 @@ packages=(
   wireguard-tools # wg / wg-quick — kernel module is in linux
   openresolv # resolvconf(8) so wg-quick can apply Interface DNS=
   chromium
+  libreoffice-fresh # https://www.libreoffice.org/ — Writer/Calc/Impress (omarchy preinstall)
   brightnessctl # https://github.com/Hummer12007/brightnessctl
   power-profiles-daemon # AC/battery profiles — enablement in aspects/systemd
   fwupd # LVFS/vendor firmware — applied by aspects/aur/firmware

@@ -39,3 +39,20 @@ x-scheme-handler/unknown=chromium_chromium.desktop
 # files
 text/plain=nvim.desktop
 text/html=chromium_chromium.desktop
+
+# LibreOffice (official .desktop ids from libreoffice-fresh)
+application/vnd.oasis.opendocument.spreadsheet=libreoffice-calc.desktop
+application/vnd.oasis.opendocument.spreadsheet-template=libreoffice-calc.desktop
+application/vnd.openxmlformats-officedocument.spreadsheetml.sheet=libreoffice-calc.desktop
+application/vnd.openxmlformats-officedocument.spreadsheetml.template=libreoffice-calc.desktop
+application/vnd.ms-excel=libreoffice-calc.desktop
+application/vnd.oasis.opendocument.text=libreoffice-writer.desktop
+application/vnd.oasis.opendocument.text-template=libreoffice-writer.desktop
+application/vnd.openxmlformats-officedocument.wordprocessingml.document=libreoffice-writer.desktop
+application/vnd.openxmlformats-officedocument.wordprocessingml.template=libreoffice-writer.desktop
+application/msword=libreoffice-writer.desktop
+application/vnd.oasis.opendocument.presentation=libreoffice-impress.desktop
+application/vnd.oasis.opendocument.presentation-template=libreoffice-impress.desktop
+application/vnd.openxmlformats-officedocument.presentationml.presentation=libreoffice-impress.desktop
+application/vnd.openxmlformats-officedocument.presentationml.template=libreoffice-impress.desktop
+application/vnd.ms-powerpoint=libreoffice-impress.desktop
