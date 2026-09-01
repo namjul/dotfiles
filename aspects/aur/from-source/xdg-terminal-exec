@@ -1,0 +1,44 @@
+#!/bin/bash
+# mise description="Install pinned xdg-terminal-exec into ~/.local/bin (not on install.sh)"
+# mise interactive=true
+#USAGE flag "--force" help="Reinstall even if this version is already installed"
+# https://github.com/Vladimir-csp/xdg-terminal-exec
+# Optional: mise run //aspects/aur:xdg-terminal-exec  or  //aspects/aur:from-source
+# Do not add to aur:default or install.sh.
+
+trap 'echo "Warning: A command has failed. Exiting the script. Line was ($0:$LINENO): ${BASH_COMMAND}"; exit 3' ERR
+set -euo pipefail
+
+if [[ ! -e /etc/arch-release ]]; then
+  echo "xdg-terminal-exec: skip (not Arch)"
+  exit 0
+fi
+
+VERSION="v0.14.3"
+DEST="$HOME/.local/bin/xdg-terminal-exec"
+SRC="${XDG_CACHE_HOME:-$HOME/.cache}/xdg-terminal-exec-src"
+# sha256 of xdg-terminal-exec at VERSION (the script is the whole install)
+SHA256="89f2be9a65deb8df93633a9a09b4953a921c83d591ab987f7569280ecd3127ac"
+
+already_installed() {
+  [[ -x $DEST ]] || return 1
+  echo "$SHA256  $DEST" | sha256sum --check --status
+}
+
+if [[ "${usage_force:-}" != "true" ]] && already_installed; then
+  echo "xdg-terminal-exec ${VERSION} already at ${DEST} — skip install (pass --force to reinstall)"
+  exit 0
+fi
+
+if [[ ! -d "$SRC/.git" ]]; then
+  if [[ -e "$SRC" ]]; then
+    rm -rf "$SRC"
+  fi
+  command git clone --depth 1 --branch "$VERSION" https://github.com/Vladimir-csp/xdg-terminal-exec.git "$SRC"
+fi
+command git -C "$SRC" fetch --depth 1 origin "refs/tags/${VERSION}:refs/tags/${VERSION}"
+command git -C "$SRC" checkout --detach "$VERSION"
+
+echo "$SHA256  $SRC/xdg-terminal-exec" | sha256sum --check --status
+install -Dm755 "$SRC/xdg-terminal-exec" "$DEST"
+echo "Installed ${DEST} (${VERSION})."

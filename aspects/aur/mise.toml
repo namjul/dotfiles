@@ -35,6 +35,7 @@ interactive = true
 run = [
   { task = "omarchy-vpn" },
   { task = "dropbox-cli" },
+  { task = "xdg-terminal-exec" },
 ]
 
 [tasks."omarchy-vpn"]
@@ -46,6 +47,11 @@ file = "from-source/omarchy-vpn"
 description = "Install pinned official dropbox.py CLI (not on install.sh)"
 interactive = true
 file = "from-source/dropbox-cli"
+
+[tasks."xdg-terminal-exec"]
+description = "Install pinned xdg-terminal-exec into ~/.local/bin (not on install.sh)"
+interactive = true
+file = "from-source/xdg-terminal-exec"
 
 [tasks.default]
 description = "Run all aur tasks"
