@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+# Start gammastep with a method that matches the session.
+# Wayland uses wlr-gamma-control; X11 uses the default randr method.
+set -euo pipefail
+
+if [[ ${XDG_SESSION_TYPE:-} != wayland ]]; then
+  exec /usr/bin/gammastep -v
+fi
+
+exec /usr/bin/gammastep -v -m wayland

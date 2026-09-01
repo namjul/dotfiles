@@ -109,7 +109,7 @@ variables(({ identity }) => ({
     ".config/todotxt",
     // hardlinks
     ".config/bat/config",
-    ".config/redshift/redshift.conf",
+    ".config/gammastep/config.ini",
     ".config/rofi/config.rasi",
     ".config/btop/btop.conf",
     // encrypted
@@ -231,7 +231,7 @@ if (import.meta.main) {
 
       const hardlinkFiles = new Set([
         ".config/bat/config",
-        ".config/redshift/redshift.conf",
+        ".config/gammastep/config.ini",
         ".config/rofi/config.rasi",
         ".config/btop/btop.conf",
       ]);

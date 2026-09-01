@@ -1,11 +1,11 @@
 [Unit]
-Description=Redshift display colour temperature adjustment
-Documentation=http://jonls.dk/redshift/
+Description=Gammastep display colour temperature adjustment
+Documentation=https://gitlab.com/chinstrap/gammastep
 After=graphical-session.target
 PartOf=graphical-session.target
 
 [Service]
-ExecStart=%h/.local/bin/redshift-session
+ExecStart=%h/.local/bin/gammastep-session
 Restart=always
 RestartSec=10
 

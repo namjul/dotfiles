@@ -6,7 +6,7 @@ Expand the systemd aspect to own all system service concerns, each as a separate
 
 ```
 aspects/systemd/
-  index.ts          — user services: ssh-agent, darkman, redshift, swayosd, battery-monitor, recover-monitor
+  index.ts          — user services: ssh-agent, darkman, gammastep, swayosd, battery-monitor, recover-monitor
   network           — iwd, mask systemd-networkd-wait-online
   bluetooth         — bluetooth.service + wireplumber A2DP config + /etc/bluetooth/main.conf
   power             — power-profiles-daemon + udev rule for AC/battery switching
@@ -80,7 +80,7 @@ Without this, old kernel module directories accumulate in `/usr/lib/modules/` af
 
 Omarchy sources: `install/first-run/swayosd.sh`, `install/first-run/battery-monitor.sh`, `install/first-run/recover-internal-monitor.sh`
 
-Extend the existing user service block alongside ssh-agent/darkman/redshift:
+Extend the existing user service block alongside ssh-agent/darkman/gammastep:
 - `swayosd-server.service` — volume/brightness OSD for Hyprland; requires `swayosd` package
 - `battery-monitor.timer` — fires `bin/battery-low-warn` every 30s (Omarchy: notify once at ≤10% while discharging); units in `files/`
 - `omarchy-recover-internal-monitor.service` — recovers internal display after external monitor disconnect; requires the service unit file in `files/`

@@ -6,10 +6,10 @@ init(import.meta.dirname);
 
 const userFiles = [
   ".config/systemd/user/darkman.service",
-  ".config/systemd/user/redshift.service",
+  ".config/systemd/user/gammastep.service",
   ".config/systemd/user/battery-monitor.service",
   ".config/systemd/user/battery-monitor.timer",
-  ".local/bin/redshift-session",
+  ".local/bin/gammastep-session",
   ".local/bin/battery-low-warn",
 ];
 
@@ -32,7 +32,7 @@ const now = Deno.env.get("usage_now") === "true";
 
 const enable = [
   "darkman.service",
-  "redshift.service",
+  "gammastep.service",
   "gnome-keyring-daemon.socket",
 ];
 
