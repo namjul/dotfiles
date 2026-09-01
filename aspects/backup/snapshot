@@ -1,0 +1,33 @@
+#!/bin/bash
+# mise description="Snapshot local data into $DATA_BACKUP"
+
+trap 'echo "Warning: A command has failed. Exiting the script. Line was ($0:$LINENO): $(sed -n "${LINENO}p" "$0")"; exit 3' ERR
+set -Eeuo pipefail
+
+DROPBOX_DIR="${DROPBOX_DIR:-$HOME/Dropbox}"
+DATA_BACKUP="${DATA_BACKUP:-$DROPBOX_DIR/backup}"
+data_home="${XDG_DATA_HOME:-$HOME/.local/share}"
+
+mkdir -p "$DATA_BACKUP"
+
+snapshot() {
+  local dest="$1"
+  local src="$2"
+
+  if [[ ! -e "$src" ]]; then
+    echo "skip: no $src"
+    return 0
+  fi
+
+  if [[ -L "$src" ]]; then
+    src="$(readlink -f "$src")"
+  fi
+
+  local stamp="$DATA_BACKUP/${dest}.$(date +'%Y.%m.%d-%H%M%S')"
+  cp -a "$src" "$stamp"
+  echo "snapshot $src -> $stamp"
+}
+
+snapshot timewarrior "$data_home/timewarrior"
+snapshot fish-history "$data_home/fish/fish_history"
+snapshot zeit-db "$data_home/zeit/db"

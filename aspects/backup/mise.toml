@@ -1,11 +1,3 @@
-[tasks.timewarrior]
-description = "Snapshot ~/.local/share/timewarrior into $DATA_BACKUP"
-file = "./timewarrior"
-
-[tasks.fish-history]
-description = "Snapshot fish_history into $DATA_BACKUP"
-file = "./fish-history"
-
 [tasks.default]
-description = "Pull snapshots (timewarrior, fish history). Not on install.sh"
-depends = [":timewarrior", ":fish-history"]
+description = "Pull snapshots (timewarrior, fish history, zeit). Not on install.sh"
+file = "./snapshot"
