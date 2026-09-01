@@ -15,6 +15,7 @@ Do not assume this working tree lives at `~/.dotfiles` (or any other fixed home 
 
 ## Aspects
 - `aur` — Verify environment and prepare pacman (Arch)
+- `backup` — Pull snapshots of local data into `$DATA_BACKUP` (not on install.sh)
 - `dotfiles` — Symlink dotfiles from repo into $HOME
 - `dropbox` — Official client, update lock, user unit (not on install.sh)
 - `espanso` — Optional Wayland compile, setcap, user unit (not on install.sh)

@@ -105,6 +105,7 @@ packages=(
   direnv # https://github.com/direnv/direnv
   khal # https://github.com/pimutils/khal
   vdirsyncer # https://github.com/pimutils/vdirsyncer
+  timew # https://timewarrior.net/
   glab # https://gitlab.com/gitlab-org/cli
   yt-dlp # https://github.com/yt-dlp/yt-dlp
   fastfetch # https://github.com/fastfetch-cli/fastfetch

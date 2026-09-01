@@ -1,6 +1,6 @@
 #!/usr/bin/env -S deno run --allow-all
 
-import { assert, attributes, command, file, init } from "fig";
+import { assert, attributes, command, init } from "fig";
 
 init(import.meta.dirname);
 
@@ -22,45 +22,3 @@ if (!shells.includes(fishPath)) {
 
 const chsh = await command("chsh", ["-s", fishPath, attributes.username], { sudo: true });
 assert.result(chsh);
-
-const dataDir = Deno.env.get("DATA_DIR");
-const dataBackup = Deno.env.get("DATA_BACKUP");
-
-if (dataDir && dataBackup) {
-  for (const dir of [dataDir, dataBackup]) {
-    const r = await file({ path: dir, state: "directory" });
-    assert.result(r);
-  }
-  const fishHistory = `${Deno.env.get("HOME")}/.local/share/fish/fish_history`;
-  const src = `${dataDir}/fish_history`;
-  const timestamp = `${dataBackup}/fish-history.${new Date().toISOString().replace(/[:.]/g, "-")}`;
-
-  await command("mkdir", ["-p", `${Deno.env.get("HOME")}/.local/share/fish`, dataBackup]);
-
-  let stat: Deno.FileInfo | null = null;
-  try { stat = await Deno.lstat(fishHistory); } catch { /* not found */ }
-
-  if (stat && !stat.isSymlink) {
-    const mv = await command("mv", [fishHistory, timestamp]);
-    assert.result(mv);
-  }
-
-  let linkStat: Deno.FileInfo | null = null;
-  try { linkStat = await Deno.lstat(fishHistory); } catch { /* not found */ }
-
-  const srcExists = await Deno.stat(src).then(() => true).catch(() => false);
-  if (srcExists && !linkStat?.isSymlink) {
-    const r = await file({
-      force: true,
-      path: fishHistory,
-      src,
-      state: "link",
-    });
-    assert.result(r);
-
-    if (stat) {
-      const cat = await command("bash", ["-c", `cat '${timestamp}' > '${src}'`]);
-      assert.result(cat);
-    }
-  }
-}

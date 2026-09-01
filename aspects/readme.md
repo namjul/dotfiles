@@ -5,6 +5,7 @@ Aspects are a focal point that attracts attention, organizes surrounding element
 ```
 aspects/
 ├── aur/           Arch — system packages, firewall, firmware
+├── backup/        pull snapshots of local data (not on install.sh)
 ├── dotfiles/      home directory symlinks and templates
 ├── fonts/         Font setup
 ├── homebrew/      Homebrew package management

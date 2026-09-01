@@ -44,3 +44,4 @@ brew "notmuch" # https://notmuchmail.org
 brew "btop" # https://github.com/aristocratos/btop
 brew "mpv" # https://mpv.io/
 brew "gnuPG" # the gnu Privacy Guard https://www.gnupg.org/
+brew "timewarrior" # https://github.com/GothenburgBitFactory/timewarrior

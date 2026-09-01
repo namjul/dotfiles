@@ -2,14 +2,9 @@
 description = "update homebrew"
 run = "deno run --allow-all index.ts update"
 
-[tasks."brew:timewarrior"]
-description = "brew install timewarrior"
-depends = [":update"]
-file = "./timewarrior"
-
 [tasks."brew"]
 description = "brew install"
-depends = [":update", ":brew:timewarrior"]
+depends = [":update"]
 run = "deno run --allow-all index.ts brew"
 
 [tasks."cleanup"]
