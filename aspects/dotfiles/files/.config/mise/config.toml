@@ -94,10 +94,11 @@ ghq = "latest"
 "github:antonmedv/walk" = "1.13.0"
 "github:antonmedv/howto" = "latest"
 "github:kaplanelad/shellfirm" = "0.3.10"
+"github:mrusme/zeit" = "1.1.0"
 aube = "latest"
 "gem:try-cli" = "1.10.1"
 
 [settings]
 experimental = false
 idiomatic_version_file_enable_tools = []
-color_theme = "default"
+color_theme = "base16"

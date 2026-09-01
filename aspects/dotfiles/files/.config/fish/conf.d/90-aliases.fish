@@ -46,6 +46,16 @@ abbr twc timew continue
 abbr twd timew delete
 abbr tws timew summary :annotation :ids :week
 
+# zeit https://github.com/mrusme/zeit
+abbr z zeit
+abbr zst 'zeit start'
+abbr zsp 'zeit end'
+abbr zsw 'zeit switch'
+abbr za 'zeit start with note'
+abbr zc 'zeit resume'
+abbr zs 'zeit blocks this week'
+abbr zss 'zeit stats this week'
+
 # todo
 abbr t todo
 
