@@ -3,8 +3,8 @@
 # https://stackoverflow.com/questions/16657803/creating-autocomplete-script-with-sub-commands
 # see also Fish's large set of completions for examples:
 # https://github.com/fish-shell/fish-shell/tree/master/share/completions
+# __fish_npm_helper is embedded in fish 4.x (no $__fish_data_dir/functions file).
 
-source $__fish_data_dir/functions/__fish_npm_helper.fish
 set -l npm_install "npm install --global"
 
 function __fish_npm_needs_command
