@@ -1,9 +1,9 @@
-# Output ids from `swaymsg -t get_outputs` (make model serial).
+# Output ids from `wlr-randr --json | jq -r '.[] | "\"\(.make) \(.model) \(.serial // "Unknown")\""'` (make model serial).
 # Docked profiles all match the same pair; kanshi applies the first (dockedhome).
 # Super+x then 1/2/o runs kanshictl switch.
 
 profile mobile {
-	output "AU Optronics 0x2036 Unknown" {
+	output "Lenovo Group Limited 0x403A Unknown" {
 		enable
 		scale 2
 		position 0,0
@@ -11,7 +11,7 @@ profile mobile {
 }
 
 profile dockedhome {
-	output "AU Optronics 0x2036 Unknown" {
+	output "Lenovo Group Limited 0x403A Unknown" {
 		enable
 		scale 2
 		position 0,0
@@ -31,7 +31,7 @@ profile dockedhomeup {
 		mode 2560x1440
 		position 0,0
 	}
-	output "AU Optronics 0x2036 Unknown" {
+	output "Lenovo Group Limited 0x403A Unknown" {
 		enable
 		scale 2
 		position 0,1440
@@ -45,5 +45,5 @@ profile dockedoffice {
 		mode 2560x1440
 		position 0,0
 	}
-	output "AU Optronics 0x2036 Unknown" disable
+	output "Lenovo Group Limited 0x403A Unknown" disable
 }
