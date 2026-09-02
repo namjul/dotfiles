@@ -33,9 +33,8 @@ abbr de 'trans :de'
 
 # node
 abbr repl 'NODE_PATH=(npm root -g) node'
-abbr run 'dum run' # shorthand for npm run
-abbr nr 'npm run' # shorthand for npm run
-abbr nv 'node --version'
+abbr run 'nr' # expands so history stores dum run <script>
+abbr nv 'ni -v'
 
 # timewarrior
 abbr tw timew
