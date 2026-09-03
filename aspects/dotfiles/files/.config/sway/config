@@ -104,11 +104,6 @@ exec udiskie --automount --no-notify --no-tray
 # Set wallpaper
 exec_always swaybg -i "$HOME/.config/sway/Albert_Bierstadt,_Among_the_Sierra_Nevada_Mountains.jpg" -m fill
 
-# Start a term instance in scratchpad mode
-# Wayland Alacritty sets app_id from --class; class= only matches X11 WM_CLASS
-for_window [app_id="scratch.term"] move scratchpad
-exec launch-terminal --class=scratch.term
-
 # move focused workspace between monitors
 bindsym $mod+Ctrl+Up move workspace to output up
 bindsym $mod+Ctrl+Down move workspace to output down
@@ -129,7 +124,7 @@ bindsym XF86MonBrightnessDown exec swayosd-client --brightness lower
 bindsym $mod+Shift+Tab move scratchpad
 
 # Cycle scratchpad stack (vanilla show).
-bindsym --to-code $mod+Tab exec ~/.config/sway/scratchpad-focused.sh
+bindsym --to-code $mod+Tab exec ~/.config/sway/sway-scratchpad -mt -t -atr -d 100%x90% -- launch-terminal
 
 # Screenshot (grim + slurp + satty; i3 keeps flameshot)
 bindsym Print exec capture-screenshot
@@ -180,8 +175,7 @@ bindsym $mod+Ctrl+h split h
 bindsym $mod+Ctrl+v split v
 
 # enter fullscreen mode for the focused container
-# scratch.term: target by app_id; focused toggle misses a visible fullscreen scratch
-bindsym $mod+f exec ~/.config/sway/scratchpad-focused.sh toggle-fullscreen
+bindsym $mod+f fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
 bindsym $mod+s layout toggle tabbed splith
