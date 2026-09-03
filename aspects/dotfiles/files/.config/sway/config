@@ -268,7 +268,7 @@ bindsym $mod+r mode "resize"
 
 ## Manual management of external displays
 # Set the shortcuts and what they do
-set $mode_display Ext Screen (m) mobile, (1) docked home down, (2) docked home up, (o) docked office
+set $mode_display Ext Screen (m) mobile, (1) docked home, (2) docked home up, (o) docked office
 mode "$mode_display" {
 
     bindsym m exec kanshictl switch mobile, mode "default"

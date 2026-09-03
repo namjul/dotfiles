@@ -1,5 +1,5 @@
-# Output ids from `wlr-randr --json | jq -r '.[] | "\"\(.make) \(.model) \(.serial // "Unknown")\""'` (make model serial).
-# Docked profiles all match the same pair; kanshi applies the first (dockedhome).
+# Output ids from `mise run //aspects/dotfiles:outputs` (make model serial).
+# Among matching profiles, kanshi prefers the one that names more outputs, so `mobile` is the undock fallback.
 # Super+x then 1/2/o runs kanshictl switch.
 
 profile mobile {
@@ -39,10 +39,10 @@ profile dockedhomeup {
 }
 
 profile dockedoffice {
-	output "Dell Inc. DELL U2719DC 56645R2" {
+	output "Dell Inc. DELL U2412M Y1H5T2C5138L" {
 		enable
 		scale 1
-		mode 2560x1440
+		mode 1920x1200
 		position 0,0
 	}
 	output "Lenovo Group Limited 0x403A Unknown" disable
