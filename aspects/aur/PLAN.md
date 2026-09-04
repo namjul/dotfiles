@@ -16,7 +16,7 @@ Ubuntu stays X11 + `i3-wm` via `aspects/nala`. Do not remove the i3 fallback on 
 
 Session config lives in `aspects/dotfiles/files/.config/sway/config` (Arch-only; `skipOnDebian`). i3 config is Ubuntu-only (`skipOnArch`). Packages and login scripts stay in `aspects/aur`.
 
-Install path is official Arch ISO + archinstall, then this repo. Not Omarchy quattro / `omarchy-iso`. See `exploration/arch-install.md`.
+Install path is official Arch ISO + archinstall, then this repo. Not Omarchy quattro / `omarchy-iso`. See `docs/plans/arch-install.md`.
 
 Omarchy (`~/code/ghq/github.com/basecamp/omarchy/`) is a reference for login, polkit, and removable media — not a compositor or ISO contract.
 
@@ -49,7 +49,7 @@ Sway recovery if SDDM loops: `Ctrl+Alt+F2` → `sudo systemctl disable --now sdd
 - Arch-only for new desktop packages and login scripts. Ubuntu `nala` + i3 unchanged.
 - Keep `i3-wm` on Arch.
 - One step committed and VM-tested before the next.
-- Password-store clone/decrypt stays manual (`exploration/encryption.md`). No mise task for that.
+- Password-store clone/decrypt stays manual (`docs/plans/encryption.md`). No mise task for that.
 - Do not reintroduce Hyprland or the omarchy-iso package-list contract. UWSM is allowed as the Sway session wrapper (PATH / units / XDG autostart), not as a Hyprland dependency.
 - Power-profile *enablement* belongs in `aspects/systemd` (`aspects/systemd/PLAN.md`). `aur` only adds the package.
 
@@ -105,7 +105,7 @@ Review:
 
 ### Slice 2: `passmenu` on Wayland
 
-Done. `bin/passmenu` uses `wofi --dmenu --prompt pass: -i -M fuzzy -L 15` when `WAYLAND_DISPLAY` is set, else `rofi -dmenu`. `passmenu.desktop` is in `.local/share/applications` for wofi drun. Store clone/decrypt stays manual (`exploration/encryption.md`).
+Done. `bin/passmenu` uses `wofi --dmenu --prompt pass: -i -M fuzzy -L 15` when `WAYLAND_DISPLAY` is set, else `rofi -dmenu`. `passmenu.desktop` is in `.local/share/applications` for wofi drun. Store clone/decrypt stays manual (`docs/plans/encryption.md`).
 
 Verification:
 
@@ -175,7 +175,7 @@ Portal note (already proven): `xdg-desktop-portal` may be `inactive (dead)` unti
 
 ## Open Questions
 
-- Store CLI (`gopass` vs `passage`) — already parked in `exploration/encryption.md`. Default: keep `gopass`/`pass` until that doc decides.
+- Store CLI (`gopass` vs `passage`) — already parked in `docs/plans/encryption.md`. Default: keep `gopass`/`pass` until that doc decides.
 - Whether to drop the `nm-applet` exec on Arch-only sway config in a later cleanup. Default: yes, in a dedicated network-tray slice, not slice 1.
 
 ## Lookup
@@ -183,6 +183,6 @@ Portal note (already proven): `xdg-desktop-portal` may be `inactive (dead)` unti
 - Sway i3 compatibility: https://github.com/swaywm/sway/wiki/i3
 - Omarchy (login / remount reference): `~/code/ghq/github.com/basecamp/omarchy/`
 - i3 source: `aspects/dotfiles/files/.config/i3/config`
-- Install path: `exploration/arch-install.md`
-- Secrets: `exploration/encryption.md`
+- Install path: `docs/plans/arch-install.md`
+- Secrets: `docs/plans/encryption.md`
 - systemd services: `aspects/systemd/PLAN.md`

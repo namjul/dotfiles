@@ -13,14 +13,14 @@
 
 **Operator:** one person (hobl). **Observable outcomes:** `gpg` can decrypt current store entries; `fnox` pass-provider secrets still resolve; a documented recovery path exists if Dropbox or the JPEG is lost.
 
-A decision is needed now because this chain is the *current* recovery path, while `exploration/encryption.md` already aims at age + private git and “no Dropbox” for the store. Keeping both without a verdict doubles mechanism.
+A decision is needed now because this chain is the *current* recovery path, while `docs/plans/encryption.md` already aims at age + private git and “no Dropbox” for the store. Keeping both without a verdict doubles mechanism.
 
 ## Hard constraints and non-goals
 
 | Constraint | Hard or preferred | Evidence / owner |
 |---|---|---|
-| Age identity never committed in git | Hard | `exploration/encryption.md`, `bin/arch-install/arch-install.md` |
-| Password store not long-term on Dropbox | Preferred (already decided as target) | `exploration/encryption.md` |
+| Age identity never committed in git | Hard | `docs/plans/encryption.md`, `bin/arch-install/arch-install.md` |
+| Password store not long-term on Dropbox | Preferred (already decided as target) | `docs/plans/encryption.md` |
 | Linux, existing mise/fnox/age, gopass today | Hard | repo + local versions 2026-08-29 |
 | Do not send secrets to a new hosted vault | Hard | personal-control; no procurement |
 | Deniability / “looks like a painting” | Preferred only if it does not weaken crypto | user-described current design |
@@ -28,7 +28,7 @@ A decision is needed now because this chain is the *current* recovery path, whil
 
 ## Local capabilities inspected
 
-- Existing repository capability: fnox age provider (`aspects/dotfiles/files/.config/fnox/config.toml`, pin `fnox = "1.21.0"`); already stores ciphertext in git. Age USB restore is the documented Arch bootstrap. `exploration/encryption.md` already names “SOPS/fnox for PGP private keys in the public repo” as later work.
+- Existing repository capability: fnox age provider (`aspects/dotfiles/files/.config/fnox/config.toml`, pin `fnox = "1.21.0"`); already stores ciphertext in git. Age USB restore is the documented Arch bootstrap. `docs/plans/encryption.md` already names “SOPS/fnox for PGP private keys in the public repo” as later work.
 - Standard / open standard: `age` (local `v1.3.1`), OpenPGP via gopass/GnuPG (local `gopass 1.16.1`).
 - OS primitive: LUKS (install path), cryptsetup/tomb LUKS containers.
 - Existing tools: vendored `bin/tomb` **2.11.0** (Jul 2024); live `tomb` on PATH is Dropbox copy of same version; `steghide 0.5.1`; JPEG in repo `aspects/dotfiles/files/.config/i3/Albert_Bierstadt,_Among_the_Sierra_Nevada_Mountains.jpg` (not opened/exhumed in this evaluation).
@@ -72,7 +72,7 @@ A decision is needed now because this chain is the *current* recovery path, whil
 ## Decision
 
 - **Outcome:** adapt (replace the *key* path; do not invent a new product)
-- **Recommendation:** Treat the JPEG bury + Dropbox tomb as a **legacy cold backup**, not the design to keep. After age works on a machine, recover or store the GPG secret as **age ciphertext via fnox (or SOPS)** as already parked in `exploration/encryption.md`. Move the password store off Dropbox per that doc (private git). Do not add automation around `tomb bury`/`exhume`.
+- **Recommendation:** Treat the JPEG bury + Dropbox tomb as a **legacy cold backup**, not the design to keep. After age works on a machine, recover or store the GPG secret as **age ciphertext via fnox (or SOPS)** as already parked in `docs/plans/encryption.md`. Move the password store off Dropbox per that doc (private git). Do not add automation around `tomb bury`/`exhume`.
 - **Why this wins:** The bury passphrase is already an fnox age secret. Anyone who can decrypt fnox can exhume. Anyone who cannot decrypt fnox cannot use the painting. Stego therefore adds detection risk and operational surface, not an extra gate. Tomb’s own docs and KNOWN_BUGS assume the image is *not* an obvious, cloneable singleton.
 - **Strongest counterargument:** The painting-in-git *is* a memorable recovery story and the tomb may still hold more than GPG. Until the GPG export is duplicated under age, deleting Dropbox or the JPEG would be lockout.
 - **What bespoke glue remains:** A one-time, manual `gpg --export-secret-keys` (or equivalent) into fnox/SOPS; keep a paper/USB age identity; optional keep the tomb file offline until that export is verified.
@@ -96,7 +96,7 @@ This remains a proposal until the named decision owner records acceptance.
 - **Supported version/range:** keep current fnox/age pins until a separate bump; do not add steghide as an Arch/Ubuntu hard dependency for bootstrap
 - **Dependency boundary:** GPG material is a fnox/SOPS secret or an age file; tomb is not in the daily path
 - **Rollout and recovery:** verify export while tomb still mounts; then stop treating the JPEG as required
-- **Implementation skills/plan:** `planning` / existing `exploration/encryption.md` Phase 1; no new aspect
+- **Implementation skills/plan:** `planning` / existing `docs/plans/encryption.md` Phase 1; no new aspect
 
 ## Exit and re-evaluation
 
@@ -113,4 +113,4 @@ This remains a proposal until the named decision owner records acceptance.
 - steghide CVE-2021-27211: https://nvd.nist.gov/vuln/detail/CVE-2021-27211 ; Debian https://security-tracker.debian.org/tracker/CVE-2021-27211 (0.5.1 still vulnerable, 2026-08-29)
 - gopass setup (git vs cloud folders): https://github.com/gopasspw/gopass/blob/master/docs/setup.md
 - fnox age: https://fnox.jdx.dev/providers/age.html ; fnox 1.29.0 https://github.com/jdx/fnox/releases/tag/v1.29.0
-- Local plan: `exploration/encryption.md`
+- Local plan: `docs/plans/encryption.md`

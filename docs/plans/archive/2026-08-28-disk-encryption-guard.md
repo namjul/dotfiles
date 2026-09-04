@@ -19,10 +19,10 @@ A decision is needed now because the guard is already gone and Omarchy's reason 
 
 | Constraint | Hard or preferred | Evidence / owner |
 |---|---|---|
-| LUKS is optional at install time (`Ctrl+C` in gum) | Hard (current product) | `bin/arch-install/configure.sh` `encrypt=false` default; `exploration/arch-install.md` calls LUKS taste, not structure |
+| LUKS is optional at install time (`Ctrl+C` in gum) | Hard (current product) | `bin/arch-install/configure.sh` `encrypt=false` default; `docs/plans/arch-install.md` calls LUKS taste, not structure |
 | SDDM greeter, not autologin | Hard (current product) | `aspects/aur/login/sddm.sh` enables `sddm.service` only; no `autologin.conf` |
 | Passwordless `Default_keyring` is deployed | Current fact | `aspects/aur/login/default-keyring.sh` |
-| Do not fork Omarchy ISO / quattro | Hard | `aspects/aur/PLAN.md`, `exploration/arch-install.md` |
+| Do not fork Omarchy ISO / quattro | Hard | `aspects/aur/PLAN.md`, `docs/plans/arch-install.md` |
 | Do not invent a third login manager | Preferred | SDDM already owned in `aur` |
 | VM / fig-test installs must not need LUKS | Hard | `in_test_or_vm` already skipped the old guard |
 

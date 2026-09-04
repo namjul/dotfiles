@@ -22,9 +22,9 @@ Observable outcomes:
 | Constraint | Hard or preferred | Evidence / owner |
 |---|---|---|
 | No pacman downloads during install | Hard | Your choice 2026-08-28 (full desktop, not archinstall-only) |
-| Keep existing installer (configure.sh → archinstall → install.sh), not Omarchy quattro | Hard | `exploration/arch-install.md`: “Do not fork `omarchy-iso`” |
+| Keep existing installer (configure.sh → archinstall → install.sh), not Omarchy quattro | Hard | `docs/plans/arch-install.md`: “Do not fork `omarchy-iso`” |
 | Official ISO still works without the custom image | Preferred | Same doc; custom ISO is an overlay |
-| Do not bake checkout, creds, or age keys | Hard | `exploration/arch-install.md` Custom live ISO |
+| Do not bake checkout, creds, or age keys | Hard | `docs/plans/arch-install.md` Custom live ISO |
 | Do not extract `airootfs.sfs` as the installed root | Hard | [ArchWiki Offline installation](https://wiki.archlinux.org/title/Offline_installation) warning |
 | Air-gapped machine after reboot with USB removed | Non-goal unless you later say so | Would require copying the repo onto the disk or finishing desktop install before reboot |
 | Comment-in AUR/`paru` packages | Non-goal this round | Those lines are commented in `aspects/aur/packages` |
@@ -69,7 +69,7 @@ Observable outcomes:
 | Dimension | Do nothing | Fork omarchy-iso | Adapt Wiki/Omarchy pattern into mkiso.sh |
 |---|---|---|---|
 | Functional fit | Live gum only; install downloads everything | Solves offline by becoming Omarchy | Solves the pacman job if lists + live conf + pre-reboot desktop install are wired |
-| Architecture fit | Matches current two-phase path | Quattro ISO contract; conflicts with `exploration/arch-install.md` | Keeps mkiso.sh / archinstall / aspects; adds a local repo artifact and a **must-install-desktop-before-reboot** (or copy-repo-to-disk) rule |
+| Architecture fit | Matches current two-phase path | Quattro ISO contract; conflicts with `docs/plans/arch-install.md` | Keeps mkiso.sh / archinstall / aspects; adds a local repo artifact and a **must-install-desktop-before-reboot** (or copy-repo-to-disk) rule |
 | Maturity | Already shipping | Actively maintained product, not a library | Primitive (`pacman`/`repo-add`/`mkarchiso`) is the Arch platform; glue is yours |
 | Security / privacy | Online install, current mirrors | Unsigned offline repo (`SigLevel = Never`); ISO integrity is the trust root | Same trust question; prefer Wiki `SigLevel = Optional` plus shipped `.sig` files unless keyring-init proves painful |
 | License | n/a | MIT (attribution if copying scripts) | pacman/archiso GPL; your glue stays yours |
@@ -130,4 +130,4 @@ This remains a proposal until the named decision owner records acceptance. Do no
 - omarchy-iso PR 113 (ISO ~6.2 GB / ~942 pkgs), observed 2026-08-28: https://github.com/omacom-io/omarchy-iso/pull/113
 - archinstall#3847 (file:// custom repo does not install), observed 2026-08-28: https://github.com/archlinux/archinstall/issues/3847
 - archiso LICENSE GPL-3.0, observed 2026-08-28: https://raw.githubusercontent.com/archlinux/archiso/master/LICENSE
-- Local: `bin/arch-install/mkiso.sh`, `bin/arch-install/iso/packages.append`, `aspects/aur/packages`, `exploration/arch-install.md`
+- Local: `bin/arch-install/mkiso.sh`, `bin/arch-install/iso/packages.append`, `aspects/aur/packages`, `docs/plans/arch-install.md`
