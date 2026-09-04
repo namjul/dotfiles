@@ -5,7 +5,7 @@
 profile mobile {
 	output "Lenovo Group Limited 0x403A Unknown" {
 		enable
-		scale 2
+		scale 1
 		position 0,0
 	}
 }
