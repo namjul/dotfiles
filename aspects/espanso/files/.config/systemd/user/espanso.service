@@ -1,12 +1,13 @@
 [Unit]
-Description=Espanso: cross platform text expander in Rust
-Documentation=https://espanso.org
-After=graphical-session.target
+Description=Espanso daemon
+Documentation=https://espanso.org/docs/
+PartOf=graphical-session.target
 
 [Service]
-ExecStart=/usr/local/bin/espanso launcher
+Type=simple
+ExecStart=/usr/local/bin/espanso daemon
 Restart=on-failure
 RestartSec=3
 
 [Install]
-WantedBy=default.target
+WantedBy=graphical-session.target

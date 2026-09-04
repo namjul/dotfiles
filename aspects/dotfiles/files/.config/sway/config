@@ -187,6 +187,8 @@ workspace_layout tabbed
 for_window [class="float-win"] floating enable, move workspace current
 for_window [app_id="org.namjul.float-win"] floating enable, move workspace current
 for_window [class="org.namjul.float-win"] floating enable, move workspace current
+# Wayland worker hangs in "Querying modifier status" until this window is focused
+for_window [app_id="Espanso.SyncTool"] floating enable, move workspace current, focus
 
 # toggle tiling / floating
 bindsym $mod+Shift+space floating toggle; [floating] resize set 50 ppt 98 ppt; move position 1 ppt 1 ppt

@@ -58,4 +58,5 @@ mkdir -p "$(dirname -- "$unit_dst")"
 ln -sfn "$unit_src" "$unit_dst"
 systemctl --user daemon-reload
 systemctl --user enable --now espanso.service
-echo "Enabled and started user unit espanso.service"
+systemctl --user restart espanso.service
+echo "Enabled and restarted user unit espanso.service"
