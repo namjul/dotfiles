@@ -1,8 +1,8 @@
 {
-  "theme": "gruvbox-dark-soft",
+  "theme": "gruvbox-light-soft",
   "defaultProvider": "cursor",
-  "defaultModel": "grok-4.6",
-  "defaultThinkingLevel": "low",
+  "defaultModel": "composer-2.5",
+  "defaultThinkingLevel": "medium",
   "enableSkillCommands": true,
   "lastChangelogVersion": "0.84.4",
   "enabledModels": [
