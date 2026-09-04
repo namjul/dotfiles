@@ -56,7 +56,7 @@ abbr zs 'zeit blocks this week'
 abbr zss 'zeit stats this week'
 
 # todo
-abbr t todo
+abbr T todo
 
 # tmux
 abbr tb "tmux new -s (pwd | sed 's/.*\///g')" # begin tmux session
@@ -75,7 +75,7 @@ alias cat="bat" # Drop-in replacement for cat TODO add  --theme=gruvbox-(set-col
 abbr tmp ' cd (mktemp -d)'
 abbr untar 'tar -xvf' # extract .tar.gz
 abbr --add unset 'set --erase' # remove env variable
-abbr mr 'mise run' # run mise tasks
+abbr mr 'mise run --all' # run mise tasks
 abbr dspace 'du -cha --max-depth=1 . | grep -E "M|G"'
 alias pass 'gopass'
 abbr sb sandbox
