@@ -100,7 +100,6 @@ variables(({ identity }) => ({
     ".local/share/chromium/extensions",
     ".local/bin/mount-shares.encrypted",
     ".local/bin/keepassxc-wf.encrypted",
-    ".local/bin/sync-mic-mute-led",
     ".local/bin/toggle-mic-mute",
     ".config/ghostty",
     ".config/imv",

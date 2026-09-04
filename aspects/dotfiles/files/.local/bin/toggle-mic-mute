@@ -1,18 +1,35 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Toggle default source mute, then drive ThinkPad platform::micmute.
-# ACPI/hotkey often writes the EC lamp after userspace; last write wins.
+sync_led() {
+  [[ -e /sys/class/leds/platform::micmute/brightness ]] || return 0
+  local v=0
+  wpctl get-volume @DEFAULT_AUDIO_SOURCE@ 2>/dev/null | grep -q MUTED && v=1
+  brightnessctl --device='platform::micmute' set "$v" >/dev/null 2>&1 || true
+}
 
-wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
-
-sync-mic-mute-led
-
-if wpctl get-volume @DEFAULT_AUDIO_SOURCE@ | grep -q MUTED; then
-  swayosd-client --input-volume mute >/dev/null 2>&1 || true
-else
-  swayosd-client --input-volume unmute >/dev/null 2>&1 || true
-fi
-
-sleep 0.15
-sync-mic-mute-led
+case "${1:-toggle}" in
+  on)
+    wpctl set-mute @DEFAULT_AUDIO_SOURCE@ 1 2>/dev/null || true
+    sync_led
+    ;;
+  off)
+    wpctl set-mute @DEFAULT_AUDIO_SOURCE@ 0 2>/dev/null || true
+    sync_led
+    ;;
+  toggle)
+    wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
+    sync_led
+    if wpctl get-volume @DEFAULT_AUDIO_SOURCE@ | grep -q MUTED; then
+      swayosd-client --input-volume mute >/dev/null 2>&1 || true
+    else
+      swayosd-client --input-volume unmute >/dev/null 2>&1 || true
+    fi
+    sleep 0.15
+    sync_led
+    ;;
+  *)
+    echo "Usage: $(basename "$0") [toggle|on|off]" >&2
+    exit 1
+    ;;
+esac
