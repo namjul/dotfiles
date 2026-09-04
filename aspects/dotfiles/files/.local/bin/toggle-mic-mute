@@ -2,20 +2,11 @@
 set -euo pipefail
 
 # Toggle default source mute, then drive ThinkPad platform::micmute.
-# PipeWire mute does not write ALSA Capture. F4/ACPI can also stomp the LED
-# after the key event, so the lamp is written again after a short delay.
+# ACPI/hotkey often writes the EC lamp after userspace; last write wins.
 
 wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
 
-sync_led() {
-  local value=0
-  if wpctl get-volume @DEFAULT_AUDIO_SOURCE@ | grep -q MUTED; then
-    value=1
-  fi
-  brightnessctl --device='platform::micmute' set "$value" >/dev/null 2>&1 || true
-}
-
-sync_led
+sync-mic-mute-led
 
 if wpctl get-volume @DEFAULT_AUDIO_SOURCE@ | grep -q MUTED; then
   swayosd-client --input-volume mute >/dev/null 2>&1 || true
@@ -23,6 +14,5 @@ else
   swayosd-client --input-volume unmute >/dev/null 2>&1 || true
 fi
 
-# ACPI/hotkey often writes the EC lamp after userspace; last write wins.
 sleep 0.15
-sync_led
+sync-mic-mute-led

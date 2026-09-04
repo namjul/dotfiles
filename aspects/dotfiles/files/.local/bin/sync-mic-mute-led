@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Drive ThinkPad platform::micmute from PipeWire mute state or an explicit on/off.
+# PipeWire mute does not write ALSA Capture; EC/ACPI can desync the lamp at boot.
+
+if [[ ! -e /sys/class/leds/platform::micmute/brightness ]]; then
+  exit 0
+fi
+
+value=0
+if [[ $# -eq 0 ]]; then
+  if wpctl get-volume @DEFAULT_AUDIO_SOURCE@ 2>/dev/null | grep -q MUTED; then
+    value=1
+  fi
+else
+  case "$1" in
+    on) value=1 ;;
+    off) value=0 ;;
+    *)
+      echo "Usage: $(basename "$0") [on|off]" >&2
+      exit 1
+      ;;
+  esac
+fi
+
+brightnessctl --device='platform::micmute' set "$value" >/dev/null 2>&1 || true

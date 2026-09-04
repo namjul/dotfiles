@@ -77,7 +77,7 @@ exec uwsm finalize SWAYSOCK I3SOCK XCURSOR_SIZE XCURSOR_THEME
 exec swayidle -w \
     timeout 600 'swaylock -f' \
     timeout 900 'swaymsg "output * dpms off"' \
-    resume 'swaymsg "output * dpms on"' \
+    resume 'swaymsg "output * dpms on"; sh -c "sleep 1 && sync-mic-mute-led"' \
     before-sleep 'swaylock -f' \
     lock 'swaylock -f'
 
@@ -90,6 +90,9 @@ exec mako
 exec kanshi
 
 exec swayosd-server
+
+# PipeWire starts unmuted; EC may keep platform::micmute lit from before shutdown.
+exec sh -c 'sleep 2 && sync-mic-mute-led'
 
 # Start authentication agents (see https://wiki.archlinux.org/title/Polkit#Authentication_agents)
 exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1  # sway: polkit-gnome (was lxpolkit)
