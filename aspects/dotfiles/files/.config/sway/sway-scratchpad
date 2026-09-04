@@ -183,14 +183,23 @@ parse_dimensions() {
 	x_pos=${x_pos:-0}
 	y_pos=${y_pos:-0}
 
-	# shellcheck disable=SC2016 # Complains about $var in single quotes
-	jq_prog='
-		# Locate selected screen
-		first(.[] | select(.name == $screen))
-		# And get its dimensions
-		.rect | {width,height,x,y} | values | join(" ")
-	'
-	dimensions=$($wm_msg -rt get_outputs | jq -r --arg screen "$screen" "$jq_prog")
+	if [[ "$wm_msg" == swaymsg ]]; then
+		# Use focused workspace rect so gaps and bar are respected (output rect is too wide).
+		jq_prog='
+			first(.[] | select(.focused == true))
+			| .rect | {width,height,x,y} | values | join(" ")
+		'
+		dimensions=$($wm_msg -rt get_workspaces | jq -r "$jq_prog")
+	else
+		# shellcheck disable=SC2016 # Complains about $var in single quotes
+		jq_prog='
+			# Locate selected screen
+			first(.[] | select(.name == $screen))
+			# And get its dimensions
+			.rect | {width,height,x,y} | values | join(" ")
+		'
+		dimensions=$($wm_msg -rt get_outputs | jq -r --arg screen "$screen" "$jq_prog")
+	fi
 	read -r screen_width screen_height offset_x offset_y <<< "$dimensions"
 
 	if [[ "$width" =~ %$ ]]; then

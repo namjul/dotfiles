@@ -124,7 +124,7 @@ bindsym XF86MonBrightnessDown exec swayosd-client --brightness lower
 bindsym $mod+Shift+Tab move scratchpad
 
 # Cycle scratchpad stack (vanilla show).
-bindsym --to-code $mod+Tab exec ~/.config/sway/sway-scratchpad -mt -t -atr -d 100%x90% -- launch-terminal
+bindsym --to-code $mod+Tab exec ~/.config/sway/sway-scratchpad -mt -t -atl -d 100%x90% -- launch-terminal
 
 # Scratchpad overlay: no focus border (sway-scratchpad marks _sway_scratchpad_*)
 for_window [con_mark="_sway_scratchpad_.*"] border pixel 0
