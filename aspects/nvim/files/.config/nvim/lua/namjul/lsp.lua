@@ -1,5 +1,3 @@
-local has_lspconfig, lspconfig = pcall(require, 'lspconfig')
-
 local lsp = {}
 
 vim.api.nvim_create_autocmd('LspAttach', {
@@ -32,98 +30,20 @@ lsp.init = function()
     })
   end
 
-  local mason_packages = vim.fn.stdpath('data') .. '/mason/packages'
-  local vue_language_server_path = mason_packages .. '/vue-language-server/node_modules/@vue/language-server'
+  vim.lsp.config('*', { capabilities = capabilities })
 
-  local vue_plugin = {
-    name = '@vue/typescript-plugin',
-    location = vue_language_server_path,
-    languages = { 'vue' },
-    configNamespace = 'typescript',
-  }
-
-  local servers = {
-    rust_analyzer = {},
-    denols = {
-      root_dir = function(bufnr, on_dir)
-        local root_markers = { 'deno.json' }
-        local project_root = vim.fs.root(bufnr, root_markers)
-        if project_root then on_dir(project_root) end
-      end,
-    },
-    html = {},
-    lua_ls = {
-      root_dir = function(bufnr, on_dir)
-        local markers = { '.luarc.json', '.luarc.jsonc', '.emmyrc.json', '.stylua.toml', 'stylua.toml', '.git' }
-        local project_root = vim.fs.root(bufnr, markers)
-        local config_root = vim.fn.stdpath('config')
-        local name = vim.api.nvim_buf_get_name(bufnr)
-
-        if project_root and project_root ~= vim.env.HOME then
-          on_dir(project_root)
-          return
-        end
-
-        if name:find(config_root, 1, true) == 1 or name:find('/.dotfiles/', 1, true) then
-          on_dir(config_root)
-        end
-      end,
-      settings = {
-        Lua = {
-          diagnostics = {
-            enable = true,
-            globals = { 'vim' },
-          },
-          workspace = { checkThirdParty = false },
-          telemetry = { enable = false },
-        },
-      },
-    },
-    pyright = {},
-    vtsls = {
-      settings = {
-        -- see config schema: https://raw.githubusercontent.com/yioneko/vtsls/refs/heads/main/packages/service/configuration.schema.json
-        typescript = { tsserver = { maxTsServerMemory = 16184 } },
-        javascript = { tsserver = { maxTsServerMemory = 16184 } },
-        vtsls = {
-          tsserver = {
-            globalPlugins = {
-              vue_plugin,
-            },
-          },
-        },
-      },
-      root_dir = function(bufnr, on_dir)
-        local root_markers = {
-          'package-lock.json',
-          'yarn.lock',
-          'pnpm-lock.yaml',
-          'bun.lockb',
-          'bun.lock',
-          'aube-lock.yaml',
-        }
-        local project_root = vim.fs.root(bufnr, root_markers)
-        if project_root then on_dir(project_root) end
-      end,
-      filetypes = {
-        'javascript',
-        'javascriptreact',
-        'javascript.jsx',
-        'typescript',
-        'typescriptreact',
-        'typescript.tsx',
-        'vue',
-      },
-    },
-    superhtml = {},
-    zls = {},
-  }
-
-  local ensure_installed = vim.tbl_keys(servers or {})
-  vim.list_extend(ensure_installed, {
+  local ensure_installed = {
+    'rust_analyzer',
+    'denols',
+    'html',
+    'lua_ls',
+    'pyright',
+    'vtsls',
+    'superhtml',
+    'zls',
     'pkl-lsp', -- started by pkl-neovim, not lspconfig
     'vue_ls', -- binary for the vtsls Vue plugin; not enabled as its own server
-  })
+  }
 
   local has_mason, mason = pcall(require, 'mason')
   if has_mason then mason.setup() end
@@ -133,11 +53,6 @@ lsp.init = function()
 
   local has_mason_lspconfig, mason_lspconfig = pcall(require, 'mason-lspconfig')
   if has_mason and has_mason_lspconfig then
-    for server_name, server_config in pairs(servers) do
-      server_config.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server_config.capabilities or {})
-      vim.lsp.config(server_name, server_config)
-    end
-
     mason_lspconfig.setup({
       ensure_installed = {}, -- explicitly set to an empty table (populated installs via mason-tool-installer)
       automatic_enable = {
