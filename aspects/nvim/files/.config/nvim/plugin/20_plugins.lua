@@ -335,12 +335,10 @@ later(function()
   })
 end)
 
--- Install LSP/formatting/linter executables ===
-later(function() add('mason-org/mason.nvim') end)
-
 -- Language server configurations ===
 later(function()
   add('neovim/nvim-lspconfig')
+  add('mason-org/mason.nvim')
   add('mason-org/mason-lspconfig.nvim')
   add('WhoIsSethDaniel/mason-tool-installer.nvim')
   namjul.lsp.init()
@@ -562,7 +560,7 @@ later(function()
 end)
 
 later(function()
-  add({ source = 'saghen/blink.cmp', checkout = 'v1.6.0' })
+  add({ source = 'saghen/blink.cmp' })
   require('blink.cmp').setup({
     snippets = { preset = 'luasnip' },
     keymap = {
