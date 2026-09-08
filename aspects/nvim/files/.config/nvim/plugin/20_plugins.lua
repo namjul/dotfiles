@@ -41,6 +41,7 @@ now_if_args(function()
     'fish',
     'markdown',
     'markdown_inline',
+    'vue',
     'bash',
     'rust',
     'php',
