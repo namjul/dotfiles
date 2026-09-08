@@ -56,6 +56,7 @@ lsp.init = function()
     'denols',
     'lua_ls',
     'vtsls',
+    'pyright',
   })
 
   vim.diagnostic.config({
