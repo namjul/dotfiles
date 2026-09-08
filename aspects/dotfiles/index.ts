@@ -354,7 +354,7 @@ if (import.meta.main) {
       }
 
       const rules = variable.paths("rules");
-      for (const src of prompts) {
+      for (const src of rules) {
         for (const dest of destinations) {
           const r = await file({
             force: true,
