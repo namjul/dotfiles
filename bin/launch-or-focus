@@ -12,7 +12,23 @@ APP_PATTERN="$1"
 shift
 LAUNCH_COMMAND="$*"
 
-if [[ -n ${WAYLAND_DISPLAY-} ]] && command -v swaymsg >/dev/null; then
+if [[ -n ${NIRI_SOCKET-} && -S ${NIRI_SOCKET} ]] && command -v niri >/dev/null; then
+  WINDOW_ID=$(niri msg --json windows 2>/dev/null | jq -r --arg pattern "$APP_PATTERN" '
+    .[]?
+    | select(
+        ((.app_id // "") | test($pattern; "i"))
+        or ((.title // "") | test($pattern; "i"))
+      )
+    | .id
+  ' | head -n1)
+
+  if [[ -n "$WINDOW_ID" ]]; then
+    niri msg action focus-window --id="$WINDOW_ID"
+  else
+    setsid $LAUNCH_COMMAND >/dev/null 2>&1 &
+  fi
+  exit 0
+elif [[ -n ${WAYLAND_DISPLAY-} ]] && command -v swaymsg >/dev/null; then
   # tmux update-environment refreshes SWAYSOCK on attach; this pane may predate that
   if [[ -z ${SWAYSOCK-} || ! -S ${SWAYSOCK} ]]; then
     sock=$(find /run/user/"${UID}" -maxdepth 1 -name 'sway-ipc.*.sock' -print -quit)

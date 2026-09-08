@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+choice=$(
+  printf '%s\n' \
+    'Lock' \
+    'Logout' \
+    'Suspend' \
+    'Reboot' \
+    'Shutdown' |
+    wofi --dmenu --prompt System
+)
+
+case "$choice" in
+  Lock)
+    exec swaylock -f
+    ;;
+  Logout)
+    if [[ -n ${NIRI_SOCKET-} && -S ${NIRI_SOCKET} ]] && command -v niri >/dev/null; then
+      exec niri msg action quit
+    elif [[ -n ${SWAYSOCK-} && -S ${SWAYSOCK} ]] && command -v swaymsg >/dev/null; then
+      exec swaymsg exit
+    else
+      exec loginctl terminate-user "$USER"
+    fi
+    ;;
+  Suspend)
+    swaylock -f &
+    sleep 0.5
+    exec systemctl suspend
+    ;;
+  Reboot)
+    exec systemctl reboot
+    ;;
+  Shutdown)
+    exec systemctl poweroff -i
+    ;;
+  *)
+    exit 0
+    ;;
+esac

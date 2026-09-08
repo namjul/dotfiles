@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+choice=$(
+  printf '%s\n' \
+    'mobile' \
+    'dockedhome' \
+    'dockedhomeup' \
+    'dockedoffice' |
+    wofi --dmenu --prompt 'Display profile'
+)
+
+case "$choice" in
+  mobile|dockedhome|dockedhomeup|dockedoffice)
+    exec kanshictl switch "$choice"
+    ;;
+  *)
+    exit 0
+    ;;
+esac
