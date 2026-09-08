@@ -1,13 +1,14 @@
 #!/usr/bin/env bash
-# mise description="SDDM for Sway login — PAM patch + enable (omarchy install/login/sddm.sh)"
+# mise description="SDDM login — PAM patch, niri autologin + sway recovery session (omarchy install/login/sddm.sh)"
 
 # https://github.com/guettli/bash-strict-mode
 trap 'echo "Warning: A command has failed. Exiting the script. Line was ($0:$LINENO): $(sed -n "${LINENO}p" "$0")"; exit 3' ERR
 set -Eeuo pipefail
 
 SWAY_SESSION="/usr/share/wayland-sessions/sway.desktop"
-# /usr/local wins SDDM SessionDir so we keep Session=sway without editing pacman's desktop file.
-LOCAL_SESSION="/usr/local/share/wayland-sessions/sway.desktop"
+# /usr/local wins SDDM SessionDir so we keep Session=niri/sway without editing pacman's desktop files.
+LOCAL_SWAY_SESSION="/usr/local/share/wayland-sessions/sway.desktop"
+LOCAL_NIRI_SESSION="/usr/local/share/wayland-sessions/niri.desktop"
 
 if ! pacman -Q sddm &>/dev/null; then
   echo "Install sddm first: mise r //aspects/aur:packages" >&2
@@ -21,6 +22,11 @@ fi
 
 if [[ ! -f "${SWAY_SESSION}" ]]; then
   echo "Missing ${SWAY_SESSION} — install sway via //aspects/aur:packages" >&2
+  exit 1
+fi
+
+if ! pacman -Q niri &>/dev/null; then
+  echo "Install niri first: mise r //aspects/aur:packages" >&2
   exit 1
 fi
 
@@ -39,10 +45,18 @@ if [[ -f /etc/pam.d/sddm-autologin ]]; then
   sudo sed -i '/-password.*pam_gnome_keyring\.so/d' /etc/pam.d/sddm-autologin
 fi
 
-# LUKS is the boot gate; after unlock, SDDM starts Sway via UWSM as this user.
-# Exec is a command on PATH (uwsm), not a clone path. uwsm start -- sway is the compositor binary.
+# LUKS is the boot gate; after unlock, SDDM starts niri via UWSM as this user.
+# Exec is a command on PATH (uwsm), not a clone path.
 sudo mkdir -p /etc/sddm.conf.d /usr/local/share/wayland-sessions
-cat <<EOF | sudo tee "${LOCAL_SESSION}" >/dev/null
+cat <<EOF | sudo tee "${LOCAL_NIRI_SESSION}" >/dev/null
+[Desktop Entry]
+Name=Niri
+Comment=A scrollable-tiling Wayland compositor
+Exec=uwsm start -- niri --session
+Type=Application
+DesktopNames=niri
+EOF
+cat <<EOF | sudo tee "${LOCAL_SWAY_SESSION}" >/dev/null
 [Desktop Entry]
 Name=Sway
 Comment=An i3-compatible Wayland compositor
@@ -53,10 +67,10 @@ EOF
 cat <<EOF | sudo tee /etc/sddm.conf.d/autologin.conf >/dev/null
 [Autologin]
 User=${USER}
-Session=sway
+Session=niri
 EOF
 
 sudo systemctl enable sddm.service
 
-echo "SDDM autologin to Sway (UWSM) as ${USER} (starts on next boot). Check SSH_AUTH_SOCK."
-echo "Recovery: Ctrl+Alt+F2 → sudo systemctl disable --now sddm (see aspects/aur/PLAN.md)"
+echo "SDDM autologin to niri (UWSM) as ${USER} (starts on next boot). Sway remains in session menu."
+echo "Recovery: Ctrl+Alt+F2 → sudo systemctl disable --now sddm, or pick Sway in SDDM (see aspects/aur/PLAN.md)"
