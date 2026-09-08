@@ -13,4 +13,5 @@ else
 fi
 
 # i3status-rs SIGUSR1 re-runs custom blocks so the icon drops without a 6h wait
+command -v waybarctl >/dev/null && waybarctl reload || true
 pkill -USR1 -x i3status-rs 2>/dev/null || true

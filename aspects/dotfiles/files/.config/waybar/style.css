@@ -1,0 +1,38 @@
+* {
+  border: none;
+  border-radius: 0;
+  min-height: 0;
+  font-family: "JetBrainsMono Nerd Font", "JetBrains Mono", monospace;
+  font-size: 15px;
+}
+
+window#waybar {
+  background-color: #282828;
+  color: #bdae93;
+}
+
+#battery,
+#bluetooth,
+#pulseaudio,
+#network,
+#custom-vpn,
+#custom-btop,
+#custom-upgrades,
+#clock {
+  padding: 0 6px;
+  margin: 2px 0;
+  background: transparent;
+  color: #bdae93;
+}
+
+#battery.warning {
+  color: #fabd2f;
+}
+
+#battery.critical {
+  color: #fb4934;
+}
+
+#custom-vpn.connected {
+  color: #b8bb26;
+}

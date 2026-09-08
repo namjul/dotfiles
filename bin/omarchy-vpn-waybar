@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# omarchy-vpn --waybar runs `sudo wg` / `sudo ls /etc/wireguard`. Waybar polls have no TTY,
+# so password sudo records pam_faillock. Only call it when NOPASSWD already works.
+if ! command -v omarchy-vpn >/dev/null || ! sudo -n /usr/bin/wg show interfaces >/dev/null 2>&1; then
+  printf '%s\n' '{"text":"󰦞","tooltip":"VPN","class":""}'
+  exit 0
+fi
+
+exec omarchy-vpn --waybar

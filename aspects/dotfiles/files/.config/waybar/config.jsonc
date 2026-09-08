@@ -1,0 +1,90 @@
+{
+  "layer": "top",
+  "position": "top",
+  "height": 24,
+  "spacing": 4,
+  "modules-left": [],
+  "modules-center": [],
+  "modules-right": [
+    "battery",
+    "bluetooth",
+    "pulseaudio",
+    "network",
+    "custom/vpn",
+    "custom/btop",
+    "custom/upgrades",
+    "clock"
+  ],
+  "clock": {
+    "interval": 5,
+    "format": " {:%d %H:%M} ",
+    "tooltip-format": "<big>{:%Y %B %d}</big>\n<tt><small>{calendar}</small></tt>"
+  },
+  "battery": {
+    "interval": 5,
+    "format": " {capacity}% {icon}",
+    "format-full": " {icon} ",
+    "format-charging": " {capacity}% {icon} ",
+    "format-icons": {
+      "default": ["󰂎", "󰁺", "󰁼", "󰁾", "󰂂"],
+      "charging": ["󰂄", "󰂄", "󰂄", "󰂄", "󰂂"]
+    },
+    "states": {
+      "warning": 30,
+      "critical": 15
+    }
+  },
+  "bluetooth": {
+    "format": "{icon}",
+    "format-on": "{icon}",
+    "format-off": "{icon}",
+    "format-connected": "{icon}",
+    "format-disabled": "{icon}",
+    "format-icons": {
+      "enabled": "󰂯",
+      "disabled": "󰂯",
+      "on": "󰂯",
+      "off": "󰂯",
+      "connected": "󰂯"
+    },
+    "on-click": "launch-bluetooth"
+  },
+  "pulseaudio": {
+    "format": "{icon}",
+    "format-muted": "󰝟",
+    "format-bluetooth": "{icon}",
+    "format-bluetooth-muted": "󰝟",
+    "format-icons": {
+      "default": ["󰕿", "󰖀", "󰕾"]
+    },
+    "max-length": 2,
+    "on-click": "launch-audio"
+  },
+  "network": {
+    "interval": 10,
+    "format-wifi": " {icon} ",
+    "format-ethernet": " {icon} ",
+    "format-disconnected": " 󰤭 ",
+    "format-icons": {
+      "wifi": ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"],
+      "ethernet": "󰈀"
+    },
+    "on-click": "launch-wifi"
+  },
+  "custom/vpn": {
+    "exec": "omarchy-vpn-waybar",
+    "return-type": "json",
+    "interval": 5,
+    "on-click": "launch-terminal --class=org.namjul.float-win --title=VPN omarchy-vpn"
+  },
+  "custom/btop": {
+    "format": "󰍛",
+    "tooltip": false,
+    "on-click": "launch-btop"
+  },
+  "custom/upgrades": {
+    "exec": "pending-upgrades",
+    "interval": 21600,
+    "on-click": "launch-terminal --class=org.namjul.float-win --title=Upgrade launch-upgrade"
+  }
+}
