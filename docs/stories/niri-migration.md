@@ -1,6 +1,8 @@
 # Specification map: niri migration
 
-story: Switch Arch default desktop from sway to niri via UWSM; slice 1 boots niri with Waybar + existing modules (no DMS); slice 2 adopts DMS; sway stays an SDDM recovery session
+story: Switch Arch default desktop from sway to niri via UWSM; slice 1 boots niri with Waybar + existing modules (no DMS); slice 2 adopts DMS; sway soft-deprecated (2026-09)
+
+> **2026-09 update:** Sway removed from packages, SDDM, and dotfiles symlinks. Config kept under `aspects/dotfiles/files/.config/sway/` for reference only. Recovery: TTY `uwsm start -- niri --session`.
 
 rules:
   - rule: Story artifact lives under docs/stories
@@ -24,12 +26,11 @@ rules:
         - Prove exact UWSM compositor instance id at implement time (`wayland-wm@niri.service` vs `@niri.desktop`); adjust add-wants target if needed.
       - Niri-native path would use `add-wants niri.service mako waybar` — not our path while UWSM wraps the compositor.
 
-  - rule: SDDM autologs into niri; sway remains a selectable SDDM session for recovery
+  - rule: SDDM autologs into niri (sway recovery session removed 2026-09)
     examples:
       - `/etc/sddm.conf.d/autologin.conf` sets `Session=niri` (not `sway`).
       - Local `/usr/local/share/wayland-sessions/niri.desktop` uses `Exec=uwsm start -- niri --session`, `DesktopNames=niri`.
-      - Local `/usr/local/share/wayland-sessions/sway.desktop` keeps `Exec=uwsm start -- sway` unchanged so SDDM session menu still offers sway without disabling SDDM.
-      - `aspects/dotfiles/files/.config/sway/` stays symlinked on Arch (`skipOnDebian`); picking sway in SDDM still runs the full sway config with swayosd, kanshi, i3status-rust bar, etc.
+      - ~~Sway SDDM session~~ — removed; `aspects/dotfiles/files/.config/sway/` kept in repo unlinked for reference.
 
   - rule: Slice 1 — niri daily driver without DMS; Waybar replaces the sway bar
     examples:
@@ -41,33 +42,30 @@ rules:
       - Dock/output profiles: kanshi via systemd on niri (`kanshi.service` on `wayland-wm@niri.service`); `$mod+x` profile picker in sway, `$mod+x` → `kanshi-menu` (wofi) on niri. Shared config: `~/.config/kanshi/config`.
       - Idle/lock on niri slice 1: **swayidle systemd unit** with `niri msg action power-off-monitors` for DPMS (niri wiki Example-systemd-Setup; swayidle is fine when not using swaymsg). Match sway timeouts: lock at 600s, DPMS off at 900s, before-sleep lock.
 
-  - rule: After upgrade, refresh whichever status bar is running (Waybar or i3status-rs)
+  - rule: After upgrade, refresh Waybar (i3status-rs removed with sway)
     examples:
-      - `bin/launch-upgrade` today sends SIGUSR1 to `i3status-rs` so the pending-upgrades block re-polls and clears without waiting for the 6h interval.
-      - Slice 1 adds **best-effort dual refresh** at end of `launch-upgrade`: `waybarctl reload` when `waybarctl` exists (niri/Waybar), **and** keep `pkill -USR1 -x i3status-rs` (sway/i3). Both may run; the inactive bar's command no-ops (`|| true` / not running).
-      - Do not detect compositor session — dual-stack means either bar may be active; running both refresh paths is simpler and safe.
+      - `bin/launch-upgrade` runs `waybarctl reload` when waybarctl exists.
 
   - rule: Slice 2 — adopt DMS; retire duplicate chrome on niri session
     examples:
       - Add `dms-shell-niri`, `matugen`, `cava`; run `dms setup`; `add-wants graphical-session.target dms`.
       - Remove Waybar unit, wofi launcher bind, and swayosd from niri session once DMS covers bar, spotlight, and control center.
-      - Sway SDDM session unchanged (still i3status-rust + wofi + swayosd).
 
 questions:
   - Where is the story artifact? → `docs/stories/niri-migration.md` (this file)
   - Session entry? → UWSM + `niri --session`, units on `graphical-session.target`
-  - Sway fallback in SDDM? → niri autologin + sway session kept
+  - Sway fallback in SDDM? → **removed** (2026-09 soft deprecation); recovery via TTY niri
   - DMS in slice 1? → **no** — slice 2
   - Bar on niri slice 1? → **Waybar**
   - Launcher/OSD on niri slice 1? → **wofi + swayosd** (DMS replaces in slice 2)
   - Dock/output profiles (kanshi)? → **kanshi systemd unit on niri** + `kanshi-menu` on `$mod+x`; sway keeps `exec kanshi` + modal binds
   - Idle/lock on niri? → **swayidle + niri msg** (systemd `niri-idle.service`; not swaymsg)
   - Session units: shared vs niri-only? → **mako/polkit/udiskie/swayosd on `graphical-session.target`** (drop sway `exec` dupes); **waybar on `wayland-wm@niri.service`** (niri-only); use **shipped** mako/waybar units per niri docs
-  - `launch-upgrade` refresh after upgrade? → **dual:** `waybarctl reload` + SIGUSR1 → `i3status-rs` (best-effort both)
+  - `launch-upgrade` refresh after upgrade? → `waybarctl reload`
 
 acceptance criteria:
   - After `mise run //aspects/aur:login`, reboot → SDDM autologs niri (`Session=niri`, `Exec=uwsm start -- niri --session`)
-  - SDDM session menu still offers sway (`Exec=uwsm start -- sway`); selecting it runs sway with i3status-rust bar unchanged
+  - ~~SDDM sway session~~ — removed 2026-09
   - In niri session: `pgrep -a niri`, `systemctl --user is-active waybar mako udiskie polkit-gnome-agent` (exact unit names TBD at implement)
   - Waybar shows clock + battery; VPN block uses `omarchy-vpn --waybar`; pending-upgrades icon when applicable
   - `$mod+space` opens wofi; Fn volume keys trigger swayosd; Print / `$mod+Shift+s` run `capture-screenshot`
@@ -84,13 +82,13 @@ candidate terms:
   - session file — systemd user unit; custom ones for polkit/udiskie/swayosd; mako/waybar use pacman-shipped units
   - niri-only wiring — `add-wants wayland-wm@niri.service` for services that must not run in sway session (waybar)
   - uwsm session — UWSM wraps compositor, sources `uwsm/env`, activates `graphical-session.target`
-  - sway fallback — sway SDDM session + config unchanged; packages kept
+  - sway fallback — **deprecated 2026-09**; config in repo for reference only
 
 ## Story split
 
 ### Parent
 
-After slice 1, Arch autologs into a usable niri desktop (Waybar, wofi, swayosd, session units, portals) with sway still one click away in SDDM. After slice 2, DMS replaces that chrome stack on niri.
+After slice 1, Arch autologs into a usable niri desktop (Waybar, wofi, swayosd, session units, portals). Sway soft-deprecated 2026-09. After slice 2, DMS replaces that chrome stack on niri.
 
 ### Slice 1 (current scope)
 

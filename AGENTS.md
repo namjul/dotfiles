@@ -21,7 +21,6 @@ Do not assume this working tree lives at `~/.dotfiles` (or any other fixed home 
 - `espanso` — Optional Wayland compile, setcap, user unit (not on install.sh)
 - `fonts` — Install JetBrains Mono font files
 - `homebrew` — Update Homebrew packages
-- `i3status-rust` — i3status-rust bar configuration
 - `interception` — Interception Tools key remapping
 - `meta` — @fig/ framework global operations and verification
 - `nala` — Install and update packages via nala (Ubuntu)

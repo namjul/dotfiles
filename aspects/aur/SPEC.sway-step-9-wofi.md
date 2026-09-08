@@ -1,5 +1,7 @@
 # Step 9 — wofi (app launcher)
 
+> **DEPRECATED context:** Written for sway; wofi remains the niri launcher.
+
 **Parent plan:** [PLAN.md](PLAN.md) (wofi is done; this spec is historical)  
 **Status:** done — `78ef905f` (VM verified)
 

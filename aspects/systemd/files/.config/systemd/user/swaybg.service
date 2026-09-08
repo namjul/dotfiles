@@ -5,7 +5,7 @@ After=wayland-wm@niri.service
 Requisite=wayland-wm@niri.service
 
 [Service]
-ExecStart=/usr/bin/swaybg -m fill -i %h/.config/sway/Albert_Bierstadt,_Among_the_Sierra_Nevada_Mountains.jpg
+ExecStart=/usr/bin/swaybg -m fill -i %h/.config/niri/Albert_Bierstadt,_Among_the_Sierra_Nevada_Mountains.jpg
 Restart=on-failure
 
 [Install]

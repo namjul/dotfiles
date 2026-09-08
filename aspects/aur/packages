@@ -65,10 +65,10 @@ packages=(
   bluez bluez-utils # bluetooth
   gnome-keyring libsecret # D-Bus Secret Service
   sddm # login manager — config in aspects/aur/login
-  uwsm # Wayland session manager — sources ~/.config/uwsm/env, then starts niri (or sway fallback)
+  uwsm # Wayland session manager — sources ~/.config/uwsm/env, then starts niri
   niri xwayland-satellite waybar # niri compositor stack (slice 1)
   # dms-shell-niri matugen cava # slice 2 — DMS adoption
-  sway swaybg mako libnotify i3status-rust alacritty foot # sway fallback
+  swaybg mako libnotify alacritty foot # niri session utilities
   xdg-desktop-portal-gnome xdg-desktop-portal-wlr xdg-desktop-portal-gtk qt5-wayland qt6-wayland qt6-multimedia-ffmpeg # Wayland integration
   lxsession # polkit auth agent for i3/X11 fallback (lxpolkit)
   polkit-gnome # polkit auth agent for sway/Wayland (PLAN.sway step 8)
@@ -76,10 +76,9 @@ packages=(
   darkman # theme toggle for wofi/rofi/alacritty/foot (PLAN.sway step 10)
   gammastep # night color — user unit in aspects/systemd
   grim slurp satty wl-clipboard # screenshots
-  pamixer swayosd # volume OSD for sway (PLAN.sway step 14)
-  swayidle swaylock # idle lock for sway (PLAN.sway step 15)
+  pamixer swayosd # volume OSD (PLAN.sway step 14)
+  swayidle swaylock # idle lock (PLAN.sway step 15)
   kanshi # output profiles on dock/undock (PLAN.md slice 4)
-  wlr-randr # xrandr clone for live output layout on sway
   udiskie nautilus gvfs gvfs-mtp exfatprogs ntfs-3g # removable media automount (PLAN.md slice 1)
   imv # https://sr.ht/~exec64/imv/
   iwd # https://wiki.archlinux.org/title/Iwd

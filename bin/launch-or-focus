@@ -28,13 +28,6 @@ if [[ -n ${NIRI_SOCKET-} && -S ${NIRI_SOCKET} ]] && command -v niri >/dev/null; 
     setsid $LAUNCH_COMMAND >/dev/null 2>&1 &
   fi
   exit 0
-elif [[ -n ${WAYLAND_DISPLAY-} ]] && command -v swaymsg >/dev/null; then
-  # tmux update-environment refreshes SWAYSOCK on attach; this pane may predate that
-  if [[ -z ${SWAYSOCK-} || ! -S ${SWAYSOCK} ]]; then
-    sock=$(find /run/user/"${UID}" -maxdepth 1 -name 'sway-ipc.*.sock' -print -quit)
-    [[ -n ${sock} ]] && export SWAYSOCK="${sock}"
-  fi
-  MSG=swaymsg
 else
   export DISPLAY="${DISPLAY:-:0}"
   export XAUTHORITY="${XAUTHORITY:-$HOME/.Xauthority}"

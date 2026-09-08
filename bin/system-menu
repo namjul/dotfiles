@@ -18,8 +18,6 @@ case "$choice" in
   Logout)
     if [[ -n ${NIRI_SOCKET-} && -S ${NIRI_SOCKET} ]] && command -v niri >/dev/null; then
       exec niri msg action quit
-    elif [[ -n ${SWAYSOCK-} && -S ${SWAYSOCK} ]] && command -v swaymsg >/dev/null; then
-      exec swaymsg exit
     else
       exec loginctl terminate-user "$USER"
     fi

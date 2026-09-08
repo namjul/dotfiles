@@ -1,5 +1,7 @@
 # Plan: Niri migration — slice 1
 
+> **Post-s1 (2026-09):** Sway soft-deprecated — removed from packages, SDDM, and dotfiles symlinks. See `docs/stories/niri-migration.md`.
+
 **Branch**: feat/niri-migration-s1
 **Status**: Active
 

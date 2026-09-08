@@ -2,11 +2,11 @@
 
 **Tier:** comprehensive — the aspect is the Arch session contract (packages, login, remaining desktop gaps). Multi-file, VM-tested, overlaps `dotfiles` and `systemd`.
 
-Hyprland was tried and dropped (2026-07-05). Sway is the compositor. The old step tables lived in `PLAN.hyprland.md` / `PLAN.sway.md`; this file replaces both.
+Hyprland was tried and dropped (2026-07-05). Sway was the compositor through 2026-09; **niri** is now the Arch Wayland compositor (sway soft-deprecated). The old step tables lived in `PLAN.hyprland.md` / `PLAN.sway.md`; this file replaces both.
 
 ## Goal
 
-After official Arch ISO + `bin/arch-install/arch-install.sh` + `./install.sh`, `mise run //aspects/aur:default` leaves a usable Sway desktop: SDDM login, keyring, portals, launcher, screenshots, clipboard, volume OSD, idle lock, and removable-media automount.
+After official Arch ISO + `bin/arch-install/arch-install.sh` + `./install.sh`, `mise run //aspects/aur:default` leaves a usable **niri** desktop: SDDM autologin, keyring, portals, launcher, screenshots, clipboard, volume OSD, idle lock, and removable-media automount.
 
 Ubuntu stays X11 + `i3-wm` via `aspects/nala`. Do not remove the i3 fallback on Arch.
 
@@ -14,7 +14,7 @@ Ubuntu stays X11 + `i3-wm` via `aspects/nala`. Do not remove the i3 fallback on 
 
 `aur` is already that aspect. `install.sh` runs `//aspects/aur:default`. Do not add `aspects/desktop` or rename `aur`.
 
-Session config lives in `aspects/dotfiles/files/.config/sway/config` (Arch-only; `skipOnDebian`). i3 config is Ubuntu-only (`skipOnArch`). Packages and login scripts stay in `aspects/aur`.
+Session config lives in `aspects/dotfiles/files/.config/niri/config.kdl` (Arch-only; `skipOnDebian`). Deprecated sway config remains in `aspects/dotfiles/files/.config/sway/` (unlinked). i3 config is Ubuntu-only (`skipOnArch`). Packages and login scripts stay in `aspects/aur`.
 
 Install path is official Arch ISO + archinstall, then this repo. Not Omarchy quattro / `omarchy-iso`. See `docs/plans/arch-install.md`.
 
@@ -28,11 +28,11 @@ Done in `aspects/aur/packages` and `aspects/aur/login/`, VM-tested unless noted:
 |---|---|
 | Fonts, man | `noto-fonts`, `noto-fonts-emoji`, `man-db` |
 | Keyring | `gnome-keyring`, `libsecret`; `login/default-keyring.sh` (passwordless Default_keyring; socket activation; PAM session line keeps `SSH_AUTH_SOCK`) |
-| Login | `sddm`; `login/sddm.sh` (drop PAM `-auth`/`-password` gnome-keyring; `/etc/sddm.conf.d/autologin.conf` → `Session=sway`; local desktop `Exec=uwsm start -- sway`) |
-| Session | `uwsm` — `~/.config/uwsm/env` prepends mise shims; Sway is the compositor, not Hyprland |
-| Compositor | `sway`, `swaybg`, `mako`, `libnotify`, `i3status-rust`, `alacritty` — Hyprland / portal-hyprland stay gone |
+| Login | `sddm`; `login/sddm.sh` (drop PAM `-auth`/`-password` gnome-keyring; `/etc/sddm.conf.d/autologin.conf` → `Session=niri`; local desktop `Exec=uwsm start -- niri --session`) |
+| Session | `uwsm` — `~/.config/uwsm/env` prepends mise shims; niri is the compositor |
+| Compositor | `niri`, `xwayland-satellite`, `waybar`, `swaybg`, `mako`, `libnotify`, `alacritty` — sway/i3status-rust removed 2026-09 |
 | Portals / Qt | `xdg-desktop-portal-wlr`, `xdg-desktop-portal-gtk`, `qt5-wayland`, `qt6-wayland` |
-| Polkit | `polkit-gnome` + `exec` in sway config; `lxsession` kept for i3 fallback |
+| Polkit | `polkit-gnome` + systemd user unit; `lxsession` kept for i3 fallback |
 | Launcher | `wofi` + `$mod+space`; spec: `SPEC.sway-step-9-wofi.md` (`78ef905f`) |
 | Screenshots / clipboard | `grim`, `slurp`, `satty`, `wl-clipboard`; `bin/capture-screenshot` (`942d10b5`) |
 | Volume OSD | `pamixer`, `swayosd` (`f747f33f`) |
@@ -40,9 +40,9 @@ Done in `aspects/aur/packages` and `aspects/aur/login/`, VM-tested unless noted:
 | Low battery toast | `libnotify` + `mako` here; user timer in `aspects/systemd` (`battery-monitor.timer` → `bin/battery-low-warn`, Omarchy 10% / once-until-recovered) |
 | Dual-stack | `i3-wm` + X11 tools stay installed on Arch as fallback |
 
-`mise.toml` default: `packages` + `login` + `firewall`. Firmware is a separate task (`fwupd` in `packages`; `aspects/aur/firmware` installs the package if missing, stages `fwupdx64.efi` on UEFI, `refresh --force`, then `fwupdmgr update`). Package upgrades are a separate task (`//aspects/aur:upgrade` → `pacman -Syu --noconfirm`; Ubuntu is `//aspects/nala:upgrade` → `nala update` + `nala upgrade -y`). The shared i3status-rust icon runs `pending-upgrades` and clicks `launch-upgrade`.
+`mise.toml` default: `packages` + `login` + `firewall`. Firmware is a separate task (`fwupd` in `packages`; `aspects/aur/firmware` installs the package if missing, stages `fwupdx64.efi` on UEFI, `refresh --force`, then `fwupdmgr update`). Package upgrades are a separate task (`//aspects/aur:upgrade` → `pacman -Syu --noconfirm`; Ubuntu is `//aspects/nala:upgrade` → `nala update` + `nala upgrade -y`). Waybar pending-upgrades icon runs `pending-upgrades` and clicks `launch-upgrade`.
 
-Sway recovery if SDDM loops: `Ctrl+Alt+F2` → `sudo systemctl disable --now sddm` → start sway from TTY (`WLR_RENDERER=pixman sway` in VM).
+Niri recovery if SDDM loops: `Ctrl+Alt+F2` → `sudo systemctl disable --now sddm` → `uwsm start -- niri --session`.
 
 ## Non-Negotiables
 
@@ -50,10 +50,10 @@ Sway recovery if SDDM loops: `Ctrl+Alt+F2` → `sudo systemctl disable --now sdd
 - Keep `i3-wm` on Arch.
 - One step committed and VM-tested before the next.
 - Password-store clone/decrypt stays manual (`docs/plans/encryption.md`). No mise task for that.
-- Do not reintroduce Hyprland or the omarchy-iso package-list contract. UWSM is allowed as the Sway session wrapper (PATH / units / XDG autostart), not as a Hyprland dependency.
+- Do not reintroduce Hyprland or the omarchy-iso package-list contract. UWSM wraps niri (PATH / units / XDG autostart), not Hyprland.
 - Power-profile *enablement* belongs in `aspects/systemd` (`aspects/systemd/PLAN.md`). `aur` only adds the package.
 
-Out of first pass: docker, CUPS, waybar, gromit-mpx, paru/AUR-only packages, NetworkManager (`nm-applet` in sway config is an i3 leftover; Arch uses `iwd`).
+Out of first pass: docker, CUPS, gromit-mpx, paru/AUR-only packages, NetworkManager.
 
 ## Technical Approach
 
@@ -63,7 +63,8 @@ Out of first pass: docker, CUPS, waybar, gromit-mpx, paru/AUR-only packages, Net
 |---|---|
 | pacman, mirrors, desktop packages | `aspects/aur/packages` |
 | keyring + SDDM PAM/enable | `aspects/aur/login/` |
-| sway binds, `exec` lines | `aspects/dotfiles/files/.config/sway/config` |
+| sway binds (deprecated) | `aspects/dotfiles/files/.config/sway/config` (reference only) |
+| niri config | `aspects/dotfiles/files/.config/niri/config.kdl` |
 | user systemd units | `aspects/systemd` |
 | $HOME links | `aspects/dotfiles` |
 

@@ -65,7 +65,6 @@ variables(({ identity }) => ({
     ".config/environment.d",
     ".config/gtk-4.0",
     ".config/i3",
-    ".config/sway",
     ".config/niri",
     ".config/waybar",
     ".config/uwsm",
@@ -83,7 +82,6 @@ variables(({ identity }) => ({
     ".config/opencode/tui.json",
     ".config/yazi",
     ".config/wezterm",
-    ".config/i3status-rust",
     ".config/fnox",
     ".config/lf",
     ".config/flameshot",
@@ -243,7 +241,6 @@ if (import.meta.main) {
       ]);
       const skipOnDebian = new Set([
         ".config/mako",
-        ".config/sway",
         ".config/niri",
         ".config/waybar",
         ".config/uwsm",

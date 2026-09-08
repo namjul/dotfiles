@@ -1,3 +1,5 @@
+# DEPRECATED: sway compositor removed from active stack (2026-09). Kept for reference only.
+# Wallpaper moved to ~/.config/niri/Albert_Bierstadt,_Among_the_Sierra_Nevada_Mountains.jpg (swaybg.service).
 # Sway port of aspects/dotfiles/files/.config/i3/config (line-aligned for Neovim diff)
 # It will not be overwritten, so edit it as you like.
 #

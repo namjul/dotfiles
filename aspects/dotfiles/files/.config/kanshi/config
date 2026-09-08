@@ -1,4 +1,4 @@
-# Output ids from `mise run //aspects/dotfiles:outputs` (make model serial).
+# Output ids from `mise run //aspects/dotfiles:display-outputs` (make model serial).
 # Among matching profiles, kanshi prefers the one that names more outputs, so `mobile` is the undock fallback.
 # Super+x then 1/2/o runs kanshictl switch.
 

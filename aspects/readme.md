@@ -9,7 +9,6 @@ aspects/
 ├── dotfiles/      home directory symlinks and templates
 ├── fonts/         Font setup
 ├── homebrew/      Homebrew package management
-├── i3status-rust/ i3 status bar
 ├── interception/  keyboard remapping (caps → esc/ctrl)
 ├── meta/          fig framework verification
 ├── nala/          Ubuntu — apt package installation

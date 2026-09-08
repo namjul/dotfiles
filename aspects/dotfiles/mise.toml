@@ -58,5 +58,5 @@ depends = [":files", ":templates", ":agents"]
 [tasks."display-outputs"]
 description = "Print kanshi output ids (make model serial) from connected displays"
 run = '''
-wlr-randr --json | jq -r '.[] | "\"\(.make) \(.model) \(.serial // "Unknown")\""'
+niri msg --json outputs | jq -r 'to_entries[].value | "\"\(.make) \(.model) \(.serial // "Unknown")\""'
 '''
