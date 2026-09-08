@@ -85,17 +85,11 @@ exec swayidle -w \
 # and nm-applet is a desktop environment-independent system tray GUI for it.
 exec nm-applet
 
-exec mako
-
 exec kanshi
-
-exec swayosd-server
 
 exec sh -c 'sleep 3 && toggle-mic-mute off'
 
-# Start authentication agents (see https://wiki.archlinux.org/title/Polkit#Authentication_agents)
-exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1  # sway: polkit-gnome (was lxpolkit)
-exec udiskie --automount --no-notify --no-tray
+# mako, polkit-gnome, udiskie, swayosd: systemd user units (aspects/systemd:session)
 
 # Set keyboard rate
 # exec_always xset r rate 200 30  # sway: input type:keyboard at end of file

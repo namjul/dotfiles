@@ -1,0 +1,12 @@
+[Unit]
+Description=Wallpaper for niri
+PartOf=wayland-wm@niri.service
+After=wayland-wm@niri.service
+Requisite=wayland-wm@niri.service
+
+[Service]
+ExecStart=/usr/bin/swaybg -m fill -i %h/.config/sway/Albert_Bierstadt,_Among_the_Sierra_Nevada_Mountains.jpg
+Restart=on-failure
+
+[Install]
+WantedBy=wayland-wm@niri.service

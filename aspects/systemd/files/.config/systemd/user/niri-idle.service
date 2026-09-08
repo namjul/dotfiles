@@ -1,0 +1,12 @@
+[Unit]
+Description=Idle lock and monitor power-off for niri
+PartOf=wayland-wm@niri.service
+After=wayland-wm@niri.service
+Requisite=wayland-wm@niri.service
+
+[Service]
+ExecStart=swayidle -w timeout 600 swaylock -f timeout 900 niri msg action power-off-monitors resume niri msg action power-on-monitors before-sleep swaylock -f lock swaylock -f
+Restart=on-failure
+
+[Install]
+WantedBy=wayland-wm@niri.service

@@ -1,0 +1,12 @@
+[Unit]
+Description=Removable media automount
+PartOf=graphical-session.target
+After=graphical-session.target
+Requisite=graphical-session.target
+
+[Service]
+ExecStart=udiskie --automount --no-notify --no-tray
+Restart=on-failure
+
+[Install]
+WantedBy=graphical-session.target

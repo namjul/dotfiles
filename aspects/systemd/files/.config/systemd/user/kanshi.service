@@ -1,0 +1,12 @@
+[Unit]
+Description=Dynamic output profiles for niri
+PartOf=wayland-wm@niri.service
+After=wayland-wm@niri.service
+Requisite=wayland-wm@niri.service
+
+[Service]
+ExecStart=/usr/bin/kanshi
+Restart=on-failure
+
+[Install]
+WantedBy=wayland-wm@niri.service

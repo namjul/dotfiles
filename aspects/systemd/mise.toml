@@ -6,6 +6,14 @@ flag "--now" help="Enable and immediately start user services"
 '''
 run = "./index.ts"
 
+[tasks.session]
+description = "Link and wire graphical session units (mako, waybar, polkit, udiskie, swayosd, niri idle)"
+interactive = true
+usage = '''
+flag "--now" help="Enable and immediately start session services"
+'''
+run = "./session.ts"
+
 [tasks.bluetooth]
 description = "Enable bluetooth.service on Arch (radio state is rfkill, not AutoEnable)"
 interactive = true
@@ -27,9 +35,10 @@ interactive = true
 run = "./limits.ts"
 
 [tasks.default]
-description = "User units plus Arch bluetooth, power, docker, and nofile limits"
+description = "User units plus Arch bluetooth, power, docker, nofile limits, and session wiring"
 depends = [":enable-services"]
 run = [
+  { task = "session" },
   { task = "bluetooth" },
   { task = "power" },
   { task = "docker" },
