@@ -269,22 +269,12 @@ if (import.meta.main) {
           continue;
         }
 
-        if (hardlinkFiles.has(src.toString())) {
-          await file({
-            force: true,
-            path: path.home.join(src),
-            src: path.aspect.join("files", src),
-            state: "hardlink",
-          });
-          continue;
-        }
-
         await file({
           force: true,
           ...(isLocalBin ? { mode: "0755" } : {}),
           path: path.home.join(src),
           src: path.aspect.join("files", src),
-          state: "link",
+          state: hardlinkFiles.has(src.toString()) ? "hardlink" : "link",
         });
       }
 
