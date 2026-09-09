@@ -113,6 +113,7 @@ variables(({ identity }) => ({
     ".config/espanso",
     ".config/notmuch",
     ".config/todotxt",
+    ".config/spaced-inbox/config.txt",
     // hardlinks
     ".config/gammastep/config.ini",
     // encrypted
