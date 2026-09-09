@@ -4,7 +4,7 @@
   "defaultModel": "composer-2.5",
   "defaultThinkingLevel": "medium",
   "enableSkillCommands": true,
-  "lastChangelogVersion": "0.84.4",
+  "lastChangelogVersion": "0.85.1",
   "enabledModels": [
     "openrouter/openrouter/free",
     "openrouter/z-ai/glm-5.1",
