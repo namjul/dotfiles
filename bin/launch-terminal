@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-exec setsid uwsm-app -- xdg-terminal-exec "$@"
+exec setsid uwsm-app -- xdg-terminal-exec --dir="$(terminal-cwd)" "$@"
