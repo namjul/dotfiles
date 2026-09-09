@@ -1,6 +1,7 @@
 {
   "theme": "gruvbox-light-soft/gruvbox-dark-soft",
   "defaultProvider": "cursor",
+  "tuiMode": "regular",
   "defaultModel": "composer-2.5",
   "defaultThinkingLevel": "medium",
   "enableSkillCommands": true,
