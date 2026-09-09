@@ -1,8 +1,6 @@
-
-
 configuration {
   modes: [ drun, run ];
   combi-modes: [ drun ];
 }
 
-@theme "gruvbox-dark"
+/* @theme set at runtime by ~/.local/bin/rofi from ~/.local/state/rofi-theme */

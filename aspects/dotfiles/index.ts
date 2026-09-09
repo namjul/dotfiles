@@ -57,6 +57,7 @@ variables(({ identity }) => ({
     ".pi/agent/themes/gruvbox-dark-soft.json",
     ".pi/agent/themes/gruvbox-light-soft.json",
     ".config/mise/config.toml",
+    ".config/bat/config",
     // symlinked directories
     ".xmonad",
     ".config/pitchfork",
@@ -101,6 +102,11 @@ variables(({ identity }) => ({
     ".local/bin/mount-shares.encrypted",
     ".local/bin/keepassxc-wf.encrypted",
     ".local/bin/toggle-mic-mute",
+    ".local/bin/theme-mode",
+    ".local/bin/theme-apply",
+    ".local/bin/wofi",
+    ".local/bin/rofi",
+    ".local/bin/btop",
     ".config/ghostty",
     ".config/imv",
     ".config/vdirsyncer",
@@ -108,10 +114,7 @@ variables(({ identity }) => ({
     ".config/notmuch",
     ".config/todotxt",
     // hardlinks
-    ".config/bat/config",
     ".config/gammastep/config.ini",
-    ".config/rofi/config.rasi",
-    ".config/btop/btop.conf",
     // encrypted
     // ".config/glab-cli/config.yml.encrypted",
   ],
@@ -231,10 +234,7 @@ if (import.meta.main) {
       const files = variable.paths("files");
 
       const hardlinkFiles = new Set([
-        ".config/bat/config",
         ".config/gammastep/config.ini",
-        ".config/rofi/config.rasi",
-        ".config/btop/btop.conf",
       ]);
       const skipOnArch = new Set([
         ".config/dunst",
@@ -250,6 +250,7 @@ if (import.meta.main) {
         ".config/swayosd",
         ".config/swaylock",
       ]);
+
       for (const src of files) {
         const rel = src.toString();
         if (when("arch") && skipOnArch.has(rel)) continue;
@@ -257,7 +258,6 @@ if (import.meta.main) {
 
         const encrypted = rel.endsWith(".encrypted");
         const isLocalBin = src.toString().includes(".local/bin/");
-
         if (encrypted) {
           const r = await file({
             force: true,

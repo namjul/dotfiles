@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+state_dir="${XDG_STATE_HOME:-$HOME/.local/state}"
+mode_file="$state_dir/theme-mode"
+
+if [[ -f "$mode_file" ]]; then
+  cat "$mode_file"
+else
+  echo light
+fi

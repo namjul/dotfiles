@@ -1,0 +1,128 @@
+#!/usr/bin/env bash
+# theme-apply — apply dark|light to all registered apps
+set -euo pipefail
+
+# ─── Configuration ─────────────────────────────────────────
+state_dir="${XDG_STATE_HOME:-$HOME/.local/state}"
+mode_file="$state_dir/theme-mode"
+default_mode=light
+
+# ─── Kernel (shared state) ─────────────────────────────────
+theme_resolve_mode() {
+  local arg="${1:-}"
+  if [[ -n "$arg" ]]; then
+    printf '%s' "$arg"
+    return
+  fi
+  if [[ -f "$mode_file" ]]; then
+    cat "$mode_file"
+    return
+  fi
+  printf '%s' "$default_mode"
+}
+
+theme_validate_mode() {
+  case "$1" in
+    dark | light) return 0 ;;
+    *)
+      echo "theme-apply: expected dark or light, got: $1" >&2
+      return 1
+      ;;
+  esac
+}
+
+theme_write_mode() {
+  mkdir -p "$state_dir"
+  printf '%s\n' "$1" >"$mode_file"
+}
+
+# ─── Adapters (one function per app) ─────────────────────
+# Each: write runtime artifact(s), then reload if possible.
+# Receive $mode as argument; do not read theme-mode here.
+
+apply_tmux() {
+  local mode=$1
+  printf 'source-file ~/.config/tmux/colors/base24-gruvbox-%s.conf\n' "$mode" >"$state_dir/tmux-colors.conf"
+  tmux source-file ~/.config/tmux/tmux.conf 2>/dev/null || true
+}
+
+apply_foot() {
+  local mode=$1
+  printf '[main]\ninitial-color-theme=%s\n' "$mode" >"$state_dir/foot-theme.ini"
+  if [[ "$mode" == dark ]]; then
+    pkill -USR1 foot 2>/dev/null || true
+  else
+    pkill -USR2 foot 2>/dev/null || true
+  fi
+}
+
+apply_bat() {
+  local mode=$1
+  printf 'gruvbox-%s\n' "$mode" >"$state_dir/bat-theme"
+}
+
+apply_wofi() {
+  local mode=$1
+  local sheet=style.css
+  [[ "$mode" == dark ]] && sheet=style-dark.css
+  printf '%s\n' "$sheet" >"$state_dir/wofi-stylesheet"
+}
+
+apply_alacritty() {
+  local mode=$1
+  local theme=gruvbox_light
+  [[ "$mode" == dark ]] && theme=gruvbox_dark
+  ln -sf "$HOME/.config/alacritty/themes/${theme}.toml" "$state_dir/alacritty-theme.toml"
+}
+
+apply_rofi() {
+  local mode=$1
+  local theme=gruvbox-light
+  [[ "$mode" == dark ]] && theme=gruvbox-dark
+  printf '%s\n' "$theme" >"$state_dir/rofi-theme"
+}
+
+apply_btop() {
+  local mode=$1
+  local theme=gruvbox_light
+  [[ "$mode" == dark ]] && theme=gruvbox_dark_2
+  printf '%s\n' "$theme" >"$state_dir/btop-theme"
+}
+
+apply_mise() {
+  local mode=$1
+  local theme=base16
+  [[ "$mode" == dark ]] && theme=charm
+  printf '%s\n' "$theme" >"$state_dir/mise-color-theme"
+}
+
+apply_nvim() {
+  local mode=$1
+  printf 'set background=%s\n' "$mode" >"$state_dir/vimrc_background"
+  nvim-ctrl.sh "set background=$mode" 2>/dev/null || true
+}
+
+# ─── Registry (explicit order) ───────────────────────────
+theme_apply_all() {
+  local mode=$1
+  apply_tmux "$mode"
+  apply_foot "$mode"
+  apply_bat "$mode"
+  apply_wofi "$mode"
+  apply_alacritty "$mode"
+  apply_rofi "$mode"
+  apply_btop "$mode"
+  apply_mise "$mode"
+  apply_nvim "$mode"
+}
+
+# ─── Entry point (orchestration only) ────────────────────
+main() {
+  local mode
+  mode="$(theme_resolve_mode "${1:-}")"
+  theme_validate_mode "$mode"
+  theme_write_mode "$mode"
+  theme_apply_all "$mode"
+}
+
+main "$@"

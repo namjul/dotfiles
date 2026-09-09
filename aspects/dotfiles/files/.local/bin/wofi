@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+state_dir="${XDG_STATE_HOME:-$HOME/.local/state}"
+stylesheet=style.css
+if [[ -f "$state_dir/wofi-stylesheet" ]]; then
+  stylesheet="$(cat "$state_dir/wofi-stylesheet")"
+fi
+
+wofi_bin="$(command -v wofi || true)"
+: "${wofi_bin:=/usr/bin/wofi}"
+
+exec "$wofi_bin" --conf <(
+  cat "$HOME/.config/wofi/config"
+  printf 'stylesheet=%s\n' "$stylesheet"
+) "$@"

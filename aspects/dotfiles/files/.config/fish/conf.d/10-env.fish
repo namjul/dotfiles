@@ -1,3 +1,8 @@
+if test -f "$HOME/.local/state/mise-color-theme"
+  # Read at fish startup; re-run theme-apply then open a new shell to pick up changes.
+  set -gx MISE_COLOR_THEME (command cat "$HOME/.local/state/mise-color-theme")
+end
+
 export DROPBOX_DIR="$HOME/Dropbox"
 export DATA_BACKUP="$DROPBOX_DIR/backup"
 

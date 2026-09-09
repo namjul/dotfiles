@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+state_dir="${XDG_STATE_HOME:-$HOME/.local/state}"
+theme=gruvbox_light
+if [[ -f "$state_dir/btop-theme" ]]; then
+  theme="$(cat "$state_dir/btop-theme")"
+fi
+
+btop_bin="$(command -v btop || true)"
+: "${btop_bin:=/usr/bin/btop}"
+
+exec "$btop_bin" --config <(
+  grep -v '^color_theme' "$HOME/.config/btop/btop.conf"
+  printf 'color_theme = "%s"\n' "$theme"
+) "$@"

@@ -1,1 +1,2 @@
 --theme="gruvbox-light"
+# fish functions/bat.fish overrides from ~/.local/state/bat-theme when present

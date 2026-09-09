@@ -1,4 +1,0 @@
-#!/usr/bin/env bash
-
-sed --in-place --follow-symlinks 's/initial-color-theme=light/initial-color-theme=dark/' ~/.config/foot/foot.ini
-pkill -USR1 foot || true

@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+state_dir="${XDG_STATE_HOME:-$HOME/.local/state}"
+theme=gruvbox-light
+if [[ -f "$state_dir/rofi-theme" ]]; then
+  theme="$(cat "$state_dir/rofi-theme")"
+fi
+
+rofi_bin="$(command -v rofi || true)"
+: "${rofi_bin:=/usr/bin/rofi}"
+
+exec "$rofi_bin" -config <(
+  grep -v '^@theme' "$HOME/.config/rofi/config.rasi"
+  printf '@theme "%s"\n' "$theme"
+) "$@"

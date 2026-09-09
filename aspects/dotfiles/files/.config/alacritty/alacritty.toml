@@ -13,7 +13,7 @@ TERM_PROGRAM = 'alacritty'
 
 [general]
 import = [
-  "~/.config/alacritty/themes/gruvbox_light.toml"
+  "~/.local/state/alacritty-theme.toml"
 ]
 
 [font]

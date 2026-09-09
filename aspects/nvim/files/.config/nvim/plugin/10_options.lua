@@ -79,7 +79,8 @@ vim.opt.signcolumn = 'yes' -- Always show signcolumn or it would frequently shif
 vim.opt.colorcolumn = '+1' -- Draw colored column one step to the right of desired maximum width
 vim.opt.textwidth = 120
 
-if vim.fn.filereadable(vim.fn.expand('~/.vimrc_background')) ~= 0 then vim.cmd('source ~/.vimrc_background') end
+local vimrc_background = vim.fn.expand('~/.local/state/vimrc_background')
+if vim.fn.filereadable(vimrc_background) ~= 0 then vim.cmd('source ' .. vimrc_background) end
 
 -- Colors ===
 
