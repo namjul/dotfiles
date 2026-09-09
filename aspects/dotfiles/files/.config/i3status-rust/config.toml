@@ -102,7 +102,7 @@ json = true
 interval = 5
 [[block.click]]
 button = "left"
-cmd = "launch-terminal --class=org.namjul.float-win --title=VPN omarchy-vpn"
+cmd = "launch-terminal --app-id=org.namjul.float-win --title=VPN omarchy-vpn"
 
 [[block]]
 block = "custom"
@@ -118,7 +118,7 @@ hide_when_empty = true
 interval = 21600
 [[block.click]]
 button = "left"
-cmd = "launch-terminal --class=org.namjul.float-win --title=Upgrade launch-upgrade"
+cmd = "launch-terminal --app-id=org.namjul.float-win --title=Upgrade launch-upgrade"
 
 [[block]]
 block = "time"

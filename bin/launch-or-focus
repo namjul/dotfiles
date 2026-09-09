@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Usage: launch-or-focus APP_PATTERN LAUNCH_COMMAND
-# Example: launch-or-focus Wiremix "launch-terminal --class float-wiremix wiremix"
+# Example: launch-or-focus Wiremix "launch-terminal --app-id=float-wiremix wiremix"
 
 if [ $# -lt 2 ]; then
   echo "Usage: $0 APP_PATTERN LAUNCH_COMMAND"

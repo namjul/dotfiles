@@ -75,7 +75,7 @@
     "exec": "omarchy-vpn-waybar",
     "return-type": "json",
     "interval": 5,
-    "on-click": "launch-terminal --class=org.namjul.float-win --title=VPN omarchy-vpn"
+    "on-click": "launch-terminal --app-id=org.namjul.float-win --title=VPN omarchy-vpn"
   },
   "custom/btop": {
     "format": "󰍛",
@@ -85,6 +85,6 @@
   "custom/upgrades": {
     "exec": "pending-upgrades",
     "interval": 21600,
-    "on-click": "launch-terminal --class=org.namjul.float-win --title=Upgrade launch-upgrade"
+    "on-click": "launch-terminal --app-id=org.namjul.float-win --title=Upgrade launch-upgrade"
   }
 }
