@@ -7,7 +7,7 @@ if [[ -f "$state_dir/wofi-stylesheet" ]]; then
   stylesheet="$(cat "$state_dir/wofi-stylesheet")"
 fi
 
-wofi_bin="$(command -v wofi || true)"
+wofi_bin="$(PATH="/usr/bin:/bin" command -v wofi || true)"
 : "${wofi_bin:=/usr/bin/wofi}"
 
 exec "$wofi_bin" --conf <(

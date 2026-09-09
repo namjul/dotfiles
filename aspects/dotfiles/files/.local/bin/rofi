@@ -7,7 +7,7 @@ if [[ -f "$state_dir/rofi-theme" ]]; then
   theme="$(cat "$state_dir/rofi-theme")"
 fi
 
-rofi_bin="$(command -v rofi || true)"
+rofi_bin="$(PATH="/usr/bin:/bin" command -v rofi || true)"
 : "${rofi_bin:=/usr/bin/rofi}"
 
 exec "$rofi_bin" -config <(

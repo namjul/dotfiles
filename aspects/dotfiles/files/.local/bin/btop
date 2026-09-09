@@ -7,7 +7,7 @@ if [[ -f "$state_dir/btop-theme" ]]; then
   theme="$(cat "$state_dir/btop-theme")"
 fi
 
-btop_bin="$(command -v btop || true)"
+btop_bin="$(PATH="/usr/bin:/bin" command -v btop || true)"
 : "${btop_bin:=/usr/bin/btop}"
 
 exec "$btop_bin" --config <(
