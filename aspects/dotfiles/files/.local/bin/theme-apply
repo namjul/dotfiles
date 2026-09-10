@@ -102,6 +102,31 @@ apply_nvim() {
   nvim-ctrl.sh "set background=$mode" 2>/dev/null || true
 }
 
+apply_omacalc() {
+  local mode=$1
+  local colors_dir="$state_dir/omarchy/current/theme"
+  mkdir -p "$colors_dir"
+  if [[ "$mode" == dark ]]; then
+    cat >"$colors_dir/colors.toml" <<'EOF'
+mode = "dark"
+background = "#282828"
+foreground = "#d4be98"
+accent = "#7daea3"
+selection_background = "#d65d0e"
+selection_foreground = "#ebdbb2"
+EOF
+  else
+    cat >"$colors_dir/colors.toml" <<'EOF'
+mode = "light"
+background = "#fbf1c7"
+foreground = "#3c3836"
+accent = "#458588"
+selection_background = "#af3a03"
+selection_foreground = "#fbf1c7"
+EOF
+  fi
+}
+
 # ─── Registry (explicit order) ───────────────────────────
 theme_apply_all() {
   local mode=$1
@@ -114,6 +139,7 @@ theme_apply_all() {
   apply_btop "$mode"
   apply_mise "$mode"
   apply_nvim "$mode"
+  apply_omacalc "$mode"
 }
 
 # ─── Entry point (orchestration only) ────────────────────

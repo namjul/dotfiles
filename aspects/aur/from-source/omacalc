@@ -1,0 +1,60 @@
+#!/bin/bash
+# mise description="Build omacalc from a pinned tag into ~/.local/bin (not on install.sh)"
+# mise interactive=true
+#USAGE flag "--force" help="Rebuild even if this version is already installed"
+# https://github.com/omacom/omacalc
+# Optional: mise run //aspects/aur:omacalc  or  //aspects/aur:from-source
+# Do not add to aur:default or install.sh.
+
+trap 'echo "Warning: A command has failed. Exiting the script. Line was ($0:$LINENO): ${BASH_COMMAND}"; exit 3' ERR
+set -euo pipefail
+
+if [[ ! -e /etc/arch-release ]]; then
+  echo "omacalc: skip (not Arch)"
+  exit 0
+fi
+
+VERSION="v0.2.2"
+DEST="$HOME/.local/bin/omacalc"
+VERSION_MARKER="${XDG_STATE_HOME:-$HOME/.local/state}/omacalc-version"
+SRC="${XDG_CACHE_HOME:-$HOME/.cache}/omacalc-src"
+
+already_installed() {
+  [[ -x $DEST ]] || return 1
+  [[ -f $VERSION_MARKER ]] || return 1
+  [[ "$(cat "$VERSION_MARKER")" == "$VERSION" ]]
+}
+
+need_compile() {
+  [[ "${usage_force:-}" == "true" ]] || ! already_installed
+}
+
+need_build_deps() {
+  need_compile && ! command -v qmake6 >/dev/null
+}
+
+if need_build_deps; then
+  echo "sudo: cache credentials before installing build dependencies"
+  sudo -v
+  sudo pacman -S --needed --noconfirm base-devel qt6-base qt6-declarative
+fi
+
+if [[ "${usage_force:-}" != "true" ]] && already_installed; then
+  echo "omacalc ${VERSION} already at ${DEST} — skip compile (pass --force to rebuild)"
+  exit 0
+fi
+
+if [[ ! -d "$SRC/.git" ]]; then
+  if [[ -e "$SRC" ]]; then
+    rm -rf "$SRC"
+  fi
+  command git clone --depth 1 --branch "$VERSION" https://github.com/omacom/omacalc.git "$SRC"
+fi
+command git -C "$SRC" fetch --depth 1 origin "refs/tags/${VERSION}:refs/tags/${VERSION}"
+command git -C "$SRC" checkout --detach "$VERSION"
+
+command "$SRC/bin/build"
+install -Dm755 "$SRC/build/omacalc" "$DEST"
+mkdir -p "$(dirname "$VERSION_MARKER")"
+printf '%s\n' "$VERSION" >"$VERSION_MARKER"
+echo "Installed ${DEST} (${VERSION})."

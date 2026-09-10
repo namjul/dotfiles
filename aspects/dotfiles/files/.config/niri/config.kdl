@@ -191,6 +191,7 @@ window-rule {
     open-floating false
 }
 window-rule {
+    match app-id=r#"^omacalc$"#
     match app-id=r#"^org\.gnome\.Calculator$"#
     match app-id=r#"^gnome-calculator$"#
     match app-id=r#"^galculator$"#
@@ -327,6 +328,7 @@ binds {
     XF86AudioMicMute allow-when-locked=true { spawn "toggle-mic-mute"; }
     XF86MonBrightnessUp allow-when-locked=true { spawn "swayosd-client" "--brightness" "raise"; }
     XF86MonBrightnessDown allow-when-locked=true { spawn "swayosd-client" "--brightness" "lower"; }
+    XF86Calculator hotkey-overlay-title="Calculator: omacalc" { spawn "omacalc"; }
 
     Mod+Shift+E { quit; }
     Mod+B { spawn "chromium"; }
@@ -344,6 +346,7 @@ binds {
     Mod+Shift+M hotkey-overlay-title="Spotify" { spawn-sh "gtk-launch spotify"; }
     Mod+Shift+T hotkey-overlay-title="Toggle dark mode" { spawn "darkman" "toggle"; }
     Mod+Z hotkey-overlay-title="Do not disturb" { spawn "do-not-disturb"; }
+    Mod+Ctrl+Q hotkey-overlay-title="Calculator: omacalc" { spawn-sh "omacalc"; }
 
     Mod+Home { focus-column-first; }
     Mod+End { focus-column-last; }
