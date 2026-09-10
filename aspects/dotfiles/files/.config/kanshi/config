@@ -1,6 +1,5 @@
 # Output ids from `mise run //aspects/dotfiles:display-outputs` (make model serial).
 # Among matching profiles, kanshi prefers the one that names more outputs, so `mobile` is the undock fallback.
-# Super+x then 1/2/o runs kanshictl switch.
 
 profile mobile {
 	output "Lenovo Group Limited 0x403A Unknown" {
@@ -25,7 +24,7 @@ profile dockedhome {
 }
 
 profile dockedhomeup {
-	output "Dell Inc. DELL U2719DC 56645R2" {
+	output "PNP(AOC) Q24G2 ZQVPBHA005769" {
 		enable
 		scale 1
 		mode 2560x1440
@@ -33,7 +32,7 @@ profile dockedhomeup {
 	}
 	output "Lenovo Group Limited 0x403A Unknown" {
 		enable
-		scale 2
+		scale 1
 		position 0,1440
 	}
 }
