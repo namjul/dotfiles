@@ -308,19 +308,20 @@ binds {
     Mod+Shift+S { spawn "capture-screenshot"; }
     Mod+Shift+Ctrl+S { spawn "capture-screenshot" "fullscreen"; }
 
-    Mod+Shift+Ctrl+H { move-workspace-to-monitor-left; }
-    Mod+Shift+Ctrl+J { move-workspace-to-monitor-down; }
-    Mod+Shift+Ctrl+K { move-workspace-to-monitor-up; }
-    Mod+Shift+Ctrl+L { move-workspace-to-monitor-right; }
     Mod+Shift+Ctrl+Left { move-workspace-to-monitor-left; }
     Mod+Shift+Ctrl+Down { move-workspace-to-monitor-down; }
     Mod+Shift+Ctrl+Up { move-workspace-to-monitor-up; }
     Mod+Shift+Ctrl+Right { move-workspace-to-monitor-right; }
 
-    Mod+Ctrl+H { focus-monitor-left; }
-    Mod+Ctrl+J { focus-monitor-down; }
-    Mod+Ctrl+K { focus-monitor-up; }
-    Mod+Ctrl+L { focus-monitor-right; }
+    Mod+Alt+Up { move-column-to-monitor-up; }
+    Mod+Alt+Down { move-column-to-monitor-down; }
+    Mod+Alt+Left { move-column-to-monitor-left; }
+    Mod+Alt+Right { move-column-to-monitor-right; }
+
+    Mod+Ctrl+Left { focus-monitor-left; }
+    Mod+Ctrl+Down { focus-monitor-down; }
+    Mod+Ctrl+Up { focus-monitor-up; }
+    Mod+Ctrl+Right { focus-monitor-right; }
 
     XF86AudioRaiseVolume allow-when-locked=true { spawn "swayosd-client" "--output-volume" "raise"; }
     XF86AudioLowerVolume allow-when-locked=true { spawn "swayosd-client" "--output-volume" "lower"; }
