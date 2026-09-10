@@ -44,5 +44,9 @@ profile dockedoffice {
 		mode 1920x1200
 		position 0,0
 	}
-	output "Lenovo Group Limited 0x403A Unknown" disable
+	output "Lenovo Group Limited 0x403A Unknown" {
+		enable
+		scale 1
+		position 0,1440
+	}
 }
