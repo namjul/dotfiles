@@ -242,32 +242,43 @@ window-rule {
 }
 
 binds {
+    // Modifiers: Mod=nav/focus | Mod+Shift=move | Mod+Ctrl=monitor focus
+    //            Mod+Alt=column→monitor | Mod+Shift+Ctrl=workspace→monitor
+
+    // ── Config & help ──────────────────────────────────────────────
     Mod+Shift+R hotkey-overlay-title="Reload niri config" { spawn-sh "niri msg action load-config-file"; }
     Mod+Shift+7 { show-hotkey-overlay; }
+
+    // ── Session ────────────────────────────────────────────────────
     Mod+Return hotkey-overlay-title="Terminal: launch-terminal" { spawn "launch-terminal"; }
     Mod+Q repeat=false { close-window; }
     Mod+O repeat=false { toggle-overview; }
     Mod+Space hotkey-overlay-title="App launcher: wofi" { spawn "wofi" "--show" "drun"; }
 
+    // ── Focus: column ──────────────────────────────────────────────
     Mod+H { focus-column-left; }
     Mod+L { focus-column-right; }
     Mod+Left { focus-column-left; }
     Mod+Right { focus-column-right; }
 
+    // ── Focus: touchpad ────────────────────────────────────────────
     Mod+TouchpadScrollLeft cooldown-ms=100 { focus-column-left; }
     Mod+TouchpadScrollRight cooldown-ms=100 { focus-column-right; }
     Mod+TouchpadScrollUp cooldown-ms=100 { focus-window-up; }
     Mod+TouchpadScrollDown cooldown-ms=100 { focus-window-down; }
 
+    // ── Focus: window (within column) ──────────────────────────────
     Mod+J { focus-window-down; }
     Mod+K { focus-window-up; }
     Mod+Down { focus-window-down; }
     Mod+Up { focus-window-up; }
 
+    // ── Layout & window state ──────────────────────────────────────
     Mod+W { toggle-column-tabbed-display; }
     Mod+Comma { consume-window-into-column; }
     Mod+Period { expel-window-from-column; }
 
+    // ── Move: column (within workspace) ────────────────────────────
     Mod+Shift+H { move-column-left; }
     Mod+Shift+L { move-column-right; }
     Mod+Shift+J { move-window-down; }
@@ -277,11 +288,13 @@ binds {
     Mod+Shift+Up { move-window-up; }
     Mod+Shift+Down { move-window-down; }
 
+    // ── Focus: workspace (by index) ────────────────────────────────
     Mod+1 { focus-workspace 1; }
     Mod+2 { focus-workspace 2; }
     Mod+3 { focus-workspace 3; }
     Mod+4 { focus-workspace 4; }
 
+    // ── Move: column → workspace (by index) ────────────────────────
     Mod+Shift+1 { move-column-to-workspace 1; }
     Mod+Shift+2 { move-column-to-workspace 2; }
     Mod+Shift+3 { move-column-to-workspace 3; }
@@ -292,37 +305,46 @@ binds {
     Mod+Shift+Space { toggle-window-floating; }
     Mod+Shift+V { switch-focus-between-floating-and-tiling; }
 
+    // ── Focus: workspace (by direction) ────────────────────────────
     Mod+U { focus-workspace-down; }
     Mod+I { focus-workspace-up; }
     Mod+Page_Down { focus-workspace-down; }
     Mod+Page_Up { focus-workspace-up; }
 
+    // ── Move: column → workspace (by direction) ────────────────────
     Mod+Shift+U { move-column-to-workspace-down; }
     Mod+Shift+I { move-column-to-workspace-up; }
     Mod+Ctrl+Page_Down { move-column-to-workspace-down; }
     Mod+Ctrl+Page_Up { move-column-to-workspace-up; }
 
+    // ── Lock ───────────────────────────────────────────────────────
+    // Super+Alt+L — not Mod+Alt (Mod=Super on TTY would collide)
     Super+Alt+L allow-inhibiting=false hotkey-overlay-title="Lock: swaylock" { spawn "swaylock" "-f"; }
 
+    // ── Screenshots ──────────────────────────────────────────────
     Print { spawn "capture-screenshot"; }
     Mod+Shift+S { spawn "capture-screenshot"; }
     Mod+Shift+Ctrl+S { spawn "capture-screenshot" "fullscreen"; }
 
+    // ── Move: workspace → monitor ──────────────────────────────────
     Mod+Shift+Ctrl+Left { move-workspace-to-monitor-left; }
     Mod+Shift+Ctrl+Down { move-workspace-to-monitor-down; }
     Mod+Shift+Ctrl+Up { move-workspace-to-monitor-up; }
     Mod+Shift+Ctrl+Right { move-workspace-to-monitor-right; }
 
+    // ── Move: column → monitor ─────────────────────────────────────
     Mod+Alt+Up { move-column-to-monitor-up; }
     Mod+Alt+Down { move-column-to-monitor-down; }
     Mod+Alt+Left { move-column-to-monitor-left; }
     Mod+Alt+Right { move-column-to-monitor-right; }
 
+    // ── Focus: monitor ─────────────────────────────────────────────
     Mod+Ctrl+Left { focus-monitor-left; }
     Mod+Ctrl+Down { focus-monitor-down; }
     Mod+Ctrl+Up { focus-monitor-up; }
     Mod+Ctrl+Right { focus-monitor-right; }
 
+    // ── Hardware: audio, brightness, calculator ────────────────────
     XF86AudioRaiseVolume allow-when-locked=true { spawn "swayosd-client" "--output-volume" "raise"; }
     XF86AudioLowerVolume allow-when-locked=true { spawn "swayosd-client" "--output-volume" "lower"; }
     XF86AudioMute allow-when-locked=true { spawn "swayosd-client" "--output-volume" "mute-toggle"; }
@@ -331,7 +353,10 @@ binds {
     XF86MonBrightnessDown allow-when-locked=true { spawn "swayosd-client" "--brightness" "lower"; }
     XF86Calculator hotkey-overlay-title="Calculator: omacalc" { spawn "omacalc"; }
 
+    // ── Session (continued) ────────────────────────────────────────
     Mod+Shift+E { quit; }
+
+    // ── App launchers ──────────────────────────────────────────────
     Mod+B { spawn "chromium"; }
     Mod+T hotkey-overlay-title="Telegram" { spawn-sh "gtk-launch telegram"; }
     Mod+M hotkey-overlay-title="Email" { spawn-sh "gtk-launch email"; }
@@ -349,9 +374,12 @@ binds {
     Mod+Z hotkey-overlay-title="Do not disturb" { spawn "do-not-disturb"; }
     Mod+Ctrl+Q hotkey-overlay-title="Calculator: omacalc" { spawn-sh "omacalc"; }
 
+    // ── Column width & edges ───────────────────────────────────────
     Mod+Home { focus-column-first; }
     Mod+End { focus-column-last; }
     Mod+R { switch-preset-column-width; }
+
+    // ── System menus ───────────────────────────────────────────────
     Mod+Escape hotkey-overlay-title="System menu: wofi" { spawn "system-menu"; }
     Mod+X hotkey-overlay-title="Display profile: kanshi" { spawn "kanshi-menu"; }
 }
