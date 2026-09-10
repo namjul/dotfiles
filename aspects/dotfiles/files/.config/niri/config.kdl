@@ -380,6 +380,5 @@ binds {
     Mod+R { switch-preset-column-width; }
 
     // ── System menus ───────────────────────────────────────────────
-    Mod+Escape hotkey-overlay-title="System menu: wofi" { spawn "system-menu"; }
-    Mod+X hotkey-overlay-title="Display profile: kanshi" { spawn "kanshi-menu"; }
+    Mod+X hotkey-overlay-title="System menu: wofi" { spawn "system-menu"; }
 }
