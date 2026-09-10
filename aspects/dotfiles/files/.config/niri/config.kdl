@@ -253,6 +253,11 @@ binds {
     Mod+Left { focus-column-left; }
     Mod+Right { focus-column-right; }
 
+    Mod+TouchpadScrollLeft cooldown-ms=100 { focus-column-left; }
+    Mod+TouchpadScrollRight cooldown-ms=100 { focus-column-right; }
+    Mod+TouchpadScrollUp cooldown-ms=100 { focus-window-up; }
+    Mod+TouchpadScrollDown cooldown-ms=100 { focus-window-down; }
+
     Mod+J { focus-window-down; }
     Mod+K { focus-window-up; }
     Mod+Down { focus-window-down; }
