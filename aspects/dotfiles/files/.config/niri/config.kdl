@@ -247,6 +247,7 @@ binds {
 
     // ── Config & help ──────────────────────────────────────────────
     Mod+Shift+R hotkey-overlay-title="Reload niri config" { spawn-sh "niri msg action load-config-file"; }
+    Mod+Ctrl+K hotkey-overlay-title="Reload kanshi" { spawn-sh "kanshictl reload"; }
     Mod+Shift+7 { show-hotkey-overlay; }
 
     // ── Session ────────────────────────────────────────────────────
