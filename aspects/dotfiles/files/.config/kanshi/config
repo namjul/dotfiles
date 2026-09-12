@@ -10,16 +10,16 @@ profile mobile {
 }
 
 profile dockedhome {
-	output "Lenovo Group Limited 0x403A Unknown" {
-		enable
-		scale 2
-		position 0,0
-	}
 	output "Dell Inc. DELL U2719DC 56645R2" {
 		enable
 		scale 1
 		mode 2560x1440
-		position 0,720
+		position 0,0
+	}
+	output "Lenovo Group Limited 0x403A Unknown" {
+		enable
+		scale 1
+		position 0,1440
 	}
 }
 
