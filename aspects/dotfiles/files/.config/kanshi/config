@@ -47,6 +47,6 @@ profile dockedoffice {
 	output "Lenovo Group Limited 0x403A Unknown" {
 		enable
 		scale 1
-		position 0,1440
+		position 0,1200
 	}
 }
