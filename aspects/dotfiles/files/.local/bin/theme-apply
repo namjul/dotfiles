@@ -99,7 +99,7 @@ apply_mise() {
 apply_nvim() {
   local mode=$1
   printf 'set background=%s\n' "$mode" >"$state_dir/vimrc_background"
-  nvim-ctrl.sh "set background=$mode" 2>/dev/null || true
+  nvim-ctrl.sh "set background=$mode" >/dev/null 2>&1 &
 }
 
 apply_omacalc() {
