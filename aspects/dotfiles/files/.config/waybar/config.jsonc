@@ -42,10 +42,10 @@
     "format-disabled": "{icon}",
     "format-icons": {
       "enabled": "󰂯",
-      "disabled": "󰂯",
+      "disabled": "󰂲",
       "on": "󰂯",
-      "off": "󰂯",
-      "connected": "󰂯"
+      "off": "󰂲",
+      "connected": "󰂱"
     },
     "on-click": "launch-bluetooth"
   },

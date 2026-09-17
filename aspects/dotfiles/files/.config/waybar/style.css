@@ -25,6 +25,10 @@ window#waybar {
   color: #bdae93;
 }
 
+#bluetooth.connected {
+  color: #b8bb26;
+}
+
 #battery.warning {
   color: #fabd2f;
 }
