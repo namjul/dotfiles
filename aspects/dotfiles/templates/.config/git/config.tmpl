@@ -87,6 +87,8 @@
 
   ss      = stash push -S
 
+	ff = merge --ff-only
+
   aliases = !git config --get-regexp 'alias.*' | colrm 1 6 | sed 's/[ ]/ = /' | sort
 
   # Find out who is currently active on the repository
