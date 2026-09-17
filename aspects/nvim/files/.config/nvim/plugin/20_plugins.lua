@@ -19,7 +19,37 @@ now(function()
   vim.notify = require('mini.notify').make_notify()
 end)
 
-now(function() require('mini.statusline').setup() end)
+now(function()
+  require('mini.statusline').setup({
+    content = {
+      active = function()
+        local minisl = require('mini.statusline')
+
+        local mode, mode_hl = minisl.section_mode({ trunc_width = 100 })
+        -- Hide dev info before filename falls back to basename-only.
+        local git = minisl.section_git({ trunc_width = 100 })
+        local diff = minisl.section_diff({ trunc_width = 100 })
+        local diagnostics = minisl.section_diagnostics({ trunc_width = 100 })
+        local lsp = minisl.section_lsp({ trunc_width = 100 })
+        -- Keep full path (%F) on moderately narrow windows.
+        local filename = minisl.section_filename({ trunc_width = 60 })
+        local fileinfo = minisl.section_fileinfo({ trunc_width = 100 })
+        local location = minisl.section_location({ trunc_width = 75 })
+        local search = minisl.section_searchcount({ trunc_width = 75 })
+
+        return minisl.combine_groups({
+          { hl = mode_hl, strings = { mode } },
+          { hl = 'MiniStatuslineDevinfo', strings = { git, diff, diagnostics, lsp } },
+          '%<',
+          { hl = 'MiniStatuslineFilename', strings = { filename } },
+          '%=',
+          { hl = 'MiniStatuslineFileinfo', strings = { fileinfo } },
+          { hl = mode_hl, strings = { search, location } },
+        })
+      end,
+    },
+  })
+end)
 
 now(function() require('mini.tabline').setup({ tabpage_section = 'right' }) end)
 
