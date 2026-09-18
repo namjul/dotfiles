@@ -109,6 +109,7 @@ variables(({ identity }) => ({
     ".local/bin/btop",
     ".config/ghostty",
     ".config/imv",
+    ".config/mpv",
     ".config/vdirsyncer",
     ".config/espanso",
     ".config/notmuch",
