@@ -1,0 +1,2 @@
+# Copy to 50-local (same directory) for machine-only overrides; not managed by dotfiles.
+# export OMARCHY_SCREENSHOT_DIR="$HOME/Pictures/Screenshots"

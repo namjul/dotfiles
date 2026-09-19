@@ -1,0 +1,6 @@
+# PATH + mise (Omarchy: default/bash/env-bootstrap in uwsm/env.d/10-omarchy).
+
+export PATH="${HOME}/.local/bin:${PATH}"
+if command -v mise >/dev/null 2>&1; then
+  eval "$(mise activate bash --shims)"
+fi

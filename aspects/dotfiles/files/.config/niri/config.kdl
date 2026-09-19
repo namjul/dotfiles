@@ -134,8 +134,19 @@ overview {
     }
 }
 
+// Compositor client env (Omarchy: default/hypr/envs.lua via hl.env). Applies to apps under niri.
 environment {
-  XDG_CURRENT_DESKTOP "niri"
+    GDK_BACKEND "wayland,x11,*"
+    QT_QPA_PLATFORM "wayland;xcb"
+    QT_QPA_PLATFORMTHEME "gtk3"
+    MOZ_ENABLE_WAYLAND "1"
+    ELECTRON_OZONE_PLATFORM_HINT "wayland"
+    OZONE_PLATFORM "wayland"
+    XDG_SESSION_TYPE "wayland"
+    XDG_CURRENT_DESKTOP "niri"
+    XDG_SESSION_DESKTOP "niri"
+    XCURSOR_SIZE "24"
+    XCOMPOSEFILE "~/.XCompose"
 }
 
 hotkey-overlay {

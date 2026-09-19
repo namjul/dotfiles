@@ -12,7 +12,7 @@ rules:
   - rule: Niri session enters through UWSM with the compositor session flag, not niri-session
     examples:
       - SDDM local desktop uses `Exec=uwsm start -- niri --session` and `Session=niri` (not `Exec=niri-session`, not `uwsm start niri.desktop` — avoids double session management).
-      - UWSM sources `~/.config/uwsm/env` before niri starts, so mise shims and `~/.local/bin` stay on PATH for all session children (same contract as sway today).
+      - UWSM sources `~/.config/uwsm/env` and `env.d/*` before niri starts, so mise shims, `~/.local/bin`, `TERMINAL`, and `EDITOR` stay set for session children (Omarchy-style layout; toolkit env in niri `environment { }`).
       - Under UWSM, package `niri.service` does not run — compositor is `wayland-wm@niri.service`. Do not copy niri docs' `add-wants niri.service …` verbatim; use UWSM-equivalent anchors (see session-units rule).
 
   - rule: Session daemons are systemd user services, not compositor spawn-at-startup

@@ -1,0 +1,13 @@
+# Session tool defaults (Omarchy: default/uwsm/default). Sourced from env.d/20-session.
+# Changes require a graphical session restart (relogin).
+
+export TERMINAL=xdg-terminal-exec
+
+if command -v nvim >/dev/null 2>&1; then
+  export EDITOR=nvim
+elif command -v vim >/dev/null 2>&1; then
+  export EDITOR=vim
+fi
+
+# Optional: niri also sets screenshot-path in config.kdl — keep both in sync if you set this.
+# export NIRI_SCREENSHOT_DIR="$HOME/Pictures/Screenshots"

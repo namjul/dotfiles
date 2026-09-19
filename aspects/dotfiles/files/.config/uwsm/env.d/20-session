@@ -1,0 +1,8 @@
+# TERMINAL, EDITOR, optional session dirs (Omarchy: uwsm/default via 10-omarchy).
+
+_uwsm_default="${HOME}/.config/uwsm/default"
+if [ -r "${_uwsm_default}" ]; then
+  # shellcheck source=/dev/null
+  . "${_uwsm_default}"
+fi
+unset _uwsm_default
