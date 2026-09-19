@@ -24,3 +24,5 @@ fnox.local.toml
 bin/arch-install/user_configuration.json
 bin/arch-install/user_credentials.json
 
+# Agent scratch space (reviews, plans, test artifacts)
+scratch/

@@ -37,6 +37,7 @@ Do not assume this working tree lives at `~/.dotfiles` (or any other fixed home 
 | Dotfiles symlinks, $HOME structure | `dotfiles` | aspects/dotfiles/CONTEXT.md |
 | Neovim config | `nvim` | aspects/nvim/CONTEXT.md |
 | Remote VPS / server services | `server` | aspects/server/CONTEXT.md |
+| Draft temporary plans | `/scratch` | Keep in ignored scratch/ or distill durable public direction into the canonical roadmap |
 
 
 ## Making commits
