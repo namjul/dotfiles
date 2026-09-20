@@ -6,7 +6,7 @@ Requires=network.target
 [Service]
 Type=simple
 EnvironmentFile=/etc/environment
-ExecStart=/bin/bash -c "cd \"${SQUARE_PATH}/aspects/meta\";mise run testing;"
+ExecStart=/bin/bash -c 'cd "$SQUARE_PATH/aspects/meta" && mise run testing'
 #ExecStart=mise exec -- go run ./serve.go
 Group=square
 DynamicUser=yes

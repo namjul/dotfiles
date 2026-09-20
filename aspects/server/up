@@ -9,6 +9,7 @@ TEMP_DIR=$(mktemp -d)
 trap 'rm -rf "$TEMP_DIR"' EXIT
 
 cp -r "$FILES_DIR/srv/square/aspects" "$TEMP_DIR/aspects"
+find "$TEMP_DIR" -type f -exec sed -i "s|\${SQUARE_PATH}|$SQUARE_PATH|g" {} +
 find "$TEMP_DIR" -type f -exec sed -i "s|{SQUARE_PATH}|$SQUARE_PATH|g" {} +
 
 rsync --delete --quiet -rpt --compress --chown=:square "$TEMP_DIR/aspects/" $SERVER:"$SQUARE_PATH/aspects/"

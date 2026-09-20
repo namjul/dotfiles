@@ -9,6 +9,7 @@ TEMP_DIR=$(mktemp -d)
 
 cp -r "$FILES_DIR" "$TEMP_DIR"
 rm -rf "$TEMP_DIR/files/srv/square/archive"
+find "$TEMP_DIR" -type f -exec sed -i "s|\${SQUARE_PATH}|$SQUARE_PATH|g" {} +
 find "$TEMP_DIR" -type f -exec sed -i "s|{SQUARE_PATH}|$SQUARE_PATH|g" {} +
 
 rsync -rpt --quiet --compress "$TEMP_DIR/files/" $SERVER:"/"

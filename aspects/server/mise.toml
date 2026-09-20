@@ -109,7 +109,10 @@ depends = [":local:prepare", ":base"]
 
 [tasks.aspect]
 description = 'Run a mise task in an aspect on SERVER'
-usage = 'arg "<aspect>" help="Aspect under $SQUARE_PATH/aspects" arg "[cmd]" help="Mise task; defaults to aspect name"'
+usage = '''
+arg "<aspect>" help="Aspect under $SQUARE_PATH/aspects"
+arg "[cmd]" help="Mise task; defaults to aspect name"
+'''
 run = """
 #!/usr/bin/env bash
 set -euo pipefail

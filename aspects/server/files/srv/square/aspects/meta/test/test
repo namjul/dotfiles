@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+trap 'echo "Warning: A command has failed. Exiting the script. Line was ($0:$LINENO): $(sed -n "${LINENO}p" "$0")"; exit 3' ERR
+set -Eeuo pipefail
+
+echo "---"
+id
+namei -l "$SQUARE_PATH"
+namei -l "$SQUARE_PATH/data"
+echo "---"
+
+# Writable tree is under data/ (default ACL g::rwx from init), not $SQUARE_PATH root
+mkdir -p "$SQUARE_PATH/data/share/test"
+touch "$SQUARE_PATH/data/share/test/testing.txt"
+ls -la "$SQUARE_PATH/data/share/test/testing.txt"
