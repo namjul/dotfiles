@@ -1,4 +1,5 @@
 [env]
+SQUARE_PATH = "{SQUARE_PATH}"
 GOCACHE = "{SQUARE_PATH}/data/cache/go"
 
 [settings]
@@ -9,9 +10,4 @@ ghq = "latest"
 python = "3.11"
 node = "22"
 "npm:zx" = "latest"
-
-[task_config]
-includes = [
-  "tasks",
-  "tasks.toml"
-]
+pitchfork = "2.26.0"

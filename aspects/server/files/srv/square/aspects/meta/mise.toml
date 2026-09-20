@@ -2,10 +2,7 @@
 go = "1.20"
 
 [tasks.default]
-file = './test/default'
-
-[tasks.test]
-file = './test/default'
+file = './default'
 
 [tasks.testing]
 file = './test/test'

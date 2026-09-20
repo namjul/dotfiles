@@ -6,7 +6,9 @@ Manages the homelab host (`SERVER`, default `homelab`). Workspace root is `SQUAR
 
 **Active** aspects live under `files/srv/square/aspects/` (only what you deploy with `up`). **Legacy / VPS** definitions are in `files/srv/square/archive/` — move or copy an aspect into `aspects/` when you need it on the Pi.
 
-Each aspect follows the same structure: `mise.toml` (tool versions + tasks), `default` script (idempotent setup), optional systemd service file and Caddyfile.
+Each aspect follows the same structure: `mise.toml` (tool versions + tasks), `default` script (idempotent setup), optional `pitchfork.toml` for long-lived processes, optional systemd service file and Caddyfile.
+
+Bootable homelab daemons use [Pitchfork](https://pitchfork.jdx.dev/): `[daemons.*]` and `boot_start` live only in each aspect’s `pitchfork.toml`. Namespace registry: `files/root/.config/pitchfork/config.toml` → `/root/.config/pitchfork/config.toml` via `init` (`[namespaces.<aspect>]` + `config` → aspect `pitchfork.toml`; no duplicated daemon stanzas). `sync:all` runs **`init` then `up`**. Pitchfork restarts in **`up`** after aspects rsync. Pitchfork is in `files/etc/mise/config.toml`. Pilot: `meta` (`pitchfork restart test` in `default`).
 
 ## Mise tasks
 

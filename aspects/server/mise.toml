@@ -34,7 +34,7 @@ description = 'Base packages on SERVER'
 run = """
 #!/usr/bin/env bash
 set -euo pipefail
-packages="curl vim htop ufw git unzip gnupg acl mosh ncdu ca-certificates rsync"
+packages="curl vim htop ufw git unzip gnupg acl mosh ncdu ca-certificates rsync ripgrep"
 ssh root@$SERVER "set -euo pipefail
   export DEBIAN_FRONTEND=noninteractive
   apt-get update -y

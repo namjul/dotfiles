@@ -57,6 +57,11 @@ fi
 
 mise trust --all
 mise install --yes --quiet
+
+# Boot supervisor: idempotent; system unit on Linux when run as root
+mise exec -- pitchfork boot enable
+systemctl daemon-reload
+systemctl enable pitchfork.service
 "
 
 ssh $SERVER "bash -l -c '$sshcmd'"

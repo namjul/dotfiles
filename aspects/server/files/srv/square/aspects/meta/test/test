@@ -13,3 +13,7 @@ echo "---"
 mkdir -p "$SQUARE_PATH/data/share/test"
 touch "$SQUARE_PATH/data/share/test/testing.txt"
 ls -la "$SQUARE_PATH/data/share/test/testing.txt"
+
+exec mise exec -- go run "$(dirname "$0")/serve.go" \
+  -d "$SQUARE_PATH/data/share/test" \
+  -p "${META_TEST_PORT:-8100}"

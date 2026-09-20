@@ -23,6 +23,10 @@ find \"$SQUARE_PATH\"/aspects -maxdepth 1 -type f -exec ln -sf {} /etc/mise/task
 find \"$SQUARE_PATH\"/aspects -maxdepth 2 -type f -name \"tasks.toml\" -exec cat {} >> /etc/mise/tasks.toml \;
 
 echo \"The following mise tasks are available:\" && mise t
+
+if systemctl is-active pitchfork.service &>/dev/null; then
+  systemctl restart pitchfork.service
+fi
 "
 
 ssh $SERVER "bash -l -c '$sshcmd'"

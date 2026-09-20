@@ -1,0 +1,6 @@
+# Boot supervisor registry: one [namespaces.<aspect>] per bootable aspect.
+# Daemon definitions live only in $SQUARE_PATH/aspects/<aspect>/pitchfork.toml.
+# Deployed to /root/.config/pitchfork/config.toml (Pitchfork boot reads namespaces here).
+
+[namespaces.meta]
+dir = "{SQUARE_PATH}/aspects/meta"
