@@ -2,24 +2,9 @@
 
 Manages the homelab host (`SERVER`, default `homelab`). Workspace root is `SQUARE_PATH` (default `/srv/square`). Structured as a monorepo of aspects — the same pattern as the top-level dotfiles repo.
 
-## Aspects
-- `actualbudget` — Budget management (Docker Compose)
-- `anki` — Flashcard server
-- `caddy` — Reverse proxy / HTTPS termination
-- `cron` — Scheduled tasks
-- `docker` — Docker daemon setup
-- `dotfiles` — Server-side dotfiles
-- `ejabberd` — XMPP messaging server
-- `evolu-relay` — Evolu database sync relay (Node)
-- `goatcounter` — Analytics
-- `memex` — Knowledge base (Bun/Python)
-- `meta` — Smoke tests
-- `pdfding` — PDF management (Docker Compose)
-- `soft-serve` — Self-hosted git server
-- `rss-bridge` — RSS/Atom feed generator (Docker Compose, rss.samho.xyz, port 5010)
-- `webhook` — Git push webhook handler (Go)
-- `website` — Static site builder
-- `wireguard` — VPN
+## Aspects (homelab)
+
+**Active** aspects live under `files/srv/square/aspects/` (only what you deploy with `up`). **Legacy / VPS** definitions are in `files/srv/square/archive/` — move or copy an aspect into `aspects/` when you need it on the Pi.
 
 Each aspect follows the same structure: `mise.toml` (tool versions + tasks), `default` script (idempotent setup), optional systemd service file and Caddyfile.
 
@@ -27,9 +12,9 @@ Each aspect follows the same structure: `mise.toml` (tool versions + tasks), `de
 
 Set `SERVER` (and optionally `SQUARE_PATH`, default `/srv/square`) per host. Flash / first boot stays manual (`config/user-data.yaml`).
 
-`init` rsyncs `files/etc/*` (including slim `/etc/environment`: `SQUARE_PATH` + mise/deno paths, **no global `HOME`**). Per-service `HOME`/`WorkingDirectory` belong in unit files when needed.
+`init` rsyncs `files/etc/*` and `files/srv/square/` **except `archive/`** (repo-only legacy; slim `/etc/environment`: `SQUARE_PATH` + mise/deno paths, **no global `HOME`**). Per-service `HOME`/`WorkingDirectory` belong in unit files when needed.
 
-Aspect sources live under `files/srv/square/aspects/`; `up` substitutes `{SQUARE_PATH}` then rsyncs to `$SQUARE_PATH/aspects/`.
+`up` substitutes `{SQUARE_PATH}` in **`files/srv/square/aspects/`** only, then rsyncs to `$SQUARE_PATH/aspects/` (with `--delete`).
 
 | Task | When |
 |------|------|
@@ -51,4 +36,4 @@ Homelab example: `SERVER=homelab mise run provision` (after SSH with keys).
 ## Routing
 | Task | Aspect | Read |
 |------|--------|------|
-| Static sites / SSG builds | `website` | files/srv/square/aspects/website/CONTEXT.md |
+| Static sites / SSG builds | `website` | files/srv/square/archive/website/CONTEXT.md (when promoted to `aspects/`) |

@@ -25,7 +25,7 @@ This documents the complete setup process for creating a WireGuard tunnel betwee
 
 ### 1. Aspect Structure
 
-Created aspect at `aspects/server/files/srv/square/aspects/wireguard/`:
+Created aspect at `aspects/server/files/srv/square/archive/wireguard/`:
 - `mise.toml` - Environment configuration
 - `wg0.conf` - WireGuard config template
 - `default` - Setup script
