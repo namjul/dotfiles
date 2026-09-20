@@ -1,0 +1,11 @@
+[
+  {
+    "id": "deploy-memex",
+    "execute-command": "/usr/local/bin/mise",
+    "command-working-directory": "{SQUARE_PATH}/aspects/memex",
+    "pass-arguments-to-command": [
+      { "source": "string", "name": "run" },
+      { "source": "string", "name": "default" }
+    ]
+  },
+]

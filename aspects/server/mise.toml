@@ -1,6 +1,6 @@
 [env]
 SERVER="homelab"
-SQUARE_PATH="/home/square"
+SQUARE_PATH="/srv/square"
 
 [tasks."init"]
 description = 'Idempotent Initialization'

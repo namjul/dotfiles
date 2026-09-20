@@ -5,9 +5,13 @@ set -Eeuo pipefail
 
 DIR="$(dirname "$(realpath "$0")")"
 FILES_DIR="$DIR/files"
+TEMP_DIR=$(mktemp -d)
+trap 'rm -rf "$TEMP_DIR"' EXIT
 
-# copy aspects
-rsync --delete --quiet -rpt --compress --chown=:square "$FILES_DIR/home/square/aspects/" $SERVER:"$SQUARE_PATH/aspects/"
+cp -r "$FILES_DIR/srv/square/aspects" "$TEMP_DIR/aspects"
+find "$TEMP_DIR" -type f -exec sed -i "s|{SQUARE_PATH}|$SQUARE_PATH|g" {} +
+
+rsync --delete --quiet -rpt --compress --chown=:square "$TEMP_DIR/aspects/" $SERVER:"$SQUARE_PATH/aspects/"
 
 sshcmd="
 # symlink aspects to mise tasks

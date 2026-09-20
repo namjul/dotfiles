@@ -1,6 +1,6 @@
 # server
 
-Manages the remote VPS at `hobl.at`. Structured as a monorepo of aspects — the same pattern as the top-level dotfiles repo.
+Manages the homelab host (`SERVER`, default `homelab`). Workspace root is `SQUARE_PATH` (default `/srv/square`). Structured as a monorepo of aspects — the same pattern as the top-level dotfiles repo.
 
 ## Aspects
 - `actualbudget` — Budget management (Docker Compose)
@@ -25,7 +25,11 @@ Each aspect follows the same structure: `mise.toml` (tool versions + tasks), `de
 
 ## Mise tasks
 
-Set `SERVER` (and optionally `SQUARE_PATH`) per host. Flash / first boot stays manual (`config/user-data.yaml`).
+Set `SERVER` (and optionally `SQUARE_PATH`, default `/srv/square`) per host. Flash / first boot stays manual (`config/user-data.yaml`).
+
+`init` rsyncs `files/etc/*` (including slim `/etc/environment`: `SQUARE_PATH` + mise/deno paths, **no global `HOME`**). Per-service `HOME`/`WorkingDirectory` belong in unit files when needed.
+
+Aspect sources live under `files/srv/square/aspects/`; `up` substitutes `{SQUARE_PATH}` then rsyncs to `$SQUARE_PATH/aspects/`.
 
 | Task | When |
 |------|------|
@@ -47,4 +51,4 @@ Homelab example: `SERVER=homelab mise run provision` (after SSH with keys).
 ## Routing
 | Task | Aspect | Read |
 |------|--------|------|
-| Static sites / SSG builds | `website` | files/home/square/aspects/website/CONTEXT.md |
+| Static sites / SSG builds | `website` | files/srv/square/aspects/website/CONTEXT.md |

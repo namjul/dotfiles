@@ -1,5 +1,5 @@
 [env]
-GOCACHE = "/home/square/data/cache/go"
+GOCACHE = "{SQUARE_PATH}/data/cache/go"
 
 [settings]
 experimental = true
