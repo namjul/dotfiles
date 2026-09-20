@@ -38,6 +38,7 @@ x-scheme-handler/unknown=chromium_chromium.desktop
 
 # files
 text/plain=nvim.desktop
+application/json=nvim.desktop
 text/html=chromium_chromium.desktop
 
 # LibreOffice (official .desktop ids from libreoffice-fresh)
