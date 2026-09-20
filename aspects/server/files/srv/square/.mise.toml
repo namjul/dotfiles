@@ -1,6 +1,11 @@
+monorepo_root = true
+
 [env]
 SQUARE_PATH = "{SQUARE_PATH}"
 GOCACHE = "{SQUARE_PATH}/data/cache/go"
+
+[monorepo]
+config_roots = ["aspects/*"]
 
 [settings]
 experimental = true

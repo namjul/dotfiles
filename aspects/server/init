@@ -52,9 +52,11 @@ if ! command -v mise &> /dev/null; then
   curl https://mise.jdx.dev/install.sh | sh
 fi
 
-# copy system mise config
-# echo -e \"MISE_CONFIG\" | base64 --decode  | sudo tee \"MISE_CONFIG_FILE\" > /dev/null
+# Do not symlink /etc/mise/config.toml → $SQUARE_PATH/.mise.toml: same inode makes
+# mise treat the square config as system scope (no project_root → monorepo tasks vanish).
+rm -f /etc/mise/config.toml
 
+cd \"$SQUARE_PATH\"
 mise trust --all
 mise install --yes --quiet
 

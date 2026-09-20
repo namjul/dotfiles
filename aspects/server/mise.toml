@@ -11,8 +11,13 @@ description = 'Idempotent Upload'
 file = "up"
 
 [tasks."sync:all"]
-description = 'Rsync server tree and aspects (init + up)'
-depends = [":init", ":up"]
+description = 'Rsync server tree and aspects (init then up)'
+run = """
+#!/usr/bin/env bash
+set -euo pipefail
+mise run init
+mise run up
+"""
 
 [tasks.default]
 depends = [":sync:all"]
