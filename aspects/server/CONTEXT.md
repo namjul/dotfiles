@@ -8,7 +8,7 @@ Manages the homelab host (`SERVER`, default `homelab`). Workspace root is `SQUAR
 
 Each aspect follows the same structure: `mise.toml` (tool versions + tasks), `default` script (idempotent setup), optional `pitchfork.toml` for long-lived processes, optional systemd service file and Caddyfile.
 
-Bootable homelab daemons use [Pitchfork](https://pitchfork.jdx.dev/): `[daemons.*]` and `boot_start` live only in each aspect’s `pitchfork.toml`. Namespace registry: `files/root/.config/pitchfork/config.toml` → `/root/.config/pitchfork/config.toml` via `init` (`[namespaces.<aspect>]` + `config` → aspect `pitchfork.toml`; no duplicated daemon stanzas). **`up`** is aspects-only; **`sync:all`** runs **`init`** then **`up`** (full deploy). Pitchfork restarts in **`up`** after aspects rsync. System mise tools/env live in `files/srv/square/.mise.toml` only (no `/etc/mise/config.toml` symlink — mise dedupes by inode and would treat the square monorepo as system config, so `mise tasks ls --all` stays empty). `init` runs `mise trust` / `install` from `$SQUARE_PATH`. Active homelab aspects: `meta` (Pitchfork pilot), `dotfiles` (root `.bashrc` / `.vimrc` via `default`).
+Bootable homelab daemons use [Pitchfork](https://pitchfork.jdx.dev/): `[daemons.*]` and `boot_start` live only in each aspect’s `pitchfork.toml`. Namespace registry: `files/root/.config/pitchfork/config.toml` → `/root/.config/pitchfork/config.toml` via `init` (`[namespaces.<aspect>]` + `config` → aspect `pitchfork.toml`; no duplicated daemon stanzas). **`up`** is aspects-only; **`sync:all`** runs **`init`** then **`up`** (full deploy). Pitchfork restarts in **`up`** after aspects rsync. System mise tools/env live in `files/srv/square/.mise.toml` only (no `/etc/mise/config.toml` symlink — mise dedupes by inode and would treat the square monorepo as system config, so `mise tasks ls --all` stays empty). `init` runs `mise trust` / `install` from `$SQUARE_PATH`. Active homelab aspects: `meta` (Pitchfork pilot), `dotfiles` (root `.bashrc` / `.vimrc` via `default`), `tailscale` (`tailscaled` install on Pi; join from laptop — see `files/srv/square/aspects/tailscale/CONTEXT.md`).
 
 ## Mise tasks
 
@@ -32,10 +32,15 @@ Set `SERVER` (and optionally `SQUARE_PATH`, default `/srv/square`) per host. Fla
 | `provision` | local:prepare + base (new host) |
 | `aspect` | Run mise in one aspect (`[cmd]` defaults to aspect name) |
 | `aspect:default` | Run `default` for one aspect |
+| `tailscale:join` | Laptop: prompt for one-time auth key → Pi `tailscale up` (stdin; after `aspect:default tailscale`) |
+| `tailscale:status` | `tailscale status` + `tailscale ip -4` on SERVER |
 
 Homelab example: `SERVER=homelab mise run provision` (after SSH with keys).
+
+Tailscale join order: `sync:all` → `aspect:default tailscale` → `tailscale:join` (keep SSH on LAN/public until tailnet SSH works).
 
 ## Routing
 | Task | Aspect | Read |
 |------|--------|------|
+| Tailscale homelab aspect | `tailscale` | files/srv/square/aspects/tailscale/CONTEXT.md |
 | Static sites / SSG builds | `website` | files/srv/square/archive/website/CONTEXT.md (when promoted to `aspects/`) |

@@ -29,18 +29,24 @@ description = "Enable docker.socket on Arch (package in aspects/aur)"
 interactive = true
 run = "./docker.ts"
 
+[tasks.tailscale]
+description = "Enable tailscaled on Arch (package in aspects/aur); run tailscale up to join tailnet"
+interactive = true
+run = "./tailscale.ts"
+
 [tasks.limits]
 description = "Give Arch services and user sessions enough file descriptors for editors, watchers, and containers"
 interactive = true
 run = "./limits.ts"
 
 [tasks.default]
-description = "User units plus Arch bluetooth, power, docker, nofile limits, and session wiring"
+description = "User units plus Arch bluetooth, power, docker, tailscale, nofile limits, and session wiring"
 depends = [":enable-services"]
 run = [
   { task = "session" },
   { task = "bluetooth" },
   { task = "power" },
   { task = "docker" },
+  { task = "tailscale" },
   { task = "limits" },
 ]

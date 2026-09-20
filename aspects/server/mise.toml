@@ -39,7 +39,7 @@ description = 'Base packages on SERVER'
 run = """
 #!/usr/bin/env bash
 set -euo pipefail
-packages="curl vim htop ufw git unzip gnupg acl mosh ncdu ca-certificates rsync ripgrep"
+packages="curl vim htop ufw git unzip gnupg acl mosh ncdu ca-certificates rsync ripgrep jq"
 ssh root@$SERVER "set -euo pipefail
   export DEBIAN_FRONTEND=noninteractive
   apt-get update -y
@@ -142,4 +142,45 @@ run = """
 #!/usr/bin/env bash
 set -euo pipefail
 ssh root@$SERVER "journalctl -u ${usage_aspect?}.service -f"
+"""
+
+[tasks."tailscale:join"]
+description = 'Join SERVER to tailnet (laptop-only; prompt for auth key; stdin to Pi)'
+interactive = true
+run = """
+#!/usr/bin/env bash
+# Auth key on SSH stdin → tailscale up (key never in ssh argv).
+set -euo pipefail
+
+JOIN_HOSTNAME="${TAILSCALE_JOIN_HOSTNAME:-homelab}"
+
+state="$(ssh root@$SERVER 'tailscale status --json 2>/dev/null | jq -r ".BackendState // empty" 2>/dev/null' || true)"
+if [[ "${state}" == "Running" ]]; then
+  echo "Already joined."
+  exit 0
+fi
+
+(cd "${MISE_TASK_DIR}" && mise run aspect:default tailscale)
+
+echo -n "Tailscale auth key (one-time; input hidden): " >&2
+IFS= read -rs TS_AUTH_KEY
+echo >&2
+
+if [[ -z "${TS_AUTH_KEY}" ]]; then
+  echo "Empty auth key." >&2
+  exit 1
+fi
+
+printf '%s' "${TS_AUTH_KEY}" | ssh root@$SERVER env HOST="${JOIN_HOSTNAME}" bash -c 'read -r TS_AUTH_KEY; tailscale up --auth-key="$TS_AUTH_KEY" --hostname="$HOST"'
+
+unset TS_AUTH_KEY
+"""
+
+[tasks."tailscale:status"]
+description = 'Tailscale status and tailnet IPv4 on SERVER'
+run = """
+#!/usr/bin/env bash
+set -euo pipefail
+ssh root@$SERVER tailscale status
+ssh root@$SERVER tailscale ip -4
 """
