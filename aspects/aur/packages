@@ -93,6 +93,7 @@ packages=(
   # cli tools
   wget zsh tmux fzf vim
   sshfs # FUSE SSH mounts (mount-shares)
+  rsync # server aspect init/up push to homelab
   openbsd-netcat # nc — TCP probe / swiss army knife
   fish # https://fishshell.com
   nushell # https://github.com/nushell/nushell
