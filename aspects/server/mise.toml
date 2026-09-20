@@ -116,23 +116,14 @@ depends = [":local:prepare", ":base"]
 description = 'Run a mise task in an aspect on SERVER'
 usage = '''
 arg "<aspect>" help="Aspect under $SQUARE_PATH/aspects"
-arg "[cmd]" help="Mise task; defaults to aspect name"
+arg "[cmd]" help="Mise task on SERVER; defaults to default"
 '''
 run = """
 #!/usr/bin/env bash
 set -euo pipefail
 aspect="${usage_aspect?}"
-cmd="${usage_cmd:-$aspect}"
+cmd="${usage_cmd:-default}"
 ssh root@$SERVER "cd $SQUARE_PATH/aspects/$aspect && mise trust && mise install && mise run $cmd"
-"""
-
-[tasks."aspect:default"]
-description = 'Run default task for an aspect on SERVER'
-usage = 'arg "<aspect>" help="Aspect under $SQUARE_PATH/aspects"'
-run = """
-#!/usr/bin/env bash
-set -euo pipefail
-mise run aspect -- "${usage_aspect?}" default
 """
 
 [tasks."aspect:log"]
@@ -160,7 +151,7 @@ if [[ "${state}" == "Running" ]]; then
   exit 0
 fi
 
-(cd "${MISE_TASK_DIR}" && mise run aspect:default tailscale)
+(cd "${MISE_TASK_DIR}" && mise run aspect tailscale)
 
 echo -n "Tailscale auth key (one-time; input hidden): " >&2
 IFS= read -rs TS_AUTH_KEY

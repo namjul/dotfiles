@@ -21,7 +21,7 @@ Join always passes `--hostname=homelab` so the Pi appears as **`homelab`** in Ma
 
 1. Generate a one-time key in Tailscale admin.
 2. Keep SSH/`SERVER` on LAN or public IP until tailnet SSH works.
-3. `mise run sync:all` → `mise run aspect:default tailscale` → `mise run tailscale:join` (paste key when prompted).
+3. `mise run sync:all` → `mise run aspect tailscale` → `mise run tailscale:join` (paste key when prompted).
 4. Verify SSH over tailnet IP or MagicDNS; enroll laptop/phone app; confirm status; revoke key in admin.
 5. Optionally point `SERVER`/SSH config at tailnet-first names.
 
@@ -44,7 +44,7 @@ Install and join treat the node as joined when `tailscale status --json` reports
 
 | Task | Purpose |
 |------|---------|
-| `tailscale:join` | Prompt for auth key; `aspect:default tailscale`; `tailscale up` on Pi via SSH stdin |
+| `tailscale:join` | Prompt for auth key; `aspect tailscale`; `tailscale up` on Pi via SSH stdin |
 | `tailscale:status` | Remote `tailscale status` and `tailscale ip -4` |
 
 ## Related

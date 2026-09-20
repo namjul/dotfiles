@@ -1,6 +1,6 @@
 
 [Unit]
-Description=Caddy
+Description=Caddy (homelab)
 Documentation=https://caddyserver.com/docs/
 After=network.target network-online.target
 Requires=network-online.target
@@ -8,18 +8,12 @@ Requires=network-online.target
 [Service]
 Type=notify
 EnvironmentFile=/etc/environment
-DynamicUser=yes
-Group=square
-ReadWritePaths={SQUARE_PATH}
 WorkingDirectory={SQUARE_PATH}/aspects/caddy
-#ExecStart=mise exec -- env
-ExecStart=mise exec -- caddy run --environ
-ExecReload=mise exec -- caddy reload --force
+ExecStart=/usr/bin/caddy run --environ --config ./Caddyfile
+ExecReload=/usr/bin/caddy reload --force --config ./Caddyfile
 TimeoutStopSec=5s
 LimitNOFILE=1048576
-PrivateTmp=true
-ProtectSystem=full
-AmbientCapabilities=CAP_NET_ADMIN CAP_NET_BIND_SERVICE
+AmbientCapabilities=CAP_NET_BIND_SERVICE
 
 [Install]
 WantedBy=multi-user.target
