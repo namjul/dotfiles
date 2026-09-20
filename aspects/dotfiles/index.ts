@@ -212,6 +212,7 @@ variables(({ identity }) => ({
     ".agents/prompts/causal.md",
     ".agents/prompts/ssw.md",
     ".agents/prompts/mannered-prose.md",
+    ".agents/prompts/review.md",
   ],
   rules: [
     ".agents/rules/caveman.md",
