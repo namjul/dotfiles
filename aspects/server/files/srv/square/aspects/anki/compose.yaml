@@ -1,0 +1,19 @@
+services:
+  anki-sync-server:
+    container_name: anki-sync-server
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        ANKI_VERSION: ${ANKI_VERSION:-24.06.3}
+    ports:
+      - "127.0.0.1:8080:8080"
+    environment:
+      SYNC_PORT: "8080"
+      SYNC_USER1: ${SYNC_USER1:?}
+      SYNC_BASE: /data
+    group_add:
+      - "${SQUARE_GID:?}"
+    volumes:
+      - {SQUARE_PATH}/data/share/anki:/data
+    restart: unless-stopped

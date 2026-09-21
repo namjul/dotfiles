@@ -4,3 +4,6 @@
 
 [namespaces.meta]
 dir = "{SQUARE_PATH}/aspects/meta"
+
+[namespaces.anki]
+dir = "{SQUARE_PATH}/aspects/anki"

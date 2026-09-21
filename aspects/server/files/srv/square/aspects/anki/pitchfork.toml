@@ -1,0 +1,4 @@
+[daemons.anki]
+run = "docker compose up -d --remove-orphans && exec docker compose logs -f"
+boot_start = true
+mise = true

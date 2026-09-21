@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+# mise description="Anki sync server (Docker + Pitchfork)"
+# mise alias="anki"
+
+trap 'echo "Warning: A command has failed. Exiting the script. Line was ($0:$LINENO): $(sed -n "${LINENO}p" "$0")"; exit 3' ERR
+set -Eeuo pipefail
+
+mkdir -p "$SYNC_BASE"
+chgrp square "$SYNC_BASE" 2>/dev/null || true
+
+if ! command -v docker &>/dev/null; then
+  echo "Docker is required on SERVER. From aspects/server run: mise run docker" >&2
+  exit 1
+fi
+
+docker compose up -d --build --remove-orphans
+pitchfork restart anki
+
+if systemctl is-active --quiet caddy.service; then
+  systemctl reload caddy.service
+fi

@@ -1,0 +1,6 @@
+redir /anki /anki/ permanent
+
+handle /anki/* {
+	uri strip_prefix /anki
+	reverse_proxy 127.0.0.1:8080
+}
