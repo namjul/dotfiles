@@ -1,4 +1,5 @@
-#!/bin/bash
+#!/usr/bin/env bash
+# mise description="Setup firewall (ufw)"
 
 set -euxo pipefail
 

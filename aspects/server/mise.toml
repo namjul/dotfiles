@@ -39,20 +39,7 @@ description = 'Base packages on SERVER'
 run = """
 #!/usr/bin/env bash
 set -euo pipefail
-packages="curl vim htop ufw git unzip gnupg acl mosh ncdu ca-certificates rsync ripgrep jq"
-ssh root@$SERVER "set -euo pipefail
-  export DEBIAN_FRONTEND=noninteractive
-  apt-get update -y
-  apt-get full-upgrade -y
-  apt-get install -y $packages
-  apt-get autoremove -y
-  echo 'unattended-upgrades unattended-upgrades/enable_auto_updates boolean true' | debconf-set-selections
-  apt-get install -y unattended-upgrades
-  if [ -f /var/run/reboot-required ]; then
-    echo 'NOTE: Reboot required after upgrades. Run: mise run reboot-if-required'
-    cat /var/run/reboot-required 2>/dev/null || true
-  fi
-"
+ssh root@$SERVER "cd $SQUARE_PATH && mise run packages"
 """
 
 [tasks."reboot-if-required"]
@@ -60,16 +47,7 @@ description = 'Reboot SERVER only if /var/run/reboot-required exists'
 run = """
 #!/usr/bin/env bash
 set -euo pipefail
-ssh root@$SERVER "bash -lc '
-  if [ ! -f /var/run/reboot-required ]; then
-    echo \"No reboot required\"
-    exit 0
-  fi
-  cat /var/run/reboot-required 2>/dev/null || true
-  echo \"Rebooting...\"
-  nohup systemctl reboot >/dev/null 2>&1 &
-  sleep 1
-'"
+ssh root@$SERVER "cd $SQUARE_PATH && mise run reboot-if-required"
 """
 
 [tasks."ssh:config"]
@@ -77,10 +55,7 @@ description = 'Deploy sshd_config if changed and restart ssh'
 run = """
 #!/usr/bin/env bash
 set -euo pipefail
-ssh root@$SERVER "cat /etc/ssh/sshd_config" | diff - "$MISE_TASK_DIR/config/sshd_config" || (
-  scp "$MISE_TASK_DIR/config/sshd_config" "root@$SERVER:/etc/ssh/sshd_config"
-  ssh root@$SERVER systemctl restart ssh.service
-)
+ssh root@$SERVER "cd $SQUARE_PATH && mise run ssh-config"
 """
 
 [tasks."root-lock"]
@@ -88,7 +63,7 @@ description = 'Lock root console password (idempotent; run after key-based SSH w
 run = """
 #!/usr/bin/env bash
 set -euo pipefail
-ssh root@$SERVER 'passwd -l root'
+ssh root@$SERVER "cd $SQUARE_PATH && mise run root-lock"
 """
 
 [tasks.firewall]
@@ -96,13 +71,16 @@ description = 'Setup firewall'
 run = """
 #!/usr/bin/env bash
 set -euo pipefail
-scp "$MISE_TASK_DIR/config/ufw.sh" "root@$SERVER:/tmp/ufw.sh"
-ssh root@$SERVER 'chmod +x /tmp/ufw.sh && /tmp/ufw.sh'
+ssh root@$SERVER "cd $SQUARE_PATH && mise run firewall"
 """
 
 [tasks.harden]
 description = 'SSH hardening: sshd_config, lock root console, firewall'
-depends = [":ssh:config", ":root-lock", ":firewall"]
+run = """
+#!/usr/bin/env bash
+set -euo pipefail
+ssh root@$SERVER "cd $SQUARE_PATH && mise run harden"
+"""
 
 [tasks.base]
 description = 'Packages, sync server tree, harden (requires ssh root@$SERVER with keys)'
@@ -172,8 +150,7 @@ description = 'Tailscale status and tailnet IPv4 on SERVER'
 run = """
 #!/usr/bin/env bash
 set -euo pipefail
-ssh root@$SERVER tailscale status
-ssh root@$SERVER tailscale ip -4
+ssh root@$SERVER "cd $SQUARE_PATH && mise run tailscale-status"
 """
 
 [tasks."caddy:root-ca"]

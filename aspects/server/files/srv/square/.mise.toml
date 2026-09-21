@@ -16,3 +16,13 @@ python = "3.11"
 node = "22"
 "npm:zx" = "latest"
 pitchfork = "2.26.0"
+
+[task_config]
+includes = [
+    "tasks"
+]
+
+[tasks.harden]
+description = "SSH hardening: sshd_config, lock root, firewall"
+depends = [":ssh-config", ":root-lock", ":firewall"]
+run = "true"
