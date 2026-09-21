@@ -74,6 +74,14 @@ set -euo pipefail
 ssh root@$SERVER "cd $SQUARE_PATH && mise run firewall"
 """
 
+[tasks.docker]
+description = 'Install Docker Engine and compose plugin on SERVER'
+run = """
+#!/usr/bin/env bash
+set -euo pipefail
+ssh root@$SERVER "cd $SQUARE_PATH && mise run docker"
+"""
+
 [tasks.harden]
 description = 'SSH hardening: sshd_config, lock root console, firewall'
 run = """
