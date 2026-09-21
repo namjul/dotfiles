@@ -1,0 +1,46 @@
+#!/bin/bash
+# mise description="Install LocalSend from AUR localsend-bin (not on install.sh)"
+# mise interactive=true
+#USAGE flag "--force" help="Reinstall even if this version is already installed"
+# https://wiki.archlinux.org/title/LocalSend
+# Optional: mise run //aspects/aur:localsend  or  //aspects/aur:from-source
+# Do not add to aur:default (AUR-only; see aspects/aur/PLAN.md).
+
+trap 'echo "Warning: A command has failed. Exiting the script. Line was ($0:$LINENO): ${BASH_COMMAND}"; exit 3' ERR
+set -euo pipefail
+
+if [[ ! -e /etc/arch-release ]]; then
+  echo "localsend: skip (not Arch)"
+  exit 0
+fi
+
+# Pin to match AUR localsend-bin pkgver at install time.
+VERSION="1.18.2"
+AUR_PKG="localsend-bin"
+already_installed() {
+  local pkgver
+  pkgver="$(pacman -Q "${AUR_PKG}" 2>/dev/null | awk '{print $2}' || true)"
+  [[ $pkgver == "${VERSION}-"* ]] && command -v localsend >/dev/null
+}
+
+if [[ "${usage_force:-}" != "true" ]] && already_installed; then
+  echo "localsend ${VERSION} already installed (${AUR_PKG})"
+  exit 0
+fi
+
+# Runtime deps from AUR PKGBUILD (official repos).
+sudo pacman -S --needed --noconfirm \
+  fuse2 xdg-user-dirs libayatana-appindicator libayatana-indicator
+
+tmpdir="$(mktemp -d)"
+cleanup() { rm -rf "$tmpdir"; }
+trap cleanup EXIT
+
+git clone --depth 1 "https://aur.archlinux.org/${AUR_PKG}.git" "$tmpdir/build"
+(
+  cd "$tmpdir/build"
+  makepkg -si --noconfirm
+)
+
+echo "LocalSend installed. Open from wofi (drun) or run: localsend"
+echo "With ufw enabled, //aspects/aur:firewall opens TCP+UDP 53317 (default LocalSend port)."

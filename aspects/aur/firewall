@@ -6,5 +6,10 @@ set -Eeuo pipefail
 
 sudo ufw default deny incoming
 sudo ufw default allow outgoing
+
+# LocalSend — https://wiki.archlinux.org/title/LocalSend (default port 53317; configurable in app)
+sudo ufw allow 53317/tcp comment 'LocalSend'
+sudo ufw allow 53317/udp comment 'LocalSend'
+
 sudo ufw --force enable
 sudo systemctl enable ufw

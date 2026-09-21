@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+choice=$(
+  printf '%s\n' \
+    'Clipboard' \
+    'File' \
+    'Folder' \
+    'Receive' |
+    wofi --dmenu --prompt Share
+)
+
+case "$choice" in
+  Clipboard)
+    exec share-via-localsend clipboard
+    ;;
+  File)
+    exec share-via-localsend file
+    ;;
+  Folder)
+    exec share-via-localsend folder
+    ;;
+  Receive)
+    exec launch-or-focus 'org\.localsend\.localsend_app|localsend' localsend
+    ;;
+  *)
+    exit 0
+    ;;
+esac

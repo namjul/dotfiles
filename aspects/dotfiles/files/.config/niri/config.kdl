@@ -246,6 +246,14 @@ window-rule {
     open-floating true
 }
 
+// LocalSend GUI (AUR localsend-bin; default port 53317 — aspects/aur:firewall)
+window-rule {
+    match app-id=r#"^org\.localsend\.localsend_app$"#
+    open-floating true
+    default-column-width { fixed 1100; }
+    default-window-height { fixed 700; }
+}
+
 window-rule {
     geometry-corner-radius 5
     clip-to-geometry true
@@ -266,6 +274,7 @@ binds {
     Mod+Q repeat=false { close-window; }
     Mod+O repeat=false { toggle-overview; }
     Mod+Space hotkey-overlay-title="App launcher: wofi" { spawn "wofi" "--show" "drun"; }
+    Mod+Ctrl+S hotkey-overlay-title="Share (LocalSend)" { spawn "share-menu"; }
 
     // ── Focus: column ──────────────────────────────────────────────
     Mod+H { focus-column-left; }

@@ -37,6 +37,7 @@ run = [
   { task = "dropbox-cli" },
   { task = "xdg-terminal-exec" },
   { task = "omacalc" },
+  { task = "localsend" },
 ]
 
 [tasks."omarchy-vpn"]
@@ -58,6 +59,11 @@ file = "from-source/xdg-terminal-exec"
 description = "Build omacalc from a pinned tag into ~/.local/bin (not on install.sh)"
 interactive = true
 file = "from-source/omacalc"
+
+[tasks."localsend"]
+description = "Install LocalSend from AUR localsend-bin (not on install.sh)"
+interactive = true
+file = "from-source/localsend"
 
 [tasks.default]
 description = "Run all aur tasks"

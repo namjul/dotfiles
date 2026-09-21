@@ -1,0 +1,55 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+usage() {
+  echo "Usage: share-via-localsend <clipboard|file|folder> [path...]" >&2
+  exit 2
+}
+
+[[ $# -ge 1 ]] || usage
+
+if ! command -v localsend >/dev/null; then
+  notify-send "LocalSend" "Install with: mise run //aspects/aur:localsend"
+  exit 1
+fi
+
+MODE=$1
+shift
+declare -a FILE_ARRAY=()
+
+case "$MODE" in
+  clipboard)
+    TEMP_FILE=$(mktemp --suffix=.txt)
+    wl-paste >"$TEMP_FILE"
+    FILE_ARRAY=("$TEMP_FILE")
+    ;;
+  file | folder)
+    if (($# > 0)); then
+      FILE_ARRAY=("$@")
+    else
+      select_args=(file-select-portal)
+      if [[ $MODE == folder ]]; then
+        select_args+=(--title "Share folder" --directory)
+      else
+        select_args+=(--title "Share files" --multiple)
+      fi
+
+      status=0
+      picked=$("${select_args[@]}") || status=$?
+
+      if ((${status:-0} > 1)); then
+        notify-send "Could not share" "The file chooser did not open"
+        exit 1
+      fi
+
+      [[ -n $picked ]] || exit 0
+      readarray -t FILE_ARRAY <<<"$picked"
+    fi
+    ;;
+  *)
+    usage
+    ;;
+esac
+
+systemd-run --user --quiet --collect \
+  localsend --headless send "${FILE_ARRAY[@]}"

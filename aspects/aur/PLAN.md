@@ -173,6 +173,7 @@ Portal note (already proven): `xdg-desktop-portal` may be `inactive (dead)` unti
 - waybar (optional; sway `bar {}` + i3status-rust is enough)
 - `gvfs-smb` / `gvfs-nfs` if those shares become daily
 - paru + commented AUR lines in `packages`
+- **LocalSend** (LAN AirDrop-style): `mise run //aspects/aur:localsend` (AUR `localsend-bin`, pinned in `from-source/localsend`). `:firewall` opens **53317/tcp+udp** per [ArchWiki](https://wiki.archlinux.org/title/LocalSend). Not on `:default`.
 
 ## Open Questions
 
