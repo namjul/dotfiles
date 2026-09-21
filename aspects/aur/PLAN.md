@@ -32,7 +32,7 @@ Done in `aspects/aur/packages` and `aspects/aur/login/`, VM-tested unless noted:
 | Session | `uwsm` — `~/.config/uwsm/env` prepends mise shims; niri is the compositor |
 | Compositor | `niri`, `xwayland-satellite`, `waybar`, `swaybg`, `mako`, `libnotify`, `alacritty` — sway/i3status-rust removed 2026-09 |
 | Portals / Qt | `xdg-desktop-portal-wlr`, `xdg-desktop-portal-gtk`, `qt5-wayland`, `qt6-wayland` |
-| Polkit | `polkit-gnome` + systemd user unit; `lxsession` kept for i3 fallback |
+| Polkit | `polkit-gnome` + systemd user unit; `lxsession` kept for i3 fallback; sudo vs `pkexec` policy in `aspects/dotfiles/CONTEXT.md` |
 | Launcher | `wofi` + `$mod+space`; spec: `SPEC.sway-step-9-wofi.md` (`78ef905f`) |
 | Screenshots / clipboard | `grim`, `slurp`, `satty`, `wl-clipboard`; `bin/capture-screenshot` (`942d10b5`) |
 | Volume OSD | `pamixer`, `swayosd` (`f747f33f`) |

@@ -1,0 +1,64 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Elevate a real executable via polkit for GUI or no-TTY callers.
+# See aspects/dotfiles/CONTEXT.md (privilege escalation).
+#
+# Usage: pkexec-run [--] <command> [args...]
+
+usage() {
+  echo "Usage: pkexec-run [--] <command> [args...]" >&2
+  exit 2
+}
+
+[[ $# -gt 0 ]] || usage
+if [[ ${1:-} == -- ]]; then
+  shift
+fi
+[[ $# -gt 0 ]] || usage
+
+target=$1
+shift
+
+resolve_bin() {
+  local name=$1
+  local candidate=""
+  if command -v mise >/dev/null 2>&1; then
+    candidate=$(mise which "$name" 2>/dev/null) || true
+  fi
+  if [[ -z $candidate ]]; then
+    candidate=$(command -v "$name") || return 1
+  fi
+  printf '%s\n' "$candidate"
+}
+
+if [[ $target == /* ]]; then
+  bin=$target
+else
+  bin=$(resolve_bin "$target") || {
+    echo "pkexec-run: command not found: $target" >&2
+    exit 127
+  }
+fi
+
+if [[ ! -e $bin ]]; then
+  echo "pkexec-run: not found: $bin" >&2
+  exit 127
+fi
+
+real=$(readlink -f -- "$bin") || {
+  echo "pkexec-run: cannot resolve: $bin" >&2
+  exit 127
+}
+
+if [[ -L $bin ]] && [[ $(basename "$real") == mise ]]; then
+  echo "pkexec-run: refusing mise shim: $bin" >&2
+  exit 127
+fi
+
+if [[ ! -x $real ]]; then
+  echo "pkexec-run: not executable: $real" >&2
+  exit 127
+fi
+
+exec pkexec /usr/bin/env TERM="${TERM:-xterm-256color}" "$real" "$@"
