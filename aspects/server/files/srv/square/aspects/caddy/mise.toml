@@ -1,3 +1,10 @@
+[tools]
+caddy = "2.11"
+
+[env]
+XDG_CONFIG_HOME = "{{config_root}}"
+XDG_DATA_HOME = "{{env.SQUARE_PATH}}/data/share"
+
 [tasks.default]
 file = './default'
 

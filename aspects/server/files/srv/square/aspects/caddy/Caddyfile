@@ -1,1 +1,8 @@
-import {$SQUARE_PATH}/aspects/*/caddyfile
+http://homelab {
+	redir https://{host}{uri} permanent
+}
+
+homelab {
+	tls internal
+	import {$SQUARE_PATH}/aspects/*/caddyfile
+}

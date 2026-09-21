@@ -6,11 +6,8 @@ set -euxo pipefail
 
 mkdir -m 770 -p "$SQUARE_PATH/data/share/caddy"
 
-if ! command -v caddy &>/dev/null; then
-  export DEBIAN_FRONTEND=noninteractive
-  apt-get update -y
-  apt-get install -y caddy
-fi
+mise install --yes
+mise exec -- caddy version
 
 cp "${MISE_CONFIG_ROOT}/caddy.service" /etc/systemd/system/caddy.service
 

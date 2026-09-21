@@ -33,6 +33,7 @@ Set `SERVER` (and optionally `SQUARE_PATH`, default `/srv/square`) per host. Fla
 | `aspect` | Run a mise task in one aspect on SERVER (`[cmd]` defaults to `default`) |
 | `tailscale:join` | Laptop: prompt for one-time auth key → Pi `tailscale up` (stdin; after `aspect tailscale`) |
 | `tailscale:status` | `tailscale status` + `tailscale ip -4` on SERVER |
+| `caddy:root-ca` | `scp` internal CA `root.crt` from SERVER; `--trust` for local p11-kit |
 
 Homelab example: `SERVER=homelab mise run provision` (after SSH with keys).
 

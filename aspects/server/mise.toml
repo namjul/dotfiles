@@ -175,3 +175,37 @@ set -euo pipefail
 ssh root@$SERVER tailscale status
 ssh root@$SERVER tailscale ip -4
 """
+
+[tasks."caddy:root-ca"]
+description = 'Copy Caddy internal root CA from SERVER; optional local trust (Arch p11-kit)'
+usage = '''
+flag "--trust" help="Install into this machine trust store (sudo trust anchor --store)"
+arg "[dest]" help="Local path for root.crt (default: ~/.local/share/homelab/caddy-local-root.crt)"
+'''
+run = """
+#!/usr/bin/env bash
+set -euo pipefail
+
+remote_root="${SQUARE_PATH}/data/share/caddy/pki/authorities/local/root.crt"
+dest="${usage_dest:-$HOME/.local/share/homelab/caddy-local-root.crt}"
+
+if ! ssh root@$SERVER "test -r '${remote_root}'"; then
+  echo "Missing on SERVER: ${remote_root}" >&2
+  echo "Start Caddy with tls internal and XDG_DATA_HOME=${SQUARE_PATH}/data/share (mise run aspect caddy)." >&2
+  exit 1
+fi
+
+mkdir -p "$(dirname "$dest")"
+scp "root@${SERVER}:${remote_root}" "$dest"
+echo "Wrote ${dest}"
+
+if [[ -n "${usage_trust:-}" ]]; then
+  if ! command -v trust >/dev/null 2>&1; then
+    echo "No 'trust' command (p11-kit). Import ${dest} manually (Firefox: Authorities)." >&2
+    exit 1
+  fi
+  sudo trust anchor --store "$dest"
+  echo "Installed into local trust store (Chromium and most apps)."
+  echo "Firefox still needs manual import if you use it."
+fi
+"""

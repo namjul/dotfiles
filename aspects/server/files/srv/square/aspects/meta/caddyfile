@@ -1,8 +1,6 @@
-:80 {
-	redir /test /test/ permanent
+redir /test /test/ permanent
 
-	handle /test/* {
-		uri strip_prefix /test
-		reverse_proxy 127.0.0.1:8100
-	}
+handle /test/* {
+	uri strip_prefix /test
+	reverse_proxy 127.0.0.1:8100
 }

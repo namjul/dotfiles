@@ -8,9 +8,11 @@ Requires=network-online.target
 [Service]
 Type=notify
 EnvironmentFile=/etc/environment
+Environment=XDG_CONFIG_HOME={SQUARE_PATH}/aspects/caddy
+Environment=XDG_DATA_HOME={SQUARE_PATH}/data/share
 WorkingDirectory={SQUARE_PATH}/aspects/caddy
-ExecStart=/usr/bin/caddy run --environ --config ./Caddyfile
-ExecReload=/usr/bin/caddy reload --force --config ./Caddyfile
+ExecStart=/bin/bash -c 'cd "$SQUARE_PATH/aspects/caddy" && exec mise exec -- caddy run --environ --config ./Caddyfile'
+ExecReload=/bin/bash -c 'cd "$SQUARE_PATH/aspects/caddy" && exec mise exec -- caddy reload --force --config ./Caddyfile'
 TimeoutStopSec=5s
 LimitNOFILE=1048576
 AmbientCapabilities=CAP_NET_BIND_SERVICE
