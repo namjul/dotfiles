@@ -10,8 +10,8 @@ alias l='ls $LS_OPTIONS -lA'
 alias rm='rm -i'
 alias cp='cp -i'
 alias mv='mv -i'
-alias cs='cd {SQUARE_PATH}'
-alias ca='cd {SQUARE_PATH}/aspects'
+alias cs='cd {{ vars.SQUARE_PATH }}'
+alias ca='cd {{ vars.SQUARE_PATH }}/aspects'
 
 function ..() {
     cd ..

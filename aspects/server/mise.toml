@@ -58,6 +58,13 @@ template = true
 source = "files/etc/gitconfig"
 template = true
 
+[bootstrap.files."/root/.bashrc"]
+source = "bootstrap/root/.bashrc"
+template = true
+
+[bootstrap.files."/root/.vimrc"]
+source = "bootstrap/root/.vimrc"
+
 [bootstrap.services.docker]
 state = "running"
 enabled = true
