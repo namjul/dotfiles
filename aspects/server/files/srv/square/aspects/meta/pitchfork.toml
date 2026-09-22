@@ -1,4 +1,0 @@
-[daemons.test]
-run = "mise run testing"
-boot_start = true
-mise = true
