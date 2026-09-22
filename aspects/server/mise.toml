@@ -168,7 +168,15 @@ description = 'Reboot SERVER only if /var/run/reboot-required exists'
 run = """
 #!/usr/bin/env bash
 set -euo pipefail
-ssh root@$SERVER "cd $SQUARE_PATH && mise run reboot-if-required"
+ssh root@$SERVER 'set -euo pipefail
+if [ ! -f /var/run/reboot-required ]; then
+  echo "No reboot required"
+  exit 0
+fi
+cat /var/run/reboot-required 2>/dev/null || true
+echo "Rebooting..."
+nohup systemctl reboot >/dev/null 2>&1 &
+sleep 1'
 """
 
 [tasks.aspect]
@@ -231,7 +239,7 @@ description = 'Tailscale status and tailnet IPv4 on SERVER'
 run = """
 #!/usr/bin/env bash
 set -euo pipefail
-ssh root@$SERVER "cd $SQUARE_PATH && mise run tailscale-status"
+ssh root@$SERVER 'set -euo pipefail; tailscale status; tailscale ip -4'
 """
 
 [tasks."caddy:root-ca"]

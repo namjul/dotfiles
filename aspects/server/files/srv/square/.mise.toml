@@ -16,8 +16,3 @@ python = "3.11"
 node = "22"
 "npm:zx" = "latest"
 pitchfork = "2.26.0"
-
-[task_config]
-includes = [
-    "tasks"
-]

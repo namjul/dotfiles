@@ -9,7 +9,6 @@ TEMP_DIR=$(mktemp -d)
 trap 'rm -rf "$TEMP_DIR"' EXIT
 
 cp -r "$FILES_DIR/srv/square/aspects" "$TEMP_DIR/aspects"
-cp -r "$FILES_DIR/srv/square/tasks" "$TEMP_DIR/tasks"
 cp "$FILES_DIR/srv/square/.mise.toml" "$TEMP_DIR/.mise.toml"
 find "$TEMP_DIR" -type f -exec sed -i \
   -e "s|\${SQUARE_PATH}|$SQUARE_PATH|g" \
@@ -19,8 +18,6 @@ find "$TEMP_DIR" -type f -exec sed -i \
 rsync --delete --quiet -rpt --compress --chown=:square \
   --include='aspects/' \
   --include='aspects/**' \
-  --include='tasks/' \
-  --include='tasks/**' \
   --include='.mise.toml' \
   --exclude='*' \
   "$TEMP_DIR/" "$SERVER:$SQUARE_PATH/"
