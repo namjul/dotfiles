@@ -73,7 +73,20 @@ template = true
 [bootstrap.files."/root/.vimrc"]
 source = "bootstrap/root/.vimrc"
 
+[bootstrap.hooks.post-tools]
+run = '''
+#!/bin/sh
+set -eu
+if ! command -v tailscale >/dev/null 2>&1; then
+  curl -fsSL https://tailscale.com/install.sh | sh
+fi
+'''
+
 [bootstrap.services.docker]
+state = "running"
+enabled = true
+
+[bootstrap.services.tailscaled]
 state = "running"
 enabled = true
 
@@ -225,7 +238,10 @@ if [[ "${state}" == "Running" ]]; then
   exit 0
 fi
 
-(cd "${MISE_TASK_DIR}" && mise run aspect tailscale)
+if ! ssh root@$SERVER 'command -v tailscale >/dev/null 2>&1 && systemctl is-active --quiet tailscaled'; then
+  echo "Tailscale not ready on SERVER. Run: mise run converge" >&2
+  exit 1
+fi
 
 echo -n "Tailscale auth key (one-time; input hidden): " >&2
 IFS= read -rs TS_AUTH_KEY
