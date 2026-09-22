@@ -5,6 +5,13 @@ SQUARE_PATH="/srv/square"
 [vars]
 SQUARE_PATH = "/srv/square"
 
+[tools]
+ghq = "latest"
+python = "3.11"
+node = "22"
+"npm:zx" = "latest"
+pitchfork = "2.26.0"
+
 [bootstrap.remote]
 source = "."
 install_mise = true

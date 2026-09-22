@@ -1,18 +1,8 @@
 monorepo_root = true
 
-[env]
-SQUARE_PATH = "{SQUARE_PATH}"
-GOCACHE = "{SQUARE_PATH}/data/cache/go"
-
 [monorepo]
 config_roots = ["aspects/*"]
 
 [settings]
 experimental = true
 
-[tools]
-ghq = "latest"
-python = "3.11"
-node = "22"
-"npm:zx" = "latest"
-pitchfork = "2.26.0"
