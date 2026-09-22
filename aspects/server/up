@@ -24,15 +24,3 @@ rsync --delete --quiet -rpt --compress --chown=:square \
   --include='.mise.toml' \
   --exclude='*' \
   "$TEMP_DIR/" "$SERVER:$SQUARE_PATH/"
-
-sshcmd="
-cd \"$SQUARE_PATH\" && mise trust --all
-echo \"Square monorepo tasks:\"
-mise tasks ls --all --name-only
-
-if systemctl is-active pitchfork.service &>/dev/null; then
-  systemctl restart pitchfork.service
-fi
-"
-
-ssh $SERVER "bash -l -c '$sshcmd'"

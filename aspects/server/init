@@ -43,29 +43,6 @@ setfacl -R -d -m g::rwx $SQUARE_PATH/data
 
 # access ACLs bring existing entries in line with the default ACLs
 setfacl -R -m g::rwx $SQUARE_PATH/data
-
-# setup mise envars
-# echo -e \"ENV_VARS\" | sudo tee \"ENV_FILE\"
-# echo \"Environment variables added to ENV_FILE\"
-
-# install mise
-if ! command -v mise &> /dev/null; then
-  export MISE_INSTALL_PATH=\"/usr/local/bin/mise\"
-  curl https://mise.jdx.dev/install.sh | sh
-fi
-
-# Do not symlink /etc/mise/config.toml → $SQUARE_PATH/.mise.toml: same inode makes
-# mise treat the square config as system scope (no project_root → monorepo tasks vanish).
-rm -f /etc/mise/config.toml
-
-cd \"$SQUARE_PATH\"
-mise trust --all
-mise install --yes --quiet
-
-# Boot supervisor: idempotent; system unit on Linux when run as root
-mise exec -- pitchfork boot enable
-systemctl daemon-reload
-systemctl enable pitchfork.service
 "
 
 ssh $SERVER "bash -l -c '$sshcmd'"
