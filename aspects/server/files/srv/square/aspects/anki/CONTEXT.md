@@ -1,6 +1,6 @@
 # Anki Sync Server (homelab)
 
-Runs [anki-sync-server](https://github.com/ankitects/anki) in **Docker** (upstream `docs/syncserver` Dockerfile), supervised by **Pitchfork** (`[daemons.anki]` in `pitchfork.toml`). Data on the host: `$SQUARE_PATH/data/share/anki`. Caddy path route: `caddyfile` → `https://homelab/anki/` (see `aspects/caddy/CONTEXT.md`).
+Runs [anki-sync-server](https://github.com/ankitects/anki) in **Docker** (upstream `docs/syncserver` Dockerfile), supervised by **Pitchfork** (`[daemons.anki]` in `pitchfork.toml`). Data on the host: `$SQUARE_PATH/data/share/anki`. Caddy path route: `caddyfile` → `https://homelab/anki/` (see `../caddy/CONTEXT.md`).
 
 **Platform split:** Caddy stays on **systemd**; Anki is an **app daemon** behind Pitchfork (same class as `meta` test). **Docker Engine** is a host prerequisite (`mise run docker` from `aspects/server`).
 

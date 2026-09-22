@@ -6,9 +6,9 @@ Manages the homelab host (`SERVER`, default `homelab`). Workspace root is `SQUAR
 
 **Active** aspects live under `files/srv/square/aspects/` (only what you deploy with `up`). **Legacy / VPS** definitions are in `files/srv/square/archive/` — move or copy an aspect into `aspects/` when you need it on the Pi.
 
-Each aspect follows the same structure: `mise.toml` (tool versions + tasks), `default` script (idempotent setup), optional `pitchfork.toml` for long-lived processes, optional systemd service file and Caddyfile.
+Most aspects use `mise.toml`, `default`, optional `pitchfork.toml`, and optional route snippets. **Caddy** is config-only under `aspects/caddy/` (no aspect `default`): binary, unit, and `caddy.service` install are **bootstrap**; **`up`** syncs `Caddyfile` and routes.
 
-Bootable homelab daemons use [Pitchfork](https://pitchfork.jdx.dev/): `[daemons.*]` and `boot_start` live only in each aspect’s `pitchfork.toml`. Namespace registry: `files/root/.config/pitchfork/config.toml` → `/root/.config/pitchfork/config.toml` via `init` (`[namespaces.<aspect>]` + `config` → aspect `pitchfork.toml`; no duplicated daemon stanzas). **`up`** rsyncs **`aspects/`** and **`.mise.toml`**; **`sync:all`** runs **`init`** then **`up`** (full deploy). Pitchfork restarts in **`up`** after rsync. System mise tools/env live in `files/srv/square/.mise.toml` only (no `/etc/mise/config.toml` symlink — mise dedupes by inode and would treat the square monorepo as system config, so `mise tasks ls --all` stays empty). `init` runs `mise trust` / `install` from `$SQUARE_PATH`. Active homelab aspects: `meta` (Pitchfork pilot), `dotfiles` (root `.bashrc` / `.vimrc` via `default`), `caddy` (HTTPS edge on **systemd** — see `files/srv/square/aspects/caddy/CONTEXT.md`), `anki` (sync server container on **Pitchfork** — see `files/srv/square/aspects/anki/CONTEXT.md`). **Tailscale:** `tailscaled` install and service via bootstrap on **`converge`**; tailnet join from laptop **`tailscale:join`** (not a square aspect). Laptop SSH ops (`reboot-if-required`, `tailscale:status`, …) live in **`aspects/server/mise.toml`**. **Bootstrap** (packages, sshd, UFW, root lock via `final-hook`) is laptop **`bootstrap remote`** in `aspects/server/mise.toml`; **`converge`** = sync + full bootstrap (see `files/srv/square/tasks/CONTEXT.md`).
+Bootable homelab daemons use [Pitchfork](https://pitchfork.jdx.dev/): `[daemons.*]` and `boot_start` live only in each aspect’s `pitchfork.toml`. Namespace registry: `files/root/.config/pitchfork/config.toml` → `/root/.config/pitchfork/config.toml` via `init` (`[namespaces.<aspect>]` + `config` → aspect `pitchfork.toml`; no duplicated daemon stanzas). **`up`** rsyncs **`aspects/`** and **`.mise.toml`**; **`sync:all`** runs **`init`** then **`up`** (full deploy). Pitchfork restarts in **`up`** after rsync. Host mise tools (`caddy`, …) live in **`aspects/server/mise.toml` `[tools]`** (bootstrap on **`converge`**); square `.mise.toml` is monorepo metadata only. `init` runs `mise trust` / `install` from `$SQUARE_PATH` for aspect tools. Active homelab aspects: `anki` (sync server on **Pitchfork** — see `files/srv/square/aspects/anki/CONTEXT.md`); **Caddy** (HTTPS edge — see `files/srv/square/aspects/caddy/CONTEXT.md`). **Tailscale:** `tailscaled` install and service via bootstrap on **`converge`**; tailnet join from laptop **`tailscale:join`**. Laptop SSH ops (`reboot-if-required`, `tailscale:status`, `caddy:root-ca`, …) live in **`aspects/server/mise.toml`**. **Bootstrap** (packages, sshd, UFW, root lock via `final-hook`) is laptop **`bootstrap remote`** in `aspects/server/mise.toml`; **`converge`** = sync + full bootstrap (see `files/srv/square/tasks/CONTEXT.md`).
 
 ## Mise tasks
 
@@ -39,16 +39,16 @@ Three mechanisms stack; each has a fixed scope. Do not duplicate the same file p
 
 | Layer | Where defined | Runs from | Delivers |
 |-------|----------------|-----------|----------|
-| **Bootstrap remote** | `aspects/server/mise.toml` `[bootstrap.*]` + `bootstrap/` | Laptop: `mise run converge` (after `sync:all`) or `mise bootstrap remote homelab …` | Host OS: apt baseline, `/etc/ssh/sshd_config`, UFW, `final-hook` (SSH restart + `passwd -l root`). Archive is `aspects/server/` only (`source = "."`). |
+| **Bootstrap remote** | `aspects/server/mise.toml` `[bootstrap.*]` + `bootstrap/` | Laptop: `mise run converge` (after `sync:all`) or `mise bootstrap remote homelab …` | Host OS: apt baseline, mise `[tools]` (e.g. `caddy`), `/etc/systemd/system/caddy.service`, `[bootstrap.services.*]` (`docker`, `caddy`, `tailscaled`), `/etc/ssh/sshd_config`, UFW, `final-hook` (SSH restart + `passwd -l root`). Archive is `aspects/server/` only (`source = "."`). |
 | **Init + up** | `init`, `up`, `files/root/*`, `files/srv/square/**` (not `files/etc/*`) | Laptop: `sync:all` / `converge` (sync half) | `$SQUARE_PATH` + root profile: square layout, ACLs, aspects, platform task scripts, Pitchfork registry, remote `mise install`, `PUBLIC_KEY` append via sops. Host `/etc/environment` + `/etc/gitconfig` come from bootstrap on **`converge`**, not from `init`. |
-| **Laptop SSH ops** | `aspects/server/mise.toml` `[tasks.*]` | Laptop: `mise run reboot-if-required`, `tailscale:status`, … | Remote shell over SSH; not square monorepo tasks. Docker and **`tailscaled`** are bootstrap `[bootstrap.services.*]` on **`converge`**. |
+| **Laptop SSH ops** | `aspects/server/mise.toml` `[tasks.*]` | Laptop: `mise run reboot-if-required`, `tailscale:status`, `caddy:root-ca`, … | Remote shell over SSH; not square monorepo tasks. |
 
 **Entrypoints:** New host — `local:prepare`, then `converge`. Day-2 aspects — `sync:all` alone. Day-2 host + apps — `converge` (accepts full bootstrap cost: upgrades, SSH restart, root lock). Aspect secrets — fnox / `[bootstrap.secrets]` on the aspect (e.g. Seafile), not host bootstrap.
 
 ## Routing
 | Task | Aspect | Read |
 |------|--------|------|
-| Caddy path routing | `caddy` | files/srv/square/aspects/caddy/CONTEXT.md |
+| Caddy HTTPS edge | `caddy` | files/srv/square/aspects/caddy/CONTEXT.md |
 | Laptop SSH ops | — | `aspects/server/mise.toml` `[tasks.*]` |
 | Anki sync server | `anki` | files/srv/square/aspects/anki/CONTEXT.md |
 | Static sites / SSG builds | `website` | files/srv/square/archive/website/CONTEXT.md (when promoted to `aspects/`) |

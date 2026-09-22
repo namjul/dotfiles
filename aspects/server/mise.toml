@@ -6,6 +6,7 @@ SQUARE_PATH="/srv/square"
 SQUARE_PATH = "/srv/square"
 
 [tools]
+caddy = "2.11"
 ghq = "latest"
 python = "3.11"
 node = "22"
@@ -73,6 +74,10 @@ template = true
 [bootstrap.files."/root/.vimrc"]
 source = "bootstrap/root/.vimrc"
 
+[bootstrap.files."/etc/systemd/system/caddy.service"]
+source = "files/srv/square/aspects/caddy/caddy.service"
+template = true
+
 [bootstrap.hooks.post-tools]
 run = '''
 #!/bin/sh
@@ -83,6 +88,10 @@ fi
 '''
 
 [bootstrap.services.docker]
+state = "running"
+enabled = true
+
+[bootstrap.services.caddy]
 state = "running"
 enabled = true
 
@@ -265,6 +274,14 @@ set -euo pipefail
 ssh root@$SERVER 'set -euo pipefail; tailscale status; tailscale ip -4'
 """
 
+[tasks."caddy:config"]
+description = 'Print Caddy admin API config from SERVER'
+run = """
+#!/usr/bin/env bash
+set -euo pipefail
+ssh root@$SERVER 'curl -s http://localhost:2019/config/'
+"""
+
 [tasks."caddy:root-ca"]
 description = 'Copy Caddy internal root CA from SERVER; optional local trust (Arch p11-kit)'
 usage = '''
@@ -280,7 +297,7 @@ dest="${usage_dest:-$HOME/.local/share/homelab/caddy-local-root.crt}"
 
 if ! ssh root@$SERVER "test -r '${remote_root}'"; then
   echo "Missing on SERVER: ${remote_root}" >&2
-  echo "Start Caddy with tls internal and XDG_DATA_HOME=${SQUARE_PATH}/data/share (mise run aspect caddy)." >&2
+  echo "Start Caddy with tls internal (mise run converge)." >&2
   exit 1
 fi
 
