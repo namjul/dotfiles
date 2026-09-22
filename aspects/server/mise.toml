@@ -2,6 +2,46 @@
 SERVER="homelab"
 SQUARE_PATH="/srv/square"
 
+[bootstrap.remote]
+source = "."
+
+[bootstrap.remote.hosts.homelab]
+host = "homelab"
+user = "root"
+
+# Unpinned install (do not use "present" — apt treats it as a version pin: curl=present)
+[bootstrap.packages]
+"apt:curl" = "latest"
+"apt:vim" = "latest"
+"apt:htop" = "latest"
+"apt:ufw" = "latest"
+"apt:git" = "latest"
+"apt:unzip" = "latest"
+"apt:gnupg" = "latest"
+"apt:acl" = "latest"
+"apt:mosh" = "latest"
+"apt:ncdu" = "latest"
+"apt:ca-certificates" = "latest"
+"apt:rsync" = "latest"
+"apt:ripgrep" = "latest"
+"apt:jq" = "latest"
+"apt:unattended-upgrades" = "latest"
+
+[bootstrap.hooks.post-packages]
+run = '''
+#!/bin/sh
+set -eu
+export DEBIAN_FRONTEND=noninteractive
+apt-get update -y
+apt-get full-upgrade -y
+apt-get autoremove -y
+echo 'unattended-upgrades unattended-upgrades/enable_auto_updates boolean true' | debconf-set-selections
+if [ -f /var/run/reboot-required ]; then
+  echo 'NOTE: Reboot required after upgrades. Run: mise run reboot-if-required'
+  cat /var/run/reboot-required 2>/dev/null || true
+fi
+'''
+
 [tasks."init"]
 description = 'Idempotent Initialization'
 file = "init"
@@ -35,11 +75,12 @@ grep -q hobl.at ~/.ssh/config > /dev/null 2>&1 || cat config/ssh_client_config >
 """
 
 [tasks.packages]
-description = 'Base packages on SERVER'
+description = 'Apt baseline on SERVER via bootstrap remote (packages + post-packages hook)'
 run = """
 #!/usr/bin/env bash
 set -euo pipefail
-ssh root@$SERVER "cd $SQUARE_PATH && mise run packages"
+cd "${MISE_CONFIG_ROOT}"
+mise bootstrap remote homelab --yes --only packages --update -q
 """
 
 [tasks."reboot-if-required"]
