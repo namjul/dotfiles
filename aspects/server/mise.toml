@@ -2,6 +2,9 @@
 SERVER="homelab"
 SQUARE_PATH="/srv/square"
 
+[vars]
+SQUARE_PATH = "/srv/square"
+
 [bootstrap.remote]
 source = "."
 
@@ -26,6 +29,8 @@ user = "root"
 "apt:ripgrep" = "latest"
 "apt:jq" = "latest"
 "apt:unattended-upgrades" = "latest"
+"apt:docker.io" = "latest"
+"apt:docker-compose" = "latest"
 
 [bootstrap.hooks.post-packages]
 run = '''
@@ -43,7 +48,19 @@ fi
 '''
 
 [bootstrap.files."/etc/ssh/sshd_config"]
-source = "files/srv/square/tasks/config/sshd_config"
+source = "bootstrap/sshd_config"
+
+[bootstrap.files."/etc/environment"]
+source = "files/etc/environment"
+template = true
+
+[bootstrap.files."/etc/gitconfig"]
+source = "files/etc/gitconfig"
+template = true
+
+[bootstrap.services.docker]
+state = "running"
+enabled = true
 
 [bootstrap.hooks.final]
 run = '''
@@ -144,14 +161,6 @@ run = """
 #!/usr/bin/env bash
 set -euo pipefail
 ssh root@$SERVER "cd $SQUARE_PATH && mise run reboot-if-required"
-"""
-
-[tasks.docker]
-description = 'Install Docker Engine and compose plugin on SERVER'
-run = """
-#!/usr/bin/env bash
-set -euo pipefail
-ssh root@$SERVER "cd $SQUARE_PATH && mise run docker"
 """
 
 [tasks.aspect]

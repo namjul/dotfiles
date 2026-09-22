@@ -9,6 +9,8 @@ TEMP_DIR=$(mktemp -d)
 
 cp -r "$FILES_DIR" "$TEMP_DIR"
 rm -rf "$TEMP_DIR/files/srv/square/archive"
+# Bootstrap templates (mise {{ vars.* }}); applied only via converge — not init sed/rsync.
+rm -rf "$TEMP_DIR/files/etc"
 find "$TEMP_DIR" -type f -exec sed -i "s|\${SQUARE_PATH}|$SQUARE_PATH|g" {} +
 find "$TEMP_DIR" -type f -exec sed -i "s|{SQUARE_PATH}|$SQUARE_PATH|g" {} +
 

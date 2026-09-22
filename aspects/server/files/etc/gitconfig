@@ -1,4 +1,4 @@
 [safe]
   directory = *
 [ghq]
-  root = {SQUARE_PATH}/data/share/ghq
+  root = {{ vars.SQUARE_PATH }}/data/share/ghq
