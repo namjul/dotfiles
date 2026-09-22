@@ -42,6 +42,60 @@ if [ -f /var/run/reboot-required ]; then
 fi
 '''
 
+[bootstrap.files."/etc/ssh/sshd_config"]
+source = "files/srv/square/tasks/config/sshd_config"
+
+[bootstrap.hooks.final]
+run = '''
+#!/bin/sh
+set -eu
+systemctl restart ssh.service
+passwd -l root
+'''
+
+[bootstrap.linux.firewall]
+backend = "auto"
+state = "enabled"
+default_incoming = "deny"
+default_outgoing = "allow"
+allow_lockout = true
+
+[[bootstrap.linux.firewall.rules]]
+name = "ssh"
+port = 22
+protocol = "tcp"
+action = "allow"
+
+[[bootstrap.linux.firewall.rules]]
+name = "http"
+port = 80
+protocol = "tcp"
+action = "allow"
+
+[[bootstrap.linux.firewall.rules]]
+name = "https"
+port = 443
+protocol = "tcp"
+action = "allow"
+
+[[bootstrap.linux.firewall.rules]]
+name = "k8s-api"
+port = 6443
+protocol = "tcp"
+action = "allow"
+
+[[bootstrap.linux.firewall.rules]]
+name = "mosh-udp"
+port = "60000:61000"
+protocol = "udp"
+action = "allow"
+
+[[bootstrap.linux.firewall.rules]]
+name = "misc-23231"
+port = 23231
+protocol = "tcp"
+action = "allow"
+
 [tasks."init"]
 description = 'Idempotent Initialization'
 file = "init"
@@ -74,13 +128,14 @@ chmod 600 ~/.ssh/id_ed25519_personal-server ~/.ssh/id_ed25519_personal-server.pu
 grep -q hobl.at ~/.ssh/config > /dev/null 2>&1 || cat config/ssh_client_config >> ~/.ssh/config
 """
 
-[tasks.packages]
-description = 'Apt baseline on SERVER via bootstrap remote (packages + post-packages hook)'
+[tasks.converge]
+description = 'Square sync then full bootstrap remote (packages, sshd, firewall, final-hook)'
+depends = [":sync:all"]
 run = """
 #!/usr/bin/env bash
 set -euo pipefail
 cd "${MISE_CONFIG_ROOT}"
-mise bootstrap remote homelab --yes --only packages --update -q
+mise bootstrap remote homelab --yes --update -q
 """
 
 [tasks."reboot-if-required"]
@@ -91,30 +146,6 @@ set -euo pipefail
 ssh root@$SERVER "cd $SQUARE_PATH && mise run reboot-if-required"
 """
 
-[tasks."ssh:config"]
-description = 'Deploy sshd_config if changed and restart ssh'
-run = """
-#!/usr/bin/env bash
-set -euo pipefail
-ssh root@$SERVER "cd $SQUARE_PATH && mise run ssh-config"
-"""
-
-[tasks."root-lock"]
-description = 'Lock root console password (idempotent; run after key-based SSH works)'
-run = """
-#!/usr/bin/env bash
-set -euo pipefail
-ssh root@$SERVER "cd $SQUARE_PATH && mise run root-lock"
-"""
-
-[tasks.firewall]
-description = 'Setup firewall'
-run = """
-#!/usr/bin/env bash
-set -euo pipefail
-ssh root@$SERVER "cd $SQUARE_PATH && mise run firewall"
-"""
-
 [tasks.docker]
 description = 'Install Docker Engine and compose plugin on SERVER'
 run = """
@@ -122,22 +153,6 @@ run = """
 set -euo pipefail
 ssh root@$SERVER "cd $SQUARE_PATH && mise run docker"
 """
-
-[tasks.harden]
-description = 'SSH hardening: sshd_config, lock root console, firewall'
-run = """
-#!/usr/bin/env bash
-set -euo pipefail
-ssh root@$SERVER "cd $SQUARE_PATH && mise run harden"
-"""
-
-[tasks.base]
-description = 'Packages, sync server tree, harden (requires ssh root@$SERVER with keys)'
-depends = [":packages", ":sync:all", ":harden"]
-
-[tasks.provision]
-description = 'Full provision from laptop: local keys, base server setup'
-depends = [":local:prepare", ":base"]
 
 [tasks.aspect]
 description = 'Run a mise task in an aspect on SERVER'

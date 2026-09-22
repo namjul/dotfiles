@@ -21,8 +21,3 @@ pitchfork = "2.26.0"
 includes = [
     "tasks"
 ]
-
-[tasks.harden]
-description = "SSH hardening: sshd_config, lock root, firewall"
-depends = [":ssh-config", ":root-lock", ":firewall"]
-run = "true"

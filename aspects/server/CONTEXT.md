@@ -8,7 +8,7 @@ Manages the homelab host (`SERVER`, default `homelab`). Workspace root is `SQUAR
 
 Each aspect follows the same structure: `mise.toml` (tool versions + tasks), `default` script (idempotent setup), optional `pitchfork.toml` for long-lived processes, optional systemd service file and Caddyfile.
 
-Bootable homelab daemons use [Pitchfork](https://pitchfork.jdx.dev/): `[daemons.*]` and `boot_start` live only in each aspect’s `pitchfork.toml`. Namespace registry: `files/root/.config/pitchfork/config.toml` → `/root/.config/pitchfork/config.toml` via `init` (`[namespaces.<aspect>]` + `config` → aspect `pitchfork.toml`; no duplicated daemon stanzas). **`up`** rsyncs **`aspects/`**, **`tasks/`**, and **`.mise.toml`**; **`sync:all`** runs **`init`** then **`up`** (full deploy). Pitchfork restarts in **`up`** after rsync. System mise tools/env live in `files/srv/square/.mise.toml` only (no `/etc/mise/config.toml` symlink — mise dedupes by inode and would treat the square monorepo as system config, so `mise tasks ls --all` stays empty). `init` runs `mise trust` / `install` from `$SQUARE_PATH`. Active homelab aspects: `meta` (Pitchfork pilot), `dotfiles` (root `.bashrc` / `.vimrc` via `default`), `tailscale` (`tailscaled` install on Pi; join from laptop — see `files/srv/square/aspects/tailscale/CONTEXT.md`), `caddy` (HTTPS edge on **systemd** — see `files/srv/square/aspects/caddy/CONTEXT.md`), `anki` (sync server container on **Pitchfork** — see `files/srv/square/aspects/anki/CONTEXT.md`). **Host platform** tasks (`docker`, `firewall`, …) live under **`files/srv/square/tasks/`** and run on the Pi; **`aspects/server`** tasks with the same names SSH to `$SQUARE_PATH` and call `mise run` there. **`packages`** is laptop-only via **`bootstrap remote`** in `aspects/server/mise.toml` (see `files/srv/square/tasks/CONTEXT.md`).
+Bootable homelab daemons use [Pitchfork](https://pitchfork.jdx.dev/): `[daemons.*]` and `boot_start` live only in each aspect’s `pitchfork.toml`. Namespace registry: `files/root/.config/pitchfork/config.toml` → `/root/.config/pitchfork/config.toml` via `init` (`[namespaces.<aspect>]` + `config` → aspect `pitchfork.toml`; no duplicated daemon stanzas). **`up`** rsyncs **`aspects/`**, **`tasks/`**, and **`.mise.toml`**; **`sync:all`** runs **`init`** then **`up`** (full deploy). Pitchfork restarts in **`up`** after rsync. System mise tools/env live in `files/srv/square/.mise.toml` only (no `/etc/mise/config.toml` symlink — mise dedupes by inode and would treat the square monorepo as system config, so `mise tasks ls --all` stays empty). `init` runs `mise trust` / `install` from `$SQUARE_PATH`. Active homelab aspects: `meta` (Pitchfork pilot), `dotfiles` (root `.bashrc` / `.vimrc` via `default`), `tailscale` (`tailscaled` install on Pi; join from laptop — see `files/srv/square/aspects/tailscale/CONTEXT.md`), `caddy` (HTTPS edge on **systemd** — see `files/srv/square/aspects/caddy/CONTEXT.md`), `anki` (sync server container on **Pitchfork** — see `files/srv/square/aspects/anki/CONTEXT.md`). **Host platform** tasks (`docker`, …) live under **`files/srv/square/tasks/`** and run on the Pi; **`aspects/server`** SSH-delegates where needed. **Bootstrap** (packages, sshd, UFW, root lock via `final-hook`) is laptop **`bootstrap remote`** in `aspects/server/mise.toml`; **`converge`** = sync + full bootstrap (see `files/srv/square/tasks/CONTEXT.md`).
 
 ## Mise tasks
 
@@ -20,23 +20,17 @@ Set `SERVER` (and optionally `SQUARE_PATH`, default `/srv/square`) per host. Fla
 
 | Task | When |
 |------|------|
-| `local:prepare` | Laptop: sops SSH keys + ssh client snippet |
+| `local:prepare` | Laptop: sops SSH keys + ssh client snippet (once per laptop; before first SSH) |
 | `sync:all` / `default` | `init` + `up` — square layout and aspects on SERVER |
-| `packages` | Laptop: `mise bootstrap remote homelab --only packages --update` — `[bootstrap.packages]` + `[bootstrap.hooks.post-packages]` (full-upgrade, debconf) |
+| `converge` | `sync:all` then full `bootstrap remote homelab` — sole bootstrap entry (all `[bootstrap.*]`) |
 | `reboot-if-required` | SSH → Pi `tasks/reboot-if-required.sh` |
-| `ssh:config` | SSH → Pi `tasks/ssh-config.sh` (`tasks/config/sshd_config`) |
-| `root-lock` | SSH → Pi `tasks/root-lock.sh` |
-| `firewall` | SSH → Pi `tasks/firewall.sh` |
 | `docker` | SSH → Pi `tasks/docker.sh` |
-| `harden` | SSH → Pi `.mise.toml` `harden` (depends ssh-config, root-lock, firewall) |
-| `base` | packages + sync:all + harden |
-| `provision` | local:prepare + base (new host) |
 | `aspect` | Run a mise task in one aspect on SERVER (`[cmd]` defaults to `default`) |
 | `tailscale:join` | Laptop: prompt for one-time auth key → Pi `tailscale up` (stdin; after `aspect tailscale`) |
 | `tailscale:status` | SSH → Pi `tasks/tailscale-status.sh` |
 | `caddy:root-ca` | `scp` internal CA `root.crt` from SERVER; `--trust` for local p11-kit |
 
-Homelab example: `SERVER=homelab mise run provision` (after SSH with keys).
+New host: `mise run local:prepare` (once), then `mise run converge`. Day-2: `mise run converge` or `mise run sync:all` alone for aspects-only.
 
 Tailscale join order: `sync:all` → `aspect tailscale` → `tailscale:join` (keep SSH on LAN/public until tailnet SSH works).
 
