@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Name=Mattermost
+Comment=Launch Mattermost in Chromium
+Exec=chromium --app=https://mattermost.tools.wienfluss.net/
+Terminal=false
+Type=Application
+Categories=Network;Productivity;
+StartupWMClass=mattermost
