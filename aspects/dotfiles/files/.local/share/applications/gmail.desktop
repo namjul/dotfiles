@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Gmail
+Comment=Gmail web app and mailto handler
+Exec=webapp-handler-gmail %u
+Terminal=false
+Type=Application
+Categories=Network;Email;
+MimeType=x-scheme-handler/mailto;
+StartupWMClass=mail.google.com

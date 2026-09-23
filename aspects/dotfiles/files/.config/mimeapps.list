@@ -36,6 +36,7 @@ x-scheme-handler/http=chromium_chromium.desktop
 x-scheme-handler/https=chromium_chromium.desktop
 x-scheme-handler/about=chromium_chromium.desktop
 x-scheme-handler/unknown=chromium_chromium.desktop
+x-scheme-handler/mailto=gmail.desktop
 
 # files
 text/plain=nvim.desktop

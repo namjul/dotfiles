@@ -380,7 +380,7 @@ binds {
     // ── App launchers ──────────────────────────────────────────────
     Mod+B { spawn "chromium"; }
     Mod+T hotkey-overlay-title="Telegram" { spawn-sh "gtk-launch telegram"; }
-    Mod+M hotkey-overlay-title="Email" { spawn-sh "gtk-launch email"; }
+    Mod+M hotkey-overlay-title="Gmail" { spawn-sh "gtk-launch gmail"; }
     Mod+C hotkey-overlay-title="Calendar" { spawn-sh "gtk-launch calendar"; }
     Mod+D hotkey-overlay-title="Devdocs" { spawn-sh "gtk-launch devdocs"; }
     Mod+V hotkey-overlay-title="Btop" { spawn-sh "launch-terminal --title=Btop btop"; }
