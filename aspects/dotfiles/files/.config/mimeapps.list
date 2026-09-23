@@ -1,6 +1,7 @@
 # NOTE: to update run `update-desktop-database ~/.local/share/applications`
 
 [Default Applications]
+inode/directory=org.gnome.Nautilus.desktop
 
 # Open PDFs with the Zathura
 application/pdf=org.pwmt.zathura.desktop
