@@ -1,0 +1,7 @@
+[plugin]
+deps = [
+	{ use = "yazi-plugin/zoxide" },
+]
+
+[flavor]
+deps = []
