@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+# Open Gmail; translate mailto: links to the web compose URL.
+set -euo pipefail
+
+url=${1:-}
+web_url="https://mail.google.com/mail/u/0/#inbox"
+
+if [[ $url =~ ^mailto: ]]; then
+  address=$(printf '%s' "${url#mailto:}" | cut -d'?' -f1)
+  web_url="https://mail.google.com/mail/?view=cm&fs=1&to=${address}"
+fi
+
+exec launch-webapp "$web_url"

@@ -110,6 +110,8 @@ variables(({ identity }) => ({
     ".local/bin/file-select-portal",
     ".local/bin/share-via-localsend",
     ".local/bin/share-menu",
+    ".local/bin/launch-webapp",
+    ".local/bin/webapp-handler-gmail",
     ".config/ghostty",
     ".config/imv",
     ".config/mpv",
