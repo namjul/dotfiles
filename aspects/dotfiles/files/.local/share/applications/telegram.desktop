@@ -2,7 +2,7 @@
 Version=1.0
 Name=Telegram
 Comment=Launch Telegram in Chromium
-Exec=chromium --app=https://web.telegram.org/
+Exec=launch-webapp https://web.telegram.org/
 Terminal=false
 Type=Application
 Categories=Network;Chat;

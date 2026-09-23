@@ -2,7 +2,7 @@
 Version=1.0
 Name=Easybank
 Comment=Launch Easybank in Chromium
-Exec=chromium --app=https://ebanking.easybank.at/
+Exec=launch-webapp https://ebanking.easybank.at/
 Terminal=false
 Type=Application
 Categories=Network;Finance;

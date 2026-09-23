@@ -2,7 +2,7 @@
 Version=1.0
 Name=Substack
 Comment=Launch Substack in Chromium
-Exec=chromium --app=https://substack.com/
+Exec=launch-webapp https://substack.com/
 Terminal=false
 Type=Application
 Categories=Network;Social;

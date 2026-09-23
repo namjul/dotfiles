@@ -2,7 +2,7 @@
 Version=1.0
 Name=Perplexity
 Comment=Launch Perplexity in Chromium
-Exec=chromium --app=https://perplexity.ai/
+Exec=launch-webapp https://perplexity.ai/
 Terminal=false
 Type=Application
 Categories=Network;Productivity;

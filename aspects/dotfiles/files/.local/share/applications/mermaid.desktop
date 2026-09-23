@@ -2,7 +2,7 @@
 Version=1.0
 Name=Mermaid
 Comment=Launch Mermaid in Chromium
-Exec=chromium --app=https://mermaid.ai/app/dashboard
+Exec=launch-webapp https://mermaid.ai/app/dashboard
 Terminal=false
 Type=Application
 Categories=Network;Productivity;

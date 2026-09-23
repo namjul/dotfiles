@@ -2,7 +2,7 @@
 Version=1.0
 Name=DeepSeek
 Comment=Launch DeepSeek Chat in Chromium
-Exec=chromium --app=https://chat.deepseek.com/
+Exec=launch-webapp https://chat.deepseek.com/
 Terminal=false
 Type=Application
 Categories=Network;Productivity;

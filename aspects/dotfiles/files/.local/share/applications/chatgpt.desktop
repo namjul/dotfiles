@@ -2,7 +2,7 @@
 Version=1.0
 Name=ChatGPT
 Comment=Launch ChatGPT in Chromium
-Exec=chromium --app=https://chatgpt.com/
+Exec=launch-webapp https://chatgpt.com/
 Terminal=false
 Type=Application
 Categories=Network;Productivity;

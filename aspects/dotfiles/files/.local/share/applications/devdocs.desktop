@@ -2,7 +2,7 @@
 Version=1.0
 Name=Devdocs
 Comment=Launch Devdocs in Chromium
-Exec=chromium --app=https://devdocs.io/
+Exec=launch-webapp https://devdocs.io/
 Terminal=false
 Type=Application
 Categories=Network;Email;

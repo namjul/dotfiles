@@ -2,7 +2,7 @@
 Version=1.0
 Name=Basecamp
 Comment=Launch Basecamp in Chromium
-Exec=chromium --app=https://launchpad.37signals.com/
+Exec=launch-webapp https://launchpad.37signals.com/
 Terminal=false
 Type=Application
 Categories=Network;Finance;

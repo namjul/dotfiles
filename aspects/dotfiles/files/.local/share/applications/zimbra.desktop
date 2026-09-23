@@ -2,7 +2,7 @@
 Version=1.0
 Name=Zimbra
 Comment=Launch Zimbra in Chromium
-Exec=chromium --app=https://mx.zsuite.at/
+Exec=launch-webapp https://mx.zsuite.at/
 Terminal=false
 Type=Application
 Categories=Network;Productivity;
