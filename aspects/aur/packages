@@ -99,7 +99,6 @@ packages=(
   fish # https://fishshell.com
   nushell # https://github.com/nushell/nushell
   fd ffmpegthumbnailer imagemagick # yazi runtime deps
-  lf # https://github.com/gokcehan/lf
   tree xclip xsel wmctrl
   ripgrep # https://github.com/BurntSushi/ripgrep
   translate-shell # https://github.com/soimort/translate-shell
