@@ -1,9 +1,15 @@
 [env]
 SERVER="homelab"
-SQUARE_PATH="/srv/square"
 
 [vars]
-SQUARE_PATH = "/srv/square"
+# Root XDG base dirs (also written to /etc/environment; aspects use these paths)
+XDG_CONFIG_HOME = "/root/.config"
+XDG_DATA_HOME = "/root/.local/share"
+XDG_STATE_HOME = "/root/.local/state"
+XDG_CACHE_HOME = "/root/.cache"
+# Anki sync — templated into {{ vars.XDG_CONFIG_HOME }}/anki/compose.env
+SYNC_USER1 = "user:pass"
+ANKI_VERSION = "24.06.3"
 
 [tools]
 caddy = "2.11"
@@ -11,7 +17,6 @@ ghq = "latest"
 python = "3.11"
 node = "22"
 "npm:zx" = "latest"
-pitchfork = "2.26.0"
 
 [bootstrap.remote]
 source = "."
@@ -20,6 +25,8 @@ install_mise = true
 [bootstrap.remote.hosts.homelab]
 host = "homelab"
 user = "root"
+
+[bootstrap.groups.homelab]
 
 # Unpinned install (do not use "present" — apt treats it as a version pin: curl=present)
 [bootstrap.packages]
@@ -54,18 +61,18 @@ if [ -f /var/run/reboot-required ]; then
   echo 'NOTE: Reboot required after upgrades. Run: mise run reboot-if-required'
   cat /var/run/reboot-required 2>/dev/null || true
 fi
+usermod -aG homelab root 2>/dev/null || true
 '''
 
 [bootstrap.files."/etc/ssh/sshd_config"]
 source = "bootstrap/sshd_config"
 
 [bootstrap.files."/etc/environment"]
-source = "files/etc/environment"
+source = "host/etc/environment"
 template = true
 
 [bootstrap.files."/etc/gitconfig"]
-source = "files/etc/gitconfig"
-template = true
+source = "host/etc/gitconfig"
 
 [bootstrap.files."/root/.bashrc"]
 source = "bootstrap/root/.bashrc"
@@ -75,8 +82,54 @@ template = true
 source = "bootstrap/root/.vimrc"
 
 [bootstrap.files."/etc/systemd/system/caddy.service"]
-source = "files/srv/square/aspects/caddy/caddy.service"
+source = "aspects/caddy/caddy.service"
+
+[bootstrap.files."/etc/caddy/Caddyfile"]
+source = "aspects/caddy/Caddyfile"
+
+[bootstrap.files."/etc/caddy/conf.d/anki.caddy"]
+source = "aspects/anki/caddyfile"
+
+[bootstrap.files."/root/.config/anki/compose/compose.yaml"]
+source = "aspects/anki/compose.yaml"
+
+[bootstrap.files."/root/.config/anki/compose/Dockerfile"]
+source = "aspects/anki/Dockerfile"
+
+[bootstrap.files."/root/.config/anki/compose/mise.toml"]
+source = "aspects/anki/mise.toml"
+
+[bootstrap.directories."/etc/caddy/conf.d"]
+mode = "0755"
+
+[bootstrap.directories."/root/.config/anki/compose"]
+mode = "0755"
+
+[bootstrap.directories."/root/.local/share/anki/sync"]
+group = "homelab"
+mode = "2770"
+
+[bootstrap.files."/root/.config/anki/compose.env"]
 template = true
+group = "homelab"
+mode = "0640"
+content = """
+XDG_CONFIG_HOME={{ vars.XDG_CONFIG_HOME }}
+XDG_DATA_HOME={{ vars.XDG_DATA_HOME }}
+SYNC_USER1={{ vars.SYNC_USER1 }}
+HOMELAB_GID={{ exec(command='getent group homelab | cut -d: -f3') }}
+ANKI_VERSION={{ vars.ANKI_VERSION }}
+"""
+
+[bootstrap.compose.anki]
+project_dir = "/root/.config/anki/compose"
+files = ["compose.yaml"]
+env_files = ["/root/.config/anki/compose.env"]
+project_name = "anki"
+state = "running"
+build = "always"
+remove_orphans = true
+depends_on = ["service:docker"]
 
 [bootstrap.hooks.post-tools]
 run = '''
@@ -84,6 +137,12 @@ run = '''
 set -eu
 if ! command -v tailscale >/dev/null 2>&1; then
   curl -fsSL https://tailscale.com/install.sh | sh
+fi
+if systemctl is-active --quiet caddy.service; then
+  if ! systemctl reload caddy.service; then
+    echo 'NOTE: caddy reload failed; trying restart (see journalctl -u caddy.service if this fails)' >&2
+    systemctl restart caddy.service || echo 'NOTE: caddy restart failed; fix config and run: systemctl restart caddy' >&2
+  fi
 fi
 '''
 
@@ -150,25 +209,8 @@ port = 23231
 protocol = "tcp"
 action = "allow"
 
-[tasks."init"]
-description = 'Idempotent Initialization'
-file = "init"
-
-[tasks."up"]
-description = 'Idempotent Upload'
-file = "up"
-
-[tasks."sync:all"]
-description = 'Rsync server tree and aspects (init then up)'
-run = """
-#!/usr/bin/env bash
-set -euo pipefail
-mise run init
-mise run up
-"""
-
 [tasks.default]
-depends = [":sync:all"]
+depends = [":converge"]
 
 [tasks."local:prepare"]
 description = 'Local SSH keys and client config for SERVER'
@@ -182,9 +224,29 @@ chmod 600 ~/.ssh/id_ed25519_personal-server ~/.ssh/id_ed25519_personal-server.pu
 grep -q hobl.at ~/.ssh/config > /dev/null 2>&1 || cat config/ssh_client_config >> ~/.ssh/config
 """
 
+[tasks."anki:retire-square-compose"]
+description = 'One-time: stop Anki compose from /srv/square so bootstrap can adopt project_name anki at new paths'
+run = """
+#!/usr/bin/env bash
+set -euo pipefail
+ssh root@$SERVER 'set -euo pipefail
+old=/srv/square/aspects/anki
+if [ -f "$old/compose.yaml" ]; then
+  env_file=/srv/square/data/private/anki-compose.env
+  [ -f "$env_file" ] || env_file="$old/.env"
+  if [ -f "$env_file" ]; then
+    docker compose -f "$old/compose.yaml" --env-file "$env_file" --project-name anki down --remove-orphans 2>/dev/null || true
+  else
+    docker compose -f "$old/compose.yaml" --project-name anki down --remove-orphans 2>/dev/null || true
+  fi
+fi
+docker compose -p anki down --remove-orphans 2>/dev/null || true
+docker rm -f anki-sync-server 2>/dev/null || true
+echo "Old anki compose stopped; run mise run converge"'
+"""
+
 [tasks.converge]
-description = 'Square sync then full bootstrap remote (packages, sshd, firewall, final-hook)'
-depends = [":sync:all"]
+description = 'Full bootstrap remote homelab (packages, sshd, firewall, apps, final-hook)'
 run = """
 #!/usr/bin/env bash
 set -euo pipefail
@@ -206,20 +268,6 @@ cat /var/run/reboot-required 2>/dev/null || true
 echo "Rebooting..."
 nohup systemctl reboot >/dev/null 2>&1 &
 sleep 1'
-"""
-
-[tasks.aspect]
-description = 'Run a mise task in an aspect on SERVER'
-usage = '''
-arg "<aspect>" help="Aspect under $SQUARE_PATH/aspects"
-arg "[cmd]" help="Mise task on SERVER; defaults to default"
-'''
-run = """
-#!/usr/bin/env bash
-set -euo pipefail
-aspect="${usage_aspect?}"
-cmd="${usage_cmd:-default}"
-ssh root@$SERVER "cd $SQUARE_PATH/aspects/$aspect && mise trust && mise install && mise run $cmd"
 """
 
 [tasks."aspect:log"]
@@ -292,10 +340,11 @@ run = """
 #!/usr/bin/env bash
 set -euo pipefail
 
-remote_root="${SQUARE_PATH}/data/share/caddy/pki/authorities/local/root.crt"
 dest="${usage_dest:-$HOME/.local/share/homelab/caddy-local-root.crt}"
 
-if ! ssh root@$SERVER "test -r '${remote_root}'"; then
+remote_root="$(ssh root@$SERVER 'echo "${XDG_DATA_HOME:-/root/.local/share}/caddy/pki/authorities/local/root.crt"')"
+
+if ! ssh root@$SERVER "test -r \"${remote_root}\""; then
   echo "Missing on SERVER: ${remote_root}" >&2
   echo "Start Caddy with tls internal (mise run converge)." >&2
   exit 1
@@ -314,4 +363,81 @@ if [[ -n "${usage_trust:-}" ]]; then
   echo "Installed into local trust store (Chromium and most apps)."
   echo "Firefox still needs manual import if you use it."
 fi
+"""
+
+[tasks.health]
+description = 'Smoke health checks on SERVER (caddy, anki, docker, paths) and https://homelab/anki/ from laptop'
+run = """
+#!/usr/bin/env bash
+set -uo pipefail
+
+failures=0
+pass() { echo "ok  $*"; }
+fail() { echo "FAIL $*" >&2; failures=$((failures + 1)); }
+
+echo "=== homelab health (SERVER=${SERVER}) ==="
+
+ssh root@$SERVER 'set -uo pipefail
+mise_bin=/root/.local/bin/mise
+failures=0
+pass() { echo "ok  $1"; }
+fail() { echo "FAIL $1" >&2; failures=$((failures + 1)); }
+
+if systemctl is-active --quiet caddy.service; then pass "caddy.service active"; else fail "caddy.service not active"; fi
+if systemctl is-active --quiet docker.service; then pass "docker.service active"; else fail "docker.service not active"; fi
+
+if [ -x "$mise_bin" ] && "$mise_bin" exec caddy -- caddy validate --config /etc/caddy/Caddyfile >/dev/null 2>&1; then
+  pass "caddy validate"
+else
+  fail "caddy validate (mise exec caddy or Caddyfile)"
+fi
+
+if docker ps --filter name=anki-sync-server -q 2>/dev/null | grep -q .; then
+  pass "anki-sync-server container"
+else
+  fail "anki-sync-server container not running"
+fi
+
+anki_code="$(curl -s -o /dev/null -w '%{http_code}' --connect-timeout 3 http://127.0.0.1:8080/ || true)"
+if [ -n "$anki_code" ] && [ "$anki_code" != "000" ]; then
+  pass "anki backend 127.0.0.1:8080 (HTTP $anki_code)"
+else
+  fail "anki backend 127.0.0.1:8080 (no TCP/HTTP response; docker logs anki-sync-server)"
+fi
+
+for path in /etc/caddy/Caddyfile /etc/caddy/conf.d/anki.caddy /root/.config/anki/compose.env /root/.config/anki/compose/compose.yaml /root/.local/share/anki/sync; do
+  if [ -e "$path" ]; then pass "path $path"; else fail "missing $path"; fi
+done
+
+if getent group homelab >/dev/null 2>&1; then pass "group homelab"; else fail "group homelab"; fi
+
+if grep -q "^XDG_DATA_HOME=" /etc/environment 2>/dev/null && ! grep -q "^SQUARE_PATH=" /etc/environment 2>/dev/null; then
+  pass "/etc/environment XDG (no SQUARE_PATH)"
+else
+  fail "/etc/environment (expect XDG_* without SQUARE_PATH)"
+fi
+
+if grep -q "mise exec caddy -- caddy" /etc/systemd/system/caddy.service 2>/dev/null; then
+  pass "caddy.unit mise exec caddy"
+else
+  fail "caddy.unit (expect mise exec caddy -- caddy)"
+fi
+
+exit "$failures"
+' || failures=$((failures + 1))
+
+echo "=== from laptop ==="
+edge_code="$(curl -sk -o /dev/null -w '%{http_code}' --connect-timeout 5 https://homelab/anki/ || true)"
+if [ -n "$edge_code" ] && [ "$edge_code" != "000" ] && [ "$edge_code" != "502" ] && [ "$edge_code" != "503" ]; then
+  pass "https://homelab/anki/ (HTTP $edge_code)"
+else
+  fail "https://homelab/anki/ (HTTP ${edge_code:-000}; DNS, TLS, Caddy, or Anki backend)"
+fi
+
+if [ "$failures" -eq 0 ]; then
+  echo "=== all checks passed ==="
+  exit 0
+fi
+echo "=== $failures check(s) failed ===" >&2
+exit 1
 """

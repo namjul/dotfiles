@@ -1,54 +1,56 @@
 # server
 
-Manages the homelab host (`SERVER`, default `homelab`). Workspace root is `SQUARE_PATH` (default `/srv/square`). Structured as a monorepo of aspects — the same pattern as the top-level dotfiles repo.
+Manages the homelab host (`SERVER`, default `homelab`). **Active** homelab aspects live in `aspects/server/aspects/<name>/` (same git-unit pattern as repo-root aspects). **Legacy / VPS** definitions are in `aspects/server/archive/` — never bootstrap; copy into `aspects/` when promoting to the Pi.
+
+Deploy is **bootstrap-only** from the laptop: `mise run converge` → `mise bootstrap remote homelab`. **Daemon config** stays under `/etc` (e.g. Caddy). **Root tool and aspect state** use the **XDG quartet** from `/etc/environment` (`[vars]` in `mise.toml` → templated on converge). Compose aspects declare paths as `$XDG_CONFIG_HOME/<aspect>/…` and `$XDG_DATA_HOME/<aspect>/…` — no `/srv/square`, `/etc/homelab`, or `/opt/homelab`.
 
 ## Aspects (homelab)
 
-**Active** aspects live under `files/srv/square/aspects/` (only what you deploy with `up`). **Legacy / VPS** definitions are in `files/srv/square/archive/` — move or copy an aspect into `aspects/` when you need it on the Pi.
+| Aspect | Role | CONTEXT |
+|--------|------|---------|
+| **caddy** | HTTPS edge — config via bootstrap to `/etc/caddy/` | `aspects/caddy/CONTEXT.md` |
+| **anki** | Anki sync server — Docker via `[bootstrap.compose.anki]` | `aspects/anki/CONTEXT.md` |
 
-Most aspects use `mise.toml`, `default`, optional `pitchfork.toml`, and optional route snippets. **Caddy** is config-only under `aspects/caddy/` (no aspect `default`): binary, unit, and `caddy.service` install are **bootstrap**; **`up`** syncs `Caddyfile` and routes.
+**Caddy:** binary and unit from bootstrap; unit loads `EnvironmentFile=-/etc/environment`; PKI at `$XDG_DATA_HOME/caddy/…`. **Anki:** compose at `$XDG_CONFIG_HOME/anki/compose`, env at `$XDG_CONFIG_HOME/anki/compose.env`, sync data at `$XDG_DATA_HOME/anki/sync`. Shared container↔host RW uses Unix group **`homelab`** on the data dir.
 
-Bootable homelab daemons use [Pitchfork](https://pitchfork.jdx.dev/): `[daemons.*]` and `boot_start` live only in each aspect’s `pitchfork.toml`. Namespace registry: `files/root/.config/pitchfork/config.toml` → `/root/.config/pitchfork/config.toml` via `init` (`[namespaces.<aspect>]` + `config` → aspect `pitchfork.toml`; no duplicated daemon stanzas). **`up`** rsyncs **`aspects/`** and **`.mise.toml`**; **`sync:all`** runs **`init`** then **`up`** (full deploy). Pitchfork restarts in **`up`** after rsync. Host mise tools (`caddy`, …) live in **`aspects/server/mise.toml` `[tools]`** (bootstrap on **`converge`**); square `.mise.toml` is monorepo metadata only. `init` runs `mise trust` / `install` from `$SQUARE_PATH` for aspect tools. Active homelab aspects: `anki` (sync server on **Pitchfork** — see `files/srv/square/aspects/anki/CONTEXT.md`); **Caddy** (HTTPS edge — see `files/srv/square/aspects/caddy/CONTEXT.md`). **Tailscale:** `tailscaled` install and service via bootstrap on **`converge`**; tailnet join from laptop **`tailscale:join`**. Laptop SSH ops (`reboot-if-required`, `tailscale:status`, `caddy:root-ca`, …) live in **`aspects/server/mise.toml`**. **Bootstrap** (packages, sshd, UFW, root lock via `final-hook`) is laptop **`bootstrap remote`** in `aspects/server/mise.toml`; **`converge`** = sync + full bootstrap (see `files/srv/square/tasks/CONTEXT.md`).
+**Tailscale:** `tailscaled` via bootstrap on **`converge`**; join from laptop **`tailscale:join`**. Laptop SSH ops live in **`aspects/server/mise.toml`**. Unix group **`homelab`** is declared in **`[bootstrap.groups]`** (before files); root is added via **`post-packages`** (`usermod`, not `[bootstrap.users]` — mise blocks managing `root`).
 
 ## Mise tasks
 
-Set `SERVER` (and optionally `SQUARE_PATH`, default `/srv/square`) per host. Flash / first boot stays manual (`config/user-data.yaml`).
-
-`init` rsyncs `files/root/*` and `files/srv/square/` **except `archive/`** (repo-only legacy). It **does not** rsync `files/etc/` — **`/etc/environment`** and **`/etc/gitconfig`** are written only by **`converge`** (`[bootstrap.files]` in `mise.toml`, templated with `vars.SQUARE_PATH`). **`PUBLIC_KEY`** is appended on the laptop via sops after sync (`init`) and again after bootstrap (`converge`). Per-service `HOME`/`WorkingDirectory` belong in unit files when needed.
-
-`up` substitutes `{SQUARE_PATH}` in staged **`aspects/`** and **`.mise.toml`**, then one filtered rsync to `$SQUARE_PATH/` (`--delete` under `aspects/` only). On the Pi, aspect tasks: **`cd $SQUARE_PATH && mise tasks ls --all`**.
+Set `SERVER` per host. Flash / first boot stays manual (`config/user-data.yaml`).
 
 | Task | When |
 |------|------|
-| `local:prepare` | Laptop: sops SSH keys + ssh client snippet (once per laptop; before first SSH) |
-| `sync:all` / `default` | `init` + `up` — square layout and aspects on SERVER |
-| `converge` | `sync:all` then full `bootstrap remote homelab` — sole bootstrap entry (all `[bootstrap.*]`) |
-| `reboot-if-required` | SSH: reboot if `/var/run/reboot-required` (`aspects/server/mise.toml`) |
-| `aspect` | Run a mise task in one aspect on SERVER (`[cmd]` defaults to `default`) |
-| `tailscale:join` | Laptop: prompt for one-time auth key → Pi `tailscale up` (stdin; after `converge`) |
-| `tailscale:status` | SSH: `tailscale status` + tailnet IPv4 (`aspects/server/mise.toml`) |
-| `caddy:root-ca` | `scp` internal CA `root.crt` from SERVER; `--trust` for local p11-kit |
+| `local:prepare` | Laptop: sops SSH keys + ssh client snippet (once; before first SSH) |
+| `converge` / `default` | Full `bootstrap remote homelab` — sole deploy entrypoint |
+| `reboot-if-required` | SSH: reboot if `/var/run/reboot-required` |
+| `aspect` | Run a mise task in `$XDG_CONFIG_HOME/<aspect>/compose` on SERVER |
+| `tailscale:join` | Laptop: one-time auth key → Pi `tailscale up` |
+| `tailscale:status` | SSH: `tailscale status` + tailnet IPv4 |
+| `caddy:root-ca` | `scp` internal CA from `$XDG_DATA_HOME/caddy/pki/…` on SERVER; `--trust` for local p11-kit |
+| `health` | SSH smoke checks (caddy, anki, paths) + `curl https://homelab/anki/` from laptop |
 
-New host: `mise run local:prepare` (once), then `mise run converge`. Day-2: `mise run converge` or `mise run sync:all` alone for aspects-only.
+New host: `mise run local:prepare`, then `mise run converge`. Day-2: `mise run converge`.
 
-Tailscale join order: `converge` → `tailscale:join` (keep SSH on LAN/public until tailnet SSH works).
+### XDG base directories
 
-## Host convergence layers
+`/etc/environment` sets **all four** `XDG_*` variables together (from `aspects/server/mise.toml` `[vars]`, rendered on converge). Values are root’s spec-default literals (`/root/.config`, `/root/.local/share`, …) — not `$HOME`-relative, because `/etc/environment` is not shell-expanded. Aspects and bootstrap paths that need declarations use **`$XDG_CONFIG_HOME` / `$XDG_DATA_HOME`** (or the same literals in bootstrap registry keys). Do **not** set a lone `XDG_*` or mix with per-tool paths (`MISE_DATA_DIR`, `GOCACHE`, …). Units that must match login (e.g. Caddy) use **`EnvironmentFile=-/etc/environment`**, not a single-variable override.
 
-Three mechanisms stack; each has a fixed scope. Do not duplicate the same file path in two layers without an explicit migration (see `docs/plans/2026-09-22-server-bootstrap-wave-two.md`).
+## Host convergence
 
-| Layer | Where defined | Runs from | Delivers |
-|-------|----------------|-----------|----------|
-| **Bootstrap remote** | `aspects/server/mise.toml` `[bootstrap.*]` + `bootstrap/` | Laptop: `mise run converge` (after `sync:all`) or `mise bootstrap remote homelab …` | Host OS: apt baseline, mise `[tools]` (e.g. `caddy`), `/etc/systemd/system/caddy.service`, `[bootstrap.services.*]` (`docker`, `caddy`, `tailscaled`), `/etc/ssh/sshd_config`, UFW, `final-hook` (SSH restart + `passwd -l root`). Archive is `aspects/server/` only (`source = "."`). |
-| **Init + up** | `init`, `up`, `files/root/*`, `files/srv/square/**` (not `files/etc/*`) | Laptop: `sync:all` / `converge` (sync half) | `$SQUARE_PATH` + root profile: square layout, ACLs, aspects, platform task scripts, Pitchfork registry, remote `mise install`, `PUBLIC_KEY` append via sops. Host `/etc/environment` + `/etc/gitconfig` come from bootstrap on **`converge`**, not from `init`. |
-| **Laptop SSH ops** | `aspects/server/mise.toml` `[tasks.*]` | Laptop: `mise run reboot-if-required`, `tailscale:status`, `caddy:root-ca`, … | Remote shell over SSH; not square monorepo tasks. |
+| Layer | Where | Runs from | Delivers |
+|-------|--------|-----------|----------|
+| **Bootstrap remote** | `aspects/server/mise.toml` `[bootstrap.*]` + `bootstrap/` | Laptop: `mise run converge` | OS packages, mise `[tools]`, Caddy unit + configs, Anki compose, sshd, UFW, `final-hook` |
+| **Laptop SSH ops** | `[tasks.*]` in same `mise.toml` | Laptop | Remote shell over SSH |
 
-**Entrypoints:** New host — `local:prepare`, then `converge`. Day-2 aspects — `sync:all` alone. Day-2 host + apps — `converge` (accepts full bootstrap cost: upgrades, SSH restart, root lock). Aspect secrets — fnox / `[bootstrap.secrets]` on the aspect (e.g. Seafile), not host bootstrap.
+**Pi migration (one-time):** move Anki data to `$XDG_DATA_HOME/anki/sync`; migrate Caddy PKI to `$XDG_DATA_HOME/caddy/pki` if needed; copy from `/var/lib/anki/sync` or square paths if present; remove stale trees when empty; replace group **`square`** with **`homelab`**.
 
 ## Routing
+
 | Task | Aspect | Read |
 |------|--------|------|
-| Caddy HTTPS edge | `caddy` | files/srv/square/aspects/caddy/CONTEXT.md |
-| Laptop SSH ops | — | `aspects/server/mise.toml` `[tasks.*]` |
-| Anki sync server | `anki` | files/srv/square/aspects/anki/CONTEXT.md |
-| Static sites / SSG builds | `website` | files/srv/square/archive/website/CONTEXT.md (when promoted to `aspects/`) |
+| Caddy HTTPS edge | `caddy` | `aspects/caddy/CONTEXT.md` |
+| Anki sync server | `anki` | `aspects/anki/CONTEXT.md` |
+| Static sites / SSG builds | `website` | `archive/website/CONTEXT.md` (when promoted) |
+
+Design history: `docs/plans/2026-09-23-server-homelab-bootstrap-layout.md`.

@@ -1,9 +1,0 @@
-[env]
-SYNC_PORT = "8080"
-SYNC_USER1 = "user:pass"
-SYNC_BASE = "{{env.SQUARE_PATH}}/data/share/anki"
-ANKI_VERSION = "24.06.3"
-SQUARE_GID = "{{ exec(command='getent group square | cut -d: -f3') }}"
-
-[tasks.default]
-file = './default'

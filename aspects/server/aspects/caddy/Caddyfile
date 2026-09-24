@@ -4,5 +4,5 @@ http://homelab {
 
 homelab {
 	tls internal
-	import {$SQUARE_PATH}/aspects/*/caddyfile
+	import /etc/caddy/conf.d/*.caddy
 }

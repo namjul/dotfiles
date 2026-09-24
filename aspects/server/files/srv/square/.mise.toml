@@ -1,8 +1,0 @@
-monorepo_root = true
-
-[monorepo]
-config_roots = ["aspects/*"]
-
-[settings]
-experimental = true
-

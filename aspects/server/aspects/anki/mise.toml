@@ -1,0 +1,22 @@
+[env]
+SYNC_PORT = "8080"
+SYNC_BASE = "{{env.XDG_DATA_HOME}}/anki/sync"
+ANKI_ENV_FILE = "{{env.XDG_CONFIG_HOME}}/anki/compose.env"
+
+[tasks.default]
+description = "Anki sync server (Docker Compose)"
+run = '''
+#!/usr/bin/env bash
+set -euo pipefail
+mkdir -p "$SYNC_BASE"
+chgrp homelab "$SYNC_BASE" 2>/dev/null || true
+if [ ! -f "$ANKI_ENV_FILE" ]; then
+  echo "Missing $ANKI_ENV_FILE — run mise run converge from aspects/server" >&2
+  exit 1
+fi
+export XDG_DATA_HOME="${XDG_DATA_HOME:?}"
+docker compose --env-file "$ANKI_ENV_FILE" up -d --build --remove-orphans
+if systemctl is-active --quiet caddy.service; then
+  systemctl reload caddy.service || systemctl restart caddy.service
+fi
+'''

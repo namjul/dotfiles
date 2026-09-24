@@ -13,7 +13,7 @@ services:
       SYNC_USER1: ${SYNC_USER1:?}
       SYNC_BASE: /data
     group_add:
-      - "${SQUARE_GID:?}"
+      - "${HOMELAB_GID:?}"
     volumes:
-      - {SQUARE_PATH}/data/share/anki:/data
+      - ${XDG_DATA_HOME}/anki/sync:/data
     restart: unless-stopped

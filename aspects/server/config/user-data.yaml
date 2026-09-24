@@ -1,7 +1,7 @@
 #cloud-config
 # First-boot only: SSH + hostname for a fresh Pi OS Lite flash.
 # Provisioning user is root (matches aspects/server SSH tasks on SERVER).
-# The square group, /srv/square layout, ACLs, and mise install are applied by `mise run init` — not here.
+# Homelab layout, homelab group, and mise install are applied by `mise run converge` — not here.
 
 hostname: homelab
 manage_etc_hosts: true

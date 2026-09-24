@@ -1,0 +1,4 @@
+[safe]
+  directory = *
+[ghq]
+  root = /var/lib/ghq
