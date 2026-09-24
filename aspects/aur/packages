@@ -48,7 +48,7 @@ packages=(
   noto-fonts noto-fonts-emoji man-db
 
   # system
-  cmake pkgconf clang unzip # build tools
+  cmake pkgconf clang unzip 7zip # build tools
   procps-ng curl file # runtime essentials
   i3-wm # window manager
   feh # background image
