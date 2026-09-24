@@ -211,6 +211,7 @@ variables(({ identity }) => ({
     ".agents/prompts/code.md",
     ".agents/prompts/sense.md",
     ".agents/prompts/suppose.md",
+    ".agents/prompts/ask.md",
     ".agents/prompts/enact.md",
     ".agents/prompts/ap.md",
     ".agents/prompts/unfold.md",
