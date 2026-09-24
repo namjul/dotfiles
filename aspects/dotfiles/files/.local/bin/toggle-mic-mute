@@ -28,8 +28,18 @@ case "${1:-toggle}" in
     sleep 0.15
     sync_led
     ;;
+  sync)
+    sync_led
+    ;;
+  sync-wait)
+    for _ in $(seq 1 60); do
+      wpctl get-volume @DEFAULT_AUDIO_SOURCE@ >/dev/null 2>&1 && break
+      sleep 0.5
+    done
+    sync_led
+    ;;
   *)
-    echo "Usage: $(basename "$0") [toggle|on|off]" >&2
+    echo "Usage: $(basename "$0") [toggle|on|off|sync|sync-wait]" >&2
     exit 1
     ;;
 esac

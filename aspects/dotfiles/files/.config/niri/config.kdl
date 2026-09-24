@@ -260,6 +260,9 @@ window-rule {
     draw-border-with-background false
 }
 
+// ThinkPad platform::micmute LED defaults on at boot; PipeWire does not drive it.
+spawn-sh-at-startup "toggle-mic-mute sync-wait"
+
 binds {
     // Modifiers: Mod=nav/focus | Mod+Shift=move | Mod+Ctrl=monitor focus
     //            Mod+Alt=column→monitor | Mod+Shift+Ctrl=workspace→monitor
