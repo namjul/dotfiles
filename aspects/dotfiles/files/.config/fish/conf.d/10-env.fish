@@ -5,6 +5,7 @@ end
 
 export DROPBOX_DIR="$HOME/Dropbox"
 export DATA_BACKUP="$DROPBOX_DIR/backup"
+export NOTES_MEMEX="$DROPBOX_DIR/memex"
 
 # https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html
 set -q XDG_DATA_HOME; or set -x XDG_DATA_HOME $HOME/.local/share

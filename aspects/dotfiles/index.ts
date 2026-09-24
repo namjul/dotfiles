@@ -220,6 +220,7 @@ variables(({ identity }) => ({
     ".agents/prompts/ontoedit.md",
     ".agents/prompts/mannered-prose.md",
     ".agents/prompts/review.md",
+    ".agents/prompts/notes.md",
   ],
   rules: [
     ".agents/rules/caveman.md",
