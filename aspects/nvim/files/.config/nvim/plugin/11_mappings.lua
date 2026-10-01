@@ -111,7 +111,16 @@ nmap_leader('fH', '<Cmd>Pick hl_groups<CR>', 'Highlight groups')
 nmap_leader('fl', '<Cmd>Pick buf_lines scope="all"<CR>', 'Lines (all)')
 nmap_leader('fL', '<Cmd>Pick buf_lines scope="current"<CR>', 'Lines (current)')
 nmap_leader('fR', '<Cmd>Pick lsp scope="references"<CR>', 'References (LSP)')
-nmap_leader('fg', '<Cmd>Pick git_hunks<CR>', 'Git changes')
+nmap_leader('fg', function()
+  local minipick = require('mini.pick')
+  minipick.start({
+    source = {
+      name = 'Git Changes (Modified + Untracked)',
+      -- Generates the unified array of files dynamically
+      items = vim.fn.systemlist('git ls-files -m -o --exclude-standard'),
+    },
+  })
+end, 'Git changes')
 nmap_leader('fS', '<Cmd>Pick lsp scope="workspace_symbol"<CR>', 'Symbols workspace (LSP)')
 nmap_leader('fs', '<Cmd>Pick lsp scope="document_symbol"<CR>', 'Symbols buffer (LSP)')
 nmap_leader('fd', '<Cmd>Pick dotfiles<CR>', 'Dotfiles')
