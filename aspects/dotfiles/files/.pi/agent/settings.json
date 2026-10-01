@@ -15,7 +15,8 @@
     "cursor/composer-2.5",
     "cursor/grok-4.5",
     "cursor/grok-4.6",
-    "fable-5@300k"
+    "cursor/fable-5@300k",
+    "cursor/grok-4.7@256k"
   ],
   "packages": [
     "npm:pi-mcp-adapter",
