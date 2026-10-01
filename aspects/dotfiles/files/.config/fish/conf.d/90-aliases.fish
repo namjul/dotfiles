@@ -4,7 +4,6 @@ if status is-interactive
 alias e $EDITOR
 
 # navigation
-abbr d cd
 abbr .. 'cd ..'
 abbr ... 'cd ../..'
 abbr .... 'cd ../../..'
