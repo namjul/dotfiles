@@ -351,10 +351,10 @@ binds {
     Mod+Shift+Ctrl+S { spawn "capture-screenshot" "fullscreen"; }
 
     // ── Move: workspace → monitor ──────────────────────────────────
-    Mod+Shift+Ctrl+Left { move-workspace-to-monitor-left; }
-    Mod+Shift+Ctrl+Down { move-workspace-to-monitor-down; }
-    Mod+Shift+Ctrl+Up { move-workspace-to-monitor-up; }
-    Mod+Shift+Ctrl+Right { move-workspace-to-monitor-right; }
+    Mod+Ctrl+Left { move-workspace-to-monitor-left; }
+    Mod+Ctrl+Down { move-workspace-to-monitor-down; }
+    Mod+Ctrl+Up { move-workspace-to-monitor-up; }
+    Mod+Ctrl+Right { move-workspace-to-monitor-right; }
 
     // ── Move: column → monitor ─────────────────────────────────────
     Mod+Alt+Up { move-column-to-monitor-up; }
@@ -363,10 +363,10 @@ binds {
     Mod+Alt+Right { move-column-to-monitor-right; }
 
     // ── Focus: monitor ─────────────────────────────────────────────
-    Mod+Ctrl+Left { focus-monitor-left; }
-    Mod+Ctrl+Down { focus-monitor-down; }
-    Mod+Ctrl+Up { focus-monitor-up; }
-    Mod+Ctrl+Right { focus-monitor-right; }
+    Mod+Shift+Ctrl+Left { focus-monitor-left; }
+    Mod+Shift+Ctrl+Down { focus-monitor-down; }
+    Mod+Shift+Ctrl+Up { focus-monitor-up; }
+    Mod+Shift+Ctrl+Right { focus-monitor-right; }
 
     // ── Hardware: audio, brightness, calculator ────────────────────
     XF86AudioRaiseVolume allow-when-locked=true { spawn "swayosd-client" "--output-volume" "raise"; }
