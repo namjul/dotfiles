@@ -3,11 +3,11 @@
     "openai": {
       "baseUrl": "https://api.openai.com/v1",
       "api": "openai-completions",
-      "apiKey": "OPENAI_API_KEY"
+      "apiKey": "$OPENAI_API_KEY"
     },
     "anthropic": {
       "api": "anthropic-messages",
-      "apiKey": "ANTHROPIC_API_KEY",
+      "apiKey": "$ANTHROPIC_API_KEY",
       "models": [
         {
           "id": "claude-sonnet-20250205",
@@ -22,7 +22,7 @@
     "fireworks": {
       "baseUrl": "https://api.fireworks.ai/inference/v1",
       "api": "openai-completions",
-      "apiKey": "FIREWORKS_API_KEY",
+      "apiKey": "$FIREWORKS_API_KEY",
       "models": [
         {
           "id": "fireworks/kimi-k2.5",
@@ -37,7 +37,7 @@
     "openrouter": {
       "baseUrl": "https://openrouter.ai/api/v1",
       "api": "openai-completions",
-      "apiKey": "OPENROUTER_API_KEY",
+      "apiKey": "$OPENROUTER_API_KEY",
       "models": [
         {
           "id": "moonshotai/kimi-k2.5",
