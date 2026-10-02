@@ -276,7 +276,7 @@ binds {
     Mod+Return hotkey-overlay-title="Terminal: launch-terminal" { spawn "launch-terminal"; }
     Mod+Q repeat=false { close-window; }
     Mod+O repeat=false { toggle-overview; }
-    Mod+Space hotkey-overlay-title="App launcher: wofi" { spawn "wofi" "--show" "drun"; }
+    Mod+Space hotkey-overlay-title="App launcher: zenkai" { spawn "zenkai"; }
     Mod+Ctrl+S hotkey-overlay-title="Share (LocalSend)" { spawn "share-menu"; }
 
     // ── Focus: column ──────────────────────────────────────────────

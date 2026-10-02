@@ -82,6 +82,13 @@ apply_rofi() {
   printf '%s\n' "$theme" >"$state_dir/rofi-theme"
 }
 
+apply_zenkai() {
+  local mode=$1
+  local theme=light
+  [[ "$mode" == dark ]] && theme=gruvbox
+  printf '%s\n' "$theme" >"$state_dir/zenkai-theme"
+}
+
 apply_btop() {
   local mode=$1
   local theme=gruvbox_light
@@ -136,6 +143,7 @@ theme_apply_all() {
   apply_wofi "$mode"
   apply_alacritty "$mode"
   apply_rofi "$mode"
+  apply_zenkai "$mode"
   apply_btop "$mode"
   apply_mise "$mode"
   apply_nvim "$mode"

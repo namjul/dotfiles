@@ -33,14 +33,14 @@ Done in `aspects/aur/packages` and `aspects/aur/login/`, VM-tested unless noted:
 | Compositor | `niri`, `xwayland-satellite`, `waybar`, `swaybg`, `mako`, `libnotify`, `alacritty` — sway/i3status-rust removed 2026-09 |
 | Portals / Qt | `xdg-desktop-portal-wlr`, `xdg-desktop-portal-gtk`, `qt5-wayland`, `qt6-wayland` |
 | Polkit | `polkit-gnome` + systemd user unit; `lxsession` kept for i3 fallback; sudo vs `pkexec` policy in `aspects/dotfiles/CONTEXT.md` |
-| Launcher | `wofi` + `$mod+space`; spec: `SPEC.sway-step-9-wofi.md` (`78ef905f`) |
+| Launcher | `zenkai` v1.3 + `$mod+space` (`//aspects/aur:zenkai`, on `:default`); `passmenu` uses zenkai `--menu`; `wofi` remains the dmenu for system/kanshi/share |
 | Screenshots / clipboard | `grim`, `slurp`, `satty`, `wl-clipboard`; `bin/capture-screenshot` (`942d10b5`) |
 | Volume OSD | `pamixer`, `swayosd` (`f747f33f`) |
 | Idle lock | `swayidle`, `swaylock` (`c80d3b65`) |
 | Low battery toast | `libnotify` + `mako` here; user timer in `aspects/systemd` (`battery-monitor.timer` → `bin/battery-low-warn`, Omarchy 10% / once-until-recovered) |
 | Dual-stack | `i3-wm` + X11 tools stay installed on Arch as fallback |
 
-`mise.toml` default: `packages` + `login` + `firewall`. Firmware is a separate task (`fwupd` in `packages`; `aspects/aur/firmware` installs the package if missing, stages `fwupdx64.efi` on UEFI, `refresh --force`, then `fwupdmgr update`). Package upgrades are a separate task (`//aspects/aur:upgrade` → `pacman -Syu --noconfirm`; Ubuntu is `//aspects/nala:upgrade` → `nala update` + `nala upgrade -y`). Waybar pending-upgrades icon runs `pending-upgrades` and clicks `launch-upgrade`.
+`mise.toml` default: `packages` + `login` + `firewall` + `zenkai`. Firmware is a separate task (`fwupd` in `packages`; `aspects/aur/firmware` installs the package if missing, stages `fwupdx64.efi` on UEFI, `refresh --force`, then `fwupdmgr update`). Package upgrades are a separate task (`//aspects/aur:upgrade` → `pacman -Syu --noconfirm`; Ubuntu is `//aspects/nala:upgrade` → `nala update` + `nala upgrade -y`). Waybar pending-upgrades icon runs `pending-upgrades` and clicks `launch-upgrade`.
 
 Niri recovery if SDDM loops: `Ctrl+Alt+F2` → `sudo systemctl disable --now sddm` → `uwsm start -- niri --session`.
 
@@ -79,7 +79,7 @@ Keyring facts (from the old Hyprland writeup, still true):
 
 - New packages: `udiskie`, `nautilus`, `gvfs`, `gvfs-mtp`, `exfatprogs`, `ntfs-3g`, later `power-profiles-daemon`.
 - `udiskie` needs the existing polkit agent (already `exec`'d). Without it, mounts that need auth hang.
-- `passmenu` change is Wayland-only; keep the rofi path for X11.
+- `passmenu` uses zenkai on Wayland and X11. system/kanshi/share menus stay on wofi.
 - systemd `display` concern in `aspects/systemd/PLAN.md` is already done here (`login/sddm.sh`). Do not implement SDDM a second time.
 
 ## Implementation Slices

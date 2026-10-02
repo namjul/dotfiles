@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+state_dir="${XDG_STATE_HOME:-$HOME/.local/state}"
+theme=light
+if [[ -f "$state_dir/zenkai-theme" ]]; then
+  theme="$(cat "$state_dir/zenkai-theme")"
+fi
+
+zenkai_bin="${XDG_DATA_HOME:-$HOME/.local/share}/zenkai/zenkai"
+if [[ ! -x "$zenkai_bin" ]]; then
+  echo "zenkai: binary missing at $zenkai_bin (mise run //aspects/aur:zenkai)" >&2
+  exit 1
+fi
+
+extra=()
+has_theme=0
+has_close=0
+for arg in "$@"; do
+  case "$arg" in
+    --theme | --theme=*) has_theme=1 ;;
+    --close-on-focus-out | --no-close-on-focus-out) has_close=1 ;;
+  esac
+done
+if [[ $has_theme -eq 0 ]]; then
+  extra+=(--theme="$theme")
+fi
+if [[ $has_close -eq 0 ]]; then
+  extra+=(--close-on-focus-out)
+fi
+
+exec "$zenkai_bin" "${extra[@]}" "$@"
