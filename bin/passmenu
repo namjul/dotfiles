@@ -1,29 +1,9 @@
 #!/usr/bin/env bash
-set -euo pipefail
 
-# Zenkai v1.3 has no dmenu. --menu=name|cmd|icon is split on every '|',
-# and the command is `sh -c` with a 1023-byte limit. Base64 keeps the
-# entry path out of that split and inside one shell word.
-
-if ! listing=$(gopass ls --flat); then
-  exit $?
+if [[ -n "${WAYLAND_DISPLAY:-}" ]]; then
+  picker=(wofi --dmenu --prompt pass: -i -M fuzzy -L 15)
+else
+  picker=(rofi -dmenu)
 fi
 
-menus=(--no-plugins)
-while IFS= read -r name || [[ -n $name ]]; do
-  [[ -n $name ]] || continue
-  label=${name//|/∕}
-  b64=$(printf '%s' "$name" | base64 -w0)
-  cmd="gopass show -c -- \"\$(printf '%s' '${b64}' | base64 -d)\""
-  if ((${#cmd} >= 1024)); then
-    echo "passmenu: skipping entry longer than zenkai can run: ${label}" >&2
-    continue
-  fi
-  menus+=(--menu="${label}|${cmd}|dialog-password")
-done <<< "$listing"
-
-if ((${#menus[@]} < 2)); then
-  exit 0
-fi
-
-exec zenkai "${menus[@]}"
+gopass ls --flat | "${picker[@]}" | xargs --no-run-if-empty gopass show -c

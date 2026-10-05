@@ -106,7 +106,6 @@ variables(({ identity }) => ({
     ".local/bin/theme-apply",
     ".local/bin/wofi",
     ".local/bin/rofi",
-    ".local/bin/zenkai",
     ".local/bin/btop",
     ".local/bin/file-select-portal",
     ".local/bin/share-via-localsend",
