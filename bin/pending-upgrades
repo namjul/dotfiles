@@ -3,9 +3,29 @@ set -euo pipefail
 
 # Print a refresh icon when official-repo upgrades are pending. Always exit 0
 # so i3status-rust can hide an empty block on hosts without a checker.
+#
+# Arch detection (first match wins):
+#   1. checkupdates     — fresh mirror sync into a temp DB
+#   2. checkupdates -n  — same list without sync (when step 1 fails)
+#   3. pacman -Qu       — local sync DB only (degraded; mirrors not verified)
 
-if command -v checkupdates >/dev/null; then
-  if pending=$(checkupdates 2>/dev/null) && [[ -n ${pending} ]]; then
+arch_has_pending_upgrades() {
+  local pending=""
+
+  if pending=$(checkupdates 2>/dev/null); then
+    [[ -n ${pending} ]] && return 0
+    return 1
+  fi
+
+  if pending=$(checkupdates -n 2>/dev/null); then
+    [[ -n ${pending} ]] && return 0
+  fi
+
+  pacman -Qu &>/dev/null
+}
+
+if command -v checkupdates >/dev/null && command -v pacman >/dev/null; then
+  if arch_has_pending_upgrades; then
     echo ""
   fi
   exit 0
