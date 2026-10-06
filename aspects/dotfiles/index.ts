@@ -187,6 +187,7 @@ variables(({ identity }) => ({
     ".agents/skills/engineering/refactoring",
     ".agents/skills/engineering/reproducible-locally",
     ".agents/skills/engineering/specification",
+    ".agents/skills/engineering/socratic-code-mentor",
     ".agents/skills/engineering/sr-eng-review",
     ".agents/skills/engineering/stack-pull-requests",
     ".agents/skills/engineering/story-splitting",
