@@ -6,7 +6,7 @@
   "defaultThinkingLevel": "medium",
   "enableSkillCommands": true,
   "defaultTools": ["+codemode"],
-  "lastChangelogVersion": "1.0.0",
+  "lastChangelogVersion": "1.0.4",
   "enabledModels": [
     "openrouter/openrouter/free",
     "openrouter/z-ai/glm-5.1",
