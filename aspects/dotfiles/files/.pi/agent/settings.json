@@ -5,6 +5,7 @@
   "defaultModel": "composer-2.5",
   "defaultThinkingLevel": "medium",
   "enableSkillCommands": true,
+  "defaultTools": ["+codemode"],
   "lastChangelogVersion": "1.0.0",
   "enabledModels": [
     "openrouter/openrouter/free",
@@ -19,7 +20,6 @@
     "cursor/grok-4.7@256k"
   ],
   "packages": [
-    "npm:pi-mcp-adapter",
     "npm:pi-cursor-sdk"
   ],
   "skills": [
