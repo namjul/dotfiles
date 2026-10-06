@@ -1,12 +1,12 @@
 function sandbox
   if not set -q SANDBOX_BLOCKED_FOLDERS
-    echo "⚠️  SANDBOX_BLOCKED_FOLDERS is not set"
+    echo sandbox: SANDBOX_BLOCKED_FOLDERS unset >&2
     return 1
   end
 
   for folder in (string split : $SANDBOX_BLOCKED_FOLDERS)
     if not test -d $folder
-      echo "⚠️  Warnung: Zielordner $folder wurde auf dem Host nicht gefunden."
+      echo sandbox: missing $folder >&2
     end
   end
 
@@ -15,9 +15,7 @@ function sandbox
     set target_cmd fish
   end
 
-  echo "🔒 Starte isolierte Sandbox-Umgebung..."
-  echo "🚫 Maskiere: $SANDBOX_BLOCKED_FOLDERS (Erscheint für den Agenten komplett leer)"
-  echo "🚫 SSH: ~/.ssh + gpg-agent sockets masked; SSH_AUTH_SOCK unset"
+  echo sandbox: masked $SANDBOX_BLOCKED_FOLDERS
 
   set -l tmpfs_args
   for folder in (string split : $SANDBOX_BLOCKED_FOLDERS)
