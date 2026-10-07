@@ -104,6 +104,7 @@ packages=(
   translate-shell # https://github.com/soimort/translate-shell
   mise # https://mise.jdx.dev
   tig # https://github.com/jonas/tig
+  mercurial # https://www.mercurial-scm.org/
   jq # https://github.com/stedolan/jq
   entr # https://github.com/eradman/entr
   direnv # https://github.com/direnv/direnv
