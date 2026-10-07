@@ -123,7 +123,7 @@ variables(({ identity }) => ({
     // hardlinks
     ".config/gammastep/config.ini",
     // encrypted
-    .config/glab-cli/readme.md.encrypted",
+    ".config/glab-cli/readme.md.encrypted",
   ],
   templates: [
     ".config/git/config.tmpl",
@@ -155,7 +155,7 @@ variables(({ identity }) => ({
     ".agents/skills/general/research",
     ".agents/skills/general/ssw",
     ".agents/skills/general/website-rebuild-workflow",
-    ".agents/skills/general/youtube-transcript",
+    ".agents/skills/general/yt-dlp",
     ".agents/skills/engineering/api-design",
     ".agents/skills/engineering/characterisation-tests",
     ".agents/skills/engineering/ci-debugging",
