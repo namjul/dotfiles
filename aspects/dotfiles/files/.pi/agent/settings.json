@@ -5,7 +5,9 @@
   "defaultModel": "composer-2.5",
   "defaultThinkingLevel": "medium",
   "enableSkillCommands": true,
-  "defaultTools": ["+codemode"],
+  "defaultTools": [
+    "+codemode"
+  ],
   "lastChangelogVersion": "1.0.4",
   "enabledModels": [
     "openrouter/openrouter/free",
