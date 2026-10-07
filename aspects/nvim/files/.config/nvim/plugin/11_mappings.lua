@@ -99,6 +99,7 @@ end
 nmap_leader('eo', edit_config_file('10_options.lua'), 'Options config')
 nmap_leader('em', edit_config_file('11_mappings.lua'), 'Mappings config')
 nmap_leader('ep', edit_config_file('20_plugins.lua'), 'Plugins config')
+nmap_leader('es', '<Cmd>edit ~/.ssh/config<CR>', 'SSH config')
 
 -- f is for 'fuzzy find'
 nmap_leader('f/', '<Cmd>Pick history scope="/"<CR>', '"/" history')
