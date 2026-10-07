@@ -123,7 +123,7 @@ variables(({ identity }) => ({
     // hardlinks
     ".config/gammastep/config.ini",
     // encrypted
-    // ".config/glab-cli/config.yml.encrypted",
+    .config/glab-cli/readme.md.encrypted",
   ],
   templates: [
     ".config/git/config.tmpl",
