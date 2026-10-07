@@ -397,6 +397,7 @@ binds {
     Mod+Shift+T hotkey-overlay-title="Toggle dark mode" { spawn "darkman" "toggle"; }
     Mod+Z hotkey-overlay-title="Do not disturb" { spawn "do-not-disturb"; }
     Mod+Ctrl+Q hotkey-overlay-title="Calculator: omacalc" { spawn-sh "omacalc"; }
+    Mod+G hotkey-overlay-title="Writing tools: translateonthego" { spawn "translateonthego"; }
 
     // ── Column width & edges ───────────────────────────────────────
     Mod+Home { focus-column-first; }
