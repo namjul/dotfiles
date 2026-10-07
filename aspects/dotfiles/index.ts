@@ -182,6 +182,7 @@ variables(({ identity }) => ({
     ".agents/skills/engineering/openspec-generate-tutorial",
     ".agents/skills/engineering/plan",
     ".agents/skills/engineering/planning",
+    ".agents/skills/engineering/ponytail",
     ".agents/skills/engineering/react-testing",
     ".agents/skills/engineering/reduce-system-complexity",
     ".agents/skills/engineering/refactoring",
