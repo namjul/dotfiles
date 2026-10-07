@@ -163,6 +163,7 @@ variables(({ identity }) => ({
     ".agents/skills/engineering/code",
     ".agents/skills/engineering/codebase-design",
     ".agents/skills/engineering/codebase-walkthrough",
+    ".agents/skills/engineering/commit-if-clear",
     ".agents/skills/engineering/development-guidelines",
     ".agents/skills/engineering/diagrams",
     ".agents/skills/engineering/evaluate-existing-solutions",
@@ -208,6 +209,7 @@ variables(({ identity }) => ({
   prompts: [
     ".agents/prompts/commit.md",
     ".agents/prompts/commit-plan.md",
+    ".agents/prompts/commit-if-clear.md",
     ".agents/prompts/plan.md",
     ".agents/prompts/wn.md",
     ".agents/prompts/code.md",
