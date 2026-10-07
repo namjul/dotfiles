@@ -99,7 +99,6 @@ end
 nmap_leader('eo', edit_config_file('10_options.lua'), 'Options config')
 nmap_leader('em', edit_config_file('11_mappings.lua'), 'Mappings config')
 nmap_leader('ep', edit_config_file('20_plugins.lua'), 'Plugins config')
-nmap_leader('eq', '<Cmd>lua Config.toggle_quickfix()<CR>', 'Quickfix')
 
 -- f is for 'fuzzy find'
 nmap_leader('f/', '<Cmd>Pick history scope="/"<CR>', '"/" history')
@@ -183,6 +182,8 @@ nmap_leader('om', function()
     vim.cmd('wincmd _') -- Maximize vertical size (`:help CTRL-W_bar`).
   end
 end, 'Toggle maximize split')
+nmap_leader('oq', '<Cmd>lua Config.toggle_quickfix("global")<CR>', 'Quickfix')
+nmap_local_leader('oq', '<Cmd>lua Config.toggle_quickfix("local")<CR>', 'Quickfix')
 
 vim.keymap.set('n', '<leader>ol', function()
   local var = vim.fn.expand('<cword>')

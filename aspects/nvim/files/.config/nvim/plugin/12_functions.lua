@@ -1,13 +1,22 @@
 -- Create listed scratch buffer and focus on it
 Config.new_scratch_buffer = function() vim.api.nvim_win_set_buf(0, vim.api.nvim_create_buf(true, true)) end
 
--- Toggle quickfix window
-Config.toggle_quickfix = function()
+-- Toggle quickfix (global) or location list (local) window on the current tab
+Config.toggle_quickfix = function(list)
+  list = list or 'global'
+  local want_local = list == 'local'
   local cur_tabnr = vim.fn.tabpagenr()
   for _, wininfo in ipairs(vim.fn.getwininfo()) do
-    if wininfo.quickfix == 1 and wininfo.tabnr == cur_tabnr then return vim.cmd('cclose') end
+    if wininfo.tabnr == cur_tabnr and wininfo.quickfix == 1 then
+      if want_local and wininfo.loclist == 1 then return vim.cmd.lclose() end
+      if not want_local and wininfo.loclist ~= 1 then return vim.cmd.cclose() end
+    end
   end
-  vim.cmd('copen')
+  if want_local then
+    vim.cmd.lopen()
+  else
+    vim.cmd.copen()
+  end
 end
 
 -- Log for personal use during debugging
