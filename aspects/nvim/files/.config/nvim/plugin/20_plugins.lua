@@ -345,7 +345,12 @@ later(function() require('mini.pairs').setup() end)
 
 later(function() require('mini.trailspace').setup() end)
 
-later(function() require('mini.operators').setup() end)
+later(function()
+  require('mini.operators').setup({
+    -- Default `gx` is exchange and replaces open-under-cursor.
+    exchange = { prefix = 'cx' },
+  })
+end)
 
 later(function() require('mini.splitjoin').setup() end)
 
