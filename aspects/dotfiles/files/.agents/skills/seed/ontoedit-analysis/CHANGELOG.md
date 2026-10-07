@@ -1,5 +1,11 @@
 # OntoEdit analysis skill — rubric changelog
 
+## Behavior — OEST tutor as default
+
+- Default mode is the Socratic tutor in `resources/tutor.md` (one question, rubric backstage, claimed vs earned private).
+- A rubric report still runs on an explicit analysis ask, a named scope, or `full report`.
+- Missing rubric pack: the tutor uses the condensed lens and says so once. A report still stops with `RUBRIC_NOT_LOADED`.
+
 ## 9.17 — 2026-09-20
 
 - Initial import from OntoEdit DB dashboard export into `resources/rubric-pack.md`.
