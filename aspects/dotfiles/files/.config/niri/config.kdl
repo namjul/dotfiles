@@ -382,22 +382,24 @@ binds {
 
     // ── App launchers ──────────────────────────────────────────────
     Mod+B { spawn "chromium"; }
-    Mod+T hotkey-overlay-title="Telegram" { spawn-sh "gtk-launch telegram"; }
-    Mod+M hotkey-overlay-title="Gmail" { spawn-sh "gtk-launch gmail"; }
-    Mod+C hotkey-overlay-title="Calendar" { spawn-sh "gtk-launch calendar"; }
-    Mod+D hotkey-overlay-title="Devdocs" { spawn-sh "gtk-launch devdocs"; }
-    Mod+V hotkey-overlay-title="Btop" { spawn-sh "launch-terminal --title=Btop btop"; }
+    Mod+T hotkey-overlay-title="Telegram" { spawn-sh "launch-or-focus Telegram gtk-launch telegram"; }
+    Mod+M hotkey-overlay-title="Gmail" { spawn-sh "launch-or-focus Gmail gtk-launch gmail"; }
+    Mod+C hotkey-overlay-title="Calendar" { spawn-sh "launch-or-focus Calendar gtk-launch calendar"; }
+    Mod+D hotkey-overlay-title="Devdocs" { spawn-sh "launch-or-focus Devdocs gtk-launch devdocs"; }
+    Mod+V hotkey-overlay-title="Btop" { spawn-sh "launch-or-focus btop 'launch-terminal --title=Btop btop'"; }
     Mod+N hotkey-overlay-title="Neovim" { spawn-sh "launch-terminal --title=Neovim nvim"; }
     Mod+A hotkey-overlay-title="ChatGPT" { spawn-sh "gtk-launch chatgpt"; }
     Mod+Shift+A hotkey-overlay-title="Claude" { spawn-sh "gtk-launch claude"; }
     Mod+Ctrl+A hotkey-overlay-title="Deepseek" { spawn-sh "gtk-launch deepseek"; }
-    Mod+Y hotkey-overlay-title="YouTube" { spawn-sh "gtk-launch youtube"; }
+    Mod+Y hotkey-overlay-title="YouTube" { spawn-sh "launch-or-focus YouTube gtk-launch youtube"; }
     Mod+Shift+D hotkey-overlay-title="Lazydocker" { spawn-sh "launch-terminal --title=Lazydocker launch-lazydocker"; }
-    Mod+Shift+M hotkey-overlay-title="Spotify" { spawn-sh "gtk-launch spotify"; }
+    Mod+Shift+M hotkey-overlay-title="Spotify" { spawn-sh "launch-or-focus Spotify gtk-launch spotify"; }
+
+    // ── Utilities ────────────────────────────────────────────────────
     Mod+Shift+T hotkey-overlay-title="Toggle dark mode" { spawn "darkman" "toggle"; }
-    Mod+Z hotkey-overlay-title="Do not disturb" { spawn "do-not-disturb"; }
     Mod+Ctrl+Q hotkey-overlay-title="Calculator: omacalc" { spawn-sh "omacalc"; }
     Mod+G hotkey-overlay-title="Writing tools: translateonthego" { spawn "translateonthego"; }
+    Mod+Z hotkey-overlay-title="Do not disturb" { spawn "do-not-disturb"; }
 
     // ── Column width & edges ───────────────────────────────────────
     Mod+Home { focus-column-first; }

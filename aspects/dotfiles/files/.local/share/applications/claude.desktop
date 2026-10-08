@@ -6,4 +6,3 @@ Exec=launch-webapp https://claude.ai/
 Terminal=false
 Type=Application
 Categories=Network;Productivity;
-StartupWMClass=claude

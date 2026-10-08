@@ -1,57 +1,23 @@
 #!/usr/bin/env bash
 
-# Usage: launch-or-focus APP_PATTERN LAUNCH_COMMAND
-# Example: launch-or-focus Wiremix "launch-terminal --app-id=float-wiremix wiremix"
+# Usage: launch-or-focus <window-pattern> <launch-command...>
+# Niri: match app_id or title (case-insensitive regex), else spawn in background.
 
-if [ $# -lt 2 ]; then
-  echo "Usage: $0 APP_PATTERN LAUNCH_COMMAND"
+if (($# < 2)); then
+  echo "Usage: $0 <window-pattern> <launch-command...>" >&2
   exit 1
 fi
 
-APP_PATTERN="$1"
+APP_PATTERN=$1
 shift
-LAUNCH_COMMAND="$*"
+LAUNCH=("$@")
 
-if [[ -n ${NIRI_SOCKET-} && -S ${NIRI_SOCKET} ]] && command -v niri >/dev/null; then
-  WINDOW_ID=$(niri msg --json windows 2>/dev/null | jq -r --arg pattern "$APP_PATTERN" '
-    .[]?
-    | select(
-        ((.app_id // "") | test($pattern; "i"))
-        or ((.title // "") | test($pattern; "i"))
-      )
-    | .id
-  ' | head -n1)
-
-  if [[ -n "$WINDOW_ID" ]]; then
-    niri msg action focus-window --id="$WINDOW_ID"
-  else
-    setsid $LAUNCH_COMMAND >/dev/null 2>&1 &
-  fi
-  exit 0
-else
-  export DISPLAY="${DISPLAY:-:0}"
-  export XAUTHORITY="${XAUTHORITY:-$HOME/.Xauthority}"
-  MSG=i3-msg
-fi
-
-# Wayland clients expose app_id / name; X11 clients use window_properties.
-WINDOW_ID=$($MSG -t get_tree | jq -r --arg pattern "$APP_PATTERN" '
-  .. | objects
-  | select(.type? == "con" or .type? == "floating_con")
-  | select(
-      ((.name // "") | test($pattern; "i"))
-      or ((.app_id // "") | test($pattern; "i"))
-      or ((.window_properties.title // "") | test($pattern; "i"))
-      or ((.window_properties.class // "") | test($pattern; "i"))
-      or ((.window_properties.instance // "") | test($pattern; "i"))
-    )
-  | .id
+WINDOW_ID=$(niri msg --json windows 2>/dev/null | jq -r --arg p "$APP_PATTERN" '
+  .[]? | select(((.app_id // "") | test($p; "i")) or ((.title // "") | test($p; "i"))) | .id
 ' | head -n1)
 
-if [[ -n "$WINDOW_ID" ]]; then
-  # Focus existing window
-  $MSG "[con_id=$WINDOW_ID] focus"
+if [[ -n $WINDOW_ID ]]; then
+  niri msg action focus-window --id="$WINDOW_ID"
 else
-  # Launch new window in background
-  setsid $LAUNCH_COMMAND >/dev/null 2>&1 &
+  setsid "${LAUNCH[@]}" >/dev/null 2>&1 &
 fi

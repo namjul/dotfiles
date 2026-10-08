@@ -6,4 +6,3 @@ Exec=launch-webapp https://open.spotify.com/
 Terminal=false
 Type=Application
 Categories=Network;Audio;
-StartupWMClass=spotify
