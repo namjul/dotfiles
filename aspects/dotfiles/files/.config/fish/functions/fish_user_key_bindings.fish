@@ -25,8 +25,8 @@ function fish_user_key_bindings
   bind \eo 'yazicd; commandline -f repaint'
   bind --mode insert \eo 'yazicd; commandline -f repaint'
 
-  # TODO [\[Bug\] No outputs · Issue #2 · antonmedv/howto](https://github.com/antonmedv/howto/issues/2)
-  # bind \cg 'commandline -f beginning-of-line; commandline -i "howto "; commandline -f execute'
-  # bind --mode insert \cg 'commandline -f beginning-of-line; commandline -i "howto "; commandline -f execute'
+  # howto: suggest command on the line (no TIOCSTI; see bin/howto-suggest)
+  bind \cg howto_fill
+  bind --mode insert \cg howto_fill
 
 end
