@@ -386,7 +386,7 @@ binds {
     Mod+M hotkey-overlay-title="Gmail" { spawn-sh "launch-or-focus Gmail gtk-launch gmail"; }
     Mod+C hotkey-overlay-title="Calendar" { spawn-sh "launch-or-focus Calendar gtk-launch calendar"; }
     Mod+D hotkey-overlay-title="Devdocs" { spawn-sh "launch-or-focus Devdocs gtk-launch devdocs"; }
-    Mod+V hotkey-overlay-title="Btop" { spawn-sh "launch-or-focus btop 'launch-terminal --title=Btop btop'"; }
+    Mod+V hotkey-overlay-title="Btop" { spawn-sh "launch-or-focus btop launch-terminal --title=Btop btop"; }
     Mod+N hotkey-overlay-title="Neovim" { spawn-sh "launch-terminal --title=Neovim nvim"; }
     Mod+A hotkey-overlay-title="ChatGPT" { spawn-sh "gtk-launch chatgpt"; }
     Mod+Shift+A hotkey-overlay-title="Claude" { spawn-sh "gtk-launch claude"; }
