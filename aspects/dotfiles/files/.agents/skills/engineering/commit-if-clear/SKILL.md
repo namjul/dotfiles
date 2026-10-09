@@ -11,16 +11,19 @@ During planning, do not stage, commit, push, or otherwise change git state. The 
 
 ## Gate
 
-Classify every open question in one `codemode` script. Take the first model from `models.getAvailableOfType("classifier")`. If that list is empty, or any call does not stop cleanly, stop and say so. Do not commit, and do not decide urgency yourself.
+Classify every open question in one `codemode` script. Use `models.getModelOfType("classifier", "openrouter", "~typesafe/jev-latest")`. If that model is missing, or any `classify` call does not stop cleanly, stop and say so. Do not commit, and do not decide urgency yourself.
 
 A question is urgent when a different answer would change which files are committed, how the changes are split, or whether a change is committed. It is not urgent when the plan can be carried out without that answer.
 
 Embed the question strings in this script and run it:
 
 ```js
-const available = await models.getAvailableOfType("classifier");
-if (available.length === 0) return { error: "no classifier" };
-const model = available[0];
+const model = await models.getModelOfType(
+  "classifier",
+  "openrouter",
+  "~typesafe/jev-latest",
+);
+if (!model) return { error: "no classifier" };
 const questions = []; // each open-question string
 const results = await Promise.all(
   questions.map((question) =>
