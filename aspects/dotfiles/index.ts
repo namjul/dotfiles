@@ -54,6 +54,7 @@ variables(({ identity }) => ({
     ".pi/agent/extensions",
     ".pi/agent/settings.json",
     ".pi/agent/models.json",
+    ".pi/agent/mcp.json",
     ".pi/agent/themes/gruvbox-dark-soft.json",
     ".pi/agent/themes/gruvbox-light-soft.json",
     ".config/mise/config.toml",

@@ -22,7 +22,8 @@
     "cursor/grok-4.7@256k"
   ],
   "packages": [
-    "npm:pi-cursor-sdk"
+    "npm:pi-cursor-sdk",
+    "npm:@earendil-works/pi-voice"
   ],
   "skills": [
     "~/.claude/skills",

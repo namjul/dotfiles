@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "docmost": {
+      "url": "https://docmost.tools.wienfluss.net/mcp",
+      "headers": {
+        "Authorization": "Bearer ${DOCMOST_API_KEY}"
+      }
+    }
+  }
+}
