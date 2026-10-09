@@ -87,7 +87,7 @@
   },
   "custom/upgrades": {
     "exec": "pending-upgrades",
-    "interval": 3600,
+    "interval": 21600,
     "on-click": "launch-terminal --app-id=org.namjul.float-win --title=Upgrade launch-upgrade"
   }
 }
