@@ -72,9 +72,6 @@
       "wifi": ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"],
       "ethernet": "󰈀"
     },
-    "tooltip-format-wifi": "{essid}",
-    "tooltip-format-ethernet": "{ifname}",
-    "tooltip-format-disconnected": "Disconnected",
     "on-click": "launch-wifi"
   },
   "custom/vpn": {
