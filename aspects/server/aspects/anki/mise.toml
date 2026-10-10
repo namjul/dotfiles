@@ -1,4 +1,4 @@
-# Merged into aspects/server/mise.toml via `include`.
+# Loaded via aspects/server/.mise/conf.d/anki → this folder (config_root).
 
 [vars]
 # Templated into {{ vars.XDG_CONFIG_HOME }}/anki/compose.env on bootstrap
@@ -6,13 +6,13 @@ SYNC_USER1 = "user:pass"
 ANKI_VERSION = "24.06.3"
 
 [bootstrap.files."/etc/caddy/conf.d/anki.caddy"]
-source = "aspects/anki/caddyfile"
+source = "caddyfile"
 
 [bootstrap.files."/root/.config/anki/compose/compose.yaml"]
-source = "aspects/anki/compose.yaml"
+source = "compose.yaml"
 
 [bootstrap.files."/root/.config/anki/compose/Dockerfile"]
-source = "aspects/anki/Dockerfile"
+source = "Dockerfile"
 
 [bootstrap.directories."/root/.config/anki/compose"]
 mode = "0755"
