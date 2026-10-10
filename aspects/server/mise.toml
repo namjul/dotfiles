@@ -1,3 +1,6 @@
+min_version = "2026.10.7"
+include = ["aspects/anki/bootstrap.toml"]
+
 [env]
 SERVER="homelab"
 
@@ -7,9 +10,6 @@ XDG_CONFIG_HOME = "/root/.config"
 XDG_DATA_HOME = "/root/.local/share"
 XDG_STATE_HOME = "/root/.local/state"
 XDG_CACHE_HOME = "/root/.cache"
-# Anki sync — templated into {{ vars.XDG_CONFIG_HOME }}/anki/compose.env
-SYNC_USER1 = "user:pass"
-ANKI_VERSION = "24.06.3"
 
 [tools]
 caddy = "2.11"
@@ -87,49 +87,8 @@ source = "aspects/caddy/caddy.service"
 [bootstrap.files."/etc/caddy/Caddyfile"]
 source = "aspects/caddy/Caddyfile"
 
-[bootstrap.files."/etc/caddy/conf.d/anki.caddy"]
-source = "aspects/anki/caddyfile"
-
-[bootstrap.files."/root/.config/anki/compose/compose.yaml"]
-source = "aspects/anki/compose.yaml"
-
-[bootstrap.files."/root/.config/anki/compose/Dockerfile"]
-source = "aspects/anki/Dockerfile"
-
-[bootstrap.files."/root/.config/anki/compose/mise.toml"]
-source = "aspects/anki/mise.toml"
-
 [bootstrap.directories."/etc/caddy/conf.d"]
 mode = "0755"
-
-[bootstrap.directories."/root/.config/anki/compose"]
-mode = "0755"
-
-[bootstrap.directories."/root/.local/share/anki/sync"]
-group = "homelab"
-mode = "2770"
-
-[bootstrap.files."/root/.config/anki/compose.env"]
-template = true
-group = "homelab"
-mode = "0640"
-content = """
-XDG_CONFIG_HOME={{ vars.XDG_CONFIG_HOME }}
-XDG_DATA_HOME={{ vars.XDG_DATA_HOME }}
-SYNC_USER1={{ vars.SYNC_USER1 }}
-HOMELAB_GID={{ exec(command='getent group homelab | cut -d: -f3') }}
-ANKI_VERSION={{ vars.ANKI_VERSION }}
-"""
-
-[bootstrap.compose.anki]
-project_dir = "/root/.config/anki/compose"
-files = ["compose.yaml"]
-env_files = ["/root/.config/anki/compose.env"]
-project_name = "anki"
-state = "running"
-build = "always"
-remove_orphans = true
-depends_on = ["service:docker"]
 
 [bootstrap.hooks.post-tools]
 run = '''
@@ -222,27 +181,6 @@ sops -d --extract '["public_key"]' --output ~/.ssh/id_ed25519_personal-server.pu
 sops -d --extract '["private_key"]' --output ~/.ssh/id_ed25519_personal-server secrets/ssh.yml
 chmod 600 ~/.ssh/id_ed25519_personal-server ~/.ssh/id_ed25519_personal-server.pub
 grep -q hobl.at ~/.ssh/config > /dev/null 2>&1 || cat config/ssh_client_config >> ~/.ssh/config
-"""
-
-[tasks."anki:retire-square-compose"]
-description = 'One-time: stop Anki compose from /srv/square so bootstrap can adopt project_name anki at new paths'
-run = """
-#!/usr/bin/env bash
-set -euo pipefail
-ssh root@$SERVER 'set -euo pipefail
-old=/srv/square/aspects/anki
-if [ -f "$old/compose.yaml" ]; then
-  env_file=/srv/square/data/private/anki-compose.env
-  [ -f "$env_file" ] || env_file="$old/.env"
-  if [ -f "$env_file" ]; then
-    docker compose -f "$old/compose.yaml" --env-file "$env_file" --project-name anki down --remove-orphans 2>/dev/null || true
-  else
-    docker compose -f "$old/compose.yaml" --project-name anki down --remove-orphans 2>/dev/null || true
-  fi
-fi
-docker compose -p anki down --remove-orphans 2>/dev/null || true
-docker rm -f anki-sync-server 2>/dev/null || true
-echo "Old anki compose stopped; run mise run converge"'
 """
 
 [tasks.converge]

@@ -9,7 +9,7 @@ Deploy is **bootstrap-only** from the laptop: `mise run converge` → `mise boot
 | Aspect | Role | CONTEXT |
 |--------|------|---------|
 | **caddy** | HTTPS edge — config via bootstrap to `/etc/caddy/` | `aspects/caddy/CONTEXT.md` |
-| **anki** | Anki sync server — Docker via `[bootstrap.compose.anki]` | `aspects/anki/CONTEXT.md` |
+| **anki** | Anki sync server — Docker via `[bootstrap.compose.anki]` in `aspects/anki/bootstrap.toml` | `aspects/anki/CONTEXT.md` |
 
 **Caddy:** binary and unit from bootstrap; unit loads `EnvironmentFile=-/etc/environment`; PKI at `$XDG_DATA_HOME/caddy/…`. **Anki:** compose at `$XDG_CONFIG_HOME/anki/compose`, env at `$XDG_CONFIG_HOME/anki/compose.env`, sync data at `$XDG_DATA_HOME/anki/sync`. Shared container↔host RW uses Unix group **`homelab`** on the data dir.
 
@@ -24,7 +24,6 @@ Set `SERVER` per host. Flash / first boot stays manual (`config/user-data.yaml`)
 | `local:prepare` | Laptop: sops SSH keys + ssh client snippet (once; before first SSH) |
 | `converge` / `default` | Full `bootstrap remote homelab` — sole deploy entrypoint |
 | `reboot-if-required` | SSH: reboot if `/var/run/reboot-required` |
-| `aspect` | Run a mise task in `$XDG_CONFIG_HOME/<aspect>/compose` on SERVER |
 | `tailscale:join` | Laptop: one-time auth key → Pi `tailscale up` |
 | `tailscale:status` | SSH: `tailscale status` + tailnet IPv4 |
 | `caddy:root-ca` | `scp` internal CA from `$XDG_DATA_HOME/caddy/pki/…` on SERVER; `--trust` for local p11-kit |
@@ -40,7 +39,7 @@ New host: `mise run local:prepare`, then `mise run converge`. Day-2: `mise run c
 
 | Layer | Where | Runs from | Delivers |
 |-------|--------|-----------|----------|
-| **Bootstrap remote** | `aspects/server/mise.toml` `[bootstrap.*]` + `bootstrap/` | Laptop: `mise run converge` | OS packages, mise `[tools]`, Caddy unit + configs, Anki compose, sshd, UFW, `final-hook` |
+| **Bootstrap remote** | `aspects/server/mise.toml` + `include` (`aspects/anki/bootstrap.toml`, …) + `bootstrap/` | Laptop: `mise run converge` | OS packages, mise `[tools]`, Caddy unit + configs, Anki compose, sshd, UFW, `final-hook` |
 | **Laptop SSH ops** | `[tasks.*]` in same `mise.toml` | Laptop | Remote shell over SSH |
 
 **Pi migration (one-time):** move Anki data to `$XDG_DATA_HOME/anki/sync`; migrate Caddy PKI to `$XDG_DATA_HOME/caddy/pki` if needed; copy from `/var/lib/anki/sync` or square paths if present; remove stale trees when empty; replace group **`square`** with **`homelab`**.

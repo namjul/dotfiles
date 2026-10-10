@@ -108,6 +108,7 @@ packages=(
   jq # https://github.com/stedolan/jq
   entr # https://github.com/eradman/entr
   direnv # https://github.com/direnv/direnv
+  anki # https://apps.ankiweb.net/
   khal # https://github.com/pimutils/khal
   vdirsyncer # https://github.com/pimutils/vdirsyncer
   timew # https://timewarrior.net/

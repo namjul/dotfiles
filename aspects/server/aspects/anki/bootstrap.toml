@@ -1,0 +1,44 @@
+# Merged into aspects/server/mise.toml via `include`.
+
+[vars]
+# Templated into {{ vars.XDG_CONFIG_HOME }}/anki/compose.env on bootstrap
+SYNC_USER1 = "user:pass"
+ANKI_VERSION = "24.06.3"
+
+[bootstrap.files."/etc/caddy/conf.d/anki.caddy"]
+source = "aspects/anki/caddyfile"
+
+[bootstrap.files."/root/.config/anki/compose/compose.yaml"]
+source = "aspects/anki/compose.yaml"
+
+[bootstrap.files."/root/.config/anki/compose/Dockerfile"]
+source = "aspects/anki/Dockerfile"
+
+[bootstrap.directories."/root/.config/anki/compose"]
+mode = "0755"
+
+[bootstrap.directories."/root/.local/share/anki/sync"]
+group = "homelab"
+mode = "2770"
+
+[bootstrap.files."/root/.config/anki/compose.env"]
+template = true
+group = "homelab"
+mode = "0640"
+content = """
+XDG_CONFIG_HOME={{ vars.XDG_CONFIG_HOME }}
+XDG_DATA_HOME={{ vars.XDG_DATA_HOME }}
+SYNC_USER1={{ vars.SYNC_USER1 }}
+HOMELAB_GID={{ exec(command='getent group homelab | cut -d: -f3') }}
+ANKI_VERSION={{ vars.ANKI_VERSION }}
+"""
+
+[bootstrap.compose.anki]
+project_dir = "/root/.config/anki/compose"
+files = ["compose.yaml"]
+env_files = ["/root/.config/anki/compose.env"]
+project_name = "anki"
+state = "running"
+build = "always"
+remove_orphans = true
+depends_on = ["service:docker"]
