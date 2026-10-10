@@ -8,7 +8,7 @@
   "defaultTools": [
     "+codemode"
   ],
-  "lastChangelogVersion": "1.0.4",
+  "lastChangelogVersion": "1.1.0",
   "enabledModels": [
     "openrouter/openrouter/free",
     "openrouter/z-ai/glm-5.1",
@@ -19,7 +19,8 @@
     "cursor/grok-4.5",
     "cursor/grok-4.6",
     "cursor/fable-5@300k",
-    "cursor/grok-4.7@256k"
+    "cursor/grok-4.7@256k",
+    "cursor/gpt-5.6-luna@272k"
   ],
   "packages": [
     "npm:pi-cursor-sdk",
