@@ -48,8 +48,8 @@
       "connected": "󰂱"
     },
     "tooltip-format": "Bluetooth",
-    "tooltip-format-connected": "{device_aliases}",
-    "tooltip-format-enumerate": "{device_alias} {device_battery_percentage}%",
+    "tooltip-format-connected": "{device_alias}",
+    "tooltip-format-enumerate-connected": "{device_alias} {device_battery_percentage}%",
     "on-click": "launch-bluetooth"
   },
   "pulseaudio": {
