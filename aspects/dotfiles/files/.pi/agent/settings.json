@@ -30,5 +30,6 @@
     "~/.claude/skills",
     "~/.codex/skills"
   ],
-  "hideThinkingBlock": true
+  "hideThinkingBlock": true,
+  "showCacheMissNotices": true
 }
