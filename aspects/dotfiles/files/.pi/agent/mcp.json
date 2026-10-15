@@ -4,7 +4,18 @@
       "url": "https://docmost.tools.wienfluss.net/mcp",
       "headers": {
         "Authorization": "Bearer ${DOCMOST_API_KEY}"
-      }
+      },
+      "exposure": "direct"
+    },
+    "chrome-devtools": {
+      "command": "aubx",
+      "args": [
+        "chrome-devtools-mcp@latest"
+      ]
+    },
+    "daisyui-github": {
+      "url": "https://gitmcp.io/saadeghi/daisyui",
+      "exposure": "direct"
     }
   }
 }
