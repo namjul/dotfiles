@@ -7,9 +7,9 @@ HTTPS edge for the Pi. **Not** an aspect with `default` / aspect `mise.toml` on 
 | `caddy` binary | `aspects/server/mise.toml` `[tools]` | mise (bootstrap tools phase) |
 | `caddy.service` | `aspects/caddy/caddy.service` | `/etc/systemd/system/caddy.service` |
 | `Caddyfile` | `aspects/caddy/Caddyfile` | `/etc/caddy/Caddyfile` |
-| Route snippets | `aspects/<name>/caddyfile` | `/etc/caddy/conf.d/<name>.caddy` |
+| Site snippets | `aspects/<name>/caddyfile` | `/etc/caddy/conf.d/<name>.caddy` |
 
-**Central TLS:** `Caddyfile` defines `homelab { tls internal; import … }` and redirects `http://homelab` → HTTPS. Per-aspect snippets add only routes (`handle`, `redir`).
+**TLS:** `Caddyfile` redirects `http://homelab` → HTTPS and imports `/etc/caddy/conf.d/*.caddy` at top level. Each site snippet defines its own hostname and uses `tls internal`.
 
 **Unit:** Root, no `DynamicUser`. **`EnvironmentFile=-/etc/environment`** for the XDG quartet; **`ExecStart`/`ExecReload`** use **`/root/.local/bin/mise exec caddy -- caddy …`** (activate the installed tool by name; systemd’s PATH does not include mise). PKI under **`$XDG_DATA_HOME/caddy/pki/authorities/local/`**.
 

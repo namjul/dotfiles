@@ -1,0 +1,37 @@
+# Loaded via aspects/server/.mise/conf.d/actualbudget → this folder (config_root).
+
+[vars]
+ACTUAL_VERSION = "26.10.0-alpine"
+
+[bootstrap.files."/etc/caddy/conf.d/actualbudget.caddy"]
+source = "caddyfile"
+
+[bootstrap.files."/root/.config/actualbudget/compose/compose.yaml"]
+source = "compose.yaml"
+
+[bootstrap.directories."/root/.config/actualbudget/compose"]
+mode = "0755"
+
+[bootstrap.directories."/root/.local/share/actualbudget"]
+group = "homelab"
+mode = "2770"
+
+[bootstrap.files."/root/.config/actualbudget/compose.env"]
+template = true
+group = "homelab"
+mode = "0640"
+content = """
+XDG_CONFIG_HOME={{ vars.XDG_CONFIG_HOME }}
+XDG_DATA_HOME={{ vars.XDG_DATA_HOME }}
+HOMELAB_GID={{ exec(command='getent group homelab | cut -d: -f3') }}
+ACTUAL_VERSION={{ vars.ACTUAL_VERSION }}
+"""
+
+[bootstrap.compose.actualbudget]
+project_dir = "/root/.config/actualbudget/compose"
+files = ["compose.yaml"]
+env_files = ["/root/.config/actualbudget/compose.env"]
+project_name = "actualbudget"
+state = "running"
+remove_orphans = true
+depends_on = ["service:docker"]

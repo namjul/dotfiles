@@ -1,6 +1,4 @@
-redir /anki /anki/ permanent
-
-handle /anki/* {
-	uri strip_prefix /anki
+anki.homelab.xyz {
+	tls internal
 	reverse_proxy 127.0.0.1:8080
 }

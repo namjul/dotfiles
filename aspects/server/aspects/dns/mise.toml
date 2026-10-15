@@ -1,0 +1,32 @@
+# Loaded via aspects/server/.mise/conf.d/dns → this folder (config_root).
+
+[vars]
+DNS_DOMAIN = "homelab.xyz"
+DNS_SERVER_IP = "100.121.171.33"
+
+[bootstrap.files."/root/.config/coredns/compose/compose.yaml"]
+source = "compose.yaml"
+
+[bootstrap.files."/root/.config/coredns/Corefile"]
+source = "Corefile"
+template = true
+mode = "0644"
+
+[bootstrap.directories."/root/.config/coredns/compose"]
+mode = "0755"
+
+[bootstrap.files."/root/.config/coredns/compose.env"]
+template = true
+mode = "0640"
+content = """
+XDG_CONFIG_HOME={{ vars.XDG_CONFIG_HOME }}
+"""
+
+[bootstrap.compose.coredns]
+project_dir = "/root/.config/coredns/compose"
+files = ["compose.yaml"]
+env_files = ["/root/.config/coredns/compose.env"]
+project_name = "coredns"
+state = "running"
+remove_orphans = true
+depends_on = ["service:docker"]

@@ -1,0 +1,9 @@
+services:
+  coredns:
+    container_name: coredns
+    image: docker.io/coredns/coredns:1.12.4
+    command: -conf /etc/coredns/Corefile
+    network_mode: host
+    volumes:
+      - ${XDG_CONFIG_HOME}/coredns/Corefile:/etc/coredns/Corefile:ro
+    restart: unless-stopped

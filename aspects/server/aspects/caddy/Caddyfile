@@ -1,8 +1,1 @@
-http://homelab {
-	redir https://{host}{uri} permanent
-}
-
-homelab {
-	tls internal
-	import /etc/caddy/conf.d/*.caddy
-}
+import /etc/caddy/conf.d/*.caddy
