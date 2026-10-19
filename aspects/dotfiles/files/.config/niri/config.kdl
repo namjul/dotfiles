@@ -357,16 +357,23 @@ binds {
     Mod+Ctrl+Right { move-workspace-to-monitor-right; }
 
     // ── Move: column → monitor ─────────────────────────────────────
-    Mod+Alt+Up { move-column-to-monitor-up; }
-    Mod+Alt+Down { move-column-to-monitor-down; }
-    Mod+Alt+Left { move-column-to-monitor-left; }
-    Mod+Alt+Right { move-column-to-monitor-right; }
+    Mod+Shift+Ctrl+Up { move-column-to-monitor-up; }
+    Mod+Shift+Ctrl+K { move-column-to-monitor-up; }
+    Mod+Shift+Ctrl+Down { move-column-to-monitor-down; }
+    Mod+Shift+Ctrl+J { move-column-to-monitor-down; }
+    Mod+Shift+Ctrl+Left { move-column-to-monitor-left; }
+    Mod+Shift+Ctrl+H { move-column-to-monitor-left; }
+    Mod+Shift+Ctrl+L { move-column-to-monitor-right; }
 
     // ── Focus: monitor ─────────────────────────────────────────────
-    Mod+Shift+Ctrl+Left { focus-monitor-left; }
-    Mod+Shift+Ctrl+Down { focus-monitor-down; }
-    Mod+Shift+Ctrl+Up { focus-monitor-up; }
-    Mod+Shift+Ctrl+Right { focus-monitor-right; }
+    Mod+Alt+Up { focus-monitor-up; }
+    Mod+Alt+K { focus-monitor-up; }
+    Mod+Alt+Down { focus-monitor-down; }
+    Mod+Alt+J { focus-monitor-down; }
+    Mod+Alt+Left { focus-monitor-left; }
+    Mod+Alt+L { focus-monitor-left; }
+    Mod+Alt+Right { focus-monitor-right; }
+    Mod+Alt+H { focus-monitor-right; }
 
     // ── Hardware: audio, brightness, calculator ────────────────────
     XF86AudioRaiseVolume allow-when-locked=true { spawn "swayosd-client" "--output-volume" "raise"; }
