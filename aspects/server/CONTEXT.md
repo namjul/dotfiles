@@ -11,11 +11,12 @@ Deploy is **bootstrap-only** from the laptop: `mise run converge` → `mise boot
 | **caddy** | HTTPS edge — config via bootstrap to `/etc/caddy/` | `aspects/caddy/CONTEXT.md` |
 | **anki** | Anki sync server — Docker via `[bootstrap.compose.anki]` in `aspects/anki/mise.toml` (`.mise/conf.d/anki`) | `aspects/anki/CONTEXT.md` |
 | **actualbudget** | Actual Budget — Docker via `[bootstrap.compose.actualbudget]` in `aspects/actualbudget/mise.toml` (`.mise/conf.d/actualbudget`) | `aspects/actualbudget/CONTEXT.md` |
+| **syncthing** | Tailnet-only Syncthing hub — Docker via `[bootstrap.compose.syncthing]` in `aspects/syncthing/mise.toml` (`.mise/conf.d/syncthing`) | `aspects/syncthing/CONTEXT.md` |
 | **dns** | CoreDNS private resolver — Docker via `[bootstrap.compose.coredns]` in `aspects/dns/mise.toml` (`.mise/conf.d/dns`) | `aspects/dns/CONTEXT.md` |
 
 **Caddy:** binary and unit from bootstrap; unit loads `EnvironmentFile=-/etc/environment`; PKI at `$XDG_DATA_HOME/caddy/…`. **Anki:** compose at `$XDG_CONFIG_HOME/anki/compose`, env at `$XDG_CONFIG_HOME/anki/compose.env`, sync data at `$XDG_DATA_HOME/anki/sync`, served at `anki.homelab.xyz`. **Actual Budget:** compose at `$XDG_CONFIG_HOME/actualbudget/compose`, env at `$XDG_CONFIG_HOME/actualbudget/compose.env`, data at `$XDG_DATA_HOME/actualbudget`, served at `budget.homelab.xyz`. **CoreDNS:** compose at `$XDG_CONFIG_HOME/coredns/compose`, Corefile and private records at `$XDG_CONFIG_HOME/coredns/`. Shared container↔host RW uses Unix group **`homelab`** on the data dirs.
 
-**Tailscale:** `tailscaled` via bootstrap on **`converge`**; join from laptop **`tailscale:join`**. Laptop SSH ops live in **`aspects/server/mise.toml`**. Unix group **`homelab`** is declared in **`[bootstrap.groups]`** (before files); root is added via **`post-packages`** (`usermod`, not `[bootstrap.users]` — mise blocks managing `root`).
+**Tailscale:** `tailscaled` via bootstrap on **`converge`**; join from laptop **`tailscale:join`**. Laptop SSH ops live in **`aspects/server/mise.toml`**. Unix group **`homelab`** is declared in **`[bootstrap.groups]`** (before files); root is added via **`post-packages`** (`usermod`, not `[bootstrap.users]` — mise blocks managing `root`). **Syncthing:** the hub is published at `sync.homelab.xyz` through Caddy, with its GUI bound to `127.0.0.1:8384` and its sync listener published on the current `DNS_SERVER_IP` at TCP and UDP port `22000`. Discovery, relays, NAT traversal, and the default folder are disabled by the Syncthing aspect; devices and folders remain in its mounted configuration across converges.
 
 ## Mise tasks
 
@@ -29,7 +30,7 @@ Set `SERVER` per host. Flash / first boot stays manual (`config/user-data.yaml`)
 | `tailscale:join` | Laptop: one-time auth key → Pi `tailscale up` |
 | `tailscale:status` | SSH: `tailscale status` + tailnet IPv4 |
 | `caddy:root-ca` | `scp` internal CA from `$XDG_DATA_HOME/caddy/pki/…` on SERVER; `--trust` for local p11-kit |
-| `health` | SSH smoke checks (caddy, anki, actualbudget, coredns, paths) + app hostname curls from laptop |
+| `health` | SSH smoke checks (caddy, anki, actualbudget, syncthing, coredns, paths) + app hostname curls from laptop |
 
 New host: `mise run local:prepare`, then `mise run converge`. Day-2: `mise run converge`.
 
@@ -41,7 +42,7 @@ New host: `mise run local:prepare`, then `mise run converge`. Day-2: `mise run c
 
 | Layer | Where | Runs from | Delivers |
 |-------|--------|-----------|----------|
-| **Bootstrap remote** | `aspects/server/mise.toml` + `.mise/conf.d/` (e.g. `anki` → `aspects/anki/`) + `bootstrap/` | Laptop: `mise run converge` | OS packages, mise `[tools]`, Caddy unit + configs, Anki compose, sshd, UFW, `final-hook` |
+| **Bootstrap remote** | `aspects/server/mise.toml` + `.mise/conf.d/` (e.g. `anki` → `aspects/anki/`) + `bootstrap/` | Laptop: `mise run converge` | OS packages, mise `[tools]`, Caddy unit + configs, Anki and Syncthing compose, sshd, UFW, `final-hook` |
 | **Laptop SSH ops** | `[tasks.*]` in same `mise.toml` | Laptop | Remote shell over SSH |
 
 **Pi migration (one-time):** move Anki data to `$XDG_DATA_HOME/anki/sync`; migrate Caddy PKI to `$XDG_DATA_HOME/caddy/pki` if needed; copy from `/var/lib/anki/sync` or square paths if present; remove stale trees when empty; replace group **`square`** with **`homelab`**.
@@ -53,6 +54,7 @@ New host: `mise run local:prepare`, then `mise run converge`. Day-2: `mise run c
 | Caddy HTTPS edge | `caddy` | `aspects/caddy/CONTEXT.md` |
 | Anki sync server | `anki` | `aspects/anki/CONTEXT.md` |
 | Actual Budget | `actualbudget` | `aspects/actualbudget/CONTEXT.md` |
+| Syncthing hub | `syncthing` | `aspects/syncthing/CONTEXT.md` |
 | Private DNS resolver | `dns` | `aspects/dns/CONTEXT.md` |
 | Static sites / SSG builds | `website` | `archive/website/CONTEXT.md` (when promoted) |
 

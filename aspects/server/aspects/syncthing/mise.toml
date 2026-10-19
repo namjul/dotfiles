@@ -1,0 +1,49 @@
+# Loaded via aspects/server/.mise/conf.d/syncthing → this folder (config_root).
+
+[vars]
+GUI_AUTH = "user:pass"
+SYNCTHING_VERSION = "2.1.6"
+
+[bootstrap.files."/etc/caddy/conf.d/syncthing.caddy"]
+source = "caddyfile"
+
+[bootstrap.files."/root/.config/syncthing/compose/compose.yaml"]
+source = "compose.yaml"
+
+[bootstrap.files."/root/.config/syncthing/compose/entrypoint.sh"]
+source = "entrypoint.sh"
+mode = "0755"
+
+[bootstrap.directories."/root/.config/syncthing"]
+group = "homelab"
+mode = "2770"
+
+[bootstrap.directories."/root/.config/syncthing/compose"]
+mode = "0755"
+
+[bootstrap.directories."/root/.local/share/syncthing"]
+group = "homelab"
+mode = "2770"
+
+[bootstrap.files."/root/.config/syncthing/compose.env"]
+template = true
+group = "homelab"
+mode = "0640"
+content = """
+XDG_CONFIG_HOME={{ vars.XDG_CONFIG_HOME }}
+XDG_DATA_HOME={{ vars.XDG_DATA_HOME }}
+HOMELAB_GID={{ exec(command='getent group homelab | cut -d: -f3') }}
+DNS_SERVER_IP={{ vars.DNS_SERVER_IP }}
+GUI_AUTH={{ vars.GUI_AUTH }}
+SYNCTHING_VERSION={{ vars.SYNCTHING_VERSION }}
+SYNCTHING_ENTRYPOINT_SHA256={{ exec(command='sha256sum /root/.config/syncthing/compose/entrypoint.sh 2>/dev/null | cut -d" " -f1') }}
+"""
+
+[bootstrap.compose.syncthing]
+project_dir = "/root/.config/syncthing/compose"
+files = ["compose.yaml"]
+env_files = ["/root/.config/syncthing/compose.env"]
+project_name = "syncthing"
+state = "running"
+remove_orphans = true
+depends_on = ["service:docker"]

@@ -5,5 +5,5 @@ services:
     command: -conf /etc/coredns/Corefile
     network_mode: host
     volumes:
-      - ${XDG_CONFIG_HOME}/coredns/Corefile:/etc/coredns/Corefile:ro
+      - ${XDG_CONFIG_HOME}/coredns:/etc/coredns:ro
     restart: unless-stopped

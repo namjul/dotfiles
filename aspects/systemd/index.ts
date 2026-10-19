@@ -34,6 +34,7 @@ const enable = [
   "darkman.service",
   "gammastep.service",
   "gnome-keyring-daemon.socket",
+  "syncthing.service",
 ];
 
 const hasBattery = (): boolean => {

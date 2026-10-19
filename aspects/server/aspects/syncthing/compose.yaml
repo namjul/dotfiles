@@ -1,0 +1,27 @@
+services:
+  syncthing:
+    container_name: syncthing
+    image: syncthing/syncthing:${SYNCTHING_VERSION:?}
+    entrypoint:
+      - /usr/local/bin/syncthing-entrypoint.sh
+    environment:
+      STHOMEDIR: ""
+      STCONFDIR: /var/syncthing/config
+      STDATADIR: /var/syncthing/data
+      STNODEFAULTFOLDER: "1"
+      STNOUPGRADE: "1"
+      PUID: "1000"
+      PGID: "${HOMELAB_GID:?}"
+      GUI_AUTH: "${GUI_AUTH:?}"
+      SYNCTHING_ENTRYPOINT_SHA256: "${SYNCTHING_ENTRYPOINT_SHA256}"
+    group_add:
+      - "${HOMELAB_GID:?}"
+    volumes:
+      - ${XDG_CONFIG_HOME}/syncthing:/var/syncthing/config
+      - ${XDG_DATA_HOME}/syncthing:/var/syncthing
+      - ./entrypoint.sh:/usr/local/bin/syncthing-entrypoint.sh:ro
+    ports:
+      - "127.0.0.1:8384:8384"
+      - "${DNS_SERVER_IP:?}:22000:22000/tcp"
+      - "${DNS_SERVER_IP:?}:22000:22000/udp"
+    restart: unless-stopped

@@ -351,6 +351,12 @@ else
   fail "actualbudget container not running"
 fi
 
+if docker ps --filter name=syncthing -q 2>/dev/null | grep -q .; then
+  pass "syncthing container"
+else
+  fail "syncthing container not running"
+fi
+
 if docker ps --filter name=coredns -q 2>/dev/null | grep -q .; then
   pass "coredns container"
 else
@@ -371,7 +377,14 @@ else
   fail "actualbudget backend 127.0.0.1:5006 (no TCP/HTTP response; docker logs actualbudget)"
 fi
 
-for path in /etc/caddy/Caddyfile /etc/caddy/conf.d/anki.caddy /etc/caddy/conf.d/actualbudget.caddy /root/.config/anki/compose.env /root/.config/anki/compose/compose.yaml /root/.local/share/anki/sync /root/.config/actualbudget/compose.env /root/.config/actualbudget/compose/compose.yaml /root/.local/share/actualbudget /root/.config/coredns/Corefile /root/.config/coredns/compose.env /root/.config/coredns/compose/compose.yaml; do
+syncthing_code="$(curl -s -o /dev/null -w '%{http_code}' --connect-timeout 3 http://127.0.0.1:8384/ || true)"
+if [ -n "$syncthing_code" ] && [ "$syncthing_code" != "000" ]; then
+  pass "syncthing backend 127.0.0.1:8384 (HTTP $syncthing_code)"
+else
+  fail "syncthing backend 127.0.0.1:8384 (no TCP/HTTP response; docker logs syncthing)"
+fi
+
+for path in /etc/caddy/Caddyfile /etc/caddy/conf.d/anki.caddy /etc/caddy/conf.d/actualbudget.caddy /etc/caddy/conf.d/syncthing.caddy /root/.config/anki/compose.env /root/.config/anki/compose/compose.yaml /root/.local/share/anki/sync /root/.config/actualbudget/compose.env /root/.config/actualbudget/compose/compose.yaml /root/.local/share/actualbudget /root/.config/coredns/Corefile /root/.config/coredns/compose.env /root/.config/coredns/compose/compose.yaml /root/.config/syncthing/compose.env /root/.config/syncthing/compose/compose.yaml /root/.config/syncthing/compose/entrypoint.sh /root/.local/share/syncthing; do
   if [ -e "$path" ]; then pass "path $path"; else fail "missing $path"; fi
 done
 
@@ -405,6 +418,13 @@ if [ -n "$budget_code" ] && [ "$budget_code" != "000" ] && [ "$budget_code" != "
   pass "https://budget.homelab.xyz/ (HTTP $budget_code)"
 else
   fail "https://budget.homelab.xyz/ (HTTP ${budget_code:-000}; DNS, TLS, Caddy, or Actual Budget backend)"
+fi
+
+sync_code="$(curl -sk -o /dev/null -w '%{http_code}' --connect-timeout 5 https://sync.homelab.xyz/ || true)"
+if [ -n "$sync_code" ] && [ "$sync_code" != "000" ] && [ "$sync_code" != "502" ] && [ "$sync_code" != "503" ]; then
+  pass "https://sync.homelab.xyz/ (HTTP $sync_code)"
+else
+  fail "https://sync.homelab.xyz/ (HTTP ${sync_code:-000}; DNS, TLS, Caddy, or Syncthing backend)"
 fi
 
 if [ "$failures" -eq 0 ]; then

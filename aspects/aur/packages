@@ -85,6 +85,7 @@ packages=(
   wireguard-tools # wg / wg-quick — kernel module is in linux
   openresolv # resolvconf(8) so wg-quick can apply Interface DNS=
   tailscale # tailscaled + CLI — enable via aspects/systemd; login with tailscale up
+  syncthing # continuous file synchronization — user service in aspects/systemd
   chromium
   libreoffice-fresh # https://www.libreoffice.org/ — Writer/Calc/Impress (omarchy preinstall)
   brightnessctl # https://github.com/Hummer12007/brightnessctl

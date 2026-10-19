@@ -4,10 +4,12 @@
 	hosts {
 		{{ vars.DNS_SERVER_IP }} anki.{{ vars.DNS_DOMAIN }}
 		{{ vars.DNS_SERVER_IP }} budget.{{ vars.DNS_DOMAIN }}
+		{{ vars.DNS_SERVER_IP }} sync.{{ vars.DNS_DOMAIN }}
 		fallthrough
 	}
 
 	forward . 1.1.1.1 1.0.0.1
 	cache 30
+	reload
 	errors
 }
