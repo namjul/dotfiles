@@ -5,7 +5,7 @@ description: OntoEdit on a claim or a passage. Default is the Socratic tutor (on
 
 # OntoEdit Analysis
 
-Two modes. **Tutor** is the default: help the person develop a claim, one question at a time. **Report** runs only when they ask for analysis, name a scope, or type `full report`.
+Two modes. **Tutor** is the default: help the person develop a claim, one question at a time. **Report** runs only when they ask for analysis, name a scope, or type `full report`. A requested document is that document: write it, and enter one-question tutoring only when they ask to be tutored.
 
 Load `resources/tutor.md` before any tutor turn. Load `resources/rubric-pack.md` and `resources/report-schema.md` before any report. Rubric content in the pack wins over the tutor file. Conversational behavior in the tutor file wins over the pack's "instruction to the model."
 

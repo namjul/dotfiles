@@ -14,7 +14,7 @@ Before presenting output, verify:
 
 - ✅ Chat review covers mistakes, friction points, and unclear outputs
 - ✅ Concrete, actionable improvements proposed (not vague suggestions)
-- ✅ Skills used in chat are analyzed for self-checks, conciseness, and quality
+- ✅ Skills invoked or read are analyzed for self-checks, conciseness, and quality
 - ✅ Pattern detection identifies repeated tasks that could become skills
 - ✅ Clear questions asked about what to remember for future chats
 
@@ -43,14 +43,13 @@ When the user types "reflect", I perform a comprehensive review of the current c
 
 ### 3. Skill Quality Analysis
 
-For each skill used during this chat:
+For each skill invoked or read during this chat:
 
 **a) Self-Check Validation:**
 
-- Check if skill has success criteria at the top
-- Check if skill has verification instruction at bottom
-- If missing: propose adding both with specific criteria for that skill
-- Ensure verification includes "iterate up to 5 times if not met"
+- A check belongs only where a silent skip would ship the wrong artifact.
+- A CLI reference or a catalog already shows its work. Do not add a success-criteria block or an iterate cap to it.
+- When a check is warranted, put it with the intent, require a visible artifact, and state what done forbids. Do not copy this skill's checklist into another skill.
 
 **b) Token Efficiency:**
 
@@ -128,13 +127,13 @@ Suggest typing "reflect" when:
 
 ### Skills Analysis
 
-**Skills used this session:** [List skills]
+**Skills invoked or read:** [List skills]
 
 For each skill:
 
 **`skill-name`:**
 
-- Self-check status: [✅ Has criteria / ❌ Missing]
+- Check: [what a silent skip would ship, or "the work is the artifact"]
 - Token efficiency: [Observations]
 - Proposed improvements:
   1. [Specific improvement]
@@ -153,43 +152,6 @@ For each skill:
 - Description: [What it would do]
 
 **Should I create this skill?** [Ask user for confirmation]
-
----
-
-## Examples
-
-**User:** reflect
-
-**Response:**
-
-```
-## Session Review
-
-**Accomplishments:**
-- Updated comparison charts implementation plan
-- Clarified data requirements for cycles.assessmentTool vs cycles.compare
-- Committed plan to repository
-
-**Mistakes/Issues:**
-1. Initially didn't explain why cycles.compare was insufficient - required follow-up question
-2. First plan draft missing reference cycle assessmentTool query
-
-**Unclear Outputs:**
-- Data structure explanation could have included visual diagram earlier
-
-## Proposed Improvements
-1. **Data explanations:** Include visual structure comparisons upfront when discussing API responses
-2. **Plan completeness:** Always verify both sides of comparison features (reference + comparison)
-3. **Proactive clarification:** Ask "should I explain why?" when making architectural decisions
-
-Which of these should I remember for future chats?
-
-## Skills Analysis
-No skills were used in this session.
-
-## Pattern Detection
-No repeated task patterns detected yet.
-```
 
 ---
 
@@ -213,7 +175,7 @@ Before presenting output:
 1. Have I reviewed the full chat history?
 2. Are all mistakes/friction points specific with examples?
 3. Are improvements concrete and actionable?
-4. Have I analyzed all skills used?
+4. Have I analyzed every skill invoked or read?
 5. Are my questions clear and answerable?
 
 If any answer is no, iterate and improve (up to 5 times).

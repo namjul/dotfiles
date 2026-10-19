@@ -9,7 +9,7 @@ description: Download videos, extract audio, and get transcripts from YouTube an
 
 # yt-dlp
 
-Video/audio downloader supporting YouTube and 1000+ sites.
+Video/audio downloader supporting YouTube and 1000+ sites. Confirm where the result should land before writing it into a repository.
 
 ## Transcripts
 
