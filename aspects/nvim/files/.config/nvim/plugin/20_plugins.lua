@@ -99,9 +99,6 @@ now_if_args(function()
       if not ok then return end
 
       if ev.match ~= 'python' then vim.bo[ev.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()" end
-
-      -- old additional_vim_regex_highlighting = { 'markdown' }
-      if ev.match == 'markdown' or ev.match == 'mdx' then vim.bo[ev.buf].syntax = 'ON' end
     end,
   })
 
