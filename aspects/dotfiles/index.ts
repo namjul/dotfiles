@@ -206,6 +206,7 @@ variables(({ identity }) => ({
     ".agents/skills/engineering/ubiquitous-language",
     ".agents/skills/engineering/video-compress",
     ".agents/skills/engineering/vocabulary",
+    ".agents/skills/engineering/wizard",
     ".agents/skills/engineering/zx-markdown-scaffold",
   ],
   prompts: [
