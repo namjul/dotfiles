@@ -269,7 +269,7 @@ binds {
 
     // ── Config & help ──────────────────────────────────────────────
     Mod+Shift+R hotkey-overlay-title="Reload niri config" { spawn-sh "niri msg action load-config-file"; }
-    Mod+Ctrl+K hotkey-overlay-title="Reload kanshi" { spawn-sh "systemctl --user kill -s HUP kanshi.service"; }
+    Mod+Ctrl+M hotkey-overlay-title="Reload kanshi" { spawn-sh "systemctl --user kill -s HUP kanshi.service"; }
     Mod+Shift+7 { show-hotkey-overlay; }
 
     // ── Session ────────────────────────────────────────────────────
@@ -351,10 +351,14 @@ binds {
     Mod+Shift+Ctrl+S { spawn "capture-screenshot" "fullscreen"; }
 
     // ── Move: workspace → monitor ──────────────────────────────────
-    Mod+Ctrl+Left { move-workspace-to-monitor-left; }
-    Mod+Ctrl+Down { move-workspace-to-monitor-down; }
     Mod+Ctrl+Up { move-workspace-to-monitor-up; }
+    Mod+Ctrl+K { move-workspace-to-monitor-up; }
+    Mod+Ctrl+Down { move-workspace-to-monitor-down; }
+    Mod+Ctrl+J { move-workspace-to-monitor-down; }
+    Mod+Ctrl+Left { move-workspace-to-monitor-left; }
+    Mod+Ctrl+L { move-workspace-to-monitor-left; }
     Mod+Ctrl+Right { move-workspace-to-monitor-right; }
+    Mod+Ctrl+H { move-workspace-to-monitor-right; }
 
     // ── Move: column → monitor ─────────────────────────────────────
     Mod+Shift+Ctrl+Up { move-column-to-monitor-up; }
@@ -363,6 +367,7 @@ binds {
     Mod+Shift+Ctrl+J { move-column-to-monitor-down; }
     Mod+Shift+Ctrl+Left { move-column-to-monitor-left; }
     Mod+Shift+Ctrl+H { move-column-to-monitor-left; }
+    Mod+Shift+Ctrl+Right { move-column-to-monitor-right; }
     Mod+Shift+Ctrl+L { move-column-to-monitor-right; }
 
     // ── Focus: monitor ─────────────────────────────────────────────
