@@ -20,7 +20,7 @@
     "~/.codex/skills"
   ],
   "hideThinkingBlock": true,
-  "showCacheMissNotices": true,
+  "showCacheMissNotices": false,
   "terminal": {
     "hyperlinks": true
   },
