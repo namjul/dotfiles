@@ -22,6 +22,7 @@ abbr j 'jobs'
 abbr x exit
 
 # git
+alias gs 'git status'
 abbr g 'git'
 abbr --command git grn 'git rebase -i HEAD~' # git interactive rebase to n
 abbr --command git co checkout
