@@ -21,8 +21,11 @@
   ],
   "hideThinkingBlock": true,
   "showCacheMissNotices": false,
+  "compaction": {
+    "reserveTokens": 54400
+  },
   "terminal": {
     "hyperlinks": true
   },
-  "lastChangelogVersion": "1.1.0"
+  "lastChangelogVersion": "1.4.0"
 }
