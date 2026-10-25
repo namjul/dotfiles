@@ -16,7 +16,7 @@ Use GitLab CLI (`glab`) to create and update issues, merge requests, and interac
 - Target a specific repo when not inside a git clone:
   - `glab issue list --repo GROUP/PROJECT`
 
-`glab` reads host and token configuration from `~/.config/glab-cli/config.yml`. No environment variables needed if the config file is set up.
+`glab` reads host and token configuration from `~/.config/glab-cli/config.yml`. No environment variables needed if the config file is set up. The token may instead come from `GITLAB_ACCESS_TOKEN`; `glab` uses it for API calls, and the HTTPS push path below uses it for `git push`.
 
 ## Issues
 
@@ -86,9 +86,10 @@ glab issue reopen 42
 
 ### Create merge request
 
+`--push` (and `--fill`, which implies it) delegates to `git push` against `origin`, so it needs an SSH agent (check `SSH_AUTH_SOCK`). Without one, push the branch over HTTPS with `GITLAB_ACCESS_TOKEN` first, then create the MR without `--push`; do not probe the network.
+
 ```bash
 glab mr create \
-  --push \
   --title "feat: add OAuth2 login" \
   --description "Implements PKCE for public clients." \
   --target-branch main \
@@ -99,7 +100,16 @@ glab mr create \
   --yes
 ```
 
-Auto-fill from commit history (`--fill` implies `--push`):
+Keep the token out of shell history and output (`GIT_ASKPASS`, `credential.helper`, or `http.extraHeader`).
+
+If the branch is already on the remote, the push is a no-op and `glab mr create` alone is enough. Check branch existence through the API, never `git ls-remote` (which may route through SSH):
+
+```bash
+glab api "projects/<urlencoded-project>/repository/branches/<urlencoded-branch>"
+# 404 Branch Not Found → push first; otherwise create directly.
+```
+
+Auto-fill from commit history (`--fill` implies `--push`, so SSH-agent path only):
 ```bash
 glab mr create --fill --yes
 ```
@@ -262,7 +272,8 @@ glab api projects/:id/issues/:iid/notes --field body=@/tmp/comment.md
 | `glab ci trace` in agent context | Blocks until job finishes; use `glab api projects/:id/jobs/<job-id>/trace` instead |
 | `glab ci view` in agent context | Interactive terminal UI that blocks; use `glab ci status` or `glab ci get` |
 | `glab ci retry` with pipeline ID | Takes a job ID only; to retry a pipeline use `glab api projects/:id/pipelines/<id>/retry -X POST` |
-| Omitting `--push` on `glab mr create` | Remote branch may not exist; always include `--push` |
+| `glab mr create --push` fails with `Could not read from remote repository` | `--push` uses `origin`. With no SSH agent (`SSH_AUTH_SOCK` unset), push over HTTPS with `GITLAB_ACCESS_TOKEN`, then run `glab mr create` without `--push`. |
+| `git ls-remote` to check if a branch exists | May route through SSH. Use `glab api "projects/<id>/repository/branches/<branch>"`. |
 | Using `--state` on `mr list` | No such flag; use `--all`, `--merged`, or `--closed` |
 | Issue threaded replies | `glab issue note` is root-level only; use `glab api .../discussions/<id>/notes` for threaded replies |
 
