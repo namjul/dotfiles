@@ -34,6 +34,11 @@ description = "Enable tailscaled on Arch (package in aspects/aur); run tailscale
 interactive = true
 run = "./tailscale.ts"
 
+[tasks.printing]
+description = "Enable CUPS and Avahi printing services on Arch"
+interactive = true
+run = "./printing.ts"
+
 [tasks.limits]
 description = "Give Arch services and user sessions enough file descriptors for editors, watchers, and containers"
 interactive = true
@@ -48,5 +53,6 @@ run = [
   { task = "power" },
   { task = "docker" },
   { task = "tailscale" },
+  { task = "printing" },
   { task = "limits" },
 ]

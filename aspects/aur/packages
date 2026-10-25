@@ -78,6 +78,7 @@ packages=(
   grim slurp satty wl-clipboard # screenshots
   pamixer swayosd # volume OSD (PLAN.sway step 14)
   swayidle swaylock # idle lock (PLAN.sway step 15)
+  cups cups-filters cups-pk-helper system-config-printer avahi # printing
   kanshi # output profiles on dock/undock (PLAN.md slice 4)
   udiskie nautilus gvfs gvfs-mtp exfatprogs ntfs-3g # removable media automount (PLAN.md slice 1)
   imv # https://sr.ht/~exec64/imv/
