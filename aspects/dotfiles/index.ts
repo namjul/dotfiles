@@ -45,6 +45,7 @@ variables(({ identity }) => ({
     ".bash_profile",
     ".stylua.toml",
     ".gitignore_global",
+    ".npmrc",
     // individual .config files
     ".config/starship.toml",
     ".config/bash/rc",
@@ -156,6 +157,7 @@ variables(({ identity }) => ({
     ".agents/skills/general/reflect",
     ".agents/skills/general/research",
     ".agents/skills/general/ssw",
+    ".agents/skills/general/timewarrior",
     ".agents/skills/general/website-rebuild-workflow",
     ".agents/skills/general/yt-dlp",
     ".agents/skills/engineering/api-design",
@@ -232,6 +234,7 @@ variables(({ identity }) => ({
     ".agents/prompts/review.md",
     ".agents/prompts/restate.md",
     ".agents/prompts/notes.md",
+    ".agents/prompts/pi-update.md"
   ],
   rules: [
     ".agents/rules/caveman.md",
