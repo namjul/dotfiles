@@ -343,7 +343,7 @@ binds {
 
     // ── Lock ───────────────────────────────────────────────────────
     // Super+Alt+L — not Mod+Alt (Mod=Super on TTY would collide)
-    Super+Alt+L allow-inhibiting=false hotkey-overlay-title="Lock: swaylock" { spawn "swaylock" "-f"; }
+    Super+Ctrl+Alt+L allow-inhibiting=false hotkey-overlay-title="Lock: swaylock" { spawn "swaylock" "-f"; }
 
     // ── Screenshots ──────────────────────────────────────────────
     Print { spawn "capture-screenshot"; }
@@ -376,9 +376,9 @@ binds {
     Mod+Alt+Down { focus-monitor-down; }
     Mod+Alt+J { focus-monitor-down; }
     Mod+Alt+Left { focus-monitor-left; }
-    Mod+Alt+L { focus-monitor-left; }
+    Mod+Alt+H { focus-monitor-left; }
     Mod+Alt+Right { focus-monitor-right; }
-    Mod+Alt+H { focus-monitor-right; }
+    Mod+Alt+L { focus-monitor-right; }
 
     // ── Hardware: audio, brightness, calculator ────────────────────
     XF86AudioRaiseVolume allow-when-locked=true { spawn "swayosd-client" "--output-volume" "raise"; }
