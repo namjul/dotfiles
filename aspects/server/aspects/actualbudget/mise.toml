@@ -5,6 +5,7 @@ ACTUAL_VERSION = "26.10.0-alpine"
 
 [bootstrap.files."/etc/caddy/conf.d/actualbudget.caddy"]
 source = "caddyfile"
+template = true
 
 [bootstrap.files."/root/.config/actualbudget/compose/compose.yaml"]
 source = "compose.yaml"

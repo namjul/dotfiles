@@ -4,7 +4,7 @@ Runs the official `syncthing/syncthing:2.1.6` image in Docker Compose. The Synct
 
 ## Network policy
 
-The GUI is published only on `127.0.0.1:8384` and is reached through Caddy. TCP and UDP port `22000` are published only on `DNS_SERVER_IP`, the Pi's Tailscale address. The entrypoint disables global discovery, local discovery, relays, and NAT traversal, then keeps only `tcp://0.0.0.0:22000` and `quic://0.0.0.0:22000` as container listeners.
+The GUI is published only on `127.0.0.1:8384` and is reached through Caddy. The Caddy site binds `DNS_SERVER_IP`. TCP and UDP port `22000` are published only on `DNS_SERVER_IP`, the Pi's Tailscale address. The entrypoint disables global discovery, local discovery, relays, and NAT traversal, then keeps only `tcp://0.0.0.0:22000` and `quic://0.0.0.0:22000` as container listeners.
 
 The host publish address is the network boundary. A LAN client that is not on the tailnet must not reach the GUI or port `22000`.
 

@@ -4,6 +4,7 @@
 	hosts {
 		{{ vars.DNS_SERVER_IP }} anki.{{ vars.DNS_DOMAIN }}
 		{{ vars.DNS_SERVER_IP }} budget.{{ vars.DNS_DOMAIN }}
+		{{ vars.DNS_SERVER_IP }} rss.{{ vars.DNS_DOMAIN }}
 		{{ vars.DNS_SERVER_IP }} sync.{{ vars.DNS_DOMAIN }}
 		fallthrough
 	}

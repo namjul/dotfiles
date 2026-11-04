@@ -1,6 +1,6 @@
 # Anki Sync Server (homelab)
 
-Runs [anki-sync-server](https://github.com/ankitects/anki) in **Docker** (upstream `docs/syncserver` Dockerfile). Host sync data: **`$XDG_DATA_HOME/anki/sync`**. Caddy serves it at **`https://anki.homelab.xyz/`** (see `../caddy/CONTEXT.md`).
+Runs [anki-sync-server](https://github.com/ankitects/anki) in **Docker** (upstream `docs/syncserver` Dockerfile). Host sync data: **`$XDG_DATA_HOME/anki/sync`**. Caddy serves it at **`https://anki.homelab.xyz/`** and binds that site to `DNS_SERVER_IP` (see `../caddy/CONTEXT.md`). The app listens on `127.0.0.1:8080`.
 
 **Platform split:** Caddy on **systemd**; Anki on **Docker Compose** with `restart: unless-stopped`. **Docker Engine** is a host prerequisite (`converge` enables `docker.service`).
 

@@ -6,6 +6,7 @@ SYNCTHING_VERSION = "2.1.6"
 
 [bootstrap.files."/etc/caddy/conf.d/syncthing.caddy"]
 source = "caddyfile"
+template = true
 
 [bootstrap.files."/root/.config/syncthing/compose/compose.yaml"]
 source = "compose.yaml"

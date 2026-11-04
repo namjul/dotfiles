@@ -1,6 +1,6 @@
 # Actual Budget (homelab)
 
-Runs Actual Budget in Docker. Host data: **`$XDG_DATA_HOME/actualbudget`**. Caddy serves it at **`https://budget.homelab.xyz/`**.
+Runs Actual Budget in Docker. Host data: **`$XDG_DATA_HOME/actualbudget`**. Caddy serves it at **`https://budget.homelab.xyz/`** and binds that site to `DNS_SERVER_IP`. The app listens on `127.0.0.1:5006`.
 
 ## Deploy
 
