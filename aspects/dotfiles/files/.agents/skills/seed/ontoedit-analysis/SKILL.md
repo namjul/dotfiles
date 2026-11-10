@@ -21,7 +21,6 @@ If the pack is missing, tutor on the condensed lens in `resources/tutor.md` and 
 | Need | Skill |
 |------|--------|
 | Disambiguate one overloaded term, with no claim to develop | `untangle-concept` |
-| Tighten a plan, spec, or mock before coding | `find-gaps` |
 | Literary/rhetorical line edit | `explore-writing-reviewer` |
 | Stress-test unresolved design choices | `explore-design-space` |
 
