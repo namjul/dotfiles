@@ -1,2 +1,5 @@
 # yazi.toml https://yazi-rs.github.io/docs/configuration/yazi
 
+[mgr]
+sort_by = "natural"
+
