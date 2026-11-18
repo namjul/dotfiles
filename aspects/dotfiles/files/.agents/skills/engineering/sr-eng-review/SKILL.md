@@ -134,17 +134,27 @@ standards:
 ## Feedback
 
 ### Blocking
-- `path/to/file.ts:42` - [Issue description]
+- `B1` `path/to/file.ts:42` - [Issue description]
 
 ### Suggestions
-- `path/to/file.ts:15` - [Suggestion description]
+- `S1` `path/to/file.ts:15` - [Suggestion description]
 
 ### Nits
-- `path/to/file.ts:8` - [Minor item]
+- `N1` `path/to/file.ts:8` - [Minor item]
 
 ## Overall Assessment
 [General thoughts on the PR quality and readiness to merge]
+
+Reply with [IDs present] to act on an item.
 ```
+
+## Feedback Item IDs
+
+- Give every item a stable ID: `B1`, `B2`, … (Blocking), `S1`, `S2`, … (Suggestions), `N1`, `N2`, … (Nits).
+- IDs are assigned once and never renumbered within a review. Keep the IDs of surviving items stable if the review is revised.
+- Replace `[IDs present]` in the vocabulary line with only the ID prefixes that actually have items (for example `B1 / N1` when there are no Suggestions), so the user never sees a token that resolves to nothing.
+- When the user cites an ID (`b1`, `S2`, `#3`), resolve it to that item and act on it. Do not ask which section it belongs to.
+- Treat a bare digit as shorthand for the ID with that number. If several IDs share the number (for example both `B1` and `S1` exist), ask which one.
 
 ## Important Notes
 
