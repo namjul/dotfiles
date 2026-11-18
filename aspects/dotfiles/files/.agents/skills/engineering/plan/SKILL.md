@@ -1,6 +1,6 @@
 ---
 name: plan
-description: Research the codebase and produce a written implementation plan for a code change. Use when asked to plan, spec, or prepare implementation — after exploration is done or when the requirement is already clear. Produces minimal or comprehensive plans with verifiable outcomes. Makes no source-code changes.
+description: Produces a written implementation plan (research plus steps) for a code change. Use when asked to plan a coding task.
 ---
 
 > Adapted from: https://github.com/juanibiapina/dotfiles/tree/6ebf41489c7228716e7a7d79fb5449e5583283c8/agents/skills/plan/SKILL.md
@@ -9,7 +9,7 @@ description: Research the codebase and produce a written implementation plan for
 
 # Plan
 
-Research the codebase and produce an implementation plan. **Make no source-code changes.**
+Research the codebase and produce an implementation plan. Make no source-code changes.
 
 Favor concrete repo facts, explicit constraints, and verifiable outcomes over broad product prose. Keep plans concise. Reduce cognitive load — default to minimal unless complexity warrants more.
 
@@ -17,163 +17,91 @@ Favor concrete repo facts, explicit constraints, and verifiable outcomes over br
 
 A plan must be self-contained. Assume the reader has only the plan, with no access to the conversation that produced it. Carry enough context and rationale for a fresh agent to make good decisions: key constraints, decisions already made and why, and relevant background from research. It does not need exhaustive detail or every code location; it needs enough that a competent agent can find the rest and choose well.
 
-**Test:** Could a fresh agent build the right thing from this plan alone?
+Test: Could a fresh agent build the right thing from this plan alone?
 
-## Research
+## Workflow
+
+### 1. Load skills
+
+Load all three before reading any source:
+
+- `vocabulary` — consistent software-design terms in the plan
+- `deep-modules` — designing the code
+- `documentation` — structuring the plan
+
+Completion criterion: all three loaded before the first source-file read.
+
+### 2. Research
 
 Before planning, explore what exists:
 
-- Load the vocabulary skill so the plan uses consistent software-design terms
-- Read project documentation (READMEs, docs) for conventions
-- Explore relevant files, adjacent files that may need to change, and existing patterns
-- Check prior art and related implementations in the repo
+- Read project documentation (READMEs, docs) for conventions and guidelines
+- Explore relevant files, where changes will be made, potentially related files that may need to change
+Check for related patterns, prior art, and existing implementations
 - Review recent git history when it clarifies intent or constraints
-- Understand architecture and current state of code involved
+- Understand the architecture and constraints
+- Understand the current state of the code involved in this change
+- Find what the platform already offers for the problem: existing dependencies, libraries the platform recommends, and widely adopted packages
 
-Cite real file paths in the plan. Ask a clarifying question only when a reasonable assumption would materially change scope, data model, compatibility, or user-visible behavior.
+Before concluding anything is absent (a file, usage, dependency, or pattern), confirm the checkout is current: git fetch, and fast-forward if behind the upstream default branch.
 
 Design for **deep modules** where it matters: narrow interfaces, rich implementations. Use consistent software-design vocabulary in the plan.
 
-## Detail level
+### 3. Plan
 
-Choose based on complexity. **Default to minimal.**
+Keep the plan focused on what the user wants. Choose the smallest set of changes that achieves that goal. Avoid scope creep: include adjacent work only when it is necessary to deliver the requested outcome.
 
-| Tier | When |
-|------|------|
-| **Minimal** | Simple, well-understood changes; single area of the codebase |
-| **Comprehensive** | Architectural changes, multi-file features, migrations, new subsystems, or high-risk surface (public API, security, data model) |
+When the change is to agent instructions, name the skill that owns the procedure and leave out its commands. Add a guard step only for a case that exists today.
 
-State which tier you chose and why in one line.
+Prefer a library over custom code when it is maintained, current, and recommended by the platform the project runs on (e.g. Cloudflare's Agents SDK on Workers, expo-* packages in an Expo app). Write custom code only when no such library fits, and state in the plan which library was rejected and why.
 
-## Minimal plan shape
+When relevant, include data models as code in the project's language and Mermaid diagrams that clarify relationships, flows, or state transitions. Keep each artifact limited to the design needed for the task.
 
-```markdown
-# <Change Name>
+When breaking the work into steps:
 
-## Goal
+- Operationalize the task: turn it into observable/measurable steps.
+- Name a step by its outcome — "what's true when done."
+- Make steps specific and measurable (from SMART goals).
 
-<Outcome and why.>
+Choose a detail level based on complexity:
 
-## Context & Decisions
+**Minimal**, for simple, well-understood changes:
 
-<Background, constraints, decisions made and why — for a fresh reader.>
+- What to change and why, including libraries used
+- Out of scope
+- Tests to add or update
+- Docs to add or update
+- Skills to use
+- Acceptance criteria
 
-## Changes
+**Comprehensive**, for architectural changes, complex features or entire new projects:
 
-- <What to change, where (file paths), and why.>
+- What to change and why
+- Out of scope
+- Technical approach with alternatives considered
+- System-wide impact (what else is affected, error propagation, state risks)
+- Implementation phases
+- Test strategy: what kinds of tests, coverage of new paths, edge cases
+- Documentation strategy
+- Skills to use
+- Acceptance criteria
+- Risks, dependencies, and mitigations
 
-## Tests
+Default to **minimal**.
 
-- <Tests to add or update.>
+Under "Out of scope", name the adjacent work the plan deliberately excludes and, where useful, why.
 
-## Docs
+A plan has no "Open questions" section and leaves no question for the reader to answer. Turn each unknown into one of:
 
-- <Docs to add or update, if any.>
+- a **proposed decision**, stated as decided, with its reason, so the requester can accept or change it in review;
+- a **solution** that removes the unknown, such as a design that works either way, or a check the builder runs first with the action for each result;
+- an **out-of-scope** item under "Out of scope", with why.
 
-## Skills to use
+For "Skills to use", recommend the skills available in your context that match the work in the plan. List them by name, each with a one-line note on when it applies during implementation (e.g. "tdd — for the parser changes", "commit — when committing").
 
-- `<skill-name>` — <when during implementation>
+### 4. Output
 
-## Acceptance
-
-- <Deterministic checks; include at least one runnable verification command.>
-
-Verification:
-
-- `<exact command>`
-```
-
-## Comprehensive plan shape
-
-```markdown
-# <Feature Or Project Name>
-
-## Goal
-
-<Outcome, why it exists, implementation strategy.>
-
-## Context & Decisions
-
-<Background from research and exploration. Decisions made, alternatives considered, why this path.>
-
-## Current State
-
-- <Concrete repo fact with file path.>
-- <Existing behavior, gap, or dependency.>
-
-## Non-Negotiables
-
-- <Compatibility, security, performance, UX, testing constraint.>
-- <Explicit out-of-scope item.>
-
-## Technical Approach
-
-<Design with alternatives considered. Use sections like Data Model, API, CLI, Storage, Config, Error Handling, Migration as needed. Include types or signatures when implementation depends on them.>
-
-## System Impact
-
-<What else is affected; error propagation; state risks.>
-
-## Implementation Slices
-
-### Slice 1: <Narrow deliverable>
-
-- <Task.>
-
-Verification:
-
-- `<exact command>`
-
-Review:
-
-<What a fresh read-only reviewer should check against this slice.>
-
-### Slice 2: <Next deliverable>
-
-...
-
-## Test Strategy
-
-<Kinds of tests, new paths, edge cases.>
-
-## Documentation Strategy
-
-<What docs change and when.>
-
-## Skills to use
-
-- `<skill-name>` — <when during implementation>
-
-## Risks & Mitigations
-
-- <Risk> — <mitigation>
-
-## Future Work
-
-<Ideas explicitly out of first pass.>
-
-## Open Questions
-
-- <Question with default recommendation when possible.>
-```
-
-Each implementation slice must be small enough to review independently. Prefer bullets over long prose.
-
-## Writing rules
-
-- Every major claim should name a file, define behavior, constrain scope, or describe verification.
-- Use precise modal language: "must", "do not", "default to", "leave out of first pass".
-- Avoid generic acceptance criteria like "works correctly" — use deterministic checks or commands.
-- Separate first-pass work from future enhancements.
-- Include failure modes and edge cases when they define behavior.
-- For "Skills to use", list skills available in context by name with a one-line note on when they apply during implementation.
-
-## Adversarial review
-
-**Comprehensive plans:** Before any slice is considered done during implementation, a fresh read-only reviewer should check the diff against that slice and the plan.
-
-**Minimal plans:** Add a Review note only when the change touches public API, migrations, security, or shared infrastructure.
-
-## Output
+Open the plan with a Summary: one sentence on what the change does, then what changes for the people who use it: for a library's consumers, its public interface and dependencies; for an app's users, its screens and interactions. Then the proposed decisions. The details for the builder follow.
 
 Present the plan in your response. If the user asked to save it, write to the requested path. Otherwise return the plan body only.
+
