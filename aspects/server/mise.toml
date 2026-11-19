@@ -75,9 +75,6 @@ source = "host/etc/gitconfig"
 source = "bootstrap/root/.bashrc"
 template = true
 
-[bootstrap.files."/root/.vimrc"]
-source = "bootstrap/root/.vimrc"
-
 [bootstrap.files."/etc/systemd/system/caddy.service"]
 source = "aspects/caddy/caddy.service"
 
