@@ -153,6 +153,7 @@ variables(({ identity }) => ({
     ".agents/skills/general/flashcards",
     ".agents/skills/general/find-skills",
     ".agents/skills/general/manage-aspects",
+    ".agents/skills/general/open-change",
     ".agents/skills/general/pause-and-expand-tutor",
     ".agents/skills/general/reflect",
     ".agents/skills/general/research",
