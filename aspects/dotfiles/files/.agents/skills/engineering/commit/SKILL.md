@@ -1,6 +1,6 @@
 ---
 name: commit
-description: Git commit workflow. Use when asked to commit (or draft a commit message) changes or on the word `commit`.
+description: Reviews the working tree, writes a commit message that explains why, and creates the commit. Use when the user asks to commit, says "commit", asks to commit and push, or asks to merge.
 ---
 
 > Source: https://github.com/juanibiapina/dotfiles/tree/be634998a40adb2a4e399af4fcdb1bcaac2f9304/agents/skills/git-commit/SKILL.md
@@ -9,11 +9,13 @@ description: Git commit workflow. Use when asked to commit (or draft a commit me
 
 # Git Commit
 
-Commit only when the user explicitly asks.
+Review the uncommitted changes and recent commit style. Load the `documentation` skill and write the message by its rules. Commit only the changes that belong to the request. Other sessions edit this checkout too. Read each file's diff and leave out lines this session did not write, including lines inside a hunk you changed.
 
-Review staged, unstaged, and untracked changes plus recent commit style. Draft a concise message that explains why. Stage the right files, commit, then verify with `git status`.
+Amend an unpublished local commit when a small fix clearly belongs with that commit's intent. Ask before rewriting pushed, reviewed, or shared history.
 
-## Safety rules
+If a hook fails, fix the issue and create a new commit.
+
+## Guardrails
 
 - NEVER update git config
 - NEVER run destructive commands unless explicitly requested
@@ -24,11 +26,3 @@ Review staged, unstaged, and untracked changes plus recent commit style. Draft a
 - Do not create empty commits
 - Do not commit likely secrets
 
-## Amend rules
-
-Use `--amend` only when all are true:
-1. the user explicitly asked, or a successful commit auto-modified files via hooks
-2. the HEAD commit was created by you in this conversation
-3. the commit has not been pushed
-
-If a hook fails, fix the issue and create a new commit.
