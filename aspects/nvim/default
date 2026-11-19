@@ -6,7 +6,7 @@ import { assert, command, fetch, file, init, path, variable, variables } from "f
 init(import.meta.dirname);
 
 variables(() => ({
-  files: [".vimrc", ".config/nvim"],
+  files: [".config/nvim"],
 }));
 
 const NEOVIM_VERSION = "v0.12.5";

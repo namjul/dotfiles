@@ -43,6 +43,7 @@ variables(({ identity }) => ({
     ".todo.cfg",
     ".default-npm-packages",
     ".bash_profile",
+    ".vimrc",
     ".stylua.toml",
     ".gitignore_global",
     ".npmrc",
