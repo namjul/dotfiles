@@ -2,7 +2,7 @@
 description: Commit
 ---
 
-Use the `git-commit` skill.
+Use the `commit` skill.
 
 $ARGUMENTS
 

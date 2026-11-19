@@ -8,7 +8,7 @@ Load the skill that matches the task. There is no default pipeline.
 | Written implementation plan | `plan` |
 | Design decision tree | `explore-design-space` |
 | Root cause of a defect | `investigate` |
-| Commit, or a commit message | `git-commit` |
+| Commit, or a commit message | `commit` |
 | Commit only when open questions are not urgent | `commit-if-clear` |
 | Review the branch diff | `sr-eng-review` |
 | GitLab issues, merge requests, CI | `gitlab` |

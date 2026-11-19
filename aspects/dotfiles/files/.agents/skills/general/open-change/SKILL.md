@@ -36,7 +36,7 @@ Before opening the change, make sure the work sits on top of the latest remote d
 
 ## 3. Branch and commit
 
-Commit the relevant changes with `git-commit`. A request to open the change is the explicit request to commit the work that belongs in it. Reference the ticket in the change body when one exists.
+Commit the relevant changes with `commit`. A request to open the change is the explicit request to commit the work that belongs in it. Reference the ticket in the change body when one exists.
 
 ## 4. Push and open
 

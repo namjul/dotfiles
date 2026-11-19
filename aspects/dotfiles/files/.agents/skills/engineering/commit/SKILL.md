@@ -1,5 +1,5 @@
 ---
-name: git-commit
+name: commit
 description: Git commit workflow. Use when asked to commit (or draft a commit message) changes or on the word `commit`.
 ---
 

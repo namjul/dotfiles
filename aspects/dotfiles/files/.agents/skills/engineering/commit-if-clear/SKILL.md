@@ -1,6 +1,6 @@
 ---
 name: commit-if-clear
-description: Plan commits, then classify each open question for whether a human must answer it before committing. Commit with the git-commit skill only when none are urgent. Use when the user asks to plan and commit if the open questions are not urgent, or invokes commit-if-clear.
+description: Plan commits, then classify each open question for whether a human must answer it before committing. Commit with the commit skill only when none are urgent. Use when the user asks to plan and commit if the open questions are not urgent, or invokes commit-if-clear.
 ---
 
 # Commit if clear
@@ -56,8 +56,8 @@ Urgent means `probability >= 0.5`, or the call returned an error. Before asking 
 
 ## Stop or commit
 
-Any urgent question: ask the user only those questions, with `cursor_ask_question` when it is available. Stop. Do not load `git-commit`.
+Any urgent question: ask the user only those questions, with `cursor_ask_question` when it is available. Stop. Do not load `commit`.
 
-None urgent: load the `git-commit` skill and make the planned commits in order. When the plan has more than one commit, isolate each slice with the stash workflow from the commit-plan prompt. The git-commit safety rules still apply. Do not push. Write messages in the repo's existing commit style, using each planned commit's purpose. The "output only the message" commit note does not apply once this gate is clear.
+None urgent: load the `commit` skill and make the planned commits in order. When the plan has more than one commit, isolate each slice with the stash workflow from the commit-plan prompt. The commit skill's safety rules still apply. Do not push. Write messages in the repo's existing commit style, using each planned commit's purpose. The "output only the message" commit note does not apply once this gate is clear.
 
 Do not stop after the plan or the gate record. Done means either the urgent questions have been asked, or `git status` has been shown after the commits.
