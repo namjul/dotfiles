@@ -1,5 +1,10 @@
 [binds]
 
+# Zoom. The default <Shift+plus> bind assumes a layout where '+' needs Shift;
+# on the German layout '+' is unshifted, so it binds as plain 'plus'.
+<plus> = zoom 1
+<minus> = zoom -1
+
 # Print the current image file
 <Ctrl+p> = exec lp "$imv_current_file"
 
