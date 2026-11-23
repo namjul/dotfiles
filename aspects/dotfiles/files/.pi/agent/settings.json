@@ -28,5 +28,8 @@
   "terminal": {
     "hyperlinks": true
   },
-  "lastChangelogVersion": "1.4.0"
+  "lastChangelogVersion": "1.6.0",
+  "extensionChangelogVersions": {
+    "{\"source\":\"npm:pi-cursor-sdk\",\"scope\":\"user\"}": "0.5.32"
+  }
 }
