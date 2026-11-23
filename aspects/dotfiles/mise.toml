@@ -1,6 +1,3 @@
-# [env]
-# _.file = { path = "env.json" }
-
 [tasks."files"]
 description = "create symlinks"
 interactive = true

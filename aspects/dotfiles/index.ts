@@ -132,7 +132,6 @@ variables(({ identity }) => ({
     ".config/git/config.tmpl",
     ".config/chromium-flags.conf.tmpl",
     ".hgrc.tmpl",
-    // ".config/wireguard/tunnel.conf.tmpl",
   ],
   skills: [
     ".agents/skills/seed/attractor-protocol",
