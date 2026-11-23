@@ -206,7 +206,7 @@ Use the command corresponding to the user's choice:
 
 Run the command via `bash`, capturing both stdout and stderr, and surface the result to the user. If the install fails with a non-zero exit or no `pi` binary on the resulting PATH, report the failure. If the install succeeds, report the new version to the user.
 
-After a successful upgrade, remind the user to run the `bin/install-types` helper script in each repository where they keep pi extensions, so the bundled pi extension API type definitions are regenerated to match the newly installed version. At the time of writing, those repositories are:
+After a successful upgrade, remind the user to run `pi update --extensions` when `settings.json` lists npm pi packages, and to use `/reload` or restart pi so auto-discovered extensions pick up the new runtime. Extensions under `~/.pi/agent/extensions/` or `.pi/extensions/` import types from the globally installed `@earendil-works/pi-coding-agent` at load time; there is no separate `install-types` step in this dotfiles repo unless a project adds its own dev toolchain for extension authoring.
 
 ## Notes
 
