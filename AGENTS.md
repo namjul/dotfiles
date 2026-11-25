@@ -5,8 +5,8 @@ This is a personal dotfiles and system management system using **mise** as the t
 
 Key features:
 - **Mise-based monorepo**: Each aspect is a self-contained configuration unit with its own `mise.toml`
-- **Fig framework**: Custom Deno library for idempotent file management (symlinks, hardlinks, encrypted files, templates)
-- **Encryption**: Sensitive files (SSH configs, keys, environment variables) encrypted with age
+- **Fig framework**: Custom Deno library for idempotent file management (symlinks, hardlinks, templates)
+- **Secrets**: whole files live as `<path>.encrypted` with the gitignored plaintext beside them, managed by `bin/wage` (`encrypt`, `decrypt`, `status`); field extracts (`key.yml`, `gpg.yml`, `secrets/*.yml`) stay sops, reading the age key file in `SOPS_AGE_KEY_FILE`
 - **Server provisioning**: Remote server setup via mise tasks in the `server` aspect
 
 ## Checkout path
@@ -28,7 +28,7 @@ Do not assume this working tree lives at `~/.dotfiles` (or any other fixed home 
 - `proxy` — Deno Deploy CORS proxy
 - `server` — Remote VPS provisioning (hobl.at)
 - `shell` — Set user shell to fish
-- `ssh` — SSH config and key management (encrypted)
+- `ssh` — SSH config (linked from the aspect’s plaintext) and key material extracted from `key.yml`
 - `systemd` — systemd user unit management
 
 ## Routing
