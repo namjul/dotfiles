@@ -26,3 +26,8 @@ bin/arch-install/user_credentials.json
 
 # Agent scratch space (reviews, plans, test artifacts)
 scratch/
+/aspects/dotfiles/files/.config/glab-cli/readme.md
+/aspects/dotfiles/files/.config/wireguard/work.conf
+/aspects/dotfiles/files/.local/bin/keepassxc-wf
+/aspects/dotfiles/files/.local/bin/mount-shares
+/aspects/ssh/files/.ssh/config
