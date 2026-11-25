@@ -21,8 +21,7 @@ export type FileState =
   | "link"
   | "hardlink"
   | "copy"
-  | "directory"
-  | "encrypted";
+  | "directory";
 
 export type FileError =
   | { type: "SOURCE_NOT_FOUND"; path: string }
@@ -36,9 +35,7 @@ export type FileError =
   }
   | { type: "WRITE_FAILED"; path: string; cause: unknown }
   | { type: "LINK_FAILED"; source: string; target: string; cause: unknown }
-  | { type: "COPY_FAILED"; source: string; target: string; cause: unknown }
-  | { type: "SOPS_NOT_FOUND"; path: string }
-  | { type: "SOPS_FAILED"; code: number; stderr: string; src: string };
+  | { type: "COPY_FAILED"; source: string; target: string; cause: unknown };
 
 /**
  * Error types for template operations
@@ -96,18 +93,10 @@ export interface FileDirectoryOptions extends FileOptionsBase {
   contents?: never;
 }
 
-/** Whole-file decrypt via SOPS (`sops -d --output …`). No field-level `--extract`. */
-export interface FileEncryptedOptions extends FileOptionsBase {
-  state: "encrypted";
-  src: string;
-  contents?: never;
-}
-
 export type FileOptions =
   | FileWriteOptions
   | FileSourceOptions
-  | FileDirectoryOptions
-  | FileEncryptedOptions;
+  | FileDirectoryOptions;
 
 /**
  * Options for template operations

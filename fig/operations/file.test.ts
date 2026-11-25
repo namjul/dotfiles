@@ -3,12 +3,6 @@ import { Result } from "@gordonb/result";
 import type { FileOptions } from "../types.ts";
 import { file } from "./file.ts";
 
-async function sopsAvailable(): Promise<boolean> {
-  const cmd = new Deno.Command("bash", { args: ["-c", "command -v sops"] });
-  const { success } = await cmd.output();
-  return success;
-}
-
 Deno.test("file(): writes empty contents", async () => {
   const tmpDir = await Deno.makeTempDir();
   const target = `${tmpDir}/empty.txt`;
@@ -45,11 +39,6 @@ Deno.test("file(): returns SOURCE_NOT_FOUND for link/copy/hardlink missing sourc
         path: `${tmpDir}/target-hardlink`,
         src: `${tmpDir}/missing-source`,
         state: "hardlink",
-      },
-      {
-        path: `${tmpDir}/target-encrypted`,
-        src: `${tmpDir}/missing-encrypted`,
-        state: "encrypted",
       },
     ];
 
@@ -156,52 +145,6 @@ Deno.test("file(): applies mode for directory", async () => {
   } finally {
     await Deno.remove(tmpDir, { recursive: true });
   }
-});
-
-Deno.test("file(): returns TARGET_EXISTS for encrypted without force", async () => {
-  const tmpDir = await Deno.makeTempDir();
-  const src = `${tmpDir}/src.sops`;
-  const target = `${tmpDir}/out.txt`;
-  try {
-    await Deno.writeTextFile(src, "placeholder");
-    await Deno.writeTextFile(target, "existing");
-    const result = await file({
-      path: target,
-      src,
-      state: "encrypted",
-    });
-    assertEquals(Result.isOk(result), false);
-    if (Result.isErr(result)) {
-      assertEquals(result.error.type, "TARGET_EXISTS");
-    }
-  } finally {
-    await Deno.remove(tmpDir, { recursive: true });
-  }
-});
-
-Deno.test({
-  name:
-    "file(): encrypted returns SOPS_FAILED for non-SOPS source when sops is installed",
-  ignore: !(await sopsAvailable()),
-  fn: async () => {
-    const tmpDir = await Deno.makeTempDir();
-    const src = `${tmpDir}/plain.txt`;
-    const target = `${tmpDir}/out.txt`;
-    try {
-      await Deno.writeTextFile(src, "not a sops file");
-      const result = await file({
-        path: target,
-        src,
-        state: "encrypted",
-      });
-      assertEquals(Result.isOk(result), false);
-      if (Result.isErr(result)) {
-        assertEquals(result.error.type, "SOPS_FAILED");
-      }
-    } finally {
-      await Deno.remove(tmpDir, { recursive: true });
-    }
-  },
 });
 
 Deno.test("file(): returns Result error instead of throwing on inaccessible parent directory", async () => {

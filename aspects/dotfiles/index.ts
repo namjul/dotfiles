@@ -6,6 +6,7 @@ import {
   file,
   init,
   path,
+  stat,
   template,
   variable,
   variables,
@@ -14,21 +15,13 @@ import {
 
 init(import.meta.dirname);
 
-const isMissingAgeKey = (error: { type: string; stderr?: string }): boolean =>
-  error.type === "SOPS_FAILED" &&
-  typeof error.stderr === "string" &&
-  (error.stderr.includes("failed to open SOPS_AGE_KEY_FILE") ||
-    error.stderr.includes("Did not find keys in locations"));
-
-const assertFileOrWarnMissingAgeKey = (
-  result: Awaited<ReturnType<typeof file>>,
-  src: string,
-): void => {
-  if (!result.ok && isMissingAgeKey(result.error)) {
-    console.warn(`warn: skipped decrypt ${src} (missing age key)`);
-    return;
-  }
-  assert.result(result);
+/** A secret whose plaintext has not been decrypted on this machine: the
+ * ciphertext sits beside it, and `wage decrypt` materializes it. */
+const skipNotDecrypted = async (source: string, label: string): Promise<boolean> => {
+  if ((await stat(source)) !== null) return false;
+  if ((await stat(`${source}.encrypted`)) === null) return false;
+  console.log(`skip: ${label} (not decrypted; run wage decrypt)`);
+  return true;
 };
 
 variables(({ identity }) => ({
@@ -102,8 +95,8 @@ variables(({ identity }) => ({
     ".local/share/dark-mode.d",
     ".local/share/applications",
     ".local/share/chromium/extensions",
-    ".local/bin/mount-shares.encrypted",
-    ".local/bin/keepassxc-wf.encrypted",
+    ".local/bin/mount-shares",
+    ".local/bin/keepassxc-wf",
     ".local/bin/toggle-mic-mute",
     ".local/bin/theme-mode",
     ".local/bin/theme-apply",
@@ -125,8 +118,8 @@ variables(({ identity }) => ({
     ".config/spaced-inbox/config.txt",
     // hardlinks
     ".config/gammastep/config.ini",
-    // encrypted
-    ".config/glab-cli/readme.md.encrypted",
+    ".config/glab-cli/readme.md",
+    ".config/wireguard/work.conf",
   ],
   templates: [
     ".config/git/config.tmpl",
@@ -217,7 +210,7 @@ variables(({ identity }) => ({
   ],
   agents: [".agents/AGENTS.md", ".agents/CLAUDE.md"],
   wireguard: [
-    ".config/wireguard/work.conf.encrypted",
+    ".config/wireguard/work.conf",
   ],
   vcsUserEmail: identity === "namjul" ? "samuel.hobl@gmail.com" : "",
   vcsUserName: identity === "namjul" ? "Samuel Hobl" : "",
@@ -257,44 +250,39 @@ if (import.meta.main) {
         if (when("arch") && skipOnArch.has(rel)) continue;
         if (when("debian") && skipOnDebian.has(rel)) continue;
 
-        const encrypted = rel.endsWith(".encrypted");
-        const isLocalBin = src.toString().includes(".local/bin/");
-        if (encrypted) {
-          const r = await file({
-            force: true,
-            mode: isLocalBin ? "0755" : "0600",
-            path: path.home.join(src.strip(".encrypted")),
-            src: path.aspect.join("files", src),
-            state: "encrypted",
-          });
-          assertFileOrWarnMissingAgeKey(r, path.aspect.join("files", src).toString());
-          continue;
-        }
+        const source = path.aspect.join("files", src).toString();
+        if (await skipNotDecrypted(source, rel)) continue;
 
         await file({
           force: true,
-          ...(isLocalBin ? { mode: "0755" } : {}),
           path: path.home.join(src),
-          src: path.aspect.join("files", src),
+          src: source,
           state: hardlinkFiles.has(src.toString()) ? "hardlink" : "link",
         });
       }
 
-      const wireguard = variable.paths("wireguard");
-      for (const rel of wireguard) {
-        const encrypted = rel.toString().endsWith(".encrypted");
-        const destName = encrypted
-          ? rel.basename.strip(".encrypted").toString()
-          : rel.basename.toString();
-        const r = await file({
-          force: true,
-          mode: "0600",
-          path: path("/etc/wireguard", destName),
-          src: path.aspect.join("files", rel),
-          state: encrypted ? "encrypted" : "copy",
-          sudo: true,
-        });
-        assertFileOrWarnMissingAgeKey(r, path.aspect.join("files", rel).toString());
+      // `/etc/wireguard` is read by root, so the config is copied rather than
+      // linked; the source is the checkout's plaintext, not the `$HOME` link,
+      // so this step does not depend on the loop above having run.
+      if (when("arch")) {
+        for (const rel of variable.paths("wireguard")) {
+          const source = path.aspect.join("files", rel).toString();
+          if (await skipNotDecrypted(source, rel.toString())) continue;
+
+          const r = await file({
+            force: true,
+            mode: "0600",
+            path: path("/etc/wireguard", rel.basename.toString()),
+            src: source,
+            state: "copy",
+            sudo: true,
+          });
+          if (!r.ok) {
+            console.warn(
+              `warn: skipped /etc/wireguard/${rel.basename} (${r.error.type})`,
+            );
+          }
+        }
       }
 
       break;

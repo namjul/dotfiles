@@ -1,7 +1,7 @@
-import { dirname, extname, relative } from "@std/path";
+import { dirname, relative } from "@std/path";
 import { Result } from "@gordonb/result";
 import * as Option from "@gordonb/result/option";
-import { $, fs } from "zx";
+import { fs } from "zx";
 import { writeFile } from "atomically";
 import toPath from "../path.ts";
 import { root } from "../root.ts";
@@ -9,10 +9,8 @@ import { chmod } from "../posix/chmod.ts";
 import { cp } from "../posix/cp.ts";
 import { mkdir } from "../posix/mkdir.ts";
 import { rm } from "../posix/rm.ts";
-import { tryCatch } from "../helpers.ts";
 import type {
   FileDirectoryOptions,
-  FileEncryptedOptions,
   FileError,
   FileOptions,
   FileResult,
@@ -20,19 +18,6 @@ import type {
   FileState,
   FileWriteOptions,
 } from "../types.ts";
-
-function getExitCode(error: unknown): number {
-  if (typeof error === "object" && error !== null && "exitCode" in error) {
-    const value = Reflect.get(error, "exitCode");
-    return typeof value === "number" ? value : 1;
-  }
-  return 1;
-}
-
-async function hasSops(): Promise<boolean> {
-  const result = await $`command -v sops`.nothrow();
-  return result.exitCode !== 0 ? false : true;
-}
 
 /**
  * File operation - atomic file management
@@ -66,9 +51,7 @@ export async function file(options: FileOptions): Promise<FileResult> {
       checkDir = dirname(checkDir);
     }
 
-    // Encrypted files decrypt first; parent mkdir happens after sops succeeds
-    // so a missing age key never needs sudo on /etc destinations.
-    if (targetDir !== "/" && options.state !== "encrypted") {
+    if (targetDir !== "/") {
       const mkdirErr = await mkdir(targetDir, { intermediate: true, sudo });
       if (mkdirErr) throw mkdirErr;
     }
@@ -102,8 +85,6 @@ export async function file(options: FileOptions): Promise<FileResult> {
       return await copyFile({ ...options, path: targetPath });
     case "directory":
       return await ensureDirectory({ ...options, path: targetPath });
-    case "encrypted":
-      return await decryptEncrypted({ ...options, path: targetPath });
   }
 }
 
@@ -326,104 +307,6 @@ function createHardlink(options: FileSourceOptions): FileResult {
       target: targetPath,
       cause,
     });
-  }
-}
-
-/**
- * Decrypt SOPS-encrypted file to target path (whole file only).
- */
-async function decryptEncrypted(
-  options: FileEncryptedOptions,
-): Promise<FileResult> {
-  const { src, path: targetPath } = options;
-  const force = Option.unwrapOr(Option.from(options.force), false);
-  const mode = Option.from(options.mode);
-  const sudo = Option.unwrapOr(Option.from(options.sudo), false);
-
-  if (!fs.pathExistsSync(src)) {
-    return Result.err({
-      type: "SOURCE_NOT_FOUND",
-      path: src,
-    });
-  }
-
-  // User lstat/remove cannot touch root-owned /etc files. sudo cp overwrites.
-  if (!sudo) {
-    const targetCheck = clearTarget(targetPath, "encrypted", force);
-    if (!targetCheck.ok) {
-      return targetCheck;
-    }
-  }
-
-  if (!(await hasSops())) {
-    return Result.err({
-      type: "SOPS_NOT_FOUND",
-      path: "sops",
-    });
-  }
-
-  const inputTypeMap: Record<string, string> = {
-    yml: "yaml",
-    yaml: "yaml",
-    json: "json",
-    env: "dotenv",
-    ini: "ini",
-  };
-  const strippedExt = extname(src.replace(/\.encrypted$/, "")).slice(1).toLowerCase();
-  const inputType = inputTypeMap[strippedExt];
-
-  const tmp = await Deno.makeTempFile({ prefix: "fig-encrypted-" });
-  try {
-    const decrypt = inputType
-      ? $`sops -d --input-type ${inputType} --output-type ${inputType} --output ${tmp} ${src}`
-      : $`sops -d --output ${tmp} ${src}`;
-    const decrypted = await tryCatch(decrypt);
-    if (!decrypted.ok) {
-      return Result.err({
-        type: "SOPS_FAILED",
-        code: getExitCode(decrypted.error),
-        stderr: String(decrypted.error),
-        src,
-      });
-    }
-
-    const targetDir = dirname(targetPath);
-    if (targetDir !== "/") {
-      const mkdirErr = await mkdir(targetDir, { intermediate: true, sudo });
-      if (mkdirErr) throw mkdirErr;
-    }
-
-    const cpErr = await cp(tmp, targetPath, { sudo });
-    if (cpErr) throw cpErr;
-    if (Option.isSome(mode)) {
-      const err = await chmod(mode, targetPath, { sudo });
-      if (err) throw err;
-    }
-
-    return Result.ok({ path: targetPath });
-  } catch (cause) {
-    const errorType: FileError["type"] = sudo
-      ? "PERMISSION_DENIED"
-      : "WRITE_FAILED";
-    if (errorType === "PERMISSION_DENIED") {
-      return Result.err({
-        type: errorType,
-        path: targetPath,
-        operation: "encrypted",
-        cause,
-      });
-    }
-    return Result.err({
-      type: errorType,
-      path: targetPath,
-      cause,
-    });
-  } finally {
-    try {
-      await Deno.remove(tmp);
-    } catch {
-      // Best effort cleanup.
-    }
   }
 }
 

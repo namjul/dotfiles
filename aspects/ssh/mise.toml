@@ -4,7 +4,7 @@ description = "Ensure ~/.ssh directory exists (0700)"
 run = "deno run --allow-all index.ts dir"
 
 [tasks."config"]
-description = "Install ~/.ssh/config from encrypted aspect file"
+description = "Link ~/.ssh/config from the aspect's decrypted plaintext"
 run = "deno run --allow-all index.ts config"
 
 [tasks."keys"]
