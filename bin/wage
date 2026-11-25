@@ -247,7 +247,7 @@ decrypt() {
       exit 2
     fi
     case "$PLAINTEXT" in
-      .local/bin/*|*.sh) chmod 755 "$TEMP_FILE" ;;
+      */.local/bin/*|*.sh) chmod 755 "$TEMP_FILE" ;;
       *) chmod 600 "$TEMP_FILE" ;;
     esac
     mv -f "$TEMP_FILE" "$PLAINTEXT"
