@@ -1,0 +1,425 @@
+#!/usr/bin/env bash
+#
+# Encrypt, decrypt, and check files whose plaintext sits beside its ciphertext
+# in the working tree: `<path>` and `<path>.encrypted`. The list of paths and
+# the recipient come from the nearest `.wage.config`.
+#
+# Adapted from wincent's `wage` (https://github.com/wincent/dotfiles, Unlicense),
+# which does the same over age with the identity in 1Password. Here the identity
+# comes from gopass, and `decrypt` makes executables executable.
+#
+# Exit status:
+#
+#   0  success (and, for `status`, everything is decrypted and up-to-date)
+#   1  `status` found at least one file needing attention
+#   2  something went wrong, with a diagnostic on standard error
+#
+# `status` has three output formats: the default one (paths only, suitable for
+# eyeballing), `--verbose` (every file, with its state spelled out) and
+# `--porcelain` ("STATE<TAB>PATH" for each file needing attention, for callers
+# that want to say something more useful than "these paths need attention").
+#
+# The distinction between 1 and 2 matters to callers that want to show the list
+# of paths: without it, an early bail-out (say, no identity available) looks
+# exactly like "nothing needs attention".
+
+set -e
+
+# Anything that fails without being explicitly handled would otherwise exit with
+# whatever status that command chose, which is 1 often enough to muddy the
+# waters above. This fires under the same conditions as `set -e`, so handled
+# failures (`if !`, `||`) are unaffected; `set -E` is what gets the trap into
+# shell functions.
+set -E
+trap 'exit 2' ERR
+
+CONFIG_FILE=".wage.config"
+
+# Where gopass keeps the age secret key. The default is written into the script
+# and the override lives in the environment, never in `.wage.config`: that file
+# travels with the repo and `wage` reads whichever one it finds above `$PWD`, so
+# a locator there would be input from any repository you happen to be in.
+#
+# Set `WAGE_IDENTITY_PATH=` (ie. to the empty string) on a machine that is never
+# going to hold the identity, to get the same treatment as one without `gopass`
+# installed.
+IDENTITY_PATH="${WAGE_IDENTITY_PATH-age/wage}"
+IDENTITY_KEY=
+
+PORCELAIN=0
+STATUS_EXIT=0
+TEMP_FILE=
+VERBOSE=0
+
+# Only colorize when writing to an interactive terminal.
+if [ -t 1 ]; then
+  BOLD=$(tput bold)
+  GREEN=$(tput setaf 2)
+  RED=$(tput setaf 1)
+  RESET=$(tput sgr0)
+else
+  BOLD=
+  GREEN=
+  RED=
+  RESET=
+fi
+
+usage() {
+  echo "Usage: wage <encrypt|decrypt|status> [--porcelain] [--verbose] [file ...]" >&2
+  exit 2
+}
+
+cleanup() {
+  if [ -n "$TEMP_FILE" ]; then
+    rm -f "$TEMP_FILE"
+    TEMP_FILE=
+  fi
+}
+
+trap cleanup EXIT
+
+# Creates a temporary file (outside the worktree, so that a crash can never
+# leave plaintext lying around inside the repo) and records it in `TEMP_FILE` so
+# that it gets cleaned up on exit.
+make_temp_file() {
+  cleanup
+  TEMP_FILE=$(umask 077 && mktemp "${TMPDIR:-/tmp}/wage.XXXXXX")
+}
+
+# Fetches the age secret key from gopass, at most once per run.
+#
+# Returns 1 when this machine is not set up to hold the identity at all, which
+# is not an error: `encrypt` and `status` fall back to weaker checks in that
+# case. Anything else is fatal, deliberately. A machine that can hold the
+# identity but momentarily cannot reach it must never be mistaken for one that
+# cannot hold it, because that is precisely what makes `encrypt` skip its
+# up-to-date check and overwrite a ciphertext it cannot read.
+resolve_identity() {
+  if [ -n "$IDENTITY_KEY" ]; then
+    return 0
+  fi
+
+  if [ -z "$IDENTITY_PATH" ] || ! command -v gopass > /dev/null 2>&1; then
+    return 1
+  fi
+
+  # Declared and assigned separately because `local KEY=$(...)` would throw away
+  # `gopass`'s exit status. Letting `gopass` write its own diagnostic to
+  # standard error is deliberate: "not found" and "store is not initialized" are
+  # more use than anything this script could say in their place.
+  local KEY
+  if ! KEY=$(gopass show -o "$IDENTITY_PATH"); then
+    echo "💥 ${BOLD}${RED}Could not read identity from gopass:${RESET} ${IDENTITY_PATH}" >&2
+    exit 2
+  fi
+
+  # A renamed entry or a mistyped field yields something that is not a key, and
+  # `age` reports that as "no identities found": indistinguishable, by exit
+  # status, from holding the wrong key for a ciphertext. Left unchecked it would
+  # reach `encrypt` as "cannot decrypt existing ciphertext", sending you off to
+  # resolve a conflict that does not exist.
+  case "$KEY" in
+    *AGE-SECRET-KEY-*) ;;
+    *)
+      echo "💥 ${BOLD}${RED}No age secret key found at:${RESET} ${IDENTITY_PATH}" >&2
+      exit 2
+      ;;
+  esac
+
+  IDENTITY_KEY="$KEY"
+}
+
+# Decrypts ciphertext ($1) to a file ($2). Callers must have established that
+# `resolve_identity` succeeds before getting here.
+#
+# The key is passed by process substitution, which is a pipe under "/dev/fd": it
+# never touches the disk, and because `printf` is a builtin it never appears as
+# an argument to anything either.
+decrypt_to() {
+  local CIPHERTEXT=$1
+  local OUTPUT=$2
+
+  age --decrypt -i <(printf '%s\n' "$IDENTITY_KEY") -o "$OUTPUT" "$CIPHERTEXT"
+}
+
+# Compares plaintext ($1) against the decrypted contents of ciphertext ($2).
+#
+# Returns 0 if they match, 1 if they differ, and 2 if the ciphertext could not
+# be decrypted at all (eg. it contains unresolved merge conflict markers, or it
+# was encrypted for a recipient we don't hold the identity for).
+#
+# Note that the comparison is done byte-for-byte via a temporary file rather
+# than via command substitution, because the latter silently strips trailing
+# newlines and NUL bytes, which would mask real differences.
+same() {
+  local PLAINTEXT=$1
+  local CIPHERTEXT=$2
+
+  make_temp_file
+  if ! decrypt_to "$CIPHERTEXT" "$TEMP_FILE"; then
+    return 2
+  fi
+  if cmp -s "$PLAINTEXT" "$TEMP_FILE"; then
+    return 0
+  else
+    return 1
+  fi
+}
+
+find_repo_root() {
+  local DIR="$PWD"
+  while [ "$DIR" != "/" ]; do
+    if [ -f "$DIR/$CONFIG_FILE" ]; then
+      echo "$DIR"
+      return
+    fi
+    DIR=$(dirname "$DIR")
+  done
+  echo "${BOLD}${RED}Could not find ${CONFIG_FILE} in any parent directory${RESET}" >&2
+  exit 2
+}
+
+read_config() {
+  local CONFIG="$1"
+  RECIPIENT=""
+  ITEMS=()
+
+  while IFS= read -r LINE; do
+    # Skip blank lines and comments
+    [[ -z "$LINE" || "$LINE" == \#* ]] && continue
+
+    if [[ "$LINE" == RECIPIENT=* ]]; then
+      RECIPIENT="${LINE#RECIPIENT=}"
+    else
+      ITEMS+=("$LINE")
+    fi
+  done < "$CONFIG"
+
+  if [ -z "$RECIPIENT" ]; then
+    echo "${BOLD}${RED}No RECIPIENT found in ${CONFIG}${RESET}" >&2
+    exit 2
+  fi
+
+  if [ ${#ITEMS[@]} -eq 0 ]; then
+    echo "${BOLD}${RED}No files listed in ${CONFIG}${RESET}" >&2
+    exit 2
+  fi
+}
+
+# Rejects an item that does not name a path inside the repo. Anything else lets
+# a `.wage.config` you did not write, in a repository you happen to be standing
+# in, direct `encrypt` at a file outside the repo and write the ciphertext for
+# it into the tree.
+check_item() {
+  local ITEM=$1
+  local RESOLVED
+
+  RESOLVED=$(realpath -m -- "$ITEM")
+  case "$RESOLVED" in
+    "$REPO_ROOT"/*) ;;
+    *)
+      echo "💥 ${BOLD}${RED}Not a path inside ${REPO_ROOT}:${RESET} ${ITEM}" >&2
+      exit 2
+      ;;
+  esac
+}
+
+decrypt() {
+  local PLAINTEXT=$1
+  local CIPHERTEXT="${PLAINTEXT}.encrypted"
+
+  if ! resolve_identity; then
+    echo "💥 ${BOLD}${RED}Cannot decrypt without an identity in gopass${RESET}" >&2
+    exit 2
+  fi
+
+  if [ -f "$CIPHERTEXT" ]; then
+    echo "🔓 ${BOLD}${GREEN}Decrypting:${RESET} ${PLAINTEXT}"
+
+    # Decrypt to a temporary file and only replace the plaintext once `age` has
+    # succeeded; decrypting straight over the top of it means that a failure
+    # part-way through the payload (eg. corrupt or badly resolved ciphertext)
+    # leaves a truncated plaintext behind, which a subsequent `encrypt` would
+    # then happily make canonical.
+    make_temp_file
+    if ! decrypt_to "$CIPHERTEXT" "$TEMP_FILE"; then
+      echo "💥 ${BOLD}${RED}Failed to decrypt (leaving plaintext untouched):${RESET} ${CIPHERTEXT}" >&2
+      exit 2
+    fi
+    case "$PLAINTEXT" in
+      .local/bin/*|*.sh) chmod 755 "$TEMP_FILE" ;;
+      *) chmod 600 "$TEMP_FILE" ;;
+    esac
+    mv -f "$TEMP_FILE" "$PLAINTEXT"
+    TEMP_FILE=
+  else
+    echo "💥 ${BOLD}${RED}Not decrypting (non-file):${RESET} ${CIPHERTEXT}"
+  fi
+}
+
+encrypt() {
+  local PLAINTEXT=$1
+  local CIPHERTEXT="${PLAINTEXT}.encrypted"
+
+  if [ -f "$PLAINTEXT" ]; then
+    if [ -f "$CIPHERTEXT" ] && resolve_identity; then
+      local RESULT=0
+      same "$PLAINTEXT" "$CIPHERTEXT" || RESULT=$?
+      if [ "$RESULT" -eq 0 ]; then
+        echo "⏩ ${BOLD}Skipping (already up-to-date):${RESET} ${PLAINTEXT}"
+        return
+      elif [ "$RESULT" -eq 2 ]; then
+        # Refuse rather than overwrite: whatever is in there is something we
+        # cannot read, so encrypting over the top of it would discard it (this
+        # is what happens if you save while a merge conflict in the ciphertext
+        # is still unresolved).
+        echo "💥 ${BOLD}${RED}Refusing to encrypt (cannot decrypt existing ciphertext):${RESET} ${CIPHERTEXT}" >&2
+        echo "   ${BOLD}Resolve it by hand; overwriting it would discard its contents.${RESET}" >&2
+        exit 2
+      fi
+    fi
+    echo "🔑 ${BOLD}${GREEN}Encrypting:${RESET} ${PLAINTEXT}"
+    age --encrypt -r "$RECIPIENT" --armor -o "${CIPHERTEXT}" "$PLAINTEXT"
+  else
+    echo "💥 ${BOLD}${RED}Not encrypting (non-file):${RESET} ${PLAINTEXT}"
+  fi
+}
+
+ignore() {
+  local PLAINTEXT=$1
+
+  if ! grep -qxF "/$PLAINTEXT" .gitignore 2> /dev/null; then
+    echo "✅ ${BOLD}${GREEN}Ignoring:${RESET} ${PLAINTEXT}"
+    echo "/$PLAINTEXT" >> .gitignore
+  else
+    echo "🙈 ${BOLD}Already ignored:${RESET} ${PLAINTEXT}"
+  fi
+}
+
+status() {
+  local PLAINTEXT=$1
+  local CIPHERTEXT="${PLAINTEXT}.encrypted"
+  local STATE="decrypted"
+
+  if [ ! -f "$PLAINTEXT" ]; then
+    STATE="encrypted"
+  elif [ -f "$CIPHERTEXT" ] && resolve_identity; then
+    # Existence of the plaintext says nothing about whether it still matches the
+    # ciphertext beside it, which is the state that actually bites when working
+    # on more than one machine (eg. pulling someone else's ciphertext without
+    # decrypting it). Check the contents whenever we hold the identity, and fall
+    # back to the existence check when we don't.
+    local RESULT=0
+    same "$PLAINTEXT" "$CIPHERTEXT" || RESULT=$?
+    if [ "$RESULT" -eq 1 ]; then
+      STATE="diverged"
+    elif [ "$RESULT" -eq 2 ]; then
+      STATE="unreadable"
+    fi
+  fi
+
+  if [ "$PORCELAIN" -eq 1 ]; then
+    # Machine-readable, and deliberately limited to the files that need
+    # attention, like the default format: a caller wanting everything can ask
+    # for `--verbose` instead.
+    if [ "$STATE" != "decrypted" ]; then
+      printf '%s\t%s\n' "$STATE" "$PLAINTEXT"
+    fi
+  elif [ "$VERBOSE" -eq 1 ]; then
+    case "$STATE" in
+      decrypted)
+        echo "${PLAINTEXT}: ${GREEN}decrypted${RESET}"
+        ;;
+      diverged)
+        echo "${PLAINTEXT}: ${RED}diverged${RESET} (plaintext does not match ciphertext)"
+        ;;
+      unreadable)
+        echo "${PLAINTEXT}: ${RED}unreadable${RESET} (cannot decrypt ciphertext)"
+        ;;
+      encrypted)
+        echo "${PLAINTEXT}: ${RED}encrypted${RESET}"
+        ;;
+    esac
+  elif [ "$STATE" != "decrypted" ]; then
+    echo "$PLAINTEXT"
+  fi
+
+  if [ "$STATE" != "decrypted" ]; then
+    STATUS_EXIT=1
+  fi
+}
+
+# Parse subcommand
+if [ $# -eq 0 ]; then
+  usage
+fi
+
+OPERATION="$1"
+shift
+
+case "$OPERATION" in
+  encrypt|decrypt|status) ;;
+  *) usage ;;
+esac
+
+# Find repo root and read config
+REPO_ROOT=$(find_repo_root)
+cd "$REPO_ROOT"
+read_config "$CONFIG_FILE"
+
+# Parse flags and filter file arguments
+ARGS=()
+for ARG in "$@"; do
+  if [[ "$ARG" == "--porcelain" ]]; then
+    PORCELAIN=1
+  elif [[ "$ARG" == "--verbose" ]]; then
+    VERBOSE=1
+  else
+    ARGS+=("$ARG")
+  fi
+done
+set -- "${ARGS[@]}"
+if [ $# -gt 0 ]; then
+  FILTERED_ITEMS=()
+  for ARG in "$@"; do
+    # Make path relative to repo root if it's absolute
+    if [[ "$ARG" == "$REPO_ROOT"/* ]]; then
+      ARG="${ARG#$REPO_ROOT/}"
+    fi
+    # A path that is not in the config is an error rather than a silent no-op:
+    # a typo would otherwise look exactly like "nothing to do".
+    MATCHED=0
+    for ITEM in "${ITEMS[@]}"; do
+      if [[ "$ITEM" == "$ARG" ]]; then
+        FILTERED_ITEMS+=("$ITEM")
+        MATCHED=1
+        break
+      fi
+    done
+    if [ "$MATCHED" -eq 0 ]; then
+      echo "💥 ${BOLD}${RED}Not listed in ${CONFIG_FILE}:${RESET} ${ARG}" >&2
+      exit 2
+    fi
+  done
+  ITEMS=("${FILTERED_ITEMS[@]}")
+fi
+
+for ITEM in "${ITEMS[@]}"; do
+  check_item "$ITEM"
+  case "$OPERATION" in
+    encrypt)
+      encrypt "$ITEM"
+      ignore "$ITEM"
+      ;;
+    decrypt)
+      decrypt "$ITEM"
+      ;;
+    status)
+      status "$ITEM"
+      ;;
+  esac
+done
+
+if [[ "$OPERATION" == "status" ]]; then
+  exit $STATUS_EXIT
+fi
