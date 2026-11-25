@@ -157,6 +157,7 @@ variables(({ identity }) => ({
     ".agents/skills/general/pause-and-expand-tutor",
     ".agents/skills/general/reflect",
     ".agents/skills/general/research",
+    ".agents/skills/general/socratic-tutor",
     ".agents/skills/general/ssw",
     ".agents/skills/general/timewarrior",
     ".agents/skills/general/website-rebuild-workflow",
