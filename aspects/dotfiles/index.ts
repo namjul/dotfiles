@@ -206,6 +206,7 @@ variables(({ identity }) => ({
     ".agents/prompts/tutor.md",
     ".agents/prompts/handoff.md",
     ".agents/prompts/mannered-prose.md",
+    ".agents/prompts/explain-plainly.md",
     ".agents/prompts/review.md",
     ".agents/prompts/restate.md",
     ".agents/prompts/notes.md",
