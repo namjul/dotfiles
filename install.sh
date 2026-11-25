@@ -29,6 +29,10 @@ mise run //aspects/nala:default
 mise run //aspects/homebrew:default
 mise run //aspects/aur:default
 
+# secrets are gitignored plaintext beside their ciphertext; a host without the
+# identity still installs everything else, and each aspect names what it skipped
+mise exec -- ./bin/wage decrypt || true
+
 # home: links, fish, nvim, fonts
 mise run //aspects/dotfiles:default
 mise run //aspects/shell:default
