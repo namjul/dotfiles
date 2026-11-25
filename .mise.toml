@@ -45,7 +45,7 @@ description = "Run all fig:* tasks"
 depends = ["fig:*"]
 
 [tasks."aspects:setup"]
-description = "Verify age key (secrets; not required for install.sh)"
+description = "Verify the age key file sops reads for field extracts (not wage; not required for install.sh)"
 run = """
 #!/usr/bin/env bash
 set -euo pipefail
@@ -61,25 +61,3 @@ echo "age key found: $AGE_KEY ($recipient)"
 [tasks."aspects:check"]
 description = "Type-check fig modules"
 run = "deno check aspects/**/*.ts"
-
-[tasks."encrypt"]
-description = "Encrypt a file with sops+age, writing <file>.encrypted"
-usage = 'arg "<file>" help="Plaintext file to encrypt"'
-run = """
-#!/usr/bin/env bash
-set -euo pipefail
-PLAINTEXT="${usage_file?}"
-CIPHERTEXT="${PLAINTEXT}.encrypted"
-sops --encrypt --output "$CIPHERTEXT" "$PLAINTEXT"
-"""
-
-[tasks."decrypt"]
-description = "Decrypt a <file>.encrypted sops file to its plaintext path"
-usage = 'arg "<file>" help="Encrypted .encrypted file to decrypt"'
-run = """
-#!/usr/bin/env bash
-set -euo pipefail
-CIPHERTEXT="${usage_file?}"
-PLAINTEXT="${CIPHERTEXT%.encrypted}"
-sops --decrypt --filename-override "$PLAINTEXT" --output "$PLAINTEXT" "$CIPHERTEXT"
-"""
