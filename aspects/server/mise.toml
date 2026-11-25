@@ -186,7 +186,6 @@ set -euo pipefail
 sops -d --extract '["public_key"]' --output ~/.ssh/id_ed25519_personal-server.pub secrets/ssh.yml
 sops -d --extract '["private_key"]' --output ~/.ssh/id_ed25519_personal-server secrets/ssh.yml
 chmod 600 ~/.ssh/id_ed25519_personal-server ~/.ssh/id_ed25519_personal-server.pub
-grep -q hobl.at ~/.ssh/config > /dev/null 2>&1 || cat config/ssh_client_config >> ~/.ssh/config
 """
 
 [tasks.converge]
