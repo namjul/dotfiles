@@ -10,7 +10,8 @@
     "chrome-devtools": {
       "command": "aubx",
       "args": [
-        "chrome-devtools-mcp@latest"
+        "chrome-devtools-mcp@latest",
+        "--executablePath=/usr/bin/chromium"
       ]
     },
     "daisyui-github": {
