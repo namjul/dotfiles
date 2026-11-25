@@ -1,7 +1,7 @@
 {
   "theme": "gruvbox-light-soft/gruvbox-dark-soft",
   "defaultProvider": "cursor",
-  "tuiMode": "regular",
+  "tuiMode": "fullscreen",
   "defaultModel": "cursor/composer-2-5",
   "defaultTools": [
     "+codemode"
