@@ -17,3 +17,7 @@ When a turn ends and pi is waiting for input, this extension runs `notify --titl
 ### `sandbox.ts`
 
 Shows `Sandbox ✔` in the TUI footer when `IN_SANDBOX` is non-empty. This is a launcher hint, not verification of sandbox enforcement.
+
+### `web-search.ts`
+
+Registers a `web_search` tool that queries the [Kagi Search API](https://help.kagi.com/kagi/api/search.html). It needs `KAGI_API_TOKEN` in the environment. Each query costs $12 per 1,000 searches. The tool takes a query and returns titles, URLs, and snippets.
