@@ -6,7 +6,7 @@
  * Based on: https://github.com/badlogic/pi-mono/blob/main/packages/coding-agent/examples/extensions/notify.ts https://github.com/wincent/wincent/blob/e104d2efaf1bbf061d91cd2549d0a9efc390aa68/aspects/dotfiles/files/.pi/agent/extensions/notify.ts
  */
 
-import type {ExtensionAPI} from '@mariozechner/pi-coding-agent';
+import type {ExtensionAPI} from '@earendil-works/pi-coding-agent';
 import {execFile} from 'node:child_process';
 
 function notify(title: string, body: string): void {
@@ -15,8 +15,8 @@ function notify(title: string, body: string): void {
   child.on('error', () => {});
 }
 
-export default function (pi: ExtensionAPI) {
-  pi.on('agent_end', async (_event, ctx) => {
+export default function (pi: ExtensionAPI): void {
+  pi.on('agent_end', (_event, ctx) => {
     if (!ctx.hasUI) return;
     notify('pi', 'Ready for input');
   });

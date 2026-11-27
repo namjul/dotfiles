@@ -19,6 +19,7 @@ deno = "2.8.0"
 golang = "1.20"
 ruby = "3.4"
 node = { version = "24", postinstall = "npm install -g http-server @earendil-works/pi-coding-agent" }
+"npm:typescript" = "7.0.2"
 "npm:zx" = "8.8.5"
 "npm:codeburn" = "0.9.15"
 "npm:@antfu/ni" = "30.5.0"

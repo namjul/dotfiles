@@ -1,0 +1,64 @@
+#!/bin/sh
+#
+# Copy declaration files from the installed pi into node_modules/.
+# Add a name to the list when an extension imports it, or when tsc or
+# vtsls reports a missing module after a pi upgrade.
+
+set -eu
+
+root=$(CDPATH= cd -- "$(dirname "$0")/.." && pwd)
+dest=$root/node_modules
+
+if ! command -v pi >/dev/null; then
+  echo "install-types: pi not on PATH" >&2
+  exit 1
+fi
+pi=$(readlink -f "$(command -v pi)")
+
+locate() {
+  name=$1
+  dir=$(dirname -- "$2")
+  while [ "$dir" != / ]; do
+    if [ -f "$dir/node_modules/$name/package.json" ]; then
+      printf '%s\n' "$dir/node_modules/$name"
+      return 0
+    fi
+    dir=$(dirname -- "$dir")
+  done
+  echo "install-types: could not locate $name" >&2
+  return 1
+}
+
+copy_pkg() {
+  src=$1
+  dst=$2
+  mkdir -p "$dst"
+  cp "$src/package.json" "$dst/package.json"
+  # Declaration files only. Nested node_modules belong to packages copied separately.
+  (cd "$src" && find . -name node_modules -prune -o -type f \( -name '*.d.ts' -o -name '*.d.mts' -o -name '*.d.cts' \) -print) |
+    while IFS= read -r file; do
+      mkdir -p "$dst/$(dirname "$file")"
+      cp "$src/$file" "$dst/$file"
+    done
+}
+
+mkdir -p "$dest"
+find "$dest" -mindepth 1 -maxdepth 1 ! -name .gitignore -exec rm -rf {} +
+
+pi_pkg=$(locate @earendil-works/pi-coding-agent "$pi") || exit 1
+copy_pkg "$pi_pkg" "$dest/@earendil-works/pi-coding-agent"
+
+for package in \
+  @earendil-works/pi-agent-core \
+  @earendil-works/pi-ai \
+  @earendil-works/pi-tui \
+  typebox \
+  @types/node
+do
+  src=$(locate "$package" "$pi_pkg/package.json") || exit 1
+  copy_pkg "$src" "$dest/$package"
+done
+
+types_node=$(locate @types/node "$pi_pkg/package.json") || exit 1
+src=$(locate undici-types "$types_node/package.json") || exit 1
+copy_pkg "$src" "$dest/undici-types"

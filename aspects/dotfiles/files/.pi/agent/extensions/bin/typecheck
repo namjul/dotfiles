@@ -1,0 +1,25 @@
+#!/bin/sh
+# Type-check the pi extensions with `tsc`.
+#
+# Pi loads these files at runtime via jiti, which aliases the platform
+# packages (@earendil-works/pi-*, typebox) to the installed pi. The
+# `node_modules/` directory next to this script's parent is just type
+# stubs copied from that install so tsc can resolve imports; it has no
+# runtime effect. See ../README.md.
+#
+# The stub tree is gitignored. If it is missing (fresh checkout, or
+# `rm -rf node_modules/@earendil-works`), this runs `bin/install-types`.
+# To refresh it after a pi upgrade, run `bin/install-types` manually.
+
+set -e
+
+root=$(CDPATH= cd -- "$(dirname "$0")/.." && pwd)
+
+# `node_modules/` itself is always present: it holds a tracked `.gitignore`.
+if [ ! -f "$root/node_modules/@earendil-works/pi-coding-agent/package.json" ]; then
+  echo "typecheck: type stubs missing, running bin/install-types..." >&2
+  "$root/bin/install-types"
+  echo >&2
+fi
+
+exec tsc --noEmit -p "$root/tsconfig.json" "$@"
