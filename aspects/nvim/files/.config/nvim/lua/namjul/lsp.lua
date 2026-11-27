@@ -52,6 +52,22 @@ lsp.init = function()
     })
   end
 
+  -- denols and vtsls share JS/TS filetypes. vtsls decides first; denols attaches only when vtsls declines.
+  local denols_root_dir = vim.lsp.config.denols.root_dir
+  vim.lsp.config('denols', {
+    root_dir = function(bufnr, on_dir)
+      local vtsls_root_dir = vim.lsp.config.vtsls.root_dir
+      if vtsls_root_dir then
+        local vtsls_used = false
+        vtsls_root_dir(bufnr, function()
+          vtsls_used = true
+        end)
+        if vtsls_used then return end
+      end
+      if denols_root_dir then denols_root_dir(bufnr, on_dir) end
+    end,
+  })
+
   vim.lsp.enable({
     'denols',
     'lua_ls',
