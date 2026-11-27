@@ -197,7 +197,15 @@ variables(({ identity }) => ({
     ".agents/prompts/review.md",
     ".agents/prompts/restate.md",
     ".agents/prompts/notes.md",
-    ".agents/prompts/pi-update.md"
+    ".agents/prompts/pi-update.md",
+    ".agents/prompts/ground.md",
+    ".agents/prompts/steps.md",
+    ".agents/prompts/ga.md",
+    ".agents/prompts/verify.md",
+    ".agents/prompts/push.md",
+    ".agents/prompts/minimal.md",
+    ".agents/prompts/stop.md",
+    ".agents/prompts/releasing-unnecessary-complexity.md"
   ],
   rules: [
     ".agents/rules/caveman.md",
