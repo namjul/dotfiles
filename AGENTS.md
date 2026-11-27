@@ -25,7 +25,6 @@ Do not assume this working tree lives at `~/.dotfiles` (or any other fixed home 
 - `meta` — @fig/ framework global operations and verification
 - `nala` — Install and update packages via nala (Ubuntu)
 - `nvim` — Neovim configuration
-- `proxy` — Deno Deploy CORS proxy
 - `server` — Remote VPS provisioning (hobl.at)
 - `shell` — Set user shell to fish
 - `ssh` — SSH config (linked from the aspect’s plaintext) and key material extracted from `key.yml`

@@ -309,7 +309,7 @@ fi
 """
 
 [tasks.health]
-description = 'Smoke health checks on SERVER (caddy, anki, actualbudget, coredns, docker, paths) and homelab app URLs from laptop'
+description = 'Smoke health checks on SERVER (caddy, anki, actualbudget, coredns, proxy, docker, paths) and homelab app URLs from laptop'
 run = """
 #!/usr/bin/env bash
 set -uo pipefail
@@ -359,6 +359,8 @@ else
   fail "coredns container not running"
 fi
 
+if systemctl is-active --quiet proxy.service; then pass "proxy.service active"; else fail "proxy.service not active"; fi
+
 anki_code="$(curl -s -o /dev/null -w '%{http_code}' --connect-timeout 3 http://127.0.0.1:8080/ || true)"
 if [ -n "$anki_code" ] && [ "$anki_code" != "000" ]; then
   pass "anki backend 127.0.0.1:8080 (HTTP $anki_code)"
@@ -380,7 +382,14 @@ else
   fail "syncthing backend 127.0.0.1:8384 (no TCP/HTTP response; docker logs syncthing)"
 fi
 
-for path in /etc/caddy/Caddyfile /etc/caddy/conf.d/anki.caddy /etc/caddy/conf.d/actualbudget.caddy /etc/caddy/conf.d/syncthing.caddy /root/.config/anki/compose.env /root/.config/anki/compose/compose.yaml /root/.local/share/anki/sync /root/.config/actualbudget/compose.env /root/.config/actualbudget/compose/compose.yaml /root/.local/share/actualbudget /root/.config/coredns/Corefile /root/.config/coredns/compose.env /root/.config/coredns/compose/compose.yaml /root/.config/syncthing/compose.env /root/.config/syncthing/compose/compose.yaml /root/.config/syncthing/compose/entrypoint.sh /root/.local/share/syncthing; do
+proxy_code="$(curl -s -o /dev/null -w '%{http_code}' --connect-timeout 3 http://127.0.0.1:8090/ || true)"
+if [ "$proxy_code" = "400" ]; then
+  pass "proxy backend 127.0.0.1:8090 (HTTP 400 Missing url)"
+else
+  fail "proxy backend 127.0.0.1:8090 (expect 400 Missing url; got ${proxy_code:-000}; journalctl -u proxy.service)"
+fi
+
+for path in /etc/caddy/Caddyfile /etc/caddy/conf.d/anki.caddy /etc/caddy/conf.d/actualbudget.caddy /etc/caddy/conf.d/syncthing.caddy /etc/caddy/conf.d/proxy.caddy /etc/systemd/system/proxy.service /root/.config/proxy/server.mjs /root/.config/anki/compose.env /root/.config/anki/compose/compose.yaml /root/.local/share/anki/sync /root/.config/actualbudget/compose.env /root/.config/actualbudget/compose/compose.yaml /root/.local/share/actualbudget /root/.config/coredns/Corefile /root/.config/coredns/compose.env /root/.config/coredns/compose/compose.yaml /root/.config/syncthing/compose.env /root/.config/syncthing/compose/compose.yaml /root/.config/syncthing/compose/entrypoint.sh /root/.local/share/syncthing; do
   if [ -e "$path" ]; then pass "path $path"; else fail "missing $path"; fi
 done
 
@@ -421,6 +430,13 @@ if [ -n "$sync_code" ] && [ "$sync_code" != "000" ] && [ "$sync_code" != "502" ]
   pass "https://sync.homelab.xyz/ (HTTP $sync_code)"
 else
   fail "https://sync.homelab.xyz/ (HTTP ${sync_code:-000}; DNS, TLS, Caddy, or Syncthing backend)"
+fi
+
+proxy_edge_code="$(curl -sk -o /dev/null -w '%{http_code}' --connect-timeout 5 https://proxy.homelab.xyz/ || true)"
+if [ "$proxy_edge_code" = "400" ]; then
+  pass "https://proxy.homelab.xyz/ (HTTP 400 Missing url)"
+else
+  fail "https://proxy.homelab.xyz/ (HTTP ${proxy_edge_code:-000}; DNS, TLS, Caddy, or proxy backend)"
 fi
 
 if [ "$failures" -eq 0 ]; then

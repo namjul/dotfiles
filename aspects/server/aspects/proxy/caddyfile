@@ -1,0 +1,5 @@
+proxy.homelab.xyz {
+	bind {{ vars.DNS_SERVER_IP }}
+	tls internal
+	reverse_proxy 127.0.0.1:8090
+}

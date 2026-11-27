@@ -1,0 +1,21 @@
+# Loaded via aspects/server/.mise/conf.d/proxy → this folder (config_root).
+
+[bootstrap.directories."/root/.config/proxy"]
+mode = "0755"
+
+[bootstrap.files."/root/.config/proxy/server.mjs"]
+source = "server.mjs"
+notify = ["proxy"]
+
+[bootstrap.files."/etc/systemd/system/proxy.service"]
+source = "proxy.service"
+notify = ["proxy"]
+
+[bootstrap.files."/etc/caddy/conf.d/proxy.caddy"]
+source = "caddyfile"
+template = true
+
+[bootstrap.services.proxy]
+state = "running"
+enabled = true
+on_change = "restart"
