@@ -842,6 +842,18 @@ later(function()
   -- Don't add extra call to REPL when sending
   vim.g.neoterm_direct_open_repl = 1
 
+  -- direct_open_repl joins this into the terminal's command. Sends fall back to a shell.
+  vim.g.neoterm_repl_command = { vim.g.neoterm_shell, vim.g.neoterm_eof }
+
+  -- :packadd skips 'ftdetect/', so neoterm's per-filetype REPL commands never load
+  -- on their own. Source them and run the group for the buffer that is already open.
+  -- The first send fixes the REPL for the session; later sends reuse that terminal.
+  local ftdetect = vim.api.nvim_get_runtime_file('ftdetect/set_repl_cmd.vim', false)[1]
+  if ftdetect then
+    vim.cmd('source ' .. vim.fn.fnameescape(ftdetect))
+    vim.cmd('doautocmd <nomodeline> set_repl_cmd FileType')
+  end
+
   -- Open terminal to the right by default
   vim.g.neoterm_default_mod = 'vertical'
 
