@@ -1,6 +1,6 @@
 # Pi extensions
 
-A small collection of [Pi](https://github.com/earendil-works/pi/tree/main/packages/coding-agent) extensions that are general enough to be portable across machines and users. Each extension is a self-contained TypeScript module with no dependencies outside of `@earendil-works/pi-coding-agent` and the Node standard library.
+A small collection of [Pi](https://github.com/earendil-works/pi/tree/main/packages/coding-agent) extensions that are general enough to be portable across machines and users. Each extension is a self-contained TypeScript module with no dependencies outside of `@earendil-works/pi-coding-agent`, `@earendil-works/pi-tui`, and the Node standard library.
 
 ## Type-checking
 
@@ -10,9 +10,25 @@ Do not run `npm install` here. These extensions use the dependencies of the inst
 
 ## Extensions
 
+### `edit-answer.ts`
+
+`/edit-answer` opens the latest assistant answer in `$EDITOR` (falling back to `vim`), then installs the edited text into the composer, so a corrected or reformatted answer can be resent instead of retyped. `/edit-answer pick` selects from the 20 most recent assistant answers, labelled with relative time and an 80-character preview. TUI only.
+
+The editor runs as a trusted shell command with the file passed as `$1`, and Pi's terminal is released for the duration. `lib/dialog.ts` serializes editor and picker dialogs, because Pi has a single editor slot that other custom UIs snapshot and restore.
+
 ### `notify.ts`
 
-When a turn ends and pi is waiting for input, this extension runs `notify --title pi --message "Ready for input"`. It does this only when pi has a UI. If `notify` is not on `PATH`, the spawn error is ignored.
+When a turn ends and pi is waiting for input, this extension sends a `notify-send` notification that stays up until dismissed. It does this only when pi has a UI. The summary names the tmux session, window and pane and the pi session; clicking it switches the tmux client to that pane and focuses the niri window that owns the terminal. Spawn errors are ignored.
+
+### `quote.ts`
+
+`/quote [text]` and `alt+q` insert selected or copied text into the editor as `>`-prefixed lines, so a comment can be written under the excerpt. `/quote text` quotes its argument verbatim.
+
+`alt+q` reads the fullscreen highlight first (`getActiveSelectionText`, without opening a dialog), then text copied since the last lookup, then a `selection-hook` selection that changed since the last lookup. Nothing unchanged is ever re-quoted, and with nothing new the shortcut warns instead of inserting a stale value. A copy outranks the selection on purpose: `selection-hook` on Linux only reads PRIMARY and reports no program or coordinates, so a browser selection keeps being returned after its highlight is gone, which would shadow the transcript text just copied. A drag inside fullscreen Pi stays on the alt-screen until mouse-up copies it, and that copy is async, so the highlight is read first and the clipboard check covers the rest.
+
+`alt+q` rather than `ctrl+/`: a legacy terminal sends Ctrl+/ as raw `0x1F`, which cannot be named as a symbol, and a shifted layout (for example German, where `/` is `shift+7`) reports `ctrl+shift`.
+
+On Wayland, `wl-paste` is read before the native X11 helper: `DISPLAY` is set under XWayland, and that helper would return the empty X11 selection while tmux `clip` and Pi have written with `wl-copy`.
 
 ### `sandbox.ts`
 
