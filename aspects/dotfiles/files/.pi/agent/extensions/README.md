@@ -18,7 +18,9 @@ The editor runs as a trusted shell command with the file passed as `$1`, and Pi'
 
 ### `notify.ts`
 
-When a turn ends and pi is waiting for input, this extension sends a `notify-send` notification that stays up until dismissed. It does this only when pi has a UI. The summary names the tmux session, window and pane and the pi session; clicking it switches the tmux client to that pane and focuses the niri window that owns the terminal. Spawn errors are ignored.
+When a turn ends and pi is waiting for input, this extension sends a `notify-send` notification that stays up until dismissed. It does this only when pi has a UI. The summary names where pi runs, the pi session, and, inside tmux, the pane. Clicking it focuses that place: inside tmux it switches the client to the pane and then focuses the terminal window; in a bare terminal it focuses the terminal window. Spawn errors are ignored.
+
+The notification is skipped when that place is already in view. The terminal is found by walking parents to the pid niri reports for a window: from the tmux client inside tmux, from pi's own process otherwise. Inside the sandbox `process.pid` is namespace-local, so the walk starts from the pid in `/proc/self/stat`, which the host sees. Inside tmux the pane must also be drawn, meaning `window_visible_layout` of an attached client's current window includes it, which excludes background windows and panes hidden behind a zoom. The skip needs the terminal to be the niri-focused window, so a visible pane in an unfocused terminal still notifies.
 
 ### `quote.ts`
 
